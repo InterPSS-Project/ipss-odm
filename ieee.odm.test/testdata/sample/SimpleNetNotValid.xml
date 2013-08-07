@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pss:PSSStudyCase xmlns:pss="http://www.ieee.org/cmte/psace/oss/odm/pss/Schema/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ieee.org/cmte/psace/oss/odm/pss/Schema/v1 ../../schema/ODM_StudyCase.xsd ">
+  <pss:id>SimpleNetwork</pss:id>
+  <pss:schemaVersion>V1.00</pss:schemaVersion>
+  <pss:originalFormat>Custom</pss:originalFormat>
+  <pss:analysisCategory>Loadflow</pss:analysisCategory>
+  <pss:networkCategory>Transmission</pss:networkCategory>
+  <pss:baseCase>
+    <pss:nvPairList></pss:nvPairList>
+    <pss:id>Base_Case</pss:id>
+    <pss:baseKva>100.0</pss:baseKva>
+    <pss:baseKvaUnit>MVA</pss:baseKvaUnit>
+    <pss:busList>
+    	<pss:bus>
+    		<pss:id>Bus1</pss:id>
+    		<pss:baseVoltage>
+    			<pss:voltage>100</pss:voltage>
+    			<pss:unit>KV</pss:unit>
+    		</pss:baseVoltage>
+    	</pss:bus>
+    	<pss:bus>
+    		<pss:id>Bus2</pss:id>
+    		<pss:baseVoltage>
+    			<pss:voltage>100</pss:voltage>
+    			<pss:unit>KV</pss:unit>
+    		</pss:baseVoltage>
+    	</pss:bus></pss:busList>
+    <pss:branchList>
+    	<pss:branch>
+    		<pss:id>Bus1_Bus2</pss:id>
+    		<pss:fromBus>
+    			<pss:idRef>Bus1</pss:idRef>
+    		</pss:fromBus>
+    		<pss:toBus>
+    			<pss:idRef>Bus2e</pss:idRef>
+    		</pss:toBus>
+    	</pss:branch></pss:branchList>
+  </pss:baseCase>
+</pss:PSSStudyCase>
+

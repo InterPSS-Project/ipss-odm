@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pss:pssStudyCase id="opf_stephen" xmlns:ipss="http://www.interpss.org/Schema/odm/2008" xmlns:pss="http://www.ieee.org/odm/Schema/2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../../../ieee.odm_pss/schema/ODMSchema.xsd ">
+  <pss:networkCategory>Transmission</pss:networkCategory>
+  <pss:analysisCategory>OPF</pss:analysisCategory>
+  <pss:opfNet id="SampleOpfNetwork">
+  	<pss:basePower unit="MVA" value="100" />
+  	<pss:busList>
+  		<pss:opfGenBus id="bus1">
+  			<pss:operatingMode>PVGenerator</pss:operatingMode>
+  			<pss:incCost>
+  				<pss:costModel>Quadratic model</pss:costModel>
+  				<pss:quadraticModel>
+  					<pss:sqrCoeff>1</pss:sqrCoeff>
+  					<pss:linCoeff>2</pss:linCoeff>
+  					<pss:constCoeff>3</pss:constCoeff>
+  				</pss:quadraticModel>
+  			</pss:incCost>
+  			<pss:constraints>
+  				<pss:activePowerLimit max="4" min="0.3" unit="PU" /></pss:constraints>
+  		</pss:opfGenBus>
+  		<pss:opfGenBus id="bus2">
+  			<pss:operatingMode>PVGenerator</pss:operatingMode>
+  			<pss:incCost>
+  				<pss:costModel>Piece-wise linear model</pss:costModel>
+  				<pss:pieceWiseLinearModel>
+  					<pss:stairStep>
+  						<pss:price value="10" unit="dollarPerMWh"></pss:price>
+  						<pss:amount value="2" unit="MW"></pss:amount>
+  					</pss:stairStep>
+  					<pss:stairStep>
+  						<pss:price >50</pss:price>
+  						<pss:amount >20</pss:amount>
+  					</pss:stairStep>
+  				</pss:pieceWiseLinearModel>
+  			</pss:incCost>
+  			<pss:constraints>
+  				<pss:activePowerLimit max="1.5" min="0.2" unit="PU" /></pss:constraints>
+  		</pss:opfGenBus>
+  		<pss:opfGenBus id="bus3">
+  			<pss:operatingMode>PVGenerator</pss:operatingMode>
+  			<pss:incCost>
+  				<pss:costModel>Quadratic model</pss:costModel>
+  				<pss:quadraticModel>
+  					<pss:sqrCoeff>2</pss:sqrCoeff>
+  					<pss:linCoeff>3</pss:linCoeff>
+  					<pss:constCoeff>4</pss:constCoeff>
+  				</pss:quadraticModel>
+  			</pss:incCost>
+  			<pss:constraints>
+  				<pss:activePowerLimit max="1.2" min="0.1" unit="PU" /></pss:constraints>
+  		</pss:opfGenBus></pss:busList>
+  	<pss:branchList>
+  		<pss:opfBranch id="branch1">
+  			<pss:fromBus idRef="bus1"></pss:fromBus>
+  			<pss:toBus idRef="bus1"></pss:toBus>
+  			<pss:ratingLimit>
+  				<pss:mw rating1="1.1" rating2="1.2" unit="PU" /></pss:ratingLimit>
+  		</pss:opfBranch>
+  		<pss:opfPSXfr id="branch2">
+  			<pss:fromBus idRef="bus2"></pss:fromBus>
+  			<pss:toBus idRef="bus3"></pss:toBus>
+  			<pss:angleAdjustment max="1.5" min="0.1"
+  				desiredValue="1" mode="ValueAdjustment" offLine="false">
+  				<pss:angleLimit max="1.5" min="0.1" unit="RAD" />
+  				<pss:angleAdjOnFromSide>true</pss:angleAdjOnFromSide>
+  				<pss:desiredPowerUnit>PU</pss:desiredPowerUnit>
+  				<pss:desiredMeasuredOnFromSide>
+  					true
+  				</pss:desiredMeasuredOnFromSide>
+  			</pss:angleAdjustment>
+  		</pss:opfPSXfr>
+  		<pss:opfBranch id="branch3">
+  			<pss:fromBus idRef="bus1"></pss:fromBus>
+  			<pss:toBus idRef="bus3"></pss:toBus>
+  			<pss:ratingLimit>
+  				<pss:mw rating1="3" rating2="4" rating3="5"
+  					unit="PU" /></pss:ratingLimit>
+  		</pss:opfBranch></pss:branchList><pss:opfNetType>OpfNetwork</pss:opfNetType><pss:anglePenaltyFactor>1</pss:anglePenaltyFactor></pss:opfNet>
+  
+</pss:pssStudyCase>

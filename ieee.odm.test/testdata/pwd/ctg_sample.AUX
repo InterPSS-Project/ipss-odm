@@ -1,0 +1,26 @@
+DATA (CONTINGENCY, [CTGLabel,CTGSkip,CTGProc,CTGSolved,LoadMW,CustomString])
+{
+ "005bbb" "NO " "NO" "NO" 0.0 "88A-1-2/8808800/1780"
+ <SUBDATA CTGElement>
+ "BRANCH 514 7512 1 OPEN" "" CHECK // 29Y-1T-2
+ "BRANCH 750 7752 1 OPEN" "" CHECK //B 16P-1T-2
+ "BRANCH 750 7756 1 OPEN" "" CHECK // 16P-4T-2
+ "BRANCH 536 7535 1 OPEN" "" CHECK // 6850A
+ "BRANCH 522 7524 1 OPEN" "" CHECK // CB 6840A
+ </SUBDATA>
+ 
+DATA (CTG_OPTIONS, [CTG_WhatToDoWithBC,CTG_WhatToDoWithBC:1, CTG_WhatToDoWithBC:3,CTG_BCFlows,CTG_BCFlows:1,CTG_BCLowVolt,CTG_BCLowVolt:1,
+CTG_BCHighVolt,CTG_BCHighVolt:1,ActionStatus,CTG_ReportLineFlow,CTG_ReportInterfaceFlow,CTG_ReportBusHighVolt,CTG_ReportBusLowVolt])
+{
+"  1" "Yes" "Yes" 0.0 5.0 0.0 0.03 0.0 0.03 "Check" "Yes" "Yes" "Yes" "Yes"
+ <SUBDATA Sim_Solution_Options>
+   FlatStart AllowMultIslands DisableOptMult MaxItr DisableGenMVRCheck ChkVars ChkShunts ChkTaps SEOLTCTapBalance ChkPhaseShifters ModelPSDiscrete EnforceGenMWLimits
+  No Yes No 35 No No No Yes No Yes Yes No
+ </SUBDATA>
+}
+
+
+DATA (GLOBALCONTINGENCYACTIONS, [CTGSkip])
+{
+"No "
+}

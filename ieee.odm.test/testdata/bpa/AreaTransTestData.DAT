@@ -1,0 +1,65 @@
+(POWERFLOW,CASEID=2010FD,PROJECT=2010年夏大方式)
+/MVA_BASE=100 \
+/P_OUTPUT_LIST,FULL \
+./RPT_SORT=AREA\
+/RPT_SORT=ZONE\
+/P_ANALYSIS_RPT,LEVEL=4,FULL\
+/OVERLOAD_RPT,TX=60,LINE=85\
+/NEW_BASE,FILE=2010FD.BSE\
+/PF_MAP,FILE=2010FD.MAP\
+/ USER_ANALYSIS,FILE=MYLIST.DAT,DEBUG=ON,OUTPUT=MYLIST.PFO \
+.
+.///////////////////////     AREA    CONTROL  CARD    \\\\\\\\\\\\\\\\\\\\\\\\
+AC GD        Gen1    16.5          N2 XX 50 22 GZ SZ DG FS ZS ZH JM HZ SG QY ZJ MM ZQ YF YJ MZ
+AC+GD                              HY CC JY ST SW
+A  HK        Gen2    18.0          HK
+A  GX        Gen2    18.0          N1 GX YL NN VP GL LZ WZ BS HC LB CZ QZ BH GG FC
+A  GZ        Gen2    18.0          N4 ZY GY LP AS DY KL TR XY BJ
+A  YN        Gen2    18.0          YI KM DD DN DX SM MW ZT DH JH WS DL NJ DQ LJ CS PE LC BN 
+AC+YN                              CX YU QJ HH YG
+A  HN        Gen2    18.0          E  HE HN HS HW N  S  W
+.
+A  TSQ       Gen2    18.0          N6
+A  LT        Gen2    18.0          LT
+A  SX        Gen2    18.0          SX
+
+..海南金海与云南景洪重名，改为JZ,海口与香港重名，改为HH
+..海南长流站与贵州长犁坪电站110kV母线重名,海南长流站CHANGL11改为CHANGL12
+.............................................................................
+.                                            
+I  GZ         TSQ         2250.             
+I  YN         TSQ         2900.            
+I  TSQ        GX          5780.            
+I  LT         GX          4200.            
+I  GX         GD          6800.    
+    
+.
+I  HK         GD          1095.
+I  GD         HN          0.
+.
+I  GZ         GD          6000.
+I  TSQ        GD          1800.
+I  SX         GD          2820.
+I  YN         GD          5000.
+
+BS    Gen1    16.501                      999. 999.      1.01    
+B     Bus1    230.01                  
+B     BusA    230.01 125. 70.0     20.         
+B     BusB    230.01  90. 40.0     10.    
+B     BusC    230.01 100. 55.0     20.       
+B     Bus2    230.01 35.0 10.0            
+BE    Gen2    18.001                      163. 999       1.01
+B     Bus3    230.01
+BE    Gen3    13.801                       85. 999.      1.01
+.L -----------------  transmission lines ----------------------------
+L     Bus1    230. BusA    230.       .0100 .0850        .0440
+L     Bus1    230. BusB    230.       .0170 .0920        .0395
+L     BusA    230. Bus2    230.       .0320 .1610        .0765
+L     BusB    230. Bus3    230.       .0390 .1700        .0895
+L     Bus2    230. BusC    230.       .0085 .0720       .03725
+L     BusC    230. Bus3    230.       .0119 .1008       .05225
+.T ----- transformers ---------
+T     Gen1    16.5 Bus1    230.             .0567             16.5 242. 
+T     Gen2    18.0 Bus2    230.             .0625             18.0 242. 
+T     Gen3    13.8 Bus3    230.             .0586             13.8 242. 
+(END)

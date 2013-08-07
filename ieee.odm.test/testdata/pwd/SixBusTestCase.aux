@@ -1,0 +1,153 @@
+DATA (PWCASEINFORMATION, [BusNum])
+{
+          22
+   <SUBDATA PWCaseHeader>
+     //Case Description
+   </SUBDATA>
+}
+DATA (SUBSTATION, [SubNum,SubName,SubID,CustomString,Latitude,Longitude])
+{
+}
+DATA (LIMITSET, [LSNum,LSName,LSPULow,LSPUHigh,LSLinePercent,LSInterfacePercent,
+   LSInterfacePercent:1,LSLineRateSet,LSLineRateSet:1,LSInterfaceRateSet,
+   LSInterfaceRateSet:1,LSDisabled,LSAmpMVA,LSEndMonitor,LSLowVSuspectCutoff,
+   LSUseLimitCost,LSBusLowRateSet,LSBusHighRateSet,LSCtgBusLowRateSet,
+   LSCtgBusHighRateSet,LSCtgPULow,LSCtgPUHigh])
+{
+           1 "Default"  0.900  1.100 100.000 100.000 100.000 "A" "A" "A" "A" "NO " "MVA" "Higher"  0.000 "No" "A" "A" "A" "A"  0.900  1.100
+}
+DATA (BUS, [BusNum,BusName,BusNomVolt,AreaNum,ZoneNum,SubNum,Latitude,Longitude,BusKVVolt,
+   BusAngle,BusMonEle,LSName,BusVoltLim,BusVoltLimHigh:1,BusVoltLimLow:1,
+   BusVoltLimHigh:2,BusVoltLimLow:2,BusSlack])
+{
+    1 "Bus1"  19.40     1     1 "" "" ""  19.400000    -0.002292 "YES" "Default" "NO " "" "" "" "" "NO "
+    2 "Bus2" 230.00     1     1 "" "" "" 230.000000    -1.483502 "YES" "Default" "NO " "" "" "" "" "NO "
+    3 "Bus3" 230.00     1     1 "" "" "" 230.000000    -3.661809 "YES" "Default" "NO " "" "" "" "" "NO "
+    4 "Bus4" 230.00     2     2 "" "" "" 230.000000    -7.245695 "YES" "Default" "NO " "" "" "" "" "NO "
+    5 "Bus5" 230.00     2     2 "" "" "" 230.000000    -4.541884 "YES" "Default" "NO " "" "" "" "" "NO "
+    6 "Bus6"  19.40     2     2 "" "" ""  19.400000    -4.662394 "YES" "Default" "NO " "" "" "" "" "NO "
+   11 "Bus11"  19.40     1     1 "" "" ""  19.400000     0.000000 "YES" "Default" "NO " "" "" "" "" "YES"
+   12 "Bus12"  19.40     1     1 "" "" ""  19.400000    -0.003257 "YES" "Default" "NO " "" "" "" "" "NO "
+   13 "Bus13"  19.40     1     1 "" "" ""  19.400000    -0.003619 "YES" "Default" "NO " "" "" "" "" "NO "
+   21 "Bus21" 230.00     1     1 "" "" "" 230.000000    -1.482537 "YES" "Default" "NO " "" "" "" "" "NO "
+   25 "Bus25" 230.00     1     1 "" "" "" 230.000000    -1.483894 "YES" "Default" "NO " "" "" "" "" "NO "
+   31 "Bus31" 230.00     1     1 "" "" "" 230.000000    -3.660483 "YES" "Default" "NO " "" "" "" "" "NO "
+   45 "Bus45" 230.00     2     1 "" "" "" 230.000000    -7.244730 "YES" "Default" "NO " "" "" "" "" "NO "
+   52 "Bus52" 230.00     2     1 "" "" "" 230.000000    -4.541492 "YES" "Default" "NO " "" "" "" "" "NO "
+   54 "Bus54" 230.00     2     1 "" "" "" 230.000000    -4.542849 "YES" "Default" "NO " "" "" "" "" "NO "
+   56 "Bus56" 230.00     2     1 "" "" "" 230.000000    -4.541311 "YES" "Default" "NO " "" "" "" "" "NO "
+   65 "Bus65"  19.40     2     1 "" "" ""  19.400000    -4.662967 "YES" "Default" "NO " "" "" "" "" "NO "
+   66 "Bus66"  19.40     2     1 "" "" ""  19.400000    -4.661821 "YES" "Default" "NO " "" "" "" "" "NO "
+  341 "Bus341" 230.00     1     1 "" "" "" 230.000000    -3.662473 "YES" "Default" "NO " "" "" "" "" "NO "
+  342 "Bus342" 230.00     1     1 "" "" "" 230.000000    -3.662473 "YES" "Default" "NO " "" "" "" "" "NO "
+  431 "Bus431" 230.00     2     1 "" "" "" 230.000000    -7.245032 "YES" "Default" "NO " "" "" "" "" "NO "
+  432 "Bus432xxx" 230.00     2     1 "" "" "" 230.000000    -7.245032 "YES" "Default" "NO " "" "" "" "" "NO "
+}
+DATA (SUPERAREA, [SAName,BGAGC,BGAGC:1])
+{
+}
+DATA (AREA, [AreaNum,AreaName,BGTotSchedMW,BGAGC,BusSlack,BGReportLimits,BGReportLimMinKV,
+   BGReportLimMaxKV])
+{
+           1 "1"      0.0000 "Off AGC" "" "YES"      0.000   9999.000
+           2 "2"      0.0000 "Off AGC" "" "YES"      0.000   9999.000
+}
+DATA (ZONE, [ZoneNum,ZoneName,BGReportLimits,BGReportLimMinKV,BGReportLimMaxKV])
+{
+           1 "1" "YES"     0.00  9999.00
+           2 "2" "YES"     0.00  9999.00
+}
+DATA (LOAD, [CustomString,BusNum,LoadID,LoadStatus,LoadSMW,LoadSMVR,CustomString:1,
+   CustomSingle,CustomSingle:1,GenAGCAble])
+{
+"Sub2_230_LOAD"     2 "1 " "Closed"   100.000000    50.000000 "LDAREA_1" "" "" "YES"
+"Sub4_230_LOAD"     4 "1 " "Closed"   400.000000    50.000000 "LDAREA_1" "" "" "YES"
+}
+DATA (SHUNT, [CustomString,BusNum,ShuntID,SSRegNum,SSStatus,SSCMode,DesiredVoltage,SSVHigh,
+   SSVLow,SSNMVR,SSBlockNumSteps,SSBlockMVarPerStep])
+{
+}
+DATA (GEN, [CustomString,CustomString:1,CustomString:2,BusNum,GenID,GenStatus,GenMW,GenMVR,
+   GenVoltSet,GenAGCAble,GenAVRAble,GenMWMin,GenMWMax,GenMVRMin,GenMVRMax,
+   GenUseCapCurve,GenRegNum,GenParFac,GenRMPCT,CustomSingle,GenOPFFastStart,
+   CustomSingle:1,CustomSingle:2,CustomSingle:3,CustomSingle:4])
+{
+"Sub1_14.9_G1" "G1" "DZONE_1"    11 "1" "Closed"  400.0000    0.0000  1.00000 "YES" "YES"    1.00  500.00 -100.00  300.00 "NO "    11  1.0000   92.0000 "" "NO " "" "" "" ""
+"Sub6_14.9_G6" "G6" "DZONE_2"    66 "1" "Closed"  100.0000    0.0000  1.00000 "YES" "YES"    1.00  100.00 -100.00  200.00 "NO "     6  1.0000   92.0000 "" "NO " "" "" "" ""
+}
+DATA (BRANCH, [CustomString,CustomString:1,CustomString:2,BusNum,BusNum:1,LineCircuit,LineXfmr,
+   LineR,LineX,LineC,LineAMVA,LineAMVA:1,LineAMVA:2,LineMonEle,LSName,LineStatus])
+{
+"Line" "Sub2_230_L25" "L25"    25    52 "1" "NO"     0.005000     0.078000     0.000000   500.00   600.00   700.00 "YES" "Default" "Closed"
+"Line" "Sub4_230_L45" "L45"    45    54 "1" "NO"     0.006000     0.028000     0.000000   300.00   350.00   400.00 "YES" "Default" "Closed"
+"Line" "Sub3_230_L34A" "L34A"   341   431 "1" "NO"     0.006000     0.054000     0.000000   300.00   350.00   400.00 "YES" "Default" "Closed"
+"Line" "Sub3_230_L34B" "L34B"   342   432 "2" "NO"     0.006000     0.054000     0.000000   300.00   350.00   400.00 "YES" "Default" "Closed"
+}
+DATA (BRANCH, [CustomString,CustomString:1,CustomString:2,BusNum,BusNum:1,LineCircuit,LineXfmr,
+   LineR,LineX,LineC,LineAMVA,LineAMVA:1,LineAMVA:2,LineMonEle,LSName,LineStatus])
+{
+}
+DATA (BRANCH, [CustomString,CustomString:1,CustomString:2,BusNum,BusNum:1,LineCircuit,LineXfmr,
+   LineR,LineX,LineC,LineAMVA,LineAMVA:1,LineAMVA:2,LineMonEle,LSName,LineXFType,
+   LineStatus,XFAuto,XFRegBus,XFRegMax,XFRegMin,LineR:1,LineX:1,LineG:1,LineC:1,
+   XFStep:1,XFTapMax:1,XFTapMin:1,LineTap:1,XFFixedTap,XFRegTargetType,
+   XFFixedTap:1,XFMVABase,XFNominalKV,XFNominalKV:1,XFTableNum])
+{
+"Transformer" "Sub1_19.4_T12" "T12"    12    21 "T1" "YES"     0.002000     0.015330     0.000000   500.00   550.00   600.00 "YES" "Default" "Fixed" "Closed" "No"     0     1.500000     0.510000     0.002000     0.015330     0.000000     0.000000     0.006250     1.500000     0.510000     1.000000     1.000000 "Middle of Reg Range"     1.000000   100.000000    19.400000   230.000000            0
+"Transformer" "Sub3_19.4_T13" "T13"    13    31 "T1" "YES"     0.002200     0.027560     0.000000  1100.00  1150.00  1200.00 "YES" "Default" "Fixed" "Closed" "No"     0     1.160000     0.930000     0.022000     0.275600     0.000000     0.000000     0.005360     1.047810     0.876190     0.962000     1.000000 "Middle of Reg Range"     1.000000  1000.000000    19.400000   230.000000            0
+}
+DATA (BRANCH, [CustomString,CustomString:1,CustomString:2,BusNum,BusNum:1,LineCircuit,LineXfmr,
+   LineR,LineX,LineG,LineC,LineAMVA,LineAMVA:1,LineAMVA:2,LineMonEle,LSName,
+   LineXFType,LineStatus,LineTap,XFRegTargetType,LinePhase,XFAuto,XFRegBus,
+   XFRegMin,XFRegMax,XFTapMin,XFTapMax,XFStep,XFTableNum])
+{
+"Transformer" "Sub5_230_T56" "T56"    56    65 "T2" "YES"     0.002000     0.015330     0.000000     0.000000   800.00   850.00   900.00 "YES" "Default" "Phase" "Closed"     1.050000 "Middle of Reg Range"     1.000000 "Yes (powerflow)"     0  -250.000000  -175.000000     0.975000     1.050000     0.006820            0
+}
+DATA (BRANCH, [CustomString,CustomString:1,CustomString:2,BusNum,BusNum:1,LineCircuit,LineXfmr,
+   LineR,LineX,LineC,LineAMVA,LineAMVA:1,LineAMVA:2,LineMonEle,LSName,LineStatus,
+   NormLineStatus])
+{
+"Breaker" "Sub1_19.4_1A" "1A"    11     1 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub1_19.4_1B" "1B"     1    12 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub1_19.4_1C" "1C"     1    13 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub2_230_2A" "2A"    21     2 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub2_230_2B" "2B"     2    25 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub3_230_3A" "3A"    31     3 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub3_230_3B" "3B"     3   341 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub3_230_3C" "3C"     3   342 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub4_230_4C" "4C"     4    45 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub4_230_4A" "4A"   431     4 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub4_230_4B" "4B"   432     4 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub5_230_5B" "5B"     5    52 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub5_230_5A" "5A"    54     5 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub5_230_5C" "5C"     5    56 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub6_19.4_6A" "6A"    65     6 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+"Breaker" "Sub6_19.4_6B" "6B"     6    66 "1" "NO"     0.000000     0.000010     0.000000     0.00     0.00     0.00 "NO " "Default" "Closed" "Closed"
+}
+DATA (XFCORRECTION, [XFCorTableNum,XFCorTableName,XFCorTap,XFCorFactor,XFCorTap:1,XFCorFactor:1,
+   XFCorTap:2,XFCorFactor:2,XFCorTap:3,XFCorFactor:3,XFCorTap:4,XFCorFactor:4,
+   XFCorTap:5,XFCorFactor:5,XFCorTap:6,XFCorFactor:6,XFCorTap:7,XFCorFactor:7,
+   XFCorTap:8,XFCorFactor:8,XFCorTap:9,XFCorFactor:9,XFCorTap:10,XFCorFactor:10])
+{
+}
+DATA (INTERFACE, [IntNum,FGName,IntMonDir,FGLimA,FGLimA:1,FGLimA:2,LSName,IntMonEle])
+{
+           1 "East_West" "FROM -> TO"   400.000000   450.000000   500.000000 "Default" "YES"
+   <SUBDATA InterfaceElement>
+     "BRANCH 25 52 1" NO 
+     "BRANCH 341 431 1" NO 
+     "BRANCH 342 432 2" NO 
+   </SUBDATA>
+}
+DATA (STUDYMWTRANSACTIONS, [AreaNum,AreaName,AreaNum:1,AreaName:1,MWTRID,MWTRSched,MWTREnabled])
+{
+}
+DATA (INJECTIONGROUP, [InjGrpName])
+{
+}
+DATA (SIM_SOLUTION_OPTIONS, [ChkAreaInt,ChkShunts,ChkTaps,ChkPhaseShifters,EnforceGenMWLimits,MaxItr,
+   ConvergenceTol,ChkVars,AllowMultIslands,DisableGenMVRCheck,
+   SEORemoteRegVarAlloc,ModelPSDiscrete,SEOLTCTapBalance])
+{
+"YES" "YES" "YES" "YES" "YES"           50     0.001000 "NO " "YES" "NO " "RegPerc" "NO " "YES"
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pss:pssStudyCase id="OPF_3BUS_TEST" 
+    xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../../../ieee.odm_pss/schema/ODMSchema.xsd ">
+    <pss:networkCategory>Transmission</pss:networkCategory>
+    <pss:analysisCategory>OPF</pss:analysisCategory>
+  <pss:dclfOpfNet id="SampleOPFBaseCase">
+    <pss:basePower unit="MVA" value="100"/>
+    <pss:busList>
+    	<pss:dclfOpfGenBus id="Bus1" name="Bus-1">
+    		<pss:baseVoltage unit="KV" value="10"></pss:baseVoltage>
+    		<pss:coeffA>10.694</pss:coeffA>
+    		<pss:coeffB>0.00463</pss:coeffB>
+    		<pss:capacityLimit max="2" min="0.2" unit="PU" />
+    		<pss:fixedCost>142.735</pss:fixedCost>
+    	</pss:dclfOpfGenBus>
+    	<pss:dclfOpfGenBus id="Bus2" name="Bus-2">
+    		<pss:baseVoltage unit="KV" value="10"></pss:baseVoltage>
+    		<pss:coeffA>18.1</pss:coeffA>
+    		<pss:coeffB>0.00612</pss:coeffB>
+    		<pss:capacityLimit max="1.5" min="0.1" unit="PU" />
+    		<pss:fixedCost>218.335</pss:fixedCost>
+    	</pss:dclfOpfGenBus>
+    	<pss:dclfOpfGenBus id="Bus3" name="Bus-3">
+    		<pss:baseVoltage value="10" unit="KV"></pss:baseVoltage>
+    		<pss:coeffA>37.8896</pss:coeffA>
+    		<pss:coeffB>0.01433</pss:coeffB>
+    		<pss:capacityLimit max="0.05" min="0.2" unit="PU"></pss:capacityLimit>
+    		<pss:fixedCost>118.821</pss:fixedCost>
+    	</pss:dclfOpfGenBus>
+    </pss:busList>
+    <pss:branchList>
+      <pss:aclfLine areaNumber="1" zoneNumber="1" circuitId="1" id="Branch1">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+        <pss:ratingLimit>
+        	<pss:mva rating1="0.55" unit="PU" />
+        </pss:ratingLimit>
+      </pss:aclfLine>
+      <pss:aclfXfr areaNumber="1" zoneNumber="1" circuitId="1" id="Branch2">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus3"></pss:toBus>
+        <pss:ratingLimit>
+        	<pss:mva rating1="0.55" unit="PU" />
+        </pss:ratingLimit>
+      </pss:aclfXfr>
+      <pss:aclfPSXfr areaNumber="1" zoneNumber="1" circuitId="1" id="Branch3">
+      	<pss:fromBus idRef="Bus2"></pss:fromBus>
+      	<pss:toBus idRef="Bus3"></pss:toBus>
+        <pss:ratingLimit>
+        	<pss:mva rating1="0.55" unit="PU" />
+        </pss:ratingLimit>
+      </pss:aclfPSXfr>
+    </pss:branchList>
+    <pss:opfNetType>SimpleDclf</pss:opfNetType>
+    <pss:anglePenaltyFactor>1</pss:anglePenaltyFactor>
+  </pss:dclfOpfNet>
+</pss:pssStudyCase>

@@ -1,0 +1,137 @@
+BPA Adapter test progress
+
+------------------ Open -------------------
+
+[Tony 12/07/2011]
+1. refactor the code for inter-area exchange power
+2.  
+[Mike 04/03/2011]
+
+A utility is under development to compare two ODM models. When used to compare 07c file models by PSS/E and BPA, 
+there is an error message:
+
+Error msg: Bus EquivGen model not equal: Bus18, ZQ-HLZ  
+[Tony0403]--bus record bug fixed 
+PSS/E
+            <aclfBus id="Bus18" offLine="false" number="18" zoneNumber="1" areaNumber="1" name="ZQ-HLZ      ">
+                <ownerList>
+                    <owner ownership="1.0" id="1"/>
+                </ownerList>
+                <nvPairList/>
+                <baseVoltage unit="KV" value="525.0"/>
+                <voltage unit="PU" value="1.001"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData>
+                    <equivGen code="PV">
+                        <power unit="MVA" im="0.0" re="0.0"/>
+                        <desiredVoltage unit="PU" value="1.001"/>
+                        <qLimit unit="MVAR" min="-9999.0" max="9999.0"/>
+                    </equivGen>
+                    <contributeGenList>
+                        <contributeGen id="'1 '" offLine="false" name="Gen:'1 '(18)">
+                            <desc>PSSE Generator '1 ' at Bus 18</desc>
+                            <ownerList><owner ownership="1.0" id="1"/>
+                            </ownerList>
+                            <power unit="MVA" im="0.0" re="0.0"/>
+                            <desiredVoltage unit="PU" value="1.001"/>
+                            <qLimit unit="MVAR" min="-9999.0" max="9999.0"/>
+                            <pLimit unit="MW" min="-1.0" max="0.0"/>
+                            <ratedPower unit="MVA" value="100.0"/>
+                            <sourceZ unit="PU" im="1.0" re="0.0"/>
+                            <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+                        </contributeGen>
+                    </contributeGenList>
+                </genData>
+            </aclfBus>
+
+BPA:
+            <aclfBus id="ZQ-HLZ" offLine="false" zoneName="DC" zoneNumber="1" areaNumber="1" name="ZQ-HLZ">
+                <nvPairList/>
+                <baseVoltage unit="KV" value="525.0"/>
+            </aclfBus>
+
+Apparently, bus ZQ-HLZ is not modeled correctly in BPAAdapter.
+
+Error msg: Branch Z not equal: Bus72_to_Bus74_cirId_1, WZ-H_to_EQG003_cirId_1   [3.0E-5+j0.03502] (base)   [3.0+j0.03502]]
+[Tony0403]--Xfr bug fixed            
+PSS/E            
+            <aclfXfr circuitId="1" id="Bus72_to_Bus74_cirId_1" offLine="false" zoneNumber="1" areaNumber="1" name="            ">
+                <ownerList>
+                    <owner ownership="1.0" id="1"/>
+                </ownerList>
+                <fromBus idRef="Bus72"/>
+                <toBus idRef="Bus74"/>
+                <z unit="PU" im="0.03502" re="3.0E-5"/>
+                <ratingLimit/>
+                <meterLocation>ToSide</meterLocation>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="100.0"/>
+                </xfrInfo>
+            </aclfXfr>       
+            
+BPA:
+            <aclfXfr circuitId="1" id="WZ-H_to_EQG003_cirId_1" offLine="false" zoneNumber="1" areaNumber="1">
+                <fromBus idRef="WZ-H"/>
+                <toBus idRef="EQG003"/>
+                <z unit="PU" im="0.03502" re="3.0"/>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <xfrInfo>
+                    <fromRatedVoltage unit="KV" value="525.0"/>
+                    <toRatedVoltage unit="KV" value="10.5"/>
+                </xfrInfo>
+            </aclfXfr>
+
+------------------ Closed -------------------
+
+[Tony 31/3/2011]
+07c test
+1). shuntY Load info missed:
+in line: B     ANSH-HLZ 525DC              1151
+
+2) error in shunt Load calculatioin, from SI unit(MW,Mvar) to pu. --->[fixed]
+in line: BE gz EQG029  20. gz700. 442.6530.-140     3570880.8     1049 
+
+shunt load: p+jq=530+j*-140 (MVA) or 5.3-j*1.4(pu),  the result now is :G+jB=1.325-j*0.35,
+by mw+j*kva/(kvbase*kvbase) then for base voltage(1.0 pu), we can not get the right shunt load.
+
+In fact, zbase should be caculated first, zbase=Vb^2/MVAbase=(20^2)/100=4; 
+y=G+jB=p+jq/(Vbase*Vbase)=1.325-j*0.35(S), y(pu)=y/ybase=y*zbase=(1.325-j*0.35)*4=5.3+1.40(pu)
+
+
+[Mike 31/3/2011]
+
+To investigate, please do the following:
+
+		AclfNetwork net = PluginObjectFactory
+				.getFileAdapter(IpssFileAdapter.FileFormat.BPA)
+				.loadDebug("testData/bpa/Test009bpa.dat")
+				.getAclfNet();	
+		System.out.println(net.net2String());
+
+to print out both ODM and InterPSS AclfNetwork object. Then two models could be compared.  
+
+Translation from ODM to InterPSS is implemented in ipss.plugin/org.interpss/mapper/odm/impl/aclf/*
+
+[Tony 31/3/2011]
+
+1)BE bus
+should the vmin be included?  ---> fixed
+2)to turn bus ratio
+ e.g., <fromTurnRatio unit="PU" value="0.9523809523809523"/>
+                <toTurnRatio unit="PU" value="0.0"/>
+by default, it should be 1.   ---> fixed Mike
+
+
+      
+                
+
+
+
+
+
+
+

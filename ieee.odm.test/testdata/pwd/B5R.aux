@@ -1,0 +1,79 @@
+DATA (BUS, [BusNum,BusName,BusNomVolt,BusPUVolt,BusAngle,BusG:1,BusB:1,AreaNum,ZoneNum,
+   SubNum,BusSlack])
+{
+    1 "Bus 1   " 345.00 1.000000   0.000000   0.0000   0.0000    2    1 "" "YES"
+    2 "Bus 2   " 345.00 1.000000  -0.160879   0.0000   0.0000    1    1 "" "NO "
+    3 "Bus 3   " 345.00 1.009431  -0.830859   0.0000   0.0000    1    1 "" "NO "
+    4 "Bus 4   " 138.00 0.992277  -2.753217   0.0000   0.0000    1    1 "" "NO "
+    5 "Bus 5   "  34.50 0.993431  -8.539077   0.0000   0.0000    1    1 "" "NO "
+   10 "Bus 2STR" 345.00 1.021339   0.245619   0.0000   0.0000    1    1 "" "NO "
+}
+
+DATA (LOAD, [BusNum,LoadID,LoadStatus,LoadSMW,LoadSMVR,LoadIMW,LoadIMVR,LoadZMW,LoadZMVR,
+   AreaNum,ZoneNum])
+{
+    1 "1 " "Closed"   100.000     0.000     0.000     0.000     0.000     0.000 2 1
+    2 "1 " "Closed"   200.000   100.000     0.000     0.000     0.000     0.000 1 1
+    3 "1 " "Closed"   100.000    50.000     0.000     0.000     0.000     0.000 1 1
+    5 "1 " "Closed"   100.000     0.000     0.000     0.000     0.000     0.000 1 1
+}
+
+DATA (GEN, [BusNum,GenID,GenStatus,GenMW,GenMVR,GenAGCAble,GenEnforceMWLimits,GenMWMin,
+   GenMWMax,GenParFac,GenAVRAble,GenVoltSet,GenRegNum,GenMVRMin,GenMVRMax,
+   GenRMPCT,GenUseCapCurve,GenUseLDCRCC,GenXLDCRCC,GenMVABase,GenZR,GenZX,
+   GenStepR,GenStepX,GenStepTap,AreaNum,ZoneNum])
+{
+    1 "1" "Closed"  100.0056 -157.3738 "YES" "YES"    0.0000  800.0000    1.0000 "YES" 1.000000     1 -99998.9990 99998.9990  100.0000 "NO " "NO"  0.000  100.0000   0.00000   1.00000   0.00000   0.00000   1.00000 2 1
+    2 "1" "Closed"  400.8590  327.2292 "YES" "YES"  150.0000  600.0000    1.0000 "YES" 1.000000     2 -9900.0000 9900.0000  100.0000 "NO " "NO"  0.000  100.0000   0.00000   1.00000   0.00000   0.00000   1.00000 1 1
+}
+
+DATA (SHUNT, [BusNum,ShuntID,AreaNum,ZoneNum,SSRegNum,SSStatus,SSCMode,SSVHigh,SSVLow,SSNMVR,
+   SSBlockNumSteps,SSBlockMVarPerStep,SSBlockNumSteps:1,SSBlockMVarPerStep:1,
+   SSBlockNumSteps:2,SSBlockMVarPerStep:2,SSBlockNumSteps:3,SSBlockMVarPerStep:3,
+   SSBlockNumSteps:4,SSBlockMVarPerStep:4,SSBlockNumSteps:5,SSBlockMVarPerStep:5,
+   SSBlockNumSteps:6,SSBlockMVarPerStep:6,SSBlockNumSteps:7,SSBlockMVarPerStep:7,
+   SSBlockNumSteps:8,SSBlockMVarPerStep:8,SSBlockNumSteps:9,SSBlockMVarPerStep:9])
+{
+    3 " 1" 1 1 3 "Open  " "Fixed" 1.0000 1.0000     0.000  3.000   -10.000  4.000    20.000  0.000     0.000  0.000     0.000  0.000     0.000  0.000     0.000  0.000     0.000  0.000     0.000  0.000     0.000  0.000     0.000
+}
+
+DATA (BRANCH, [BusNum,BusNum:1,LineCircuit,LineStatus,LineR,LineX,LineC,LineG,LineAMVA,LineBMVA,
+   LineCMVA,LineShuntMW,LineShuntMW:1,LineShuntMVR,LineShuntMVR:1,LineXfmr,LineTap,
+   LinePhase,SeriesCapStatus])
+{
+    1     2 " 1" "Closed"  0.030000  0.160000  0.000000  0.000000   150.000  9999.000  9999.000     0.000     0.000     0.000     0.000  "NO"    1.000000   0.000000 "Not Bypassed"
+    1     3 " 1" "Closed"  0.015000  0.080000  0.000000  0.000000   300.000  9999.000  9999.000     0.000     0.000     0.000     0.000  "NO"    1.000000   0.000000 "Not Bypassed"
+    2     4 " 1" "Closed"  0.015000  0.080000  0.000000  0.000000   250.000  9999.000  9999.000     0.000     0.000     0.000     0.000  "NO"    1.000000   0.000000 "Not Bypassed"
+    4     3 " 1" "Closed"  0.015000  0.080000  0.000000  0.000000   200.000   200.000   200.000     0.000     0.000     0.000     0.000  "NO"    1.000000   0.000000 "Not Bypassed"
+    4     5 " 1" "Closed"  0.000000  0.100000  0.000000  0.000000  1000.000  1000.000  1000.000     0.000     0.000     0.000     0.000  "YES"    0.993750   0.000000 "Not Bypassed"
+    1    10 "1" "Closed"  0.000000  0.025000  0.000000  0.000000  1000.000     0.000     0.000     0.000     0.000     0.000     0.000   "YES"   1.015050   0.000000 "Not Bypassed"
+    2    10 "1" "Closed"  0.000000 -0.005000  0.000000  0.000000  1000.000     0.000     0.000     0.000     0.000     0.000     0.000   "YES"   0.990000   0.000000 "Not Bypassed"
+    3    10 "1" "Closed"  0.000000  0.015000  0.000000  0.000000  1000.000     0.000     0.000     0.000     0.000     0.000     0.000   "YES"   1.000000   0.000000 "Not Bypassed"
+}
+
+DATA (TRANSFORMER, [BusNum,BusNum:1,LineCircuit,LineXFType,XFAuto,XFRegMin,XFRegMax,XFTapMin,
+   XFTapMax,XFStep,XFTableNum,XFRegBus])
+{
+    4     5 " 1" "LTC" "YES"   0.99000   1.00000   0.90000   1.10000   0.00625      0 5
+}
+
+DATA (3WXFORMER, [BusName_NomVolt:4,BusNum3W:3,BusName3W,BusName3W:1,BusName3W:2,BusName3W:3,
+   LineCircuit,NomVolt3W,NomVolt3W:1,NomVolt3W:2,Tap3W,Tap3W:1,Tap3W:2,Tap3W:3,
+   R3W,R3W:1,R3W:2,X3W,X3W:1,X3W:2])
+{
+"1 2 3" 10 "Bus 1   " "Bus 2   " "Bus 3   " "Bus 2STR" "1" 345.000 345.000 345.000  1.005  1.010  0.990  1.000  0.000  0.000  0.000  0.020  0.010  0.040
+}
+
+DATA (AREA, [AreaNum,AreaName,BGAGC,BGAutoSS,BGAutoXF,EnforceGenMWLimits,SchedName,SAName,
+   ConvergenceTol,AreaEDIncludeLossPF,BusSlack,AreaUnSpecifiedStudyMW])
+{
+1 "Home    " "   ED     " "YES" "YES" "YES" "" ""   1.0000 "YES" ""        0.000
+2 "2       " "   ED     " "YES" "YES" "YES" "" ""   1.0000 "YES" ""        0.000
+}
+
+DATA (ZONE, [ZoneNum,ZoneName,SchedName])
+{
+1 "1       " ""
+}
+
+

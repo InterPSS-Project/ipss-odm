@@ -1,0 +1,918 @@
+<PSSStudyCase id="ODM_StudyCase" xmlns="http://www.ieee.org/cmte/psace/oss/odm/pss/Schema/v1">
+  <schemaVersion>V0.4</schemaVersion>
+  <contentInfo>
+    <originalDataFormat>PSS-E</originalDataFormat>
+    <originalFormatVersion>PSSEV30</originalFormatVersion>
+    <adapterProviderName>www.interpss.org</adapterProviderName>
+    <adapterProviderVersion>1.00</adapterProviderVersion>
+  </contentInfo>
+  <baseCase id="Base_Case_from_PSS_E_format" name="(Solution Time Mon Jun 09 17:12:58 EDT 2008) with a Network Data Description of:">
+    <desc>Original source NETMOM data came from empprda RTNET EMS at 06/09/2008 17:12:59</desc>
+    <ownerList>
+      <owner id="1" number="1" name="'1'"/>
+    </ownerList>
+    <nvPairList>
+      <nvPair>
+        <name>CaseIndicator</name>
+        <value>0</value>
+      </nvPair>
+    </nvPairList>
+    <networkCategory>Transmission</networkCategory>
+    <analysisCategory>Loadflow</analysisCategory>
+    <basePower value="100.0" unit="MVA"/>
+    <busList>
+      <bus id="Bus1" number="1" areaNumber="1" name="'0000        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0384173" unit="PU"/>
+          <angle value="3.08" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus3" number="3" areaNumber="1" name="'0001        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0384173" unit="PU"/>
+          <angle value="3.08" unit="DEG"/>
+          <genData>
+            <equivGen code="PV">
+              <power re="0.0" im="-65.628" unit="MVA"/>
+              <desiredVoltage value="1.0384173" unit="PU"/>
+              <remoteVoltageControlBus idRef="Bus1"/>
+              <qLimit max="441.0" min="-155.0" unit="MVAR"/>
+              <pLimit max="9999.0" min="-9999.0" unit="MW"/>
+            </equivGen>
+            <contributeGenList>
+              <contributeGen id="'1 '" name="Gen:'1 '(3)" offLine="false">
+                <desc>PSSE Generator '1 ' at Bus 3</desc>
+                <ownerList>
+                  <owner id="1" ownership="1.0"/>
+                </ownerList>
+                <ratedMva value="100.0" unit="MVA"/>
+                <genData>
+                  <power re="0.0" im="-65.628" unit="MVA"/>
+                  <desiredVoltage value="1.03842" unit="PU"/>
+                  <remoteVoltageControlBus idRef="Bus1"/>
+                  <qLimit max="441.0" min="-155.0" unit="MVAR"/>
+                  <pLimit max="9999.0" min="-9999.0" unit="MW"/>
+                </genData>
+                <sourceZ re="0.0" im="1.0" unit="PU"/>
+                <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+              </contributeGen>
+            </contributeGenList>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus14" number="14" areaNumber="1" name="'0002        '" offLine="true">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0" unit="PU"/>
+          <angle value="0.0" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus15" number="15" areaNumber="1" name="'0003        '" offLine="true">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0" unit="PU"/>
+          <angle value="0.0" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus16" number="16" areaNumber="1" name="'0004        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0381972" unit="PU"/>
+          <angle value="1.39" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus17" number="17" areaNumber="1" name="'0005        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0381972" unit="PU"/>
+          <angle value="1.39" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus18" number="18" areaNumber="1" name="'0006        '" offLine="true">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0" unit="PU"/>
+          <angle value="0.0" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus19" number="19" areaNumber="1" name="'0007        '" offLine="true">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0" unit="PU"/>
+          <angle value="0.0" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus24" number="24" areaNumber="1" name="'0009        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0381972" unit="PU"/>
+          <angle value="1.39" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <loadData>
+            <equivLoad code="NoneLoad"/>
+            <contributeLoadList>
+              <contributeLoad id="'1 '" name="Load:'1 '(24)" offLine="false" areaNumber="1" zoneNumber="1">
+                <desc>PSSE Load '1 ' at Bus 24</desc>
+                <ownerList>
+                  <owner id="1"/>
+                </ownerList>
+              </contributeLoad>
+            </contributeLoadList>
+          </loadData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus26" number="26" areaNumber="1" name="'0010        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0381972" unit="PU"/>
+          <angle value="1.39" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus27" number="27" areaNumber="1" name="'0011        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0381972" unit="PU"/>
+          <angle value="1.39" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus31" number="31" areaNumber="1" name="'0014        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0678695" unit="PU"/>
+          <angle value="3.67" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus34" number="34" areaNumber="1" name="'0016        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0678695" unit="PU"/>
+          <angle value="3.67" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus39" number="39" areaNumber="1" name="'0020        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0678695" unit="PU"/>
+          <angle value="3.67" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <loadData>
+            <equivLoad code="NoneLoad"/>
+            <contributeLoadList>
+              <contributeLoad id="'1 '" name="Load:'1 '(39)" offLine="false" areaNumber="1" zoneNumber="1">
+                <desc>PSSE Load '1 ' at Bus 39</desc>
+                <ownerList>
+                  <owner id="1"/>
+                </ownerList>
+              </contributeLoad>
+            </contributeLoadList>
+          </loadData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus40" number="40" areaNumber="1" name="'0021        '" offLine="true">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0" unit="PU"/>
+          <angle value="0.0" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <switchedShuntData>
+            <equivQ value="67.0" unit="MVAR"/>
+            <contributeQList>
+              <switchedShunt mode="Discrete">
+                <desiredVoltageRange max="1.05295" min="1.02295" unit="PU"/>
+                <varPercent>100.0</varPercent>
+                <bInit>67.0</bInit>
+                <remoteControlledBus idRef="Bus22"/>
+                <block steps="1">
+                  <incrementB value="67.0" unit="MVAR"/>
+                </block>
+                <vscDcLine>'        '</vscDcLine>
+              </switchedShunt>
+            </contributeQList>
+          </switchedShuntData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus54" number="54" areaNumber="1" name="'0028        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="1.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0549999" unit="PU"/>
+          <angle value="1.98" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus55" number="55" areaNumber="1" name="'0029        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="1.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.027" unit="PU"/>
+          <angle value="4.27" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus62" number="62" areaNumber="1" name="'0032        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0275826" unit="PU"/>
+          <angle value="7.15" unit="DEG"/>
+          <genData>
+            <equivGen code="PV">
+              <power re="14.539" im="0.0" unit="MVA"/>
+              <desiredVoltage value="1.0275826" unit="PU"/>
+              <qLimit max="9999.0" min="-9999.0" unit="MVAR"/>
+              <pLimit max="130.0" min="0.0" unit="MW"/>
+            </equivGen>
+            <contributeGenList>
+              <contributeGen id="'1 '" name="Gen:'1 '(62)" offLine="false">
+                <desc>PSSE Generator '1 ' at Bus 62</desc>
+                <ownerList>
+                  <owner id="1" ownership="1.0"/>
+                </ownerList>
+                <ratedMva value="100.0" unit="MVA"/>
+                <genData>
+                  <power re="14.539" im="0.0" unit="MVA"/>
+                  <desiredVoltage value="1.0" unit="PU"/>
+                  <qLimit max="9999.0" min="-9999.0" unit="MVAR"/>
+                  <pLimit max="130.0" min="0.0" unit="MW"/>
+                </genData>
+                <sourceZ re="0.0" im="1.0" unit="PU"/>
+                <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+              </contributeGen>
+            </contributeGenList>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus220" number="220" areaNumber="2" name="'0088        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0303565" unit="PU"/>
+          <angle value="-20.36" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <loadData>
+            <equivLoad code="CONST_P">
+              <constPLoad re="29.943" im="30.386" unit="MVA"/>
+            </equivLoad>
+            <contributeLoadList>
+              <contributeLoad id="'1 '" name="Load:'1 '(220)" offLine="false" areaNumber="1" zoneNumber="2">
+                <desc>PSSE Load '1 ' at Bus 220</desc>
+                <ownerList>
+                  <owner id="1"/>
+                </ownerList>
+                <constPLoad re="1.152" im="24.314" unit="MVA"/>
+              </contributeLoad>
+              <contributeLoad id="' 2'" name="Load:' 2'(220)" offLine="false" areaNumber="1" zoneNumber="2">
+                <desc>PSSE Load ' 2' at Bus 220</desc>
+                <ownerList>
+                  <owner id="1"/>
+                </ownerList>
+                <constPLoad re="28.791" im="6.072" unit="MVA"/>
+              </contributeLoad>
+            </contributeLoadList>
+          </loadData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus1511" number="1511" areaNumber="4" name="'0614        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0254" unit="PU"/>
+          <angle value="-3.02" unit="DEG"/>
+          <genData>
+            <equivGen code="PV">
+              <power re="16.461" im="0.0" unit="MVA"/>
+              <desiredVoltage value="1.0254" unit="PU"/>
+              <qLimit max="39996.0" min="-39996.0" unit="MVAR"/>
+              <pLimit max="35.682" min="0.0" unit="MW"/>
+            </equivGen>
+            <contributeGenList>
+              <contributeGen id="'1 '" name="Gen:'1 '(1511)" offLine="false">
+                <desc>PSSE Generator '1 ' at Bus 1511</desc>
+                <ownerList>
+                  <owner id="1" ownership="1.0"/>
+                </ownerList>
+                <ratedMva value="100.0" unit="MVA"/>
+                <genData>
+                  <power re="7.56" im="0.0" unit="MVA"/>
+                  <desiredVoltage value="1.06" unit="PU"/>
+                  <qLimit max="9999.0" min="-9999.0" unit="MVAR"/>
+                  <pLimit max="17.15" min="0.0" unit="MW"/>
+                </genData>
+                <sourceZ re="0.0" im="1.0" unit="PU"/>
+                <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+              </contributeGen>
+              <contributeGen id="'2 '" name="Gen:'2 '(1511)" offLine="false">
+                <desc>PSSE Generator '2 ' at Bus 1511</desc>
+                <ownerList>
+                  <owner id="1" ownership="1.0"/>
+                </ownerList>
+                <ratedMva value="100.0" unit="MVA"/>
+                <genData>
+                  <power re="0.726" im="0.0" unit="MVA"/>
+                  <desiredVoltage value="1.06" unit="PU"/>
+                  <qLimit max="9999.0" min="-9999.0" unit="MVAR"/>
+                  <pLimit max="1.532" min="0.0" unit="MW"/>
+                </genData>
+                <sourceZ re="0.0" im="1.0" unit="PU"/>
+                <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+              </contributeGen>
+              <contributeGen id="'3 '" name="Gen:'3 '(1511)" offLine="false">
+                <desc>PSSE Generator '3 ' at Bus 1511</desc>
+                <ownerList>
+                  <owner id="1" ownership="1.0"/>
+                </ownerList>
+                <ratedMva value="100.0" unit="MVA"/>
+                <genData>
+                  <power re="2.424" im="0.0" unit="MVA"/>
+                  <desiredVoltage value="1.06" unit="PU"/>
+                  <qLimit max="9999.0" min="-9999.0" unit="MVAR"/>
+                  <pLimit max="7.5" min="0.0" unit="MW"/>
+                </genData>
+                <sourceZ re="0.0" im="1.0" unit="PU"/>
+                <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+              </contributeGen>
+              <contributeGen id="'4 '" name="Gen:'4 '(1511)" offLine="false">
+                <desc>PSSE Generator '4 ' at Bus 1511</desc>
+                <ownerList>
+                  <owner id="1" ownership="1.0"/>
+                </ownerList>
+                <ratedMva value="100.0" unit="MVA"/>
+                <genData>
+                  <power re="5.751" im="0.0" unit="MVA"/>
+                  <desiredVoltage value="1.06" unit="PU"/>
+                  <qLimit max="9999.0" min="-9999.0" unit="MVAR"/>
+                  <pLimit max="9.5" min="0.0" unit="MW"/>
+                </genData>
+                <sourceZ re="0.0" im="1.0" unit="PU"/>
+                <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+              </contributeGen>
+            </contributeGenList>
+          </genData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus5457" number="5457" areaNumber="11" name="'2161        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0349131" unit="PU"/>
+          <angle value="-14.7" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <switchedShuntData>
+            <equivQ value="36.6" unit="MVAR"/>
+            <contributeQList>
+              <switchedShunt mode="Discrete">
+                <desiredVoltageRange max="1.06862" min="0.99862" unit="PU"/>
+                <varPercent>100.0</varPercent>
+                <bInit>36.6</bInit>
+                <block steps="1">
+                  <incrementB value="24.4" unit="MVAR"/>
+                </block>
+                <block steps="1">
+                  <incrementB value="12.2" unit="MVAR"/>
+                </block>
+                <vscDcLine>'        '</vscDcLine>
+              </switchedShunt>
+            </contributeQList>
+          </switchedShuntData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus7060" number="7060" areaNumber="26" name="'2863        '" offLine="true">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0" unit="PU"/>
+          <angle value="0.0" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <switchedShuntData>
+            <equivQ value="-78.9" unit="MVAR"/>
+            <contributeQList>
+              <switchedShunt mode="Fixed">
+                <desiredVoltageRange max="0.0" min="0.0" unit="PU"/>
+                <varPercent>100.0</varPercent>
+                <bInit>-78.9</bInit>
+                <block steps="1">
+                  <incrementB value="-78.9" unit="MVAR"/>
+                </block>
+                <vscDcLine>'        '</vscDcLine>
+              </switchedShunt>
+            </contributeQList>
+          </switchedShuntData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus8441" number="8441" areaNumber="26" name="'3477        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="115.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0317652" unit="PU"/>
+          <angle value="-47.99" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+          <switchedShuntData>
+            <equivQ value="334.8" unit="MVAR"/>
+            <contributeQList>
+              <switchedShunt mode="Discrete">
+                <desiredVoltageRange max="1.03869" min="0.99869" unit="PU"/>
+                <varPercent>100.0</varPercent>
+                <bInit>334.8</bInit>
+                <block steps="3">
+                  <incrementB value="50.4" unit="MVAR"/>
+                </block>
+                <block steps="1">
+                  <incrementB value="37.8" unit="MVAR"/>
+                </block>
+                <block steps="2">
+                  <incrementB value="36.0" unit="MVAR"/>
+                </block>
+                <block steps="1">
+                  <incrementB value="37.8" unit="MVAR"/>
+                </block>
+                <block steps="1">
+                  <incrementB value="36.0" unit="MVAR"/>
+                </block>
+                <vscDcLine>'        '</vscDcLine>
+              </switchedShunt>
+            </contributeQList>
+          </switchedShuntData>
+        </loadflowData>
+      </bus>
+      <bus id="Bus8859" number="8859" areaNumber="27" name="'3681        '" offLine="false">
+        <ownerList>
+          <owner id="1"/>
+        </ownerList>
+        <baseVoltage value="345.0" unit="KV"/>
+        <loadflowData>
+          <voltage value="1.0408232" unit="PU"/>
+          <angle value="6.46" unit="DEG"/>
+          <genData>
+            <equivGen code="NoneGen"/>
+          </genData>
+        </loadflowData>
+      </bus>
+    </busList>
+    <branchList>
+      <branch id="Bus1_to_Bus3_cirId_1" circuitId="1" offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus1"/>
+        <toBus idRef="Bus3"/>
+        <loadflowData code="Line">
+          <z re="0.0" im="1.0E-5" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="9999.0" rating2="9999.0" rating3="9999.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus16_to_Bus1_cirId_1" circuitId="1" offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus16"/>
+        <toBus idRef="Bus1"/>
+        <loadflowData code="Line">
+          <z re="0.0024" im="0.0256" unit="PU"/>
+          <totalShuntY re="0.0" im="0.4272" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="1000.0" rating2="1000.0" rating3="1056.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus1_to_Bus8859_cirId_1" circuitId="1" offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus1"/>
+        <toBus idRef="Bus8859"/>
+        <loadflowData code="Line">
+          <z re="0.00476" im="0.0513" unit="PU"/>
+          <totalShuntY re="0.0" im="0.8155" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="719.0" rating2="719.0" rating3="1025.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus15_to_Bus14_cirId_1" circuitId="1" offLine="true">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus15"/>
+        <toBus idRef="Bus14"/>
+        <loadflowData code="Line">
+          <z re="0.0" im="1.0E-5" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="9999.0" rating2="9999.0" rating3="9999.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus24_to_Bus14_cirId_1" circuitId="1" offLine="true">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus24"/>
+        <toBus idRef="Bus14"/>
+        <loadflowData code="Line">
+          <z re="0.0" im="1.0E-5" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="9999.0" rating2="9999.0" rating3="9999.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus26_to_Bus17_cirId_1" circuitId="1" offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus26"/>
+        <toBus idRef="Bus17"/>
+        <loadflowData code="Line">
+          <z re="0.0" im="1.0E-5" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="9999.0" rating2="9999.0" rating3="9999.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus19_to_Bus18_cirId_1" circuitId="1" offLine="true">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus19"/>
+        <toBus idRef="Bus18"/>
+        <loadflowData code="Line">
+          <z re="0.0" im="-0.0205" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="1255.0" rating2="1427.0" rating3="1501.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus19_to_Bus18_cirId_2" circuitId="2" offLine="true">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus19"/>
+        <toBus idRef="Bus18"/>
+        <loadflowData code="Line">
+          <z re="0.0" im="1.0E-5" unit="PU"/>
+          <meterLocation>FromSide</meterLocation>
+          <branchRatingLimit>
+            <mva rating1="9999.0" rating2="9999.0" rating3="9999.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus26_to_Bus54_cirId_1" circuitId="1" name="        " offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus26"/>
+        <toBus idRef="Bus54"/>
+        <loadflowData code="Transformer">
+          <z re="3.5E-4" im="0.0091" unit="PU"/>
+          <fromTap value="0.975" unit="PU"/>
+          <toTap value="1.0" unit="PU"/>
+          <meterLocation>ToSide</meterLocation>
+          <xfrInfo>
+            <ratedPower value="100.0" unit="MVA"/>
+            <dataOnSystemBase>true</dataOnSystemBase>
+          </xfrInfo>
+          <branchRatingLimit>
+            <mva rating1="363.0" rating2="398.0" rating3="510.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus27_to_Bus55_cirId_1" circuitId="1" name="        " offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus27"/>
+        <toBus idRef="Bus55"/>
+        <loadflowData code="Transformer">
+          <z re="4.5E-4" im="0.0472" unit="PU"/>
+          <fromTap value="0.975" unit="PU"/>
+          <toTap value="1.0" unit="PU"/>
+          <meterLocation>ToSide</meterLocation>
+          <xfrInfo>
+            <ratedPower value="100.0" unit="MVA"/>
+            <dataOnSystemBase>true</dataOnSystemBase>
+          </xfrInfo>
+          <branchRatingLimit>
+            <mva rating1="362.0" rating2="462.0" rating3="504.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+      <branch id="Bus31_to_Bus54_cirId_1" circuitId="1" name="        " offLine="false">
+        <ownerList>
+          <owner id="1" ownership="1.0"/>
+        </ownerList>
+        <fromBus idRef="Bus31"/>
+        <toBus idRef="Bus54"/>
+        <loadflowData code="Transformer">
+          <z re="3.5E-4" im="0.0261" unit="PU"/>
+          <fromTap value="1.03125" unit="PU"/>
+          <toTap value="1.0" unit="PU"/>
+          <meterLocation>ToSide</meterLocation>
+          <xfrInfo>
+            <ratedPower value="100.0" unit="MVA"/>
+            <dataOnSystemBase>true</dataOnSystemBase>
+          </xfrInfo>
+          <tapAdjustment offLine="false">
+            <adjustmentType>Voltage</adjustmentType>
+            <tapLimit max="1.1" min="0.9" unit="PU"/>
+            <tapAdjStep>33</tapAdjStep>
+            <tapAdjOnFromSide>true</tapAdjOnFromSide>
+            <voltageAdjData mode="RangeAdjustment" max="1.09255" min="1.04255"/>
+          </tapAdjustment>
+          <branchRatingLimit>
+            <mva rating1="363.0" rating2="398.0" rating3="510.0" unit="MVA"/>
+          </branchRatingLimit>
+        </loadflowData>
+      </branch>
+    </branchList>
+    <areaList>
+      <area id="1" number="1" name="'NEPEX       '"/>
+      <area id="2" number="2" name="'NYPP        '"/>
+      <area id="3" number="3" name="'NBEPC       '"/>
+      <area id="4" number="4" name="'HQ          '"/>
+    </areaList>
+    <lossZoneList>
+      <lossZone id="1" number="1" name="'BHE     '"/>
+      <lossZone id="2" number="2" name="'BE      '"/>
+      <lossZone id="3" number="3" name="'BELD    '"/>
+    </lossZoneList>
+    <interchangeList>
+      <interchange>
+        <areaTransfer fromArea="1" toArea="2" id="'1'" amountMW="0.0"/>
+      </interchange>
+      <interchange>
+        <areaTransfer fromArea="1" toArea="3" id="'1'" amountMW="0.0"/>
+      </interchange>
+      <interchange>
+        <areaTransfer fromArea="1" toArea="4" id="'1'" amountMW="0.0"/>
+      </interchange>
+    </interchangeList>
+    <xfrZTable>
+      <XformerZTableItem>
+        <number>1</number>
+        <lookup>
+          <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+          <scaleFactor>1.0</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>1.28</turnRatioShiftAngle>
+          <scaleFactor>1.0</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>1.57</turnRatioShiftAngle>
+          <scaleFactor>1.0</scaleFactor>
+        </lookup>
+      </XformerZTableItem>
+      <XformerZTableItem>
+        <number>14</number>
+        <lookup>
+          <turnRatioShiftAngle>-40.0</turnRatioShiftAngle>
+          <scaleFactor>2.004</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-23.0</turnRatioShiftAngle>
+          <scaleFactor>1.281</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-20.4</turnRatioShiftAngle>
+          <scaleFactor>1.223</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-15.5</turnRatioShiftAngle>
+          <scaleFactor>1.116</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-8.0</turnRatioShiftAngle>
+          <scaleFactor>1.029</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>0.0</turnRatioShiftAngle>
+          <scaleFactor>1.0</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>8.0</turnRatioShiftAngle>
+          <scaleFactor>1.03</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>15.0</turnRatioShiftAngle>
+          <scaleFactor>1.233</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>23.0</turnRatioShiftAngle>
+          <scaleFactor>1.468</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>40.0</turnRatioShiftAngle>
+          <scaleFactor>2.002</scaleFactor>
+        </lookup>
+      </XformerZTableItem>
+      <XformerZTableItem>
+        <number>16</number>
+        <lookup>
+          <turnRatioShiftAngle>-60.0</turnRatioShiftAngle>
+          <scaleFactor>100.0</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-46.83</turnRatioShiftAngle>
+          <scaleFactor>60.124</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-32.3</turnRatioShiftAngle>
+          <scaleFactor>32.6446</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-16.43</turnRatioShiftAngle>
+          <scaleFactor>8.4711</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>0.0</turnRatioShiftAngle>
+          <scaleFactor>1.0</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>16.43</turnRatioShiftAngle>
+          <scaleFactor>8.47</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>32.3</turnRatioShiftAngle>
+          <scaleFactor>32.6446</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>46.83</turnRatioShiftAngle>
+          <scaleFactor>60.124</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>60.0</turnRatioShiftAngle>
+          <scaleFactor>100.0</scaleFactor>
+        </lookup>
+      </XformerZTableItem>
+      <XformerZTableItem>
+        <number>20</number>
+        <lookup>
+          <turnRatioShiftAngle>-30.0</turnRatioShiftAngle>
+          <scaleFactor>1.67</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-27.5</turnRatioShiftAngle>
+          <scaleFactor>1.59</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-24.9</turnRatioShiftAngle>
+          <scaleFactor>1.43</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-22.3</turnRatioShiftAngle>
+          <scaleFactor>1.32</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-19.3</turnRatioShiftAngle>
+          <scaleFactor>1.21</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-16.5</turnRatioShiftAngle>
+          <scaleFactor>1.13</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-13.5</turnRatioShiftAngle>
+          <scaleFactor>1.06</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-10.3</turnRatioShiftAngle>
+          <scaleFactor>1.02</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-7.0</turnRatioShiftAngle>
+          <scaleFactor>1.015</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>-3.6</turnRatioShiftAngle>
+          <scaleFactor>1.01</scaleFactor>
+        </lookup>
+        <lookup>
+          <turnRatioShiftAngle>0.0</turnRatioShiftAngle>
+          <scaleFactor>1.0</scaleFactor>
+        </lookup>
+      </XformerZTableItem>
+    </xfrZTable>
+  </baseCase>
+  <scenarioList/>
+</PSSStudyCase>
