@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" xmlns:pss="http://www.ieee.org/odm/Schema/2008" elementFormDefault="qualified" targetNamespace="http://www.ieee.org/odm/Schema/2008">
+	
+	<ns:include schemaLocation="ScenarioType.xsd"/>
+		
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+
+	<ns:complexType name="NetModificationXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ModifyRecordXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="unbounded" minOccurs="0" name="busChangeRecSet" type="pss:BusChangeRecSetXmlType">
+					</ns:element>
+					<ns:element maxOccurs="unbounded" minOccurs="0" name="branchChangeRecSet" type="pss:BranchChangeRecSetXmlType">
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+	
+	<ns:complexType name="BusChangeRecSetXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="unbounded" minOccurs="0" name="busChangeRec" type="pss:BusChangeRecXmlType">
+			</ns:element>
+		</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="BranchChangeRecSetXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="unbounded" minOccurs="0" name="branchChangeRec" type="pss:BranchChangeRecXmlType">
+			</ns:element>
+		</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+	<ns:complexType name="BusChangeRecXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BusRefXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="offLine" type="ns:boolean">
+						<ns:annotation>
+							<ns:documentation>
+								turn this bus to a non-contributing bus.
+							</ns:documentation>
+						</ns:annotation>
+					</ns:element>
+					<ns:element minOccurs="0" name="genOutage" type="ns:boolean"/>
+					<ns:element minOccurs="0" name="loadShedding" type="ns:boolean"/>
+					<ns:element minOccurs="0" name="aclfBusChangeData" type="pss:AclfBusChangeXmlType"/>
+					<ns:element minOccurs="0" name="acscBusChangeData" type="pss:AcscBusChangeXmlType"/>
+					<ns:element minOccurs="0" name="dstabBusChangeData" type="pss:DStabBusChangeXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="AclfBusChangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="loadChangeData" type="pss:AclfLoadChangeXmlType"/>
+			<ns:element minOccurs="0" name="genChangeData" type="pss:AclfGenChangeXmlType"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="AclfLoadChangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="codeChange" type="pss:AclfLoadCodeChangeXmlType"/>
+			<ns:element minOccurs="0" name="valueChange" type="pss:ComplexValueChangeXmlType">
+			</ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="AclfLoadCodeChangeXmlType">
+		<ns:sequence>
+			<ns:element name="loadCode" type="pss:AclfLoadCodeEnumType"/>
+			<ns:element minOccurs="0" name="expLoadP" type="ns:double"/>
+			<ns:element minOccurs="0" name="expLoadQ" type="ns:double"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="AclfGenChangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="swingVoltageChange" type="pss:DoubleValueChangeXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="valueChange" type="pss:ComplexValueChangeXmlType"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:simpleType name="AclfLoadCodeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="CONST_P"/>
+			<ns:enumeration value="CONST_I"/>
+			<ns:enumeration value="CONST_Z"/>
+			<ns:enumeration value="EXPONENTIAL"/>
+		</ns:restriction>
+	</ns:simpleType>
+
+	<ns:complexType name="AcscBusChangeXmlType">
+	</ns:complexType>
+
+	<ns:complexType name="DStabBusChangeXmlType">
+	</ns:complexType>
+	
+	
+	<ns:complexType name="BranchChangeRecXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BranchRefXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="outage" type="pss:BranchOutageEnumType"/>
+					<ns:element minOccurs="0" name="aclfBranchChangeData" type="pss:AclfBranchChangeXmlType"/>
+					<ns:element minOccurs="0" name="acscBranchChangeData" type="pss:AcscBranchChangeXmlTYpe"/>
+					<ns:element minOccurs="0" name="dstabBranchChangeData" type="pss:DstabBranchChangeXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="AclfBranchChangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="branchZChange" type="pss:ComplexValueChangeXmlType"/>
+			<ns:element maxOccurs="unbounded" minOccurs="0" name="ratingChange" type="pss:RatingChangeXmlType"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="RatingChangeXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" name="ratingName" type="ns:string"/>
+			<ns:element maxOccurs="1" name="change" type="pss:DoubleValueChangeXmlType"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="AcscBranchChangeXmlTYpe">
+	</ns:complexType>
+
+	<ns:complexType name="DstabBranchChangeXmlType">
+	</ns:complexType>	
+	
+	<!-- 
+		Daily Outage/Override schedule definition
+		========================================
+	 -->
+
+	<ns:complexType name="BaseDailyScheduleXmlType" abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:ModifyRecordXmlType">
+				<ns:sequence>
+					<ns:element name="date" type="ns:date" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="BaseOutageOverrideXmlType"  abstract="true">
+		<ns:sequence>
+			<ns:element name="StartDate" type="ns:date" maxOccurs="1"
+				minOccurs="1">
+			</ns:element>
+			<ns:element name="EndDate" type="ns:date" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="BaseBranchOverrideXmlType"  abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOutageOverrideXmlType">
+				<ns:sequence>
+					<ns:element name="station" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="voltage" type="ns:double" maxOccurs="1" minOccurs="0" />
+					<ns:element name="equipname" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="openCloseStatus" type="ns:boolean" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="BaseOutageXmlType"  abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOutageOverrideXmlType">
+				<ns:sequence>
+					<ns:element name="ticketNum" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="name" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="station" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="voltage" type="ns:double" maxOccurs="1" minOccurs="1" />
+					<ns:element name="equipName" type="ns:string" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="OverrideOutageScheduleXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ModifyRecordXmlType">
+				<ns:sequence>
+					<ns:element name="genOutage" type="pss:GenOutageXmlType" 	maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="branchOutage" type="pss:TransmissionOutageXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="contingencyOverride" type="pss:ContingencyOverrideXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="branchOverride" type="pss:BranchOverrideXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="breakerOverride" type="pss:BreakerOverrideXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="flowgateOverride" type="pss:FlowgateOverrideXmlType" 	maxOccurs="unbounded" minOccurs="0" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="ContingencyOverrideXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOutageOverrideXmlType">
+				<ns:sequence>
+					<ns:element name="contingencyId" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="contingencyName" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="exclude" type="ns:boolean" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="BranchOverrideXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseBranchOverrideXmlType">
+				<ns:sequence>
+					<ns:element name="type" type="pss:BranchOverrideEnumType" maxOccurs="1" minOccurs="1" />
+					<ns:element name="ratingBase" type="ns:double" maxOccurs="1" minOccurs="1" />
+					<ns:element name="ratingContingecy" type="ns:double" maxOccurs="1" minOccurs="1" />
+					<ns:element name="monitor" type="ns:boolean" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="BreakerOverrideXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseBranchOverrideXmlType">
+				<ns:sequence>
+					<ns:element name="type" type="pss:BreakerOverrideEnumType" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="FlowgateOverrideXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOutageOverrideXmlType">
+				<ns:sequence>
+					<ns:element name="fgateID" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="fgateName" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="limit1" type="ns:double" maxOccurs="1" minOccurs="1" />
+					<ns:element name="limit2" type="ns:double" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="GenOutageXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOutageXmlType">
+				<ns:sequence>
+					<ns:element name="unitpNodeId" type="ns:string"	maxOccurs="1" minOccurs="1" />
+					<ns:element name="outageType" type="pss:GenOutageEnumType" maxOccurs="1" minOccurs="1" />
+					<ns:element name="physicalReduction" type="ns:double" maxOccurs="1" minOccurs="1" />
+					<ns:element name="fcmExemptMw" type="ns:double" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="TransmissionOutageXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOutageXmlType">
+				<ns:sequence>
+					<ns:element name="coShortName" type="ns:string" maxOccurs="1" minOccurs="1" />
+					<ns:element name="status" type="ns:boolean" maxOccurs="1" minOccurs="1" />
+					<ns:element name="equipType" type="pss:TransimissionEquiptmentEnumType" maxOccurs="1" minOccurs="1" />
+					<ns:element name="eventStatusChange" type="ns:int" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:simpleType name="BranchOutageEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Open"/>
+			<ns:enumeration value="Close"/>
+		</ns:restriction>
+	</ns:simpleType>
+	
+	<ns:simpleType name="BranchOverrideEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Line"/>
+			<ns:enumeration value="Transformer"/>
+			<ns:enumeration value="ZeroImpedanceBranch"/>
+		</ns:restriction>
+	</ns:simpleType>
+	
+	<ns:simpleType name="BreakerOverrideEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="CB"/>
+			<ns:enumeration value="DIS"/>
+		</ns:restriction>
+	</ns:simpleType>
+
+
+	<ns:simpleType name="GenOutageEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="OutService"/>
+			<ns:enumeration value="Reduction"/>
+		</ns:restriction>
+	</ns:simpleType>
+
+
+	<ns:simpleType name="TransimissionEquiptmentEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Capacitor"/>
+			<ns:enumeration value="Breaker"/>
+			<ns:enumeration value="Shunt"/>
+			<ns:enumeration value="Gen"/>
+			<ns:enumeration value="Load"/>
+			<ns:enumeration value="Line"/>
+			<ns:enumeration value="Transformer"/>
+		</ns:restriction>
+	</ns:simpleType>
+
+	<!-- 
+		Daily Gen dispatch definition
+		=============================
+	 -->
+
+	<ns:complexType name="DailyDispatchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDailyScheduleXmlType">
+				<ns:sequence>
+					<ns:element name="hourlyDispatches" type="pss:HourlyDispatchXmlType" maxOccurs="unbounded" minOccurs="0" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="HourlyDispatchXmlType">
+		<ns:sequence>
+			<ns:element name="hour" type="ns:int" maxOccurs="1" minOccurs="1" />
+			<ns:element name="busDispatch" type="pss:BusGenLoadEDispatchXmlType" maxOccurs="1" minOccurs="0" />
+			<ns:element name="branchDispatch" type="pss:BranchEDispatchXmlType" maxOccurs="1" minOccurs="0" />
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="BusGenLoadEDispatchXmlType">
+		<ns:sequence>
+			<ns:element name="dispatchId" type="ns:string" maxOccurs="1">	</ns:element>
+			<ns:element name="dispatch" type="pss:ActivePowerXmlType" maxOccurs="1">
+			</ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="BranchEDispatchXmlType">
+		<ns:sequence>
+			<ns:element name="dispatchId" type="ns:string" maxOccurs="1">	</ns:element>
+			<ns:element name="psXfrAnagle" type="pss:AngleXmlType" maxOccurs="1">
+			</ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<!-- 
+		Branch Loss Area Allocation Factor
+		==================================
+	 -->
+
+	<ns:complexType name="BranchLossAreaAllocationXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ModifyRecordXmlType">
+				<ns:sequence>
+					<ns:element name="lossFactors" type="pss:BranchLossFactorXmlType" maxOccurs="unbounded" minOccurs="0" />
+			</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="BranchLossFactorXmlType">
+		<ns:sequence>
+			<ns:element name="branchName" type="ns:string" maxOccurs="1" minOccurs="1" />
+			<ns:element name="factor" type="ns:double" maxOccurs="1" minOccurs="1" />
+		</ns:sequence>
+	</ns:complexType>
+
+</ns:schema>

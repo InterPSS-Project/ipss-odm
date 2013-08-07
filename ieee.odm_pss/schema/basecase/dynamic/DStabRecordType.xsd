@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+    <ns:include schemaLocation="../shortcircuit/SCRecordType.xsd"></ns:include>
+    
+	<ns:include schemaLocation="MachineModel.xsd"></ns:include>
+	<ns:include schemaLocation="DynamicLoadModel.xsd"></ns:include>    
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+	
+	<ns:element name="dstabNet" type="pss:DStabNetXmlType" substitutionGroup="pss:baseCase">
+		<ns:annotation><ns:documentation>
+		Network for dynamic (transient) stability analysis. aclfBus, acscBus and dstabBus could be
+		used define bus; dstabLine/acscLine/aclfLine, dstabXfr/aclfXfr/aclfXfr and dstabPSXfr/acscPSXfr/aclfPSXfr
+		could be used to define branch 
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+	
+	<ns:element name="dstabBus" type="pss:DStabBusXmlType" substitutionGroup="pss:bus">
+		<ns:annotation><ns:documentation>
+		Bus record for dynamic stability analysis. aclfBus/acscBus could be used also
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+	
+     <ns:element name="dstabContributeGen" substitutionGroup="pss:contributeGen" type="pss:DStabGenDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing generator data record for dynamic stability analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>   
+    
+     <ns:element name="dstabEquivGen" substitutionGroup="pss:equivGen" type="pss:DStabGenDataXmlType">
+        <ns:annotation><ns:documentation>
+		Equiv generator data record for dynamic stability analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>   
+	
+     <ns:element name="dstabContributeLoad" substitutionGroup="pss:contributeLoad" type="pss:DStabLoadDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing load data record for dynamic stability analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>   
+    
+     <ns:element name="dstabEquivLoad" substitutionGroup="pss:equivLoad" type="pss:DStabLoadDataXmlType">
+        <ns:annotation><ns:documentation>
+		Equiv load data record for dynamic stability analysis
+		</ns:documentation></ns:annotation>
+    </ns:element> 
+	
+	
+	<ns:element name="dstabLine" type="pss:LineDStabXmlType" substitutionGroup="pss:branch">
+		<ns:annotation><ns:documentation>
+		Line branch record for DStability simulation
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+	
+	<ns:element name="dstabXfr" type="pss:XfrDStabXmlType" substitutionGroup="pss:branch">
+		<ns:annotation><ns:documentation>
+		Xfr branch record for DStability simulation
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+	
+	<ns:element name="dstabPSXfr" type="pss:PSXfrDStabXmlType" substitutionGroup="pss:branch">
+		<ns:annotation><ns:documentation>
+		PSXfr branch record for DStability simulation
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+<!-- 
+		Network object
+ -->	
+	<ns:complexType name="DStabNetXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:ShortCircuitNetXmlType">
+				<ns:sequence>
+					<ns:element name="hasShortCircuitData" type="ns:boolean" minOccurs="1"></ns:element>
+					<ns:element name="saturatedMachineParameter" type="ns:boolean" minOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<!--  
+		Bus objects
+ 	-->
+	<ns:complexType name="DStabBusXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:ShortCircuitBusXmlType">
+				<ns:sequence>				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:complexType name="DStabGenDataXmlType">
+    	<ns:complexContent>
+			<ns:extension base="pss:ShortCircuitGenDataXmlType">
+		      <ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="ownerName" type="ns:string" />					<ns:element maxOccurs="1" minOccurs="0" name="pContributionPercent" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="0" name="qContributionPercent" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" ref="pss:machineModel" />
+					<ns:element minOccurs="0" ref="pss:exciter" />
+					<ns:element minOccurs="0" ref="pss:governor" />
+					<ns:element minOccurs="0" ref="pss:stabilizer" />			  </ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:complexType name="DStabLoadDataXmlType">
+    	<ns:complexContent>
+			<ns:extension base="pss:ShortCircuitLoadDataXmlType">
+		      <ns:sequence>
+				<ns:element name="location" maxOccurs="1" minOccurs="1" type="pss:LoadCharacteristicLocationEnumType"></ns:element>
+				<ns:element name="LoadXmlType" maxOccurs="1" minOccurs="1" type="pss:LoadCharacteristicTypeEnumType"></ns:element>
+				<ns:element name="LoadModel" type="pss:DynamicLoadModelSelectionXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			  </ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+<!-- 
+		Branch objects
+ -->
+
+	<ns:complexType name="LineDStabXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LineShortCircuitXmlType">
+				<ns:sequence>
+					<ns:element name="lineRelay" type="pss:DynamicLineRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	
+	<ns:complexType name="XfrDStabXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:XfrShortCircuitXmlType">
+				<ns:sequence>
+					<ns:element name="xfrRelay" type="pss:DynamicXfrRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+
+	<ns:complexType name="Xfr3WDStabXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:Xfr3WShortCircuitXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+
+	<ns:complexType name="PSXfrDStabXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:PSXfrShortCircuitXmlType">
+				<ns:sequence>
+					<ns:element name="xfrRelay" type="pss:DynamicXfrRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+
+	<ns:complexType name="PSXfr3WDStabXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:PSXfr3WShortCircuitXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+<!-- 
+		Relay objects
+ -->	
+
+	<ns:complexType name="DynamicLineRelayXmlType">
+	</ns:complexType>	
+
+
+	<ns:complexType name="DynamicXfrRelayXmlType">
+	</ns:complexType>
+</ns:schema>

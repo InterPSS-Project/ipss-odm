@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pss:pssStudyCase id="Two-Area_Stability-Study" xmlns:pss="http://www.ieee.org/odm/Schema/2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../schema/ODMSchema.xsd ">
+	<pss:networkCategory>Transmission</pss:networkCategory>
+	<pss:analysisCategory>Loadflow</pss:analysisCategory>
+	<pss:baseCase id="id_basecase">
+		<pss:basePower unit="PU" value="0.0" />
+		<pss:busList></pss:busList>
+		<pss:branchList></pss:branchList>
+	</pss:baseCase>
+	<pss:ipssStudyScenario id="id_scenario">
+		<pss:analysisCategory>Sensitivity</pss:analysisCategory>
+		<pss:scenarioList>
+			<pss:scenario id="idvalue1">
+				<pss:simuAlgo>
+					<pss:senAnalysis>
+						<pss:genShiftFactor>
+							<pss:senType>PAngle</pss:senType>
+							<pss:injectBusType>SingleBus</pss:injectBusType>
+							<pss:injectBusList>
+								<pss:injectBus id="idvalue0"></pss:injectBus>
+							</pss:injectBusList>
+							<pss:withdrawBusType>SingleBus</pss:withdrawBusType>
+							<pss:branch id="idvalue1">
+								<pss:fromBus idRef="idvalue0"></pss:fromBus>
+								<pss:toBus idRef="idvalue0"></pss:toBus>
+							</pss:branch>
+						</pss:genShiftFactor>
+					</pss:senAnalysis>
+				</pss:simuAlgo>
+			</pss:scenario>
+		</pss:scenarioList>
+	</pss:ipssStudyScenario>
+</pss:pssStudyCase>

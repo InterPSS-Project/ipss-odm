@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+    <ns:include schemaLocation="../basecase/NetRecordType.xsd"></ns:include>
+    <ns:include schemaLocation=""></ns:include>
+    <ns:include schemaLocation="UnitType.xsd"></ns:include>
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+
+    <ns:complexType name="NameTagXmlType">
+		<ns:sequence>
+			<ns:element name="desc" type="ns:string" minOccurs="0" maxOccurs="1"></ns:element>
+		</ns:sequence>
+		<ns:attribute name="name" type="ns:string" use="optional"></ns:attribute>
+	</ns:complexType>
+
+
+	<ns:complexType name="BaseRecordXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<ns:sequence>
+					<ns:element name="isoCode" type="ns:string" minOccurs="0" maxOccurs="1"></ns:element>
+					<ns:element name="normalOffLineStatus" type="ns:boolean" minOccurs="0"></ns:element>
+					<ns:element name="ownerList" minOccurs="0" maxOccurs="unbounded" type="pss:OwnerXmlType"></ns:element>
+					<ns:element name="nvPair" type="pss:NameValuePairXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+					<ns:element name="extension" type="ns:anySimpleType" minOccurs="0"></ns:element>
+				</ns:sequence>
+				<ns:attribute name="areaNumber" type="ns:int" use="optional"></ns:attribute>
+				<ns:attribute name="areaName" type="ns:string" use="optional"></ns:attribute>
+				<ns:attribute name="zoneNumber" type="ns:int" use="optional"></ns:attribute>
+				<ns:attribute name="zoneName" type="ns:string" use="optional"></ns:attribute>
+				<ns:attribute name="number" type="ns:long" use="optional"></ns:attribute>
+				<ns:attribute name="offLine" type="ns:boolean" use="optional"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="OwnerXmlType">
+		<ns:sequence>
+			<ns:element name="ownership" type="pss:FactorXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+		</ns:sequence>
+		<ns:attribute name="id" type="ns:string" use="required"></ns:attribute>
+		<ns:attribute name="name" type="ns:string" use="optional"></ns:attribute>
+		<ns:attribute name="number" type="ns:int" use="optional"></ns:attribute>
+	</ns:complexType>									
+
+	
+    <ns:complexType name="NameValuePairXmlType">
+		<ns:sequence>
+			<ns:element name="name" type="ns:string" minOccurs="1" maxOccurs="1"></ns:element>
+			<ns:element name="value" type="ns:string" minOccurs="1" maxOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:complexType name="IDRecordXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRecordXmlType">
+				<ns:attribute name="id" type="ns:ID" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="IDRefRecordXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRecordXmlType">
+				<ns:sequence>
+				</ns:sequence>
+				<ns:attribute name="idRef" type="ns:IDREF" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:simpleType name="ValueChangeActionEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="add"></ns:enumeration>
+			<ns:enumeration value="set"></ns:enumeration>
+			<ns:enumeration value="increase"></ns:enumeration>
+			<ns:enumeration value="decrease"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+
+		
+	<ns:complexType name="ComplexValueChangeXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ValueChangeXmlType">
+				<ns:sequence>
+					<ns:element name="value" type="pss:ComplexXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	
+    <ns:complexType name="DoubleValueChangeXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:ValueChangeXmlType">
+    			<ns:sequence>
+    				<ns:element name="value" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>	
+
+
+	<ns:complexType name="ValueChangeXmlType">
+		<ns:sequence>
+			<ns:element name="changeAction" maxOccurs="1" minOccurs="1" type="pss:ValueChangeActionEnumType"/>
+			<ns:element name="percent" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+    
+    <ns:complexType name="BaseDoubleXmlType">
+		<ns:attribute name="value" type="ns:double" use="required"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:complexType name="LimitXmlType">
+		<ns:attribute name="max" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="min" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="active" type="ns:boolean" use="optional" default="true"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ComplexXmlType">
+		<ns:attribute name="re" type="ns:double" use="optional" default="0.0"></ns:attribute>
+		<ns:attribute name="im" type="ns:double" use="required"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ZXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ComplexXmlType">
+				<ns:attribute name="unit" use="required" type="pss:ZUnitType"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="NamedZXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ZXmlType">
+				<ns:attribute name="name" use="optional" type="ns:string"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="RXmlType">
+		<ns:attribute name="r" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="unit" use="required" type="pss:ZUnitType"></ns:attribute>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="XXmlType">
+		<ns:attribute name="x" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="unit" use="required" type="pss:ZUnitType"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:complexType name="YXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ComplexXmlType">
+				<ns:attribute name="unit" use="required" type="pss:YUnitType" />
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    <ns:complexType name="GXmlType">
+		<ns:attribute name="g" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="unit" use="required" type="pss:YUnitType"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:complexType name="XformerZTableXmlType">
+        	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+		<ns:sequence>
+			<ns:element name="XformerZTableItem" minOccurs="0"
+				maxOccurs="unbounded">
+				<ns:complexType>
+					<ns:complexContent>
+						<ns:extension base="pss:NameTagXmlType">
+							<ns:sequence>
+								<ns:element name="number" type="ns:int"
+									minOccurs="1">
+								</ns:element>
+								<ns:element name="lookup" minOccurs="0"
+									maxOccurs="unbounded">
+									<ns:complexType>
+										<ns:sequence>
+											<ns:element
+												name="turnRatioShiftAngle" type="ns:double" minOccurs="1">
+											</ns:element>
+											<ns:element
+												name="scaleFactor" type="ns:double" minOccurs="1">
+											</ns:element>
+										</ns:sequence>
+									</ns:complexType>
+								</ns:element>
+							</ns:sequence>
+						</ns:extension>
+					</ns:complexContent>
+				</ns:complexType>
+			</ns:element>
+			<ns:element name="adjustSide" type="pss:BranchBusSideEnumType" minOccurs="1" maxOccurs="1"></ns:element>
+		</ns:sequence>
+    		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+	
+    <ns:complexType name="PowerXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ComplexXmlType">
+				<ns:attribute name="unit" use="required" type="pss:ApparentPowerUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="PowerFactorXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:FactorXmlType">
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+	
+    <ns:complexType name="FactorXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:FactorUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ActivePowerXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:ActivePowerUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ReactivePowerXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:ReactivePowerUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="TurnRatioXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:TurnRatioUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="VoltageXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" type="pss:VoltageUnitType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="AngleXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:AngleUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="CurrentXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:CurrentUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="AdjustmentDataXmlType">
+    	<ns:annotation>
+    		<ns:documentation>
+    			There are two adj modes: ValueAdjustment and
+    			RangeAdjustment. For ValueAdjustment, the desiredValue
+    			is used. For RangeAdjustment, max and min are used.
+    		</ns:documentation>
+    	</ns:annotation>
+    			<ns:sequence>
+    				<ns:element name="range" type="pss:LimitXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+    			</ns:sequence>
+    			<ns:attribute name="mode" use="required"
+    				type="pss:AdjustmentModeEnumType">
+    			</ns:attribute>
+    			<ns:attribute name="desiredValue" type="ns:double"
+    				use="required">
+    			</ns:attribute>
+    </ns:complexType>
+
+
+    <ns:complexType name="ScEquivSourceXmlType">
+		<ns:sequence>
+			<ns:element name="scMva3Phase" type="ns:double" minOccurs="1"></ns:element>
+			<ns:element name="xOverR3Phase" type="ns:double" minOccurs="1"></ns:element>
+			<ns:element name="scMva1Phase" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="xOverR1Phase" type="ns:double" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="AdjustmentModeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="ValueAdjustment"></ns:enumeration>
+			<ns:enumeration value="RangeAdjustment"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="LengthXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:LengthUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="FrequencyXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:FrequencyUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    <ns:complexType name="TimePeriodXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:TimePeriodUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ApparentPowerXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDoubleXmlType">
+				<ns:attribute name="unit" use="required" type="pss:ApparentPowerUnitType">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="VoltageLimitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LimitXmlType">
+				<ns:attribute name="unit" type="pss:VoltageUnitType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ActivePowerLimitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LimitXmlType">
+				<ns:attribute name="unit" type="pss:ActivePowerUnitType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ReactivePowerLimitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LimitXmlType">
+				<ns:attribute name="unit" type="pss:ReactivePowerUnitType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="TurnRatioLimitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LimitXmlType">
+				<ns:attribute name="unit" type="pss:TapUnitType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="AngleLimitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LimitXmlType">
+				<ns:attribute name="unit" type="pss:AngleUnitType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="ChangeFactorXmlType">
+		<ns:sequence>
+			<ns:element name="factor" type="ns:double" minOccurs="1" maxOccurs="1" />
+			<ns:element name="unit" type="pss:FactorUnitType" minOccurs="0" maxOccurs="1">
+				<ns:annotation>
+					<ns:documentation>PU or Percent</ns:documentation>
+				</ns:annotation>
+			</ns:element>
+		</ns:sequence>
+	</ns:complexType>    
+    
+    
+    <ns:complexType name="TapLimitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:TurnRatioLimitXmlType"></ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="TapXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:TurnRatioXmlType"></ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="BusWindingEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Primary"></ns:enumeration>
+			<ns:enumeration value="Secondary"></ns:enumeration>
+			<ns:enumeration value="Tertiary"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>    
+    
+	
+    <ns:simpleType name="SeasonEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Winter"></ns:enumeration>
+			<ns:enumeration value="Summer"></ns:enumeration>
+			<ns:enumeration value="Spring"></ns:enumeration>
+			<ns:enumeration value="Fall"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>    
+    
+
+    <ns:complexType name="TransformerZeroSeqXmlType">
+		<ns:sequence>
+			<ns:element name="conectionLocation" maxOccurs="1" minOccurs="1" type="pss:XfrZeroSeqConnectLocationEnumType">
+			</ns:element>
+			<ns:element name="zG" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="z1" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="z2" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="z3" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="XfrZeroSeqConnectLocationEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="AtBus1"></ns:enumeration>
+			<ns:enumeration value="AtBus2"></ns:enumeration>
+			<ns:enumeration value="BetweenBus1nBus2"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="XformerConnectionXmlType">
+		<ns:sequence>
+			<ns:element name="grounding" type="pss:GroundingXmlType" minOccurs="0"></ns:element>
+		</ns:sequence>
+		<ns:attribute name="xfrConnection" type="pss:XformrtConnectionEnumType" use="required"></ns:attribute>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="GroundingXmlType">
+		<ns:sequence>
+			<ns:element name="groundingZ" type="pss:ZXmlType" minOccurs="0"></ns:element>
+		</ns:sequence>
+		<ns:attribute name="groundingConnection" type="pss:GroundingEnumType" use="required"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="ShortCircuitBusEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Contributing"></ns:enumeration>
+			<ns:enumeration value="Non-contributing"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="XformrtConnectionEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Wye"></ns:enumeration>
+			<ns:enumeration value="Delta"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="AcscFaultCategoryEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Fault3Phase"></ns:enumeration>
+			<ns:enumeration value="LineToLine"></ns:enumeration>
+			<ns:enumeration value="LineToGround"></ns:enumeration>
+			<ns:enumeration value="LineLineToGround"></ns:enumeration>
+			<ns:enumeration value="Outage_3Phase"></ns:enumeration>
+			<ns:enumeration value="Outage_1Phase"></ns:enumeration>
+			<ns:enumeration value="Outage_2Phase"></ns:enumeration>			
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="AcscFaultTypeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="BusFault"></ns:enumeration>
+			<ns:enumeration value="BranchFault"></ns:enumeration>
+			<ns:enumeration value="BranchOutage"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="GroundingEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Ungrounded"></ns:enumeration>
+			<ns:enumeration value="SolidGrounded"></ns:enumeration>
+			<ns:enumeration value="ZGrounded"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="BaseRatingXmlType">
+    	<ns:attribute name="rating1" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating2" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating3" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating4" type="ns:double"></ns:attribute>
+    </ns:complexType>
+
+
+    <ns:complexType name="MvaRatingXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRatingXmlType">
+		        <ns:attribute name="unit" use="required" type="pss:ApparentPowerUnitType"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:complexType name="ActivePowerRatingXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRatingXmlType">
+    	        <ns:attribute name="unit" type="pss:ActivePowerUnitType"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+    </ns:complexType>
+    
+    
+    <ns:simpleType name="LFGenCodeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PQ"></ns:enumeration>
+			<ns:enumeration value="PV"></ns:enumeration>
+			<ns:enumeration value="Swing"></ns:enumeration>
+			<ns:enumeration value="NoneGen"></ns:enumeration>
+			<ns:enumeration value="OFF"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="LFLoadCodeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="CONST_P"></ns:enumeration>
+			<ns:enumeration value="CONST_I"></ns:enumeration>
+			<ns:enumeration value="CONST_Z"></ns:enumeration>
+			<ns:enumeration value="FunctionLoad"></ns:enumeration>
+			<ns:enumeration value="NoneLoad"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+	
+    <ns:simpleType name="LFBranchCodeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Line"></ns:enumeration>
+			<ns:enumeration value="Transformer"></ns:enumeration>
+			<ns:enumeration value="PhaseShiftXformer"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+	
+    <ns:simpleType name="LfMethodEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="NR"></ns:enumeration>
+			<ns:enumeration value="PQ"></ns:enumeration>
+			<ns:enumeration value="GS"></ns:enumeration>
+			<ns:enumeration value="Custom"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="DStabMethodEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="ModifiedEuler"></ns:enumeration>
+			<ns:enumeration value="RungerKutta"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+	
+    <ns:simpleType name="DStabStaticLoadModelEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Constant_Z"></ns:enumeration>
+			<ns:enumeration value="Constant_P"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="PreFaultBusVoltageEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Loadflow"></ns:enumeration>
+			<ns:enumeration value="UnitVolt"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    	
+	
+    <ns:simpleType name="DStabLoadChangeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="LowFrequency"></ns:enumeration>
+			<ns:enumeration value="LowVoltage"></ns:enumeration>
+			<ns:enumeration value="FixedTime"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    	
+
+    <ns:simpleType name="SetPointChangeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Absolute"></ns:enumeration>
+			<ns:enumeration value="Delta"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+	
+</ns:schema>

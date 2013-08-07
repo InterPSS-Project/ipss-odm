@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+	</ns:annotation>
+	
+	<ns:simpleType name="InputFileFormatEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PSSE"></ns:enumeration>
+			<ns:enumeration value="BPA"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>	
+
+	<ns:simpleType name="InputFileVersionEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="V26"></ns:enumeration>
+			<ns:enumeration value="V30"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+	
+    <ns:simpleType name="LfResultFormatEnumType">
+		<ns:restriction base="ns:string">
+				<ns:enumeration value="Summary"></ns:enumeration>
+				<ns:enumeration value="BusStyle"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>		
+</ns:schema>

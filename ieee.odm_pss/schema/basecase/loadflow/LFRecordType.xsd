@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" xmlns:pss="http://www.ieee.org/odm/Schema/2008" elementFormDefault="qualified" targetNamespace="http://www.ieee.org/odm/Schema/2008">
+
+    
+    <ns:include schemaLocation="../NetRecordType.xsd"/>
+    
+    <ns:include schemaLocation="DcLineRecordType.xsd"/>
+    <ns:include schemaLocation="CompensatorType.xsd"/>
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2012</ns:documentation>
+	</ns:annotation>
+    
+    <ns:element name="aclfNet" substitutionGroup="pss:baseCase" type="pss:LoadflowNetXmlType">
+        <ns:annotation>
+      <ns:documentation>
+		Network type for AC Loadflow analysis
+		</ns:documentation>
+    </ns:annotation>
+    </ns:element>
+    
+    <ns:element name="aclfBus" substitutionGroup="pss:bus" type="pss:LoadflowBusXmlType">
+        <ns:annotation>
+      <ns:documentation>
+		Bus record for AC loadflow analysis
+		</ns:documentation>
+    </ns:annotation>
+    </ns:element>
+    
+    <ns:element name="contributeGen" type="pss:LoadflowGenDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing generator at bus for defining generator data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="equivGen" type="pss:LoadflowGenDataXmlType">
+        <ns:annotation><ns:documentation>
+		equiv generator at bus for defining equiv generator data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:element name="contributeLoad" type="pss:LoadflowLoadDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing load at bus for defining load data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="equivLoad" type="pss:LoadflowLoadDataXmlType">
+        <ns:annotation><ns:documentation>
+		equiv load at bus for defining equiv load data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+            
+    <ns:element name="aclfLine" substitutionGroup="pss:branch" type="pss:LineBranchXmlType">
+        <ns:annotation> <ns:documentation>
+		Line Branch record for defining line for AC Loadflow  
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:element name="aclfXfr" substitutionGroup="pss:branch" type="pss:XfrBranchXmlType">
+        <ns:annotation> <ns:documentation>
+		Xfr Branch record for  defining line for AC Loadflow  
+		</ns:documentation> </ns:annotation>
+    </ns:element>
+    
+    <ns:element name="aclf3WXfr" substitutionGroup="pss:branch" type="pss:Xfr3WBranchXmlType">
+        <ns:annotation><ns:documentation>
+		3W Xfr Branch record for defining line for AC Loadflow  
+		</ns:documentation> </ns:annotation>
+    </ns:element>
+    
+    <ns:element name="aclfPSXfr" substitutionGroup="pss:branch" type="pss:PSXfrBranchXmlType">
+        <ns:annotation> <ns:documentation>
+		PS Xfr Branch record for defining line for AC Loadflow  
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="aclf3WPSXfr" substitutionGroup="pss:branch" type="pss:PSXfr3WBranchXmlType">
+        <ns:annotation> <ns:documentation>
+		3W PS Xfr Branch record for define 
+		</ns:documentation> </ns:annotation>
+    </ns:element>
+
+		
+<!-- 
+		Network object
+ -->
+
+    <ns:complexType name="LoadflowNetXmlType">
+		<ns:annotation><ns:documentation>
+			Network container for AC Loadflow study. It is a sub type of the NetworkXmlType,
+			which has a bus list of BusXmlType and a branch list of BaseBranchXmlType 
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:NetworkXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="0" name="interchangeList">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element maxOccurs="unbounded" minOccurs="0" name="interchange" type="pss:InterchangeXmlType"> </ns:element>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element minOccurs="0" name="tieLineList">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element maxOccurs="unbounded" minOccurs="0" name="tieline" type="pss:TielineXmlType"/>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element minOccurs="0" name="flowInterfaceList">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element maxOccurs="unbounded" minOccurs="0" name="flowInterface" type="pss:FlowInterfaceRecXmlType"/>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element minOccurs="0" name="xfrZTable" type="pss:XformerZTableXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="TielineXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="1" name="meteredBus" type="pss:IDRefRecordXmlType"/>
+			<ns:element minOccurs="1" name="meteredArea" type="ns:string"/>
+			<ns:element minOccurs="1" name="nonMeteredBus" type="pss:IDRefRecordXmlType"/>
+			<ns:element minOccurs="1" name="nonMeteredArea" type="ns:string"/>
+			<ns:element maxOccurs="1" minOccurs="1" name="cirId" type="ns:string"/>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:complexType name="InterchangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="powerEx" type="pss:PowerInterchangeXmlType"/>
+			<ns:element minOccurs="0" name="ucteExchange" type="pss:UCTEExchangeXmlType"/>
+			<ns:element minOccurs="0" name="areaTransfer" type="pss:AreaTransferXmlType"/>
+		</ns:sequence>
+	</ns:complexType>
+	
+	
+	<ns:complexType name="UCTEExchangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="1" name="fromIsoId" type="ns:string"/>
+			<ns:element minOccurs="1" name="toIsoId" type="ns:string"/>
+			<ns:element minOccurs="1" name="exchangePower" type="pss:PowerXmlType"/>
+			<ns:element minOccurs="0" name="comment" type="ns:string"/>
+		</ns:sequence>
+	</ns:complexType>
+
+
+	<ns:complexType name="AreaTransferXmlType">
+		<ns:attribute name="id" type="ns:ID" use="required"/>
+		<ns:attribute name="fromArea" type="ns:int" use="required"/>
+		<ns:attribute name="toArea" type="ns:int" use="required"/>
+		<ns:attribute name="amountMW" type="ns:double" use="required"/>
+	</ns:complexType>
+
+	
+    <ns:complexType name="PowerInterchangeXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="1" name="swingBus" type="pss:IDRefRecordXmlType"/>
+			<ns:element minOccurs="0" name="alternateSwingBusName" type="ns:string"/>
+			<ns:element minOccurs="1" name="desiredExPower" type="pss:ActivePowerXmlType"/>
+			<ns:element minOccurs="1" name="exErrTolerance" type="pss:ActivePowerXmlType"/>
+		</ns:sequence>
+		<ns:attribute name="areaNumber" type="ns:int" use="required"/>
+		<ns:attribute name="areaCode" type="ns:string" use="optional"/>
+		<ns:attribute name="areaName" type="ns:string" use="optional"/>
+	</ns:complexType>
+	
+
+	<ns:complexType name="ExchangeAreaXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NetAreaXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="swingBusId" type="pss:IDRefRecordXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="alternateSwingBus" type="pss:IDRefRecordXmlType"/>
+					<ns:element minOccurs="0" name="desiredExchangePower" type="pss:ActivePowerXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="exchangeErrTolerance" type="pss:ActivePowerXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="totalExchangePower" type="pss:PowerXmlType"/>
+					<ns:element maxOccurs="unbounded" minOccurs="0" name="exchangePower" type="pss:ExchangePowerXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="measredOnFromSide" type="ns:boolean"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="ratedVoltage" type="pss:VoltageXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+	<ns:complexType name="ExchangePowerXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="toArea" type="ns:string"/>
+			<ns:element maxOccurs="1" minOccurs="1" name="exchangePower" type="pss:PowerXmlType"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="ExchangeZoneXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NetZoneXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="0" name="exchangePower" type="pss:PowerXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+<!--  
+		Bus objects
+ -->
+
+	<ns:complexType name="LoadflowBusXmlType">
+		<ns:annotation>
+      <ns:documentation>
+			bus record for loadflow study
+		</ns:documentation>
+    </ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BusXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="voltage" type="pss:VoltageXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="angle" type="pss:AngleXmlType"/>
+                    <ns:element maxOccurs="1" minOccurs="0" name="powerInjection" type="pss:PowerXmlType" />
+                    <ns:element maxOccurs="1" minOccurs="0" name="genData" type="pss:BusGenDataXmlType">
+						<ns:annotation><ns:documentation>
+								Loadflow bus gen has an equivGen and a list contribGen. For gen models with contribGen list,
+								the contribGen list are summarized into the equivGen after the data is loaded
+						</ns:documentation></ns:annotation>
+					</ns:element>
+					<ns:element maxOccurs="1" minOccurs="0" name="loadData" type="pss:BusLoadDataXmlType">
+						<ns:annotation><ns:documentation>
+								Loadflow bus load has an equivLoad and a list contribLoad. For load models with contribLoad list,
+								the contribLoad list are summarized into the equivLoad after the data is loaded
+						</ns:documentation></ns:annotation>
+					</ns:element>
+                    <ns:element maxOccurs="1" minOccurs="0" name="shuntY" type="pss:YXmlType" />
+                    <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+	<ns:complexType name="BusGenDataXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivGen"/>
+			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeGen"/>
+		</ns:sequence>
+	</ns:complexType>
+
+
+	<ns:complexType name="BusLoadDataXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivLoad"/>
+			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeLoad"/>
+		</ns:sequence>
+	</ns:complexType>
+
+    <ns:complexType name="LoadflowGenDataXmlType">
+		<ns:annotation> <ns:documentation>
+			EquivGen is intended for Loadflow study. For PQ bus, p, q are specified using the power field. For Swing bus, 
+			desiredVoltage and desiredAngle are used For PV bus power.re and designedVoltage are used.
+			It is used to define LoadflowBusXmlType equivGen and contribGen list
+		</ns:documentation> </ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:CimConnectionRecordType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="power" type="pss:PowerXmlType"/>
+					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
+					<ns:element minOccurs="0" name="desiredAngle" type="pss:AngleXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType"/>
+					<ns:element minOccurs="0" name="qLimit" type="pss:ReactivePowerLimitXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="pLimit" type="pss:ActivePowerLimitXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="voltageLimit" type="pss:VoltageLimitXmlType"/>
+					<ns:element minOccurs="0" name="mvaBase" type="pss:ApparentPowerXmlType"/>
+					<ns:element minOccurs="0" name="sourceZ" type="pss:ZXmlType">
+						<ns:annotation> <ns:documentation>
+						In GE-PSLF, it is called CompensatingZ
+						</ns:documentation></ns:annotation>
+					</ns:element>
+					<ns:element minOccurs="0" name="xfrZ" type="pss:ZXmlType">
+						<ns:annotation><ns:documentation>
+						In GE PSLF, it is called CharacteristicZ
+						</ns:documentation></ns:annotation>
+					</ns:element>
+					<ns:element minOccurs="0" name="xfrTap" type="ns:double"/>
+					<ns:element minOccurs="0" name="mvarVControlParticipateFactor" type="ns:double"/>
+					<ns:element minOccurs="0" name="mwControlParticipateFactor" type="ns:double"/>
+				</ns:sequence>
+				<ns:attribute name="code" type="pss:LFGenCodeEnumType" use="required">
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:complexType name="LoadflowLoadDataXmlType">
+		<ns:annotation> <ns:documentation>
+		It is used to define LoadflowBusXmlType equivLoad and contribLoad list
+		</ns:documentation> </ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:CimConnectionRecordType">
+				<ns:sequence>
+					<ns:element minOccurs="0" name="constPLoad" type="pss:PowerXmlType"/>
+					<ns:element minOccurs="0" name="constILoad" type="pss:PowerXmlType"/>
+					<ns:element minOccurs="0" name="constZLoad" type="pss:PowerXmlType"/>
+				</ns:sequence>
+				<ns:attribute name="code" type="pss:LFLoadCodeEnumType" use="required"/>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+    
+<!-- 
+		Branch objects
+ -->
+	
+    <ns:complexType name="LineBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BranchXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="totalShuntY" type="pss:YXmlType"/>
+					<ns:element minOccurs="0" name="fromShuntY" type="pss:YXmlType"/>
+					<ns:element minOccurs="0" name="toShuntY" type="pss:YXmlType"/>
+					<ns:element minOccurs="0" name="lineInfo" type="pss:LineBranchInfoXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="LineBranchInfoXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="type" type="pss:LineBranchEnumType"/>
+			<ns:element minOccurs="0" name="length" type="pss:LengthXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="lossFactor" type="ns:double"/>
+		</ns:sequence>
+	</ns:complexType>
+	
+    
+    <ns:simpleType name="LineBranchEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="OverheadLine"/>
+			<ns:enumeration value="Breaker"/>
+			<ns:enumeration value="ZBR"/>
+			<ns:enumeration value="Other"/>
+		</ns:restriction>
+	</ns:simpleType>    
+	
+    <ns:complexType name="XfrBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BranchXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="fromTurnRatio" type="pss:TurnRatioXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="toTurnRatio" type="pss:TurnRatioXmlType"/>
+					<ns:element minOccurs="0" name="magnitizingY" type="pss:YXmlType"/>
+					<ns:element minOccurs="0" name="tapAdjustment" type="pss:TapAdjustmentXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="xfrInfo" type="pss:TransformerInfoXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="TransformerInfoXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="0" name="dataOnSystemBase" type="ns:boolean">
+				<ns:annotation> <ns:documentation>
+				Normally xfr data is on xfr rated power based. By setting
+				</ns:documentation> </ns:annotation>
+			</ns:element>
+			<ns:element minOccurs="0" name="fromRatedVoltage" type="pss:VoltageXmlType"/>
+			<ns:element minOccurs="0" name="toRatedVoltage" type="pss:VoltageXmlType"/>
+			<ns:element minOccurs="0" name="ratedPower" type="pss:ApparentPowerXmlType"/>
+			<ns:element minOccurs="0" name="fromLossFactor" type="ns:double"/>
+			<ns:element minOccurs="0" name="toLossFactor" type="ns:double"/>
+			<ns:element minOccurs="0" name="zTableNumber" type="ns:int"/>
+		</ns:sequence>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="PSXfrBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:XfrBranchXmlType">
+				<ns:sequence>
+				  <ns:group ref="pss:PSXfrInfoGroup"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:group name="PSXfrInfoGroup">
+        <ns:sequence>
+            <ns:element minOccurs="0" name="fromAngle" type="pss:AngleXmlType"/>
+            <ns:element minOccurs="0" name="toAngle" type="pss:AngleXmlType"/>
+            <ns:element minOccurs="0" name="angleAdjustment" type="pss:AngleAdjustmentXmlType"/>
+        </ns:sequence>
+    </ns:group>
+    
+
+    <ns:simpleType name="TapAdjustmentEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Voltage"/>
+			<ns:enumeration value="MVarFlow"/>
+		</ns:restriction>
+	</ns:simpleType>
+    
+	
+    <ns:complexType name="TapAdjustmentXmlType">
+		<ns:sequence>
+			<ns:element minOccurs="1" name="adjustmentType" type="pss:TapAdjustmentEnumType">
+			</ns:element>
+			<ns:element minOccurs="1" name="tapLimit" type="pss:TapLimitXmlType"/>
+			<ns:element minOccurs="0" name="tapAdjStepSize" type="ns:double"/>
+			<ns:element minOccurs="0" name="tapAdjSteps" type="ns:int"/>
+			<ns:element minOccurs="1" name="tapAdjOnFromSide" type="ns:boolean"/>
+			<ns:sequence>
+				<ns:choice>
+					<ns:element minOccurs="0" name="voltageAdjData" type="pss:VoltageAdjustmentDataXmlType"/>
+					<ns:element minOccurs="0" name="mvarFlowAdjData" type="pss:MvarFlowAdjustmentDataXmlType"/>
+				</ns:choice>
+			</ns:sequence>
+		</ns:sequence>
+		<ns:attribute name="offLine" type="ns:boolean" use="required"/>
+	</ns:complexType>
+
+
+	<ns:complexType name="MvarFlowAdjustmentDataXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:AdjustmentDataXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="1" name="desiredMvarFlowUnit" type="pss:ReactivePowerUnitType"/>
+					<ns:element minOccurs="1" name="mvarMeasuredOnFormSide" type="ns:boolean"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="VoltageAdjustmentDataXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:AdjustmentDataXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="1" name="desiredVoltageUnit" type="pss:VoltageUnitType"/>
+					<ns:element minOccurs="1" name="adjVoltageBus" type="pss:IDRefRecordXmlType"/>
+					<ns:element minOccurs="1" name="adjBusLocation" type="pss:TapAdjustBusLocationEnumType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:complexType name="AngleAdjustmentXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:AdjustmentDataXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="1" name="angleLimit" type="pss:AngleLimitXmlType"/>
+					<ns:element minOccurs="1" name="angleAdjOnFromSide" type="ns:boolean"/>
+					<ns:element minOccurs="1" name="desiredActivePowerUnit" type="pss:ActivePowerUnitType"/>
+					<ns:element minOccurs="1" name="desiredMeasuredOnFromSide" type="ns:boolean"/>
+				</ns:sequence>
+				<ns:attribute name="offLine" type="ns:boolean" use="required"/>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+	
+<!-- 
+		3W Xfr Branch objects
+ -->
+ 
+    <ns:simpleType name="TapAdjustBusLocationEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="TerminalBus"/>
+			<ns:enumeration value="NearFromBus"/>
+			<ns:enumeration value="NearToBus"/>
+			<ns:enumeration value="FromBus"/>
+			<ns:enumeration value="ToBus"/>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="Xfr3WBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:XfrBranchXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="z23" type="pss:ZXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="z31" type="pss:ZXmlType"/>
+					<ns:element minOccurs="0" name="tertTurnRatio" type="pss:TurnRatioXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="ratingLimit23" type="pss:BranchRatingLimitXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="ratingLimit13" type="pss:BranchRatingLimitXmlType"/>
+				</ns:sequence>
+				<ns:attribute default="false" name="wind1OffLine" type="ns:boolean" use="optional"/>
+				<ns:attribute default="false" name="wind2OffLine" type="ns:boolean" use="optional"/>
+				<ns:attribute default="false" name="wind3OffLine" type="ns:boolean" use="optional"/>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="Transformer3WInfoXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:TransformerInfoXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="0" name="starVMag" type="pss:VoltageXmlType"/>
+					<ns:element minOccurs="0" name="starVAng" type="pss:AngleXmlType"/>
+					<ns:element minOccurs="0" name="tertRatedVoltage" type="pss:VoltageXmlType"/>
+					<ns:element minOccurs="0" name="ratedPower23" type="pss:ApparentPowerXmlType"/>
+					<ns:element minOccurs="0" name="ratedPower31" type="pss:ApparentPowerXmlType"/>
+					<ns:element minOccurs="0" name="tertLossFactor" type="ns:double"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    <ns:complexType name="PSXfr3WBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:Xfr3WBranchXmlType">
+				<ns:sequence>
+				  	<ns:group ref="pss:PSXfrInfoGroup"/>
+					<ns:element minOccurs="0" name="tertShiftAngle" type="pss:AngleXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+</ns:schema>

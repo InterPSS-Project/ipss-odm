@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema"
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008"
+	elementFormDefault="qualified" xmlns:ipss="http://www.interpss.org/Schema/odm/2008">
+
+    <!-- include schema definitions in the pss ns -->
+	<ns:include schemaLocation="basecase/loadflow/LFRecordType.xsd"></ns:include>
+	<ns:include schemaLocation="basecase/shortcircuit/SCRecordType.xsd"></ns:include>
+	<ns:include schemaLocation="basecase/dynamic/DstabRecordType.xsd"></ns:include>
+	<ns:include schemaLocation="basecase/opf/OPFRecordType.xsd"></ns:include>
+	<ns:include	schemaLocation="basecase/distribution/DistRecordType.xsd"></ns:include>
+	<ns:include schemaLocation="basecase/dcsystem/DcSystemRecordType.xsd"></ns:include>
+	<ns:include schemaLocation="scenario/StudyScenario.xsd"></ns:include>
+
+	<!-- import InterPSS extension schema definition -->
+	<ns:import schemaLocation="extension/ExtensionType.xsd" namespace="http://www.interpss.org/Schema/odm/2008"></ns:import>
+
+	<ns:annotation>
+		<ns:documentation>
+			Copyright www.interpss.org 2008-2013
+		</ns:documentation>
+	</ns:annotation>
+
+	<ns:element name="pssStudyCase" type="pss:StudyCaseXmlType">
+		<ns:annotation>
+			<ns:documentation>
+			root element of the ODM schema - a StudyCase contains a BaseCase may contain (*) ChildNet may
+			contain (*) modification records may contain a StudyScenario, which contains (*) AnalysisCase
+			</ns:documentation>
+		</ns:annotation>
+	</ns:element>
+
+
+	<ns:complexType name="StudyCaseXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="contentInfo" minOccurs="0" type="pss:ContentInfoXmlType" />
+					<ns:element name="networkCategory" minOccurs="1" maxOccurs="1" type="pss:NetworkCategoryEnumType" />
+					<ns:element name="analysisCategory" type="pss:AnalysisCategoryEnumType" maxOccurs="1"/>
+					
+					<ns:element ref="pss:baseCase" minOccurs="1" maxOccurs="1">
+						<ns:annotation>
+							<ns:documentation>
+								Base case power network data for power
+								system simulation purpose
+							</ns:documentation>
+						</ns:annotation>
+					</ns:element>
+					<ns:element ref="pss:childNet" minOccurs="0" maxOccurs="unbounded">
+						<ns:annotation>
+							<ns:documentation>
+								It is assumed that parent network of the
+								child network is always defined before
+								the child network in the childNet list
+							</ns:documentation>
+						</ns:annotation>
+					</ns:element>
+					
+					<ns:element name="modificationList" minOccurs="0" maxOccurs="1">
+						<ns:annotation>
+							<ns:documentation>
+								Modifications to be applied to the base
+								case. Also, modification could be
+								defined at the study scenario level
+							</ns:documentation>
+						</ns:annotation>
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="modification" type="pss:ModifyRecordXmlType" maxOccurs="unbounded" minOccurs="0">
+									<ns:annotation>
+										<ns:documentation>
+											Each modifyRecord may
+											describe different
+											modification for some
+											purpose. Each ModifyRecord
+											is retrieved using the
+											record id.
+											ModifyRecordXmlType is an
+											abstract type. All
+											modification record types
+											are sub-type of
+											ModifyRecordXmlType.
+										</ns:documentation>
+									</ns:annotation>
+								</ns:element>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					
+					<ns:element ref="pss:studyScenario" minOccurs="0" maxOccurs="1">
+						<ns:annotation>
+							<ns:documentation>
+								A study case might include a list of
+								study scenarios, for example, Loadflow
+								study, SC study ...
+							</ns:documentation>
+						</ns:annotation>
+					</ns:element>
+				</ns:sequence>
+				<ns:attribute name="schemaVersion" type="ns:string" fixed="0.9.0" />
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="ContentInfoXmlType">
+		<ns:sequence>
+			<ns:element name="originalDataFormat" minOccurs="1" maxOccurs="1" type="pss:OriginalDataFormatEnumType">
+				<ns:annotation>
+					<ns:documentation>
+						for describing the original data format, from
+						which this xml file is produced
+					</ns:documentation>
+				</ns:annotation>
+			</ns:element>
+			<ns:element name="originalFormatVersion" type="ns:string" minOccurs="0"> </ns:element>
+			<ns:element name="adapterProviderName" type="ns:string" minOccurs="0" maxOccurs="1">
+				<ns:annotation>
+					<ns:documentation>
+						adapter provider name this file was created or
+						this file is intended for
+					</ns:documentation>
+				</ns:annotation>
+			</ns:element>
+			<ns:element name="adapterProviderVersion" type="ns:string" minOccurs="0" maxOccurs="1">
+				<ns:annotation>
+					<ns:documentation>
+						adapter provider version this file was created
+						or this file is intended for
+					</ns:documentation>
+				</ns:annotation>
+			</ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:simpleType name="OriginalDataFormatEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="IEEE-CDF"></ns:enumeration>
+			<ns:enumeration value="PSS-E"></ns:enumeration>
+			<ns:enumeration value="UCTE-DEF"></ns:enumeration>
+			<ns:enumeration value="InterPSS"></ns:enumeration>
+			<ns:enumeration value="PSAT"></ns:enumeration>
+			<ns:enumeration value="IEEE-ODM-PSS"></ns:enumeration>
+			<ns:enumeration value="BPA"></ns:enumeration>
+			<ns:enumeration value="PowerWorld"></ns:enumeration>
+			<ns:enumeration value="GE-PSLF"></ns:enumeration>
+			<ns:enumeration value="Cim"></ns:enumeration>
+			<ns:enumeration value="OPF-Matpower"></ns:enumeration>
+			<ns:enumeration value="Custom"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+</ns:schema>

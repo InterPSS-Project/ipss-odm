@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+    <ns:include schemaLocation="../../../common/DataType.xsd" />
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+    
+	
+	<!--
+	    define a simple exciter for testing purpose 
+ 	-->		
+    <ns:element name="exciter" type="pss:ExciterModelXmlType" />
+
+    <ns:element name="excSimpleType" substitutionGroup="pss:exciter" type="pss:ExcSimpleTypeXmlType" />
+    
+	
+    <!-- add Terminal voltage transdusor and Load compensation element
+    the related elements are Rc,Xc,Tr.
+    --> 
+    <ns:complexType abstract="true" name="ExciterModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="name" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string" />
+		</ns:sequence>
+	</ns:complexType>
+
+    
+    <ns:complexType name="ExcSimpleTypeXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ExciterModelXmlType">
+				<ns:sequence>
+				<!-- add trans pre-fix, since Tr has been used -->
+				    <ns:element maxOccurs="1" minOccurs="0" name="loadRc" type="ns:double" />
+				    <ns:element maxOccurs="1" minOccurs="0" name="loadXc" type="ns:double" />
+				    <ns:element maxOccurs="1" minOccurs="0" name="transTr" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="Ka" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="Ta" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="Vrmax" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="Vrmin" type="ns:double" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+</ns:schema>

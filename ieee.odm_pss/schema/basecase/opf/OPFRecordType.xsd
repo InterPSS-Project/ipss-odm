@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+    
+
+    <ns:include schemaLocation="../loadflow/LFRecordType.xsd"></ns:include>
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+    
+    <ns:element name="opfNet" type="pss:OpfNetworkXmlType" substitutionGroup="pss:baseCase">
+        <ns:annotation><ns:documentation>
+		Network for OPF analysis. aclfBus and opfGenBus could be used to define bus objects,
+		aclfLine/aclfXfr/aclfPSXfr could be used to define branch objects.
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:element name="opfGenBus" type="pss:OpfGenBusXmlType" substitutionGroup="pss:bus">
+        <ns:annotation><ns:documentation>
+		Bus record for OPF Generator
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="opfPSXfr" type="pss:OpfPSXfrXmlType" substitutionGroup="pss:branch">
+        <ns:annotation><ns:documentation>
+		Phase shifter xfr record for OPF Generator
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="opfBranch" type="pss:OpfBranchXmlType" substitutionGroup="pss:branch">
+        <ns:annotation><ns:documentation>
+		Bus record for OPF Generator
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:complexType name="BaseOpfNetworkXmlType" abstract="true">
+    	<ns:annotation>
+    		<ns:documentation></ns:documentation>
+    	</ns:annotation>
+    	<ns:complexContent>
+    		<ns:extension base="pss:LoadflowNetXmlType">
+    			<ns:sequence>
+    				<ns:element name="opfNetType" type="pss:OpfNetworkEnumType"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+    <ns:simpleType name="OpfNetworkEnumType">
+        <ns:annotation>
+        	<ns:documentation>
+        		SimpleDclf is for DCLF based Opf implementation using the Quad Programming optimization algorithm.
+        		OpfNetwork is for ...
+        	</ns:documentation>
+        </ns:annotation>
+        <ns:restriction base="ns:string">
+    		<ns:enumeration value="SimpleDclf"/>
+    		<ns:enumeration value="OpfNetwork"/>
+    	</ns:restriction>
+    </ns:simpleType>    
+	
+<!-- 
+	New OPF network definition
+	=========================	
+ -->	
+    
+    <ns:complexType name="OpfNetworkXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOpfNetworkXmlType">
+				<ns:sequence>
+					<ns:element name="anglePenaltyFactor" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    <ns:complexType name="OpfGenBusXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:LoadflowBusXmlType">
+				<ns:sequence>
+					<ns:element name="operatingMode"
+						type="pss:OpfGenOperatingModeEnumType" maxOccurs="1"
+						minOccurs="1">
+					</ns:element>
+					<ns:element name="incCost" type="pss:IncCostXmlType"
+						maxOccurs="1" minOccurs="1">
+					</ns:element>
+					<ns:element name="constraints"
+						type="pss:ConstraintsXmlType" maxOccurs="1" minOccurs="1">
+					</ns:element>
+
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+    <ns:complexType name="OpfPSXfrXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:PSXfrBranchXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+    <ns:complexType name="OpfBranchXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:LineBranchXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+	
+    <ns:complexType name="IncCostXmlType">
+    	<ns:sequence>
+    		<ns:element name="costModel" type="pss:CostModelEnumType"
+    			maxOccurs="1" minOccurs="1">
+    		</ns:element>
+    		<ns:element name="pieceWiseLinearModel"
+    			type="pss:pieceWiseLinearModelXmlType" maxOccurs="1"
+    			minOccurs="0">
+    		</ns:element>
+    		<ns:element name="quadraticModel" type="pss:quadraticModelXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+    	</ns:sequence>
+    </ns:complexType>
+
+    <ns:simpleType name="CostModelEnumType">
+    	<ns:restriction base="ns:string">
+    		<ns:enumeration value="Piece-wise linear model"></ns:enumeration>
+    		<ns:enumeration value="Quadratic model"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>
+
+    <ns:complexType name="pieceWiseLinearModelXmlType">
+    	<ns:sequence>
+    		<ns:element name="stairStep" type="pss:stairStepXmlType" maxOccurs="unbounded" minOccurs="1"></ns:element>
+    	</ns:sequence>
+    </ns:complexType>
+    
+    <ns:complexType name="quadraticModelXmlType">
+    	<ns:sequence>
+    		<ns:element name="sqrCoeff" type="pss:sqrCoeffXmlType" maxOccurs="1"
+    			minOccurs="1">
+    		</ns:element>
+    		<ns:element name="linCoeff" type="pss:linCoeffXmlType" maxOccurs="1"
+    			minOccurs="1">
+    		</ns:element>
+    		<ns:element name="constCoeff" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+    	</ns:sequence>
+    </ns:complexType>
+    
+    <ns:complexType name="stairStepXmlType">
+    	<ns:sequence>
+    		<ns:element name="price" type="pss:costPriceXmlType"
+    			maxOccurs="1" minOccurs="1">
+    		</ns:element>
+    		<ns:element name="amount" type="pss:costAmountXmlType"
+    			maxOccurs="1" minOccurs="1">
+    		</ns:element>
+    	</ns:sequence>
+    </ns:complexType>
+    
+    <ns:complexType name="costPriceXmlType">
+    	<ns:sequence>
+    	</ns:sequence>
+    	<ns:attribute name="value" type="ns:double"></ns:attribute>
+    	<ns:attribute name="unit" type="pss:OPFUnitCostXmlType"></ns:attribute>
+    </ns:complexType>
+
+    <ns:complexType name="costAmountXmlType">
+    	<ns:attribute name="value" type="ns:double"></ns:attribute>
+    	<ns:attribute name="unit" type="pss:MWUnitXmlType"></ns:attribute>
+    </ns:complexType>
+
+    <ns:simpleType name="OPFUnitCostXmlType">
+    	<ns:restriction base="ns:string">
+    		<ns:enumeration value="dollarPerMWh"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>
+
+    <ns:simpleType name="MWUnitXmlType">
+    	<ns:restriction base="ns:string">
+    		<ns:enumeration value="MW"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>
+
+    <ns:complexType name="ConstraintsXmlType">
+    	<ns:sequence>
+    		<ns:element name="volLimit" type="pss:VoltageLimitXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+    		<ns:element name="activePowerLimit"
+    			type="pss:ActivePowerLimitXmlType" maxOccurs="1" minOccurs="0">
+    		</ns:element>
+    		<ns:element name="reactivePowerLimit" type="pss:ReactivePowerLimitXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+    	</ns:sequence>
+    </ns:complexType>
+
+
+    <ns:simpleType name="OpfGenOperatingModeEnumType">
+    	<ns:restriction base="ns:string">
+    		<ns:enumeration value="PVGenerator"></ns:enumeration>
+    		<ns:enumeration value="Pumping"></ns:enumeration>
+    		<ns:enumeration value="SychronousCompensator"></ns:enumeration>
+    		<ns:enumeration value="PQGenerator"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>
+    
+    
+<!-- 
+	For DCLF based OPF implementation using the Quad Programming optimization algorithm
+	===================================================================================	
+ -->	
+
+    <ns:element name="dclfOpfNet" type="pss:OpfDclfNetworkXmlType" substitutionGroup="pss:baseCase">
+        <ns:annotation><ns:documentation>
+		Network for OPF analysis. aclfBus and opfGenBus could be used to define bus objects,
+		aclfLine/aclfXfr/aclfPSXfr could be used to define branch objects.
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="dclfOpfGenBus" type="pss:OpfDclfGenBusXmlType" substitutionGroup="pss:bus">
+        <ns:annotation><ns:documentation>
+		Bus record for OPF Generator
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:complexType name="OpfDclfNetworkXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseOpfNetworkXmlType">
+				<ns:sequence>
+					<ns:element name="anglePenaltyFactor" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    <ns:complexType name="OpfDclfGenBusXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:LoadflowBusXmlType">
+				<ns:sequence>
+					<ns:element name="coeffA" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+					<ns:element name="coeffB" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+					<ns:element name="capacityLimit" type="pss:ActivePowerLimitXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+					<ns:element name="fixedCost" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="sqrCoeffXmlType">
+    	<ns:attribute name="value" type="ns:double"></ns:attribute>
+    	<ns:attribute name="unit" type="pss:ActivePowerPriceEnumType"></ns:attribute>
+    </ns:complexType>
+
+    <ns:complexType name="linCoeffXmlType">
+    	<ns:attribute name="value" type="ns:double"></ns:attribute>
+    	<ns:attribute name="unit" type="pss:ActivePowerPriceEnumType"></ns:attribute>
+    </ns:complexType>
+
+    <ns:simpleType name="ActivePowerPriceEnumType">    		
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="dollarPerMW"></ns:enumeration>
+			<ns:enumeration value="dollarPerKW"></ns:enumeration>
+			<ns:enumeration value="dollarPerMWSquare"></ns:enumeration>
+			<ns:enumeration value="dollarPerKWSquare"></ns:enumeration>
+		</ns:restriction>	
+    </ns:simpleType>
+
+</ns:schema>

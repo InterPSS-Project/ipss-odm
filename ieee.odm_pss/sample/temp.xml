@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pssStudyCase id="ODM_StudyCase"
+xmlns="http://www.ieee.org/odm/Schema/2008" xmlns:ns2="http://www.interpss.org/Schema/odm/2008" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../schema/ODMSchema.xsd "  schemaVersion="0.9.0">
+    <contentInfo>
+        <originalDataFormat>PowerWorld</originalDataFormat>
+        <adapterProviderName>www.interpss.org</adapterProviderName>
+        <adapterProviderVersion>1.00</adapterProviderVersion>
+    </contentInfo>
+    <networkCategory>Transmission</networkCategory>
+    <analysisCategory>Loadflow</analysisCategory>
+    <aclfNet>
+        <busList/>
+        <branchList/>
+    </aclfNet>
+    <modificationList>
+        <modification xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="NetModificationXmlType">
+            <branchChangeRecSet id="005A">
+                <desc>88005A-1-2/8804A/88006A-1/1780</desc>
+                <branchChangeRec circuitId="1" toBusId="Bus7512" fromBusId="Bus7514" branchId="Bus7514_to_Bus7512_cirId_1">
+                    <desc>/WOODMONT CB 29Y-1T-2</desc>
+                    <offLine>true</offLine>
+                </branchChangeRec>
+                <branchChangeRec circuitId="1" toBusId="Bus7752" fromBusId="Bus7750" branchId="Bus7750_to_Bus7752_cirId_1">
+                    <desc>/DEVON_T CB 16P-1T-2</desc>
+                    <offLine>true</offLine>
+                </branchChangeRec>
+                <branchChangeRec circuitId="1" toBusId="Bus7756" fromBusId="Bus7750" branchId="Bus7750_to_Bus7756_cirId_1">
+                    <desc>/DEVON_T CB 16P-4T-2</desc>
+                    <offLine>true</offLine>
+                </branchChangeRec>
+                <branchChangeRec circuitId="1" toBusId="Bus7535" fromBusId="Bus7536" branchId="Bus7536_to_Bus7535_cirId_1">
+                    <desc>/MILVON CB 6850A</desc>
+                    <offLine>true</offLine>
+                </branchChangeRec>
+                <branchChangeRec circuitId="1" toBusId="Bus7524" fromBusId="Bus7522" branchId="Bus7522_to_Bus7524_cirId_1">
+                    <desc>/WOODMONT CB 6840A</desc>
+                    <offLine>true</offLine>
+                </branchChangeRec>
+            </branchChangeRecSet>
+        </modification>
+    </modificationList>
+</pssStudyCase>

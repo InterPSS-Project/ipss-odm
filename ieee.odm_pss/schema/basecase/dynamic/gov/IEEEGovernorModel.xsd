@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd" />
+
+    <ns:include schemaLocation="GovernorModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+	
+	<!-- 
+		define models for generic Governor, Turbine, and those found in IEEE std
+			Naming convention
+			    gov*, Gov* : for generic types
+			    govIEEE*, GovIEEE* : for IEEE types  
+	 -->	
+    
+    <ns:element name="turbineSteamNR" substitutionGroup="pss:turbine" type="pss:SteamTurbineNRXmlType" />
+    
+    <ns:element name="turbineSteamTCSR" substitutionGroup="pss:turbine" type="pss:SteamTurbineTCSRXmlType" />
+    
+    <ns:element name="turbineSteamTCDR" substitutionGroup="pss:turbine" type="pss:SteamTurbineTCDRXmlType" />
+	
+    <ns:element name="turbineHydraulic" substitutionGroup="pss:turbine" type="pss:HydraulicTurbineXmlType" />
+
+    
+    <ns:element name="govHydro" substitutionGroup="pss:governor" type="pss:GovHydroXmlType" />
+    
+    <ns:element name="govHydroTurbine" substitutionGroup="pss:governor" type="pss:GovHydroTurbineXmlType" />
+	
+    <ns:element name="govHydroSteamGeneralModel" substitutionGroup="pss:governor" type="pss:GovHydroSteamGeneralModelXmlType" />
+    
+    <ns:element name="govSteamNR" substitutionGroup="pss:governor" type="pss:GovSteamNRXmlType" />
+    
+    <ns:element name="govSteamTCSR" substitutionGroup="pss:governor" type="pss:GovSteamTCSRXmlType" />
+    
+	
+    <ns:element name="govSteamTCDR" substitutionGroup="pss:governor" type="pss:GovSteamTCDRXmlType" />
+    
+    <ns:element name="govIEEE1981Type1" substitutionGroup="pss:governor" type="pss:GovIEEE1981Type1XmlType" />
+    
+    <ns:element name="govIEEE1981Type2" substitutionGroup="pss:governor" type="pss:GovIEEE1981Type2XmlType" />
+
+    <ns:element name="govIEEE1981Type3" substitutionGroup="pss:governor" type="pss:GovIEEE1981Type3XmlType" />
+    
+	
+	
+    <!-- non-reheat stream turbine model-->
+    <ns:complexType name="SteamTurbineNRXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:TurbineModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="K" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="TCH" type="pss:TimePeriodXmlType" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+	
+	
+	<!-- Tandem compound,single reheat stream turbine model-->
+    <ns:complexType name="SteamTurbineTCSRXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SteamTurbineNRXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="FHP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="TRH" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="FIP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="TCO" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="FLP" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+	<!-- Tandem compound,double reheat stream turbine model-->	
+    <ns:complexType name="SteamTurbineTCDRXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SteamTurbineNRXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="FVHP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="TRH1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="FHP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="TRH2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="FIP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="TCO" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="FLP" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+
+    <ns:complexType name="HydraulicTurbineXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:TurbineModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="TW" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+	<!-- Stream speed Gov and Tandem compound,non-reheat turbine combo model-->	
+    <ns:complexType name="GovSteamNRXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="K" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />			
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Pup" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Pdown" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TCH" type="pss:TimePeriodXmlType" />			
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+	<!-- Stream speed Gov and Tandem compound,single-reheat turbine combo model-->	
+    <ns:complexType name="GovSteamTCSRXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovSteamNRXmlType">
+		<ns:sequence>			
+			<ns:element maxOccurs="1" minOccurs="1" name="TRH" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TCO" type="pss:TimePeriodXmlType" />						
+			<ns:element maxOccurs="1" minOccurs="1" name="FHP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="FIP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="FLP" type="ns:double" />						
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+     <!-- Stream speed Gov and Tandem compound,double-reheat turbine combo model-->	
+    <ns:complexType name="GovSteamTCDRXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovSteamNRXmlType">
+		<ns:sequence>			
+			<ns:element maxOccurs="1" minOccurs="1" name="TRH1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TRH2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TCO" type="pss:TimePeriodXmlType" />	
+			<ns:element maxOccurs="1" minOccurs="1" name="FVHP" type="ns:double" />					
+			<ns:element maxOccurs="1" minOccurs="1" name="FHP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="FIP" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="FLP" type="ns:double" />						
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+    <!-- IEEE Recommended General Stream speed Gov and turbine combo model
+         It is called IEEE 1981 Type 1 model and compatible with PSSE IEEEG1 model
+    -->	
+    <ns:complexType name="GovIEEE1981Type1XmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="K" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VOpen" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VClose" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K1" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K2" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K3" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K4" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K5" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K6" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T7" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K7" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K8" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+    <!-- An alternative representations of hydro turbine speed governing systems
+         It is called IEEE 1981 Type 2 model and compatible with PSSE IEEEG2 model
+    -->	
+    <ns:complexType name="GovIEEE1981Type2XmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="K" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+    <!-- An alternative representations of hydro turbine speed governing systems
+         It is called IEEE 1981 Type 3 model and compatible with PSSE IEEEG3 model
+    -->    
+    <ns:complexType name="GovIEEE1981Type3XmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="TG" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TP" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VOpen" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VClose" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="SIGMA" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="DELTA" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TR" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="a11" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="a13" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="a21" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="a23" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+
+    <ns:complexType name="GovHydroSteamGeneralModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="R" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="KV" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="F" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+
+    <ns:complexType name="GovHydroTurbineXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="K" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TWhalf" type="pss:TimePeriodXmlType" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+    <ns:complexType name="GovHydroXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="R" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VOpen" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VClose" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+</ns:schema>

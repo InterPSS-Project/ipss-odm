@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd" />
+    
+
+    <ns:include schemaLocation="StabilizerModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+	
+	<!-- 
+		define models for those found in IEEE std
+			Naming convention
+			    pssIEEE*, PssIEEE* : for IEEE types  
+	 -->	
+    
+    <ns:element name="pssIEEE1981Type" substitutionGroup="pss:stabilizer" type="pss:PssIEEE1981TypeXmlType" />
+    
+    <ns:element name="pssIEEE1992Type2A" substitutionGroup="pss:stabilizer" type="pss:PssIEEE1992Type2AXmlType" />
+    
+    <ns:element name="pssIEEEType1A" substitutionGroup="pss:stabilizer" type="pss:PssIEEE1AXmlType" />
+    
+    <ns:element name="pssIEE2ST" substitutionGroup="pss:stabilizer" type="pss:PssIEE2STXmlType" />
+    
+
+
+    <ns:element name="pssIEEEDualInput" substitutionGroup="pss:stabilizer" type="pss:PssIEEEDualInputXmlType" />
+    
+
+    <ns:complexType name="PssIEEE1981TypeXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:StabilizerModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="inputSignal" type="pss:StabilizerInputSignalEnumType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="remoteBusId" type="pss:IDRefRecordXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="A1" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="A2" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="A3" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="A4" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="A5" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="A6" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="KS" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="LSMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="LSMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VCU" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VCL" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>	
+	</ns:complexType>
+    
+
+    <ns:simpleType name="StabilizerInputSignalEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="rotor_speed_deviation" />
+			<ns:enumeration value="bus_frequency_deviation" />
+			<ns:enumeration value="generator_electrical_power" />
+			<ns:enumeration value="generator_accelerating_power" />
+			<ns:enumeration value="bus_voltage" />
+			<ns:enumeration value="deriavative_of_bus_voltage" />
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="PssIEEE1992Type2AXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:StabilizerModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="firstInputSignal" type="pss:StabilizerInputSignalEnumType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="firstRemoteBusId" type="pss:IDRefRecordXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="secondInputSignal" type="pss:StabilizerInputSignalEnumType">	</ns:element>
+			<ns:element maxOccurs="1" minOccurs="1" name="secondRemoteBusId" type="pss:IDRefRecordXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="M" type="ns:int" />
+			<ns:element maxOccurs="1" minOccurs="1" name="N" type="ns:int" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T7" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="KS2" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="KS3" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T8" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T9" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="KS1" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSTMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSTMIN" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="PssIEE2STXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:StabilizerModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="firstInputSignal" type="pss:StabilizerInputSignalEnumType">
+			</ns:element>
+			<ns:element maxOccurs="1" minOccurs="1" name="firstRemoteBusId" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="secondInputSignal" type="pss:StabilizerInputSignalEnumType">
+			</ns:element>
+			<ns:element maxOccurs="1" minOccurs="0" name="secondRemoteBusId" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K1" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K2" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T7" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T8" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T9" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T10" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VCU" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VCL" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VCUTOFF" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+
+    <ns:complexType name="PssIEEE1AXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:StabilizerModelXmlType">
+		<ns:sequence>			
+			<ns:element maxOccurs="1" minOccurs="1" name="KS" type="ns:double" />			
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />			
+			<ns:element maxOccurs="1" minOccurs="1" name="VSTMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSTMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="A1" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="A2" type="ns:double" />	
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+    <ns:complexType name="PssIEEEDualInputXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:StabilizerModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="firstInputSignal" type="pss:StabilizerInputSignalEnumType">
+			</ns:element>
+			<ns:element maxOccurs="1" minOccurs="1" name="firstRemoteBusId" type="pss:IDRefRecordXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="secondInputSignal" type="pss:StabilizerInputSignalEnumType">
+			</ns:element>
+			<ns:element maxOccurs="1" minOccurs="0" name="secondRemoteBusId" type="pss:IDRefRecordXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Trw" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T7" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Kr" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Trp" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TW2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="KS" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T9" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T10" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T12" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Kp" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T13" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T14" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VSMIN" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+</ns:schema>

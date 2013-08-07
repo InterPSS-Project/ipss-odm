@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+	<ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/StudyScenario.xsd" />
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+	</ns:annotation>
+
+	<ns:complexType name="AclfAnalysisXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining an Aclf analysis for the study case
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisTypeXmlType">
+				<ns:sequence>
+					<ns:element name="aclfAlgo" minOccurs="0" maxOccurs="1" type="ipss:IpssAclfAlgorithmXmlType"></ns:element>
+					<ns:element name="displaySummary" type="ns:boolean" minOccurs="0" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	 
+	<ns:complexType name="IpssAclfAlgorithmXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:AclfAlgorithmXmlType">
+				<ns:sequence>
+					<ns:element name="customLfMethod" type="ipss:CustomLfMethodXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="CustomLfMethodXmlType">
+		<ns:sequence>
+			<ns:element name="firstMethod" minOccurs="1" maxOccurs="1" type="pss:LfMethodEnumType" />
+			<ns:element name="secondMethod" minOccurs="1" maxOccurs="1" type="pss:LfMethodEnumType" />
+			<ns:element name="switchCriteria" minOccurs="1" maxOccurs="1" type="ipss:CustomAclfMethodSwitchCriteriaDataType" />
+			<ns:element name="switchIteration" type="ns:int" minOccurs="0" maxOccurs="1">	</ns:element>
+			<ns:element name="switchTolerance" type="pss:ApparentPowerXmlType" minOccurs="0" maxOccurs="1"> </ns:element>
+		</ns:sequence>
+	</ns:complexType>
+	
+    <ns:simpleType name="CustomAclfMethodSwitchCriteriaDataType">
+    	<ns:restriction base="ns:string">
+			<ns:enumeration value="Iteration"></ns:enumeration>
+			<ns:enumeration value="Mismatch"></ns:enumeration>
+			<ns:enumeration value="IterationOrMismatch"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>	
+    
+</ns:schema>

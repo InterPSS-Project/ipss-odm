@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+  
+
+    <ns:include schemaLocation="../common/DataType.xsd"></ns:include>
+    
+
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+    
+    <ns:element name="baseCase" type="pss:NetworkXmlType">
+        <ns:annotation><ns:documentation>
+		Base network for defining a generic network with bus and branch objects. For testing purpose.
+		substitutionGroup is used to define network, for example, loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="childNet" type="pss:NetworkXmlType">
+        <ns:annotation><ns:documentation>
+        	for defining child network object
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:element name="bus" type="pss:BusXmlType">
+        <ns:annotation><ns:documentation>
+		Base bus for defining a generic bus with bus and branch objects.
+		substitutionGroup is used to define network, for example, loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    
+    <ns:element name="branch" type="pss:BaseBranchXmlType">
+        <ns:annotation><ns:documentation>
+		Base branch for defining a generic branch with bus and branch objects.
+		substitutionGroup is used to define network, for example, loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+<!-- 
+	 Network record type
+	 ===================
+ -->
+
+    <ns:complexType name="NetworkXmlType" abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="basePower" type="pss:ApparentPowerXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+                    <ns:element name="frequency" type="pss:FrequencyXmlType" minOccurs="0"></ns:element>
+					<ns:element name="busList" minOccurs="1" maxOccurs="1">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element ref="pss:bus" maxOccurs="unbounded" minOccurs="0" />
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element name="branchList" minOccurs="1" maxOccurs="1">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element ref="pss:branch" maxOccurs="unbounded" minOccurs="0"></ns:element>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element name="areaList" maxOccurs="1" minOccurs="0">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="area" maxOccurs="unbounded" minOccurs="0" type="pss:NetAreaXmlType"></ns:element>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element name="lossZoneList" minOccurs="0">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="lossZone" maxOccurs="unbounded" minOccurs="0" type="pss:NetZoneXmlType"></ns:element>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+					<ns:element name="type" type="pss:NetworkTypeEnumType" minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						MainNetwork or ChildNetwork. A Child network might has child networks.
+						</ns:documentation></ns:annotation>
+					</ns:element>
+                    <ns:element name="hasChildNet" type="ns:boolean" minOccurs="0"></ns:element>
+                    <ns:element name="parentNet" type="pss:NetworkRefXmlType" minOccurs="0"></ns:element>
+                    <ns:element name="autoBranchId" type="ns:boolean" minOccurs="0">
+						<ns:annotation><ns:documentation>
+						if true, the branch id will be auto generated formId->toId(cirNo). The original branchId will be moved to the name field.
+						</ns:documentation></ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="AnalysisCategoryEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Loadflow"></ns:enumeration>
+			<ns:enumeration value="Sensitivity"></ns:enumeration>
+			<ns:enumeration value="ShortCircuit"></ns:enumeration>
+			<ns:enumeration value="TransientStability"></ns:enumeration>
+			<ns:enumeration value="OPF"></ns:enumeration>
+			<ns:enumeration value="DistributionAnalysis"></ns:enumeration>
+			<ns:enumeration value="DcSystemAnalysis"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+	
+    <ns:simpleType name="NetworkCategoryEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Transmission"></ns:enumeration>
+			<ns:enumeration value="Distribution"></ns:enumeration>
+			<ns:enumeration value="DcSystem"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="NetworkTypeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="MainNetwork"></ns:enumeration>
+			<ns:enumeration value="ChildNetwork"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+
+
+    <ns:complexType name="NetworkRefXmlType">
+    	<ns:annotation>
+    		<ns:documentation>used to reference parent containing network.</ns:documentation>
+    	</ns:annotation>
+    	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+    			<ns:sequence>
+    				<ns:element name="interfaceBus" type="pss:IDRefRecordXmlType" minOccurs="0" maxOccurs="1">
+    				<ns:annotation>
+    					<ns:documentation>
+    					interface bus id, where this network is connecting to the parent network. It is optional
+    					since in many cases, it could be identified. For example, utility bus in a distribution network,
+    					inverter bus in a solar system. 
+    					</ns:documentation>
+    				</ns:annotation>
+    				</ns:element>
+    			</ns:sequence>
+    			<ns:attribute name="netId" type="ns:string" use="required">
+    				<ns:annotation><ns:documentation>
+    					parent containing network id. It might be stored in a different file.
+    				</ns:documentation></ns:annotation>
+    			</ns:attribute>
+    			<ns:attribute name="parentBusId" type="ns:string" use="required">
+    				<ns:annotation><ns:documentation>
+    					parent bus id, where this network is attached to. It might be stored in a different file.
+    				</ns:documentation></ns:annotation>
+    			</ns:attribute>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+
+    <ns:complexType name="BusXmlType" abstract="true">
+        <ns:annotation><ns:documentation>
+        	Base bus record for all bus type
+        </ns:documentation></ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:CimRdfRecordType">
+				<ns:sequence>
+					<ns:element name="baseVoltage" type="pss:VoltageXmlType" minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						For DC system, baseVoltage might be defined at the Network level.
+						Therefore, the baseVoltage field is optional.
+						</ns:documentation></ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="BaseBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:CimConnectionRecordType">
+				<ns:sequence>
+					<ns:element name="fromBus" type="pss:BusIDRefXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+					<ns:element name="toBus" type="pss:BusIDRefXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+					<ns:element name="tertiaryBus" type="pss:BusIDRefXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+				</ns:sequence>
+				<ns:attribute name="circuitId" type="ns:string" use="optional"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="BranchXmlType" abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseBranchXmlType">
+				<ns:sequence>
+				    <ns:element name="z" type="pss:ZXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+					<ns:element name="ratingLimit" minOccurs="0" maxOccurs="1" type="pss:BranchRatingLimitXmlType"></ns:element>
+					<ns:element name="meterLocation" minOccurs="0" type="pss:BranchBusSideEnumType"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+<!-- 
+	<*>IDRefXmlType is for referencing a record by ID ref. The record
+	and the ID ref record must be in the same Xml document 
+ -->	
+    
+    <ns:complexType name="BusIDRefXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRefRecordXmlType">
+				<ns:sequence></ns:sequence>
+				<ns:attribute name="windingType" type="pss:BusWindingEnumType" use="optional">
+					<ns:annotation><ns:documentation>
+					optional, for indicating xfr terminal bus winding type (Primary, Secondary or tertiary).
+					</ns:documentation></ns:annotation>
+				</ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="BranchIDRefXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRefRecordXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+<!-- 
+	<*>RefXmlType is for referencing a record by id string. The record
+	and the ref record could be in different Xml documents 
+ -->	
+
+    <ns:complexType name="BusRefXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+    			<ns:attribute name="busId" type="ns:string" use="required"></ns:attribute>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+
+    <ns:complexType name="BranchRefXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+    			<ns:attribute name="branchId" type="ns:string" use="required"></ns:attribute>
+				<ns:attribute name="fromBusId" type="ns:string" use="required"></ns:attribute>
+				<ns:attribute name="toBusId" type="ns:string" use="required"></ns:attribute>
+				<ns:attribute name="tertiaryBusId" type="ns:string" use="optional"></ns:attribute>
+				<ns:attribute name="circuitId" type="ns:string" use="optional"></ns:attribute> 
+			</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+    
+
+    <ns:complexType name="FlowInterfaceRefXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+    			<ns:attribute name="interfaceId" type="ns:string" use="required"></ns:attribute>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+
+    <ns:complexType name="BranchRatingLimitXmlType">
+		<ns:sequence>
+			<ns:element name="mva" type="pss:MvaRatingXmlType" minOccurs="0" />
+			<ns:element name="current" type="pss:CurrentXmlType" minOccurs="0" />
+			<ns:element name="mw" type="pss:ActivePowerRatingXmlType" maxOccurs="1" minOccurs="0" />
+		</ns:sequence>
+    </ns:complexType>
+
+
+	<ns:complexType name="NetAreaXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<ns:sequence>
+					<ns:element name="zone" type="pss:NetZoneXmlType" maxOccurs="unbounded" minOccurs="0"></ns:element>
+				</ns:sequence>
+				<ns:attribute name="id" type="ns:string" use="optional"></ns:attribute>
+				<ns:attribute name="number" type="ns:int" use="optional"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="NetZoneXmlType">
+        <ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<ns:attribute name="id" type="ns:string" use="optional"></ns:attribute>
+				<ns:attribute name="number" type="ns:int" use="optional"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+    
+    <ns:complexType name="TransformerZCorrectionXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+    			<ns:sequence>
+    				<ns:element name="correction" maxOccurs="unbounded" minOccurs="0">
+    					<ns:complexType>
+    						<ns:sequence>
+    							<ns:element name="tap" type="ns:double" />
+    							<ns:element name="factor" type="ns:double"/>
+    						</ns:sequence>
+    					</ns:complexType></ns:element>
+    			</ns:sequence>
+    			<ns:attribute name="number" type="ns:int" use="optional">
+    			</ns:attribute>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+    <ns:complexType name="FlowInterfaceRecXmlType">
+        <ns:annotation><ns:documentation>
+        	Interface record is for power flow interface limit checking purpose.
+        </ns:documentation></ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="branchList" type="pss:FlowInterfaceBranchXmlType" maxOccurs="unbounded" minOccurs="1" />
+					<ns:element name="onPeakLimit" type="pss:FlowInterfaceLimitXmlType" maxOccurs="1" minOccurs="1" />
+					<ns:element name="offPeakLimit" type="pss:FlowInterfaceLimitXmlType" maxOccurs="1" minOccurs="1" />
+				</ns:sequence>
+				<ns:attribute name="season" type="pss:SeasonEnumType" use="optional" />
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="FlowInterfaceBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BranchRefXmlType">
+				<ns:sequence>
+					<ns:element name="deviceName" type="ns:string" maxOccurs="1" minOccurs="0" />
+					<ns:element name="deviceType" type="pss:LFBranchCodeEnumType" maxOccurs="1" minOccurs="0" />
+					<ns:element name="weight" type="ns:double" maxOccurs="1" minOccurs="1" />
+					<ns:element name="fromBusName" type="ns:string" maxOccurs="1" minOccurs="0" />
+					<ns:element name="toBusName" type="ns:string" maxOccurs="1" minOccurs="0" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="FlowInterfaceLimitXmlType">
+		<ns:sequence>
+			<ns:element name="type" type="pss:FlowInterfaceEnumType" maxOccurs="1" minOccurs="0" />
+			<ns:element name="status" type="ns:boolean" maxOccurs="1" minOccurs="1" />
+			<ns:element name="refDirExportLimit" type="pss:ActivePowerXmlType" maxOccurs="1" minOccurs="1" />
+			<ns:element name="OppsiteRefDirImportLimit" type="pss:ActivePowerXmlType" maxOccurs="1" minOccurs="1" />
+		</ns:sequence>
+	</ns:complexType>
+    	
+
+    <ns:simpleType name="FlowInterfaceEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="BG"></ns:enumeration>
+			<ns:enumeration value="NG"></ns:enumeration>
+			<ns:enumeration value="TOR"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="BranchBusSideEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="FromSide"></ns:enumeration>
+			<ns:enumeration value="ToSide"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+	
+<!-- 
+	 CIM record type
+	 ===============
+ -->
+	
+    <ns:complexType name="CimSwitchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:CimRdfXmlType">
+				<ns:attribute name="offStatus" type="ns:boolean" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="CimRdfXmlType">
+		<ns:attribute name="rdfId" type="ns:string" use="required"></ns:attribute>
+		<ns:attribute name="name" type="ns:string" use="optional"></ns:attribute>
+	</ns:complexType>
+    
+
+    <ns:complexType name="CimConnectionRecordType">
+		<ns:complexContent>
+			<ns:extension base="pss:CimRdfRecordType">
+				<ns:sequence>
+					<ns:element name="cimSwitches" maxOccurs="1" minOccurs="0" type="pss:CimSwitchListXmlType"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="CimRdfRecordType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="cimRdfRecords" maxOccurs="1" minOccurs="0" type="pss:CimRdfListXmlType"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="CimRdfListXmlType">
+		<ns:sequence>
+			<ns:element name="rdfRec" type="pss:CimRdfXmlType" maxOccurs="unbounded"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="CimSwitchListXmlType">
+		<ns:sequence>
+			<ns:element name="switch" type="pss:CimSwitchXmlType" maxOccurs="unbounded" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+	
+	
+    <ns:complexType name="DcLineFaultXmlType">
+		<ns:sequence>
+			<ns:element name="fromACBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="toACBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="fromACRatedVol" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="toACRatedVol" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="faultType" maxOccurs="1" minOccurs="1" type="pss:DcLineFaultEnumType"></ns:element>
+			<ns:element name="startTime" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="durationTime" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="permanentFault" type="ns:boolean" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="faultLocationFromFromSide" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="changedPower" type="pss:PowerXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="changedCurrent" type="pss:CurrentXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="faultZ" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="DcLineFaultEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="fromBus_Bipole_Short_Circuit"></ns:enumeration>
+			<ns:enumeration value="toBus_Bipole_Short_Circuit"></ns:enumeration>
+			<ns:enumeration value="fault_on_Line"></ns:enumeration>
+			<ns:enumeration value="power_blocked"></ns:enumeration>
+			<ns:enumeration value="power_reversed"></ns:enumeration>
+			<ns:enumeration value="power_change_by_specification"></ns:enumeration>
+			<ns:enumeration value="current_change_by_specification"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+
+</ns:schema>

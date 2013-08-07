@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+    
+
+    <ns:include schemaLocation="../loadflow/LFRecordType.xsd" />
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+    
+	
+    <ns:element name="acscNet" substitutionGroup="pss:baseCase" type="pss:ShortCircuitNetXmlType">
+        <ns:annotation><ns:documentation>
+		Network type for AC Short circuit analysis. acscBus could be
+		used to define bus; acscLine, acscXfr and acscPSXfr
+		could be used to define branch 
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="acscBus" substitutionGroup="pss:bus" type="pss:ShortCircuitBusXmlType">
+        <ns:annotation> <ns:documentation>
+		Bus record for AC short circuit analysis. It is a child type of LoadflowBusXmlType, therefore
+		Loadflow info for calculating init bus voltage could be included.
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    
+     <ns:element name="acscContributeGen" substitutionGroup="pss:contributeGen" type="pss:ShortCircuitGenDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing generator data record for short circuit analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>   
+    
+     <ns:element name="acscEquivGen" substitutionGroup="pss:equivGen" type="pss:ShortCircuitGenDataXmlType">
+        <ns:annotation><ns:documentation>
+		Equiv generator data record for short circuit analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>   
+	
+     <ns:element name="acscContributeLoad" substitutionGroup="pss:contributeLoad" type="pss:ShortCircuitLoadDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing load data record for short circuit analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>   
+    
+     <ns:element name="acscEquivLoad" substitutionGroup="pss:equivLoad" type="pss:ShortCircuitLoadDataXmlType">
+        <ns:annotation><ns:documentation>
+		Equiv load data record for short circuit analysis
+		</ns:documentation></ns:annotation>
+    </ns:element> 
+        
+    <ns:element name="acscLine" substitutionGroup="pss:branch" type="pss:LineShortCircuitXmlType">
+        <ns:annotation><ns:documentation>
+		Line Branch record for acsc analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="acscXfr" substitutionGroup="pss:branch" type="pss:XfrShortCircuitXmlType">
+        <ns:annotation><ns:documentation>
+		Xfr Branch record for acsc analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:element name="acscPsXfr" substitutionGroup="pss:branch" type="pss:PSXfrShortCircuitXmlType">
+        <ns:annotation><ns:documentation>
+		PsXfr Branch record for acsc analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+<!-- 
+		Network object
+ -->	
+ 
+     <ns:complexType name="ShortCircuitNetXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining Acsc network
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:LoadflowNetXmlType">
+				<ns:sequence>
+					<ns:element name="hasLoadflowData" type="ns:boolean" />
+					<ns:element name="positiveSeqDataOnly" type="ns:boolean" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	
+	<!--  
+		Bus objects
+ 	-->	
+
+    <ns:complexType name="ShortCircuitBusXmlType">
+		<ns:annotation><ns:documentation>
+		SC Bus with Aclf info
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:LoadflowBusXmlType">
+		      	<ns:sequence>
+					<ns:element minOccurs="0" name="swithedShuntLoadZeroY" type="pss:YXmlType" />
+		      	</ns:sequence>
+			  	<ns:attribute name="scCode" type="pss:ShortCircuitBusEnumType" use="optional" />
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:complexType name="ShortCircuitGenDataXmlType">
+		<ns:annotation><ns:documentation>
+			for defining acscEquivGen and acsContributeGen. It is assumed
+			    acscEquivGen data is on system MVA base
+		        acscContributeGen data is on retedMachPower base if it is defined 
+		</ns:documentation></ns:annotation>
+    	<ns:complexContent>
+			<ns:extension base="pss:LoadflowGenDataXmlType">
+		      <ns:sequence>				<ns:element maxOccurs="1" minOccurs="0" name="ratedMachVoltage" type="pss:VoltageXmlType" />
+				<ns:element minOccurs="0" name="potiveZ" type="pss:ZXmlType" maxOccurs="1"/>
+			    <ns:element minOccurs="0" name="negativeZ" type="pss:ZXmlType" />
+			    <ns:element minOccurs="0" name="zeroZ" type="pss:ZXmlType" />
+			    <ns:element minOccurs="0" name="grounding" type="pss:GroundingXmlType" />
+			  </ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+    <ns:complexType name="ShortCircuitLoadDataXmlType">
+    	<ns:complexContent>
+			<ns:extension base="pss:LoadflowLoadDataXmlType">
+		      <ns:sequence>
+				<ns:element minOccurs="0" name="shuntLoadNegativeY" type="pss:YXmlType" />
+				<ns:element minOccurs="0" name="shuntLoadZeroY" type="pss:YXmlType" />
+			  </ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+<!-- 
+		Branch objects
+ -->
+	
+    <ns:complexType name="LineShortCircuitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:LineBranchXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="0" name="z0" type="pss:ZXmlType" />
+					<ns:element maxOccurs="1" minOccurs="0" name="y0Shunt" type="pss:YXmlType" />
+					<ns:element maxOccurs="1" minOccurs="0" name="y0ShuntFromSide" type="pss:YXmlType" />
+					<ns:element maxOccurs="1" minOccurs="0" name="y0ShuntToSide" type="pss:YXmlType" />
+					<ns:element maxOccurs="unbounded" minOccurs="0" name="lineMutualZeroZ" type="pss:MutualZeroZXmlType" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="XfrShortCircuitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:XfrBranchXmlType">
+				<ns:sequence>
+					<ns:group ref="pss:ShortCircuitXfrInfoGroup"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+    <ns:group name="ShortCircuitXfrInfoGroup">
+        <ns:sequence>
+			<ns:element minOccurs="0" name="z0" type="pss:ZXmlType" />
+			<ns:element minOccurs="0" name="fromSideConnection" type="pss:XformerConnectionXmlType" />
+			<ns:element minOccurs="0" name="toSideConnection" type="pss:XformerConnectionXmlType" />
+			<ns:element minOccurs="0" name="xfrZeroSeq" type="pss:TransformerZeroSeqXmlType" />
+		</ns:sequence>
+    </ns:group>
+    
+    <ns:complexType name="Xfr3WShortCircuitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:Xfr3WBranchXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="PSXfrShortCircuitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:PSXfrBranchXmlType">
+				<ns:sequence>
+					<ns:group ref="pss:ShortCircuitXfrInfoGroup"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    	
+    <ns:complexType name="PSXfr3WShortCircuitXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:PSXfr3WBranchXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+    <ns:complexType name="MutualZeroZXmlType">
+		<ns:sequence>
+			<ns:element name="branchFromBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="branchToBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="branchCirId" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="zM" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="bIJ1pu" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="bIJ2pu" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="bKL1pu" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="bKL2pu" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    	
+ </ns:schema>

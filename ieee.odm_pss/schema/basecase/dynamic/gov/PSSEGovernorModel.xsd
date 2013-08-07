@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd" />
+    <ns:include schemaLocation="IEEEGovernorModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+    
+
+	<!--
+		define models for PSSE Governor, Turbine
+		   Naming convention
+		       govPSSE* for element
+		       GovPSSE* SteamTurbinePSSE* for complex type 
+	-->
+	
+    <ns:element name="govPSSEIEESGO" substitutionGroup="pss:governor" type="pss:GovPSSEIEESGOModelXmlType" />
+
+    <ns:element name="govPSSETGOV1" substitutionGroup="pss:governor" type="pss:GovPSSETGOV1ModelXmlType" />
+    
+    
+    
+    <!--IEESGO
+        The general-purpose turbine-governor model is included for its compatibility with other widely 
+        used stability programs. 
+        This model gives either a good representation of a reheat steam turbine or an approximate representation of a hydro 
+        plant of simple configuration.
+     -->
+    <ns:complexType name="GovPSSEIEESGOModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T4" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T5" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T6" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K1" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K2" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="K3" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="PMIN" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+	
+	<ns:complexType name="GovPSSETGOV1ModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+		    <ns:element maxOccurs="1" minOccurs="1" name="R" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VMAX" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VMIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Dt" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+</ns:schema>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+	<ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/StudyScenario.xsd" />
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+	</ns:annotation>
+
+	<ns:complexType name="ContingencyAnalysisXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining Aclf based contingency analysis for the study case
+		</ns:documentation>	</ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisTypeXmlType">
+				<ns:sequence>
+					<ns:element name="type" type="ipss:ContingencyAnalysisEnumType" minOccurs="1" maxOccurs="1" />
+					<ns:element name="defaultAclfAlgorithm" type="pss:AclfAlgorithmXmlType" minOccurs="0" maxOccurs="1" />
+					<ns:element name="option" minOccurs="0" type="ipss:ContingencyOptionXmlType" />
+					<ns:element name="limitRunCases" minOccurs="0" type="ns:boolean" />
+					<ns:element name="maxRunCases" minOccurs="0" type="ns:int" />
+					<ns:element name="aclfAnalysisCase" minOccurs="0" maxOccurs="unbounded" type="ipss:AclfAnalysisCaseXmlType">
+						<ns:annotation><ns:documentation>
+							For Custom type, where a set of aclfAnalysisCase could be defined for Contingency analysis
+						</ns:documentation>	</ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="AclfAnalysisCaseXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisCaseXmlType">
+				<ns:sequence>
+					<ns:element name="aclfAlgorithm"
+						type="pss:AclfAlgorithmXmlType" minOccurs="0">
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+	
+    <ns:simpleType name="ContingencyAnalysisEnumType">
+    	<ns:restriction base="ns:string">
+			<ns:enumeration value="N-1"></ns:enumeration>
+			<ns:enumeration value="N-1-1"></ns:enumeration>
+			<ns:enumeration value="N-2"></ns:enumeration>
+			<ns:enumeration value="Custom"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>
+
+	<ns:complexType name="ContingencyOptionXmlType">
+		<ns:sequence>
+			<ns:element name="busVLimitPU" type="pss:LimitXmlType" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+</ns:schema>

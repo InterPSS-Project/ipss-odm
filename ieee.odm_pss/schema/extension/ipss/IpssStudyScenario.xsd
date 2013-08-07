@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+	<ns:include schemaLocation="AclfAnalysisCaseType.xsd" />
+	<ns:include schemaLocation="ContingencyAnalysisCaseType.xsd" />
+	<ns:include schemaLocation="AcscAnalysisCaseType.xsd" />
+	<ns:include schemaLocation="DclfSenAnalysisCaseType.xsd" />
+	<ns:include schemaLocation="DStabAnalysisCaseType.xsd" />
+	<ns:include schemaLocation="PTradingAnalysisType.xsd" />
+	<ns:include schemaLocation="IpssModification.xsd" />
+
+	<ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/ScenarioType.xsd" />
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+	</ns:annotation>
+
+	<ns:complexType name="IpssStudyScenarioXmlType">
+        <ns:annotation><ns:documentation>
+			Key concepts:
+				- Acsc Fault : defined using Fault Type (BusFault, BranchFault, BranchOutage) and Fault Category (3P, LG, LL, LLG)
+				- Dynamic Event : defined using Dynamic Event Type (Fault, LoadChange, SetPointChange). Dynamic Event Fault is then 
+                                  defined using Acsc Fault.
+		</ns:documentation></ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:StudyScenarioXmlType">
+				<ns:sequence>
+					<ns:element name="gridRunOption" minOccurs="0" maxOccurs="1" type="ipss:GridComputingXmlType"></ns:element>
+					<ns:element name="defaultAclfAlgo" type="pss:AclfAlgorithmXmlType" minOccurs="0">
+						<ns:annotation><ns:documentation>
+						The default AclfAlgo applies to all study scenarios, for contingency analysis
+						</ns:documentation></ns:annotation>
+					</ns:element>
+					<ns:element name="powerTradingInfo" minOccurs="0" maxOccurs="1" type="ipss:PowerTradingInfoXmlType"></ns:element>
+					<ns:element name="analysisCaseList" maxOccurs="1" minOccurs="1">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="curAnalysisCaseId" type="ns:string" minOccurs="0">
+									<ns:annotation><ns:documentation>
+									current study case id. It is used for example in GUI to indicating the
+									active study case being worked on
+									</ns:documentation></ns:annotation>								
+								</ns:element>
+								<ns:element name="analysisCase" type="ipss:IpssAnalysisCaseXmlType" maxOccurs="unbounded" minOccurs="1">
+									<ns:annotation><ns:documentation>
+									Typically, there is one study scenario. However, one can define many scenarios,
+									for example, for N-1 contingency analysis
+									</ns:documentation></ns:annotation>								
+								</ns:element>
+							</ns:sequence>
+						</ns:complexType>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="IpssAnalysisCaseXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for define a study scenario. 
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisCaseXmlType">
+				<ns:sequence>
+					<ns:element name="aclfAnalysis" minOccurs="0" maxOccurs="1" type="ipss:AclfAnalysisXmlType"></ns:element>
+					<ns:element name="contingencyAnalysis" minOccurs="0" maxOccurs="1" type="ipss:ContingencyAnalysisXmlType"></ns:element>
+					<ns:element name="senAnalysis" minOccurs="0" maxOccurs="unbounded" type="ipss:DclfSenAnalysisXmlType"></ns:element>
+					<ns:element ref="ipss:ptAnalysis" minOccurs="0" maxOccurs="1"></ns:element>
+					<ns:element name="acscAnalysis" minOccurs="0" maxOccurs="1" type="ipss:AcscFaultAnalysisXmlType"></ns:element>
+					<ns:element name="dStabAnalysis" minOccurs="0" maxOccurs="1" type="ipss:DStabSimulationXmlType"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="PowerTradingInfoXmlType">
+		<ns:sequence>
+			<ns:element name="interfaceFilename" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="loadDist" type="ipss:PtLoadDistributionXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="PtLoadDistributionXmlType">
+		<ns:sequence>
+			<ns:element name="minLoadForDistFactor" minOccurs="0" type="pss:ActivePowerXmlType"></ns:element>
+			<ns:element name="aggregateGen" type="ipss:AggregateGenXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+	
+	<ns:complexType name="AggregateGenXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<ns:sequence>
+					<ns:element name="aggregatePricingFilename" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="apGroup" type="ipss:AggregateGenGroupXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="AggregateGenGroupXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="apBus" type="ipss:AggregateGenBusXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="AggregateGenBusXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BusRefXmlType">
+				<ns:sequence>
+					<ns:element name="allocFactor" type="pss:FactorXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+					<ns:element name="busType" type="ipss:AggregateGenBusEnumType" minOccurs="0" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:simpleType name="AggregateGenBusEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="STATION_POWER"></ns:enumeration>
+			<ns:enumeration value="ETC_TOR"></ns:enumeration>
+			<ns:enumeration value="DEMAND_RESPONSE"></ns:enumeration>
+			<ns:enumeration value="ParticipateLoad"></ns:enumeration>
+			<ns:enumeration value="DEFAULT_LAP"></ns:enumeration>
+			<ns:enumeration value="SUBLAP"></ns:enumeration>
+			<ns:enumeration value="TH"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+	
+	<ns:complexType name="GridComputingXmlType">
+		<ns:sequence>
+			<ns:element name="enableGridRun" type="ns:boolean" minOccurs="1" maxOccurs="1"></ns:element>
+			<ns:element name="remoteJobCreation" type="ns:boolean" minOccurs="0"></ns:element>
+			<ns:element name="timeout" type="ns:long" minOccurs="0" maxOccurs="1">
+				<ns:annotation><ns:documentation>
+				timeout in milliseconds
+				</ns:documentation></ns:annotation>
+			</ns:element>
+			<ns:element name="remoteNodeDebug" type="ns:boolean" minOccurs="0" maxOccurs="1"></ns:element>
+            <ns:element name="remoteNodeName" type="ns:string" minOccurs="0"></ns:element>
+            <ns:element name="aclfOption" minOccurs="0" type="ipss:GridAclfOptionXmlType"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+	
+	<ns:complexType name="GridAclfOptionXmlType">
+		<ns:sequence>
+			<ns:element name="returnStudyCase" minOccurs="1" type="ipss:GridReturnStudyCaseEnumType">
+				<ns:annotation><ns:documentation>
+					If true, only return the Aclf network object from the remote grid node to the 
+					master node when LF diverges, or there is limit violation.
+				</ns:documentation></ns:annotation>			</ns:element>
+			<ns:element name="calculateViolation" type="ns:boolean" minOccurs="0"></ns:element>
+			<ns:element name="busVoltagePULimit" type="pss:LimitXmlType" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+	
+	<ns:simpleType name="GridReturnStudyCaseEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="AllStudyCase"></ns:enumeration>
+			<ns:enumeration value="DivergedCase"></ns:enumeration>
+			<ns:enumeration value="NoReturn"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>	
+</ns:schema>

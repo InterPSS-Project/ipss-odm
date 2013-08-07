@@ -1,0 +1,13 @@
+1. To run the adapter for power flow data conversion to ODM, 
+   please add "loadflow" in the first row of the file the is going 
+   to be converted. please see the test data: testdata--bpa--014bpa.DAT.
+   
+   
+2.To run the adapter for power flow and transient data conversion to ODM, 
+   Please copy the transient data, and paste it to the end of power flow data sheet,
+   right following the (END) sign of the power flow data sheet.    
+   Then,please add "transient" in the first row of the file the is going 
+   to be converted.
+   
+3. The transient data conversion part has not been fully tested, and it
+   needs to be developed and tested more in future.

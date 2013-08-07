@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+
+    <ns:include schemaLocation="../../common/DataType.xsd"></ns:include>
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+    
+
+    <ns:complexType name="LoadCharacteristicXmlType">
+		<ns:sequence>
+			<ns:element name="location" maxOccurs="1" minOccurs="1" type="pss:LoadCharacteristicLocationEnumType"></ns:element>
+			<ns:element name="locationId" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="LoadXmlType" maxOccurs="1" minOccurs="1" type="pss:LoadCharacteristicTypeEnumType"></ns:element>
+			<ns:element name="LoadModel" type="pss:LoadCharacteristicModelListXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="LoadCharacteristicLocationEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="atBus"></ns:enumeration>
+			<ns:enumeration value="atOwner"></ns:enumeration>
+			<ns:enumeration value="atZone"></ns:enumeration>
+			<ns:enumeration value="atArea"></ns:enumeration>
+			<ns:enumeration value="other"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="LoadCharacteristicTypeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="IEEEStaticLoad"></ns:enumeration>
+			<ns:enumeration value="ComplexLoad"></ns:enumeration>
+			<ns:enumeration value="InductionMotor"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="LoadCharacteristicModelListXmlType">
+		<ns:sequence>
+			<ns:element name="IEEEStaticLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadIEEEStaticLoadXmlType"></ns:element>
+			<ns:element name="ComplexLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadComplexLoadXmlType"></ns:element>
+			<ns:element name="InductionMotor" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadInductionMotorXmlType"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:complexType name="DynamicLoadIEEEStaticLoadXmlType">
+		<ns:sequence>
+			<ns:element name="modelDesc" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadEnumType">			</ns:element>
+			<ns:element name="a1" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a2" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a3" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a4" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a5" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a6" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a7" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a8" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="n1" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="n2" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="n3" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="n4" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="n5" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="n6" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="a9" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="a10" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="DynamicLoadEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="IEEEStaticLoad"></ns:enumeration>
+			<ns:enumeration value="InductionMotor"></ns:enumeration>
+			<ns:enumeration value="complexLoad"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="DynamicLoadComplexLoadXmlType">
+		<ns:sequence>
+			<ns:element name="modelDesc" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadEnumType"> 		</ns:element>
+			<ns:element name="largeMotPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="smallMotPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="transExcCurPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="dischLightingPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="constPowerPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="remainPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="branchR" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="branchX" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:complexType name="DynamicLoadInductionMotorXmlType">
+		<ns:sequence>
+			<ns:element name="modelDesc" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadEnumType">			</ns:element>
+			<ns:element name="motorType" maxOccurs="1" minOccurs="1" type="pss:InductionMotorEnumType">			</ns:element>
+			<ns:element name="RA" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="XA" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="XM" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="R1" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="X1" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="R2" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="X2" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="E1" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="SE1" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="E2" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="SE2" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="MBASE" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="PMULT" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="H" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="VI" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="TI" maxOccurs="1" minOccurs="1" type="pss:TimePeriodXmlType"></ns:element>
+			<ns:element name="TB" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="D" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Tnom" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:simpleType name="InductionMotorEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="type1"></ns:enumeration>
+			<ns:enumeration value="type2"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    	
+    	
+    <ns:complexType name="DynamicLoadModelSelectionXmlType">
+		<ns:choice>
+			<ns:element name="IEEEStaticLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadIEEEStaticLoadXmlType"></ns:element>
+			<ns:element name="ComplexLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadComplexLoadXmlType"></ns:element>
+			<ns:element name="InductionMotor" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadInductionMotorXmlType"></ns:element>
+		</ns:choice>
+	</ns:complexType>
+</ns:schema>

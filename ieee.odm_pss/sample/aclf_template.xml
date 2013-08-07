@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pss:pssStudyCase id="Two-Area_Stability-Study" xmlns:pss="http://www.ieee.org/odm/Schema/2008" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../schema/ODMSchema.xsd "  schemaVersion="0.9.0">
+    <pss:networkCategory>Transmission</pss:networkCategory>
+    <pss:analysisCategory>Loadflow</pss:analysisCategory>
+  <pss:aclfNet id="AclfBaseCase">
+    <pss:basePower unit="MVA" value="100" />
+    <pss:busList>
+      <pss:aclfBus id="Bus1" name="AR1GEN1">
+        <pss:baseVoltage unit="KV" value="230"></pss:baseVoltage>
+      </pss:aclfBus>
+      <pss:aclfBus id="Bus2">
+      	<pss:baseVoltage unit="PU" value="0.0" />
+      </pss:aclfBus>
+    </pss:busList>
+    <pss:branchList>
+      <pss:aclfLine areaNumber="1" zoneNumber="1" circuitId="1" id="Branch_1">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+      </pss:aclfLine>
+      <pss:aclfXfr areaNumber="1" zoneNumber="1" circuitId="1" id="Branch_2">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+      </pss:aclfXfr>
+      <pss:aclfPSXfr areaNumber="1" zoneNumber="1" circuitId="1" id="Branch_3">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+      </pss:aclfPSXfr>
+    </pss:branchList>
+  </pss:aclfNet>
+</pss:pssStudyCase>

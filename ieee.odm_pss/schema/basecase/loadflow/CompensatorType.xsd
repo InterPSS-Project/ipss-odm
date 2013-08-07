@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+    
+
+    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"></ns:include>
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+    
+	
+    <ns:complexType name="ShuntCompensatorXmlType">
+		<ns:sequence>
+			<ns:element name="cimRdfRec" type="pss:CimRdfXmlType" minOccurs="0"/>
+			<ns:element name="cimSwitches" maxOccurs="1" minOccurs="0" type="pss:CimSwitchListXmlType"/>
+			<ns:element name="desiredVoltageRange" type="pss:VoltageLimitXmlType" minOccurs="1"/>
+			<ns:element name="bInit" type="ns:double" minOccurs="1"/>
+			<ns:element name="VarPercent" type="ns:double" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="block" type="pss:ShuntCompensatorBlockXmlType" maxOccurs="unbounded" minOccurs="1"/>
+			<ns:element name="remoteControlledBus" type="pss:IDRefRecordXmlType" minOccurs="0"/>
+			<ns:element name="vscDcLine" type="ns:string" minOccurs="0"/>
+			<ns:element name="bZeroSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="bPosSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="gZeroSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="gPosSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="maxSections" type="ns:long" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="maxVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="minVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="norminalQOutput" type="pss:ReactivePowerXmlType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="norminalVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="norminalSwitchedInSections" type="ns:long" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="slop" type="ns:double" maxOccurs="1" minOccurs="0"/>
+			<ns:element name="reactivePowerPerSec" type="pss:ReactivePowerXmlType" maxOccurs="1" minOccurs="0"/>
+		</ns:sequence>
+		<ns:attribute name="mode" use="required" type="pss:ShuntCompensatorModeEnumType"/>
+		<ns:attribute name="offLine" type="ns:boolean" use="required"/>
+	</ns:complexType>
+
+	<ns:complexType name="ShuntCompensatorBlockXmlType">
+		<ns:sequence>
+			<ns:element name="incrementB" type="pss:ReactivePowerXmlType" minOccurs="1"></ns:element>
+		    <ns:element name="zeroSeqIncrementB" type="pss:ReactivePowerXmlType" minOccurs="0"></ns:element>
+		</ns:sequence>
+		<ns:attribute name="steps" type="ns:int" use="required"></ns:attribute>
+	</ns:complexType>    
+
+
+    <ns:simpleType name="ShuntCompensatorModeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Fixed"></ns:enumeration>
+			<ns:enumeration value="Discrete"></ns:enumeration>
+			<ns:enumeration value="Continuous"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="StaticVarCompensatorXmlType">
+		<ns:sequence>
+			<ns:element name="cimRdfRec" type="pss:CimRdfXmlType" minOccurs="0"></ns:element>
+			<ns:element name="cimSwitches" maxOccurs="1" minOccurs="0" type="pss:CimSwitchListXmlType"></ns:element>
+			<ns:element name="offLine" type="ns:boolean" minOccurs="1"></ns:element>
+			<ns:element name="ratedVoltage" type="pss:VoltageXmlType" minOccurs="1"></ns:element>
+			<ns:element name="voltageSetPoint" type="pss:VoltageXmlType" minOccurs="1"></ns:element>
+			<ns:element name="capacitiveRating" type="pss:ReactivePowerXmlType" minOccurs="1"></ns:element>
+			<ns:element name="inductiveRating" type="pss:ReactivePowerXmlType" minOccurs="1"></ns:element>
+			<ns:element name="controlMode" minOccurs="1" type="pss:SVCControlModeEnumType"> </ns:element>
+			<ns:element name="slope" type="ns:double" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+		
+	
+    <ns:simpleType name="SVCControlModeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Voltage"></ns:enumeration>
+			<ns:enumeration value="ReactivePower"></ns:enumeration>
+			<ns:enumeration value="Off"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+</ns:schema>

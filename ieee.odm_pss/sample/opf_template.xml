@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pss:pssStudyCase id="Two-Area_Stability-Study" 
+    xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../schema/ODMSchema.xsd ">
+    <pss:networkCategory>Transmission</pss:networkCategory>
+    <pss:analysisCategory>OPF</pss:analysisCategory>
+  <pss:opfNet id="SampleOPFBaseCase">
+    <pss:basePower unit="MVA" value="100"/>
+    <pss:busList>
+    	<pss:opfGenBus id="Bus1" name="AR1GEN1">
+    		<pss:baseVoltage unit="KV" value="230"></pss:baseVoltage>
+    		<pss:coeffA>0.0</pss:coeffA>
+    		<pss:coeffB>0.0</pss:coeffB>
+    		<pss:capacityLimit max="0.0" min="0.0" unit="PU" /><pss:fixedCost>0.0</pss:fixedCost>
+    	</pss:opfGenBus>
+    	<pss:aclfBus id="Bus2" name="AR1GEN1">
+    		<pss:baseVoltage unit="KV" value="230"></pss:baseVoltage>
+    	</pss:aclfBus>
+    </pss:busList>
+    <pss:branchList>
+      <pss:aclfLine areaNumber="1" zoneNumber="1" circuitId="1" id="Branch1">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+      </pss:aclfLine>
+      <pss:aclfXfr areaNumber="1" zoneNumber="1" circuitId="1" id="Branch2">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+      </pss:aclfXfr>
+      <pss:aclfPSXfr areaNumber="1" zoneNumber="1" circuitId="1" id="Branch3">
+      	<pss:fromBus idRef="Bus1"></pss:fromBus>
+      	<pss:toBus idRef="Bus2"></pss:toBus>
+      </pss:aclfPSXfr>
+    </pss:branchList>
+    <pss:anglePenaltyFactor>0.0</pss:anglePenaltyFactor>
+  </pss:opfNet>
+</pss:pssStudyCase>

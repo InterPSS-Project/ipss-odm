@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pss:pssStudyCase id="Two-Area_Stability-Study" 
+    xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.ieee.org/odm/Schema/2008 ../schema/ODMSchema.xsd ">
+    <pss:networkCategory>Distribution</pss:networkCategory>
+    <pss:analysisCategory>DistributionAnalysis</pss:analysisCategory>
+  <pss:distNet id="SampleDistCase">
+    <pss:basePower unit="MVA" value="100"/>
+    <pss:busList>
+    	<pss:distUtilityBus id="Bus-1">
+    		<pss:baseVoltage unit="PU" value="0.0" />
+    		<pss:voltage unit="PU" value="1.0"/>
+    		<pss:angle unit="RAD" value="0.0"/>
+    		<pss:source>
+    			<pss:scMva3Phase>0.0</pss:scMva3Phase>
+    			<pss:xOverR3Phase>0.0</pss:xOverR3Phase>
+    		</pss:source>
+    	</pss:distUtilityBus>
+    	<pss:distMixedLoadBus id="Bus-2">
+    		<pss:baseVoltage unit="PU" value="0.0" />
+    		<pss:ratedVoltage unit="PU" value="0.0" />
+    		<pss:pFactor unit="PU" value="0.0" />
+    		<pss:grounding groundingConnection="Ungrounded"></pss:grounding>
+    		<pss:z1 im="0.0" unit="PU" />
+    		<pss:z0 im="0.0" unit="PU" />
+    		<pss:z2 im="0.0" unit="PU" />
+    		<pss:totalKva unit="PU" value="1.0" />
+    		<pss:motorPercent>0.0</pss:motorPercent>
+    	</pss:distMixedLoadBus>
+    </pss:busList>
+    <pss:branchList>
+      <pss:distFeederBranch id="BranchId">
+      	<pss:fromBus idRef="Bus-1"></pss:fromBus>
+      	<pss:toBus idRef="Bus-2"></pss:toBus>
+      	<pss:z1 im="0.0" unit="PU" />
+      </pss:distFeederBranch>
+    </pss:branchList>
+    <pss:hasChildNet>false</pss:hasChildNet>
+    <pss:positiveSeqDataOnly>true</pss:positiveSeqDataOnly>
+    <pss:scStd>Generic</pss:scStd>
+    	<pss:scPoint>
+    		<pss:name>ScAnalysis</pss:name>
+    		<pss:enabled>true</pss:enabled>
+    		<pss:desc>Only one sc analysis point</pss:desc>
+    	</pss:scPoint>
+  </pss:distNet>
+</pss:pssStudyCase>

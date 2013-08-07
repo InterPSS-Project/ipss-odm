@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema"
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008"
+	elementFormDefault="qualified">
+
+	<ns:include schemaLocation="NetModification.xsd"></ns:include>
+
+	<ns:import namespace="http://www.interpss.org/Schema/odm/2008"
+		schemaLocation="../extension/ipss/IpssStudyScenario.xsd" />
+
+	<ns:annotation>
+		<ns:documentation>
+			Copyright www.interpss.org 2008-2011
+		</ns:documentation>
+	</ns:annotation>
+
+	<!-- 
+		elements for defining study scenario for run analysis of the base case data
+		Study scenario definition is software implementation specific. ODM study scenario is designed 
+		such it can accommodate other study scenario schema by extension   
+	-->
+	<ns:element name="studyScenario" type="pss:StudyScenarioXmlType" />
+	<ns:element name="ipssStudyScenario"
+		type="ipss:IpssStudyScenarioXmlType"
+		substitutionGroup="pss:studyScenario">
+		<ns:annotation>
+			<ns:documentation>
+				Study scenario for running InterPSS software
+			</ns:documentation>
+		</ns:annotation>
+	</ns:element>
+</ns:schema>

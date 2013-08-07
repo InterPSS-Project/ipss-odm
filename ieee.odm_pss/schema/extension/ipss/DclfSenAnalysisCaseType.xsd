@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+    <ns:include schemaLocation=""></ns:include>
+    <ns:include schemaLocation=""></ns:include>
+    <ns:include schemaLocation=""></ns:include>
+    <ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/StudyScenario.xsd" />
+	
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+
+	<ns:complexType name="DclfSenAnalysisXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining Dclf sensitivity analysis
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisTypeXmlType">
+				<ns:sequence>
+					<ns:element name="caculatelDclf" type="ns:boolean" minOccurs="0" maxOccurs="1"></ns:element>
+					<ns:element name="genShiftFactor" type="ipss:DclfBranchSensitivityXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+					<ns:element name="lineOutageDFactor" minOccurs="0" maxOccurs="unbounded" type="ipss:LineOutageDFactorXmlType" />
+					<ns:element name="pTransferDistFactor" type="ipss:DclfBranchSensitivityXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+					<ns:element name="areaTransferAnalyse" minOccurs="0" maxOccurs="unbounded" type="ipss:AreaTransferAnalysisXmlType"></ns:element>
+					<ns:element name="outOption" minOccurs="0" type="ipss:SenAnalysisOutOptionXmlType"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+	<ns:complexType name="DclfSensitivityXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining a sensitivity analysis. It has a type and 1-* injection bus(es), 0-* withdraw bus(es).
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRecordXmlType">
+				<ns:sequence>
+					<ns:element name="senType" minOccurs="1" maxOccurs="1" type="ipss:SenAnalysisEnumType" />
+					<ns:element name="injectBusType" minOccurs="1" type="ipss:SenAnalysisBusEnumType"></ns:element>
+					<ns:element name="injectBus" type="ipss:SenAnalysisBusXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+					<ns:element name="withdrawBusType" minOccurs="1" type="ipss:SenAnalysisBusEnumType"></ns:element>
+					<ns:element name="withdrawBus" type="ipss:SenAnalysisBusXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+					<ns:element name="apNodeId" minOccurs="0" type="ns:string">
+						<ns:annotation><ns:documentation>
+							Aggregate Pricing node id, used for defining the injection bus list
+						</ns:documentation></ns:annotation>
+					</ns:element>
+					<ns:element name="userFilename" minOccurs="0" type="ns:string">
+						<ns:annotation><ns:documentation>
+							User file name for defining the withdraw bus list
+						</ns:documentation></ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:simpleType name="SenAnalysisEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PAngle"></ns:enumeration>
+			<ns:enumeration value="QVoltage"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+	
+    <ns:simpleType name="SenAnalysisBusEnumType">
+    	<ns:restriction base="ns:string">
+    		<ns:enumeration value="SingleBus"></ns:enumeration>
+    		<ns:enumeration value="MultipleBus"></ns:enumeration>
+
+    		<ns:enumeration value="APNode">
+    			<ns:annotation> <ns:documentation>
+    				Injection buses are defined by an aggregate pricing node.
+    			</ns:documentation></ns:annotation>
+    		</ns:enumeration>
+
+    		<ns:enumeration value="LoadDistribution">
+    			<ns:annotation><ns:documentation>
+    				Withdraw buses might be defined using load distribution factor based on basecase load.
+    			</ns:documentation></ns:annotation>
+    		</ns:enumeration>
+    		<ns:enumeration value="UserFile">
+    			<ns:annotation> <ns:documentation>
+    				Withdraw buses might be defined by a user file.
+    			</ns:documentation></ns:annotation>
+    		</ns:enumeration>
+
+    		<ns:enumeration value="NoBus"></ns:enumeration>
+    	</ns:restriction>
+    </ns:simpleType>
+
+
+    <ns:complexType name="DclfBranchSensitivityXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining branch sensitivity calculation. It is used, for example,
+			for defining GSF calculation.
+		</ns:documentation></ns:annotation>
+    	<ns:complexContent>
+    		<ns:extension base="ipss:DclfSensitivityXmlType">
+    			<ns:sequence>
+    				<ns:element name="branchSFactor" type="ipss:BranchShiftFactorXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+    				<ns:element name="interfaceSFactor" type="ipss:InterfaceShiftFactorXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+
+	<ns:complexType name="LineOutageDFactorXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining line outage distribution factor.
+		</ns:documentation></ns:annotation>
+		<ns:sequence>
+			<ns:element name="outageType" type="ipss:LODFOutageEnumType" minOccurs="1" maxOccurs="1"></ns:element>
+			<ns:element name="outageBranch" type="pss:BranchRefXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+			<ns:element name="monitorBranch" type="ipss:LODFMonitorBranchXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+			<ns:element name="monitorInterface" type="ipss:LODFMonitorInterfaceXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+
+	<ns:complexType name="GenLossFactorXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining generator loss factor calculation.
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="ipss:DclfSensitivityXmlType">
+				<ns:sequence>
+					<ns:element name="lossFactor" type="ns:double" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+	<ns:simpleType name="LODFOutageEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="SingleBranch"></ns:enumeration>
+			<ns:enumeration value="MultiBranch"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+
+	<ns:complexType name="LODFMonitorBaseXmlType" abstract="true">
+		<ns:sequence>
+			<ns:element name="lodf" type="ns:double" minOccurs="0" maxOccurs="unbounded">
+				<ns:annotation><ns:documentation>
+					lodf is for storing LODF calculation results. It should have the same dimension as the outageBranch,
+			    	of the LineOutageDFactorXmlType object, meaning for each outage branch, there should be a corresponding lodf
+				</ns:documentation></ns:annotation>	
+			</ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:complexType name="LODFMonitorBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="ipss:LODFMonitorBaseXmlType">
+				<ns:sequence>
+					<ns:element name="branch" type="pss:BranchRefXmlType" minOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+    
+	<ns:complexType name="LODFMonitorInterfaceXmlType">
+		<ns:complexContent>
+			<ns:extension base="ipss:LODFMonitorBaseXmlType">
+				<ns:sequence>
+					<ns:element name="interface" type="pss:FlowInterfaceRefXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+    <ns:complexType name="NodeTransferAnalysisXmlType">
+		<ns:complexContent>
+			<ns:extension base="ipss:DclfBranchSensitivityXmlType">
+				<ns:sequence>
+					<ns:element name="transderAmountMW" type="ns:double" minOccurs="1"></ns:element>
+					<ns:element name="deratingFactor" type="ns:double" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	    
+    <ns:complexType name="AreaTransferAnalysisXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="ipss:NodeTransferAnalysisXmlType">
+    			<ns:sequence>
+    				<ns:element name="fromArea" type="pss:NetAreaXmlType" minOccurs="1"></ns:element>
+    				<ns:element name="toArea" type="pss:NetAreaXmlType" minOccurs="1"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>   
+     
+    
+	<ns:complexType name="SenAnalysisBusXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:NameTagXmlType">
+				<ns:sequence>
+					<ns:element name="busId" type="ns:string" minOccurs="1"></ns:element>
+					<ns:element name="allocFactor" type="pss:FactorXmlType" minOccurs="0"></ns:element>
+				</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+	</ns:complexType>
+	    
+	<ns:complexType name="BranchShiftFactorXmlType">
+		<ns:sequence>
+			<ns:element name="shiftFactor" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="branch" type="pss:BranchRefXmlType" maxOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+
+	<ns:complexType name="InterfaceShiftFactorXmlType">
+		<ns:sequence>
+			<ns:element name="shiftFactor" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="interface" type="pss:FlowInterfaceRefXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+   	<ns:complexType name="SenAnalysisOutOptionXmlType">
+		<ns:sequence>
+			<ns:element name="allBranchPoints" type="ns:int" minOccurs="0"></ns:element>
+			<ns:element name="allInterfacePoints" type="ns:int" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+</ns:schema>

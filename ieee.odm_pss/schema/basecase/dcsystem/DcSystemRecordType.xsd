@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"></ns:include>
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+	
+<!-- 
+	DC Sys Net element definition
+ -->
+	<ns:element name="dcNet" type="pss:DcNetworkXmlType" substitutionGroup="pss:baseCase">
+		<ns:annotation><ns:documentation>
+		Network for Dc system analysis analysis. 
+		</ns:documentation></ns:annotation>
+	</ns:element>
+
+	<ns:element name="childDcNet" type="pss:DcNetworkXmlType" substitutionGroup="pss:childNet">
+		<ns:annotation><ns:documentation>
+		DC system Network could be defined as a child network 
+		</ns:documentation></ns:annotation>
+	</ns:element>
+
+	<ns:element name="dcBus" type="pss:DcBusXmlType" substitutionGroup="pss:bus">
+		<ns:annotation><ns:documentation>
+		Bus record for Dc system analysis
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+	<ns:element name="dcBranch" type="pss:DcBranchXmlType" substitutionGroup="pss:branch">
+		<ns:annotation><ns:documentation>
+		Branch record for Dc system analysis
+		</ns:documentation></ns:annotation>
+	</ns:element>
+
+<!-- 
+	PV Model element definition
+ -->
+	<ns:element name="pvModel" type="pss:BasePVModelXmlType">
+		<ns:annotation><ns:documentation>
+			base pv model 
+		</ns:documentation></ns:annotation>
+	</ns:element>	
+
+	<ns:element name="ivFuncPVModel" type="pss:PVModelIVFunctionXmlType" substitutionGroup="pss:pvModel">
+		<ns:annotation><ns:documentation>
+			I/V function based PV model
+		</ns:documentation></ns:annotation>
+	</ns:element>
+
+	<ns:element name="ivPointPVModel" type="pss:PVModelIVCurveXmlType" substitutionGroup="pss:pvModel">
+		<ns:annotation><ns:documentation>
+			I/V point based PV model
+		</ns:documentation></ns:annotation>
+	</ns:element>
+	
+<!-- 
+	Network type
+
+		- PV behavior is defined by PV Model type. PV model data is defined
+		  at the network level and referenced by DC bus.
+		- PV configuration at a DC bus is described by PV Module type
+		- A PV module consists of 1-* PV module items, which has ref to a 
+		  PV Model
+		- PV module item has parameters, such as shading factor, to modify
+		  PV model characteristics at the module item level.  	
+ -->	
+	<ns:complexType name="DcNetworkXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining DC system network   
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:NetworkXmlType">
+				<ns:sequence>
+					<ns:element name="ratedVoltage" type="pss:VoltageXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+					<ns:element name="pvModelList" minOccurs="0" maxOccurs="1">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element ref="pss:pvModel" maxOccurs="unbounded"></ns:element>
+							</ns:sequence>
+						</ns:complexType></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+<!--
+		PV Model type
+-->
+	<ns:complexType name="BasePVModelXmlType" abstract="true">
+		<ns:annotation><ns:documentation>
+			Base PV model 
+		</ns:documentation></ns:annotation>
+		<ns:sequence>
+			<ns:element name="dataType" type="pss:PVModuleDataEnumType" minOccurs="1"></ns:element>
+		</ns:sequence>
+		<ns:attribute name="id" type="ns:ID" use="required"></ns:attribute>
+		<ns:attribute name="name" type="ns:string" use="required"></ns:attribute>
+		<ns:attribute name="desc" type="ns:string" use="optional"></ns:attribute>
+	</ns:complexType>
+
+
+	<ns:simpleType name="PVModuleDataEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Points"></ns:enumeration>
+			<ns:enumeration value="Function"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+
+
+	<ns:complexType name="PVModelIVFunctionXmlType">
+		<ns:annotation><ns:documentation>
+			I/V function based PV model
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BasePVModelXmlType">
+				<ns:sequence>
+					<ns:element name="a" type="ns:double" minOccurs="1"></ns:element>
+					<ns:element name="b" type="ns:double" minOccurs="1"></ns:element>
+					<ns:element name="c" type="ns:double" minOccurs="1"></ns:element>
+					<ns:element name="d" type="ns:double" minOccurs="1"></ns:element>
+					<ns:element name="e" type="ns:double" minOccurs="1"></ns:element>
+					<ns:element name="f" type="ns:double" minOccurs="1"></ns:element>
+				</ns:sequence>
+				<ns:attribute name="sign" type="ns:int" use="required"></ns:attribute>		
+				<ns:attribute name="shadingFactor" type="ns:double" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+
+	<ns:complexType name="PVModelIVCurveXmlType">
+		<ns:annotation><ns:documentation>
+			I/V curve based PV model
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BasePVModelXmlType">
+				<ns:sequence>
+					<ns:element name="ivPoint" type="pss:PVModelPointXmlType" minOccurs="1" maxOccurs="unbounded">
+						<ns:annotation><ns:documentation>
+						volt in ascending order and amp in descending order, and first point vdc = 0;
+						</ns:documentation></ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="PVModelPointXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for defining PV model data point
+		</ns:documentation></ns:annotation>
+		<ns:attribute name="volt" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="amp" type="ns:double" use="required"></ns:attribute>
+	</ns:complexType>
+
+<!--  
+		Bus type
+-->	
+	<ns:complexType name="DcBusXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BusXmlType">
+				<ns:sequence>
+					<ns:element name="voltage" type="pss:VoltageXmlType" minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						For DcBusCodeEnumType.VoltageSource, it is the voltage spec. Otherwise, it
+						is optional, used for bus init voltage
+						</ns:documentation></ns:annotation></ns:element>
+					<ns:element name="power" type="pss:ActivePowerXmlType" minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						Only use for DcBusCodeEnumType.PowerSource
+						</ns:documentation></ns:annotation></ns:element>
+					<ns:element name="load" type="pss:ActivePowerXmlType" minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						For DcBusCodeEnumType.Load. For other DcBus type, it is optional. Bus load
+						can be defined for any kind of bus type
+						</ns:documentation></ns:annotation></ns:element>
+					<ns:element name="pvModule" minOccurs="0" maxOccurs="1" type="pss:PVModuleXmlType">
+                        <ns:annotation><ns:documentation>
+                        For DcBusCodeEnumType.PVModel bus type
+                        </ns:documentation></ns:annotation></ns:element>
+					<ns:element name="inverter" type="pss:DcAcInverterXmlType" minOccurs="0">
+						<ns:annotation><ns:documentation>
+						For DcBusCodeEnumType.Inverter bus type
+						</ns:documentation></ns:annotation></ns:element>
+				</ns:sequence>
+				<ns:attribute name="code" type="pss:DcBusCodeEnumType" use="required"></ns:attribute>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:simpleType name="DcBusCodeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Connection"></ns:enumeration>
+			<ns:enumeration value="Load"></ns:enumeration>
+			<ns:enumeration value="PowerSource"></ns:enumeration>
+			<ns:enumeration value="VoltageSource"></ns:enumeration>
+			<ns:enumeration value="PVModule"></ns:enumeration>
+			<ns:enumeration value="Inverter"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+
+<!--
+	PV Module type 
+ -->
+	
+    <ns:complexType name="PVModuleXmlType">
+      	<ns:sequence>
+       		<ns:element name="pvModuleItem" type="pss:PVModuleItemXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+       	</ns:sequence>
+       	<ns:attribute name="dataType" type="pss:PVModuleDataEnumType" use="required"></ns:attribute>
+    </ns:complexType>
+
+
+	<ns:complexType name="PVModuleItemXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:sequence>
+			<ns:element name="shadingFactor" type="ns:double" minOccurs="0">
+				<ns:annotation><ns:documentation>
+				shadingFactor to override the shading factor defined in pvModelRef PVModel
+				</ns:documentation></ns:annotation>
+			</ns:element>
+		</ns:sequence>
+		<ns:attribute name="id" type="ns:ID" use="required"></ns:attribute>
+		<ns:attribute name="pvModelRef" type="ns:IDREF" use="required"></ns:attribute>
+		<ns:attribute name="name" type="ns:string" use="optional"></ns:attribute>
+		<ns:attribute name="desc" type="ns:string" use="optional"></ns:attribute>
+	</ns:complexType>
+
+<!--
+		Inverter type 
+ -->
+	<ns:complexType name="DcAcInverterXmlType">
+		<ns:annotation>
+			<ns:documentation>
+			</ns:documentation>
+		</ns:annotation>
+		<ns:sequence>
+			<ns:element name="powerRating" type="pss:ActivePowerXmlType" minOccurs="1"></ns:element>
+			<ns:element name="vdcmax" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="idcmax" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="mpptHigh" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="mpptLow" type="ns:double" minOccurs="0"></ns:element>
+			<ns:element name="vac" type="pss:VoltageXmlType" minOccurs="0"></ns:element>
+			<ns:element name="acPFactor" type="pss:PowerFactorXmlType" minOccurs="0"></ns:element>
+			<ns:choice>
+				<ns:element name="loss" type="pss:InverterLossEqnXmlType" minOccurs="1" maxOccurs="1"></ns:element>
+				<ns:element name="lossParamList" minOccurs="1">
+					<ns:complexType>
+						<ns:sequence>
+							<ns:element name="lossParam" type="pss:InverterLossParamXmlType" minOccurs="1" maxOccurs="unbounded"></ns:element>
+						</ns:sequence>
+					</ns:complexType>
+				</ns:element>
+			</ns:choice>
+		</ns:sequence>
+	</ns:complexType>
+
+
+	<ns:complexType name="InverterLossParamXmlType">
+		<ns:annotation>
+			<ns:documentation></ns:documentation>
+		</ns:annotation>
+		<ns:attribute name="vdc" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="a" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="b" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="c" type="ns:double" use="required"></ns:attribute>
+	</ns:complexType>
+
+
+	<ns:complexType name="InverterLossEqnXmlType">
+		<ns:annotation>
+			<ns:documentation></ns:documentation>
+		</ns:annotation>
+		<ns:attribute name="a1" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="a2" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="b1" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="b2" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="c1" type="ns:double" use="required"></ns:attribute>
+		<ns:attribute name="c2" type="ns:double" use="required"></ns:attribute>
+	</ns:complexType>
+
+<!--  
+		Branch type
+-->
+	<ns:complexType name="DcBranchXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseBranchXmlType">
+				<ns:choice>
+					<ns:sequence>
+						<ns:element name="feeder" type="pss:DcFeederXmlType" minOccurs="0" maxOccurs="1">
+						</ns:element>
+						<ns:element name="homeRun" type="pss:DcFeederXmlType" minOccurs="0" maxOccurs="1">
+						</ns:element>
+					</ns:sequence>
+				</ns:choice>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+	<ns:complexType name="DcFeederXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:sequence>
+			<ns:element name="r" type="pss:RXmlType" minOccurs="1" maxOccurs="1">
+				<ns:annotation><ns:documentation>
+				Feeder resistance, could be in Ohm or Ohm/Ft, Ohm/M
+				</ns:documentation></ns:annotation>
+			</ns:element>
+			<ns:element name="length" type="pss:LengthXmlType" minOccurs="0" maxOccurs="1">
+				<ns:annotation><ns:documentation>
+				If r in Ohm/Ft or Ohm/M, the length need to be defined. unit in Ft, M, KM or Mile
+				</ns:documentation></ns:annotation></ns:element>
+			<ns:element name="gage" type="ns:string" minOccurs="0" maxOccurs="1">
+				<ns:annotation><ns:documentation>
+				Feeder gage info, not used in calculation, might be used for data lookup
+				</ns:documentation></ns:annotation></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+</ns:schema>

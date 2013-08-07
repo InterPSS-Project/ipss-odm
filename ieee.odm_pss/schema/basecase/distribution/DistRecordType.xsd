@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+
+    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"></ns:include>
+    
+	
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+    
+	
+    <ns:element name="distNet" type="pss:DistributionNetXmlType" substitutionGroup="pss:baseCase">
+        <ns:annotation><ns:documentation>
+		Network for distribution system analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="childDistNet" type="pss:DistributionNetXmlType" substitutionGroup="pss:childNet">
+        <ns:annotation><ns:documentation>
+		Distribution network could be defined as a child network
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+    <ns:element name="distUtilityBus" type="pss:UtilityDistBusXmlType" substitutionGroup="pss:bus" />
+    <ns:element name="distGeneratorBus" type="pss:GeneratorDistBusXmlType" substitutionGroup="pss:bus" />
+    <ns:element name="distSynMotorBus" type="pss:SynchronousMotorDistBusXmlType" substitutionGroup="pss:bus" />
+    <ns:element name="distIndMotorBus" type="pss:InductionMotorDistBusXmlType" substitutionGroup="pss:bus" />
+    <ns:element name="distMixedLoadBus" type="pss:MixedLoadDistBusXmlType" substitutionGroup="pss:bus" />
+	
+    <ns:element name="distNonContributeBus" type="pss:NonContributingDistBusXmlType" substitutionGroup="pss:bus" />
+    <ns:element name="distFeederBranch" type="pss:FeederDistBranchXmlType" substitutionGroup="pss:branch" />
+    <ns:element name="distXfrBranch" type="pss:XFormerDistBranchXmlType" substitutionGroup="pss:branch" />
+    <ns:element name="distReactorBranch" type="pss:ReactorDistBranchXmlType" substitutionGroup="pss:branch" />
+    <ns:element name="distBreakerBranch" type="pss:BreakerDistBranchXmlType" substitutionGroup="pss:branch" />
+    
+
+<!-- 
+	Network types
+	=============
+ -->	
+
+    <ns:complexType name="DistributionNetXmlType">
+		<ns:annotation><ns:documentation>
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:NetworkXmlType">
+				<ns:sequence>
+					<ns:element name="positiveSeqDataOnly" type="ns:boolean" minOccurs="1"></ns:element>
+					<ns:element name="scStd" type="pss:ScAnalysisStdEnumType" minOccurs="1"></ns:element>
+					<ns:element name="scPoint" type="pss:DistScPointXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="DistScPointXmlType">
+		<ns:sequence>
+			<ns:element name="name" type="ns:string" minOccurs="1"></ns:element>
+			<ns:element name="enabled" type="ns:boolean" minOccurs="1"></ns:element>
+			<ns:element name="desc" type="ns:string" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+<!-- 
+	Bus types
+	=========
+ -->	
+
+    <ns:simpleType name="ScAnalysisStdEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Generic"></ns:enumeration>
+			<ns:enumeration value="ANSI"></ns:enumeration>
+			<ns:enumeration value="IEC"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:complexType name="DistBusXmlType" abstract="true">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BusXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="NonContributingDistBusXmlType">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:DistBusXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+    <ns:complexType name="UtilityDistBusXmlType">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:DistBusXmlType">
+				<ns:sequence>
+					<ns:element name="voltage" type="pss:VoltageXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="angle" type="pss:AngleXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="source" type="pss:ScEquivSourceXmlType" minOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="MixedLoadDistBusXmlType">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:RotatingMachineDistBusXmlType">
+				<ns:sequence>
+					<ns:element name="totalKva" type="pss:ApparentPowerXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="motorPercent" type="ns:double" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="GeneratorDistBusXmlType">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:RotatingMachineDistBusXmlType">
+				<ns:sequence>
+					<ns:element name="retedMva" type="pss:ApparentPowerXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="loading" type="pss:FactorXmlType" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="MotorDistBusXmlType" abstract="true">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:RotatingMachineDistBusXmlType">
+				<ns:sequence>
+					<ns:element name="ratedPower" type="pss:ActivePowerXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="efficiency" type="pss:FactorXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="loading" type="pss:FactorXmlType" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="RotatingMachineDistBusXmlType" abstract="true">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:DistBusXmlType">
+				<ns:sequence>
+					<ns:element name="ratedVoltage" type="pss:VoltageXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="pFactor" type="pss:PowerFactorXmlType" minOccurs="1"></ns:element>
+					<ns:element name="grounding" type="pss:GroundingXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="z1" type="pss:NamedZXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
+					<ns:element name="z0" type="pss:ZXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+					<ns:element name="z2" type="pss:ZXmlType" minOccurs="0" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="SynchronousMotorDistBusXmlType">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:MotorDistBusXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+	
+<!-- 
+	Branch types
+	============
+ -->	
+    <ns:complexType name="InductionMotorDistBusXmlType">
+		<ns:annotation><ns:documentation>
+		bus record for loadflow and short circuit study
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:MotorDistBusXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="DistBranchXmlType" abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseBranchXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="FeederDistBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:DistBranchXmlType">
+				<ns:sequence>
+					<ns:element name="z1" type="pss:ZXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="z0" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="shuntY" type="pss:YXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="shuntY0" type="pss:YXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="length" type="pss:LengthXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="XFormerDistBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:DistBranchXmlType">
+				<ns:sequence>
+					<ns:element name="rating" type="pss:ApparentPowerXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="primaryRatedVoltage" type="pss:VoltageXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="secondaryRatedVoltage" type="pss:VoltageXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="z1" type="pss:ZXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="z0" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="primaryTurnRatio" type="pss:TurnRatioXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="secondaryTurnRatio" type="pss:TurnRatioXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="primaryConnection" type="pss:XformerConnectionXmlType" minOccurs="0"></ns:element>
+					<ns:element name="secondaryConnection" type="pss:XformerConnectionXmlType" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+
+    <ns:complexType name="W3XFormerDistBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:XFormerDistBranchXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+	
+    <ns:complexType name="ReactorDistBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:DistBranchXmlType">
+				<ns:sequence>
+					<ns:element name="x" type="pss:XXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="ratedVoltage" type="pss:VoltageXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="ratedAmp" type="pss:CurrentXmlType" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    	
+	
+    <ns:complexType name="BreakerDistBranchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:DistBranchXmlType">
+				<ns:sequence>
+					<ns:element name="r" type="pss:RXmlType" maxOccurs="1"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+</ns:schema>

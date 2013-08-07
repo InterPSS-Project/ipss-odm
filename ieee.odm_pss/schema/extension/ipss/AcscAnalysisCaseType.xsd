@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+	<ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/StudyScenario.xsd" />
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+	</ns:annotation>
+
+    <ns:element name="acscFault" type="pss:AcscBaseFaultXmlType">
+    </ns:element>
+    
+    <ns:element name="acscBusFault" type="pss:AcscBusFaultXmlType" substitutionGroup="ipss:acscFault">
+        <ns:annotation><ns:documentation>
+        For define Acsc bus fault
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="acscBranchFault" type="pss:AcscBranchFaultXmlType" substitutionGroup="ipss:acscFault">
+        <ns:annotation><ns:documentation>
+        For define Acsc branch fault
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+<!-- 
+	Acsc Study Scenario
+ -->
+	<ns:complexType name="AcscFaultAnalysisXmlType">
+        <ns:annotation><ns:documentation>
+        	Data structure for defining an Acsc analysis for the study case
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisTypeXmlType">
+				<ns:sequence>
+					<ns:element ref="ipss:acscFault" minOccurs="1" >
+        				<ns:annotation><ns:documentation>
+        					the field should be substitude with acscBusFault or acscBranchFault
+						</ns:documentation></ns:annotation>
+					</ns:element>
+					<ns:element name="preFaultBusVoltage" minOccurs="0" maxOccurs="1" type="pss:PreFaultBusVoltageEnumType"></ns:element>
+					<ns:element name="multiFactor" type="pss:FactorXmlType" minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+							bus voltage multiplying factor
+						</ns:documentation></ns:annotation>
+					</ns:element>						
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+</ns:schema>

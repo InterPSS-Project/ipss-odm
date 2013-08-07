@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema  
+	xmlns:ns="http://www.w3.org/2001/XMLSchema"
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified">
+
+    <ns:include schemaLocation="../basecase/NetRecordType.xsd"></ns:include>
+    <ns:include schemaLocation="../basecase/shortcircuit/SCRecordType.xsd"></ns:include>
+    <ns:include schemaLocation="../basecase/dynamic/MachineModel.xsd"></ns:include>
+
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+	
+	<!-- 
+		elements for defining study scenario for run analysis of the base case data
+		   (1) Study scenario definition is software implementation specific. ODM study scenario is designed 
+		       such it can accommodate other study scenario schema by extension
+		   (2)  
+		                StudyScenario (1) - (*) StudyCase   
+	 -->
+
+	<ns:complexType name="StudyScenarioXmlType" abstract="true">
+        <ns:annotation><ns:documentation>
+        Base Study scenario type for extension
+        </ns:documentation></ns:annotation>	
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="modifcation" type="pss:ModifyRecordXmlType"	minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						Define modification at the StudyScenario level, The modification applies 
+						to all scenarios (StudyCases)
+						</ns:documentation></ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="BaseAnalysisTypeXmlType" abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRecordXmlType"></ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+	<ns:complexType name="BaseAlgorithmXmlType" abstract="true">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseRecordXmlType"></ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="BaseAnalysisCaseXmlType">
+		<ns:annotation><ns:documentation>
+		for define a study scenario. 
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element name="modifcation" type="pss:ModifyRecordXmlType"	minOccurs="0" maxOccurs="1">
+						<ns:annotation><ns:documentation>
+						In addition to the modification defined at the StudyScenario level,
+						modification can be also defined at each scenario level, used for example 
+						to create N-1 contingency scenario
+						</ns:documentation></ns:annotation>
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+<!-- 
+	Aclf
+ -->	
+	
+	<ns:complexType name="AclfAlgorithmXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisTypeXmlType">
+				<ns:sequence>
+					<ns:element name="lfMethod" minOccurs="1" maxOccurs="1" type="pss:LfMethodEnumType"/>
+					<ns:element name="maxIterations" type="ns:int" minOccurs="1" maxOccurs="1"/>
+					<ns:element name="tolerance" type="pss:ApparentPowerXmlType" minOccurs="1" maxOccurs="1"/>
+					<ns:element name="initBusVoltage" type="ns:boolean" minOccurs="0" maxOccurs="1"></ns:element>
+					<ns:element name="accFactor" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="nonDivergent" type="ns:boolean" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+<!-- 
+	Acsc
+ -->	
+
+    <ns:complexType name="AcscBaseFaultXmlType" abstract="true">
+		<ns:sequence>
+			<ns:element name="faultType" minOccurs="1" type="pss:AcscFaultTypeEnumType" />
+			<ns:element name="faultCategory" minOccurs="1" type="pss:AcscFaultCategoryEnumType" />
+			<ns:element name="zLG" type="pss:ZXmlType" maxOccurs="1" minOccurs="0" />
+			<ns:element name="zLL" type="pss:ZXmlType" maxOccurs="1" minOccurs="0" />
+		</ns:sequence>
+	</ns:complexType>
+
+
+    <ns:complexType name="AcscBusFaultXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:AcscBaseFaultXmlType">
+				<ns:sequence>
+					<ns:element name="refBus" type="pss:BusRefXmlType" minOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+
+	<ns:complexType name="AcscBranchFaultXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:AcscBaseFaultXmlType">
+				<ns:sequence>
+					<ns:element name="refBranch" type="pss:BranchRefXmlType" minOccurs="1" />
+					<ns:element name="distance" type="ns:double" maxOccurs="1" minOccurs="0" />
+					<ns:element name="branchReclosure" type="ns:boolean" maxOccurs="1" minOccurs="0" />
+					<ns:element name="reclosureTime" type="pss:TimePeriodXmlType" minOccurs="0" maxOccurs="1" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+<!-- 
+	DStab
+ -->	
+ 
+     <ns:complexType name="BaseDStabFaultXmlType">
+		<ns:sequence>
+			<ns:element name="faultCategory" type="pss:AcscFaultCategoryEnumType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="faultStartTime" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="firstOperationTime" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="secondOperationTime" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="faultDurationTime" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="faultZ" type="pss:ZXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="permanentFault" type="ns:boolean" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+
+	<ns:complexType name="DStabBranchFaultXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDStabFaultXmlType">
+				<ns:sequence>
+					<ns:element name="fromBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+					<ns:element name="toBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="faultedCirId" type="ns:string" maxOccurs="unbounded" minOccurs="0"></ns:element>
+					<ns:element name="fromBusRatedV" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="toBusRatedV" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="faultLocationFromFromSide" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+
+    <ns:complexType name="DStabBusFaultXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseDStabFaultXmlType">
+				<ns:sequence>
+			<ns:element name="faultedBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="faultedBusRatedV" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="remoteEndBus" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="remoteEndBusRatedV" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+  	 
+
+<!-- 
+		Modification type
+		=================
+ -->
+	<ns:complexType name="ModifyRecordXmlType" abstract="true">
+		<ns:annotation><ns:documentation>
+			Each modifyRecord may describe different modification for some purpose. Each ModifyRecord is retrieved 
+			using the record id. ModifyRecordXmlType is an abstract type. All modification record types are sub-type
+			of ModifyRecordXmlType.
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType"></ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+</ns:schema>

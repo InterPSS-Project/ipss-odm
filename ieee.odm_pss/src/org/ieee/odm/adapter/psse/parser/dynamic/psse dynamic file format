@@ -1,0 +1,50 @@
+*************************
+    Plant model
+*************************
+
+The majority of plant-related models (generators, compensators, stabilizers, excitation limiters, 
+excitation systems, and governors) are specified in data records of the form: 
+   
+   BUSID ’model name’ IM data list / 
+
+where IM specifies the machine identifier and the other data items are as described above. 
+
+************************************
+           Load model
+************************************  
+
+The majority of load-related (i.e., load characteristic and load relay) models are specified in data 
+records of the form:
+   
+   BUSID ’model name’ IL data list / 
+
+where IL specifies the load identifier or a wildcard (*) designating all loads for ’BUSID’. BUSID 
+may be a bus, area, zone, or owner number.
+
+
+Thus, the "/" indicates the end of a model data set 
+
+
+==================Generators========================
+GENROE Round rotor generator.
+GENROU Round rotor generator.             ** 
+GENSAE Salient pole generator.
+GENSAL Salient pole generator. 
+GENCLS Constant internal voltage generator ("classical model")  **
+
+GENROE AND GENROU can use the same parser
+GENSAE AND GENSAL use the same parser
+
+==================Exciter=============================
+IEEET1
+
+
+
+
+
+
+
+=================GOV==================================
+IEEEG1
+TGOV1
+IEESGO

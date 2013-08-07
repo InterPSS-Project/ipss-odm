@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008" 
+	xmlns:ipss="http://www.interpss.org/Schema/odm/2008"
+	targetNamespace="http://www.interpss.org/Schema/odm/2008" 
+	elementFormDefault="qualified">
+
+    <ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../basecase/NetRecordType.xsd" />
+	<ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/StudyScenario.xsd" />
+
+	<ns:include schemaLocation="IpssCommonType.xsd" />
+	
+	<ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+	
+    <ns:element name="ptAnalysis" type="ipss:PTradingAnalysisXmlType">
+    </ns:element>
+    
+    <ns:element name="ptEDHourlyAnalysis" type="ipss:PTradingEDHourlyAnalysisXmlType" substitutionGroup="ipss:ptAnalysis">
+        <ns:annotation><ns:documentation>
+        For e-dispatch based hourly power trading analysis
+		</ns:documentation></ns:annotation>
+    </ns:element>
+
+<!-- 
+      Base PTrading analysis type
+ -->	
+	<ns:complexType name="PTradingAnalysisXmlType" abstract="true">
+		<ns:annotation><ns:documentation>
+			Base type for PowerTraing analysis
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:BaseAnalysisTypeXmlType">
+				<ns:sequence>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+<!-- 
+      Hourly ED Based PTrading analysis type
+ -->	
+
+	<ns:complexType name="PTradingEDHourlyAnalysisXmlType">
+		<ns:annotation><ns:documentation>
+			Data structure for hourly ED info based PowerTrading analysis
+		</ns:documentation></ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="ipss:PTradingAnalysisXmlType">
+				<ns:sequence>
+					<ns:element name="caseData" type="ipss:PtCaseDataXmlType" maxOccurs="1"></ns:element>
+					<ns:element name="aclfAnalysis" type="ipss:PtAclfAnalysisXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="branchAnalysis" type="ipss:PtBranchAnalysisXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+					<ns:element name="genLossFactorAnalysis" minOccurs="0" maxOccurs="1" type="ipss:PtGenLossFactorXmlType" />
+					<ns:element name="outputOption" type="ipss:PtAnalysisOutputXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+
+	<ns:complexType name="PtAclfAnalysisXmlType">
+		<ns:sequence>
+			<ns:element name="hour" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="tolerance" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="genQAdjustment" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="genQAdjOption" type="ipss:PtGenQAdjustXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="swingBusPQAlloc" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="genSwingAllocOption" type="ipss:PtSwingAllocXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:complexType name="PtBranchAnalysisXmlType">
+		<ns:sequence>
+			<ns:element name="hour" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>			<ns:element name="type" maxOccurs="1" minOccurs="1" type="ipss:PtBranchAnalysisEnumType"></ns:element>
+			<ns:element name="branch" type="pss:BranchRefXmlType" maxOccurs="unbounded" minOccurs="1"></ns:element>
+			<ns:element name="outageScheduleFilename" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:complexType name="PtGenLossFactorXmlType">
+		<ns:sequence>
+			<ns:element name="hour" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="genLossFactors" minOccurs="0" maxOccurs="unbounded" type="ipss:GenLossFactorXmlType" />
+		</ns:sequence>
+	</ns:complexType>	
+
+<!-- 
+	<ns:complexType name="PtGenAnalysisXmlType">
+		<ns:sequence>
+			<ns:element name="hour" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="type" maxOccurs="1" minOccurs="1" type="ipss:PtGenAnalysisEnumType"></ns:element>
+			<ns:element name="genBus" type="pss:IDRecordXmlType" maxOccurs="unbounded" minOccurs="1"></ns:element>
+			<ns:element name="loadBusType" minOccurs="1" type="ipss:SenAnalysisBusEnumType">
+                <ns:annotation>
+                	<ns:documentation>Only SingleBus, LoadDistribution, User_File applies</ns:documentation>
+                </ns:annotation>
+			</ns:element>
+			<ns:element name="loadBusId" minOccurs="0" type="ns:string"></ns:element>
+			<ns:element name="userFilename" minOccurs="0" type="ns:string"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:simpleType name="PtGenAnalysisEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="LossFactor"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+ -->
+
+	<ns:simpleType name="PtBranchAnalysisEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="SingleBranchOutage"></ns:enumeration>
+			<ns:enumeration value="MultiBranchOutage"></ns:enumeration>
+			<ns:enumeration value="GenContribution"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+	
+	<ns:complexType name="PtCaseDataXmlType">
+		<ns:sequence>
+			<ns:element name="baseCaseFile" type="ipss:PtBaseCaseFileXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="edFile" type="ipss:PtEDispatchFileXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="interfaceLimitFilename" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:complexType name="PtBaseCaseFileXmlType">
+		<ns:sequence>
+			<ns:element name="filename" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="format" type="ipss:InputFileFormatEnumType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="version" type="ipss:InputFileVersionEnumType" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:complexType name="PtEDispatchFileXmlType">
+		<ns:sequence>
+			<ns:element name="filename" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="date" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="genPFactor" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="lossPercent" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="loadPFactor" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>	
+
+	<ns:complexType name="PtLfAssistGenXmlType">
+		<ns:sequence>
+			<ns:element name="filename" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="PtGenQAdjustXmlType">
+		<ns:sequence>
+			<ns:element name="lfAssistGenFilename" type="ns:string" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="noRunsLfAssist" type="ns:int" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="lfAssistAdjTolerance" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+	
+	<ns:complexType name="PtSwingAllocXmlType">
+		<ns:sequence>
+			<ns:element name="zoneNumber" type="ns:long" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="steps" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="accFactor" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="allocTolerance" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="PtAnalysisOutputXmlType">
+		<ns:sequence>
+			<ns:element name="largeGSFPoints" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="branchFlowOutPoints" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="violationThreshhold" type="pss:FactorXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="outageShiftedFlowThreshhold" type="pss:ActivePowerXmlType" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="busVoltageViolation" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="busVoltageUpperLimitPU" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="busVoltageLowerLimitPU" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="branchLimitViolation" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="interfaceLimitViolation" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="zoneSummary" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="areaSummary" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="lfResult" type="ns:boolean" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="lfResultFormat" maxOccurs="1" minOccurs="1" type="ipss:LfResultFormatEnumType"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+</ns:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+
+    <ns:include schemaLocation="../../../common/DataType.xsd"></ns:include>
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+    
+	
+	<!--
+	    define a simple stabilizer for testing purpose 
+ 	-->	
+    <ns:element name="stabilizer" type="pss:StabilizerModelXmlType" />
+
+    <ns:element name="pssSimpleType"  substitutionGroup="pss:stabilizer" type="pss:PssSimpleTypeXmlType"/>
+    
+
+    <ns:complexType name="StabilizerModelXmlType" abstract="true">
+		<ns:sequence>
+			<ns:element name="name" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="desc" type="ns:string" maxOccurs="1" minOccurs="0"></ns:element>
+		</ns:sequence>
+	</ns:complexType>
+    
+    <ns:complexType name="PssSimpleTypeXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:StabilizerModelXmlType">
+		<ns:sequence>
+			<ns:element name="Ks" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="T1" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="T2" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="T3" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="T4" type="pss:TimePeriodXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Vsmax" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Vsmin" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+</ns:schema>

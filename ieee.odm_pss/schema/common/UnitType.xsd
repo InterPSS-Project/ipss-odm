@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+
+    <ns:simpleType name="ApparentPowerUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="VA"></ns:enumeration>
+			<ns:enumeration value="KVA"></ns:enumeration>
+			<ns:enumeration value="MVA"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="ActivePowerUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="W"></ns:enumeration>
+			<ns:enumeration value="KW"></ns:enumeration>
+			<ns:enumeration value="MW"></ns:enumeration>
+			<ns:enumeration value="HP"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="ReactivePowerUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="VAR"></ns:enumeration>
+			<ns:enumeration value="KVAR"></ns:enumeration>
+			<ns:enumeration value="MVAR"></ns:enumeration>
+			<ns:enumeration value="Ohm"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="FactorUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="Percent"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="TurnRatioUnitType">
+		<ns:restriction base="pss:FactorUnitType">
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="YUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="VAR"></ns:enumeration>
+			<ns:enumeration value="KVAR"></ns:enumeration>
+			<ns:enumeration value="MVAR"></ns:enumeration>
+			<ns:enumeration value="MHO"></ns:enumeration>
+			<ns:enumeration value="MICROMHO"></ns:enumeration>
+			<ns:enumeration value="MHOPerMile"></ns:enumeration>
+			<ns:enumeration value="MHOPerFt"></ns:enumeration>
+			<ns:enumeration value="MHOPerKM"></ns:enumeration>
+			<ns:enumeration value="MHOPerM"></ns:enumeration>
+			<ns:enumeration value="MICROMHOPerMile"></ns:enumeration>
+			<ns:enumeration value="MICROMHOPerFt"></ns:enumeration>
+			<ns:enumeration value="MICROMHOPerM"></ns:enumeration>
+			<ns:enumeration value="MICROMHOPerKM"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="ZUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="VA"></ns:enumeration>
+			<ns:enumeration value="KVA"></ns:enumeration>
+			<ns:enumeration value="MVA"></ns:enumeration>
+			<ns:enumeration value="OHM"></ns:enumeration>
+			<ns:enumeration value="Percent"></ns:enumeration>
+			<ns:enumeration value="OHMPerMile"></ns:enumeration>
+			<ns:enumeration value="OHMPerFt"></ns:enumeration>
+			<ns:enumeration value="OHMPerKM"></ns:enumeration>
+			<ns:enumeration value="OHMPerM"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="AngleUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="RAD"></ns:enumeration>
+			<ns:enumeration value="DEG"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="LengthUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="M"></ns:enumeration>
+			<ns:enumeration value="Ft"></ns:enumeration>
+			<ns:enumeration value="KM"></ns:enumeration>
+			<ns:enumeration value="Mile"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="FrequencyUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Hz"></ns:enumeration>
+			<ns:enumeration value="KHz"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+    <ns:simpleType name="TimePeriodUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="Sec"></ns:enumeration>
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="Min"></ns:enumeration>
+			<ns:enumeration value="Hour"></ns:enumeration>
+			<ns:enumeration value="Cycle"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="CurrentUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="AMP"></ns:enumeration>
+			<ns:enumeration value="KA"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+
+    <ns:simpleType name="VoltageUnitType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="PU"></ns:enumeration>
+			<ns:enumeration value="VOLT"></ns:enumeration>
+			<ns:enumeration value="KV"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+    <ns:simpleType name="TapUnitType">
+		<ns:restriction base="pss:FactorUnitType">
+		</ns:restriction>
+	</ns:simpleType>
+</ns:schema>

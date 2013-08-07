@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+
+    <ns:include schemaLocation="../../../common/DataType.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+	</ns:annotation>
+	
+	<!-- 
+		define generic element for substitution group
+	 -->
+    <ns:element name="governor" type="pss:GovernorModelXmlType" />
+    
+    <ns:element name="speedGov" type="pss:SpeedGovModelXmlType" />
+    
+    <ns:element name="turbine" type="pss:TurbineModelXmlType" />
+
+	<!--
+	    define a simple governor for testing purpose 
+ 	-->
+    <ns:element name="govSimpleType" substitutionGroup="pss:governor" type="pss:GovSimpleTypeXmlType" />
+    
+
+    <ns:complexType abstract="true" name="GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="name" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="basePower" type="pss:ApparentPowerXmlType">	</ns:element>
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:speedGov" />
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:turbine" />
+		</ns:sequence>
+	</ns:complexType>
+    
+
+    <ns:complexType abstract="true" name="SpeedGovModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="name" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string" />
+		</ns:sequence>
+	</ns:complexType>
+    
+	
+    <ns:complexType abstract="true" name="TurbineModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="name" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string" />
+		</ns:sequence>
+	</ns:complexType>
+    
+    <ns:complexType name="GovSimpleTypeXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="K" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Pmax" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Pmin" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+</ns:schema>

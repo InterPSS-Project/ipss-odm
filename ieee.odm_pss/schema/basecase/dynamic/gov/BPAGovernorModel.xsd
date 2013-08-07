@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd" />
+    <ns:include schemaLocation="IEEEGovernorModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+	</ns:annotation>
+
+
+	<!--
+		define models for BPA Governor, Turbine
+		   Naming convention
+		       govBPA* for element
+		       GovBPA* SteamTurbineBPA* for complex type 
+	-->
+	
+    <ns:element name="streamTurbineBPATB" substitutionGroup="pss:turbine" type="pss:SteamTurbineBPATBModelXmlType" />
+
+    
+    <ns:element name="speedGovBPAGSModel" substitutionGroup="pss:speedGov" type="pss:SpeedGovBPAGSModelXmlType" />
+    
+    <ns:element name="speedGovBPAGiGaCombinedModel" substitutionGroup="pss:speedGov" type="pss:SpeedGovBPAGiGaCombinedXmlType" />
+    
+    <ns:element name="speedGovBPARegGIModel" substitutionGroup="pss:speedGov" type="pss:SpeedGovBPARegGIModelXmlType" />
+    
+    <ns:element name="speedGovBPAServoModel" substitutionGroup="pss:speedGov" type="pss:SpeedGovBPAServoGAModelXmlType" />
+
+    
+    <ns:element name="govBPAHydroTurbineGHModel" substitutionGroup="pss:governor" type="pss:GovBPAHydroTurbineGHXmlType" />
+    
+    <ns:element name="govBPAGsTbCombinedModel" substitutionGroup="pss:governor" type="pss:GovBPAGsTbCombinedModelXmlType" />
+    
+    <!--BPA GOV and steam turbine type -->
+    <ns:element name="govBPAGiGaTbCombinedModel" substitutionGroup="pss:governor" type="pss:GovBPAGiGaTbCombinedModelXmlType" />
+    
+    
+    
+    <ns:complexType name="GovBPAGsTbCombinedModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+		<!-- 
+		    <element maxOccurs="1" minOccurs="1" ref="pss:speedGovBPAGSModel"/>
+		    <element maxOccurs="1" minOccurs="1" ref="pss:streamTurbineBPATB"/>
+		 -->    
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+    
+	<!--BPA GOV and Hydro turbine type -->
+	
+    <ns:complexType name="GovBPAGiGaTbCombinedModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+		<!-- 
+		    <element maxOccurs="1" minOccurs="1" ref="pss:speedGovBPAGiGaCombinedModel"/>
+		    <element maxOccurs="1" minOccurs="1" ref="pss:streamTurbineBPATB"/>
+		 -->    
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+	
+	<!-- BPA turbine model -->
+	
+    <ns:complexType name="GovBPAHydroTurbineGHXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:GovernorModelXmlType">
+		<ns:sequence>
+		    <ns:element maxOccurs="1" minOccurs="1" name="PMAX" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="1" name="R" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TG" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TP" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Td" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="TwHalf" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VOpen" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="VClose" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Dd" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="Epsilon" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+
+	<!-- BPA GOV  model sets -->
+	
+    <ns:complexType name="SteamTurbineBPATBModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SteamTurbineTCSRXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="1" name="Lambda" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+    
+
+    <ns:complexType name="SpeedGovBPAGSModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SpeedGovModelXmlType">
+		<ns:sequence>
+		    <ns:element maxOccurs="1" minOccurs="0" name="Pmax" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Pmin" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="T2" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="T3" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="R" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VELOPEN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VELCLOSE" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="Epsilon" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+	
+	<!-- BPA GOV Regulator part model -->
+	
+    <ns:complexType name="SpeedGovBPAGiGaCombinedXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SpeedGovModelXmlType">
+		<ns:sequence>
+		    <ns:element maxOccurs="1" minOccurs="1" name="regulator" type="pss:SpeedGovBPARegGIModelXmlType" />
+		    <ns:element maxOccurs="1" minOccurs="1" name="servo" type="pss:SpeedGovBPAServoGAModelXmlType" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+    
+	
+	<!-- BPA GOV servo part model -->
+    <ns:complexType name="SpeedGovBPARegGIModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SpeedGovModelXmlType">
+		<ns:sequence>
+		    <ns:element maxOccurs="1" minOccurs="0" name="T1" type="pss:TimePeriodXmlType" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Epsilon" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="K" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="loadSwichOff" type="ns:boolean" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Kp1" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Kd1" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Ki1" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="INTG_MAX1" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="INTG_MIN1" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="PID_MAX1" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="PID_MIN1" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="loadForwardSwitchOff" type="ns:boolean" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="presserSwitchOff" type="ns:boolean" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Kp2" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Kd2" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="Ki2" type="ns:double" />
+		    <ns:element maxOccurs="1" minOccurs="0" name="INTG_MAX2" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="INTG_MIN2" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="PID_MAX2" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="PID_MIN2" type="ns:double" />		    
+			<ns:element maxOccurs="1" minOccurs="0" name="Con_Max" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="Con_Min" type="ns:double" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+
+    
+    <ns:complexType name="SpeedGovBPAServoGAModelXmlType">
+		<ns:complexContent>
+		<ns:extension base="pss:SpeedGovModelXmlType">
+		<ns:sequence>
+		    <ns:element maxOccurs="1" minOccurs="0" name="Pe" type="ns:double" />   
+			<ns:element maxOccurs="1" minOccurs="0" name="Tc" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="To" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VELOPEN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="VELCLOSE" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="Pmax" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="Pmin" type="ns:double" />			
+			<ns:element maxOccurs="1" minOccurs="0" name="T1" type="pss:TimePeriodXmlType" />
+			<ns:element maxOccurs="1" minOccurs="0" name="Kp" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="Kd" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="Ki" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="INTG_MAX" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="INTG_MIN" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="PID_MAX" type="ns:double" />
+            <ns:element maxOccurs="1" minOccurs="0" name="PID_MIN" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="0" name="PGV_RELAY" type="pss:TimePeriodXmlType" />
+		</ns:sequence>
+		</ns:extension>
+		</ns:complexContent>		
+	</ns:complexType>
+</ns:schema>
