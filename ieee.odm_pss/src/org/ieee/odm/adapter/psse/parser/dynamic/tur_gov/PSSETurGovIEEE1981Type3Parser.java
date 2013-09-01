@@ -5,16 +5,16 @@ import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ModelStringUtil;
 
-public class PSSETurGovIEEE1981Type1Parser extends BasePSSEDataParser {
-	public PSSETurGovIEEE1981Type1Parser(PsseVersion ver) {
+public class PSSETurGovIEEE1981Type3Parser extends BasePSSEDataParser {
+	public PSSETurGovIEEE1981Type3Parser(PsseVersion ver) {
 		super(ver);
 	}
 	
 	/*
-	 * //PSSE IEEEG1 -> IEEE 1981 Type 1  Tur-Gov model
-	 * IBUS, 'IEEEG1', JBUS, M, K, T1, T2, T3, Uo, Uc, PMAX, PMIN, T4, K1, K2, T5, K3, K4, T6, K5, K6, T7, K7, K8/
+	 * PSSE IEEEG3 -> IEEE 1981 Type 3  Tur-Gov model for Hydro 
+	 * ----------------------------------------------------------
+	 * IBUS, 'IEEEG3', ID, TG, TP, Uo, Uc, PMAX, PMIN, Sigma, Delta, TR,TW,a11,a13,a21,a23/
 	 *
-	 *Note: JBUS and JM are set to zero for noncross compound
 	 *
 	 */
 	
@@ -22,15 +22,13 @@ public class PSSETurGovIEEE1981Type1Parser extends BasePSSEDataParser {
 	public String[] getMetadata() {
 		return new String[]{
 			//  0----------1----------2----------3----------4
-				"IBUS", "Type",   "MachId",   "JBUS",       "M",
+				"IBUS", "Type",   "MachId",   "TG",       "TP",       
 			//  5----------6----------7----------8----------9
-				"K",      "T1",      "T2",      "T3",      "Uo",   	 
+				"Uo",    "Uc",     "PMAX",    "PMIN",    "Sigma",  	 
 			//  10----------11--------12---------13---------14	
-				"Uc",     "PMAX",    "PMIN",     "T4",      "K1",
-			//  15----------16--------17---------18---------19		
-				"K2",      "T5",      "K3",      "K4",       "T6",
-			//  20----------21--------22---------23---------24	
-				"K5",      "K6",      "T7",      "K7",       "K8",
+				"Delta",  "TR",      "TW",      "a11",     "a13",
+			//  15----------16	
+				"a21",   "a23"
 			
 					
 		};
@@ -50,6 +48,5 @@ public class PSSETurGovIEEE1981Type1Parser extends BasePSSEDataParser {
 		}
 		
 	}
-  
-	
+
 }

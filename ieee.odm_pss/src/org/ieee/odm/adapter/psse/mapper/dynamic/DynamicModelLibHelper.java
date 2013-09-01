@@ -20,7 +20,7 @@ public class DynamicModelLibHelper {
 			Arrays.asList("IEEET1","IEEET2","IEEET3","IEEET4"));
 	
 	private List<String> TurGovList =new ArrayList<>(
-			Arrays.asList("IEESGO","IEEEG1","TGOV1"));
+			Arrays.asList("IEESGO","IEEEG1","IEEEG3","TGOV1"));
 	private List<String> PssList =new ArrayList<>();
 	private List<String> FactsList =new ArrayList<>();
 	private List<String> HvdcList =new ArrayList<>();

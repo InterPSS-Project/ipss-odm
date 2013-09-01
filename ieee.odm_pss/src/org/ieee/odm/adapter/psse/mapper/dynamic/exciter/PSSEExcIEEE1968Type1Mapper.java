@@ -22,7 +22,7 @@ public class PSSEExcIEEE1968Type1Mapper extends BasePSSEDataMapper{
 	/*
 	 * 
 	 * PSSE IEEET1 -> IEEE 1968 Type 1
-	 * IBUS, ’IEEET1’, I, TR, KA, TA, VRMAX, VRMIN, KE, TE, KF, TF, 0., E1, SE(E1), E2, SE(E2)/
+	 * IBUS, 'IEEET1', TR, KA, TA, VRMAX, VRMIN, KE, TE, KF, TF, 0., E1, SE(E1), E2, SE(E2)/
 	 
 		Note: Switch is always zero;
 	 */

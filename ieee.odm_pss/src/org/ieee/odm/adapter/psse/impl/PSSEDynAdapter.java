@@ -4,7 +4,9 @@ import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper.DynModelType;
+import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynExciterMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
+import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ModelStringUtil;
@@ -21,10 +23,14 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
 
     DynamicModelLibHelper dynLibHelper = new DynamicModelLibHelper();
 	PSSEDynGeneratorMapper generatorMapper =null; 
+	PSSEDynExciterMapper   exciterMapper =null;
+	PSSEDynTurGovMapper    turGovMapper = null;
     
 	public PSSEDynAdapter(PsseVersion ver) {
 		super(ver);
 		generatorMapper = new PSSEDynGeneratorMapper(ver);
+		exciterMapper   = new PSSEDynExciterMapper(ver);
+		turGovMapper    = new PSSEDynTurGovMapper(ver);
 		
 	}
 	
@@ -43,12 +49,21 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
       			if (lineStr != null) {
       				lineNo++;
       				if(lineStr.trim().length()>0){//only process when it is not a blank line
-      					if(!isModelDataCompleted(lineStr)){
+      					while(!isModelDataCompleted(lineStr)){
       						lineStr += din.readLine();
       					}
+      					//remove the "/" at the end of data definition
+      					lineStr =lineStr.substring(0, lineStr.lastIndexOf("/"));
+      					
       					modelType = getModelType(lineStr);
       					if(dynLibHelper.getModelType(modelType)==DynModelType.GENERATOR){
       						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
+      					}
+      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
+      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+      					}
+      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
+      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
       					}
       					else{
       						throw new Exception("The input dynamic model is not supported yet, Type #"+modelType);
