@@ -64,12 +64,14 @@ public class IeeeCDFTieLineDataParser extends AbstractDataFieldParser {
 
 			//          Column   21     Circuit number
 			int cirColNum =21;
+			String cirIdString  =str.substring(20, cirColNum).trim();
 			// length after triming ending blanks
-			int length = str.replaceAll("\\s+$", "").length();
-			if(length>cirColNum) cirColNum = length;
-			
-			String cirIdString  =str.substring(20, length).trim();
-			ODMLogger.getLogger().warning("TieLine CirId is not in Column 21,Tieline str = "+str+",parsing cirId = "+cirIdString);
+//			int length = str.replaceAll("\\s+$", "").length();
+//			if(length>cirColNum) {
+//				cirColNum = length;
+//			    cirIdString  =str.substring(20, length).trim();
+//			    ODMLogger.getLogger().warning("TieLine CirId is not in Column 21,Tieline str = "+str+",parsing cirId = "+cirIdString);
+//			}
 			setValue(4, cirIdString);
 		}
 	}

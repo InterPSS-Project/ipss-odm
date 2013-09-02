@@ -85,9 +85,12 @@ public class IeeeCDFNetDataMapper extends BaseIeeeCDFDataMapper {
 
 		//[2] Columns 32-37   MVA Base [F] *
 		double baseMva = 100.0;
-		if (dataParser.equals("MVA")) {
+		if (dataParser.exist("MVA")) {
 			baseMva = dataParser.getDouble("MVA"); // in MVA
 			ODMLogger.getLogger().fine("BaseKva: " + baseMva);
+		}
+		else{
+			throw new ODMException("Network Mva base  is required, but not defined in the header of input file, please make sure the file is of IEEE-CDF format and the MVABase is correctly defined");
 		}
 		baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(baseMva));
 	}

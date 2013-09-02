@@ -83,7 +83,7 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 			str = din.readLine(); //kvaBase
 			//NOTE: Some data miss the "END OF DATA" string at the end of the file, which may cause a problem
 			if(str!=null){
-			  if (!str.trim().equals("END OF DATA")) {
+			    if (str.trim().equals("END OF DATA")) break;
 				try {
 					// process the data
 					if (str.startsWith("-999") || str.startsWith("-99")
@@ -131,12 +131,9 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 					e.printStackTrace();
 				}
 			}
-		  }else{
-			  ODMLogger.getLogger().severe("No 'END OF DATA' is defined at the end of the input IEEE-CDF file!");
-			  break;//end of the file, break the loop;
-		  }
+		
 			  
-		} while (!str.trim().equals("END OF DATA"));
+		} while (str!=null);
 
 		return parser;
 	}

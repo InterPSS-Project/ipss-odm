@@ -69,7 +69,10 @@ public class IeeeCDFInterchangeDataParser extends AbstractDataFieldParser {
 			//          Columns 38-43   Area code (abbreviated name) [A] *
 			//          Columns 46-75   Area name [A]
 			setValue(5, str.substring(37, 43));
-			setValue(6, str.substring(45).trim());
+			if(str.length()>=75)
+			    setValue(6, str.substring(45,75).trim());
+			else 
+				setValue(6, str.substring(45).trim());
 		}
 	}
 }
