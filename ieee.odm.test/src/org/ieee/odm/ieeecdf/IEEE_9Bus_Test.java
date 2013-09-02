@@ -19,7 +19,7 @@ import org.junit.Test;
 public class IEEE_9Bus_Test {
 
 	
-	@Test
+	//@Test
 	public void testCaseInputLines() throws Exception {
 		final LogManager logMgr = LogManager.getLogManager();
 		Logger logger = Logger.getLogger("IEEE ODM Logger");
@@ -51,7 +51,7 @@ public class IEEE_9Bus_Test {
 		String content = "";
 		String str = din.readLine();
 		do{
-			content = content+str;
+			content = content+str+"\n";
 			str = din.readLine();
 		}
 		while(str != null);
