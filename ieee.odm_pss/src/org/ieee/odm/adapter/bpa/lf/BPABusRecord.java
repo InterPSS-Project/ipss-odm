@@ -149,6 +149,8 @@ public class BPABusRecord<
 		
 		busRec.setId(busId);		
 		busRec.setName(busName);
+		//Add bus number, according to input sequence
+		busRec.setNumber(busCnt);
 		
 		// TODO set bus owner
         //busRec.getOwnerList().getOwner().get(0).setName(ownerName);
