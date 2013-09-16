@@ -71,7 +71,7 @@ public class PSSEAdapter extends AbstractODMAdapter{
      */
 	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws ODMException {
 		PSSELFAdapter<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType> 
-		lfAdapter = new PSSELFAdapter<>(this.adptrtVersion);
+						lfAdapter = new PSSELFAdapter<>(this.adptrtVersion);
 		//new PSSELFAdapter<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>(this.adptrtVersion);
 	    return lfAdapter.parseLoadflowFile(din, encoding);
 	
@@ -86,10 +86,9 @@ public class PSSEAdapter extends AbstractODMAdapter{
 	 */
 	public IODMModelParser parseAcscFiles(final IFileReader[] din, String encoding) throws ODMException {
 		PSSEAcscAdapter<ShortCircuitNetXmlType, ShortCircuitBusXmlType, LineShortCircuitXmlType, XfrShortCircuitXmlType, PSXfrShortCircuitXmlType> 
-		acscAdapter = new PSSEAcscAdapter<>(this.adptrtVersion);
+						acscAdapter = new PSSEAcscAdapter<>(this.adptrtVersion);
 		
 		return acscAdapter.parseInputFile(NetType.AcscNet, din, encoding);
-		 
 	}
 	
 	/**
@@ -110,13 +109,13 @@ public class PSSEAdapter extends AbstractODMAdapter{
 
 	@Override
 	protected IODMModelParser parseInputFile(IFileReader din, String encoding)
-			throws Exception {
+			throws ODMException {
 		return parseAclfFile(din,encoding);
 	}
 
 	@Override
 	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din,
-			String encoding) throws Exception {
+			String encoding) throws ODMException {
 		IODMModelParser tempParser =null;
 		if(type==NetType.AcscNet)
 			 tempParser=parseAcscFiles(din,encoding);

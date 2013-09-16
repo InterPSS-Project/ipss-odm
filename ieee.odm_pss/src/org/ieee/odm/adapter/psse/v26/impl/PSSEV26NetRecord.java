@@ -48,7 +48,7 @@ public class PSSEV26NetRecord {
 	PSSEInterAreaTransferDataParser interAreaDataParser = new PSSEInterAreaTransferDataParser(PsseVersion.PSSE_26);
 	
 	public boolean processHeaderData(final String str1,final String str2,final String str3,
-			final LoadflowNetXmlType baseCaseNet) throws Exception {
+			final LoadflowNetXmlType baseCaseNet) throws ODMException {
 		//line 1 at here we have "0, 100.00 " or some times "0 100.00 "		
 		//final String[] strAry = getHeaderDataFields(str1,str2,str3);
 		headerDataParser.parseFields(new String[] {str1,str2,str3});
