@@ -99,7 +99,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 	
 	
 	@Override 
-	public IODMModelParser parseInputFile(final IFileReader din, String encoding) throws Exception {
+	public IODMModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
 		 
 		// check parser
 		if(parser ==null){
@@ -296,7 +296,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 	 */
 	@Override
 	public IODMModelParser parseInputFile(NetType type, IFileReader[] din,
-			String encoding) throws Exception {
+			String encoding) throws ODMException {
 		if(type ==NetType.AcscNet){
 			// initialize the parser first
 			if(parser == null){

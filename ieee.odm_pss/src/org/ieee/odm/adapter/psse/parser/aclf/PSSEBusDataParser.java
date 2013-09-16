@@ -41,11 +41,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V26
-		 * 
-		 * 	I,    NAME        BASKV, IDE,  GL,      BL, AREA, ZONE, VM,      VA,      OWNER
-		 * 
-		 * Format V30
+		/* Format V30
 		 * 
 		 *  I,   ’NAME’,      BASKV, IDE,  GL,      BL, AREA, ZONE, VM,      VA,     OWNER
 		 */

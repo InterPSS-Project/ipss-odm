@@ -42,6 +42,8 @@ public class PSSEDcLine2TDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/*
+		 * Format V30
+		 * 
 		Line-1: 
 			I,MDC,RDC,      SETVL,    VSCHD,   VCMOD,  RCOMP,    DELTI,  METER,  DCVMIN,CCCITMX,CCCACC
             1,1,  13.7500,  552.00,   410.00,  -1.00,  13.7500,  0.10000,'I',    0.00,  20,   1.00000

@@ -42,6 +42,8 @@ public class PSSEOwnerDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/* 
+		 * Format V30
+		 * 
 		 *   I, ’OWNAME’
 		*/
 		return new String[] {

@@ -41,7 +41,7 @@ public class PSSEAreaInterchangeDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V26
+		/* Format V30
 		 * 
 		//    Area number , no zeros! *
 		//    swing bus name [A]

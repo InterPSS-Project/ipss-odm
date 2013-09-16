@@ -25,8 +25,8 @@ package org.ieee.odm.adapter.psse.impl;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IFileReader;
-import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.schema.LineBranchXmlType;
@@ -61,11 +61,7 @@ public class BasePSSEAdapter extends AbstractODMAdapter{
 
 
 	public String countElements(String filename) {
-		try {
-			parseInputFile(filename);
-		} catch ( Exception e) {
-			this.elemCntStr += e.toString();
-		}
+		parseInputFile(filename);
 		return "PSS/E File elements coount\n" + this.elemCntStr;
 	}
 	
@@ -83,14 +79,14 @@ public class BasePSSEAdapter extends AbstractODMAdapter{
 
 	@Override
 	protected IODMModelParser parseInputFile(IFileReader din, String encoding)
-			throws Exception {
+			throws ODMException {
 		
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din,
-			String encoding) throws Exception {
+			String encoding) throws ODMException {
 		
 		throw new UnsupportedOperationException();
 	}

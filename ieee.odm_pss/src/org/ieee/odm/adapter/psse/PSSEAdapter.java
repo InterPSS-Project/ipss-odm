@@ -51,7 +51,7 @@ import org.ieee.odm.schema.XfrShortCircuitXmlType;
  */
 public class PSSEAdapter extends AbstractODMAdapter{
 	public static enum PsseVersion {
-		PSSE_26, PSSE_29, PSSE_30	
+		PSSE_26, PSSE_29, PSSE_30, PSSE_32	
 	}
 
 	private PsseVersion adptrtVersion;
@@ -69,7 +69,7 @@ public class PSSEAdapter extends AbstractODMAdapter{
      * @return
      * @throws Exception
      */
-	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws Exception {
+	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws ODMException {
 		PSSELFAdapter<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType> 
 		lfAdapter = new PSSELFAdapter<>(this.adptrtVersion);
 		//new PSSELFAdapter<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>(this.adptrtVersion);
@@ -84,7 +84,7 @@ public class PSSEAdapter extends AbstractODMAdapter{
 	 * @return
 	 * @throws Exception
 	 */
-	public IODMModelParser parseAcscFiles(final IFileReader[] din, String encoding) throws Exception {
+	public IODMModelParser parseAcscFiles(final IFileReader[] din, String encoding) throws ODMException {
 		PSSEAcscAdapter<ShortCircuitNetXmlType, ShortCircuitBusXmlType, LineShortCircuitXmlType, XfrShortCircuitXmlType, PSXfrShortCircuitXmlType> 
 		acscAdapter = new PSSEAcscAdapter<>(this.adptrtVersion);
 		
@@ -101,7 +101,7 @@ public class PSSEAdapter extends AbstractODMAdapter{
 	 * @return
 	 * @throws Exception
 	 */
-	public DStabModelParser parseDstabFiles(final IFileReader[] din, String encoding) throws Exception {
+	public DStabModelParser parseDstabFiles(final IFileReader[] din, String encoding) throws ODMException {
 		PSSEDynAdapter dynAdapter = new PSSEDynAdapter(this.adptrtVersion);
 		return (DStabModelParser) dynAdapter.parseInputFile(NetType.DStabNet, din, encoding);
 		

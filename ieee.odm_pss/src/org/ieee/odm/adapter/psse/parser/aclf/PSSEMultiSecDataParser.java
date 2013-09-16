@@ -42,6 +42,8 @@ public class PSSEMultiSecDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/*
+		 * Format V30
+		 * 
 		I, J, ID, DUM1, DUM2, ... DUM9
 
 		I - "From bus" number, or extended bus name enclosed in single quotes.

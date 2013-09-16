@@ -38,7 +38,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
 	 * parse the input dynamic model data
 	 */
 	
-	public IODMModelParser parseDStabFile(final IFileReader din, String encoding) throws Exception {
+	public IODMModelParser parseDStabFile(final IFileReader din, String encoding) throws ODMException {
 		String lineStr = null;
 		String modelType = "";
   		int lineNo = 0;
@@ -82,7 +82,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
 
 	@Override
 	public IODMModelParser parseInputFile(NetType type, IFileReader[] din,
-			String encoding) throws Exception {
+			String encoding) throws ODMException {
 		if(type !=NetType.DStabNet){
 			// initialize the parser first
 			throw new ODMException("input type is not Dstab NetType, please check ");

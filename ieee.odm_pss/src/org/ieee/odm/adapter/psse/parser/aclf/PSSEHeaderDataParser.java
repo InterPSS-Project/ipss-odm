@@ -41,7 +41,7 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V26
+		/* Format V30
 		 * 
 		 * 	 String[0] indicator
 	     *   String[1] baseKav

@@ -41,7 +41,7 @@ public class PSSEXfrAdjustDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V26
+		/* Format V30
 		 * 
 		 * 	 I,    J,     CKT,ICONT,     RMA,       RMI,       VMA,       VMI,   STEP,   TABLE 
 		 */

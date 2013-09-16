@@ -87,7 +87,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
      * @return
      * @throws Exception
      */
-	public AclfModelParser parseLoadflowFile(final IFileReader din, String encoding) throws Exception {
+	public AclfModelParser parseLoadflowFile(final IFileReader din, String encoding) throws ODMException {
 		parser = new AclfModelParser();
 		
 		parser.getStudyCase().setAnalysisCategory(AnalysisCategoryEnumType.LOADFLOW);
@@ -101,7 +101,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
 	}
 	
 	@Override
-	protected IODMModelParser parseInputFile(final IFileReader din, String encoding) throws Exception {
+	protected IODMModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
 	    //set case base info
 		parser.setCaseContentInfo(OriginalDataFormatEnumType.PSS_E);
 		parser.getStudyCase().setNetworkCategory(NetworkCategoryEnumType.TRANSMISSION);

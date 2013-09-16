@@ -42,6 +42,8 @@ public class PSSEFactsDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 	/*
+	 * Format V30
+	 * 
 		N,I,J,MODE,PDES,QDES,VSET,SHMX,TRMX,VTMN,VTMX,VSMX,IMX,LINX,RMPCT,OWNER,SET1,SET2,VSREF
 
 	N FACTS device number.

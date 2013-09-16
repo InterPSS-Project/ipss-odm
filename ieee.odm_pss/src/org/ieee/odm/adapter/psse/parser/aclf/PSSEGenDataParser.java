@@ -42,11 +42,7 @@ public class PSSEGenDataParser extends BasePSSEDataParser {
 	}
 	
 	@Override public String[] getMetadata() {
-		/* Format V26
-		 * 
-		 * 	I, ID, PG, QG, QT, QB, VS, IREG,MBASE, ZR,ZX,RT,XT, GTAP, STAT,RMPCT, PT,PB, O1,F1,...,O4,F4
-		 * 
-		 * Format V30
+		/* Format V30
 		 * 	I, ID, PG, QG, QT, QB, VS, IREG,MBASE, ZR,ZX,RT,XT, GTAP, STAT,RMPCT, PT,PB, O1,F1,...,O4,F4
 
 		 */

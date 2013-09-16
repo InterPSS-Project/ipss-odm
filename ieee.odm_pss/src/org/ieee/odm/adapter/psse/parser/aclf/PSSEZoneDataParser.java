@@ -42,7 +42,9 @@ public class PSSEZoneDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/* 
-		 *   I, ’ZONAME’ 
+		 *   Format V30
+		 *   
+		 *      I, ’ZONAME’ 
 		 * 
 		*/
 		return new String[] {

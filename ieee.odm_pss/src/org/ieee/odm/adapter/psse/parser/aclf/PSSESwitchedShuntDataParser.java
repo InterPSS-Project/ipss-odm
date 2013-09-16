@@ -48,6 +48,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 	@Override public String[] getMetadata() {
 		/*
 		Format V26
+		
 		I,    MODSW,VSWHI, VSWLO,  SWREM,                  BINIT,  N1,      B1,   N2,        B2...N8,B8
 		
 		                                                   nbPosition
@@ -86,7 +87,8 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		   //  0----------1----------2----------3----------4
 			  "I",     "MODSW",   "VSWHI",   "VSWLO",   "SWREM",      
 		   //  5          6          7          8          9
-			  "RMPCT",  "RMIDNT", "BINIT",    "N1",      "B1", 
+			  "RMPCT",  "RMIDNT",                                // V30 
+			                       "BINIT",    "N1",      "B1", 
 		   //  10         11         12         13         14
 			  "N2",      "B2",      "N3",      "B3",      "N4",
 		   //  15         16         17         18         19
