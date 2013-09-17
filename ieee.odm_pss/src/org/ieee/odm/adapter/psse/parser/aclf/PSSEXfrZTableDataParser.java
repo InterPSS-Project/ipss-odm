@@ -42,7 +42,7 @@ public class PSSEXfrZTableDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/* 
-		 * format V30: 
+		 * format V30, V32
 		 * 
 		 *       I, T1, F1, T2, F2, T3, F3, ... T11, F11
 		 * 

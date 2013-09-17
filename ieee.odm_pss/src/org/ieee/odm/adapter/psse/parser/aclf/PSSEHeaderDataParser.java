@@ -48,6 +48,10 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 	     *   String[2] comments
 	     *   String[3] comments
 		 * 	  
+		 *  format V32
+		 *  Case identification data consists of three data records. The first record contains six Items of data
+		 *  
+              IC , SBASE , REV, XFRRAT, NXFRAT , BASFRQ
 		 */
 		return new String[] {
 		   //  0----------  1----------2---------- 3----------4

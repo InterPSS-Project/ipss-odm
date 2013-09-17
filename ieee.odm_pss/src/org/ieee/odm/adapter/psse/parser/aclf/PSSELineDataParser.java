@@ -47,7 +47,15 @@ public class PSSELineDataParser extends BasePSSEDataParser {
 		 * 	I, J, CKT, R,X,B, RATEA,RATEB,RATEC,RATIO,ANGLE,GI,BI,GJ,BJ,ST,LEN,O1,F1,...,O4,F4
 		 * 
 		 * V30
-		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC,            GI,BI,GJ,BJ,ST,LEN,O1,F1,...,O4,F4
+		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC, GI,BI,GJ,BJ,ST,LEN,O1,F1,...,O4,F4
+		 *  
+		 * V32
+		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC, GI,BI,GJ,BJ,ST, MET, LEN,O1,F1,...,O4,F4 
+		 *  
+MET Metered end flag;
+    <=1 to designate bus I as the metered end
+    >=2 to designate bus J as the metered end.
+MET = 1 by default.
 		 */
 		return new String[] {
 				/*

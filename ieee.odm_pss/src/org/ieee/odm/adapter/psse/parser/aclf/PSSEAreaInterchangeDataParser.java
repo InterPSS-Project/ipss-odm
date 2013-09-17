@@ -41,12 +41,13 @@ public class PSSEAreaInterchangeDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V30
+		/* Format V30, V32
 		 * 
 		//    Area number , no zeros! *
 		//    swing bus name [A]
 		//    Area interchange export, MW [F] (+ = out) *
 		//    Area interchange tolerance, MW [F] *
+		 * 
 		*/
 		return new String[] {
 		   //  0----------1---------     -2------------3---------   -4

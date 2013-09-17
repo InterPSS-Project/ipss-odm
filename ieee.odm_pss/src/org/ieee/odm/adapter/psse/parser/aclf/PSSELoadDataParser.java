@@ -44,6 +44,12 @@ public class PSSELoadDataParser extends BasePSSEDataParser {
 		/* Format V30
 		 * 
 		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
+		 *  
+		 *  Format V32
+		 * 
+		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER, SCALE
+		 *  
+		 *     - SCALE Load scaling flag ofone for a scalalie load and zero for a ?xed load (refer to SCAL). SCALE = 1 by defarlt.
 		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4

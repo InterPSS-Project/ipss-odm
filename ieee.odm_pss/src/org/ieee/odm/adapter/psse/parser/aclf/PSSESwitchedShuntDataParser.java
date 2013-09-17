@@ -48,7 +48,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 	@Override public String[] getMetadata() {
 		/*
 		Format V26
-		
+		==========
 		I,    MODSW,VSWHI, VSWLO,  SWREM,                  BINIT,  N1,      B1,   N2,        B2...N8,B8
 		
 		                                                   nbPosition
@@ -56,7 +56,9 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 	Sample Data
 		34606,0,    1.1000,0.9000,     0,-190.800,     1, -47.700,     1, -47.700,     1, -47.700,     1, -47.700,
 		
+		
 		Format V30
+		==========
 		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
 
 	Sample Data
@@ -82,6 +84,18 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 			N1 - Number of steps for block 1, first 0 is end of blocks
 			B1 - Admittance increment of block 1 in MVAR at 1.0 per unit volts.
 			N2, B2, etc, as N1, B1
+			
+			
+		Format V32
+		==========
+		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
+		
+ADJM Adjustment method:
+  0 steps and blocks are switched on in input order, and off in reverse input order; this adjustment method was the only method available prior to PSS/E-32.0.
+  1 steps and blocks are switched on and off such that the next highest (or lowest, as appropriate) total admittance is achieved.
+  ADJM = O by default.
+STAT Initial switched shunt status of one for in-service and zero for out-of-service; STAT = 1 by default.		
+			
 		 */		
 		return new String[] {
 		   //  0----------1----------2----------3----------4
