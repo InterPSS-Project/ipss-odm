@@ -68,11 +68,15 @@ MET = 1 by default.
 			                                              "RATIO",   // ver26 only
 		   //  10         11         12         13         14
 			  "ANGLE",                                               // ver26 only
-			            "GI",      "BI",      "GJ",      "BJ",
+			             "GI",      "BI",      "GJ",      "BJ",
 		   //  15         16         17         18         19
-			  "ST",     "LEN",     "O1",      "F1",     "O2",
+			  "ST",     
+			             "MET",                                      // V32 only
+			                       "LEN",     "O1",      "F1",    
 		   //  20         21         22         23         24	  
-			  "F2",     "O3",      "F3",      "O4",     "F4"
+			  "O2",      "F2",      "O3",      "F3",      "O4",     
+		   //  26  
+			  "F4"
 		};
 	}
 	
@@ -93,7 +97,15 @@ MET = 1 by default.
 			setValue(10, st.nextToken().trim());
   		}
 
-  		for (int i = 11; i < 25; i++)
+  		for (int i = 11; i < 16; i++)
+  			if (st.hasMoreTokens()) 
+  				setValue(i, st.nextToken().trim());
+
+		setValue(16, "1");
+		if (this.verion == PsseVersion.PSSE_32)
+			setValue(16, st.nextToken().trim());
+ 		
+  		for (int i = 17; i < 25; i++)
   			if (st.hasMoreTokens()) 
   				setValue(i, st.nextToken().trim());
 	}

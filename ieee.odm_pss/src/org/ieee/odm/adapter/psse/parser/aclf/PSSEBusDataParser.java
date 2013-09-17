@@ -69,11 +69,16 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 			for (int i = 0; i < 11; i++)
 				setValue(i, st.nextToken().trim());
 		}
-		else if (this.verion == PsseVersion.PSSE_30) {
+		else if (this.verion == PsseVersion.PSSE_30 || 
+				this.verion == PsseVersion.PSSE_32) {
 			StringTokenizer st;
 
+			// V30
 			//    10001,'ALB_T4*     ',   1.0000,1,     0.000,     0.000,   1,   1,1.03259, -13.5044,   1
-			// -- str1-- ----str2---- -----------str3---------------	
+			// V32
+			//    10001,'ALB_T4*     ',   1.0000,1,                         1,   1,1.03259, -13.5044,   1
+			
+			// -- str1-- ----str2----- -----------str3---------------	
 			String str1 = lineStr.substring(0, lineStr.indexOf('\'')),
 			           strbuf = lineStr.substring(lineStr.indexOf('\'')+1),
 			           str2 = strbuf.substring(0, strbuf.indexOf('\'')),
@@ -90,8 +95,14 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		    setValue(2,s);
 		    
 		    int cnt = 3;
-		    while(st.hasMoreTokens())
+		    while(st.hasMoreTokens()) {
+		    	if (this.verion == PsseVersion.PSSE_32 && cnt == 4) {
+		    		cnt += 2;
+			    	setValue(4, "0.0");
+			    	setValue(5, "0.0");
+		    	}
 		    	setValue(cnt++, st.nextToken().trim());
+		    }
 		}
 		else
 			throw new ODMException("PSSEBusDataParser, wrong PSSE Version " + this.verion);

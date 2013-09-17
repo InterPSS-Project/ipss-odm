@@ -3,11 +3,11 @@ package org.ieee.odm.adapter.psse.impl;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.IFileReader;
-import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEAreaDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEBusDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEDcLine2TDataMapper;
+import org.ieee.odm.adapter.psse.mapper.aclf.PSSEFixedShuntDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEGenDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEHeaderDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEInterAreaTransferDataMapper;
@@ -24,7 +24,6 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.model.acsc.AcscModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
@@ -56,6 +55,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
 	
 	private PSSEBusDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> busDataMapper = null;
 	private PSSEGenDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> genDataMapper = null;
+	private PSSEFixedShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> fixedShuntDataMapper = null;
 	private PSSELoadDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> loadDataMapper = null;
 	private PSSESwitchedSShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> switchedShuntDataMapper = null;
 	
@@ -66,7 +66,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
 	public PSSELFAdapter(PsseVersion ver) {
 		super(ver);
 		
-		this.headerDataMapper = new PSSEHeaderDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>();
+		this.headerDataMapper = new PSSEHeaderDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.areaDataMapper = new PSSEAreaDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.zoneDataMapper = new PSSEZoneDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.ownerDataMapper = new PSSEOwnerDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
@@ -117,6 +117,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
       		boolean headerProcessed = false;
       		boolean busProcessed = false;
       		boolean loadProcessed = false;
+      		boolean fxiedShuntProcessed = false;     // introduced in V32
       		boolean genProcessed = false;
       		boolean lineProcessed = false;
       		boolean xfrProcessed = false;
@@ -132,7 +133,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
       		boolean ownerProcessed = false;
       		boolean factsProcessed = false;
       		
-      		int busCnt = 0, loadCnt = 0, genCnt = 0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
+      		int busCnt = 0, loadCnt = 0, fxiedShuntCnt = 0, genCnt = 0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
       		    areaInterCnt = 0, dcLineCnt = 0, vscDcLineCnt = 0, mtDcLineCnt = 0, factsCnt = 0,
       		    switchedShuntCnt = 0, ownerCnt = 0, interTransCnt = 0, zoneCnt = 0, multiSecCnt = 0;
       		
@@ -168,6 +169,17 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
 							loadCnt++;
 						}	 
       				}
+      				else if (this.adptrtVersion == PsseVersion.PSSE_32 && !fxiedShuntProcessed) {
+						if (isEndRecLine(lineStr)) {
+							fxiedShuntProcessed = true;
+							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
+							 this.elemCntStr += "Load record " + loadCnt +"\n";
+						}
+						else {
+							fixedShuntDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							fxiedShuntCnt++;
+						}	 
+      				}      				
       				else if (!genProcessed) {
 						if (isEndRecLine(lineStr)) {
 							 genProcessed = true;

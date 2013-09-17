@@ -1,5 +1,5 @@
 /*
- * @(#)PSSELoadDataParser.java   
+ * @(#)PSSEBusDataParser.java   
  *
  * Copyright (C) 2006-2013 www.interpss.org
  *
@@ -35,42 +35,31 @@ import org.ieee.odm.common.ODMException;
  * @author mzhou
  *
  */
-public class PSSELoadDataParser extends BasePSSEDataParser {
-	public PSSELoadDataParser(PsseVersion ver) {
+public class PSSEFixedShuntDataParser extends BasePSSEDataParser {
+	public PSSEFixedShuntDataParser(PsseVersion ver) {
 		super(ver);
-	}
+	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V30
+		/* Format V32
 		 * 
-		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
-		 *  
-		 *  Format V32
+		 *  I,   ID,   STATUS, GL, BL
 		 * 
-		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER, SCALE
-		 *  
-		 *     - SCALE Load scaling flag ofone for a scalalie load and zero for a ?xed load (refer to SCAL). SCALE = 1 by defarlt.
+		 *   sample :   1089,'1 ',0,     0.000,    36.000
 		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
-			  "I",       "ID",     "STATUS",   "AREA",    "ZONE",       
-		   //  5          6          7          8          9
-			  "PL",      "QL",      "IP",      "IQ",      "YP",    
-		   //  10         11        12     
-			  "YQ",      "OWNER",  
-			                       "SCALE"     // V32 only
+			  "I",      "ID",     "STATUS",    "GL",     "BL"
 		};
 	}
 	
-	@Override public void parseFields(final String str) throws ODMException {
+	@Override public void parseFields(final String lineStr) throws ODMException {
 		this.clearNVPairTableData();
-		
-  		StringTokenizer st = new StringTokenizer(str, ",");
-		for (int i = 0; i < 12; i++)
-			setValue(i, st.nextToken().trim());
-		
-		setValue(12, "1");
-		if (this.verion == PsseVersion.PSSE_32)
-			setValue(12, st.nextToken().trim());		
+		StringTokenizer st;
+
+		st = new StringTokenizer(lineStr, ",");
+	    int cnt = 0;
+	    while(st.hasMoreTokens())
+	    	setValue(cnt++, st.nextToken().trim());
 	}
 }

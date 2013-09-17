@@ -57,7 +57,12 @@ WMOD Wind machine control mode; WMOD is used to indicate whether a machine is a 
      sign of its active power.
    WMOD = O by default.
    
-WPF Power factor used in oalwlating reactive power limits or output when WMOD is 2 or 3. WPF = 1.0 by defatlt.   
+WPF Power factor used in calculating reactive power limits or output when WMOD is 2 or 3. WPF = 1.0 by default.   
+
+Sample data:
+
+    I, ID,      PG,         QG,        QT,       QB,    VS,          IREG, MBASE,  ZR,         ZX,         RT,         XT,        GTAP,   STAT,RMPCT,   PT,         PB,      O1,F1,...,O4,F4, WMOD, WPF
+    14,'1 ',    14.752,     0.748,     8.200,    -5.600,1.02500,     0,    21.000, 0.00000E+0, 1.30000E-1, 0.00000E+0, 0.00000E+0,1.00000,1,  100.0,    17.000,     6.000,   4,1.0000
 
 		 */
 		return new String[] {
@@ -71,8 +76,9 @@ WPF Power factor used in oalwlating reactive power limits or output when WMOD is
 			  "RMPCT",   "PT",      "PB",      "O1",      "F1",
 		   //  20         21         22         23         24
 			  "O2",      "F2",      "O3",      "F3",      "O4", 
-		   //  25 
-			  "F1"
+		   //  25         26         27
+			  "F1",      
+			             "WMOD",    "WPF"                // for V32 only
 		};
 	}
 	
@@ -107,6 +113,15 @@ WPF Power factor used in oalwlating reactive power limits or output when WMOD is
 		if (st.hasMoreTokens()) {
 			setValue(24, st.nextToken().trim());
 			setValue(25, st.nextToken().trim());
+		}
+		
+		if (this.verion == PsseVersion.PSSE_32) {
+			setValue(26, "");
+			setValue(27, "");
+			if (st.hasMoreTokens()) {
+				setValue(26, st.nextToken().trim());
+				setValue(27, st.nextToken().trim());
+			}			
 		}
 	}
 }

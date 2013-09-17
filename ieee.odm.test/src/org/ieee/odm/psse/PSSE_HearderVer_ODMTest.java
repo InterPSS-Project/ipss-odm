@@ -27,13 +27,14 @@ package org.ieee.odm.psse;
 import static org.junit.Assert.assertTrue;
 
 import org.ieee.odm.ODMFileFormatEnum;
+import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEHeaderDataMapper;
 import org.junit.Test;
 
 public class PSSE_HearderVer_ODMTest { 
 	@Test
 	public void testCase1() throws Exception {
-		PSSEHeaderDataMapper mapper = new PSSEHeaderDataMapper();
+		PSSEHeaderDataMapper mapper = new PSSEHeaderDataMapper(PsseVersion.PSSE_30);
 		assertTrue(mapper.getVersion("testData/psse/ver26Header.txt") == ODMFileFormatEnum.PsseV26);
 		assertTrue(mapper.getVersion("testData/psse/ver29Header.txt") == ODMFileFormatEnum.PsseV30);
 		assertTrue(mapper.getVersion("testData/psse/ver30Header.txt") == ODMFileFormatEnum.PsseV30);

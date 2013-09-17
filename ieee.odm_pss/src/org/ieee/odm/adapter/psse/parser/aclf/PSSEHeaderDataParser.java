@@ -52,10 +52,25 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 		 *  Case identification data consists of three data records. The first record contains six Items of data
 		 *  
               IC , SBASE , REV, XFRRAT, NXFRAT , BASFRQ
+              
+              IC,  Indicator
+              SBASE, 
+              REV,    PSS/E version
+              XFRRAT, 
+              NXFRAT, 
+              BASFRQ, base freq
+              
+		 * 	 String[0] ...
+	     *   String[2] comments
+	     *   String[3] comments         
+	     *   
+	     *   Sample line-1 : 0,   100.00, 32, 0, 1, 60.00     / PSS®E-32.0    THU, FEB 28 2013   7:24     
 		 */
 		return new String[] {
 		   //  0----------  1----------2---------- 3----------4
-			  "Indicator", "BaseKva", "Comment1", "Comment2"
+	 	  "Indicator",  "BaseKva",  "version",  "XFRRAT", "NXFRAT",
+		   //  5----------  6----------7---------- 3----------4
+	 	  "BASFRQ",      "Comment1", "Comment2"
 		};
 	}
 	
@@ -79,13 +94,14 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 		setValue(0, ind);
 
 		setValue(1, st.nextToken().trim());  			   
+		setValue(2, st.nextToken().trim());   // version  			   
 		
 		if (lineStr2!= null){
-			setValue(2, lineStr2);
+			setValue(6, lineStr2);
 		}
 		
 		if (lineStr3!= null){
-			setValue(3, lineStr3);
+			setValue(7, lineStr3);
 		}
   	}
 }
