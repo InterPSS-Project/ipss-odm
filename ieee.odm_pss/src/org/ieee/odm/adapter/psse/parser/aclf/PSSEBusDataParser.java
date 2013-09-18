@@ -76,7 +76,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 			// V30
 			//    10001,'ALB_T4*     ',   1.0000,1,     0.000,     0.000,   1,   1,1.03259, -13.5044,   1
 			// V32
-			//    10001,'ALB_T4*     ',   1.0000,1,                         1,   1,1.03259, -13.5044,   1
+			//    10001,'ALB_T4*     ',   1.0000,1,                         1,   1, 1, 1.03259, -13.5044
 			
 			// -- str1-- ----str2----- -----------str3---------------	
 			String str1 = lineStr.substring(0, lineStr.indexOf('\'')),
@@ -95,14 +95,19 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		    setValue(2,s);
 		    
 		    int cnt = 3;
-		    while(st.hasMoreTokens()) {
-		    	if (this.verion == PsseVersion.PSSE_32 && cnt == 4) {
-		    		cnt += 2;
-			    	setValue(4, "0.0");
-			    	setValue(5, "0.0");
-		    	}
-		    	setValue(cnt++, st.nextToken().trim());
-		    }
+	    	if (this.verion == PsseVersion.PSSE_32) {
+	    		setValue(3, st.nextToken().trim());
+	    		setValue(6, st.nextToken().trim());
+	    		setValue(7, st.nextToken().trim());
+	    		setValue(10, st.nextToken().trim());
+	    		setValue(8, st.nextToken().trim());
+	    		setValue(9, st.nextToken().trim());
+	    	}
+	    	else {
+			    while(st.hasMoreTokens()) {
+			    	setValue(cnt++, st.nextToken().trim());
+			    }
+	    	}
 		}
 		else
 			throw new ODMException("PSSEBusDataParser, wrong PSSE Version " + this.verion);

@@ -63,6 +63,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		//procLineFields(lineStr, version);
 		dataParser.parseFields(lineStr);
+		//System.out.println(lineStr + "\n" + dataParser.toString());
 /*
 		I,J,CKT,R,X,B,RATEA,RATEB,RATEC,GI,BI,GJ,BJ,ST,LEN,O1,F1,...,O4,F4
 		

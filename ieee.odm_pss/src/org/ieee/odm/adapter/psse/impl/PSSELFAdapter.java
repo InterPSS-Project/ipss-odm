@@ -33,18 +33,14 @@ import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
 
 public class PSSELFAdapter <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
-
+				TNetXml extends NetworkXmlType, 
+				TBusXml extends BusXmlType,
+				TLineXml extends BranchXmlType,
+				TXfrXml extends BranchXmlType,
+				TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
 
 	public final static String Token_CaseDesc = "Case Description";     
 	public final static String Token_CaseId = "Case ID";		
-
-	
-	
 
 	private PSSEHeaderDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> headerDataMapper = null;	
 	private PSSEAreaDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> areaDataMapper = null;
@@ -144,7 +140,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
       				if (!headerProcessed) {
   						String lineStr2 = din.readLine(); lineNo++;
   						String lineStr3 = din.readLine(); lineNo++;
-						this.headerDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, this.adptrtVersion, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+						this.headerDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
   						headerProcessed = true;
       				}
       				else if (!busProcessed) {
@@ -353,7 +349,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
       			}
     		} while (lineStr != null);
   		} catch (Exception e) {
-  			//e.printStackTrace();
+  			e.printStackTrace();
     		throw new ODMException("PSSE data input error, line no " + lineNo + ", " + e.toString());
   		}
              

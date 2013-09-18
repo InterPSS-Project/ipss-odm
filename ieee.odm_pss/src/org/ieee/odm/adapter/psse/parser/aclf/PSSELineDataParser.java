@@ -86,7 +86,9 @@ MET = 1 by default.
   		StringTokenizer st = new StringTokenizer(str, ",");
 
   		for (int i = 0; i < 9; i++) {
-  			if (i == 2 && this.verion == PsseVersion.PSSE_30)
+  			if (i == 2 && 
+  					(this.verion == PsseVersion.PSSE_30 ||
+  					 this.verion == PsseVersion.PSSE_32))
   				setValue(i, ModelStringUtil.trimQuote(st.nextToken()).trim());
   			else
   				setValue(i, st.nextToken().trim());

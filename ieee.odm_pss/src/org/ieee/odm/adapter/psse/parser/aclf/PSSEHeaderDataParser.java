@@ -81,10 +81,7 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 		String lineStr2 = lineAry[1];
 		String lineStr3 = lineAry[2];
 		
-		//line 1 at here we have "0, 100.00 " or some times "0 100.00 "		
-		StringTokenizer st = lineStr.contains(",") ?
-				new StringTokenizer(lineStr, ",") :
-				new StringTokenizer(lineStr);
+		StringTokenizer st = new StringTokenizer(lineStr, ",");
 		
 		String ind = st.nextToken();  			   
 		int indicator = new Integer(ind).intValue();
@@ -95,6 +92,8 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 
 		setValue(1, st.nextToken().trim());  			   
 		setValue(2, st.nextToken().trim());   // version  			   
+		setValue(3, st.nextToken().trim());  			   
+		setValue(4, st.nextToken().trim());     			   
 		
 		if (lineStr2!= null){
 			setValue(6, lineStr2);

@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
 
 import org.ieee.odm.ODMFileFormatEnum;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.parser.aclf.PSSEBusDataParser;
+import org.ieee.odm.adapter.psse.parser.aclf.PSSEHeaderDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -52,14 +52,33 @@ public class PSSEHeaderDataMapper <
 	
 	public PSSEHeaderDataMapper(PsseVersion ver) {
 		super(ver);
-		this.dataParser = new PSSEBusDataParser(ver);
+		this.dataParser = new PSSEHeaderDataParser(ver);
 	}
 	
-	public void procLineString(String[] lineStrAry, PsseVersion adptrVersion, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		
-		if (adptrVersion == PsseVersion.PSSE_32) {
+		if (this.version == PsseVersion.PSSE_32) {
 			dataParser.parseFields(lineStrAry);
+			
+			/*
+		   //  0----------  1----------2---------- 3----------4
+	 	  "Indicator",  "BaseKva",  "version",  "XFRRAT", "NXFRAT",
+		   //  5----------  6----------7---------- 3----------4
+	 	  "BASFRQ",      "Comment1", "Comment2"
+	 	   */
+			
+			double baseMva = dataParser.getDouble("BaseKva");
+			baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(baseMva));
+			BaseJaxbHelper.addNVPair(baseCaseNet, "CaseIndicator", dataParser.getString("Indicator"));
+			String ver = dataParser.getString("version");
+			
+			baseCaseNet.setDesc(lineStrAry[0]);
+			
+			baseCaseNet.setName("AclfNet-PSSE-V" + ver);
+			
+			if (!ver.contains("32"))
+				throw new ODMException("PSSE Adapter version and input file has different version, adapter: " + this.version + "  file: " + ver);
 		}
 		else {
 			String lineStr = lineStrAry[0];
@@ -80,9 +99,6 @@ public class PSSEHeaderDataMapper <
 			
 			for (String s : lineStrAry)
 				filterVersion(s);
-			
-			if (this.version != adptrVersion)
-				throw new ODMException("PSSE Adapter version and input file has different version, adapter: " + adptrVersion + "  file: " + this.version);
 		}
 	}
 	
