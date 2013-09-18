@@ -37,6 +37,7 @@ import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
+import org.ieee.odm.schema.BusShuntYDataXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
@@ -45,6 +46,7 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
+import org.ieee.odm.schema.LoadflowShuntYDataXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.ShuntCompensatorXmlType;
@@ -52,6 +54,7 @@ import org.ieee.odm.schema.StaticVarCompensatorXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XformerZTableXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
+import org.ieee.odm.schema.YUnitType;
 
 /**
  * Aclf model parser help functions
@@ -60,6 +63,23 @@ import org.ieee.odm.schema.XfrBranchXmlType;
  *
  */
 public class AclfParserHelper extends BaseJaxbHelper {
+	/**
+	 * create a Contribution shuntY object
+	 * 
+	 */
+	public static LoadflowShuntYDataXmlType createContriShuntY(LoadflowBusXmlType busRec) {
+		BusShuntYDataXmlType shuntYData = busRec.getShuntYData();
+		if (shuntYData == null) { 
+			shuntYData = odmObjFactory.createBusShuntYDataXmlType();
+			busRec.setShuntYData(shuntYData);
+			LoadflowShuntYDataXmlType equivY = odmObjFactory.createLoadflowShuntYDataXmlType();
+			shuntYData.setEquivY(equivY);
+		}
+		LoadflowShuntYDataXmlType contribShuntY = odmObjFactory.createLoadflowShuntYDataXmlType();
+		shuntYData.getContributeShuntY().add(contribShuntY); 
+	    return contribShuntY;
+	}
+	
 	/**
 	 * create a Contribution Load object
 	 * 
@@ -94,6 +114,22 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		genData.getContributeGen().add(odmObjFactory.createContributeGen(contribGen));
 		return contribGen;
 	}
+
+	/**
+	 * create bus EquivData info
+	 * 
+	 * @param parser
+	 * @return
+	 */
+	public static boolean createBusEquivData(IODMModelParser parser) {
+		createBusEquivGenData(parser);
+		
+		createBusEquivLoadData(parser);
+		
+		createBusEquivShuntYData(parser);
+
+		return true;
+	}	
 	
 	/**
 	 * consolidate bus genContributionList to the equiv gen 
@@ -195,21 +231,6 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		return true;
 	}
 
-
-	/**
-	 * create bus EquivData info
-	 * 
-	 * @param parser
-	 * @return
-	 */
-	public static boolean createBusEquivData(IODMModelParser parser) {
-		createBusEquivGenData(parser);
-		
-		createBusEquivLoadData(parser);
-
-		return true;
-	}	
-	
 	/**
 	 * consolidate bus loadContributionList to the load 
 	 * 
@@ -269,6 +290,38 @@ public class AclfParserHelper extends BaseJaxbHelper {
 			}
 		}
 
+		return true;
+	}
+	
+	/**
+	 * consolidate bus loadContributionList to the load 
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	public static boolean createBusEquivShuntYData(IODMModelParser parser) {
+		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
+		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
+			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
+			BusShuntYDataXmlType shuntYData = busRec.getShuntYData();
+			if (shuntYData != null) {
+				if ( shuntYData.getContributeShuntY().size() > 0) {
+					LoadflowShuntYDataXmlType equivY = shuntYData.getEquivY();
+					double g=0.0, b=0.0; 
+					for ( LoadflowShuntYDataXmlType y : shuntYData.getContributeShuntY()) {
+						if (!y.isOffLine()) {
+							if (y.getY() != null) {
+								g += y.getY().getRe();
+								b += y.getY().getIm();
+							}
+						}					
+					}
+					
+					if (g != 0.0 || b != 0.0) {
+						equivY.setY(BaseDataSetter.createYValue(g, b, YUnitType.PU));
+			  		}
+				}
+			}
+		}
 		return true;
 	}
 

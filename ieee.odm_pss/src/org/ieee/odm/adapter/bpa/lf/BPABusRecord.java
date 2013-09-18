@@ -211,7 +211,7 @@ public class BPABusRecord<
 			// set G B
 			if (g != 0.0 || b != 0.0) {
 				busRec.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(g, b,YUnitType.PU));
-				busRec.getShuntYData().getEquivY().setStatus(true);
+				busRec.getShuntYData().getEquivY().setOffLine(false);
 			}	
 			
 			// set load

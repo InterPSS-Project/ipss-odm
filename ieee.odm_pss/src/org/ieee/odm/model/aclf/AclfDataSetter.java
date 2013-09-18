@@ -180,7 +180,7 @@ public class AclfDataSetter extends BaseDataSetter {
 	 */
 	public static void setBusShuntY(LoadflowBusXmlType bus, double re, double im, YUnitType unit) {
 		bus.getShuntYData().getEquivY().setY(odmObjFactory.createYXmlType());
-		bus.getShuntYData().getEquivY().setStatus(true);
+		bus.getShuntYData().getEquivY().setOffLine(false);
 		bus.getShuntYData().getEquivY().getY().setRe(re);
 		bus.getShuntYData().getEquivY().getY().setIm(im);
 		bus.getShuntYData().getEquivY().getY().setUnit(unit);

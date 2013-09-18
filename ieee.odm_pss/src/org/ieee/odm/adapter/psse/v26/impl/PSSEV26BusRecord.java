@@ -139,7 +139,7 @@ public class PSSEV26BusRecord {
 		final double bMvar= busDataParser.getDouble("BL", 0.0);
 		if (gMw != 0.0 || bMvar != 0.0) {
 			busRec.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(gMw, bMvar, YUnitType.MVAR));
-			busRec.getShuntYData().getEquivY().setStatus(true);
+			busRec.getShuntYData().getEquivY().setOffLine(false);
 		}
 		
 		//area zone	

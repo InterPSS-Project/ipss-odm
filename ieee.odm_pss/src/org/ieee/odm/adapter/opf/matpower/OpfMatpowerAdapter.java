@@ -239,7 +239,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		if (pshunt != 0.0 || qshunt != 0.0) {
 			aclfBus.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(pshunt / baseKva,
 					qshunt / baseKva, YUnitType.PU));
-			aclfBus.getShuntYData().getEquivY().setStatus(true);
+			aclfBus.getShuntYData().getEquivY().setOffLine(false);
 		}
 
 	}

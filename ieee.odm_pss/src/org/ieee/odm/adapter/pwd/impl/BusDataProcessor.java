@@ -124,7 +124,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		
 		if (busG != 0.0 || busB != 0.0) {
 			bus.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(busG, busB,YUnitType.MVAR));
-			bus.getShuntYData().getEquivY().setStatus(true);
+			bus.getShuntYData().getEquivY().setOffLine(false);
 		}
 		
 		if(isSlackBus){

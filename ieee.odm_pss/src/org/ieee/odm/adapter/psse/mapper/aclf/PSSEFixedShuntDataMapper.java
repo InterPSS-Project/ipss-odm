@@ -31,18 +31,13 @@ import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.model.dstab.DStabParserHelper;
-import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
-import org.ieee.odm.schema.LoadflowLoadDataXmlType;
+import org.ieee.odm.schema.LoadflowShuntYDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
-import org.ieee.odm.schema.ShortCircuitBusXmlType;
+import org.ieee.odm.schema.YUnitType;
 
 public class PSSEFixedShuntDataMapper <
 TNetXml extends NetworkXmlType, 
@@ -71,42 +66,20 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	    	return;
 	    }
 		
-	    LoadflowLoadDataXmlType contribLoad; 
-	    if (busRecXml instanceof DStabBusXmlType) {
-	    	contribLoad = DStabParserHelper.createDStabContriLoad((DStabBusXmlType)busRecXml);
-	    }
-	    else if (busRecXml instanceof ShortCircuitBusXmlType) {
-	    	contribLoad = AcscParserHelper.createAcscContributeLoad((ShortCircuitBusXmlType)busRecXml);
-	    } 
-	    else {
-	    	contribLoad = AclfParserHelper.createContriLoad((LoadflowBusXmlType)busRecXml); 
-	    }	    
+	    LoadflowShuntYDataXmlType contribShutY; 
+    	contribShutY = AclfParserHelper.createContriShuntY((LoadflowBusXmlType)busRecXml); 
 
 	    String id = dataParser.getString("ID");
-	    contribLoad.setId(id);
-	    contribLoad.setName("Load:" + id + "(" + i + ")");
-	    contribLoad.setDesc("PSSE Load " + id + " at Bus " + i);
+	    contribShutY.setId(id);
+	    contribShutY.setName("ShuntY:" + id + "(" + i + ")");
+	    contribShutY.setDesc("PSSE ShuntY " + id + " at Bus " + i);
 	    
 	    int status = dataParser.getInt("STATUS");
-	    contribLoad.setOffLine(status!=1);
+	    contribShutY.setOffLine(status!=1);
 
-	    contribLoad.setAreaNumber(dataParser.getInt("AREA", 1));
-	    contribLoad.setZoneNumber(dataParser.getInt("ZONE", 1));
-	    BaseJaxbHelper.addOwner(contribLoad, dataParser.getString("OWNER"));
-		
-	    double pl = dataParser.getDouble("PL", 0.0);
-	    double ql = dataParser.getDouble("QL", 0.0);
-		if (pl != 0.0 || ql != 0.0)
-			contribLoad.setConstPLoad(BaseDataSetter.createPowerValue(pl, ql, ApparentPowerUnitType.MVA));
-
-		double ip = dataParser.getDouble("IP", 0.0);
-	    double iq = dataParser.getDouble("IQ", 0.0);
-		if (ip != 0.0 || iq != 0.0)
-			contribLoad.setConstILoad(BaseDataSetter.createPowerValue(ip, iq, ApparentPowerUnitType.MVA));
-
-		double yp = dataParser.getDouble("YP", 0.0);
-	    double yq = dataParser.getDouble("YQ", 0.0);
-		if (yp != 0.0 || yq != 0.0)
-			contribLoad.setConstZLoad(BaseDataSetter.createPowerValue(yp, yq, ApparentPowerUnitType.MVA));
+	    double g = dataParser.getDouble("GL", 0.0);
+	    double b = dataParser.getDouble("BL", 0.0);
+		if (g != 0.0 || b != 0.0)
+			contribShutY.setY(BaseDataSetter.createYValue(g, b, YUnitType.PU));
 	}
 }
