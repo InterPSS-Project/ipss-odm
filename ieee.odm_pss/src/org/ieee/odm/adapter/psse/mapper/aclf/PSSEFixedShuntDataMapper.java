@@ -25,7 +25,7 @@
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.parser.aclf.PSSELoadDataParser;
+import org.ieee.odm.adapter.psse.parser.aclf.PSSEFixedShuntDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
@@ -50,20 +50,19 @@ TBusXml extends BusXmlType,
 TLineXml extends BranchXmlType,
 TXfrXml extends BranchXmlType,
 TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+	
 	public PSSEFixedShuntDataMapper(PsseVersion ver) {
 		super(ver);
-		this.dataParser = new PSSELoadDataParser(ver);
+		this.dataParser = new PSSEFixedShuntDataParser(ver);
 	}
 	
 	/*
-	 * LoadData I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
+			  "I",      "ID",     "STATUS",    "GL",     "BL"
 	 */	
 	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		//procLineString(lineStr, version);
 		this.dataParser.parseFields(lineStr);
-/*
-		I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
-*/		
+
 		int i = dataParser.getInt("I");
 	    final String busId = AbstractModelParser.BusIdPreFix+i;
 	    BusXmlType busRecXml = parser.getBus(busId);
