@@ -136,14 +136,14 @@ public class AclfModelComparator {
 /*
                 <shuntY unit="PU" im="-1.4" re="5.3"/>
 */
-		if (base.getShuntY() != null && bus.getShuntY() != null) {
-			if (!ODMNumericUtil.equals(base.getShuntY(), bus.getShuntY()))
+		if (base.getShuntYData().getEquivY().getY() != null && bus.getShuntYData().getEquivY().getY() != null) {
+			if (!ODMNumericUtil.equals(base.getShuntYData().getEquivY().getY(), bus.getShuntYData().getEquivY().getY()))
 				msgList.add("\nBus ShuntY not equal: " + id 
-						+ "   " + BaseJaxbHelper.toStr(base.getShuntY()) + baseStr
-						+ "   " + BaseJaxbHelper.toStr(bus.getShuntY()) + format);
+						+ "   " + BaseJaxbHelper.toStr(base.getShuntYData().getEquivY().getY()) + baseStr
+						+ "   " + BaseJaxbHelper.toStr(bus.getShuntYData().getEquivY().getY()) + format);
 		}
-		else if (base.getShuntY() == null && bus.getShuntY() != null ||
-				 base.getShuntY() != null && bus.getShuntY() == null) {
+		else if (base.getShuntYData().getEquivY().getY() == null && bus.getShuntYData().getEquivY().getY() != null ||
+				 base.getShuntYData().getEquivY().getY() != null && bus.getShuntYData().getEquivY().getY() == null) {
 			msgList.add("\nBus ShuntY model not equal: " + id);
 		}
 		

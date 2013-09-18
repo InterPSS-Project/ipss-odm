@@ -96,7 +96,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
     		double factor = parser.getNet().getBasePower().getValue();  
     		// for transfer G+jB to PU on system base, gl, bl are entered in MW at one per unit voltage
     		// bl is reactive power consumed, - for capactor
-    		aclfBusXml.setShuntY(BaseDataSetter.createYValue(gl/factor, bl/factor, YUnitType.PU));
+    		aclfBusXml.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(gl/factor, bl/factor, YUnitType.PU));
+    		aclfBusXml.getShuntYData().getEquivY().setStatus(true);
     	}
       	
     	int ide = dataParser.getInt("IDE", 0);

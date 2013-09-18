@@ -138,7 +138,8 @@ public class PSSEV26BusRecord {
 		final double gMw = busDataParser.getDouble("GL", 0.0);
 		final double bMvar= busDataParser.getDouble("BL", 0.0);
 		if (gMw != 0.0 || bMvar != 0.0) {
-			busRec.setShuntY(BaseDataSetter.createYValue(gMw, bMvar, YUnitType.MVAR));
+			busRec.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(gMw, bMvar, YUnitType.MVAR));
+			busRec.getShuntYData().getEquivY().setStatus(true);
 		}
 		
 		//area zone	

@@ -44,6 +44,7 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
+import org.ieee.odm.schema.LoadflowShuntYDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
@@ -134,6 +135,10 @@ public class BaseAclfModelParser<
 		busRec.setLoadData(odmObjFactory.createBusLoadDataXmlType());
    		LoadflowLoadDataXmlType equivLoad = odmObjFactory.createLoadflowLoadDataXmlType();
    		busRec.getLoadData().setEquivLoad(odmObjFactory.createEquivLoad(equivLoad));   		
+
+   		busRec.setShuntYData(odmObjFactory.createBusShuntYDataXmlType());
+   		LoadflowShuntYDataXmlType equivY = odmObjFactory.createLoadflowShuntYDataXmlType();
+   		busRec.getShuntYData().setEquivY(equivY);   		
 	}
 	
 	/*

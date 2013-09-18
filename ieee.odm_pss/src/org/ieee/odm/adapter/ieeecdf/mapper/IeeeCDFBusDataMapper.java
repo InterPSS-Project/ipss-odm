@@ -122,7 +122,8 @@ public class IeeeCDFBusDataMapper extends BaseIeeeCDFDataMapper {
 		final double gPU = dataParser.getDouble("ShuntG");
 		final double bPU = dataParser.getDouble("ShuntB");
 		if (gPU != 0.0 || bPU != 0.0) {
-			aclfBus.setShuntY(BaseDataSetter.createYValue(gPU, bPU, YUnitType.PU));
+			aclfBus.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(gPU, bPU, YUnitType.PU));
+			aclfBus.getShuntYData().getEquivY().setStatus(true);
 		}
 
 		//Columns 85-90   Desired volts (pu) [F] (This is desired remote voltage if this bus is controlling another bus.)
