@@ -99,7 +99,7 @@ public class IEEECDF_ODMTest {
 		assertTrue(busRec.getAngle().getValue() == 0.0);
 		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
 		assertTrue(busRec.getLoadData() == null);
-		assertTrue(busRec.getShuntY() == null);
+		assertTrue(busRec.getShuntYData().getEquivY().getY() == null);
 
 		// Bus 2 is a PV bus with load
 		//   2 Bus 2     HV  1  1  2 1.045  -4.98     21.7     12.7     40.0    42.4   132.0  1.045    50.0   -40.0   0.0    0.0        0
@@ -125,16 +125,16 @@ public class IEEECDF_ODMTest {
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 16.6);
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 		
-		assertTrue(busRec.getShuntY().getRe() == 0.0);
-		assertTrue(busRec.getShuntY().getIm() == 0.19);
-		assertTrue(busRec.getShuntY().getUnit() == YUnitType.PU);
+		assertTrue(busRec.getShuntYData().getEquivY().getY().getRe() == 0.0);
+		assertTrue(busRec.getShuntYData().getEquivY().getY().getIm() == 0.19);
+		assertTrue(busRec.getShuntYData().getEquivY().getY().getUnit() == YUnitType.PU);
 		
 		// Bus 7 is non-gen and non-load bus
 		//    7 Bus 7     ZV  1  1  0 1.062 -13.37      0.0      0.0      0.0     0.0    35.0  0.0       0.0     0.0   0.0    0.0        0
 		busRec = parser.getBus("Bus7");
 		//assertTrue(busRec.getLoadflowData().getGenData() == null);
 		assertTrue(busRec.getLoadData() == null);
-		assertTrue(busRec.getShuntY() == null);
+		assertTrue(busRec.getShuntYData().getEquivY().getY() == null);
 
 		// Check Branch Data
 		// =================

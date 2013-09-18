@@ -73,7 +73,7 @@ public class UCTE_ODMTest {
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 280.0);
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0.0);
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
-		assertTrue(busRec.getShuntY() == null);
+		assertTrue(busRec.getShuntYData().getEquivY().getY() == null);
 
 		// A2____1 is a load bus
 		// A2    1                 0        .000000 .000000 -150.00 .000000                
