@@ -342,7 +342,6 @@
 				<ns:sequence>
 					<ns:element minOccurs="1" name="y" type="pss:YXmlType"/>
 				</ns:sequence>
-				<ns:attribute name="status" type="ns:boolean" use="required"/>				
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>    
