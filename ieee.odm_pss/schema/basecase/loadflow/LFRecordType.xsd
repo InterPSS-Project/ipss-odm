@@ -51,7 +51,19 @@
 		equiv load at bus for defining equiv load data for Loadflow study
 		</ns:documentation></ns:annotation>
     </ns:element>
-            
+    
+    <ns:element name="contributeShuntY" type="pss:LoadflowShuntYDataXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing shunt Y at bus for defining equiv shunt Y data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+    
+    <ns:element name="equivY" type="pss:LoadflowShuntYDataXmlType">
+        <ns:annotation><ns:documentation>
+		equiv shunt Y at bus for defining equiv shunt Y data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
+                
     <ns:element name="aclfLine" substitutionGroup="pss:branch" type="pss:LineBranchXmlType">
         <ns:annotation> <ns:documentation>
 		Line Branch record for defining line for AC Loadflow  
@@ -238,7 +250,7 @@
 								the contribLoad list are summarized into the equivLoad after the data is loaded
 						</ns:documentation></ns:annotation>
 					</ns:element>
-                    <ns:element maxOccurs="1" minOccurs="0" name="shuntY" type="pss:YXmlType" />
+                    <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType" />
                     <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -257,6 +269,13 @@
 		<ns:sequence>
 			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivLoad"/>
 			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeLoad"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="BusShuntYDataXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivY"/>
+			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeShuntY"/>
 		</ns:sequence>
 	</ns:complexType>
 
@@ -314,7 +333,19 @@
 		</ns:complexContent>
 	</ns:complexType>
 
-    
+    <ns:complexType name="LoadflowShuntYDataXmlType">
+		<ns:annotation> <ns:documentation>
+		It is used to define LoadflowShuntYDataXmlType, including equivY and contribShuntY list
+		</ns:documentation> </ns:annotation>
+		<ns:complexContent>
+			<ns:extension base="pss:IDRecordXmlType">
+				<ns:sequence>
+					<ns:element minOccurs="1" name="y" type="pss:YXmlType"/>
+				</ns:sequence>
+				<ns:attribute name="status" type="ns:boolean" use="required"/>				
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>    
 <!-- 
 		Branch objects
  -->
