@@ -51,7 +51,7 @@ import org.ieee.odm.schema.XfrShortCircuitXmlType;
  */
 public class PSSEAdapter extends AbstractODMAdapter{
 	public static enum PsseVersion {
-		PSSE_26, PSSE_29, PSSE_30, PSSE_32	
+		PSSE_26, PSSE_29, PSSE_30, PSSE_31, PSSE_32, PSSE_33	
 	}
 
 	private PsseVersion adptrtVersion;
