@@ -41,7 +41,7 @@ public class PSSELoadDataParser extends BasePSSEDataParser {
 	}
 	
 	@Override public String[] getMetadata() {
-		/* Format V30
+		/* Format V30, V29
 		 * 
 		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
 		 *  

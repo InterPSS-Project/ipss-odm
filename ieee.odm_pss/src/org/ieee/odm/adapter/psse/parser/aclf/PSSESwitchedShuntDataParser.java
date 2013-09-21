@@ -54,7 +54,12 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		34606,0,    1.1000,0.9000,     0,-190.800,     1, -47.700,     1, -47.700,     1, -47.700,     1, -47.700,
 		
 		
-		Format V30
+		Format V29
+		==========
+		I,    MODSW, VSWHI, VSWLO, SWREM,         ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
+                                                            nbPosition(7) 
+                                                            
+        Format V30
 		==========
 		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
                                                             nbPosition(8) 
@@ -117,7 +122,9 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
   		StringTokenizer st = new StringTokenizer(lineStr, ",");
   		
 		nbPosition = 6;
-  		if (this.verion == PsseVersion.PSSE_30)
+  		if (this.verion == PsseVersion.PSSE_29)
+  			nbPosition = 7;
+  		else if (this.verion == PsseVersion.PSSE_30)
   			nbPosition = 8;
   		else if (this.verion == PsseVersion.PSSE_32 ||
   				 this.verion == PsseVersion.PSSE_33)
@@ -125,6 +132,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
   		
   		for ( int i = 0; i < this.nbPosition; i++) { 
   			if (i==2 && (this.verion == PsseVersion.PSSE_26 ||
+  					     this.verion == PsseVersion.PSSE_29 ||
   	  			         this.verion == PsseVersion.PSSE_30))
   				i += 2;
   	  		this.setValue(i, st.nextToken().trim());

@@ -42,6 +42,23 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/* 
+		 * format V29
+		 * ==========
+		 * 
+		 * 3W
+	Line-1  	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR, NAME, STAT,O1,F1,...,O4,F4
+	Line-2 		R1-2,X1-2,SBASE1-2,R2-3,X2-3,SBASE2-3,R3-1,X3-1,SBASE3-1,VMSTAR,ANSTAR
+    Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD,  CONT,RMA, RMI,  VMA, VMI,  NTP,TAB,CR,CX
+	Line-4      WINDV2,  NOMV2,  ANG2, RATA2,RATB2,RATC2, 
+	Line-5 		WINDV3,  NOMV3,  ANG3, RATA3,RATB3,RATC3,  
+	
+		 * 2W
+	Line-1  	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR, NAME, STAT,O1,F1,...,O4,F4
+	Line-2 		R1-2,X1-2,SBASE1-2
+    Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD,  CONT,RMA, RMI,  VMA, VMI,  NTP,TAB,CR,CX
+	Line-4      WINDV2,  NOMV2
+	
+			/* 
 		 * format V30
 		 * ==========
 		 * 
@@ -134,22 +151,24 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 			   //  0----------1----------2----------3----------4
 				  "WINDV2",  "NOMV2",  "ANG2",    "RATA2",   "RATB2",
 			   //  5          6          7          8          9
-				  "RATC2",   "COD2",   "CONT2",   "RMA2",    "RMI2",
+				  "RATC2",   
+				             "COD2",   "CONT2",   "RMA2",    "RMI2",   // V30 and late version
 			   //  10         11         12         13         14
-				  "VMA2",    "VMI2",   "NTP2",    "TAB2",    "CR2",
+				  "VMA2",    "VMI2",   "NTP2",    "TAB2",    "CR2",    // V30 and late version
 			   //  15
-				  "CX2",          
+				  "CX2",                                               // V30 and late version
 			
 			   //
 			   //	Line-5
 			   //  0----------1----------2----------3----------4
 				  "WINDV3",  "NOMV3",   "ANG3",   "RATA3",    "RATB3",
 			   //  5          6          7          8          9
-				  "RATC3",   "COD3",    "CONT3",  "RMA3",     "RMI3",
+				  "RATC3",   
+				             "COD3",    "CONT3",  "RMA3",     "RMI3",   // V30 and late version
 			   //  10         11         12         13         14
-				  "VMA3",    "VMI3",    "NTP3",   "TAB3",     "CR3",
+				  "VMA3",    "VMI3",    "NTP3",   "TAB3",     "CR3",    // V30 and late version
 				// 15
-				  "CX3"
+				  "CX3"                                                 // V30 and late version
 		};
 	}
 	

@@ -42,7 +42,7 @@ public class PSSEMultiSecDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/*
-		 * Format V30
+		 * Format V29, V30
 		 * 
 		I, J, ID, DUM1, DUM2, ... DUM9
 

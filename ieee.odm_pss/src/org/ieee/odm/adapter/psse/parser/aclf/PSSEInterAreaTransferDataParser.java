@@ -42,7 +42,7 @@ public class PSSEInterAreaTransferDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/*  
-		 * Format V30, V32, V33
+		 * Format V29, V30, V32, V33
 		 * 
 		 *   	ARFROM, ARTO, TRID, PTRAN
 		 * 
