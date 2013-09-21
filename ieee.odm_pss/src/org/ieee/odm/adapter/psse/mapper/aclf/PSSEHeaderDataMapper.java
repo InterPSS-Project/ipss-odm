@@ -58,7 +58,8 @@ public class PSSEHeaderDataMapper <
 	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		
-		if (this.version == PsseVersion.PSSE_32) {
+		if (this.version == PsseVersion.PSSE_32 || 
+				this.version == PsseVersion.PSSE_33) {
 			dataParser.parseFields(lineStrAry);
 			
 			/*

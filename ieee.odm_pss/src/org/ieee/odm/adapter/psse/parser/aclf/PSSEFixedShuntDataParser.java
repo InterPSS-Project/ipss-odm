@@ -41,7 +41,7 @@ public class PSSEFixedShuntDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V32
+		/* Format V32, V33
 		 * 
 		 *  I,   ID,   STATUS, GL, BL
 		 * 

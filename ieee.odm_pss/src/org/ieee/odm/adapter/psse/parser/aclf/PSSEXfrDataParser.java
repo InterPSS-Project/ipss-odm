@@ -74,7 +74,25 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
     Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD1, CONT1,RMA1,RMI1,VMA1, VMI1,  NTP1,TAB1,CR1,CX1
 	Line-4      WINDV2,  NOMV2
 	
-	      Format V30 and V32, data structure is the same, only renamed the fields, for example COD -> COD1
+	      Format V30 and V32, data structure is the same, only renamed some of the fields, for example COD -> COD1
+	      
+		 * format V33
+		 * ==========
+		 * 3W
+	Line-1  	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR, NAME, STAT,O1,F1,...,O4,F4,VECGRP
+	Line-2 		R1-2,X1-2,SBASE1-2,R2-3,X2-3,SBASE2-3,R3-1,X3-1,SBASE3-1,VMSTAR,ANSTAR
+    Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD1, CONT1,RMA1,RMI1,VMA1,VMI1, NTP1,TAB1,CR1,CX1
+	Line-4      WINDV2,  NOMV2,  ANG2, RATA2,RATB2,RATC2,  COD2, CONT2,RMA2,RMI2,VMA2,VMI2, NTP2,TAB2,CR2,CX2
+	Line-5 		WINDV3,  NOMV3,  ANG3, RATA3,RATB3,RATC3,  COD3, CONT3,RMA3,RMI3,VMA3,VMI3, NTP3,TAB3,CR3,CX3
+
+		 * 2W
+	Line-1  	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR, NAME, STAT,O1,F1,...,O4,F4,VECGRP
+	Line-2 		R1-2,X1-2,SBASE1-2
+    Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD1, CONT1,RMA1,RMI1,VMA1, VMI1,  NTP1,TAB1,CR1,CX1
+	Line-4      WINDV2,  NOMV2
+	      
+	      VECGRP	Alphanumeric identifier specifying vector group based on transformer winding connections and phase angles. 
+	      			VECGRP value is used for information purpose only.  VECGRP is 12 blanks by default.
         */
 
 		return new String[] {
@@ -88,6 +106,8 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				  "NAME",    "STAT",    "O1",      "F1",      "O2", 
 			   //  15         16         17         18         19
 				  "F2",       "O3",     "F3",      "O4",      "F4",
+			   //  20	  
+				  "VECGRP",
 					  
 	           //
 			   //	Line-2
@@ -166,13 +186,13 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 		st = new StringTokenizer(s5, ",");
 		setValue(11, st.nextToken().trim());
 
-		for (int i = 12; i < 20; i++)
+		for (int i = 12; i < 21; i++)
 			if (st.hasMoreTokens())
 				setValue(i, st.nextToken().trim());
 		
 		int k = this.getInt("K", 0);
 
-		int N2 = 20;
+		int N2 = 21;
 		st = new StringTokenizer(lineStr2, ",");
 		for (int i = N2; i < N2+3; i++)
 			setValue(i, st.nextToken().trim());
@@ -181,12 +201,12 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				setValue(i, st.nextToken().trim());
 		}
 
-		int N3 = 31;
+		int N3 = N2 + 11;
 		st = new StringTokenizer(lineStr3, ",");
 		for (int i = N3; i < N3+16; i++)
 			setValue(i, st.nextToken().trim());
 
-		int N4 = 47;
+		int N4 = N3 + 16;
 		st = new StringTokenizer(lineStr4, ",");
 		for (int i = N4; i < N4+2; i++)
 			setValue(i, st.nextToken().trim());
@@ -195,7 +215,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				setValue(i, st.nextToken().trim());
 		}
 		
-		int N5 = 63;
+		int N5 = N4 + 16;
 		if (k != 0) {
 			st = new StringTokenizer(lineStr5, ",");
 			for (int i = N5; i < N5+16; i++)

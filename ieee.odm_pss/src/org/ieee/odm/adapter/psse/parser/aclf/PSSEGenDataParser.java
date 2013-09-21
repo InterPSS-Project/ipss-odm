@@ -45,7 +45,7 @@ public class PSSEGenDataParser extends BasePSSEDataParser {
 		/* Format V30
 		 * 	I, ID, PG, QG, QT, QB, VS, IREG,MBASE, ZR,ZX,RT,XT, GTAP, STAT,RMPCT, PT,PB, O1,F1,...,O4,F4
  
- 			Format V32
+ 			Format V32, V33
 		 * 	I, ID, PG, QG, QT, QB, VS, IREG,MBASE, ZR,ZX,RT,XT, GTAP, STAT,RMPCT, PT,PB, O1,F1,...,O4,F4, WMOD, WPF
 
 WMOD Wind machine control mode; WMOD is used to indicate whether a machine is a wind machine, and, if it is, the type of reactive power limits to be imposed.

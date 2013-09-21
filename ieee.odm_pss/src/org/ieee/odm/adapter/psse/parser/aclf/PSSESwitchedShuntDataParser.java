@@ -40,9 +40,6 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 	
 	public PSSESwitchedShuntDataParser(PsseVersion ver) {
 		super(ver);
-		nbPosition = 6;
-  		if (ver == PsseVersion.PSSE_30)
-  			nbPosition = 8;
 	}
 	
 	@Override public String[] getMetadata() {
@@ -51,7 +48,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		==========
 		I,    MODSW,VSWHI, VSWLO,  SWREM,                  BINIT,  N1,      B1,   N2,        B2...N8,B8
 		
-		                                                   nbPosition
+		                                                   nbPosition(6)
 
 	Sample Data
 		34606,0,    1.1000,0.9000,     0,-190.800,     1, -47.700,     1, -47.700,     1, -47.700,     1, -47.700,
@@ -60,7 +57,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		Format V30
 		==========
 		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
-
+                                                            nbPosition(8) 
 	Sample Data
 		8441,1,1.03869,0.99869,    0,100.0,'        ',  334.80, 3,  50.40, 1,  37.80, 2,  36.00, 1,  37.80, 1,  36.00
     
@@ -86,38 +83,54 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 			N2, B2, etc, as N1, B1
 			
 			
-		Format V32
-		==========
+		Format V32, V33
+		===============
 		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
-		
-ADJM Adjustment method:
-  0 steps and blocks are switched on in input order, and off in reverse input order; this adjustment method was the only method available prior to PSS/E-32.0.
-  1 steps and blocks are switched on and off such that the next highest (or lowest, as appropriate) total admittance is achieved.
-  ADJM = O by default.
-STAT Initial switched shunt status of one for in-service and zero for out-of-service; STAT = 1 by default.		
+		                                                                nbPosition(10)  
+		ADJM Adjustment method:
+  			0 steps and blocks are switched on in input order, and off in reverse input order; this adjustment 
+  			  method was the only method available prior to PSS/E-32.0.
+  			1 steps and blocks are switched on and off such that the next highest (or lowest, as appropriate) total admittance is achieved.
+  			ADJM = O by default.
+		STAT Initial switched shunt status of one for in-service and zero for out-of-service; STAT = 1 by default.		
 			
 		 */		
 		return new String[] {
 		   //  0----------1----------2----------3----------4
-			  "I",     "MODSW",   "VSWHI",   "VSWLO",   "SWREM",      
+			  "I",     "MODSW",                          "VSWHI",
+			                       "ADJM",    "STAT",          			// V32,V33
 		   //  5          6          7          8          9
-			  "RMPCT",  "RMIDNT",                                // V30 
-			                       "BINIT",    "N1",      "B1", 
+			  "VSWLO",   "SWREM", "RMPCT",  "RMIDNT",                   // V30, V32,V33 
+			                                             "BINIT",     
 		   //  10         11         12         13         14
-			  "N2",      "B2",      "N3",      "B3",      "N4",
+			  "N1",      "B1",      "N2",      "B2",      "N3",      
 		   //  15         16         17         18         19
-			  "B4",      "N5",      "B5",      "N6",      "B6", 
+			  "B3",      "N4",      "B4",      "N5",      "B5",       
 		   //  20         21         22         23         24
-			  "N7",      "B7",      "N8",      "B8" 
+			  "N6",      "B6",      "N7",      "B7",      "N8",      
+		   //  25	  
+			  "B8" 
 		};
 	}
 	
 	@Override public void parseFields(final String lineStr) throws ODMException {
   		StringTokenizer st = new StringTokenizer(lineStr, ",");
   		
-  		for ( int i = 0; i < this.nbPosition; i++) 
-  	  		this.setValue(i, st.nextToken().trim());
+		nbPosition = 6;
+  		if (this.verion == PsseVersion.PSSE_30)
+  			nbPosition = 8;
+  		else if (this.verion == PsseVersion.PSSE_32 ||
+  				 this.verion == PsseVersion.PSSE_33)
+  			nbPosition = 10;
   		
+  		for ( int i = 0; i < this.nbPosition; i++) { 
+  			if (i==2 && (this.verion == PsseVersion.PSSE_26 ||
+  	  			         this.verion == PsseVersion.PSSE_30))
+  				i += 2;
+  	  		this.setValue(i, st.nextToken().trim());
+  		}
+  		
+  		// process the  N1,B1,...N8,B8 part
   		for ( int i = 0; i < 8; i++) {
   			if (st.hasMoreTokens()) {
   		  		String str = st.nextToken().trim();

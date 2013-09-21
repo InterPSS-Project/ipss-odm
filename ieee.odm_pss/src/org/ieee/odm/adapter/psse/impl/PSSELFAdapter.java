@@ -113,7 +113,7 @@ public class PSSELFAdapter <
       		boolean headerProcessed = false;
       		boolean busProcessed = false;
       		boolean loadProcessed = false;
-      		boolean fxiedShuntProcessed = false;     // introduced in V32
+      		boolean fixedShuntProcessed = false;     // introduced in V32
       		boolean genProcessed = false;
       		boolean lineProcessed = false;
       		boolean xfrProcessed = false;
@@ -128,10 +128,13 @@ public class PSSELFAdapter <
       		boolean interareaTransferProcessed = false;
       		boolean ownerProcessed = false;
       		boolean factsProcessed = false;
+      		boolean gneDeviceProcessed = false;     // introduced in V33
+      		boolean indMotorProcessed = false;      // introduced in V33
       		
       		int busCnt = 0, loadCnt = 0, fxiedShuntCnt = 0, genCnt = 0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
       		    areaInterCnt = 0, dcLineCnt = 0, vscDcLineCnt = 0, mtDcLineCnt = 0, factsCnt = 0,
-      		    switchedShuntCnt = 0, ownerCnt = 0, interTransCnt = 0, zoneCnt = 0, multiSecCnt = 0;
+      		    switchedShuntCnt = 0, ownerCnt = 0, interTransCnt = 0, zoneCnt = 0, multiSecCnt = 0,
+      		    gneDeviceCnt = 0, indMotorCnt = 0;
       		
       		do {
       			lineStr = din.readLine();
@@ -165,9 +168,10 @@ public class PSSELFAdapter <
 							loadCnt++;
 						}	 
       				}
-      				else if (this.adptrtVersion == PsseVersion.PSSE_32 && !fxiedShuntProcessed) {
+      				else if (!fixedShuntProcessed && 
+      						 (this.adptrtVersion == PsseVersion.PSSE_32 || this.adptrtVersion == PsseVersion.PSSE_33)) {
 						if (isEndRecLine(lineStr)) {
-							fxiedShuntProcessed = true;
+							fixedShuntProcessed = true;
 							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
 							 this.elemCntStr += "Load record " + loadCnt +"\n";
 						}
@@ -346,6 +350,29 @@ public class PSSELFAdapter <
 							factsCnt++;
 						}	 
       				}
+      				
+      				else if (!gneDeviceProcessed && 
+     						 (this.adptrtVersion == PsseVersion.PSSE_33)) {
+						if (isEndRecLine(lineStr)) {
+							gneDeviceProcessed = true;
+							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
+							 this.elemCntStr += "Load record " + loadCnt +"\n";
+						}
+						else {
+							gneDeviceCnt++;
+						}	 
+     				}      				
+      				else if (!indMotorProcessed && 
+     						 (this.adptrtVersion == PsseVersion.PSSE_33)) {
+						if (isEndRecLine(lineStr)) {
+							indMotorProcessed = true;
+							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
+							 this.elemCntStr += "Load record " + loadCnt +"\n";
+						}
+						else {
+							indMotorCnt++;
+						}	 
+     				}      				
       			}
     		} while (lineStr != null);
   		} catch (Exception e) {

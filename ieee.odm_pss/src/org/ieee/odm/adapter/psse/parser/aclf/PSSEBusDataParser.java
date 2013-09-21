@@ -43,12 +43,20 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	@Override public String[] getMetadata() {
 		/* Format V30
 		 * 
-		 *  I,   ’NAME’,  BASKV, IDE,  GL, BL, AREA, ZONE,         VM, VA,  OWNER
+		 *  I,  ’NAME’,  BASKV, IDE,  GL, BL, AREA, ZONE,         VM, VA,  OWNER
 		 * 
 		 *  Format V32
 		 * 
-		 *  I,   ’NAME’,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
+		 *  I,  ’NAME’,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
 		 * 
+		 * Format V33
+		 *  
+		 *  I,  'NAME',  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA, NVHI, NVLO, EVHI, EVLO
+		 *  
+		 *  	NVHI	Normal voltage magnitude high limit; entered in pu.  NVHI=1.1 by default 
+		 *  	NVLO	Normal voltage magnitude low limit, entered in pu.  NVLO=0.9 by default 
+		 *  	EVHI	Emergency voltage magnitude high limit; entered in pu.  EVHI=1.1 by default 
+		 *  	EVLO	Emergency voltage magnitude low limit; entered in pu.  EVLO=0.9 by default
 		 *  
 		 */
 		return new String[] {
@@ -56,8 +64,8 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 			  "I",      "NAME",    "BASKV",    "IDE",     "GL",      
 		   //  5          6          7          8          9
 			  "BL",     "AREA",    "ZONE",     "VM",      "VA",
-		   //  10       
-			  "OWNER"
+		   //  10         11         12         13         14
+			  "OWNER",  "NVHI",    "NVLO",     "EVHI",    "EVLO"
 		};
 	}
 	
@@ -70,7 +78,8 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 				setValue(i, st.nextToken().trim());
 		}
 		else if (this.verion == PsseVersion.PSSE_30 || 
-				this.verion == PsseVersion.PSSE_32) {
+				 this.verion == PsseVersion.PSSE_32 || 
+				 this.verion == PsseVersion.PSSE_33) {
 			StringTokenizer st;
 
 			// V30
@@ -95,13 +104,19 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		    setValue(2,s);
 		    
 		    int cnt = 3;
-	    	if (this.verion == PsseVersion.PSSE_32) {
+	    	if (this.verion == PsseVersion.PSSE_32 ||
+	    			this.verion == PsseVersion.PSSE_33) {
 	    		setValue(3, st.nextToken().trim());
 	    		setValue(6, st.nextToken().trim());
 	    		setValue(7, st.nextToken().trim());
 	    		setValue(10, st.nextToken().trim());
 	    		setValue(8, st.nextToken().trim());
 	    		setValue(9, st.nextToken().trim());
+
+	    		if (this.verion == PsseVersion.PSSE_33)
+				    while(st.hasMoreTokens()) {
+				    	setValue(cnt++, st.nextToken().trim());
+				    }
 	    	}
 	    	else {
 			    while(st.hasMoreTokens()) {

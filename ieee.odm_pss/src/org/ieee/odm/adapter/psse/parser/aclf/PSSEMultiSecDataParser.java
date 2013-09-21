@@ -42,7 +42,7 @@ public class PSSEMultiSecDataParser extends BasePSSEDataParser {
 	
 	@Override public String[] getMetadata() {
 		/*
-		 * Format V30, V32
+		 * Format V30
 		 * 
 		I, J, ID, DUM1, DUM2, ... DUM9
 
@@ -56,12 +56,23 @@ public class PSSEMultiSecDataParser extends BasePSSEDataParser {
 		DUMi Bus numbers, or extended bus names enclosed in single quotes,
 			of the "dummy buses" connected by the branches that comprise this multisection
 			line grouping.	 
+		/*
+		 * Format V32, V33
+		 * 
+		I, J, ID, MET, DUM1, DUM2, ... DUM9
+		
+		MET	Metered end flag:
+			<=1 to designate bus I as the metered end 
+			>=2 to designate bus J as the metered end.
+			MET = 1 by default.
+		
 		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
-			  "I",       "J",       "ID",     "DUM1",   "DUM2", 
-			  "DUM3",    "DUM4",    "DUM5",   "DUM6",   "DUM7",
-			  "DUM8",    "DUM9" 
+			  "I",       "J",       "ID",               "DUM1",    
+			                                  "MET",				// V32,V33 only
+			  "DUM2",    "DUM3",    "DUM4",   "DUM5",   "DUM6",   
+			  "DUM7",    "DUM8",    "DUM9"
 		};
 	}
 	
@@ -69,7 +80,10 @@ public class PSSEMultiSecDataParser extends BasePSSEDataParser {
 		StringTokenizer st = new StringTokenizer(lineStr, ",");
 		
 		int cnt = 0;
-		while (st.hasMoreTokens())
+		while (st.hasMoreTokens()) {
+			if (cnt == 3 && this.verion == PsseVersion.PSSE_30)
+				cnt++;
 			this.setValue(cnt++, st.nextToken().trim());
+		}
   	}
 }

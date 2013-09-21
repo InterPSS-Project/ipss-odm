@@ -49,7 +49,13 @@ public class PSSELoadDataParser extends BasePSSEDataParser {
 		 * 
 		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER, SCALE
 		 *  
-		 *     - SCALE Load scaling flag ofone for a scalalie load and zero for a ?xed load (refer to SCAL). SCALE = 1 by defarlt.
+		 *     SCALE Load scaling flag ofone for a scalalie load and zero for a ?xed load (refer to SCAL). SCALE = 1 by defarlt.
+		 *     
+		 *  Format V33
+		 *  
+		 *  I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER, SCALE, INTRPT
+		 *  
+		 *  	INTRPT	Interruptible load flag of one for an interruptible load for zero for a non interruptible load.  INTRPT=0 by default.   
 		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
@@ -58,7 +64,8 @@ public class PSSELoadDataParser extends BasePSSEDataParser {
 			  "PL",      "QL",      "IP",      "IQ",      "YP",    
 		   //  10         11        12     
 			  "YQ",      "OWNER",  
-			                       "SCALE"     // V32 only
+			                       "SCALE",                     	// V32, V33 only
+			                                   "INTRPT"				// V33 only
 		};
 	}
 	

@@ -41,7 +41,7 @@ public class PSSEAreaDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V30, V32
+		/* Format V30, V32, V33
 		 * 
 		 * 		I,  ISW,     PDES,      PTOL, 'ARNAM'
 	    
