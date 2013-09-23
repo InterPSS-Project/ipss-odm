@@ -122,18 +122,18 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
   		StringTokenizer st = new StringTokenizer(lineStr, ",");
   		
 		nbPosition = 6;
-  		if (this.verion == PsseVersion.PSSE_29)
+  		if (this.version == PsseVersion.PSSE_29)
   			nbPosition = 7;
-  		else if (this.verion == PsseVersion.PSSE_30)
+  		else if (this.version == PsseVersion.PSSE_30)
   			nbPosition = 8;
-  		else if (this.verion == PsseVersion.PSSE_32 ||
-  				 this.verion == PsseVersion.PSSE_33)
+  		else if (this.version == PsseVersion.PSSE_32 ||
+  				 this.version == PsseVersion.PSSE_33)
   			nbPosition = 10;
   		
   		for ( int i = 0; i < this.nbPosition; i++) { 
-  			if (i==2 && (this.verion == PsseVersion.PSSE_26 ||
-  					     this.verion == PsseVersion.PSSE_29 ||
-  	  			         this.verion == PsseVersion.PSSE_30))
+  			if (i==2 && (this.version == PsseVersion.PSSE_26 ||
+  					     this.version == PsseVersion.PSSE_29 ||
+  	  			         this.version == PsseVersion.PSSE_30))
   				i += 2;
   	  		this.setValue(i, st.nextToken().trim());
   		}

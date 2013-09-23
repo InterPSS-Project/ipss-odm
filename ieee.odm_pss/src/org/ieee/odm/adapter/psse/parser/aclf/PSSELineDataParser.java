@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.psse.parser.aclf;
 
 import java.util.StringTokenizer;
 
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ModelStringUtil;
@@ -71,7 +72,7 @@ public class PSSELineDataParser extends BasePSSEDataParser {
 			             "GI",      "BI",      "GJ",      "BJ",
 		   //  15         16         17         18         19
 			  "ST",     
-			             "MET",                                      // V32 only
+			             "MET",                                      // >= V32 only
 			                       "LEN",     "O1",      "F1",    
 		   //  20         21         22         23         24	  
 			  "O2",      "F2",      "O3",      "F3",      "O4",     
@@ -86,15 +87,13 @@ public class PSSELineDataParser extends BasePSSEDataParser {
   		StringTokenizer st = new StringTokenizer(str, ",");
 
   		for (int i = 0; i < 9; i++) {
-  			if (i == 2 && 
-  					(this.verion == PsseVersion.PSSE_30 ||
-  					 this.verion == PsseVersion.PSSE_32))
+  			if (i == 2 && PSSEAdapter.getVersionNo(this.version) >= 29)
   				setValue(i, ModelStringUtil.trimQuote(st.nextToken()).trim());
   			else
   				setValue(i, st.nextToken().trim());
   		}	
 
-  		if (this.verion == PsseVersion.PSSE_26) {
+  		if (this.version == PsseVersion.PSSE_26) {
 			setValue(9, st.nextToken().trim());
 			setValue(10, st.nextToken().trim());
   		}
@@ -104,7 +103,7 @@ public class PSSELineDataParser extends BasePSSEDataParser {
   				setValue(i, st.nextToken().trim());
 
 		setValue(16, "1");
-		if (this.verion == PsseVersion.PSSE_32)
+		if (PSSEAdapter.getVersionNo(this.version) >= 32)
 			setValue(16, st.nextToken().trim());
  		
   		for (int i = 17; i < 25; i++)

@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.psse.parser.aclf;
 
 import java.util.StringTokenizer;
 
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
@@ -81,7 +82,7 @@ public class PSSEMultiSecDataParser extends BasePSSEDataParser {
 		
 		int cnt = 0;
 		while (st.hasMoreTokens()) {
-			if (cnt == 3 && this.verion == PsseVersion.PSSE_30)
+			if (cnt == 3 && PSSEAdapter.getVersionNo(this.version) < 32)
 				cnt++;
 			this.setValue(cnt++, st.nextToken().trim());
 		}

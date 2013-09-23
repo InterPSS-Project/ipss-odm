@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.psse.parser.aclf;
 
 import java.util.StringTokenizer;
 
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
@@ -72,14 +73,14 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	@Override public void parseFields(final String lineStr) throws ODMException {
 		this.clearNVPairTableData();
 		
-		if (this.verion == PsseVersion.PSSE_26) {
+		if (this.version == PsseVersion.PSSE_26) {
 			StringTokenizer st = new StringTokenizer(lineStr,",");
 			for (int i = 0; i < 11; i++)
 				setValue(i, st.nextToken().trim());
 		}
-		else if (this.verion == PsseVersion.PSSE_30 || 
-				 this.verion == PsseVersion.PSSE_32 || 
-				 this.verion == PsseVersion.PSSE_33) {
+		else if (this.version == PsseVersion.PSSE_30 || 
+				 this.version == PsseVersion.PSSE_32 || 
+				 this.version == PsseVersion.PSSE_33) {
 			StringTokenizer st;
 
 			// V30
@@ -104,8 +105,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		    setValue(2,s);
 		    
 		    int cnt = 3;
-	    	if (this.verion == PsseVersion.PSSE_32 ||
-	    			this.verion == PsseVersion.PSSE_33) {
+	    	if (PSSEAdapter.getVersionNo(this.version) >= 32) {
 	    		setValue(3, st.nextToken().trim());
 	    		setValue(6, st.nextToken().trim());
 	    		setValue(7, st.nextToken().trim());
@@ -113,7 +113,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	    		setValue(8, st.nextToken().trim());
 	    		setValue(9, st.nextToken().trim());
 
-	    		if (this.verion == PsseVersion.PSSE_33)
+	    		if (this.version == PsseVersion.PSSE_33)
 				    while(st.hasMoreTokens()) {
 				    	setValue(cnt++, st.nextToken().trim());
 				    }
@@ -125,6 +125,6 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	    	}
 		}
 		else
-			throw new ODMException("PSSEBusDataParser, wrong PSSE Version " + this.verion);
+			throw new ODMException("PSSEBusDataParser, wrong PSSE Version " + this.version);
 	}
 }

@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.psse.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
 
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSELineDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
@@ -71,10 +72,24 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 */
 		int i = dataParser.getInt("I");
 		int j = dataParser.getInt("J");
+		
+		/* starting from V32
+		 * MET	Metered end flag;
+			<=1 to designate bus I as the metered end 
+			=>2 to designate bus J as the metered end.
+				MET = 1 by default.
+		 */
 		boolean fromMetered = true;
-		if (j < 0) {
-			fromMetered = false;
-			j = -j;
+		if (PSSEAdapter.getVersionNo(this.version) >= 32) {
+			int met = dataParser.getInt("MET", 1);
+			if (met >= 2)
+				fromMetered = false;
+		}
+		else {
+			if (j < 0) {
+				fromMetered = false;
+				j = -j;
+			}
 		}
       	
 		final String fid = AbstractModelParser.BusIdPreFix+i;

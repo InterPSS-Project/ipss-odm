@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.ODMFileFormatEnum;
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEHeaderDataParser;
 import org.ieee.odm.common.ODMException;
@@ -58,8 +59,7 @@ public class PSSEHeaderDataMapper <
 	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		
-		if (this.version == PsseVersion.PSSE_32 || 
-				this.version == PsseVersion.PSSE_33) {
+		if (PSSEAdapter.getVersionNo(this.version) >= 32) {
 			dataParser.parseFields(lineStrAry);
 			
 			/*

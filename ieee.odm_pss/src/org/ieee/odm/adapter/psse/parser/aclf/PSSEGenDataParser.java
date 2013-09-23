@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.psse.parser.aclf;
 
 import java.util.StringTokenizer;
 
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ModelStringUtil;
@@ -116,7 +117,7 @@ Sample data:
 			setValue(25, st.nextToken().trim());
 		}
 		
-		if (this.verion == PsseVersion.PSSE_32) {
+		if (PSSEAdapter.getVersionNo(this.version) >= 32) {
 			setValue(26, "");
 			setValue(27, "");
 			if (st.hasMoreTokens()) {

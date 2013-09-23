@@ -27,6 +27,7 @@ package org.ieee.odm.adapter.psse.impl;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.IFileReader;
+import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEAreaDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEBusDataMapper;
@@ -194,7 +195,7 @@ public class PSSELFAdapter <
 						}	 
       				}
       				else if (!fixedShuntProcessed && 
-      						 (this.adptrtVersion == PsseVersion.PSSE_32 || this.adptrtVersion == PsseVersion.PSSE_33)) {
+      						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 32)) {
 						if (isEndRecLine(lineStr)) {
 							fixedShuntProcessed = true;
 							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
@@ -377,7 +378,7 @@ public class PSSELFAdapter <
       				}
       				
       				else if (!gneDeviceProcessed && 
-     						 (this.adptrtVersion == PsseVersion.PSSE_33)) {
+     						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 33)) {
 						if (isEndRecLine(lineStr)) {
 							gneDeviceProcessed = true;
 							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
@@ -388,7 +389,7 @@ public class PSSELFAdapter <
 						}	 
      				}      
       				else if (!indMotorProcessed && 
-     						 (this.adptrtVersion == PsseVersion.PSSE_33)) {
+     						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 33)) {
 						if (isEndRecLine(lineStr)) {
 							indMotorProcessed = true;
 							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");

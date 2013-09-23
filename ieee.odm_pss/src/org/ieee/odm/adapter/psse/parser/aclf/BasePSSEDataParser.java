@@ -45,7 +45,7 @@ public abstract class BasePSSEDataParser extends AbstractDataFieldParser {
 	   //  40         41         42         43         44
 	   //  45         46         47         48         49
 		  
-	protected PsseVersion verion = PsseVersion.PSSE_30;
+	protected PsseVersion version = PsseVersion.PSSE_30;
 	
 	public BasePSSEDataParser() {
 		super();
@@ -53,6 +53,6 @@ public abstract class BasePSSEDataParser extends AbstractDataFieldParser {
 
 	public BasePSSEDataParser(PsseVersion ver) {
 		super();
-		this.verion = ver;
+		this.version = ver;
 	}
 }
