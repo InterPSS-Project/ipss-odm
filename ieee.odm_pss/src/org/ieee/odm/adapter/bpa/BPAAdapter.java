@@ -66,7 +66,7 @@ public class BPAAdapter  extends AbstractODMAdapter {
 		BPABusRecord.resetBusCnt();
 	}
 	
-	protected IODMModelParser parseInputFile(final IFileReader din, String encoding) throws Exception {
+	protected IODMModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
 		AclfModelParser parser = new AclfModelParser(encoding);
 		parser.getStudyCase().setAnalysisCategory(AnalysisCategoryEnumType.LOADFLOW);
 		parser.initCaseContentInfo(OriginalDataFormatEnumType.BPA);
@@ -90,7 +90,7 @@ public class BPAAdapter  extends AbstractODMAdapter {
 	 * the second containing DStab info 
 	 * 
 	 */
-	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] dinAry, String encoding) throws Exception {
+	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] dinAry, String encoding) throws ODMException {
 		if (type == IODMAdapter.NetType.DStabNet) {
 			DStabModelParser parser = new DStabModelParser(encoding);
 			parser.getStudyCase().setAnalysisCategory(AnalysisCategoryEnumType.TRANSIENT_STABILITY);

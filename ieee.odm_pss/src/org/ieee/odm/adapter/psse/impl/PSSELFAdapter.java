@@ -1,3 +1,27 @@
+/*
+ * @(#)PSSELFAdapter.java   
+ *
+ * Copyright (C) 2006-2013 www.interpss.org
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE
+ * as published by the Free Software Foundation; either version 2.1
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * @Author Mike Zhou
+ * @Version 1.0
+ * @Date 02/11/2008
+ * 
+ *   Revision History
+ *   ================
+ *
+ */
+
 package org.ieee.odm.adapter.psse.impl;
 
 import java.util.StringTokenizer;
@@ -39,9 +63,6 @@ public class PSSELFAdapter <
 				TXfrXml extends BranchXmlType,
 				TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
 
-	public final static String Token_CaseDesc = "Case Description";     
-	public final static String Token_CaseId = "Case ID";		
-
 	private PSSEHeaderDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> headerDataMapper = null;	
 	private PSSEAreaDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> areaDataMapper = null;
 	private PSSEZoneDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> zoneDataMapper = null;
@@ -76,34 +97,38 @@ public class PSSELFAdapter <
 		this.xfrDataMapper = new PSSEXfrDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.dcLine2TDataMapper = new PSSEDcLine2TDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 	}
+	
     /**
      * Parse PSS/E load flow input file into ODM/XML 
+     * 
      * @param din
      * @param encoding
      * @return
      * @throws Exception
      */
 	public AclfModelParser parseLoadflowFile(final IFileReader din, String encoding) throws ODMException {
-		parser = new AclfModelParser();
+		this.parser = new AclfModelParser();
 		
-		parser.getStudyCase().setAnalysisCategory(AnalysisCategoryEnumType.LOADFLOW);
+		this.parser.getStudyCase().setAnalysisCategory(AnalysisCategoryEnumType.LOADFLOW);
 		
 		//parser the input load flow data
 		parseInputFile(din, encoding);
 	
-		return (AclfModelParser) parser;
-		
-		
+		return (AclfModelParser) this.parser;
+	}
+	
+	private BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> getParser() {
+		return (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) this.parser;
 	}
 	
 	@Override
 	protected IODMModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
 	    //set case base info
-		parser.setCaseContentInfo(OriginalDataFormatEnumType.PSS_E);
-		parser.getStudyCase().setNetworkCategory(NetworkCategoryEnumType.TRANSMISSION);
-		parser.getStudyCase().getContentInfo().setOriginalFormatVersion(this.adptrtVersion.toString());
+		this.parser.setCaseContentInfo(OriginalDataFormatEnumType.PSS_E);
+		this.parser.getStudyCase().setNetworkCategory(NetworkCategoryEnumType.TRANSMISSION);
+		this.parser.getStudyCase().getContentInfo().setOriginalFormatVersion(this.adptrtVersion.toString());
 
-		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
+		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) this.parser.getNet();
 		// no space is allowed for ID field
 		baseCaseNet.setId("Base_Case_from_PSS_E_format");
 
@@ -143,7 +168,7 @@ public class PSSELFAdapter <
       				if (!headerProcessed) {
   						String lineStr2 = din.readLine(); lineNo++;
   						String lineStr3 = din.readLine(); lineNo++;
-						this.headerDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+						this.headerDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
   						headerProcessed = true;
       				}
       				else if (!busProcessed) {
@@ -153,7 +178,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Bus record " + busCnt +"\n";
 						}	 
 						else {
-							busDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							busDataMapper.procLineString(lineStr, getParser());
 							busCnt++;
 						}	 
       				}
@@ -164,7 +189,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Load record " + loadCnt +"\n";
 						}
 						else {
-							loadDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							loadDataMapper.procLineString(lineStr, getParser());
 							loadCnt++;
 						}	 
       				}
@@ -176,7 +201,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Load record " + loadCnt +"\n";
 						}
 						else {
-							fixedShuntDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							fixedShuntDataMapper.procLineString(lineStr, getParser());
 							fxiedShuntCnt++;
 						}	 
       				}      				
@@ -187,7 +212,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Gen record " + genCnt +"\n";
 						}
 						else {
-							genDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							genDataMapper.procLineString(lineStr, getParser());
 							genCnt++;
 						}	 
       				}
@@ -198,7 +223,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Line record " + lineCnt +"\n";
 						}
 						else {
-							lineDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							lineDataMapper.procLineString(lineStr, getParser());
 							lineCnt++;
 						}	 
       				}
@@ -220,7 +245,7 @@ public class PSSELFAdapter <
       						}
       						else
     							xfrCnt++;
-							xfrDataMapper.procLineString( new String[] { lineStr, lineStr2, lineStr3, lineStr4, lineStr5 }, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							xfrDataMapper.procLineString( new String[] { lineStr, lineStr2, lineStr3, lineStr4, lineStr5 }, getParser());
 						}	 
       				}
       				else if (!areaInterProcessed) {
@@ -230,7 +255,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Area interchange record " + areaInterCnt +"\n";
 						}
 						else {
-							this.areaDataMapper.procLineString(lineStr,  (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							this.areaDataMapper.procLineString(lineStr,  getParser());
 							areaInterCnt++;
 						}	 
       				}
@@ -243,7 +268,7 @@ public class PSSELFAdapter <
 						else {
       						String lineStr2 = din.readLine(); lineNo++;
       						String lineStr3 = din.readLine(); lineNo++;
-							this.dcLine2TDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							this.dcLine2TDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
 							dcLineCnt++;
 						}	 
       				}
@@ -266,7 +291,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Switched Shunt record " + switchedShuntCnt +"\n";
 						}
 						else {
-							switchedShuntDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							switchedShuntDataMapper.procLineString(lineStr, getParser());
 							switchedShuntCnt++;
 						}	 
       				}
@@ -277,7 +302,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
 						}
 						else {
-							zTableDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							zTableDataMapper.procLineString(lineStr, getParser());
 							xfrZTableCnt++;
 						}	 
       				}
@@ -312,7 +337,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Zone record " + zoneCnt +"\n";
 						}
 						else {
-							this.zoneDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							this.zoneDataMapper.procLineString(lineStr, getParser());
 							zoneCnt++;
 						}	 
       				}
@@ -323,7 +348,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Interarea transfer record " + interTransCnt +"\n";
 						}
 						else {
-							interAreaDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							interAreaDataMapper.procLineString(lineStr, getParser());
 							interTransCnt++;
 						}	 
       				}
@@ -334,7 +359,7 @@ public class PSSELFAdapter <
 							 this.elemCntStr += "Owner record " + ownerCnt +"\n";
 						}
 						else {
-							ownerDataMapper.procLineString(lineStr, (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							ownerDataMapper.procLineString(lineStr, getParser());
 							ownerCnt++;
 						}	 
       				}
@@ -361,7 +386,7 @@ public class PSSELFAdapter <
 						else {
 							gneDeviceCnt++;
 						}	 
-     				}      				
+     				}      
       				else if (!indMotorProcessed && 
      						 (this.adptrtVersion == PsseVersion.PSSE_33)) {
 						if (isEndRecLine(lineStr)) {
@@ -385,7 +410,6 @@ public class PSSELFAdapter <
    	   	return parser;
 	}
 	
-	
 	private boolean is3WXfr(String str) {
 		// for 2W xfr, line1, K = 0
   		StringTokenizer st = new StringTokenizer(str, ",");
@@ -394,6 +418,4 @@ public class PSSELFAdapter <
 		int K = new Integer(st.nextToken().trim()).intValue();
 		return K != 0;
 	}
-	
-
 }

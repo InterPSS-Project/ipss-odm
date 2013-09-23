@@ -58,7 +58,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 
 	@Override
 	protected OpfModelParser parseInputFile(final IFileReader din,
-			String encoding) throws Exception {
+			String encoding) throws ODMException {
 		OpfModelParser parser = new OpfModelParser(encoding);
 		parser.getStudyCase().setId("ODM_OPF_Studycase");
 		parser.setOPFTransInfo(OriginalDataFormatEnumType.OPF_MATPOWER);
@@ -134,7 +134,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 	}
 
 	protected IODMModelParser parseInputFile(IODMAdapter.NetType type,
-			final IFileReader[] din, String encoding) throws Exception {
+			final IFileReader[] din, String encoding) throws ODMException {
 		throw new ODMException("not implemented yet");
 	}
 

@@ -115,7 +115,7 @@ public class GePslfAdapter  extends AbstractODMAdapter {
 	 
 	@Override
 	protected AclfModelParser parseInputFile(
-			final IFileReader din, String encoding) throws Exception {
+			final IFileReader din, String encoding) throws ODMException {
 		
 		AclfModelParser parser = new AclfModelParser(encoding);
 		parser.initCaseContentInfo(OriginalDataFormatEnumType.GE_PSLF);
@@ -321,7 +321,7 @@ public class GePslfAdapter  extends AbstractODMAdapter {
     		} while (lineStr != null);
   		} catch (Exception e) {
   			e.printStackTrace();
-  			throw new Exception("GE data input error, line no " + lineNo + ", " + e.toString() + "\n" + lineStr);
+  			throw new ODMException("GE data input error, line no " + lineNo + ", " + e.toString() + "\n" + lineStr);
   		}
 
   		AclfParserHelper.createBusEquivData(parser);
@@ -329,7 +329,7 @@ public class GePslfAdapter  extends AbstractODMAdapter {
 		return parser;
 	}
 
-	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] din, String encoding) throws Exception {
+	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] din, String encoding) throws ODMException {
 		throw new ODMException("not implemented yet");
 	}
 }

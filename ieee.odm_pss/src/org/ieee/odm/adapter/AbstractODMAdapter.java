@@ -282,8 +282,8 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	/*
 	 * abstract methods to be implemented
 	 */
-	abstract protected IODMModelParser parseInputFile(IFileReader din, String encoding) throws Exception;
-	abstract protected IODMModelParser parseInputFile(IODMAdapter.NetType type, IFileReader[] din, String encoding) throws Exception;
+	abstract protected IODMModelParser parseInputFile(IFileReader din, String encoding) throws ODMException;
+	abstract protected IODMModelParser parseInputFile(IODMAdapter.NetType type, IFileReader[] din, String encoding) throws ODMException;
 	
 
 	private class FileReader implements IFileReader {

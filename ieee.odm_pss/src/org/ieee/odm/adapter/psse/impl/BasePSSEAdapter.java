@@ -36,35 +36,34 @@ import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 
 /**
- * ODM adapter for PSS/E input format
+ * Base ODM adapter for PSS/E input format
  * 
  * @author mzhou
  *
  */
-public class BasePSSEAdapter extends AbstractODMAdapter{
+public class BasePSSEAdapter extends AbstractODMAdapter {
 	public final static String Token_CaseDesc = "Case Description";     
 	public final static String Token_CaseId = "Case ID";		
 
 	protected PsseVersion adptrtVersion;
-	protected BaseAclfModelParser<? extends LoadflowNetXmlType, 
-			        ? extends LoadflowBusXmlType, ? extends LineBranchXmlType, 
-					? extends XfrBranchXmlType, ? extends PSXfrBranchXmlType> parser =null;
+	protected BaseAclfModelParser<
+					? extends LoadflowNetXmlType, 
+			        ? extends LoadflowBusXmlType, 
+			        ? extends LineBranchXmlType, 
+					? extends XfrBranchXmlType, 
+					? extends PSXfrBranchXmlType> parser =null;
 	
 	protected String  elemCntStr = "";
-       
 	
 	public BasePSSEAdapter(PsseVersion ver) {
 		super();
 		this.adptrtVersion = ver;
-		
 	}
-
 
 	public String countElements(String filename) {
 		parseInputFile(filename);
 		return "PSS/E File elements coount\n" + this.elemCntStr;
 	}
-	
 	
 	/**
 	 * PTI use 0 to indicate end of a data set, Bus Data for example. This function checks
@@ -78,29 +77,12 @@ public class BasePSSEAdapter extends AbstractODMAdapter{
 	}
 
 	@Override
-	protected IODMModelParser parseInputFile(IFileReader din, String encoding)
-			throws ODMException {
-		
+	protected IODMModelParser parseInputFile(IFileReader din, String encoding) throws ODMException {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din,
-			String encoding) throws ODMException {
-		
+	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din, String encoding) throws ODMException {
 		throw new UnsupportedOperationException();
 	}
-
-
-	public BaseAclfModelParser<? extends LoadflowNetXmlType, ? extends LoadflowBusXmlType, 
-			? extends LineBranchXmlType, ? extends XfrBranchXmlType, ? extends PSXfrBranchXmlType> getParser() {
-		return parser;
-	}
-
-
-	public void setParser(BaseAclfModelParser<? extends LoadflowNetXmlType, ? extends LoadflowBusXmlType,
-			? extends LineBranchXmlType, ? extends XfrBranchXmlType, ? extends PSXfrBranchXmlType> parser) {
-		this.parser = parser;
-	}	
-	
 }

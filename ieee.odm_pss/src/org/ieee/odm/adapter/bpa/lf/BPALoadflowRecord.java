@@ -56,7 +56,7 @@ public class BPALoadflowRecord<
 	public final static String Token_CaseId = "Case Identification";
 	public final static String Token_BN="Bus Name";
 	
-	public void processLfData(BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser, final IFileReader din) throws Exception {
+	public void processLfData(BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser, final IFileReader din) throws ODMException {
 		TNetXml baseCaseNet = parser.getNet();
 		baseCaseNet.setId("Base_Case_from_BPA_loadflow_format");			
 

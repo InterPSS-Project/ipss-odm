@@ -1,8 +1,30 @@
+/*
+ * @(#)PSSEAcscAdapter.java   
+ *
+ * Copyright (C) 2006-2013 www.interpss.org
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE
+ * as published by the Free Software Foundation; either version 2.1
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * @Author Tony Huang
+ * @Version 1.0
+ * @Date 02/11/2013
+ * 
+ *   Revision History
+ *   ================
+ *
+ */
+
 package org.ieee.odm.adapter.psse.impl;
 
 import java.util.StringTokenizer;
-
-import javax.sound.midi.Sequence;
 
 import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -25,16 +47,15 @@ import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ShortCircuitNetXmlType;
 
 public class PSSEAcscAdapter <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>{
+				TNetXml extends NetworkXmlType, 
+				TBusXml extends BusXmlType,
+				TLineXml extends BranchXmlType,
+				TXfrXml extends BranchXmlType,
+				TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>{
 	
 	/*
 	 * PSS/E V30 Sequence Data sections and their sequence:
@@ -80,7 +101,9 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 		switchShuntZeroSeqMapper = new PSSESwitchShuntZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 	}
 
-
+	private BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> getParser() {
+		return (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) this.parser;
+	}
 	
 	/*
 	 *First record in the first valid line: Change code -- IC
@@ -107,7 +130,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 		}
 		
 		//check net
-		ShortCircuitNetXmlType scNet = (ShortCircuitNetXmlType) parser.getNet();
+		//ShortCircuitNetXmlType scNet = (ShortCircuitNetXmlType) parser.getNet();
 		
 		
 		String lineStr = null;
@@ -154,7 +177,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Positive sequence Generator record " + machPosZCnt +"\n";
 						}	 
 						else {
-							machPosSeqZMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							machPosSeqZMapper.procLineString(lineStr, getParser());
 							machPosZCnt++;
 						}
       				}
@@ -165,7 +188,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Negative sequence Generator record " + machNegZCnt +"\n";
 						}	 
 						else {
-							machNegSeqZMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							machNegSeqZMapper.procLineString(lineStr, getParser());
 							machNegZCnt++;
 						}
       				}
@@ -176,7 +199,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Zero sequence Generator record " + machZeroZCnt +"\n";
 						}	 
 						else {
-							machZeroSeqZMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							machZeroSeqZMapper.procLineString(lineStr, getParser());
 							machZeroZCnt++;
 						}
       				}
@@ -187,7 +210,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Negative sequence shunt load record " + shuntLoadNegCnt +"\n";
 						}	 
 						else {
-							shuntLoadNegSeqMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							shuntLoadNegSeqMapper.procLineString(lineStr, getParser());
 							shuntLoadNegCnt++;
 						}
       				}
@@ -198,7 +221,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Zero sequence shunt load record " + shuntLoadZeroCnt +"\n";
 						}	 
 						else {
-							shuntLoadZeroSeqMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							shuntLoadZeroSeqMapper.procLineString(lineStr, getParser());
 							shuntLoadZeroCnt++;
 						}
       				}
@@ -209,7 +232,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Zero sequence non-transformer record " + lineZeroCnt +"\n";
 						}	 
 						else {
-							branchZeroSeqMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							branchZeroSeqMapper.procLineString(lineStr, getParser());
 							lineZeroCnt++;
 						}
       				}
@@ -220,7 +243,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Zero sequence multual impedance record " + ZeroMutualCnt +"\n";
 						}	 
 						else {
-							zeroSeqMutualZMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							zeroSeqMutualZMapper.procLineString(lineStr, getParser());
 							ZeroMutualCnt++;
 						}
       				}
@@ -231,7 +254,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Zero sequence transformer  record " + xfrZeroCnt +"\n";
 						}	 
 						else {
-							xfrZeroSeqMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							xfrZeroSeqMapper.procLineString(lineStr, getParser());
 							xfrZeroCnt++;
 						}
       				}
@@ -242,7 +265,7 @@ TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXm
 							 this.elemCntStr += "Zero sequence switch shunt  record " + switchShuntZeroCnt +"\n";
 						}	 
 						else {
-							switchShuntZeroSeqMapper.procLineString(lineStr, (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) parser);
+							switchShuntZeroSeqMapper.procLineString(lineStr, getParser());
 							switchShuntZeroCnt ++;
 						}
       				}

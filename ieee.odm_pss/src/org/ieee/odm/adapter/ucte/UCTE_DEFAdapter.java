@@ -71,7 +71,7 @@ public class UCTE_DEFAdapter extends AbstractODMAdapter {
 
 	@Override
 	protected AclfModelParser parseInputFile(
-			final IFileReader din, String encoding) throws Exception {
+			final IFileReader din, String encoding) throws ODMException {
 		AclfModelParser parser = new AclfModelParser(encoding);
 		parser.initCaseContentInfo(OriginalDataFormatEnumType.UCTE_DEF);
 
@@ -157,7 +157,7 @@ public class UCTE_DEFAdapter extends AbstractODMAdapter {
     	return parser;
     }
 
-	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] din, String encoding) throws Exception {
+	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] din, String encoding) throws ODMException {
 		throw new ODMException("not implemented yet");
 	}
 	

@@ -32,34 +32,27 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
-import org.ieee.odm.schema.LineBranchXmlType;
-import org.ieee.odm.schema.LineShortCircuitXmlType;
-import org.ieee.odm.schema.LoadflowBusXmlType;
-import org.ieee.odm.schema.LoadflowNetXmlType;
-import org.ieee.odm.schema.PSXfrBranchXmlType;
-import org.ieee.odm.schema.PSXfrShortCircuitXmlType;
-import org.ieee.odm.schema.ShortCircuitBusXmlType;
-import org.ieee.odm.schema.ShortCircuitNetXmlType;
-import org.ieee.odm.schema.XfrBranchXmlType;
-import org.ieee.odm.schema.XfrShortCircuitXmlType;
 
 /**
- * ODM adapter for PSS/E input format
+ * ODM adapter for PSS/E input format, including Aclf, Acsc and DStab files. This is a facet class. 
+ * The actual adapter implementation is located in the ~/impl/ dir.
  * 
  * @author mzhou
  *
  */
-public class PSSEAdapter extends AbstractODMAdapter{
+public class PSSEAdapter extends AbstractODMAdapter {
+	/**
+	 *  ODM PSS/E adapter version  
+	 */
 	public static enum PsseVersion {
 		PSSE_26, PSSE_29, PSSE_30, PSSE_31, PSSE_32, PSSE_33	
 	}
 
-	private PsseVersion adptrtVersion;
-	
+	private PsseVersion adptrVersion;
 	
 	public PSSEAdapter(PsseVersion ver) {
 		super();
-		this.adptrtVersion = ver;
+		this.adptrVersion = ver;
 	
 	}
     /**
@@ -67,28 +60,22 @@ public class PSSEAdapter extends AbstractODMAdapter{
      * @param din
      * @param encoding
      * @return
-     * @throws Exception
+     * @throws ODMException
      */
 	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws ODMException {
-		PSSELFAdapter<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType> 
-						lfAdapter = new PSSELFAdapter<>(this.adptrtVersion);
-		//new PSSELFAdapter<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>(this.adptrtVersion);
-	    return lfAdapter.parseLoadflowFile(din, encoding);
-	
+	    return new PSSELFAdapter<>(this.adptrVersion).parseLoadflowFile(din, encoding);
 	}
 	/**
 	 * parse the aclf and sequence network files. The first file in the input "din" array is for aclf
 	 * and the second one stores the sequence data
+	 * 
 	 * @param din
 	 * @param encoding
 	 * @return
-	 * @throws Exception
+	 * @throws ODMException
 	 */
 	public IODMModelParser parseAcscFiles(final IFileReader[] din, String encoding) throws ODMException {
-		PSSEAcscAdapter<ShortCircuitNetXmlType, ShortCircuitBusXmlType, LineShortCircuitXmlType, XfrShortCircuitXmlType, PSXfrShortCircuitXmlType> 
-						acscAdapter = new PSSEAcscAdapter<>(this.adptrtVersion);
-		
-		return acscAdapter.parseInputFile(NetType.AcscNet, din, encoding);
+		return new PSSEAcscAdapter<>(this.adptrVersion).parseInputFile(NetType.AcscNet, din, encoding);
 	}
 	
 	/**
@@ -98,24 +85,20 @@ public class PSSEAdapter extends AbstractODMAdapter{
 	 * @param din
 	 * @param encoding
 	 * @return
-	 * @throws Exception
+	 * @throws ODMException
 	 */
 	public DStabModelParser parseDstabFiles(final IFileReader[] din, String encoding) throws ODMException {
-		PSSEDynAdapter dynAdapter = new PSSEDynAdapter(this.adptrtVersion);
-		return (DStabModelParser) dynAdapter.parseInputFile(NetType.DStabNet, din, encoding);
-		
+		return (DStabModelParser) new PSSEDynAdapter(this.adptrVersion).parseInputFile(NetType.DStabNet, din, encoding);
 	}
 	
 
 	@Override
-	protected IODMModelParser parseInputFile(IFileReader din, String encoding)
-			throws ODMException {
+	protected IODMModelParser parseInputFile(IFileReader din, String encoding)	throws ODMException {
 		return parseAclfFile(din,encoding);
 	}
 
 	@Override
-	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din,
-			String encoding) throws ODMException {
+	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din, String encoding) throws ODMException {
 		IODMModelParser tempParser =null;
 		if(type==NetType.AcscNet)
 			 tempParser=parseAcscFiles(din,encoding);
