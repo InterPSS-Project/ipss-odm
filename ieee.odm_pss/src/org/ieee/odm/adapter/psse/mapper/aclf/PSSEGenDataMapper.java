@@ -67,19 +67,20 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	 * power output at the high-voltage bus, bus k, and of voltage magnitude at
 	 * some designated bus, not necessarily bus k.
 	 * 
-PG Generator active power output; entered in MW. PG = 0.0 by default.
-QG Generator reactive power output; entered in Mvar. QG need be entered only if the
-	case, as read in, is to be treated as a solved case. QG = 0.0 by default.
-QT Maximum generator reactive power output; entered in Mvar. For fixed output generators
-	(i.e., nonregulating), QT must be equal to the fixed Mvar output.
-QT = 9999.0 by default.
-QB Minimum generator reactive power output; entered in Mvar. For fixed output
-	generators, QB must be equal to the fixed Mvar output. QB = -9999.0 by default.
-VS Regulated voltage setpoint; entered in pu. VS = 1.0 by default.
+		PG Generator active power output; entered in MW. PG = 0.0 by default.
+		QG Generator reactive power output; entered in Mvar. QG need be entered only if the
+			case, as read in, is to be treated as a solved case. QG = 0.0 by default.
+		QT Maximum generator reactive power output; entered in Mvar. For fixed output generators
+			(i.e., nonregulating), QT must be equal to the fixed Mvar output.
+			QT = 9999.0 by default.
+		QB Minimum generator reactive power output; entered in Mvar. For fixed output
+			generators, QB must be equal to the fixed Mvar output. QB = -9999.0 by default.
+		VS Regulated voltage setpoint; entered in pu. VS = 1.0 by default.
 
  This is a case where the gen is turn-off
- I,    ID,       PG,        QG,        QT,        QB,   VS,          IREG,MBASE,     ZR,        ZX,        RT,        XT,     GTAP,   STAT,RMPCT,    PT,        PB,      O1,F1,...,O4,F4
- 10636,'1 ',     0.000,     0.000,     0.000,     0.000,1.05100,     0,   100.000,   0.00000,   1.00000,   0.00000,   0.00000,1.00000,1,  100.0,     0.000,     0.000,   1,1.0000
+ I,    ID,       PG,        QG,        QT,        QB,   VS,          IREG,MBASE,     ZR,        ZX,        RT,         XT,        GTAP,   STAT,RMPCT,    PT,        PB,      O1,F1,...,O4,F4
+ 10636,'1 ',     0.000,     0.000,     0.000,     0.000,1.05100,     0,   100.000,    0.00000,    1.00000,    0.00000,   0.00000, 1.00000,1,  100.0,     0.000,     0.000,   1,1.0000
+     6,'1 ',     4.600,    -0.923,     2.700,    -1.800,1.02500,     0,     6.200, 0.00000E+0, 1.80000E-1, 0.00000E+0, 0.00000E+0,1.00000,1,  100.0,     5.600,     0.000,   7,1.0000
 	 */
 
 	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
@@ -139,7 +140,12 @@ VS Regulated voltage setpoint; entered in pu. VS = 1.0 by default.
 	    double qt = dataParser.getDouble("QT", 0.0);
 	    double qb = dataParser.getDouble("QB", 0.0);
 	    contriGen.setQLimit(BaseDataSetter.createReactivePowerLimit(qt, qb, ReactivePowerUnitType.MVAR));
-		
+		/*
+		 * Bus number, or extended bus name enclosed in single quotes, of a remote Type 1 or 2 bus for which voltage 
+		 * is to be regulated by this plant to the value specified by VS. If bus IREG is other than a Type 1 or 2 bus, 
+		 * bus I regulates its own voltage to the value specified by VS. IREG is entered as zero if the plant is to 
+		 * regulate its own voltage and must be zero for a Type 3 (swing) bus. IREG=0 by default.
+		 */
 	    int ireg = dataParser.getInt("IREG");
 	    if (ireg > 0) {
 	    	final String reBusId = AbstractModelParser.BusIdPreFix+ireg;
@@ -162,6 +168,14 @@ VS Regulated voltage setpoint; entered in pu. VS = 1.0 by default.
 			contriGen.setXfrTap(gtap);
 		}
 		
+		/*
+		 * Percent of the total Mvar required to hold the voltage at the bus controlled by bus I that are to be 
+		 * contributed by the generation at bus I; RMPCT must be positive. RMPCT is needed only if IREG specifies 
+		 * a valid remote bus and there is more than one local or remote voltage controlling device (plant, switched shunt, 
+		 * FACTS device shunt element, or VSC dc line converter) controlling the voltage at bus IREG to a setpoint, or 
+		 * IREG is zero but bus I is the controlled bus, local or remote, of one or more other setpoint mode voltage 
+		 * controlling devices. RMPCT=100.0 by default.
+		 */
 		double rmpct = dataParser.getDouble("RMPCT");
 		contriGen.setMvarVControlParticipateFactor(rmpct*0.01);
 

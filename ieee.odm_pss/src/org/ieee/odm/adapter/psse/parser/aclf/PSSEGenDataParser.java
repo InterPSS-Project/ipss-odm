@@ -49,13 +49,14 @@ public class PSSEGenDataParser extends BasePSSEDataParser {
 		 * 	I, ID, PG, QG, QT, QB, VS, IREG,MBASE, ZR,ZX,RT,XT, GTAP, STAT,RMPCT, PT,PB, O1,F1,...,O4,F4, WMOD, WPF
 
 WMOD Wind machine control mode; WMOD is used to indicate whether a machine is a wind machine, and, if it is, the type of reactive power limits to be imposed.
-   O for a machinethat is not a wind machine.
-   1 for a wind machine for which reactive power limits are specified by QT and QB.
-   2 fora wind machine forwhich reactive powerlimits are determined from the machine's active power output and WPF; limits are of equal magnitude and oppote sign
-   3 fora wind machine with a ?xed reactive power setting determined from the machine's active power output and WPF; when WPF is potive,
-     the machine's reactive power has the same sign as its active power; when WPF is negative, the machine's reactive power has the oppote
-     sign of its active power.
-   WMOD = O by default.
+	0 for a machine that is not a wind machine.
+	1 for a wind machine for which reactive power limits are specified  by QT and QB.
+	2 for a wind machine for which reactive power limits are determined from  the machines active power output and WPF; 
+		limits are of equal  magnitude and opposite sign
+	3 for a wind machine with a fixed reactive power setting determined from  the machines active power output and WPF; when WPF is positive,  
+		the machines reactive power has the same sign as its active power;  when WPF is negative, the machines reactive power has the opposite  
+		sign of its active power.
+	WMOD = 0 by default.
    
 WPF Power factor used in calculating reactive power limits or output when WMOD is 2 or 3. WPF = 1.0 by default.   
 

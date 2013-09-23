@@ -99,11 +99,19 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
     		aclfBusXml.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(gl/factor, bl/factor, YUnitType.PU));
     		aclfBusXml.getShuntYData().getEquivY().setOffLine(false);
     	}
-      	
-    	int ide = dataParser.getInt("IDE", 0);
+    	
+    	/*
+		Bus type code:
+			1 - load bus (no generator boundary condition)
+			2 - generator or plant bus (either voltage regulating or fixed Mvar)
+			3 - swing bus
+			4 - disconnected (isolated) bus
+			IDE = 1 by default.
+    	 */
+    	int ide = dataParser.getInt("IDE", 1);
     	// set input data to the bus object
 		LFGenCodeEnumType genType = ide == 3? LFGenCodeEnumType.SWING : 
-								( ide == 1? LFGenCodeEnumType.PQ : 
+								( ide == 1? LFGenCodeEnumType.NONE_GEN :     
 									( ide == 2 ? LFGenCodeEnumType.PV : LFGenCodeEnumType.NONE_GEN ));
 		AclfDataSetter.setGenData(aclfBusXml, genType, vm, VoltageUnitType.PU, va, AngleUnitType.DEG, 
 						0.0, 0.0,	ApparentPowerUnitType.MVA);
