@@ -413,10 +413,17 @@ public class PSSELFAdapter <
 	
 	private boolean is3WXfr(String str) {
 		// for 2W xfr, line1, K = 0
+		/*
+		 * Sample : 324558,324023,     0,'1 ',2,2,1,   0.00036,  -0.00197,1,'HFL- 1,2    ',1,   1,1.0000
+		 */
+		String[] strAry = str.split(",");
+		/*
   		StringTokenizer st = new StringTokenizer(str, ",");
 		st.nextToken();
 		st.nextToken();
 		int K = new Integer(st.nextToken().trim()).intValue();
+		*/
+		int K = new Integer(strAry[2].trim()).intValue();
 		return K != 0;
 	}
 }

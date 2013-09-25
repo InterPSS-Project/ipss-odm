@@ -58,7 +58,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
     Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD,  CONT,RMA, RMI,  VMA, VMI,  NTP,TAB,CR,CX
 	Line-4      WINDV2,  NOMV2
 	
-			/* 
+			
 		 * format V30
 		 * ==========
 		 * 
@@ -112,8 +112,8 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 	      			VECGRP value is used for information purpose only.  VECGRP is 12 blanks by default.
         */
 
+		// The data structure applies to both 2W and 3W Xfr
 		return new String[] {
-	           //
 			   //	Line-1
 			   //  0----------1----------2----------3----------4
 				  "I",       "J",       "K",       "CKT",     "CW",             
@@ -124,10 +124,10 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 			   //  15         16         17         18         19
 				  "F2",       "O3",     "F3",      "O4",      "F4",
 			   //  20	  
-				  "VECGRP",
+				  "VECGRP",                                            // added V33
 					  
 	           //
-			   //	Line-2
+			   //	Line-2 (start position 21)
 			   //  0----------1----------2----------3----------4
 				  "R1-2",    "X1-2",   "SBASE1-2", "R2-3",   "X2-3",
 			   //  5          6          7          8          9
@@ -136,7 +136,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				  "ANSTAR",            
 
 			   //
-			   //	Line-3
+			   //	Line-3 (start position 32)
 			   //  0----------1----------2----------3----------4
 				  "WINDV1",  "NOMV1",   "ANG1",    "RATA1",  "RATB1",
 			   //  5          6          7          8          9
@@ -147,7 +147,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				  "CX",             
 
 			   //
-			   //	Line-4
+			   //	Line-4 (start position 48)
 			   //  0----------1----------2----------3----------4
 				  "WINDV2",  "NOMV2",  "ANG2",    "RATA2",   "RATB2",
 			   //  5          6          7          8          9
@@ -159,7 +159,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				  "CX2",                                               // V30 and late version
 			
 			   //
-			   //	Line-5
+			   //	Line-5 (start position 64)
 			   //  0----------1----------2----------3----------4
 				  "WINDV3",  "NOMV3",   "ANG3",   "RATA3",    "RATB3",
 			   //  5          6          7          8          9
@@ -179,16 +179,16 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 		String lineStr2 = strAry[1];
 		String lineStr3 = strAry[2];
 		String lineStr4 = strAry[3];
-		String lineStr5 = strAry[4];
+		String lineStr5 = strAry[4];   // for 2W xfr, line-5 = ""
 		
 		// 324558,324023,     0,'1 ',2,2,1,   0.00036,  -0.00197,1,'HFL- 1,2    ',1,   1,1.0000
 		// The name field might have ','
 		StringTokenizer st = new StringTokenizer(lineStr1, "'");
-		String s1 = st.nextToken();  // 324558,324023,     0, 
-		String s2 = st.nextToken();  // 1 
-		String s3 = st.nextToken();  // ,2,2,1,   0.00036,  -0.00197,1, 
-		String s4 = st.nextToken();  // HFL- 1,2    
-		String s5 = st.nextToken();  // ,1,   1,1.0000 
+		String s1 = st.nextToken();  				// 324558,324023,     0, 
+		String s2 = st.nextToken();  				// 1 
+		String s3 = st.nextToken();  				// ,2,2,1,   0.00036,  -0.00197,1, 
+		String s4 = st.nextToken();  				// HFL- 1,2    
+		String s5 = st.nextToken();  				// ,1,   1,1.0000 
 
 		st = new StringTokenizer(s1, ",");
 		for (int i = 0; i < 3; i++)
@@ -211,7 +211,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 		
 		int k = this.getInt("K", 0);
 
-		int N2 = 21;
+		int N2 = 21;   // Line-1 has 21 fields
 		st = new StringTokenizer(lineStr2, ",");
 		for (int i = N2; i < N2+3; i++)
 			setValue(i, st.nextToken().trim());
@@ -220,12 +220,12 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				setValue(i, st.nextToken().trim());
 		}
 
-		int N3 = N2 + 11;
+		int N3 = N2 + 11;  // Line-2 has 11 fields
 		st = new StringTokenizer(lineStr3, ",");
 		for (int i = N3; i < N3+16; i++)
 			setValue(i, st.nextToken().trim());
 
-		int N4 = N3 + 16;
+		int N4 = N3 + 16; // Line-3 has 16 fields
 		st = new StringTokenizer(lineStr4, ",");
 		for (int i = N4; i < N4+2; i++)
 			setValue(i, st.nextToken().trim());
@@ -234,7 +234,7 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 				setValue(i, st.nextToken().trim());
 		}
 		
-		int N5 = N4 + 16;
+		int N5 = N4 + 16;   // Line-4 has 16 fields
 		if (k != 0) {
 			st = new StringTokenizer(lineStr5, ",");
 			for (int i = N5; i < N5+16; i++)

@@ -28,8 +28,8 @@ import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEXfrDataParser;
+import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -58,43 +58,45 @@ import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
 public class PSSEXfrDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+				TNetXml extends NetworkXmlType, 
+				TBusXml extends BusXmlType,
+				TLineXml extends BranchXmlType,
+				TXfrXml extends BranchXmlType,
+				TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 
 	public PSSEXfrDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEXfrDataParser(ver);
 	}
 
-	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException, ODMBranchDuplicationException {
 		//procLineString(lineStr1, lineStr2, lineStr3, lineStr4, lineStr5, version);
-		dataParser.parseFields( lineStrAry);
+		dataParser.parseFields(lineStrAry);
 		
 		double sysMVABase=parser.getNet().getBasePower().getUnit()==ApparentPowerUnitType.MVA?
-                parser.getNet().getBasePower().getValue(): parser.getNet().getBasePower().getValue()*0.001;
+                	parser.getNet().getBasePower().getValue() : 
+                	parser.getNet().getBasePower().getValue()*0.001;
 		
       	int i = dataParser.getInt("I");
       	int j = dataParser.getInt("J");                
       	int k = dataParser.getInt("K");                
                 
-        boolean is3W = k != 0; 
+        boolean is3WXfr = k != 0; 
         
         int cod = dataParser.getInt("COD", 0);
         double ang1 = dataParser.getDouble("ANG1", 0.0);
         double ang2 = dataParser.getDouble("ANG2", 0.0);
         double ang3 = dataParser.getDouble("ANG3", 0.0);
 		boolean isPsXfr = false;
-    	if ( (is3W && (ang1 != 0.0 || ang2 != 0.0 || ang3 != 0.0)) ||
-       		 (!is3W && ang1 != 0.0) || cod == 3 || cod == -3) {
+    	if ( (is3WXfr && (ang1 != 0.0 || ang2 != 0.0 || ang3 != 0.0)) ||
+       		 (!is3WXfr && ang1 != 0.0) || cod == 3 || cod == -3) {
        		isPsXfr = true; // PhaseShifting transformer branch
        	}		
 /*
 	    Line-1 
 	    For 2W and 3W Xfr: 
 	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,扤AME�        STAT,O1,F1,...,O4,F4
+	    	
 	        26,    54,    0,    '1 ',1, 1, 1,  0.00000,  0.00000, 2,    '        ',    1,   1,1.0000,   0,1.0000,   0,1.0000,   0,1.0000
             27824, 27871, 27957,'W ',2, 2, 1,  0.00089,  -0.00448,1,    'D575121     ',1,   1,1.0000
 
@@ -106,31 +108,26 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		XfrBranchXmlType branRecXml;
 		TransformerInfoXmlType xfrInfoXml;
 		String ckt = dataParser.getString("CKT");
-		try {
-			if (is3W && isPsXfr) {
-				branRecXml = parser.createPSXfr3WBranch(fid, tid, tertId, ckt);
-		       	xfrInfoXml = odmObjFactory.createTransformer3WInfoXmlType(); 
-		       	branRecXml.setXfrInfo(xfrInfoXml);
-			}
-			else if (is3W) {
-				branRecXml = (XfrBranchXmlType) parser.createXfr3WBranch(fid, tid, tertId, ckt);
-		       	xfrInfoXml = odmObjFactory.createTransformer3WInfoXmlType(); 
-		       	branRecXml.setXfrInfo(xfrInfoXml);
-			}
-			else if (isPsXfr) {
-				branRecXml = (XfrBranchXmlType) parser.createPSXfrBranch(fid, tid, ckt);
-		       	xfrInfoXml = odmObjFactory.createTransformerInfoXmlType(); 
-		       	branRecXml.setXfrInfo(xfrInfoXml);
-			}
-			else {
-				branRecXml = (XfrBranchXmlType) parser.createXfrBranch(fid, tid, ckt);
-		       	xfrInfoXml = odmObjFactory.createTransformerInfoXmlType(); 
-		       	branRecXml.setXfrInfo(xfrInfoXml);
-			}
-		} catch (Exception e) {
-			ODMLogger.getLogger().severe(e.toString());
-			return;
-		}		
+		if (is3WXfr && isPsXfr) {
+			branRecXml = parser.createPSXfr3WBranch(fid, tid, tertId, ckt);
+	       	xfrInfoXml = odmObjFactory.createTransformer3WInfoXmlType(); 
+	       	branRecXml.setXfrInfo(xfrInfoXml);
+		}
+		else if (is3WXfr) {
+			branRecXml = (XfrBranchXmlType) parser.createXfr3WBranch(fid, tid, tertId, ckt);
+	       	xfrInfoXml = odmObjFactory.createTransformer3WInfoXmlType(); 
+	       	branRecXml.setXfrInfo(xfrInfoXml);
+		}
+		else if (isPsXfr) {
+			branRecXml = (XfrBranchXmlType) parser.createPSXfrBranch(fid, tid, ckt);
+	       	xfrInfoXml = odmObjFactory.createTransformerInfoXmlType(); 
+	       	branRecXml.setXfrInfo(xfrInfoXml);
+		}
+		else {
+			branRecXml = (XfrBranchXmlType) parser.createXfrBranch(fid, tid, ckt);
+	       	xfrInfoXml = odmObjFactory.createTransformerInfoXmlType(); 
+	       	branRecXml.setXfrInfo(xfrInfoXml);
+		}
 		
 		branRecXml.setName(dataParser.getString("NAME"));
 		
@@ -143,7 +140,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
  */
 		int stat = dataParser.getInt("STAT", 1);
 		branRecXml.setOffLine(stat == 0);
-		if (is3W) {
+		if (is3WXfr) {
     		Xfr3WBranchXmlType branch3WRec = (Xfr3WBranchXmlType)branRecXml;			
     		if (stat == 1) {
     			branch3WRec.setWind1OffLine(false);
@@ -175,18 +172,25 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
        		nomv1 = parser.getBus(fid).getBaseVoltage().getValue();
        	if (nomv2 == 0.0)
        		nomv2 = parser.getBus(tid).getBaseVoltage().getValue();
-       	if (is3W && nomv3 == 0.0)
+       	if (is3WXfr && nomv3 == 0.0)
        		nomv3 = parser.getBus(tertId).getBaseVoltage().getValue();
        	
-       	int nmetr = dataParser.getInt("NMETR");
+       	/*
+       	 * The nonmetered end code of either 1 (for the Winding 1 bus) or 2 (for the Winding 2 bus). 
+       	 * In addition, for a three-winding transformer, 3 (for the Winding 3 bus) 
+       	 * is a valid specification of NMETR. NMETR = 2 by default.
+       	 */
+       	int nmetr = dataParser.getInt("NMETR", 2);
 		branRecXml.setMeterLocation( nmetr==1 ? BranchBusSideEnumType.FROM_SIDE :
-							BranchBusSideEnumType.TO_SIDE);
+										(nmetr==2 ? BranchBusSideEnumType.TO_SIDE : 
+											BranchBusSideEnumType.TERTIARY_SIDE));
 
 		/*
 		CM - The magnetizing admittance I/O code that defines the units in which MAG1 and MAG2 are specified: 
 			1 for complex admittance in pu on system MVA base and winding one bus voltage base; 
 			2 for no load loss in watts and exciting current in pu on winding one to two base MVA and winding one nominal voltage.
 			CM = 1 by default.
+			
 		MAG1, MAG2 The magnetizing conductance and susceptance, respectively, in pu on system
 			MVA base and winding one bus voltage base when CM is 1; 
 			MAG1 is the no load loss in watts and MAG2 is the exciting current in pu on winding one to
@@ -204,7 +208,6 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		double mag2 = dataParser.getDouble("MAG2", 0.0);
 		double sbase1_2 = dataParser.getDouble("SBASE1-2");
     	if (cm == 2) {
-    		//TODO
     		if (mag1 != 0.0 || mag2 != 0.0){
     			//p=U1^2*g
     			//I=U1*b
@@ -220,15 +223,13 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
     			
     			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(g_pu, b_pu, YUnitType.PU));
     		}
-    			
     	}
     	else {
     		if (mag1 != 0.0 || mag2 != 0.0)
     			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(mag1, mag2, YUnitType.PU));
     	}
       	
-    	// owner id = 0.0, no contribution
-    	mapOwnerInfo(branRecXml);    	
+    	super.mapOwnerInfo(branRecXml);    	
 	
     	/*
        	Line-2 
@@ -240,7 +241,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 
     	*/
     	xfrInfoXml.setRatedPower(BaseDataSetter.createPowerMvaValue(sbase1_2));
-       	if (is3W) {
+       	if (is3WXfr) {
        		double sbase2_3 = dataParser.getDouble("SBASE2-3");
        		double sbase3_1 = dataParser.getDouble("SBASE3-1");
        		double vmstar = dataParser.getDouble("VMSTAR");
@@ -251,7 +252,18 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
        		xfr3WInfo.setStarVMag(BaseDataSetter.createVoltageValue(vmstar, VoltageUnitType.PU));
        		xfr3WInfo.setStarVAng(BaseDataSetter.createAngleValue(anstar, AngleUnitType.DEG));
        	}
-       	
+
+       	/*
+		CZ The impedance data I/O code defines the units in which the winding impedances R1-2, X1-2, R2-3, X2-3, R3-1 and X3-1 are specified:
+			1 for resistance and reactance in pu on system MVA base and  winding voltage base
+			2 for resistance and reactance in pu on a specified MVA base and  winding voltage base
+			3 for transformer load loss in watts and impedance magnitude in pu  on a specified MVA base and winding voltage base.
+			In specifying transformer leakage impedances, the base voltage values are always the nominal winding voltages that are specified on 
+			the third, fourth and fifth records of the transformer data block (NOMV1, NOMV2 and NOMV3). If the default NOMVn 
+			is not specified, it is assumed to be identical to the winding n bus base voltage. 
+			
+			CZ = 1 by default.
+       	 */
        	int cz = dataParser.getInt("CZ", 1);
        	double r1_2 = dataParser.getDouble("R1-2", 0.0);
        	double x1_2 = dataParser.getDouble("X1-2", 0.0);
@@ -261,7 +273,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
        		branRecXml.setZ(BaseDataSetter.createZValue(r1_2, x1_2, ZUnitType.PU));
         	xfrInfoXml.setDataOnSystemBase(true);
         	//TODO This system base attribute is updated by both cz and cw, might cause some problems which are hard to identified;
-       	    //It might be better to change these basic settings to system base,to avoid potential problem.However, these might make it hard for direct comparison
+       	    //It might be better to change these basic settings to system base,to avoid potential problem.However, 
+        	// these might make it hard for direct comparison
        	}
        	else if (cz == 2) {
        		// when CZ is 2, they are the resistance and reactance, respectively, in pu on 
@@ -270,8 +283,6 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
        		x1_2=x1_2*sysMVABase/sbase1_2;
        		branRecXml.setZ(BaseDataSetter.createZValue(r1_2, x1_2, ZUnitType.PU));
         	xfrInfoXml.setDataOnSystemBase(true);
-        	
-       		
        	}
        	else if (cz == 3) {
        		// when CZ is 3, R1-2 is the load loss in watts, and X1-2 is the impedance magnitude 
@@ -282,7 +293,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
         	xfrInfoXml.setDataOnSystemBase(true);
        	}
        	
-       	if (is3W) {
+       	if (is3WXfr) {
     		double sbase2_3 = dataParser.getDouble("SBASE2-3");
     		double sbase3_1 = dataParser.getDouble("SBASE3-1");
            	double r2_3 = dataParser.getDouble("R2-3", 0.0);
@@ -321,6 +332,14 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		 	
     	 */
   		
+       	/*
+		CW The winding data I/O code defines the units in which the turns ratios WINDV1, WINDV2 and WINDV3 are specified 
+		   (the units of RMAn and RMIn are also governed by CW when |CODn| is 1 or 2):
+			1 for off-nominal turns ratio in pu of winding bus base voltage
+			2 for winding voltage in kV
+			3 for off-nominal turns ratio in pu of nominal winding voltage,  NOMV1, NOMV2 and NOMV3.
+			CW = 1 by default.
+       	 */
        	int cw = dataParser.getInt("CW", 1);
        	double windv1 = dataParser.getDouble("WINDV1");
   		if (cw == 1) {
@@ -343,7 +362,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
   		*/
   		branRecXml.setFromTurnRatio(BaseDataSetter.createTurnRatioPU(windv1));
 	
-    	if (isPsXfr && is3W) {
+    	if (isPsXfr && is3WXfr) {
     		PSXfr3WBranchXmlType branchPsXfr = (PSXfr3WBranchXmlType)branRecXml; 
 			branchPsXfr.setFromAngle(BaseDataSetter.createAngleValue(ang1, AngleUnitType.DEG));
     	}
@@ -522,7 +541,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
       		windv2 /=parser.getBus(tid).getBaseVoltage().getValue();
   		branRecXml.setToTurnRatio(BaseDataSetter.createTurnRatioPU(windv2));
 
-  		if (is3W) {
+  		if (is3WXfr) {
   	       	double rata2 = dataParser.getDouble("RATA2");
   	       	double ratb2 = dataParser.getDouble("RATB2");
   	       	double ratc2 = dataParser.getDouble("RATC2");
@@ -543,7 +562,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 				WINDV3,   NOMV3,  ANG3,       RATA3,RATB3,RATC3,         COD3,   CONT3,RMA3,RMI3,VMA3,VMI3,              NTP3,TAB3,CR3,CX3
             	34.5000,  34.500, -30.000,    22.29,    22.29,    22.29, 0,      0, 0.00000, 0.00000, 0.00000, 0.00000,  33, 0, 0.00000, 0.00000
 		*/
-       	if (is3W) {
+       	if (is3WXfr) {
     		Xfr3WBranchXmlType branch3WXfr = (Xfr3WBranchXmlType)branRecXml; 
     		
     		/*Transformer3WInfoXmlType xfr3WInfo = (Transformer3WInfoXmlType)xfrInfo;
