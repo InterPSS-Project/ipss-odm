@@ -46,7 +46,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		 * 
 		 *  I,  ’NAME’,  BASKV, IDE,  GL, BL, AREA, ZONE,         VM, VA,  OWNER
 		 * 
-		 *  Format V32
+		 *  Format V32, V31
 		 * 
 		 *  I,  ’NAME’,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
 		 * 
@@ -78,15 +78,17 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 			for (int i = 0; i < 11; i++)
 				setValue(i, st.nextToken().trim());
 		}
-		else if (this.version == PsseVersion.PSSE_30 || 
-				 this.version == PsseVersion.PSSE_32 || 
-				 this.version == PsseVersion.PSSE_33) {
+		else if (PSSEAdapter.getVersionNo(this.version) >= 29) {
 			StringTokenizer st;
 
 			// V30
-			//    10001,'ALB_T4*     ',   1.0000,1,     0.000,     0.000,   1,   1,1.03259, -13.5044,   1
+			//    10001,'ALB_T4*     ',   1.0000,1,     0.000,     0.000,   1,   1,     1.03259, -13.5044,   1
+			// V31
+			//        1,'BUS-1       ',  16.5000,3,                         1,   1,  1, 1.04000,   0.0000
 			// V32
-			//    10001,'ALB_T4*     ',   1.0000,1,                         1,   1, 1, 1.03259, -13.5044
+			//    10001,'ALB_T4*     ',   1.0000,1,                         1,   1,  1, 1.03259, -13.5044
+			// V33
+			//        1,'BUS-1       ',  16.5000,3,                         1,   1,  1, 1.04000,   0.0000, 1.10000, 0.90000, 1.10000, 0.90000
 			
 			// -- str1-- ----str2----- -----------str3---------------	
 			String str1 = lineStr.substring(0, lineStr.indexOf('\'')),
@@ -105,7 +107,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		    setValue(2,s);
 		    
 		    int cnt = 3;
-	    	if (PSSEAdapter.getVersionNo(this.version) >= 32) {
+	    	if (PSSEAdapter.getVersionNo(this.version) >= 31) {
 	    		setValue(3, st.nextToken().trim());
 	    		setValue(6, st.nextToken().trim());
 	    		setValue(7, st.nextToken().trim());
@@ -114,6 +116,7 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	    		setValue(9, st.nextToken().trim());
 
 	    		if (this.version == PsseVersion.PSSE_33)
+	    			cnt = 11;
 				    while(st.hasMoreTokens()) {
 				    	setValue(cnt++, st.nextToken().trim());
 				    }

@@ -55,12 +55,6 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		this.dataParser = new PSSEBusDataParser(ver);
 	}
 	
-	/*
-	 * BusData Format: 
-	 *       I, ’NAME’, BASKV, IDE, GL, BL, AREA, ZONE, VM, VA, OWNER
-	 *       101743,'TAU 9A,8    ',  13.8000,2,     0.000,     0.000, 101, 101,1.02610, -98.5705,   1
-
-	 */
 	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		//System.out.println(lineStr + "\n" + dataParser.toString());

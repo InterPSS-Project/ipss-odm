@@ -59,7 +59,7 @@ public class PSSEHeaderDataMapper <
 	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		
-		if (PSSEAdapter.getVersionNo(this.version) >= 32) {
+		if (PSSEAdapter.getVersionNo(this.version) >= 31) {
 			dataParser.parseFields(lineStrAry);
 			
 			/*
@@ -78,7 +78,8 @@ public class PSSEHeaderDataMapper <
 			
 			baseCaseNet.setName("AclfNet-PSSE-V" + ver);
 			
-			if (!ver.contains("32"))
+			String str = new Integer(PSSEAdapter.getVersionNo(this.version)).toString();
+			if (!ver.contains(str))
 				throw new ODMException("PSSE Adapter version and input file has different version, adapter: " + this.version + "  file: " + ver);
 		}
 		else {

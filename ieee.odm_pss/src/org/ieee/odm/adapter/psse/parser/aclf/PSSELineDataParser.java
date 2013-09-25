@@ -50,7 +50,7 @@ public class PSSELineDataParser extends BasePSSEDataParser {
 		 * V30, V29
 		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC,             GI,BI,GJ,BJ,ST,      LEN,O1,F1,...,O4,F4
 		 *  
-		 * V32, V33
+		 * V31, V32, V33
 		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC,             GI,BI,GJ,BJ,ST, MET, LEN,O1,F1,...,O4,F4 
 		 *  
 			MET Metered end flag;
@@ -103,7 +103,7 @@ public class PSSELineDataParser extends BasePSSEDataParser {
   				setValue(i, st.nextToken().trim());
 
 		setValue(16, "1");
-		if (PSSEAdapter.getVersionNo(this.version) >= 32)
+		if (PSSEAdapter.getVersionNo(this.version) >= 31)
 			setValue(16, st.nextToken().trim());
  		
   		for (int i = 17; i < 25; i++)

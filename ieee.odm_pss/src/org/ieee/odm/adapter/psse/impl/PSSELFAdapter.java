@@ -195,7 +195,7 @@ public class PSSELFAdapter <
 						}	 
       				}
       				else if (!fixedShuntProcessed && 
-      						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 32)) {
+      						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 31)) {
 						if (isEndRecLine(lineStr)) {
 							fixedShuntProcessed = true;
 							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
