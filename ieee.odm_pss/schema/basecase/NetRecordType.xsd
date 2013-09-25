@@ -374,6 +374,7 @@
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="FromSide"></ns:enumeration>
 			<ns:enumeration value="ToSide"></ns:enumeration>
+			<ns:enumeration value="TertiarySide"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
 	
