@@ -121,8 +121,8 @@ public class PSSEAcscAdapter <
 	
 	
 	
-	@Override 
-	public IODMModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
+	
+	public IODMModelParser parseSequenceDataFile(final IFileReader din, String encoding) throws ODMException {
 		 
 		// check parser
 		if(parser ==null){
@@ -337,22 +337,22 @@ public class PSSEAcscAdapter <
 		}
 		
 		if(parser != null){
-		//the first file is supposed to be the Load flow data file, reuse the PSSELFAdapter class method 
-	    //to parse the load flow file
-		super.parseInputFile(din[0], encoding);
+		     //the first file is supposed to be the Load flow data file, reuse the PSSELFAdapter class method 
+	         //to parse the load flow file
+		     super.parseInputFile(din[0], encoding);
 		
-		//Aclf data is included
-		if(din[0]!=null){
-			ShortCircuitNetXmlType baseCaseNet = (ShortCircuitNetXmlType) parser.getNet();
-			baseCaseNet.setHasLoadflowData(true);
-		}
+		     //Aclf data is included
+		    if(din[0]!=null){
+			    ShortCircuitNetXmlType baseCaseNet = (ShortCircuitNetXmlType) parser.getNet();
+			    baseCaseNet.setHasLoadflowData(true);
+		     }
 		
-		if(din[1]==null){
-			ODMLogger.getLogger().warning("PSSEAcscAdater: Sequence network data is not provided or invalid, please check!");
-		}
+		    if(din[1]==null){
+			  ODMLogger.getLogger().warning("PSSEAcscAdater: Sequence network data is not provided or invalid, please check!");
+		     }
 		     //the second one is the sequence data file;
-		else parseInputFile(din[1], encoding);
-		}
+		     else parseSequenceDataFile(din[1], encoding);
+		 }
 		
 		return parser;
 	}

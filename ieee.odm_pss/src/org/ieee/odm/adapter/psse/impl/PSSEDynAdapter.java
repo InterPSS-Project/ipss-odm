@@ -117,16 +117,32 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
 				parser.getStudyCase().setAnalysisCategory(AnalysisCategoryEnumType.TRANSIENT_STABILITY);
 		}
 		
-		//Use the Acsc Parser to parse the first two files, namely, Aclf and Sequence data.
+		DStabNetXmlType baseCaseNet = (DStabNetXmlType) parser.getNet();
 		
-		if(din[1]!=null){ // the second data file stores the sequence data
-			DStabNetXmlType baseCaseNet = (DStabNetXmlType) parser.getNet();
-			baseCaseNet.setHasShortCircuitData(true);
+		/*
+		 three files in the input array, i.e., power flow + sequence data + dynamic data file
+		 Use the Acsc Parser to parse the first two files, namely, Aclf and Sequence data file.
+		*/
+		if(din.length==3){ 
+			// the second data file stores the sequence data
+		   if(din[1]!=null){ 
+			   
+			   baseCaseNet.setHasShortCircuitData(true);
+		   }
+		   super.parseInputFile(type, din, encoding);
+		
+	       //It is supposed that the third file defines the Dstab data.
+		   this.parseDStabFile(din[2], encoding);
 		}
-		super.parseInputFile(type, din, encoding);
 		
-	    //It is supposed that the third file defines the Dstab data.
-		this.parseDStabFile(din[2], encoding);
+		// only power flow and dynamic data included
+		else if(din.length==2){ 
+			super.parseInputFile(din[0], encoding);
+			this.parseDStabFile(din[1], encoding);
+	
+			baseCaseNet.setHasLoadflowData(true);
+			baseCaseNet.setPositiveSeqDataOnly(true);
+		}
 		
 		return parser;
 	}
