@@ -38,6 +38,7 @@
 			<ns:element name="reactivePowerPerSec" type="pss:ReactivePowerXmlType" maxOccurs="1" minOccurs="0"/>
 		</ns:sequence>
 		<ns:attribute name="mode" use="required" type="pss:ShuntCompensatorModeEnumType"/>
+		<ns:attribute name="adjMethod" use="required" type="pss:ShuntCompensatorAdjustMethodEnumType"/>
 		<ns:attribute name="offLine" type="ns:boolean" use="required"/>
 	</ns:complexType>
 
@@ -58,7 +59,23 @@
 		</ns:restriction>
 	</ns:simpleType>
     
-
+    
+    <ns:simpleType name="ShuntCompensatorAdjustMethodEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="DataInputOrder">
+				<ns:annotation><ns:documentation>
+				B steps and blocks are switched on in input order, and off in reverse  input order
+				</ns:documentation></ns:annotation>
+			</ns:enumeration>
+			<ns:enumeration value="HighestB">
+				<ns:annotation><ns:documentation>
+				B steps and blocks are switched on and off such that the next highest  (or lowest, as appropriate) total admittance is achieved.
+				</ns:documentation></ns:annotation>			
+			</ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>
+    
+    
     <ns:complexType name="StaticVarCompensatorXmlType">
 		<ns:sequence>
 			<ns:element name="cimRdfRec" type="pss:CimRdfXmlType" minOccurs="0"></ns:element>
