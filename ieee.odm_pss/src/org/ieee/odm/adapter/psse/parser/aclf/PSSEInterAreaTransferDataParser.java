@@ -45,6 +45,8 @@ public class PSSEInterAreaTransferDataParser extends BasePSSEDataParser {
 		 * Format V29, V30, V32, V33
 		 * 
 		 *   	ARFROM, ARTO, TRID, PTRAN
+		 *   
+		 *   Sample : 
 		 * 
 		*/
 		return new String[] {

@@ -24,8 +24,6 @@
 
 package org.ieee.odm.adapter.psse.impl;
 
-import java.util.StringTokenizer;
-
 import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -43,6 +41,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.PSSESwitchedSShuntDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEXfrDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEXfrZTableDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEZoneDataMapper;
+import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
@@ -81,6 +80,32 @@ public class PSSELFAdapter <
 	private PSSEXfrDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> xfrDataMapper = null;
 	private PSSEDcLine2TDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> dcLine2TDataMapper = null;
 	
+	private 	boolean headerProcessed = false;
+	private 	boolean busProcessed = false;
+	private 	boolean loadProcessed = false;
+	private 	boolean fixedShuntProcessed = false;     // introduced in V32
+	private 	boolean genProcessed = false;
+	private 	boolean lineProcessed = false;
+	private 	boolean xfrProcessed = false;
+	private 	boolean areaInterProcessed = false;
+	private 	boolean dcLine2TProcessed = false;
+	private 	boolean vscDcLineProcessed = false;
+	private 	boolean switchedShuntProcessed = false;
+	private 	boolean xfrZCorrectionProcessed = false;
+	private 	boolean dcLineMTProcessed = false;
+	private 	boolean multiSectionLineGroupProcessed = false;
+	private 	boolean zoneProcessed = false;
+	private 	boolean interareaTransferProcessed = false;
+	private 	boolean ownerProcessed = false;
+	private 	boolean factsProcessed = false;
+	private 	boolean gneDeviceProcessed = false;     // introduced in V33
+	private 	boolean indMotorProcessed = false;      // introduced in V33
+		
+	private 	int busCnt = 0, loadCnt = 0, fxiedShuntCnt = 0, genCnt = 0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
+		    areaInterCnt = 0, dcLineCnt = 0, vscDcLineCnt = 0, mtDcLineCnt = 0, factsCnt = 0,
+		    switchedShuntCnt = 0, ownerCnt = 0, interTransCnt = 0, zoneCnt = 0, multiSecCnt = 0,
+		    gneDeviceCnt = 0, indMotorCnt = 0;	
+	
 	public PSSELFAdapter(PsseVersion ver) {
 		super(ver);
 		
@@ -93,6 +118,7 @@ public class PSSELFAdapter <
 		this.busDataMapper = new PSSEBusDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.genDataMapper = new PSSEGenDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.loadDataMapper = new PSSELoadDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
+		this.fixedShuntDataMapper = new PSSEFixedShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.switchedShuntDataMapper = new PSSESwitchedSShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.lineDataMapper = new PSSELineDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
 		this.xfrDataMapper = new PSSEXfrDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
@@ -136,32 +162,6 @@ public class PSSELFAdapter <
   		String lineStr = null;
   		int lineNo = 0;
   		try {
-      		boolean headerProcessed = false;
-      		boolean busProcessed = false;
-      		boolean loadProcessed = false;
-      		boolean fixedShuntProcessed = false;     // introduced in V32
-      		boolean genProcessed = false;
-      		boolean lineProcessed = false;
-      		boolean xfrProcessed = false;
-      		boolean areaInterProcessed = false;
-      		boolean dcLine2TProcessed = false;
-      		boolean vscDcLineProcessed = false;
-      		boolean switchedShuntProcessed = false;
-      		boolean xfrZCorrectionProcessed = false;
-      		boolean dcLineMTProcessed = false;
-      		boolean multiSectionLineGroupProcessed = false;
-      		boolean zoneProcessed = false;
-      		boolean interareaTransferProcessed = false;
-      		boolean ownerProcessed = false;
-      		boolean factsProcessed = false;
-      		boolean gneDeviceProcessed = false;     // introduced in V33
-      		boolean indMotorProcessed = false;      // introduced in V33
-      		
-      		int busCnt = 0, loadCnt = 0, fxiedShuntCnt = 0, genCnt = 0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
-      		    areaInterCnt = 0, dcLineCnt = 0, vscDcLineCnt = 0, mtDcLineCnt = 0, factsCnt = 0,
-      		    switchedShuntCnt = 0, ownerCnt = 0, interTransCnt = 0, zoneCnt = 0, multiSecCnt = 0,
-      		    gneDeviceCnt = 0, indMotorCnt = 0;
-      		
       		do {
       			lineStr = din.readLine();
       			if (lineStr != null) {
@@ -173,231 +173,72 @@ public class PSSELFAdapter <
   						headerProcessed = true;
       				}
       				else if (!busProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 busProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Bus record processed");
-							 this.elemCntStr += "Bus record " + busCnt +"\n";
-						}	 
-						else {
-							busDataMapper.procLineString(lineStr, getParser());
-							busCnt++;
-						}	 
+      					processBusLineStr(lineStr);	 
       				}
       				else if (!loadProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 loadProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Load record processed");
-							 this.elemCntStr += "Load record " + loadCnt +"\n";
-						}
-						else {
-							loadDataMapper.procLineString(lineStr, getParser());
-							loadCnt++;
-						}	 
+      					processLoadLineStr(lineStr);	 
       				}
-      				else if (!fixedShuntProcessed && 
-      						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 31)) {
-						if (isEndRecLine(lineStr)) {
-							fixedShuntProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
-							 this.elemCntStr += "Load record " + loadCnt +"\n";
-						}
-						else {
-							fixedShuntDataMapper.procLineString(lineStr, getParser());
-							fxiedShuntCnt++;
-						}	 
+      				else if (!fixedShuntProcessed && PSSEAdapter.getVersionNo(this.adptrtVersion) >= 31) {
+      					processFixedShuntLineStr(lineStr);		 
       				}      				
       				else if (!genProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 genProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Gen record processed");
-							 this.elemCntStr += "Gen record " + genCnt +"\n";
-						}
-						else {
-							genDataMapper.procLineString(lineStr, getParser());
-							genCnt++;
-						}	 
+      					processGenLineStr(lineStr);		 
       				}
       				else if (!lineProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 lineProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Line record processed");
-							 this.elemCntStr += "Line record " + lineCnt +"\n";
-						}
-						else {
-							lineDataMapper.procLineString(lineStr, getParser());
-							lineCnt++;
-						}	 
+      					processBranchLineStr(lineStr);		 
       				}
       				else if (!xfrProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 xfrProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Xfr record processed");
-							 this.elemCntStr += "2W Xfr record " + xfrCnt +"\n";
-							 this.elemCntStr += "3W Xfr record " + xfr3WCnt +"\n";
-						}
-						else {
-      						String lineStr2 = din.readLine(); lineNo++;
-      						String lineStr3 = din.readLine(); lineNo++;
-      						String lineStr4 = din.readLine(); lineNo++;
-      						String lineStr5 = "";
-      						if (is3WXfr(lineStr)) {
-          						lineStr5 = din.readLine(); lineNo++;
-    							xfr3WCnt++;
-      						}
-      						else
-    							xfrCnt++;
-							xfrDataMapper.procLineString( new String[] { lineStr, lineStr2, lineStr3, lineStr4, lineStr5 }, getParser());
-						}	 
+      					if (!isEndRecLine(lineStr)) {
+      						lineNo = lineNo + 3;
+      						if (is3WXfr(lineStr))
+      							lineNo++;
+      					}
+      					processXfrLineStr(lineStr, din);
       				}
       				else if (!areaInterProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 areaInterProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E AreaInterchange record processed");
-							 this.elemCntStr += "Area interchange record " + areaInterCnt +"\n";
-						}
-						else {
-							this.areaDataMapper.procLineString(lineStr,  getParser());
-							areaInterCnt++;
-						}	 
+      					processAreaLineStr(lineStr);		 
       				}
       				else if (!dcLine2TProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 dcLine2TProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E DC line record processed");
-							 this.elemCntStr += "2T DC line record " + dcLineCnt +"\n";
-						}
-						else {
-      						String lineStr2 = din.readLine(); lineNo++;
-      						String lineStr3 = din.readLine(); lineNo++;
-							this.dcLine2TDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
-							dcLineCnt++;
-						}	 
+      					if (!isEndRecLine(lineStr))
+      						lineNo = lineNo + 2;
+      					process2THvdcLineStr(lineStr, din);
       				}
       				else if (!vscDcLineProcessed) {
-						if (isEndRecLine(lineStr)) {
-							vscDcLineProcessed = true;
-							ODMLogger.getLogger().info("PSS/E vscDcLine record processed");
-							 this.elemCntStr += "vscDcLine record " + vscDcLineCnt +"\n";
-						}
-						else {
-							//	PSSEVscDCLineDataRec rec = new PSSEVscDCLineDataRec(lineStr, version);
-							//	rec.processVscDCLine(adjNet, msg);
-							vscDcLineCnt++;
-						}	 
+      					processVscHvdcLineStr(lineStr);	 
       				}
-      				else if (!switchedShuntProcessed) {
-						if (isEndRecLine(lineStr)) {
-							 switchedShuntProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E switched shunt record processed");
-							 this.elemCntStr += "Switched Shunt record " + switchedShuntCnt +"\n";
-						}
-						else {
-							switchedShuntDataMapper.procLineString(lineStr, getParser());
-							switchedShuntCnt++;
-						}	 
+      				else if (!switchedShuntProcessed && PSSEAdapter.getVersionNo(this.adptrtVersion) <= 30) {
+      					processSwitchedShuntLineStr(lineStr);	 
       				}
       				else if (!xfrZCorrectionProcessed) {
-						if (isEndRecLine(lineStr)) {
-							xfrZCorrectionProcessed = true;
-							ODMLogger.getLogger().info("PSS/E Xfr table record processed");
-							 this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
-						}
-						else {
-							zTableDataMapper.procLineString(lineStr, getParser());
-							xfrZTableCnt++;
-						}	 
+      					processXfrZCorrLineStr(lineStr);	 
       				}
       				else if (!dcLineMTProcessed) {
-						if (isEndRecLine(lineStr)) {
-							dcLineMTProcessed = true;
-							ODMLogger.getLogger().info("PSS/E multi terminal DC Line record processed");
-							 this.elemCntStr += "MT DC line record " + mtDcLineCnt +"\n";
-						}
-						else {
-							//	PSSEMultiTermDCLineDataRec rec = new PSSEMultiTermDCLineDataRec(lineStr, version);
-							//	rec.processMultiTerminalDCLine(adjNet, msg);
-							mtDcLineCnt++;
-						}	 
+      					processMTHvdcLineStr(lineStr);	 
       				}
       				else if (!multiSectionLineGroupProcessed) {
-						if (isEndRecLine(lineStr)) {
-							multiSectionLineGroupProcessed = true;
-							ODMLogger.getLogger().info("PSS/E multi section Line Group record processed");
-							 this.elemCntStr += "MultiSec record " + multiSecCnt +"\n";
-						}
-						else {
-							//PSSEMultiSecLineDataRec rec = new PSSEMultiSecLineDataRec(lineStr, version);
-							//rec.processMultiSecLine(adjNet, msg);
-							multiSecCnt++;
-						}	 
+      					processMultiSecLineStr(lineStr);	 
       				}
       				else if (!zoneProcessed) {
-						if (isEndRecLine(lineStr)) {
-							zoneProcessed = true;
-							ODMLogger.getLogger().info("PSS/E Zone record processed");
-							 this.elemCntStr += "Zone record " + zoneCnt +"\n";
-						}
-						else {
-							this.zoneDataMapper.procLineString(lineStr, getParser());
-							zoneCnt++;
-						}	 
+      					processZoneLineStr(lineStr);		 
       				}
       				else if (!interareaTransferProcessed) {
-						if (isEndRecLine(lineStr)) {
-							interareaTransferProcessed = true;
-							ODMLogger.getLogger().info("PSS/E Interarea Transfer record processed");
-							 this.elemCntStr += "Interarea transfer record " + interTransCnt +"\n";
-						}
-						else {
-							interAreaDataMapper.procLineString(lineStr, getParser());
-							interTransCnt++;
-						}	 
+      					processInterAreaTransferLineStr(lineStr);	 
       				}
       				else if (!ownerProcessed) {
-						if (isEndRecLine(lineStr)) {
-							ownerProcessed = true;
-							ODMLogger.getLogger().info("PSS/E Owner record processed");
-							 this.elemCntStr += "Owner record " + ownerCnt +"\n";
-						}
-						else {
-							ownerDataMapper.procLineString(lineStr, getParser());
-							ownerCnt++;
-						}	 
+      					processOwnerLineStr(lineStr);	 
       				}
       				else if (!factsProcessed) {
-						if (isEndRecLine(lineStr)) {
-							factsProcessed = true;
-							ODMLogger.getLogger().info("PSS/E FACTS record processed");
-							 this.elemCntStr += "Facts record " + factsCnt +"\n";
-						}
-						else { 
-							//PSSEFACTSDataRec rec = new PSSEFACTSDataRec(lineStr, version);
-							//rec.processFACTS(adjNet, msg);
-							factsCnt++;
-						}	 
+      					processFACTSLineStr(lineStr);	 
       				}
+      				else if (!switchedShuntProcessed && PSSEAdapter.getVersionNo(this.adptrtVersion) > 30) {
+      					processSwitchedShuntLineStr(lineStr); 
+     				}
       				
-      				else if (!gneDeviceProcessed && 
-     						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 33)) {
-						if (isEndRecLine(lineStr)) {
-							gneDeviceProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
-							 this.elemCntStr += "Load record " + loadCnt +"\n";
-						}
-						else {
-							gneDeviceCnt++;
-						}	 
+      				else if (!gneDeviceProcessed && PSSEAdapter.getVersionNo(this.adptrtVersion) >= 33) {
+      					processGNELineStr(lineStr);	 
      				}      
-      				else if (!indMotorProcessed && 
-     						 (PSSEAdapter.getVersionNo(this.adptrtVersion) >= 33)) {
-						if (isEndRecLine(lineStr)) {
-							indMotorProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
-							 this.elemCntStr += "Load record " + loadCnt +"\n";
-						}
-						else {
-							indMotorCnt++;
-						}	 
+      				else if (!indMotorProcessed && PSSEAdapter.getVersionNo(this.adptrtVersion) >= 33) {
+      					processIndMotorLineStr(lineStr);	 
      				}      				
       			}
     		} while (lineStr != null);
@@ -409,6 +250,266 @@ public class PSSELFAdapter <
 		AclfParserHelper.createBusEquivData(parser);
   		
    	   	return parser;
+	}
+	
+	private void processBusLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF BUS DATA"); 
+			 busProcessed = true;
+			 ODMLogger.getLogger().info("PSS/E Bus record processed");
+			 this.elemCntStr += "Bus record " + busCnt +"\n";
+		}	 
+		else {
+			busDataMapper.procLineString(lineStr, getParser());
+			busCnt++;
+		}			
+	}
+
+	private void processLoadLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF LOAD DATA"); 
+			loadProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Load record processed");
+			this.elemCntStr += "Load record " + loadCnt +"\n";
+		}
+		else {
+			loadDataMapper.procLineString(lineStr, getParser());
+			loadCnt++;
+		}
+	}
+	
+	private void processGenLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF GENERATOR DATA"); 
+			genProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Gen record processed");
+			this.elemCntStr += "Gen record " + genCnt +"\n";
+		}
+		else {
+			genDataMapper.procLineString(lineStr, getParser());
+			genCnt++;
+		}
+	}
+	
+	private void processFixedShuntLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF FIXED SHUNT DATA"); 
+			fixedShuntProcessed = true;
+			 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
+			 this.elemCntStr += "Load record " + loadCnt +"\n";
+		}
+		else {
+			fixedShuntDataMapper.procLineString(lineStr, getParser());
+			fxiedShuntCnt++;
+		}
+	}
+	
+	private void processBranchLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("BRANCH DATA"); 
+			lineProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Line record processed");
+			this.elemCntStr += "Line record " + lineCnt +"\n";
+		}
+		else {
+			lineDataMapper.procLineString(lineStr, getParser());
+			lineCnt++;
+		}
+	}
+
+	private void processXfrLineStr(String lineStr, final IFileReader din) throws ODMException, ODMBranchDuplicationException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF TRANSFORMER DATA"); 
+			xfrProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Xfr record processed");
+			this.elemCntStr += "2W Xfr record " + xfrCnt +"\n";
+			this.elemCntStr += "3W Xfr record " + xfr3WCnt +"\n";
+		}
+		else {
+				String lineStr2 = din.readLine();
+				String lineStr3 = din.readLine();
+				String lineStr4 = din.readLine();
+				String lineStr5 = "";
+				if (is3WXfr(lineStr)) {
+					lineStr5 = din.readLine();
+				xfr3WCnt++;
+				}
+				else
+				xfrCnt++;
+			xfrDataMapper.procLineString( new String[] { lineStr, lineStr2, lineStr3, lineStr4, lineStr5 }, getParser());
+		}
+	}
+	
+	private void processAreaLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("AREA"); 
+			areaInterProcessed = true;
+			ODMLogger.getLogger().info("PSS/E AreaInterchange record processed");
+			this.elemCntStr += "Area interchange record " + areaInterCnt +"\n";
+		}
+		else {
+			this.areaDataMapper.procLineString(lineStr,  getParser());
+			areaInterCnt++;
+		}
+	}
+
+	private void processZoneLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF ZONE DATA"); 
+			zoneProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Zone record processed");
+			this.elemCntStr += "Zone record " + zoneCnt +"\n";
+		}
+		else {
+			this.zoneDataMapper.procLineString(lineStr, getParser());
+			zoneCnt++;
+		}
+	}
+	
+	private void processOwnerLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF OWNER DATA"); 
+			ownerProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Owner record processed");
+			this.elemCntStr += "Owner record " + ownerCnt +"\n";
+		}
+		else {
+			ownerDataMapper.procLineString(lineStr, getParser());
+			ownerCnt++;
+		}	 		
+	}
+	
+	private void process2THvdcLineStr(String lineStr, final IFileReader din) throws ODMException, ODMBranchDuplicationException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("TWO-TERMINAL"); 
+			dcLine2TProcessed = true;
+			ODMLogger.getLogger().info("PSS/E DC line record processed");
+			this.elemCntStr += "2T DC line record " + dcLineCnt +"\n";
+		}
+		else {
+				String lineStr2 = din.readLine();
+				String lineStr3 = din.readLine();
+			this.dcLine2TDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
+			dcLineCnt++;
+		}			
+	}
+	
+	private void processVscHvdcLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF VSC DC LINE DATA"); 
+			vscDcLineProcessed = true;
+			ODMLogger.getLogger().info("PSS/E vscDcLine record processed");
+			this.elemCntStr += "vscDcLine record " + vscDcLineCnt +"\n";
+		}
+		else {
+			//	PSSEVscDCLineDataRec rec = new PSSEVscDCLineDataRec(lineStr, version);
+			//	rec.processVscDCLine(adjNet, msg);
+			vscDcLineCnt++;
+		}		
+	}
+
+	private void processMTHvdcLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("MULTI-TERMINAL"); 
+			dcLineMTProcessed = true;
+			ODMLogger.getLogger().info("PSS/E multi terminal DC Line record processed");
+			this.elemCntStr += "MT DC line record " + mtDcLineCnt +"\n";
+		}
+		else {
+			//	PSSEMultiTermDCLineDataRec rec = new PSSEMultiTermDCLineDataRec(lineStr, version);
+			//	rec.processMultiTerminalDCLine(adjNet, msg);
+			mtDcLineCnt++;
+		}			
+	}
+	
+	private void processFACTSLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF FACTS DEVICE DATA"); 
+			factsProcessed = true;
+			ODMLogger.getLogger().info("PSS/E FACTS record processed");
+			this.elemCntStr += "Facts record " + factsCnt +"\n";
+		}
+		else { 
+			//PSSEFACTSDataRec rec = new PSSEFACTSDataRec(lineStr, version);
+			//rec.processFACTS(adjNet, msg);
+			factsCnt++;
+		}			
+	}
+
+	private void processMultiSecLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF MULTI-SECTION LINE DATA"); 
+			multiSectionLineGroupProcessed = true;
+			ODMLogger.getLogger().info("PSS/E multi section Line Group record processed");
+			this.elemCntStr += "MultiSec record " + multiSecCnt +"\n";
+		}
+		else {
+			//PSSEMultiSecLineDataRec rec = new PSSEMultiSecLineDataRec(lineStr, version);
+			//rec.processMultiSecLine(adjNet, msg);
+			multiSecCnt++;
+		}			
+	}
+	private void processSwitchedShuntLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF SWITCHED SHUNT DATA"); 
+			switchedShuntProcessed = true;
+			ODMLogger.getLogger().info("PSS/E switched shunt record processed");
+			this.elemCntStr += "Switched Shunt record " + switchedShuntCnt +"\n";
+		}
+		else {
+			switchedShuntDataMapper.procLineString(lineStr, getParser());
+			switchedShuntCnt++;
+		}
+	}
+	
+	private void processXfrZCorrLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("CORR"); 
+			xfrZCorrectionProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Xfr table record processed");
+			this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
+		}
+		else {
+			zTableDataMapper.procLineString(lineStr, getParser());
+			xfrZTableCnt++;
+		}		
+	}
+	
+	private void processInterAreaTransferLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("INTER-AREA") || lineStr.toUpperCase().contains("INTERAREA"); 
+			interareaTransferProcessed = true;
+			ODMLogger.getLogger().info("PSS/E Interarea Transfer record processed");
+			this.elemCntStr += "Interarea transfer record " + interTransCnt +"\n";
+		}
+		else {
+			interAreaDataMapper.procLineString(lineStr, getParser());
+			interTransCnt++;
+		}
+	}
+	
+	private void processGNELineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF GNE DATA"); 
+			gneDeviceProcessed = true;
+			ODMLogger.getLogger().info("PSS/E GNE record processed");
+			this.elemCntStr += "Load record " + loadCnt +"\n";
+		}
+		else {
+			gneDeviceCnt++;
+		}		
+	}
+	
+	private void processIndMotorLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF INDUCTION MACHINE DATA"); 
+			indMotorProcessed = true;
+			ODMLogger.getLogger().info("PSS/E INDUCTION MACHINE record processed");
+			this.elemCntStr += "Load record " + loadCnt +"\n";
+		}
+		else {
+			indMotorCnt++;
+		}		
 	}
 	
 	private boolean is3WXfr(String str) {
