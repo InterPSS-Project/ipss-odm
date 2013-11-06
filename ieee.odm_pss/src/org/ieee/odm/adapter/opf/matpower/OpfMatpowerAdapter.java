@@ -237,9 +237,8 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 
 		double baseKva = parser.getBaseOpfNet().getBasePower().getValue() / 1000;
 		if (pshunt != 0.0 || qshunt != 0.0) {
-			aclfBus.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(pshunt / baseKva,
+			aclfBus.getShuntYData().setEquivY(BaseDataSetter.createYValue(pshunt / baseKva,
 					qshunt / baseKva, YUnitType.PU));
-			aclfBus.getShuntYData().getEquivY().setOffLine(false);
 		}
 
 	}

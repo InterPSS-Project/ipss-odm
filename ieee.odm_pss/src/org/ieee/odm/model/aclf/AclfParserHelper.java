@@ -72,8 +72,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		if (shuntYData == null) { 
 			shuntYData = odmObjFactory.createBusShuntYDataXmlType();
 			busRec.setShuntYData(shuntYData);
-			LoadflowShuntYDataXmlType equivY = odmObjFactory.createLoadflowShuntYDataXmlType();
-			shuntYData.setEquivY(equivY);
+			shuntYData.setEquivY(odmObjFactory.createYXmlType());
 		}
 		LoadflowShuntYDataXmlType contribShuntY = odmObjFactory.createLoadflowShuntYDataXmlType();
 		shuntYData.getContributeShuntY().add(contribShuntY); 
@@ -305,7 +304,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 			BusShuntYDataXmlType shuntYData = busRec.getShuntYData();
 			if (shuntYData != null) {
 				if ( shuntYData.getContributeShuntY().size() > 0) {
-					LoadflowShuntYDataXmlType equivY = shuntYData.getEquivY();
+					//LoadflowShuntYDataXmlType equivY = shuntYData.getEquivY();
 					double g=0.0, b=0.0; 
 					for ( LoadflowShuntYDataXmlType y : shuntYData.getContributeShuntY()) {
 						if (!y.isOffLine()) {
@@ -317,7 +316,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 					}
 					
 					if (g != 0.0 || b != 0.0) {
-						equivY.setY(BaseDataSetter.createYValue(g, b, YUnitType.PU));
+						shuntYData.setEquivY(BaseDataSetter.createYValue(g, b, YUnitType.PU));
 			  		}
 				}
 			}

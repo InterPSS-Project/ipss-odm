@@ -1,112 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:pssStudyCase xmlns="http://www.interpss.org/Schema/odm/2008" xmlns:ns2="http://www.ieee.org/odm/Schema/2008" id="ODM_OPF_Studycase">
-    <ns2:contentInfo>
-        <ns2:originalDataFormat>OPF-Matpower</ns2:originalDataFormat>
-        <ns2:adapterProviderName>www.interpss.org</ns2:adapterProviderName>
-        <ns2:adapterProviderVersion>1.00</ns2:adapterProviderVersion>
-    </ns2:contentInfo>
-    <ns2:networkCategory>Transmission</ns2:networkCategory>
-    <ns2:analysisCategory>OPF</ns2:analysisCategory>
-    <ns2:aclfNet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:OpfNetworkXmlType" id="Opf_from_Matpower_case3bus">
-        <ns2:basePower unit="MVA" value="100.0"/>
-        <ns2:busList>
-            <ns2:aclfBus xsi:type="ns2:OpfGenBusXmlType" id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="Bus1">
-                <ns2:baseVoltage unit="KV" value="10.0"/>
-                <ns2:voltage unit="PU" value="1.0"/>
-                <ns2:angle unit="DEG" value="0.0"/>
-                <ns2:genData>
-                    <ns2:equivGen code="Swing" offLine="false">
-                        <ns2:power unit="MVA" re="0.0" im="0.0"/>
-                        <ns2:desiredVoltage unit="PU" value="1.0"/>
-                        <ns2:desiredAngle unit="DEG" value="0.0"/>
-                    </ns2:equivGen>
-                </ns2:genData>
-                <ns2:operatingMode>PVGenerator</ns2:operatingMode>
-                <ns2:incCost>
-                    <ns2:costModel>Piece-wise linear model</ns2:costModel>
-                    <ns2:pieceWiseLinearModel>
-                        <ns2:stairStep>
-                            <ns2:price value="10.0" unit="dollarPerMWh"/>
-                            <ns2:amount value="20.0" unit="MW"/>
-                        </ns2:stairStep>
-                        <ns2:stairStep>
-                            <ns2:price value="10.0" unit="dollarPerMWh"/>
-                            <ns2:amount value="200.0" unit="MW"/>
-                        </ns2:stairStep>
-                    </ns2:pieceWiseLinearModel>
-                </ns2:incCost>
-                <ns2:constraints>
-                    <ns2:activePowerLimit unit="MW" max="200.0" min="20.0"/>
-                </ns2:constraints>
-            </ns2:aclfBus>
-            <ns2:aclfBus xsi:type="ns2:OpfGenBusXmlType" id="Bus2" areaNumber="1" zoneNumber="1" number="2" offLine="false" name="Bus2">
-                <ns2:baseVoltage unit="KV" value="10.0"/>
-                <ns2:voltage unit="PU" value="1.0"/>
-                <ns2:angle unit="DEG" value="0.0"/>
-                <ns2:genData>
-                    <ns2:equivGen code="PV" offLine="false">
-                        <ns2:power unit="MVA" re="30.0" im="0.0"/>
-                        <ns2:desiredVoltage unit="PU" value="1.0"/>
-                    </ns2:equivGen>
-                </ns2:genData>
-                <ns2:operatingMode>PVGenerator</ns2:operatingMode>
-                <ns2:incCost>
-                    <ns2:costModel>Piece-wise linear model</ns2:costModel>
-                    <ns2:pieceWiseLinearModel>
-                        <ns2:stairStep>
-                            <ns2:price value="12.0" unit="dollarPerMWh"/>
-                            <ns2:amount value="10.0" unit="MW"/>
-                        </ns2:stairStep>
-                        <ns2:stairStep>
-                            <ns2:price value="12.0" unit="dollarPerMWh"/>
-                            <ns2:amount value="150.0" unit="MW"/>
-                        </ns2:stairStep>
-                    </ns2:pieceWiseLinearModel>
-                </ns2:incCost>
-                <ns2:constraints>
-                    <ns2:activePowerLimit unit="MW" max="150.0" min="10.0"/>
-                </ns2:constraints>
-            </ns2:aclfBus>
-            <ns2:aclfBus id="Bus3" areaNumber="1" zoneNumber="1" number="3" offLine="false" name="Bus3">
-                <ns2:baseVoltage unit="KV" value="10.0"/>
-                <ns2:voltage unit="PU" value="1.0"/>
-                <ns2:angle unit="DEG" value="0.0"/>
-                <ns2:loadData>
-                    <ns2:equivLoad code="CONST_P">
-                        <ns2:constPLoad unit="MVA" re="150.0" im="0.0"/>
-                    </ns2:equivLoad>
-                </ns2:loadData>
-            </ns2:aclfBus>
-        </ns2:busList>
-        <ns2:branchList>
-            <ns2:aclfLine xsi:type="ns2:OpfBranchXmlType" circuitId="1" id="Bus1_to_Bus2_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
-                <ns2:fromBus idRef="Bus1"/>
-                <ns2:toBus idRef="Bus2"/>
-                <ns2:z unit="PU" re="0.0" im="0.2"/>
-                <ns2:ratingLimit>
-                    <ns2:mw unit="MW" rating1="30.0" rating2="30.0" rating3="30.0"/>
-                </ns2:ratingLimit>
-                <ns2:lineInfo/>
-            </ns2:aclfLine>
-            <ns2:aclfLine xsi:type="ns2:OpfBranchXmlType" circuitId="1" id="Bus1_to_Bus3_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
-                <ns2:fromBus idRef="Bus1"/>
-                <ns2:toBus idRef="Bus3"/>
-                <ns2:z unit="PU" re="0.0" im="0.2"/>
-                <ns2:ratingLimit>
-                    <ns2:mw unit="MW" rating1="150.0" rating2="150.0" rating3="150.0"/>
-                </ns2:ratingLimit>
-                <ns2:lineInfo/>
-            </ns2:aclfLine>
-            <ns2:aclfLine xsi:type="ns2:OpfBranchXmlType" circuitId="1" id="Bus2_to_Bus3_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
-                <ns2:fromBus idRef="Bus2"/>
-                <ns2:toBus idRef="Bus3"/>
-                <ns2:z unit="PU" re="0.0" im="0.2"/>
-                <ns2:ratingLimit>
-                    <ns2:mw unit="MW" rating1="150.0" rating2="150.0" rating3="150.0"/>
-                </ns2:ratingLimit>
-                <ns2:lineInfo/>
-            </ns2:aclfLine>
-        </ns2:branchList>
-        <ns2:anglePenaltyFactor>0.0</ns2:anglePenaltyFactor>
-    </ns2:aclfNet>
-</ns2:pssStudyCase>
+<pssStudyCase xmlns="http://www.ieee.org/odm/Schema/2008" xmlns:ns2="http://www.interpss.org/Schema/odm/2008" id="ODM_OPF_Studycase">
+    <contentInfo>
+        <originalDataFormat>OPF-Matpower</originalDataFormat>
+        <adapterProviderName>www.interpss.org</adapterProviderName>
+        <adapterProviderVersion>1.00</adapterProviderVersion>
+    </contentInfo>
+    <networkCategory>Transmission</networkCategory>
+    <analysisCategory>OPF</analysisCategory>
+    <aclfNet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="OpfNetworkXmlType" id="Opf_from_Matpower_case3bus">
+        <basePower unit="MVA" value="100.0"/>
+        <busList>
+            <aclfBus xsi:type="OpfGenBusXmlType" id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="Bus1">
+                <baseVoltage unit="KV" value="10.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <operatingMode>PVGenerator</operatingMode>
+                <incCost>
+                    <costModel>Piece-wise linear model</costModel>
+                    <pieceWiseLinearModel>
+                        <stairStep>
+                            <price value="10.0" unit="dollarPerMWh"/>
+                            <amount value="20.0" unit="MW"/>
+                        </stairStep>
+                        <stairStep>
+                            <price value="10.0" unit="dollarPerMWh"/>
+                            <amount value="200.0" unit="MW"/>
+                        </stairStep>
+                    </pieceWiseLinearModel>
+                </incCost>
+            </aclfBus>
+            <aclfBus xsi:type="OpfGenBusXmlType" id="Bus2" areaNumber="1" zoneNumber="1" number="2" offLine="false" name="Bus2">
+                <baseVoltage unit="KV" value="10.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <operatingMode>PVGenerator</operatingMode>
+                <incCost>
+                    <costModel>Piece-wise linear model</costModel>
+                    <pieceWiseLinearModel>
+                        <stairStep>
+                            <price value="12.0" unit="dollarPerMWh"/>
+                            <amount value="10.0" unit="MW"/>
+                        </stairStep>
+                        <stairStep>
+                            <price value="12.0" unit="dollarPerMWh"/>
+                            <amount value="150.0" unit="MW"/>
+                        </stairStep>
+                    </pieceWiseLinearModel>
+                </incCost>
+            </aclfBus>
+            <aclfBus id="Bus3" areaNumber="1" zoneNumber="1" number="3" offLine="false" name="Bus3">
+                <baseVoltage unit="KV" value="10.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData>
+                    <equivGen/>
+                </genData>
+                <loadData>
+                    <equivLoad code="CONST_P">
+                        <constPLoad unit="MVA" re="150.0" im="0.0"/>
+                    </equivLoad>
+                </loadData>
+                <shuntYData>
+                    <equivY im="0.0"/>
+                </shuntYData>
+            </aclfBus>
+        </busList>
+        <branchList>
+            <aclfLine xsi:type="OpfBranchXmlType" circuitId="1" id="Bus1_to_Bus2_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <fromBus idRef="Bus1"/>
+                <toBus idRef="Bus2"/>
+                <z unit="PU" re="0.0" im="0.2"/>
+                <ratingLimit>
+                    <mw unit="MW" rating1="30.0" rating2="30.0" rating3="30.0"/>
+                </ratingLimit>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine xsi:type="OpfBranchXmlType" circuitId="1" id="Bus1_to_Bus3_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <fromBus idRef="Bus1"/>
+                <toBus idRef="Bus3"/>
+                <z unit="PU" re="0.0" im="0.2"/>
+                <ratingLimit>
+                    <mw unit="MW" rating1="150.0" rating2="150.0" rating3="150.0"/>
+                </ratingLimit>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine xsi:type="OpfBranchXmlType" circuitId="1" id="Bus2_to_Bus3_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <fromBus idRef="Bus2"/>
+                <toBus idRef="Bus3"/>
+                <z unit="PU" re="0.0" im="0.2"/>
+                <ratingLimit>
+                    <mw unit="MW" rating1="150.0" rating2="150.0" rating3="150.0"/>
+                </ratingLimit>
+                <lineInfo/>
+            </aclfLine>
+        </branchList>
+        <anglePenaltyFactor>0.0</anglePenaltyFactor>
+    </aclfNet>
+</pssStudyCase>

@@ -28,7 +28,9 @@
 						<pss:constPLoad im="1.0" unit="PU" re="2.0" />
 					</pss:equivLoad>
 				</pss:loadData>
-                <pss:shuntY unit="PU" im="-0.1" re="0.1"/>
+				<pss:shuntYData>
+                	<pss:equivY unit="PU" im="-0.1" re="0.1"/>
+                </pss:shuntYData>	
 			</pss:aclfBus>
 			<pss:aclfBus id="Bus-3" areaNumber="1" offLine="false" zoneNumber="1">
 				<pss:baseVoltage unit="KV" value="138" />
@@ -37,7 +39,9 @@
 						<pss:constPLoad im="1.3" unit="PU" re="3.7" />
 					</pss:equivLoad>
 				</pss:loadData>
-                <pss:shuntY unit="PU" im="0.5" re="0.1"/>
+                <pss:shuntYData>
+                	<pss:equivY unit="PU" im="0.5" re="0.1"/>
+                </pss:shuntYData>	
 			</pss:aclfBus>
 			<pss:aclfBus id="Bus-4" areaNumber="1" zoneNumber="1" offLine="false">
 				<pss:baseVoltage unit="KV" value="1" />
@@ -52,7 +56,9 @@
                         <pss:constPLoad unit="PU" im="0.2" re="0.2"/>
                     </pss:equivLoad>
                 </pss:loadData>	
-				<pss:shuntY unit="PU" im="-0.5" re="0.1"/>
+				<pss:shuntYData>
+                	<pss:equivY unit="PU" im="-0.5" re="0.1"/>
+                </pss:shuntYData>	
 			</pss:aclfBus>
 			<pss:aclfBus id="Bus-5" offLine="false" areaNumber="1" zoneNumber="1">
 				<pss:baseVoltage unit="KV" value="4" />

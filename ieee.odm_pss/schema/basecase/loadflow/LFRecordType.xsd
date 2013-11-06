@@ -58,7 +58,7 @@
 		</ns:documentation></ns:annotation>
     </ns:element>
     
-    <ns:element name="equivY" type="pss:LoadflowShuntYDataXmlType">
+    <ns:element name="equivY" type="pss:YXmlType">
         <ns:annotation><ns:documentation>
 		equiv shunt Y at bus for defining equiv shunt Y data for Loadflow study
 		</ns:documentation></ns:annotation>

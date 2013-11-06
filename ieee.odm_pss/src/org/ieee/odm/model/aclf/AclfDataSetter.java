@@ -179,11 +179,10 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param unit
 	 */
 	public static void setBusShuntY(LoadflowBusXmlType bus, double re, double im, YUnitType unit) {
-		bus.getShuntYData().getEquivY().setY(odmObjFactory.createYXmlType());
-		bus.getShuntYData().getEquivY().setOffLine(false);
-		bus.getShuntYData().getEquivY().getY().setRe(re);
-		bus.getShuntYData().getEquivY().getY().setIm(im);
-		bus.getShuntYData().getEquivY().getY().setUnit(unit);
+		bus.getShuntYData().setEquivY(odmObjFactory.createYXmlType());
+		bus.getShuntYData().getEquivY().setRe(re);
+		bus.getShuntYData().getEquivY().setIm(im);
+		bus.getShuntYData().getEquivY().setUnit(unit);
 	}	
 
 	/**
@@ -246,11 +245,11 @@ public class AclfDataSetter extends BaseDataSetter {
 	public static void addBusShuntY(LoadflowBusXmlType bus, double re, double im, YUnitType unit) {
 		if (bus.getShuntYData() == null) {
 			bus.setShuntYData(odmObjFactory.createBusShuntYDataXmlType());
-			bus.getShuntYData().setEquivY(odmObjFactory.createLoadflowShuntYDataXmlType());
+			bus.getShuntYData().setEquivY(odmObjFactory.createYXmlType());
 		}
-		bus.getShuntYData().getEquivY().getY().setRe(re + bus.getShuntYData().getEquivY().getY().getRe());
-		bus.getShuntYData().getEquivY().getY().setIm(im + bus.getShuntYData().getEquivY().getY().getIm());
-		bus.getShuntYData().getEquivY().getY().setUnit(unit);
+		bus.getShuntYData().getEquivY().setRe(re + bus.getShuntYData().getEquivY().getRe());
+		bus.getShuntYData().getEquivY().setIm(im + bus.getShuntYData().getEquivY().getIm());
+		bus.getShuntYData().getEquivY().setUnit(unit);
 	}	
 
 	/**

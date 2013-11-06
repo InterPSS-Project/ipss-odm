@@ -137,8 +137,7 @@ public class BaseAclfModelParser<
    		busRec.getLoadData().setEquivLoad(odmObjFactory.createEquivLoad(equivLoad));   		
 
    		busRec.setShuntYData(odmObjFactory.createBusShuntYDataXmlType());
-   		LoadflowShuntYDataXmlType equivY = odmObjFactory.createLoadflowShuntYDataXmlType();
-   		busRec.getShuntYData().setEquivY(equivY);   		
+   		busRec.getShuntYData().setEquivY(odmObjFactory.createYXmlType());   		
 	}
 	
 	/*

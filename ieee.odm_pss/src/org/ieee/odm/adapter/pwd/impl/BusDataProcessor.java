@@ -123,8 +123,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		if(angle!=-360)bus.setAngle(BaseDataSetter.createAngleValue(angle,AngleUnitType.DEG));
 		
 		if (busG != 0.0 || busB != 0.0) {
-			bus.getShuntYData().getEquivY().setY(BaseDataSetter.createYValue(busG, busB,YUnitType.MVAR));
-			bus.getShuntYData().getEquivY().setOffLine(false);
+			bus.getShuntYData().setEquivY(BaseDataSetter.createYValue(busG, busB,YUnitType.MVAR));
 		}
 		
 		if(isSlackBus){
