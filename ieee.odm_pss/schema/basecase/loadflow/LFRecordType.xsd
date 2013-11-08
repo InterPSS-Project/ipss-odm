@@ -20,6 +20,12 @@
     </ns:annotation>
     </ns:element>
     
+    <ns:element name="childAclfNet" type="pss:LoadflowNetXmlType" substitutionGroup="pss:childNet">
+        <ns:annotation><ns:documentation>
+		LoadflowNetXmlType network could be defined as a child network
+		</ns:documentation></ns:annotation>
+    </ns:element>
+     
     <ns:element name="aclfBus" substitutionGroup="pss:bus" type="pss:LoadflowBusXmlType">
         <ns:annotation>
       <ns:documentation>
