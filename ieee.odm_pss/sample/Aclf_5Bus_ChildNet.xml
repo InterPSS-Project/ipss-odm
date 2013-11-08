@@ -104,6 +104,21 @@
 			</pss:aclfXfr>
 		</pss:branchList>
 		<pss:hasChildNet>true</pss:hasChildNet>
+		<pss:childNetDef>
+			<pss:childNetRef idRef="DistChileNet1"></pss:childNetRef>
+			<pss:interfaceBranch>
+				<pss:branch idRef="Bus2-Bus1"></pss:branch>
+				<pss:interfaceBusSide>ToSide</pss:interfaceBusSide>
+				<pss:childNetSide>ToSide</pss:childNetSide>
+				<pss:interfaceBusIdChildNet  idRef="DistBus-1"></pss:interfaceBusIdChildNet>
+			</pss:interfaceBranch>
+			<pss:interfaceBranch>
+				<pss:branch idRef="Bus3-Bus1"></pss:branch>
+				<pss:interfaceBusSide>ToSide</pss:interfaceBusSide>
+				<pss:childNetSide>ToSide</pss:childNetSide>
+				<pss:interfaceBusIdChildNet  idRef="DistBus-1"></pss:interfaceBusIdChildNet>
+			</pss:interfaceBranch>
+		</pss:childNetDef>
 	</pss:aclfNet>
 
 
@@ -134,7 +149,7 @@
 			</pss:distGeneratorBus>
 		</pss:busList>
 		<pss:branchList>
-			<pss:distXfrBranch id="BranchId">
+			<pss:distXfrBranch id="DistBranchId">
 				<pss:fromBus idRef="DistBus-1"></pss:fromBus>
 				<pss:toBus idRef="DistBus-2"></pss:toBus>
 				<pss:rating unit="MVA" value="10.0" />
@@ -151,9 +166,15 @@
 			</pss:distXfrBranch>
 		</pss:branchList>
 		<pss:hasChildNet>true</pss:hasChildNet>
-		<pss:parentNet netId="Aclf5BusBaseCase" parentBusId="Bus-1">
-			<pss:interfaceBus idRef="DistBus-1" />
-		</pss:parentNet>
+		<pss:childNetDef>
+			<pss:childNetRef idRef="ChildDcSysteNet1"></pss:childNetRef>
+			<pss:interfaceBranch>
+				<pss:branch idRef="DistBranchId"></pss:branch>
+				<pss:interfaceBusSide>ToSide</pss:interfaceBusSide>
+				<pss:childNetSide>ToSide</pss:childNetSide>
+				<pss:interfaceBusIdChildNet  idRef="DcBus1"></pss:interfaceBusIdChildNet>
+			</pss:interfaceBranch>			
+		</pss:childNetDef>
 		<pss:positiveSeqDataOnly>true</pss:positiveSeqDataOnly>
 		<pss:scStd>Generic</pss:scStd>
 		<pss:scPoint>
@@ -184,10 +205,7 @@
 				</pss:feeder>
 			</pss:dcBranch>
 		</pss:branchList>
-		<pss:hasChildNet>true</pss:hasChildNet>
-		<pss:parentNet netId="DistChileNet1" parentBusId="DistBus-2">
-			<pss:interfaceBus idRef="DcBus1" />
-		</pss:parentNet>
+		<pss:hasChildNet>false</pss:hasChildNet>
 		<pss:ratedVoltage unit="VOLT" value="600.0" />
 	</pss:childDcNet>
 </pss:pssStudyCase>

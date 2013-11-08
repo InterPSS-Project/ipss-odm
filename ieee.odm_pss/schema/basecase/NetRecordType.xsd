@@ -6,6 +6,7 @@
 	elementFormDefault="qualified" >
   
 
+    <ns:include schemaLocation=""></ns:include>
     <ns:include schemaLocation="../common/DataType.xsd"></ns:include>
     
 
@@ -86,7 +87,7 @@
 						</ns:documentation></ns:annotation>
 					</ns:element>
                     <ns:element name="hasChildNet" type="ns:boolean" minOccurs="0"></ns:element>
-                    <ns:element name="parentNet" type="pss:NetworkRefXmlType" minOccurs="0"></ns:element>
+                    <ns:element name="childNetDef" type="pss:ChildNetworkDefXmlType" minOccurs="0" maxOccurs="unbounded"></ns:element>
                     <ns:element name="autoBranchId" type="ns:boolean" minOccurs="0">
 						<ns:annotation><ns:documentation>
 						if true, the branch id will be auto generated formId->toId(cirNo). The original branchId will be moved to the name field.
@@ -134,32 +135,38 @@
     	</ns:annotation>
     	<ns:complexContent>
     		<ns:extension base="pss:NameTagXmlType">
-    			<ns:sequence>
-    				<ns:element name="interfaceBus" type="pss:IDRefRecordXmlType" minOccurs="0" maxOccurs="1">
-    				<ns:annotation>
-    					<ns:documentation>
-    					interface bus id, where this network is connecting to the parent network. It is optional
-    					since in many cases, it could be identified. For example, utility bus in a distribution network,
-    					inverter bus in a solar system. 
-    					</ns:documentation>
-    				</ns:annotation>
-    				</ns:element>
+    			<ns:sequence>
     			</ns:sequence>
     			<ns:attribute name="netId" type="ns:string" use="required">
     				<ns:annotation><ns:documentation>
     					parent containing network id. It might be stored in a different file.
     				</ns:documentation></ns:annotation>
-    			</ns:attribute>
-    			<ns:attribute name="parentBusId" type="ns:string" use="required">
-    				<ns:annotation><ns:documentation>
-    					parent bus id, where this network is attached to. It might be stored in a different file.
-    				</ns:documentation></ns:annotation>
-    			</ns:attribute>
+    			</ns:attribute>
     		</ns:extension>
     	</ns:complexContent>
     </ns:complexType>
 
+    <ns:complexType name="ChildNetworkDefXmlType">
+    	<ns:sequence>
+    		<ns:element name="childNetRef" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+    		<ns:element name="interfaceBranch" type="pss:ChildNetInterfaceBranchXmlType" maxOccurs="unbounded" minOccurs="0">  		</ns:element>
+    	</ns:sequence>
+    </ns:complexType>
 
+    <ns:complexType name="ChildNetInterfaceBranchXmlType">
+		<ns:sequence>
+			<ns:element name="branch" type="pss:BranchIDRefXmlType" minOccurs="1" maxOccurs="1"> </ns:element>
+			<ns:element name="interfaceBusSide" type="pss:BranchBusSideEnumType" minOccurs="1" maxOccurs="1"></ns:element>
+			<ns:element name="childNetSide" type="pss:BranchBusSideEnumType" minOccurs="1" maxOccurs="1"></ns:element>
+			<ns:element name="interfaceBusIdChildNet" type="pss:BranchIDRefXmlType" minOccurs="0" maxOccurs="1"> </ns:element>
+		</ns:sequence>
+    </ns:complexType>
+    
+<!-- 
+	 Bus/Branch record type
+	 ======================
+ -->
+ 
     <ns:complexType name="BusXmlType" abstract="true">
         <ns:annotation><ns:documentation>
         	Base bus record for all bus type
@@ -191,7 +198,6 @@
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
-    
 	
     <ns:complexType name="BranchXmlType" abstract="true">
 		<ns:complexContent>
