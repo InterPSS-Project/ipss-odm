@@ -38,7 +38,7 @@
 				<ns:sequence>
 					<ns:element name="contentInfo" minOccurs="0" type="pss:ContentInfoXmlType" />
 					<ns:element name="networkCategory" minOccurs="1" maxOccurs="1" type="pss:NetworkCategoryEnumType" />
-					<ns:element name="analysisCategory" type="pss:AnalysisCategoryEnumType" maxOccurs="1"/>
+					<ns:element name="analysisCategory" minOccurs="1" maxOccurs="1"  type="pss:AnalysisCategoryEnumType"/>
 					
 					<ns:element ref="pss:baseCase" minOccurs="1" maxOccurs="1">
 						<ns:annotation>
