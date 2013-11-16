@@ -194,8 +194,8 @@ public class IeeeCDFBranchDataMapper extends BaseIeeeCDFDataMapper {
 
 			//        	Columns 113-119 Minimum voltage, MVAR or MW limit [F]
 			//        	Columns 120-126 Maximum voltage, MVAR or MW limit [F]
-			maxVoltPQ = dataParser.getDouble("MinVoltMvarMw");
-			minVoltPQ = dataParser.getDouble("MaxVoltMvarMw");
+			minVoltPQ = dataParser.getDouble("MinVoltMvarMw");
+			maxVoltPQ = dataParser.getDouble("MaxVoltMvarMw");
 		}
 
 		if (branchType == 2 || branchType == 3) {
@@ -235,6 +235,8 @@ public class IeeeCDFBranchDataMapper extends BaseIeeeCDFDataMapper {
 			psXfrBranch.setAngleAdjustment(angAdj);
 			angAdj.setAngleLimit(odmObjFactory.createAngleLimitXmlType());
 			BaseDataSetter.setLimit(angAdj.getAngleLimit(), maxTapAng, minTapAng);
+			
+			if(angAdj.getRange()==null) angAdj.setRange(new LimitXmlType());
 			BaseDataSetter.setLimit(angAdj.getRange(), maxVoltPQ, minVoltPQ);
 			angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
 			angAdj.setDesiredMeasuredOnFromSide(true);
