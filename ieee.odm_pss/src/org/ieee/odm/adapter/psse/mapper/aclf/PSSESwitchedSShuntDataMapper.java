@@ -122,11 +122,13 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		//B1 - Admittance increment of block 1 in MVAR at 1.0 per unit volts. N2, B2, etc, as N1, B1
 		for (int i = 0; i < 8; i++) {
 	  		int n = this.dataParser.getInt("N"+(i+1), 0);
-	  		double b = this.dataParser.getDouble("B"+(i+1), 0.0);
-	  		ShuntCompensatorBlockXmlType block = odmObjFactory.createShuntCompensatorBlockXmlType(); 
-	  		shunt.getBlock().add(block);
-	  		block.setSteps(n);
-	  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));
-		}
+			if(n>0){
+			  		double b = this.dataParser.getDouble("B"+(i+1), 0.0);
+			  		ShuntCompensatorBlockXmlType block = odmObjFactory.createShuntCompensatorBlockXmlType(); 
+			  		shunt.getBlock().add(block);
+			  		block.setSteps(n);
+			  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));
+			  }
+	  		}
 	}
 }

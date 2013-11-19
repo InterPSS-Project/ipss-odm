@@ -56,12 +56,12 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		
 		Format V29
 		==========
-		I,    MODSW, VSWHI, VSWLO, SWREM,         ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
+		I,    MODSW, VSWHI, VSWLO, SWREM,         æ‰²MIDNTï¿½ BINIT, N1, B1, N2, B2, ... N8, B8
                                                             nbPosition(7) 
                                                             
         Format V30
 		==========
-		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
+		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, æ‰²MIDNTï¿½ BINIT, N1, B1, N2, B2, ... N8, B8
                                                             nbPosition(8) 
 	Sample Data
 		8441,1,1.03869,0.99869,    0,100.0,'        ',  334.80, 3,  50.40, 1,  37.80, 2,  36.00, 1,  37.80, 1,  36.00
@@ -90,7 +90,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 			
 		Format V32, V33
 		===============
-		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, ’RMIDNT’, BINIT, N1, B1, N2, B2, ... N8, B8
+		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, æ‰²MIDNTï¿½ BINIT, N1, B1, N2, B2, ... N8, B8
 		                                                                nbPosition(10)  
 		ADJM Adjustment method:
   			0 steps and blocks are switched on in input order, and off in reverse input order; this adjustment 
@@ -102,8 +102,9 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		 */		
 		return new String[] {
 		   //  0----------1----------2----------3----------4
-			  "I",     "MODSW",                          "VSWHI",
-			                       "ADJM",    "STAT",          			// V32,V33
+			  "I",     "MODSW",                          
+			                       "ADJM",    "STAT",                   // V32,V33
+			                                             "VSWHI",
 		   //  5          6          7          8          9
 			  "VSWLO",   "SWREM", "RMPCT",  "RMIDNT",                   // V30, V32,V33 
 			                                             "BINIT",     
@@ -119,6 +120,10 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 	}
 	
 	@Override public void parseFields(final String lineStr) throws ODMException {
+		//clear the Name-value pair table, such that the values of the 
+		//previously-processed bus will be cleared before processing this new switch shunt data set
+		this.clearNVPairTableData();
+		
   		StringTokenizer st = new StringTokenizer(lineStr, ",");
   		
 		nbPosition = 6;
