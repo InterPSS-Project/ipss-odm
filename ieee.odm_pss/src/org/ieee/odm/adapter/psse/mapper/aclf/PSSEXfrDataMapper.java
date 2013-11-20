@@ -95,7 +95,7 @@ public class PSSEXfrDataMapper <
 /*
 	    Line-1 
 	    For 2W and 3W Xfr: 
-	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,扤AME�        STAT,O1,F1,...,O4,F4
+	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,'NAME', STAT,O1,F1,...,O4,F4
 	    	
 	        26,    54,    0,    '1 ',1, 1, 1,  0.00000,  0.00000, 2,    '        ',    1,   1,1.0000,   0,1.0000,   0,1.0000,   0,1.0000
             27824, 27871, 27957,'W ',2, 2, 1,  0.00089,  -0.00448,1,    'D575121     ',1,   1,1.0000
@@ -414,20 +414,20 @@ public class PSSEXfrDataMapper <
 		//Sample data : 1,    31, 1.10000, 0.90000, 1.09255, 1.04255, 33, 0, 0.00000, 0.00000
       	/*
         RMA1, RMI1 The upper and lower limits, respectively, of either:
-				�Off-nominal turns ratio in pu of winding one bus base voltage when
+				Off-nominal turns ratio in pu of winding one bus base voltage when
 					|COD1| is 1 or 2 and CW is 1; RMA1 = 1.1 and RMI1 = 0.9 by default.
-				�Actual winding one voltage in kV when |COD1| is 1 or 2 and CW is 2. No
+				actual winding one voltage in kV when |COD1| is 1 or 2 and CW is 2. No
 					default is allowed.
-				�Phase shift angle in degrees when |COD1| is 3. No default is allowed.
-				�Not used when |COD1| is 0 or 4; RMA1 = 1.1 and RMI1 = 0.9 by default.
+				phase shift angle in degrees when |COD1| is 3. No default is allowed.
+				not used when |COD1| is 0 or 4; RMA1 = 1.1 and RMI1 = 0.9 by default.
 		VMA1, VMI1 The upper and lower limits, respectively, of either:
-				�Voltage at the controlled bus (bus |CONT1|) in pu when |COD1| is 1.
+				voltage at the controlled bus (bus |CONT1|) in pu when |COD1| is 1.
 					VMA1 = 1.1 and VMI1 = 0.9 by default.
-				�Reactive power flow into the transformer at the winding one bus end in
+				reactive power flow into the transformer at the winding one bus end in
 					Mvar when |COD1| is 2. No default is allowed.
-				�Active power flow into the transformer at the winding one bus end in MW
+				active power flow into the transformer at the winding one bus end in MW
 					when |COD1| is 3. No default is allowed.
-				�Not used when |COD1| is 0 or 4; VMA1 = 1.1 and VMI1 = 0.9 by default.
+				not used when |COD1| is 0 or 4; VMA1 = 1.1 and VMI1 = 0.9 by default.
 		NTP1 The number of tap positions available; used when COD1 is 1 or 2. NTP1 must be
 				between 2 and 9999. NTP1 = 33 by default.
       	 */
@@ -505,7 +505,7 @@ public class PSSEXfrDataMapper <
 
       	/*
       	 	TAB1 The number of a transformer impedance correction table if this transformer
-				winding抯 impedance is to be a function of either off-nominal turns ratio or
+				winding impedance as a function of off-nominal turns ratio or
 				phase shift angle (see Section 4.1.1.11), or 0 if no transformer impedance correction
 				is to be applied to this transformer winding. TAB1 = 0 by default.					
       	 */

@@ -111,6 +111,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		 */
 		if (version == PsseVersion.PSSE_30) {
 			shunt.setVarPercent(this.dataParser.getDouble("RMPCT", 100.0));
+			if(mode==4)
 			shunt.setVscDcLine(this.dataParser.getString("RMIDNT"));
 		}
 		
