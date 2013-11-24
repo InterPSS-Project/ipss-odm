@@ -5,7 +5,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -120,9 +120,9 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		  xfrMvaBase=exist("XFMVABase")?getDouble("XFMVABase"):100;
 			/*
 			*/
-			fromBusId =AclfModelParser.BusIdPreFix + fromBusNum;
-			toBusId   =AclfModelParser.BusIdPreFix + toBusNum;
-			regBusId  =AclfModelParser.BusIdPreFix + regBusNum;
+			fromBusId =IODMModelParser.BusIdPreFix + fromBusNum;
+			toBusId   =IODMModelParser.BusIdPreFix + toBusNum;
+			regBusId  =IODMModelParser.BusIdPreFix + regBusNum;
 
 			XfrBranchXmlType xfr = parser.getXfrBranch(fromBusId, toBusId, circuitId);
 			if(xfr instanceof PSXfrBranchXmlType){
@@ -279,10 +279,10 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			if(gMag==0&&g!=0)gMag=g;
 			if(bMag==0&&b!=0)bMag=b;
 			
-		    fromBusId=AbstractModelParser.BusIdPreFix+fromBusNum;
-		    toBusId=AbstractModelParser.BusIdPreFix+toBusNum;
+		    fromBusId=IODMModelParser.BusIdPreFix+fromBusNum;
+		    toBusId=IODMModelParser.BusIdPreFix+toBusNum;
 		    
-		    if(regBusNum>0)regBusId=AbstractModelParser.BusIdPreFix+regBusNum;
+		    if(regBusNum>0)regBusId=IODMModelParser.BusIdPreFix+regBusNum;
 		    
 		    // create a branch record
 		    XfrBranchXmlType xfr=null;

@@ -28,7 +28,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFInterchangeDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.ActivePowerUnitType;
@@ -59,7 +59,7 @@ public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
 		//    	Columns  4- 7   Interchange slack bus number [I] *
 		//      Columns  9-20   Alternate swing bus name [A]
 		int slackBusNumber = dataParser.getInt("SwingBusNum");
-		String slackBusId = AbstractModelParser.BusIdPreFix + slackBusNumber;
+		String slackBusId = IODMModelParser.BusIdPreFix + slackBusNumber;
 		final String alSwingBusName = dataParser.getString("AltSwingBusName");
 
 		//      Columns 21-28   Area interchange export, MW [F] (+ = out) *

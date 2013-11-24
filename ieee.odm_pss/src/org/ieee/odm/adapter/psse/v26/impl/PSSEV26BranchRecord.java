@@ -31,6 +31,7 @@ import org.ieee.odm.adapter.psse.parser.aclf.PSSEXfrAdjustDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -75,8 +76,8 @@ public class PSSEV26BranchRecord {
 		//final String[] strAry = getBranchDataFields(str);	
 		branchDataParser.parseFields(str);
 		
-		final String fid = AbstractModelParser.BusIdPreFix+branchDataParser.getString("I");
-		final String tid = AbstractModelParser.BusIdPreFix+branchDataParser.getString("J");
+		final String fid = IODMModelParser.BusIdPreFix+branchDataParser.getString("I");
+		final String tid = IODMModelParser.BusIdPreFix+branchDataParser.getString("J");
 		final String cirId = ODMModelStringUtil.formatCircuitId(branchDataParser.getString("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
@@ -181,8 +182,8 @@ public class PSSEV26BranchRecord {
 		//final String[] strAry = getXfrAdjDataFields(str);		
 		xfrAdjDataParser.parseFields(str);
 		
-		final String fid = AbstractModelParser.BusIdPreFix+xfrAdjDataParser.getString("I");
-		final String tid = AbstractModelParser.BusIdPreFix+xfrAdjDataParser.getString("J");
+		final String fid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getString("I");
+		final String tid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getString("J");
 		final String cirId = ODMModelStringUtil.formatCircuitId(xfrAdjDataParser.getString("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
@@ -201,7 +202,7 @@ public class PSSEV26BranchRecord {
 	    	isNegative = true;
 	    	icon = - icon;
 	    }
-		final String iconId = icon > 0? AbstractModelParser.BusIdPreFix+icon : null;
+		final String iconId = icon > 0? IODMModelParser.BusIdPreFix+icon : null;
 
 		if (branchRec instanceof XfrBranchXmlType) {
 			XfrBranchXmlType branchData = (XfrBranchXmlType)branchRec;

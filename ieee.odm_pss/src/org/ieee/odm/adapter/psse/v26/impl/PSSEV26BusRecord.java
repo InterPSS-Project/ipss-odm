@@ -32,6 +32,7 @@ import org.ieee.odm.adapter.psse.parser.aclf.PSSELoadDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -70,7 +71,7 @@ public class PSSEV26BusRecord {
 		// 31212,'ADLIN  1', 115.00,1,    0.00,    0.00,  1,  1,   1.01273, -10.5533,1 
 		// 45035,'CAPJAK 1', 500.00,1,    0.00,  400.00,  8, 11,1.08554,  18.6841,1,    /* [45035_CAPTJACK_500_B2] */ 
 
-		final String busId = AbstractModelParser.BusIdPreFix+busDataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+busDataParser.getString("I");
 			// XML requires id start with a char
 		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
 		LoadflowBusXmlType busRec;
@@ -153,7 +154,7 @@ public class PSSEV26BusRecord {
 		//final String[] strAry = getLoadDataFields(str);
 		loadDataParser.parseFields(str);
 
-	    final String busId = AbstractModelParser.BusIdPreFix+loadDataParser.getString("I");
+	    final String busId = IODMModelParser.BusIdPreFix+loadDataParser.getString("I");
 	    //to test if there is a responding bus in the bus data record
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 	    if (busRec == null){
@@ -236,7 +237,7 @@ public class PSSEV26BusRecord {
 	    //final String[] strAry = getGenDataFields(str);
 	    genDataParser.parseFields(str);
 	    
-		final String busId = AbstractModelParser.BusIdPreFix+genDataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+genDataParser.getString("I");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 		if (busRec==null){
@@ -318,7 +319,7 @@ public class PSSEV26BusRecord {
 				/*  IREG  */
 		      	final int iReg = genDataParser.getInt("IREG", 0);
 				if (iReg > 0) {
-					final String reBusId = AbstractModelParser.BusIdPreFix+genDataParser.getString("IREG");
+					final String reBusId = IODMModelParser.BusIdPreFix+genDataParser.getString("IREG");
 					equivGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
 				}
 			}

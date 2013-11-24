@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.ge.mapper;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GEGenDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -47,7 +47,7 @@ public class GEGenDataMapper extends BaseGEDataMapper {
 	public void mapLineStr(String lineStr, final AclfModelParser parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
-	    final String busId = AbstractModelParser.BusIdPreFix+dataParser.getString("bus");
+	    final String busId = IODMModelParser.BusIdPreFix+dataParser.getString("bus");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 		if (busRec==null)
@@ -70,7 +70,7 @@ public class GEGenDataMapper extends BaseGEDataMapper {
 	    // <stn> Normal gen status 1=in service; 0=out of service
 	    contriGen.setNormalOffLineStatus(dataParser.getInt("stn") != 1);		
 		
-	    contriGen.setRemoteVoltageControlBus(parser.createBusRef(AbstractModelParser.BusIdPreFix+dataParser.getString("igreg_bus")));
+	    contriGen.setRemoteVoltageControlBus(parser.createBusRef(IODMModelParser.BusIdPreFix+dataParser.getString("igreg_bus")));
 		
 	    contriGen.setMwControlParticipateFactor(dataParser.getDouble("prf"));
 	    contriGen.setMvarVControlParticipateFactor(dataParser.getDouble("qrf"));

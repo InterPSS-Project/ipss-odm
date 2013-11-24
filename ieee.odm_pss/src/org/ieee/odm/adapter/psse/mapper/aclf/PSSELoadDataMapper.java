@@ -28,7 +28,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSELoadDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
@@ -65,7 +65,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
 */		
 		int i = dataParser.getInt("I");
-	    final String busId = AbstractModelParser.BusIdPreFix+i;
+	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    BusXmlType busRecXml = parser.getBus(busId);
 	    if (busRecXml == null){
 	    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");

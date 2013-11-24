@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency.ContingencyType;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.modify.NetModificationHelper;
@@ -161,8 +162,8 @@ public class ContingencyDataProcessor extends InputLineStringParser{
 			   long fromBusNum=Long.valueOf(temp[1]);
 			   long toBusNum=Long.valueOf(temp[2]);
 			   String cirId=temp[3];
-			   String fromId=AclfModelParser.BusIdPreFix+fromBusNum;
-			   String toId=AclfModelParser.BusIdPreFix+toBusNum;
+			   String fromId=IODMModelParser.BusIdPreFix+fromBusNum;
+			   String toId=IODMModelParser.BusIdPreFix+toBusNum;
 			   String branchId=ODMModelStringUtil.formBranchId(fromId, toId,cirId );
 			   String status=temp[4];
 			   

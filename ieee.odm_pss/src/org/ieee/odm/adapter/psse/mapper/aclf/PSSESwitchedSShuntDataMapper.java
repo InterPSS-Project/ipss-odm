@@ -30,6 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSESwitchedShuntDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
@@ -68,7 +69,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		   //  20         21         22         23         24
 			  "N7",      "B7",      "N8",      "B8"  */
 		
-		final String busId = AbstractModelParser.BusIdPreFix+this.dataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+this.dataParser.getString("I");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType aclfBus = (LoadflowBusXmlType) parser.getBus(busId);
 		if (aclfBus==null){
@@ -93,7 +94,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		//SWREM - Number of remote bus to control. 0 to control own bus.
 		int busNo = this.dataParser.getInt("SWREM", 0);
 		if (busNo != 0) {
-			shunt.setRemoteControlledBus(parser.createBusRef(AbstractModelParser.BusIdPreFix+this.dataParser.getString("SWREM")));
+			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+this.dataParser.getString("SWREM")));
 		}
 
 		/* V30

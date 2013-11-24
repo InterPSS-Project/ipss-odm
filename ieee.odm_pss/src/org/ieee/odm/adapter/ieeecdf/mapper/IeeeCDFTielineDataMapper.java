@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFTieLineDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.TielineXmlType;
 
@@ -43,12 +43,12 @@ public class IeeeCDFTielineDataMapper extends AbstractIeeeCDFDataMapper {
 				
 		//    	Columns  1- 4   Metered bus number [I] *
 		//    	Columns  7-8    Metered area number [I] *
-		final String meteredBusId = AbstractModelParser.BusIdPreFix + dataParser.getString("MeteredBusNum");
+		final String meteredBusId = IODMModelParser.BusIdPreFix + dataParser.getString("MeteredBusNum");
 		final String meteredAreaNo = dataParser.getString("MeteredAreaNum");
 
 		//      Columns  11-14  Non-metered bus number [I] *
 		//      Columns  17-18  Non-metered area number [I] *
-		final String nonMeteredBusId = AbstractModelParser.BusIdPreFix + dataParser.getString("NotMeteredBusNum");
+		final String nonMeteredBusId = IODMModelParser.BusIdPreFix + dataParser.getString("NotMeteredBusNum");
 		final String nonMeteredAreaNo = dataParser.getString("NotMeteredAreaNum");
 
 		//      Column   21     Circuit number

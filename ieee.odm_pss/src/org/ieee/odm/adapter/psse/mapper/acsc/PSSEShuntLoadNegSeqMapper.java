@@ -4,7 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSEMachineZeroSeqZParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
@@ -52,7 +52,7 @@ public class PSSEShuntLoadNegSeqMapper <
 		
 		
 		int i = dataParser.getInt("I");
-		final String busId = AbstractModelParser.BusIdPreFix+i;
+		final String busId = IODMModelParser.BusIdPreFix+i;
 		double gNeg = dataParser.getDouble("GNEG");
 		double bNeg = dataParser.getDouble("BNEG");
 		ShortCircuitBusXmlType scBusXmlType= (ShortCircuitBusXmlType) parser.getBus(busId);

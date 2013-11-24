@@ -5,7 +5,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -164,8 +164,8 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			   //	
 			   //***END OF DATA PROCESSING, BEGIN DATA SETTING *********************************
                //
-				fromBusId =AclfModelParser.BusIdPreFix + fromBusNum;
-				toBusId   =AclfModelParser.BusIdPreFix + toBusNum;
+				fromBusId =IODMModelParser.BusIdPreFix + fromBusNum;
+				toBusId   =IODMModelParser.BusIdPreFix + toBusNum;
 
 				// create a branch record
 				BranchXmlType branch = parser.createLineBranch(fromBusId,
@@ -388,10 +388,10 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			if(gMag==0&&g!=0)gMag=g;
 			if(bMag==0&&b!=0)bMag=b;
 			
-		    fromBusId=AbstractModelParser.BusIdPreFix+fromBusNum;
-		    toBusId=AbstractModelParser.BusIdPreFix+toBusNum;
+		    fromBusId=IODMModelParser.BusIdPreFix+fromBusNum;
+		    toBusId=IODMModelParser.BusIdPreFix+toBusNum;
 		    
-		    if(regBusNum>0)regBusId=AbstractModelParser.BusIdPreFix+regBusNum;
+		    if(regBusNum>0)regBusId=IODMModelParser.BusIdPreFix+regBusNum;
 		    
 		    // create a branch record
 		    XfrBranchXmlType xfr=null;

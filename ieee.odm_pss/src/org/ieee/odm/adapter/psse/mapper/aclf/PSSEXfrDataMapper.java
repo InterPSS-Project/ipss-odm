@@ -31,6 +31,7 @@ import org.ieee.odm.adapter.psse.parser.aclf.PSSEXfrDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -101,9 +102,9 @@ public class PSSEXfrDataMapper <
             27824, 27871, 27957,'W ',2, 2, 1,  0.00089,  -0.00448,1,    'D575121     ',1,   1,1.0000
 
 */
-		final String fid = AbstractModelParser.BusIdPreFix+i;
-		final String tid = AbstractModelParser.BusIdPreFix+j;
-		final String tertId = AbstractModelParser.BusIdPreFix+k;
+		final String fid = IODMModelParser.BusIdPreFix+i;
+		final String tid = IODMModelParser.BusIdPreFix+j;
+		final String tertId = IODMModelParser.BusIdPreFix+k;
 
 		XfrBranchXmlType branRecXml;
 		TransformerInfoXmlType xfrInfoXml;
@@ -407,7 +408,7 @@ public class PSSEXfrDataMapper <
       		onFromSide = true;
       	}
       	
-      	String reBusId = AbstractModelParser.BusIdPreFix+cont;
+      	String reBusId = IODMModelParser.BusIdPreFix+cont;
       	if(cont == 0)reBusId=fid;//by default set to the winding one bus
       		
 		// COD1,CONT1,RMA,RMI,VMA,VMI,NTP,TAB, 

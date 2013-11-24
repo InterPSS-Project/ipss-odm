@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF branch data line string
+ * Class for parsing IEEE CDF branch data line string
  * 
  * @author mzhou
  *

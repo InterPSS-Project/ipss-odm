@@ -29,7 +29,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFBranchDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -59,7 +59,6 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 	 
 	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
 		// parse the input data line
-		//final String[] strAry = IeeeCDFDataParser.getBranchDataFields(str);
 		dataParser.parseFields(str);
 
 		//    	Columns  1- 4   Tap bus number [I] *
@@ -75,8 +74,8 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		//      2 - Variable tap for voltage control (TCUL, LTC)
 		//      3 - Variable tap (turns ratio) for MVAR control
 		//      4 - Variable phase angle for MW control (phase shifter)
-		final String fid = AbstractModelParser.BusIdPreFix + dataParser.getString("FromNum");
-		final String tid = AbstractModelParser.BusIdPreFix + dataParser.getString("ToNum");
+		final String fid = IODMModelParser.BusIdPreFix + dataParser.getString("FromNum");
+		final String tid = IODMModelParser.BusIdPreFix + dataParser.getString("ToNum");
 		String cirId = dataParser.getString("CirId");
 		if(cirId.equals(""))cirId="1";//if empty,set cirId to 1 by default
 		int branchType = dataParser.getInt("Type", 0);
@@ -176,7 +175,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		double stepSize = 0.0, maxTapAng = 0.0, minTapAng = 0.0, maxVoltPQ = 0.0, minVoltPQ = 0.0;
 		if (branchType > 1) {
 			//    		Columns 69-72   Control bus number
-			controlBusId = AbstractModelParser.BusIdPreFix + dataParser.getString("CntlBusNum");
+			controlBusId = IODMModelParser.BusIdPreFix + dataParser.getString("CntlBusNum");
 
 			//        	Column  74      Side [I]
 			//          	0 - Controlled bus is one of the terminals
