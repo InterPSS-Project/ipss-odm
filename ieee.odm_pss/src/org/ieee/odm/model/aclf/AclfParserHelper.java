@@ -64,8 +64,9 @@ import org.ieee.odm.schema.YUnitType;
  */
 public class AclfParserHelper extends BaseJaxbHelper {
 	/**
-	 * create a Contribution shuntY object
+	 * create a Contribution shuntY object under the busRec
 	 * 
+	 * @param busRec
 	 */
 	public static LoadflowShuntYDataXmlType createContriShuntY(LoadflowBusXmlType busRec) {
 		BusShuntYDataXmlType shuntYData = busRec.getShuntYData();
@@ -80,8 +81,9 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	}
 	
 	/**
-	 * create a Contribution Load object
+	 * create a Contribution Load object under the busRec
 	 * 
+	 * @param busRec
 	 */
 	public static LoadflowLoadDataXmlType createContriLoad(LoadflowBusXmlType busRec) {
 		BusLoadDataXmlType loadData = busRec.getLoadData();
@@ -97,8 +99,9 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	}
 	
 	/**
-	 * create a Contribution Generator object
+	 * create a Contribution Generator object under the busRec
 	 * 
+	 * @param busRec
 	 */
 	public static LoadflowGenDataXmlType createContriGen(LoadflowBusXmlType busRec) {
 		BusGenDataXmlType genData = busRec.getGenData();
@@ -115,7 +118,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	}
 
 	/**
-	 * create bus EquivData info
+	 * create bus EquivData info after the contributing records are defined
 	 * 
 	 * @param parser
 	 * @return
@@ -134,8 +137,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * consolidate bus genContributionList to the equiv gen 
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
-	public static boolean createBusEquivGenData(IODMModelParser parser ) {
+	@SuppressWarnings("unchecked") public static boolean createBusEquivGenData(IODMModelParser parser ) {
 		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
@@ -234,8 +236,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * consolidate bus loadContributionList to the load 
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
-	public static boolean createBusEquivLoadData(IODMModelParser parser) {
+	@SuppressWarnings("unchecked") public static boolean createBusEquivLoadData(IODMModelParser parser) {
 		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
@@ -296,8 +297,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * consolidate bus loadContributionList to the load 
 	 * 
 	 */
-	@SuppressWarnings("unchecked")
-	public static boolean createBusEquivShuntYData(IODMModelParser parser) {
+	@SuppressWarnings("unchecked") public static boolean createBusEquivShuntYData(IODMModelParser parser) {
 		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
@@ -326,8 +326,9 @@ public class AclfParserHelper extends BaseJaxbHelper {
 
 	
 	/**
-	 * create a SVC object
+	 * create a SVC object under the bus object
 	 * 
+	 * @param bus
 	 */
 	public static StaticVarCompensatorXmlType createSVC(LoadflowBusXmlType bus) {
 		StaticVarCompensatorXmlType svc = OdmObjFactory.createStaticVarCompensatorXmlType();
@@ -336,8 +337,9 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	}
 
 	/**
-	 * create a ShuntCompensatorXmlType object
+	 * create a ShuntCompensatorXmlType object under the bus object
 	 * 
+	 * @param bus
 	 */
 	public static ShuntCompensatorXmlType createShuntCompensator(LoadflowBusXmlType bus) {
 		//if (bus.getShuntCompensatorData().getShuntCompensatorList() == null) {
@@ -349,7 +351,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	}
 	
 	/**
-	 * get Xfr Z correction table item by item nubmer
+	 * get Xfr Z correction table item by item number
 	 * 
 	 * @param number
 	 * @param xfrZTable

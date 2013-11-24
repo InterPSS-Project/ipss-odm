@@ -34,7 +34,7 @@ import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
@@ -77,7 +77,7 @@ public class PSSEV26BranchRecord {
 		
 		final String fid = AbstractModelParser.BusIdPreFix+branchDataParser.getString("I");
 		final String tid = AbstractModelParser.BusIdPreFix+branchDataParser.getString("J");
-		final String cirId = ModelStringUtil.formatCircuitId(branchDataParser.getString("CKT"));
+		final String cirId = ODMModelStringUtil.formatCircuitId(branchDataParser.getString("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
         //      Branch resistance R, per unit  *
@@ -183,12 +183,12 @@ public class PSSEV26BranchRecord {
 		
 		final String fid = AbstractModelParser.BusIdPreFix+xfrAdjDataParser.getString("I");
 		final String tid = AbstractModelParser.BusIdPreFix+xfrAdjDataParser.getString("J");
-		final String cirId = ModelStringUtil.formatCircuitId(xfrAdjDataParser.getString("CKT"));
+		final String cirId = ODMModelStringUtil.formatCircuitId(xfrAdjDataParser.getString("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
 		BranchXmlType branchRec = (BranchXmlType)parser.getBranch(fid, tid, cirId);
 	    if (branchRec == null){
-			String branchId = ModelStringUtil.formBranchId(fid, tid, cirId);
+			String branchId = ODMModelStringUtil.formBranchId(fid, tid, cirId);
 			ODMLogger.getLogger().severe("Branch "+ branchId + " not found in the network");
 	    	return;
 	    }	

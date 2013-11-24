@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing IEEE CDF bus data line string
@@ -91,7 +91,7 @@ Sample data:
   		StringTokenizer st = new StringTokenizer(str, ",");
 		for (int i = 0; i < 18; i++){
 			if(i==1){//genId, need to trim the quote
-				setValue(i,ModelStringUtil.trimQuote(st.nextToken()).trim());
+				setValue(i,ODMModelStringUtil.trimQuote(st.nextToken()).trim());
 			}
 			else setValue(i, st.nextToken().trim());
 			

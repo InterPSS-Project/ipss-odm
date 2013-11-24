@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 public class PSSEBranchZeroSeqDataParser extends BasePSSEDataParser {
 	public PSSEBranchZeroSeqDataParser(PsseVersion ver) {
@@ -36,7 +36,7 @@ public class PSSEBranchZeroSeqDataParser extends BasePSSEDataParser {
 		int cnt =st.countTokens();
 		for (int i = 0; i <cnt ; i++){
 			if(i==2){//cirId, need to trim the quote
-				setValue(i,ModelStringUtil.trimQuote(st.nextToken().trim()).trim());
+				setValue(i,ODMModelStringUtil.trimQuote(st.nextToken().trim()).trim());
 			}
 			else setValue(i, st.nextToken().trim());
 		}

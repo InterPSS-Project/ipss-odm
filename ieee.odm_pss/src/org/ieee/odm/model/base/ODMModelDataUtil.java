@@ -5,9 +5,7 @@ import org.ieee.odm.schema.PowerXmlType;
 import org.ieee.odm.schema.YXmlType;
 import org.ieee.odm.schema.ZXmlType;
 
-import com.sun.istack.internal.FinalArrayList;
-
-public class ModelDataUtil {
+public class ODMModelDataUtil {
 	
 	/**
 	 * get z = z1//z2;

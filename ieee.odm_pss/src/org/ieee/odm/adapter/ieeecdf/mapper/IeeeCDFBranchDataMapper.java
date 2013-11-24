@@ -33,7 +33,7 @@ import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
@@ -102,7 +102,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 
 		branch.setCircuitId(cirId);
 
-		branch.setId(ModelStringUtil.formBranchId(fid, tid, cirId));
+		branch.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
 
 		//LoadflowBranchDataXmlType branchData = this.factory.createLoadflowBranchDataXmlType(); 
 		//branch.getLoadflowData().add(branchData);

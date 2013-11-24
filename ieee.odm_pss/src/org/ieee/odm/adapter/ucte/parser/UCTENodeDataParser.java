@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing UCTE node data line string
@@ -59,21 +59,21 @@ public class UCTENodeDataParser extends AbstractDataFieldParser {
 	}
 	
 	@Override public void parseFields(final String str) throws ODMException {
-		String id = ModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
+		String id = ODMModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
 		this.setValue(0, id);
-		String name = ModelStringUtil.getString(str, 10, 21).trim();
+		String name = ODMModelStringUtil.getString(str, 10, 21).trim();
 		this.setValue(1, name);
 
 		double baseKv = 0.0;
 		if (!customBaseVoltage)
 			baseKv = getBaseVoltageKv(id);
 
-		String status = ModelStringUtil.getString(str, 23, 23);  // 0 real, 1 equivalent
+		String status = ODMModelStringUtil.getString(str, 23, 23);  // 0 real, 1 equivalent
 		this.setValue(3, status);
-		String nodeType = ModelStringUtil.getString(str, 25, 25);  // 0 PQ, 1 QAng, 2 PV, 3 Swing
+		String nodeType = ODMModelStringUtil.getString(str, 25, 25);  // 0 PQ, 1 QAng, 2 PV, 3 Swing
 		this.setValue(4, nodeType);
 		
-		double voltage = ModelStringUtil.getDouble(str, 27, 32);  
+		double voltage = ODMModelStringUtil.getDouble(str, 27, 32);  
 		if (customBaseVoltage) {
 			baseKv = findCustomBaseVoltage(voltage);
 			if (baseKv == 0.0) {
@@ -88,34 +88,34 @@ public class UCTENodeDataParser extends AbstractDataFieldParser {
 		this.setValue(5, new Double(voltage).toString());
 
 		
-		String pLoadMW = ModelStringUtil.getString(str, 34, 40);  
+		String pLoadMW = ODMModelStringUtil.getString(str, 34, 40);  
 		this.setValue(6, pLoadMW);
-		String qLoadMvar = ModelStringUtil.getString(str, 42, 48);  
+		String qLoadMvar = ODMModelStringUtil.getString(str, 42, 48);  
 		this.setValue(7, qLoadMvar);
-		String pGenMW = ModelStringUtil.getString(str, 50, 56);    // UCTE assumes out next as the positive direction
+		String pGenMW = ODMModelStringUtil.getString(str, 50, 56);    // UCTE assumes out next as the positive direction
 		this.setValue(8, pGenMW);
-		String qGenMvar = ModelStringUtil.getString(str, 58, 64);
+		String qGenMvar = ODMModelStringUtil.getString(str, 58, 64);
 		this.setValue(9, qGenMvar);
 		
 		// optional fields
-		String minGenMW = ModelStringUtil.getString(str, 66, 72); 
+		String minGenMW = ODMModelStringUtil.getString(str, 66, 72); 
 		this.setValue(10, minGenMW);
-		String maxGenMW = ModelStringUtil.getString(str, 74, 80);
+		String maxGenMW = ODMModelStringUtil.getString(str, 74, 80);
 		this.setValue(11, maxGenMW);
-		String minGenMVar = ModelStringUtil.getString(str, 82, 88); 
+		String minGenMVar = ODMModelStringUtil.getString(str, 82, 88); 
 		this.setValue(12, minGenMVar);
-		String maxGenMVar = ModelStringUtil.getString(str, 90, 96); 
+		String maxGenMVar = ODMModelStringUtil.getString(str, 90, 96); 
 		this.setValue(13, maxGenMVar);
-		String staticPrimaryControl = ModelStringUtil.getString(str, 98, 102); 
+		String staticPrimaryControl = ODMModelStringUtil.getString(str, 98, 102); 
 		this.setValue(14, staticPrimaryControl);
-		String normalPowerPrimaryControl = ModelStringUtil.getString(str, 104, 110);
+		String normalPowerPrimaryControl = ODMModelStringUtil.getString(str, 104, 110);
 		this.setValue(15, normalPowerPrimaryControl);
-		String scMVA3P = ModelStringUtil.getString(str, 112, 118);
+		String scMVA3P = ODMModelStringUtil.getString(str, 112, 118);
 		this.setValue(16, scMVA3P);
-		String x_rRatio = ModelStringUtil.getString(str, 120, 126);
+		String x_rRatio = ODMModelStringUtil.getString(str, 120, 126);
 		this.setValue(17, x_rRatio);
 		
-		String powerPlanType = ModelStringUtil.getString(str, 128, 128);
+		String powerPlanType = ODMModelStringUtil.getString(str, 128, 128);
 		this.setValue(18, powerPlanType);
 	}
 	
@@ -127,7 +127,7 @@ public class UCTENodeDataParser extends AbstractDataFieldParser {
 
     private double getBaseVoltageKv(String nodeId) throws ODMException {
         // According to the spec the node base voltage code is stored at the 7th char
-    	int code = ModelStringUtil.getInt(nodeId, 7, 7);
+    	int code = ODMModelStringUtil.getInt(nodeId, 7, 7);
     	return getBaseVoltageKv(code);
     }
     

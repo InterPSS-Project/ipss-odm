@@ -3,7 +3,7 @@ package org.ieee.odm.adapter.psse.parser.dynamic.tur_gov;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 public class PSSETurGovIEEE1981Type1Parser extends BasePSSEDataParser {
 	public PSSETurGovIEEE1981Type1Parser(PsseVersion ver) {
@@ -44,7 +44,7 @@ public class PSSETurGovIEEE1981Type1Parser extends BasePSSEDataParser {
 		int cnt =strAry.length;
 		for (int i = 0; i <cnt ; i++){
 			if(i==1){// model type, need to trim the quote
-				setValue(i,ModelStringUtil.trimQuote(strAry[i].trim()));
+				setValue(i,ODMModelStringUtil.trimQuote(strAry[i].trim()));
 			}
 			else setValue(i, strAry[i].trim());
 		}

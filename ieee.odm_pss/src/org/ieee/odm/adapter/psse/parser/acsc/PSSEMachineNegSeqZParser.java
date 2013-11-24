@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 public class PSSEMachineNegSeqZParser extends BasePSSEDataParser {
 	public PSSEMachineNegSeqZParser(PsseVersion ver) {
@@ -34,7 +34,7 @@ public class PSSEMachineNegSeqZParser extends BasePSSEDataParser {
 		StringTokenizer st = new StringTokenizer(lineStr,",");
 		for (int i = 0; i < 4; i++){
 			if(i==1){//genId, need to trim the quote
-				setValue(i,ModelStringUtil.trimQuote(st.nextToken()).trim());
+				setValue(i,ODMModelStringUtil.trimQuote(st.nextToken()).trim());
 			}
 			else setValue(i, st.nextToken().trim());
 		}

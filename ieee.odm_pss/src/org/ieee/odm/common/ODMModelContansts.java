@@ -22,7 +22,7 @@
   *
   */
 
-package org.ieee.odm.model.base;
+package org.ieee.odm.common;
 
 /**
  * ODM model parser constants
@@ -30,7 +30,7 @@ package org.ieee.odm.model.base;
  * @author mzhou
  *
  */
-public class ModelContansts {
+public class ODMModelContansts {
 	public static final String ODM_Schema_NS = "org.ieee.odm.schema";
 
 	public static final double Deg2Rad = Math.PI / 180.0;

@@ -33,7 +33,7 @@ import javax.xml.bind.JAXBElement;
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
@@ -190,39 +190,39 @@ private static String[] getLoadDataFields(String str){
 	
 	try{
 		if(str.substring(0, 2).trim().equals("LA")||str.substring(0, 2).trim().equals("LB")){
-			strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+			strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
 			//to process the Chinese characters first, if any.
-			int chineseCharNum=ModelStringUtil.getChineseCharNum(str.substring(3,10).trim());
+			int chineseCharNum=ODMModelStringUtil.getChineseCharNum(str.substring(3,10).trim());
 			//Columns 6-13 busName  
-			strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,4, 11-chineseCharNum).trim();			
-			str=chineseCharNum==0?str:ModelStringUtil.replaceChineseChar(str);
+			strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 11-chineseCharNum).trim();			
+			str=chineseCharNum==0?str:ODMModelStringUtil.replaceChineseChar(str);
 			
 			//bus Voltage
-			strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+			strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
 			//zone name
-			strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,16, 17).trim();
+			strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 17).trim();
 			//area name
-			strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,18, 27).trim();
+			strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,18, 27).trim();
 			//pz
-			strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,28, 32).trim();
+			strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,28, 32).trim();
 			//qz
-			strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,33, 37).trim();
+			strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,33, 37).trim();
 			//pi
-			strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,38, 42).trim();
+			strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,38, 42).trim();
 			//qi
-			strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,43, 47).trim();
+			strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,43, 47).trim();
 			// pp
-			strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,48, 52).trim();
+			strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,48, 52).trim();
 			//qp
-			strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,53, 57).trim();
+			strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,53, 57).trim();
 			//pf
-			strAry[11]=ModelStringUtil.getStringReturnEmptyString(str,58, 62).trim();
+			strAry[11]=ODMModelStringUtil.getStringReturnEmptyString(str,58, 62).trim();
 			// qf
-			strAry[12]=ModelStringUtil.getStringReturnEmptyString(str,63, 67).trim();
+			strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,63, 67).trim();
 			//Ldp
-			strAry[13]=ModelStringUtil.getStringReturnEmptyString(str,68, 72).trim();
+			strAry[13]=ODMModelStringUtil.getStringReturnEmptyString(str,68, 72).trim();
 			//Ldq
-			strAry[14]=ModelStringUtil.getStringReturnEmptyString(str,73, 77).trim();
+			strAry[14]=ODMModelStringUtil.getStringReturnEmptyString(str,73, 77).trim();
 			
 				
 	   }else if(str.substring(0, 2).trim().equals("MI")){

@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing IEEE CDF bus data line string
@@ -88,7 +88,7 @@ public class PSSELineDataParser extends BasePSSEDataParser {
 
   		for (int i = 0; i < 9; i++) {
   			if (i == 2 && PSSEAdapter.getVersionNo(this.version) >= 29)
-  				setValue(i, ModelStringUtil.trimQuote(st.nextToken()).trim());
+  				setValue(i, ODMModelStringUtil.trimQuote(st.nextToken()).trim());
   			else
   				setValue(i, st.nextToken().trim());
   		}	

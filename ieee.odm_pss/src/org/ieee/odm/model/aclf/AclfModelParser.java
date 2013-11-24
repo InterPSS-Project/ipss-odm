@@ -33,7 +33,12 @@ import org.ieee.odm.schema.XfrBranchXmlType;
 /**
  * An Aclf Xml parser implementation for the IEEE DOM schema. 
  */
-public class AclfModelParser extends BaseAclfModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType> {
+public class AclfModelParser extends BaseAclfModelParser<
+				LoadflowNetXmlType, 
+				LoadflowBusXmlType, 
+				LineBranchXmlType, 
+				XfrBranchXmlType, 
+				PSXfrBranchXmlType> {
 	/**
 	 * Default Constructor 
 	 * 

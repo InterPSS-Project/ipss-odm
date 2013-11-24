@@ -34,7 +34,7 @@ import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelDataUtil;
+import org.ieee.odm.model.base.ODMModelDataUtil;
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BusGenDataXmlType;
@@ -258,19 +258,19 @@ public class AcscParserHelper extends AclfParserHelper {
 							
 						}
 						
-						ZXmlType z11 = ModelDataUtil.ZXmlMultiplyDouble(z1, factor);
+						ZXmlType z11 = ODMModelDataUtil.ZXmlMultiplyDouble(z1, factor);
 						
 						if(equivPosZ ==null) equivPosZ = z11;
 						else{
-							equivPosZ =ModelDataUtil.addParallelZ(equivPosZ, z11); 
+							equivPosZ =ODMModelDataUtil.addParallelZ(equivPosZ, z11); 
 						}
 						if(contriGenData.getNegativeZ()!=null){
 							ZXmlType z2=contriGenData.getNegativeZ();
-							ZXmlType z21 = ModelDataUtil.ZXmlMultiplyDouble(z2, factor);
+							ZXmlType z21 = ODMModelDataUtil.ZXmlMultiplyDouble(z2, factor);
                             
 							if(equivNegZ==null) equivNegZ = z21;
 							else{
-								equivNegZ =ModelDataUtil.addParallelZ(equivNegZ, z21); 
+								equivNegZ =ODMModelDataUtil.addParallelZ(equivNegZ, z21); 
 							}
 							
 						}
@@ -280,11 +280,11 @@ public class AcscParserHelper extends AclfParserHelper {
 						
 						if(contriGenData.getZeroZ()!=null){
 							ZXmlType z0=contriGenData.getZeroZ();
-							ZXmlType z01 = ModelDataUtil.ZXmlMultiplyDouble(z0, factor);
+							ZXmlType z01 = ODMModelDataUtil.ZXmlMultiplyDouble(z0, factor);
                             
 							if(equivZeroZ==null) equivZeroZ = z01;
 							else{
-								equivZeroZ =ModelDataUtil.addParallelZ(equivZeroZ, z01); 
+								equivZeroZ =ODMModelDataUtil.addParallelZ(equivZeroZ, z01); 
 							}
 						}
 						
@@ -350,7 +350,7 @@ public class AcscParserHelper extends AclfParserHelper {
 					     if(contriLoadData.getShuntLoadNegativeY()!=null){
 					    	 if(equivShuntNegY  == null)equivShuntNegY  = contriLoadData.getShuntLoadNegativeY();
 					    	 else {
-					    		 ModelDataUtil.addParallelY(equivShuntNegY,contriLoadData.getShuntLoadNegativeY());
+					    		 ODMModelDataUtil.addParallelY(equivShuntNegY,contriLoadData.getShuntLoadNegativeY());
 							  }
 					     }
 					     else{ // negative sequence load data is not provided in the input data, assume y2 = equivY1
@@ -377,7 +377,7 @@ public class AcscParserHelper extends AclfParserHelper {
 					     if(contriLoadData.getShuntLoadZeroY()!=null){
 					    	 if(equivShuntZeroY  == null)equivShuntZeroY  = contriLoadData.getShuntLoadZeroY();
 					    	 else {
-					    		 ModelDataUtil.addParallelY(equivShuntZeroY,contriLoadData.getShuntLoadZeroY());
+					    		 ODMModelDataUtil.addParallelY(equivShuntZeroY,contriLoadData.getShuntLoadZeroY());
 							  }
 					     }
 					     //else, zero sequence load is open, do nothing

@@ -25,7 +25,7 @@
 package org.ieee.odm.model;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-import static org.ieee.odm.model.base.ModelContansts.ODM_Schema_NS;
+import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -46,7 +46,7 @@ import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BranchXmlType;
@@ -630,7 +630,7 @@ public abstract class AbstractModelParser<
 	 * @return
 	 */
 	public BaseBranchXmlType getBranch(String fromId, String toId, String cirId) {
-		String id = ModelStringUtil.formBranchId(fromId, toId, cirId);
+		String id = ODMModelStringUtil.formBranchId(fromId, toId, cirId);
 		return this.getBranch(id);
 	}	
 	
@@ -644,7 +644,7 @@ public abstract class AbstractModelParser<
 	 * @return
 	 */
 	public BaseBranchXmlType getBranch(String fromId, String toId, String tertId, String cirId) {
-		String id = ModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
+		String id = ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
 		return this.getBranch(id);
 	}	
 	
@@ -683,9 +683,9 @@ public abstract class AbstractModelParser<
 	 */
 	protected void addBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
 		String id = tertId == null ?
-				ModelStringUtil.formBranchId(fromId, toId, cirId) : ModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
+				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
 		if (this.objectCache.get(id) != null ||
-				this.objectCache.get(ModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
+				this.objectCache.get(ODMModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
 			throw new ODMBranchDuplicationException("Branch record duplication, bus id: " + id);
 		}
 		this.objectCache.put(id, branch);		

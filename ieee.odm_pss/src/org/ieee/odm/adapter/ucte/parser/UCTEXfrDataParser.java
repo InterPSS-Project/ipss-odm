@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ucte.parser;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing UCTE xfr data line string
@@ -47,43 +47,43 @@ public class UCTEXfrDataParser extends AbstractDataFieldParser {
 	}
 	
 	@Override public void parseFields(final String str) throws ODMException {
-		String fromNodeId = ModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
+		String fromNodeId = ODMModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
 		this.setValue(0, fromNodeId);
 		
-		String toNodeId = ModelStringUtil.getString(str, 10, 17).trim().replace(' ', '_');
+		String toNodeId = ODMModelStringUtil.getString(str, 10, 17).trim().replace(' ', '_');
 		this.setValue(1, toNodeId);
 		
-		String orderCode = ModelStringUtil.getString(str, 19, 19);
+		String orderCode = ODMModelStringUtil.getString(str, 19, 19);
 		this.setValue(2, orderCode);
 		
-		String status = ModelStringUtil.getString(str, 21, 21);  // 0 real, i equivalent
+		String status = ODMModelStringUtil.getString(str, 21, 21);  // 0 real, i equivalent
 		this.setValue(3, status);
 		
-		String fromRatedKV = ModelStringUtil.getString(str, 23, 27);  
+		String fromRatedKV = ODMModelStringUtil.getString(str, 23, 27);  
 		this.setValue(4, fromRatedKV);
 		
-		String toRatedKV = ModelStringUtil.getString(str, 29, 33);  
+		String toRatedKV = ODMModelStringUtil.getString(str, 29, 33);  
 		this.setValue(5, toRatedKV);
 		
-		String normialMva = ModelStringUtil.getString(str, 35, 39);  
+		String normialMva = ODMModelStringUtil.getString(str, 35, 39);  
 		this.setValue(6, normialMva);
 		
-		String rOhm = ModelStringUtil.getString(str, 41, 46);  
+		String rOhm = ODMModelStringUtil.getString(str, 41, 46);  
 		this.setValue(7, rOhm);
 		
-		String xOhm = ModelStringUtil.getString(str, 48, 53);  
+		String xOhm = ODMModelStringUtil.getString(str, 48, 53);  
 		this.setValue(8, xOhm);
 		
-		String bMuS = ModelStringUtil.getString(str, 55, 62);  
+		String bMuS = ODMModelStringUtil.getString(str, 55, 62);  
 		this.setValue(9, bMuS);
 		
-		String gMuS = ModelStringUtil.getString(str, 64, 69);  
+		String gMuS = ODMModelStringUtil.getString(str, 64, 69);  
 		this.setValue(10, gMuS);
 		
-		String currentLimit = ModelStringUtil.getString(str, 71, 76);  
+		String currentLimit = ODMModelStringUtil.getString(str, 71, 76);  
 		this.setValue(11, currentLimit);
 		
-		String elemName = ModelStringUtil.getString(str, 78, 89);
+		String elemName = ODMModelStringUtil.getString(str, 78, 89);
 		this.setValue(12, elemName);
 	}
 }

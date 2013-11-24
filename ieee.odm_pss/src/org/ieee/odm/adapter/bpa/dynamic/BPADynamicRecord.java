@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.bpa.dynamic;
 import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 
@@ -188,28 +188,28 @@ public class BPADynamicRecord {
 		
 		try{// for SOL card
 			if(str.startsWith("SOL")){
-				strAry[0]=ModelStringUtil.getStringReturnEmptyString(str, 0, 3);
-				strAry[1]=ModelStringUtil.getStringReturnEmptyString(str, 5, 6);
-				strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,9, 9);
-				strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,12, 12);
+				strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str, 0, 3);
+				strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str, 5, 6);
+				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,9, 9);
+				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 12);
 			}		
 			// for Case card
 			else if(str.startsWith("CASE")){
-				strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 4);
-				strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,6, 15);
-				strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,16, 17);
-				strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,20, 20);
-				strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,22, 22);
-				strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,23, 23);
-				strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,24, 24);
-				strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,24, 34);
-				strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,45, 49);
-				strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,50, 54);
-				strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,55, 59);
-				strAry[11]=ModelStringUtil.getStringReturnEmptyString(str,60, 64);
-				strAry[12]=ModelStringUtil.getStringReturnEmptyString(str,65, 69);
-				strAry[13]=ModelStringUtil.getStringReturnEmptyString(str,70, 74);
-				strAry[14]=ModelStringUtil.getStringReturnEmptyString(str,75, 80);			
+				strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 4);
+				strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str,6, 15);
+				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 17);
+				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,20, 20);
+				strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,22, 22);
+				strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,23, 23);
+				strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,24, 24);
+				strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,24, 34);
+				strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,45, 49);
+				strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,50, 54);
+				strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,55, 59);
+				strAry[11]=ODMModelStringUtil.getStringReturnEmptyString(str,60, 64);
+				strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,65, 69);
+				strAry[13]=ODMModelStringUtil.getStringReturnEmptyString(str,70, 74);
+				strAry[14]=ODMModelStringUtil.getStringReturnEmptyString(str,75, 80);			
 			}
 			}catch(Exception e){
 				ODMLogger.getLogger().severe(e.toString());
