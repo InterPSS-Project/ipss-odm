@@ -41,20 +41,29 @@ import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 
+/**
+ * IEEE CDF bus record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
 public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
-	
+	/**
+	 * Constructor
+	 */
 	public IeeeCDFBusDataMapper() {
 		this.dataParser = new IeeeCDFBusDataParser();
 	}
 	 
 	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		// parse the input data line
-		//final String[] strAry = IeeeCDFDataParser.getBusDataFields(str);
 		dataParser.parseFields(str);
 
 		//Columns  1- 4   Bus number [I] *
 		final String busId = IODMModelParser.BusIdPreFix + dataParser.getString("BusNumber");
 		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
+
+		// create bus xml record
 		LoadflowBusXmlType aclfBus = parser.createBus(busId);
 		aclfBus.setNumber(dataParser.getLong("BusNumber"));
 
@@ -93,7 +102,6 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		final double vpu = dataParser.getDouble("VMag");
 		final double angDeg = dataParser.getDouble("VAng");
 		aclfBus.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
-
 		aclfBus.setAngle(BaseDataSetter.createAngleValue(angDeg, AngleUnitType.DEG));
 
 		//Columns 41-49   Load MW [F] *

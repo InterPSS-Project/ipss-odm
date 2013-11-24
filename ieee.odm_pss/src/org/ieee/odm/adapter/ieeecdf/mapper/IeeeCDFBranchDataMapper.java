@@ -51,8 +51,17 @@ import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
+/**
+ * IEEE CDF line record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
 public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 	
+	/**
+	 * constructor
+	 */
 	public IeeeCDFBranchDataMapper() {
 		this.dataParser = new IeeeCDFBranchDataParser();
 	}
@@ -79,33 +88,18 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		String cirId = dataParser.getString("CirId");
 		if(cirId.equals(""))cirId="1";//if empty,set cirId to 1 by default
 		int branchType = dataParser.getInt("Type", 0);
-		//String branchId = ModelStringUtil.formBranchId(fid, tid, cirId);
-		BranchXmlType branch = null;
 
+		// create branch xml record
+		BranchXmlType branch = null;
 		branch = branchType == 0?
 			parser.createLineBranch(fid, tid, cirId) :
 						((branchType == 1 || branchType == 2 || branchType == 3)?
 								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId));
 
-		/*
-		getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
-		try {
-			branch.setFromBus(parser.createBusRef(fid));
-			branch.setToBus(parser.createBusRef(tid));
-		} catch (Exception e) {
-			this.logErr("branch is not connected properly, " + e.toString());
-		}
-		*/
 		branch.setAreaNumber(dataParser.getInt("Area", 0));
 		branch.setZoneNumber(dataParser.getInt("Zone", 0));
 
-		branch.setCircuitId(cirId);
-
 		branch.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
-
-		//LoadflowBranchDataXmlType branchData = this.factory.createLoadflowBranchDataXmlType(); 
-		//branch.getLoadflowData().add(branchData);
-
 
 		//    	Columns 20-29   Branch resistance R, per unit [F] *
 		//    	Columns 30-40   Branch reactance X, per unit [F] * No zero impedance lines
@@ -115,8 +109,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		final double bpu = dataParser.getDouble("B");
 		if (branchType == 0) {
 			LineBranchXmlType line = (LineBranchXmlType)branch;
-			AclfDataSetter.setLineData(line, rpu, xpu,
-					ZUnitType.PU, 0.0, bpu, YUnitType.PU);
+			AclfDataSetter.setLineData(line, rpu, xpu, ZUnitType.PU, 0.0, bpu, YUnitType.PU);
 		}
 
 		// assume ratio and angle are defined at to side
@@ -125,7 +118,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		final double ratio = dataParser.getDouble("TurnRatio");
 		final double angle = dataParser.getDouble("ShiftAngle");
 		if (branchType > 0) {
-			if (angle == 0.0) {
+			if (angle == 0.0) {   // PsXfr branch
 				XfrBranchXmlType xfrBranch = (XfrBranchXmlType)branch;
 				AclfDataSetter.createXformerData(xfrBranch,
 						rpu, xpu, ZUnitType.PU, ratio, 1.0, 
@@ -141,7 +134,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 				else {
 					throw new ODMException("Error: fromBusRecord and/or toBusRecord cannot be found, fromId, toId: " + fid + ", " + tid);
 				}
-			} else {
+			} else {     // regualer Xfr branch
 				PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branch;
 				AclfDataSetter.createPhaseShiftXfrData(psXfrBranch, rpu, xpu, ZUnitType.PU,
 						ratio, 1.0, angle, 0.0, AngleUnitType.DEG,
@@ -170,6 +163,10 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		AclfDataSetter.setBranchRatingLimitData(branch.getRatingLimit(),
 				rating1Mvar, rating2Mvar, rating3Mvar, ApparentPowerUnitType.MVA);
 
+		/*
+		 * map PsXfr/Xfr control/adjustment info
+		 */
+		
 		String controlBusId = "";
 		int controlSide = 0;
 		double stepSize = 0.0, maxTapAng = 0.0, minTapAng = 0.0, maxVoltPQ = 0.0, minVoltPQ = 0.0;
@@ -197,7 +194,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			maxVoltPQ = dataParser.getDouble("MaxVoltMvarMw");
 		}
 
-		if (branchType == 2 || branchType == 3) {
+		if (branchType == 2 || branchType == 3) {   // regular Xfr branch
 			XfrBranchXmlType xfrBranch = (XfrBranchXmlType)branch;
 			TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 			xfrBranch.setTapAdjustment(tapAdj);
@@ -228,7 +225,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 				mvarTapAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
 				mvarTapAdj.setMvarMeasuredOnFormSide(true);
 			}
-		} else if (branchType == 4) {
+		} else if (branchType == 4) {  // PsXfr branch
 			PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branch;
 			AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
 			psXfrBranch.setAngleAdjustment(angAdj);

@@ -29,8 +29,17 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.NetZoneXmlType;
 
+/**
+ * IEEE CDF loss zone record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
 public class IeeeCDFLossZoneDataMapper extends AbstractIeeeCDFDataMapper {
 
+	/**
+	 * Constructor
+	 */
 	public IeeeCDFLossZoneDataMapper() {
 		this.dataParser = new IeeeCDFLossZoneDataParser();
 	}

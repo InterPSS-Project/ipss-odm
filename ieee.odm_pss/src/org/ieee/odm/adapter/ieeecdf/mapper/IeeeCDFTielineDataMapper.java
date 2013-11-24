@@ -30,13 +30,21 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.TielineXmlType;
 
+/**
+ * IEEE CDF tie-line record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
 public class IeeeCDFTielineDataMapper extends AbstractIeeeCDFDataMapper {
+	/**
+	 * constructor
+	 */
 	public IeeeCDFTielineDataMapper() {
 		this.dataParser = new IeeeCDFTieLineDataParser();
 	}
 
 	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
-		//final String[] strAry = IeeeCDFDataParser.getTielineDataFields(str);
 		dataParser.parseFields(str);
 
 		final TielineXmlType tieLine = parser.createTieline();

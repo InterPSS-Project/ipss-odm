@@ -35,22 +35,25 @@ import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.InterchangeXmlType;
 import org.ieee.odm.schema.PowerInterchangeXmlType;
 
+/**
+ * IEEE CDF inter-change record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
 public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
-	
+	/**
+	 * constructor
+	 */
 	public IeeeCDFInterchangeDataMapper() {
 		this.dataParser = new IeeeCDFInterchangeDataParser();
 	}
 
 	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		InterchangeXmlType interchange = parser.createInterchange();
-		PowerInterchangeXmlType p = OdmObjFactory.createPowerInterchangeXmlType();
-		this.processInterchangeData(str, p, parser);
-		interchange.setPowerEx(p);		
-	}
-	
-	public void processInterchangeData(final String str,
-			final PowerInterchangeXmlType interchange, AclfModelParser parser) throws ODMException {
-		//final String[] strAry = IeeeCDFDataParser.getInterchangeDataFields(str);
+		PowerInterchangeXmlType pxchange = OdmObjFactory.createPowerInterchangeXmlType();
+		interchange.setPowerEx(pxchange);		
+
 		dataParser.parseFields(str);
 		
 		//    	Columns  1- 2   Area number [I], no zeros! *
@@ -72,17 +75,17 @@ public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
 		final String code = dataParser.getString("AreaCode");
 		final String name = dataParser.getString("AreaName");
 
-		interchange.setAreaNumber(no);
+		pxchange.setAreaNumber(no);
 		
 		if (slackBusNumber > 0) {
-			interchange.setSwingBus(parser.createBusRef(slackBusId));
-			interchange.setAlternateSwingBusName(alSwingBusName);
+			pxchange.setSwingBus(parser.createBusRef(slackBusId));
+			pxchange.setAlternateSwingBusName(alSwingBusName);
 		}
 		
-		interchange.setDesiredExPower(BaseDataSetter.createActivePowerValue(mw, ActivePowerUnitType.MW));
-		interchange.setExErrTolerance(BaseDataSetter.createActivePowerValue(err, ActivePowerUnitType.MW));
+		pxchange.setDesiredExPower(BaseDataSetter.createActivePowerValue(mw, ActivePowerUnitType.MW));
+		pxchange.setExErrTolerance(BaseDataSetter.createActivePowerValue(err, ActivePowerUnitType.MW));
 
-		interchange.setAreaCode(code);
-		interchange.setAreaName(name);
+		pxchange.setAreaCode(code);
+		pxchange.setAreaName(name);
 	}
 }
