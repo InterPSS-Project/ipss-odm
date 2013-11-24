@@ -64,11 +64,7 @@ public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType,
 		return (DistributionNetXmlType)getBaseCase();
 	}
 	
-	/**
-	 * create the base case object of type DcNetworkXmlType
-	 */
-	@Override
-	public DistributionNetXmlType createBaseCase() {
+	@Override public DistributionNetXmlType createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
 			DistributionNetXmlType baseCase = OdmObjFactory.createDistributionNetXmlType();
 			

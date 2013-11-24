@@ -79,11 +79,7 @@ public class BaseAcscModelParser<
 		return (ShortCircuitNetXmlType)getBaseCase();
 	}
 	
-	/**
-	 * create the base case object of type ShortCircuitNetXmlType
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TNetXml createBaseCase() {
+	@SuppressWarnings("unchecked") @Override public TNetXml createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
 			ShortCircuitNetXmlType baseCase = OdmObjFactory.createShortCircuitNetXmlType();
 			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
@@ -93,13 +89,7 @@ public class BaseAcscModelParser<
 		return (TNetXml)getStudyCase().getBaseCase().getValue();
 	}
 	
-	/**
-	 * add a new Bus record to the base case
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TBusXml createBus() {
+	@SuppressWarnings("unchecked") @Override public TBusXml createBus() {
 		ShortCircuitBusXmlType busRec = OdmObjFactory.createShortCircuitBusXmlType();
 		initAcscBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
@@ -121,13 +111,7 @@ public class BaseAcscModelParser<
    	
 	}
 	
-	
-	
-	/**
-	 * create acsc Line 
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TLineXml createLineBranch() {
+	@SuppressWarnings("unchecked") @Override public TLineXml createLineBranch() {
 		LineShortCircuitXmlType line = OdmObjFactory.createLineShortCircuitXmlType();
 		initAcscLineBranch(line);
 		return (TLineXml) line;
@@ -138,13 +122,7 @@ public class BaseAcscModelParser<
 		initAclfLineBranch(line);
 	}
 	
-	
-	/**
-	 * create aclf xfr branch
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public TXfrXml createXfrBranch() {
+	@SuppressWarnings("unchecked") @Override public TXfrXml createXfrBranch() {
 		XfrShortCircuitXmlType  xfr  =  OdmObjFactory.createXfrShortCircuitXmlType();
 		return (TXfrXml) xfr;
 	}
@@ -153,23 +131,12 @@ public class BaseAcscModelParser<
 		initAclfXfrBranch(xfr);
 	}
 	
-	
-	/**
-	 * create aclf 3 winding xfr
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public TXfrXml createXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override public TXfrXml createXfr3WBranch() {
 		Xfr3WShortCircuitXmlType w3xfr = OdmObjFactory.createXfr3WShortCircuitXmlType();
 		return (TXfrXml) w3xfr;
 	}
     
-	/**
-	 * create aclf Phase-shifting xfr
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public TPsXfrXml createPSXfrBranch() {
+	@SuppressWarnings("unchecked") @Override public TPsXfrXml createPSXfrBranch() {
 		PSXfrShortCircuitXmlType psXfr = OdmObjFactory.createPSXfrShortCircuitXmlType();
 		initAcscPsXfrBranch(psXfr);
 		return (TPsXfrXml) psXfr;
@@ -196,6 +163,7 @@ public class BaseAcscModelParser<
 	 /**
 	  * get the Acsc Xfr object using the id. If the branch object is of type aclfXfr or DstabXfr,
 	  * cast it to the acscXfr type
+
 	  * @param fromId
 	  * @param toId
 	  * @param cirId
