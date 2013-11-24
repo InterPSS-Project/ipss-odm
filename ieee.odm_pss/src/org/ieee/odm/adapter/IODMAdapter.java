@@ -29,7 +29,8 @@ import java.io.InputStream;
 import org.ieee.odm.model.IODMModelParser;
 
 /**
- * interface for implementing DOM adapter
+ * interface for implementing ODM adapter, which, in general, parse a input file(s),
+ * in for example PSS/E format, into a ODM model parser object. 
  * 
  * @author mzhou
  *
@@ -42,18 +43,14 @@ public interface IODMAdapter {
 	 *
 	 */
 	public static enum NetType {
-				AclfNet, AcscNet, DStabNet, OPFNet,
-				DcSystemNet, DistributionNet, };
+				AclfNet,         	// Aclf Network -> AclfModelParser
+				AcscNet,         	// Acsc Network -> AcscModelParser
+				DStabNet,        	// DStability Network -> DStabModelParser
+				OPFNet,				// OPF Network -> OpfModelParser
+				DcSystemNet, 		// DC System/Solor Network -> DcSystemModelParser
+				DistributionNet, 	// Distribution Network -> DistModelParser
+			};
 	
-	/**
-	 * parse the input string lines into a ODM model according the the ODM schema, in
-	 * general this method is for AclfNet implementation
-	 * 
-	 * @param lines input lines
-	 * @return
-	 */
-	boolean parseInput(String[] lines);
-
 	/**
 	 * parse the input file into a ODM model according the the ODM schema, in
 	 * general this method is for AclfNet implementation
@@ -91,7 +88,26 @@ public interface IODMAdapter {
 	boolean parseInputStream(InputStream input);
 
 	/**
-	 * parse the input file content as a string into a ODM model according the the ODM schema
+	 * parse the input stream into a ODM parser object
+	 * 
+	 * @param stream input stream
+	 * @param encoding input text file encoding
+	 * @return false if there is parsing error
+	 */
+	boolean parseInputStream(InputStream stream, String encoding);
+	
+	/**
+	 * Parse the input file, which is stored as String[], into a ODM model according the the ODM schema, in
+	 * general this method is for AclfNet implementation
+	 * 
+	 * @param lines input file stored as String[]
+	 * @return
+	 */
+	boolean parseInput(String[] lines);
+	
+	/**
+	 * parse the input file, which is stored as a String delimited by "\n", into a ODM model 
+	 * according the the ODM schema
 	 * 
 	 * @param fileContent file content
 	 * @return
@@ -99,11 +115,27 @@ public interface IODMAdapter {
 	boolean parseFileContent(String fileContent);
 	
 	/**
-	 * If parsing staus = false, get error massages
+	 * parse the input fileContent into a ODM parser object
+	 * 
+	 * @param fileContent
+	 * @param encoding
+	 * @return
+	 */
+	boolean parseFileContent(String fileContent, String encoding);
+	
+	/**
+	 * If parsing status = false, get error massages generated during the model parsing.
 	 * 
 	 * @return
 	 */
 	String errMessage();
+	
+	/**
+	 * log error message 
+	 * 
+	 * @param msg
+	 */
+	void logErr(String msg);	
 	
 	/**
 	 * get the parsed ODM model

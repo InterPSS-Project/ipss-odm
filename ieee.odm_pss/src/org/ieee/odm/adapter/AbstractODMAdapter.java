@@ -44,8 +44,13 @@ import org.ieee.odm.model.IODMModelParser;
  *
  */
 public abstract class AbstractODMAdapter implements IODMAdapter {
+	/** input file parsing status */
 	private boolean status;
+	
+	/** holds parsing error msg */
 	private List<String> errMsgList;
+	
+	/** ODM parser object*/
 	private IODMModelParser parser;
 	
 	/**
@@ -56,52 +61,29 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		this.errMsgList = new ArrayList<String>();
 	}
 
-	/**
-	 * return error message as a string 
-	 */
-	public String errMessage() {
+	@Override public String errMessage() {
 		return errMsgList.toString();
 	}
 
-	/**
-	 * get the parser object
-	 */
-	public IODMModelParser getModel() {
+	@Override public IODMModelParser getModel() {
 		return this.parser;
 	}
 
-	/**
-	 * log error message 
-	 * 
-	 * @param msg
-	 */
-	public void logErr(String msg) {
+	@Override public void logErr(String msg) {
 		this.status = false;
 		ODMLogger.getLogger().severe(msg);
 		this.errMsgList.add(msg);
 	}
 	
 	/*
-	 *  single files 
+	 *  single file parsing method 
 	 */
 	
-	/**
-	 * parse the input stream into a ODM parser object
-	 * 
-	 * @param input
-	 */
-	public boolean parseInputStream(InputStream input) {
+	@Override public boolean parseInputStream(InputStream input) {
 		return parseInputStream(input, IODMModelParser.defaultEncoding);
 	}
 	
-	/**
-	 * parse the input stream into a ODM parser object
-	 * 
-	 * @param stream
-	 * @param encoding
-	 * @return
-	 */
-	public boolean parseInputStream(InputStream stream, String encoding) {
+	@Override public boolean parseInputStream(InputStream stream, String encoding) {
 		try {
 			final BufferedReader din = new BufferedReader(new InputStreamReader(stream));
 			ODMLogger.getLogger().info("Parse input stream and create the parser object");
@@ -122,12 +104,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		return status;
 	}
 	
-	/**
-	 * parse the input string lines into a ODM parser object
-	 * 
-	 * @param lines input string lines
-	 */
-	public boolean parseInput(String[] lines) {
+	@Override public boolean parseInput(String[] lines) {
 		try {
 			StringArrayReader reader = new StringArrayReader(lines);
 			this.parser = parseInputFile(reader, IODMModelParser.defaultEncoding);		
@@ -138,12 +115,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		} 
 	}
 
-	/**
-	 * parse the input file into a ODM parser object
-	 * 
-	 * @param filename
-	 */
-	public boolean parseInputFile(String filename) {
+	@Override public boolean parseInputFile(String filename) {
 		try {
 			final File file = new File(filename);
 			final InputStream stream = new FileInputStream(file);
@@ -159,23 +131,11 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		}
 	}
 	
-	/**
-	 * parse the input fileContent into a ODM parser object
-	 * 
-	 * @param fileContent
-	 */
-	public boolean parseFileContent(String fileContent) {
+	@Override public boolean parseFileContent(String fileContent) {
 		return parseFileContent(fileContent, IODMModelParser.defaultEncoding);
 	}
 	
-	/**
-	 * parse the input fileContent into a ODM parser object
-	 * 
-	 * @param fileContent
-	 * @param encoding
-	 * @return
-	 */
-	public boolean parseFileContent(String fileContent, String encoding) {
+	@Override public boolean parseFileContent(String fileContent, String encoding) {
 		try {
 			final String[] strList = fileContent.split("\n");
 			ODMLogger.getLogger().info("Parse input fileContent and create the parser object, first line: " + strList[0]);
@@ -230,24 +190,11 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		return status;
 	}
 
-	/**
-	 * parse the input files into a ODM parser object for multi-file scenario
-	 * 
-	 * @param type network type
-	 * @param filenames file name array
-	 */
-	public boolean parseInputFile(NetType type, String[] filenames) {
+	@Override public boolean parseInputFile(NetType type, String[] filenames) {
 		return parseInputFile(type, filenames, IODMModelParser.defaultEncoding);
 	}
 	
-	/**
-	 * parse the input files into a ODM parser object for multi-file scenario
-	 * 
-	 * @param type network type
-	 * @param filenames file name array
-	 * @param encoding
-	 */
-	public boolean parseInputFile(NetType type, String[] filenameAry, String encoding) {
+	@Override public boolean parseInputFile(NetType type, String[] filenameAry, String encoding) {
 		try {
 			final InputStream[] streamAry = new InputStream[filenameAry.length];
 			int cnt = 0;
@@ -282,10 +229,27 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	/*
 	 * abstract methods to be implemented
 	 */
+	/**
+	 * parse an input data file, wrapped as an IFileReader object
+	 * 
+	 * @param din input data file 
+	 * @param encoding text file encoding
+	 * @return ODM model parser object
+	 * @throws ODMException
+	 */
 	abstract protected IODMModelParser parseInputFile(IFileReader din, String encoding) throws ODMException;
-	abstract protected IODMModelParser parseInputFile(IODMAdapter.NetType type, IFileReader[] din, String encoding) throws ODMException;
 	
-
+	/**
+	 * parse a set of input data files, wrapped as a set of IFileReader objects
+	 * 
+	 * @param type ODM model parser type
+	 * @param dins input date file set
+	 * @param encoding en coding
+	 * @return ODM model parser object
+	 * @throws ODMException
+	 */
+	abstract protected IODMModelParser parseInputFile(IODMAdapter.NetType type, IFileReader[] dins, String encoding) throws ODMException;
+	
 	private class FileReader implements IFileReader {
 		java.io.BufferedReader din = null;
 		public FileReader(java.io.BufferedReader din) { this.din = din;}
@@ -299,13 +263,29 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		}
 	}
 
+	/**
+	 * Class for processing a set of input date lines String[] line-by-line
+	 * 
+	 * @author mzhou
+	 *
+	 */
 	private class StringArrayReader implements IFileReader {
 		private String[] lines = null;
 		private int cnt;
+		
+		/**
+		 * Constructor
+		 * 
+		 * @param lines input date lines
+		 */
 		public StringArrayReader(String[] lines) {
 			this.lines = lines;
 			this.cnt = 0;
 		}
+		
+		/**
+		 * return a string line for processing
+		 */
 		public String readLine() throws ODMException {
 			if (this.cnt >= this.lines.length)
 				return null;

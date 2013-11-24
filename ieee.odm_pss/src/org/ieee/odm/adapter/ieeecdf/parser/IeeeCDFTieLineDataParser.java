@@ -28,7 +28,6 @@ import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 
 /**
  * Class for processing IEEE CDF Network data line string
