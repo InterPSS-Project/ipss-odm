@@ -24,20 +24,30 @@
 
 package org.ieee.odm.adapter.ieeecdf.mapper;
 
+import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFInterchangeDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.ActivePowerUnitType;
+import org.ieee.odm.schema.InterchangeXmlType;
 import org.ieee.odm.schema.PowerInterchangeXmlType;
 
-public class IeeeCDFInterchangeDataMapper extends BaseIeeeCDFDataMapper {
+public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
 	
 	public IeeeCDFInterchangeDataMapper() {
 		this.dataParser = new IeeeCDFInterchangeDataParser();
 	}
 
+	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
+		InterchangeXmlType interchange = parser.createInterchange();
+		PowerInterchangeXmlType p = odmObjFactory.createPowerInterchangeXmlType();
+		this.processInterchangeData(str, p, parser);
+		interchange.setPowerEx(p);		
+	}
+	
 	public void processInterchangeData(final String str,
 			final PowerInterchangeXmlType interchange, AclfModelParser parser) throws ODMException {
 		//final String[] strAry = IeeeCDFDataParser.getInterchangeDataFields(str);

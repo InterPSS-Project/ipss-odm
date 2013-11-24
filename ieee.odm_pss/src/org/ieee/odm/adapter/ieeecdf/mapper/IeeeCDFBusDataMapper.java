@@ -41,13 +41,13 @@ import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 
-public class IeeeCDFBusDataMapper extends BaseIeeeCDFDataMapper {
+public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 	
 	public IeeeCDFBusDataMapper() {
 		this.dataParser = new IeeeCDFBusDataParser();
 	}
 	 
-	public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
+	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		// parse the input data line
 		//final String[] strAry = IeeeCDFDataParser.getBusDataFields(str);
 		dataParser.parseFields(str);

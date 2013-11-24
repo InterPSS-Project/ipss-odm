@@ -51,13 +51,13 @@ import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
-public class IeeeCDFBranchDataMapper extends BaseIeeeCDFDataMapper {
+public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 	
 	public IeeeCDFBranchDataMapper() {
 		this.dataParser = new IeeeCDFBranchDataParser();
 	}
 	 
-	public void mapInputLine(final String str, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
+	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
 		// parse the input data line
 		//final String[] strAry = IeeeCDFDataParser.getBranchDataFields(str);
 		dataParser.parseFields(str);

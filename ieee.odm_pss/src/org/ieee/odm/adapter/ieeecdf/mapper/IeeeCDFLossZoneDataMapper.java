@@ -26,17 +26,19 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFLossZoneDataParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.NetZoneXmlType;
 
-public class IeeeCDFLossZoneDataMapper extends BaseIeeeCDFDataMapper {
+public class IeeeCDFLossZoneDataMapper extends AbstractIeeeCDFDataMapper {
 
 	public IeeeCDFLossZoneDataMapper() {
 		this.dataParser = new IeeeCDFLossZoneDataParser();
 	}
 
-	public void processLossZoneData(final String str,	final NetZoneXmlType lossZone) throws ODMException {
-		//final String[] strAry = IeeeCDFDataParser.getLossZoneDataFields(str);
+	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		dataParser.parseFields(str);
+		
+		final NetZoneXmlType lossZone = parser.createNetworkLossZone();
 
 		//    	Columns  1- 3   Loss zone number [I] *
 		//    	Columns  5-16   Loss zone name [A] 

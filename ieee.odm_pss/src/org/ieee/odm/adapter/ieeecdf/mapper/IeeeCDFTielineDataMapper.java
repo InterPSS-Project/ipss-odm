@@ -30,16 +30,17 @@ import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.TielineXmlType;
 
-public class IeeeCDFTielineDataMapper extends BaseIeeeCDFDataMapper {
+public class IeeeCDFTielineDataMapper extends AbstractIeeeCDFDataMapper {
 	public IeeeCDFTielineDataMapper() {
 		this.dataParser = new IeeeCDFTieLineDataParser();
 	}
 
-	public void processTielineData(final String str,
-			final TielineXmlType tieLine, AclfModelParser parser) throws ODMException {
+	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		//final String[] strAry = IeeeCDFDataParser.getTielineDataFields(str);
 		dataParser.parseFields(str);
 
+		final TielineXmlType tieLine = parser.createTieline();
+				
 		//    	Columns  1- 4   Metered bus number [I] *
 		//    	Columns  7-8    Metered area number [I] *
 		final String meteredBusId = AbstractModelParser.BusIdPreFix + dataParser.getString("MeteredBusNum");

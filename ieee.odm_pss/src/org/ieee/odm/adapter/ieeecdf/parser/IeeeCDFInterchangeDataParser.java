@@ -38,7 +38,7 @@ import org.ieee.odm.common.ODMException;
 public class IeeeCDFInterchangeDataParser extends AbstractDataFieldParser {
 	@Override public String[] getMetadata() {
 		return new String[] {
-		   //  0               1           2                   3           4
+		   //  0               1              2                   3            4
 		     "AreaNum",   "SwingBusNum", "AltSwingBusName",  "ExportMw", "ExTolerance", 
 		   //  5               6           
 		     "AreaCode",  "AreaName" 

@@ -27,11 +27,12 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFNetDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
+import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 
-public class IeeeCDFNetDataMapper extends BaseIeeeCDFDataMapper {
+public class IeeeCDFNetDataMapper extends AbstractIeeeCDFDataMapper {
 	public final static String Token_Date = "Date";
 	public final static String Token_OrgName = "Originator Name";
 	public final static String Token_Year = "Year";
@@ -42,11 +43,12 @@ public class IeeeCDFNetDataMapper extends BaseIeeeCDFDataMapper {
 		this.dataParser = new IeeeCDFNetDataParser();
 	}
 	
-	public void mapInputLine(final String str, 
-			final LoadflowNetXmlType baseCaseNet) throws ODMException {
+	@Override public void mapInputLine(final String str, final AclfModelParser parser) throws ODMException {
 		// parse the input data line {"Date", "Originator", "MVA", "Year", "Season", "CaseId"}
 		dataParser.parseFields(str);
 
+		LoadflowNetXmlType baseCaseNet = parser.getNet();
+		
 		//NameValuePairListXmlType nvList = this.factory.createNameValuePairListXmlType();
 		//baseCaseNet.setNvPairList(nvList);
 
