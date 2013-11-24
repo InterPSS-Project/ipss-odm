@@ -2,7 +2,6 @@ package org.ieee.odm.adapter.psse.mapper.acsc;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
-import org.ieee.odm.adapter.psse.parser.acsc.PSSEBranchZeroSeqDataParser;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSEFixedShuntZeroSeqParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;

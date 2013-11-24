@@ -29,7 +29,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSESwitchedShuntDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;

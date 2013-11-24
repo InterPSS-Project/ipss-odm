@@ -28,7 +28,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEGenDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;

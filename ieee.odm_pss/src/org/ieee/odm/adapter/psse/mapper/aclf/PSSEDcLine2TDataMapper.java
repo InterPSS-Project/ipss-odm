@@ -28,7 +28,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEDcLine2TDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
