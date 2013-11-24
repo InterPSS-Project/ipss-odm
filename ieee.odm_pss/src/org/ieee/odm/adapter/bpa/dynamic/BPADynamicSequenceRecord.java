@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.bpa.dynamic;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.text.NumberFormat;
 
@@ -230,7 +230,7 @@ public class BPADynamicSequenceRecord {
 			if(!strAry[12].contains(".")){
 				xm=xm/10000;
 			}
-			MutualZeroZXmlType mutualZ0 =odmObjFactory.createMutualZeroZXmlType();
+			MutualZeroZXmlType mutualZ0 =OdmObjFactory.createMutualZeroZXmlType();
 			mutualZ0.setZM(DStabDataSetter.createZValue(rm, xm, ZUnitType.PU));
 			line1.getLineMutualZeroZ().add(mutualZ0);
 			line2.getLineMutualZeroZ().add(mutualZ0);			

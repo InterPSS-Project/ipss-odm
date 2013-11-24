@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ieeecdf.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFBranchDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
@@ -167,7 +167,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		double rating1Mvar = dataParser.getDouble("MvaRating1", 0.0), 
 			   rating2Mvar = dataParser.getDouble("MvaRating2", 0.0), 
 			   rating3Mvar = dataParser.getDouble("MvaRating3", 0.0);
-		branch.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+		branch.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 		AclfDataSetter.setBranchRatingLimitData(branch.getRatingLimit(),
 				rating1Mvar, rating2Mvar, rating3Mvar, ApparentPowerUnitType.MVA);
 
@@ -200,13 +200,13 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 
 		if (branchType == 2 || branchType == 3) {
 			XfrBranchXmlType xfrBranch = (XfrBranchXmlType)branch;
-			TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+			TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 			xfrBranch.setTapAdjustment(tapAdj);
 			tapAdj.setTapLimit(BaseDataSetter.createTapLimit(maxTapAng, minTapAng));
 			tapAdj.setTapAdjStepSize(stepSize);
 			tapAdj.setTapAdjOnFromSide(true);
 			if (branchType == 2) {
-				VoltageAdjustmentDataXmlType voltTapAdj = odmObjFactory.createVoltageAdjustmentDataXmlType();
+				VoltageAdjustmentDataXmlType voltTapAdj = OdmObjFactory.createVoltageAdjustmentDataXmlType();
 				tapAdj.setVoltageAdjData(voltTapAdj);
 				
 				voltTapAdj.setAdjVoltageBus(parser.createBusRef(controlBusId));
@@ -220,7 +220,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 				BaseDataSetter.setLimit(voltTapAdj.getRange(), maxVoltPQ, minVoltPQ);
 				
 			} else if (branchType == 3) {
-				MvarFlowAdjustmentDataXmlType mvarTapAdj = odmObjFactory.createMvarFlowAdjustmentDataXmlType();
+				MvarFlowAdjustmentDataXmlType mvarTapAdj = OdmObjFactory.createMvarFlowAdjustmentDataXmlType();
 				tapAdj.setMvarFlowAdjData(mvarTapAdj);
 				
 				if(mvarTapAdj.getRange()==null)mvarTapAdj.setRange(new LimitXmlType());
@@ -231,9 +231,9 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			}
 		} else if (branchType == 4) {
 			PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branch;
-			AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType();
+			AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
 			psXfrBranch.setAngleAdjustment(angAdj);
-			angAdj.setAngleLimit(odmObjFactory.createAngleLimitXmlType());
+			angAdj.setAngleLimit(OdmObjFactory.createAngleLimitXmlType());
 			BaseDataSetter.setLimit(angAdj.getAngleLimit(), maxTapAng, minTapAng);
 			
 			if(angAdj.getRange()==null) angAdj.setRange(new LimitXmlType());

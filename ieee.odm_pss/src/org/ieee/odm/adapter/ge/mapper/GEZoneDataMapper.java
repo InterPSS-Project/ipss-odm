@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ge.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GEZoneDataParser;
@@ -46,8 +46,8 @@ public class GEZoneDataMapper extends BaseGEDataMapper {
 		
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
 		if (baseCaseNet.getLossZoneList() == null)
-			baseCaseNet.setLossZoneList(odmObjFactory.createNetworkXmlTypeLossZoneList());
-		ExchangeZoneXmlType zone = odmObjFactory.createExchangeZoneXmlType(); 
+			baseCaseNet.setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
+		ExchangeZoneXmlType zone = OdmObjFactory.createExchangeZoneXmlType(); 
 		baseCaseNet.getLossZoneList().getLossZone().add(zone);
 		zone.setId(dataParser.getString("zonum"));
 		zone.setNumber(dataParser.getInt("zonum"));

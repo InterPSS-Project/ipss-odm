@@ -25,7 +25,7 @@
 package org.ieee.odm;
 
 /**
- *  define file format supported by ODM
+ *  file format supported by ODM
  * 
  * @author mzhou
  *
@@ -34,9 +34,7 @@ public enum ODMFileFormatEnum {
 	IeeeCDF, 
 	UCTE, 
 	GePSLF, 
-	PsseV26, 
-	PsseV29, 
-	PsseV30, 
+	PsseV26, PsseV29, PsseV30, PsseV31, PsseV32, PsseV33, 
 	BPA,
 	PWD, PWD_Contingency,
 	MatPower

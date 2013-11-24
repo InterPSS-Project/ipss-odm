@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSESwitchedShuntDataParser;
@@ -75,7 +75,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 			throw new ODMException("Error: Bus not found in the network, bus number: " + busId);
         }
 				
-	    ShuntCompensatorXmlType shunt = odmObjFactory.createShuntCompensatorXmlType();
+	    ShuntCompensatorXmlType shunt = OdmObjFactory.createShuntCompensatorXmlType();
 	    aclfBus.setShuntCompensator(shunt);
 		
 		// genId is used to distinguish multiple generations at one bus		
@@ -125,7 +125,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	  		int n = this.dataParser.getInt("N"+(i+1), 0);
 			if(n>0){
 			  		double b = this.dataParser.getDouble("B"+(i+1), 0.0);
-			  		ShuntCompensatorBlockXmlType block = odmObjFactory.createShuntCompensatorBlockXmlType(); 
+			  		ShuntCompensatorBlockXmlType block = OdmObjFactory.createShuntCompensatorBlockXmlType(); 
 			  		shunt.getBlock().add(block);
 			  		block.setSteps(n);
 			  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));

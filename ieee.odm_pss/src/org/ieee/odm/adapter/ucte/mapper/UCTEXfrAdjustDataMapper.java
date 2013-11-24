@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ucte.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ucte.UCTE_DEFAdapter;
 import org.ieee.odm.adapter.ucte.parser.UCTEXfrAdjustDataParser;
@@ -98,7 +98,7 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
 			xfrBranch.setToTurnRatio(BaseDataSetter.createTurnRatioPU(ratioFactor/x));
 			
 			if (uKvPhase > 0.0) {
-				TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+				TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 				xfrBranch.setTapAdjustment(tapAdj);
 				tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
 				
@@ -112,7 +112,7 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
           		tapAdj.setTapAdjStepSize(dUPhase);
           		tapAdj.setTapAdjOnFromSide(false);
           		
-          		VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType();
+          		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
           		tapAdj.setVoltageAdjData(vAdjData);
           		
           		vAdjData.setMode(AdjustmentModeEnumType.VALUE_ADJUSTMENT);
@@ -175,7 +175,7 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
 			psXfrBranch.setToTurnRatio(BaseDataSetter.createTurnRatioPU(ratioFactor/x));
 			
 			if (pMwAngle != 0.0) {
-				AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType();
+				AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
 				psXfrBranch.setAngleAdjustment(angAdj);
           		angAdj.setMode(AdjustmentModeEnumType.VALUE_ADJUSTMENT);
           		angAdj.setDesiredValue(pMwAngle);				

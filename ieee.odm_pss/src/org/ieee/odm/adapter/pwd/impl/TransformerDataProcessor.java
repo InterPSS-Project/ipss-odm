@@ -1,6 +1,6 @@
 package org.ieee.odm.adapter.pwd.impl;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
@@ -357,7 +357,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 				} 
 				
 				if (xfrMvaBase != 0.0) {
-					xfr.setXfrInfo(odmObjFactory.createTransformerInfoXmlType());
+					xfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
 					TransformerInfoXmlType xfrInfo = xfr.getXfrInfo();
 					// TODO it seems PWD xfr data is alway on system base
 					xfrInfo.setDataOnSystemBase(false);
@@ -367,7 +367,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 				}
 
 			//set rating limit
-			xfr.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+			xfr.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 			
 			AclfDataSetter.setBranchRatingLimitData(xfr.getRatingLimit(),
 					mvaRating1, mvaRating2, mvaRating3, ApparentPowerUnitType.MVA);
@@ -398,7 +398,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		angAdj.setOffLine(!isXFAutoControl);
 		angAdj.setAngleAdjOnFromSide(true);
 		
-		angAdj.setAngleLimit(odmObjFactory.createAngleLimitXmlType());
+		angAdj.setAngleLimit(OdmObjFactory.createAngleLimitXmlType());
 		/*
 		 * It is assumed here that the {xfrTapMax, xfrTapMin} are also 
 		 * used to represent Angle adjustment Limit;
@@ -448,7 +448,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			double xfrStep, String regBusId, XfrCtrlTargetType regTargetType,
 			XfrType xfrType, XfrBranchXmlType xfr) {
 		//tap control
-		TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+		TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 		xfr.setTapAdjustment(tapAdj);
 		tapAdj.setOffLine(!isXFAutoControl);
 		tapAdj.setTapLimit(BaseDataSetter.createTapLimit(xfrTapMax, xfrTapMin));
@@ -459,7 +459,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		if(xfrType!=null){
 			if(xfrType==XfrType.LTC){
 				tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
-		  		VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType();
+		  		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
 		  		tapAdj.setVoltageAdjData(vAdjData);
 		  		//common setting
 		  		vAdjData.setDesiredVoltageUnit(VoltageUnitType.PU);
@@ -471,7 +471,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		            	}
 		            	else{
 		            		vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
-		    		  		vAdjData.setRange(odmObjFactory.createLimitXmlType());
+		    		  		vAdjData.setRange(OdmObjFactory.createLimitXmlType());
 		    		  		BaseDataSetter.setLimit(vAdjData.getRange(), xfrRegMax,
 		    						xfrRegMin);
 		            	}
@@ -496,7 +496,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			}
 			else if(xfrType==XfrType.Mvar){
 				tapAdj.setAdjustmentType(TapAdjustmentEnumType.M_VAR_FLOW);
-			    MvarFlowAdjustmentDataXmlType mvarAdjData = odmObjFactory.createMvarFlowAdjustmentDataXmlType();
+			    MvarFlowAdjustmentDataXmlType mvarAdjData = OdmObjFactory.createMvarFlowAdjustmentDataXmlType();
 		  		tapAdj.setMvarFlowAdjData(mvarAdjData);
 		  		//common setting
 		  		mvarAdjData.setRange(new LimitXmlType());
@@ -536,7 +536,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 	
 	public void processXFCorrection(String XfCorrectionStr) throws ODMException{
 		if(xfrCorrectTableList == null){
-			xfrCorrectTableList = odmObjFactory.createXformerZTableXmlType();
+			xfrCorrectTableList = OdmObjFactory.createXformerZTableXmlType();
 			xfrCorrectTableList.setAdjustSide(BranchBusSideEnumType.FROM_SIDE);
 		    parser.getNet().setXfrZTable(xfrCorrectTableList);
 		}
@@ -544,11 +544,11 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		parseData(XfCorrectionStr);
 		
 		//create an xfr correction Item
-		XformerZTableItem corItem = odmObjFactory.createXformerZTableXmlTypeXformerZTableItem();
+		XformerZTableItem corItem = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItem();
 		xfrCorrectTableList.getXformerZTableItem().add(corItem);
 		
 		//create tap-factor pair 
-		Lookup nvPair=odmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
+		Lookup nvPair=OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
 		
 	    int tableNum = getInt("XFCorTableNum");
 		String tableName = getString("XFCorTableName");
@@ -569,7 +569,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		
 		double tap1=getDouble("XFCorTap:1");
 		double factor1=getDouble("XFCorFactor:1");
-		nvPair=odmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
+		nvPair=OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
 		nvPair.setTurnRatioShiftAngle(tap1);
 		nvPair.setScaleFactor(factor1);
 		corItem.getLookup().add(nvPair);
@@ -583,7 +583,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 				double tapk=getDouble(corTapPrefix+k);
 				double factork=getDouble(corFactorPrefix+k);
 				//set tap-factor pair
-				nvPair=odmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
+				nvPair=OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
 				nvPair.setTurnRatioShiftAngle(tapk);
 				nvPair.setScaleFactor(factork);
 				//add it to lookup list

@@ -32,45 +32,52 @@ import org.ieee.odm.schema.StudyCaseXmlType;
 import org.ieee.odm.schema.StudyScenarioXmlType;
 
 /**
- * Xml parser interface for the IEEE DOM schema. 
+ * Xml parser interface for representing the IEEE DOM schema. 
  */
 public interface IODMModelParser {
-	final static String defaultEncoding = "UTF-8";
-	final static String chineseEncoding = "GB18030";
+	/** default text file encoding */
+	final static String DefaultEncoding = "UTF-8";
+	/** Chinese text file encoding */
+	final static String ChineseEncoding = "GB18030";
+	
+	/**
+	 * Bus pre-fix, default value "Bus", pre-fix added to the bus number to create Bus Id
+	 */
+	public static final String BusIdPreFix = "Bus";
 	
 	/**
 	 * parse the file and create an ODM model object
 	 * 
 	 * @param xmlFile
-	 * @return
+	 * @return false if there is parsing error
 	 */
 	boolean parse(File xmlFile);
 	
 	/**
-	 * parse the string and create an ODM model object
+	 * parse the string representing an input file and create an ODM model object
 	 * 
-	 * @param xmlString
-	 * @return
+	 * @param xmlString string representing an input xml file
+	 * @return false if there is parsing error
 	 */
 	boolean parse(String xmlString);
 	
 	/**
-	 * parse the InputStream and create an ODM model object
+	 * parse the InputStream representing an input file and create an ODM model object
 	 * 
-	 * @param xmlString
-	 * @return
+	 * @param in input stream
+	 * @return false if there is parsing error
 	 */
 	boolean parse(InputStream in);
 	
 	/**
-	 * check if the network is of type Transmission and Loadflow
+	 * check if the network is of type Transmission and Loadflow analysis type
 	 * 
 	 * @return
 	 */
 	boolean isTransmissionLoadflow();
 	
 	/**
-	 * get the ODM xml document root element
+	 * get the ODM xml document root StudyCase element
 	 * 
 	 * @return
 	 */
@@ -84,7 +91,7 @@ public interface IODMModelParser {
 	ModifyRecordXmlType getModification();
 
 	/**
-	 * get the first modification record in the ODM xml document by Id
+	 * get modification record in the ODM xml document by Id
 	 * 
 	 * @param id modification record id
 	 * @return
@@ -101,16 +108,14 @@ public interface IODMModelParser {
 	/**
 	 * output the content of the ODM object to an xml document
 	 * 
-	 * @param addXsi
 	 * @return
 	 */
 	String toXmlDoc();
 	
 	/**
 	 * If outfile = null, return the Xml doc, otherwise, write the xml doc
-	 * to the file and return a file writng msg
+	 * to the file and return a file writing msg
 	 * 
-	 * @param addXsi
 	 * @param outfile
 	 * @return
 	 */

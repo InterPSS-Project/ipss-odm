@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.opf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class OpfDataSetter extends AclfDataSetter {
 	 */
 	public static void setQuadraticModel(IncCostXmlType incCost,double sq, ActivePowerPriceEnumType sqUnit,
 			double ln,ActivePowerPriceEnumType lnUnit,	double cnst ){
-		QuadraticModelXmlType quaModel = odmObjFactory.createQuadraticModelXmlType();		
+		QuadraticModelXmlType quaModel = OdmObjFactory.createQuadraticModelXmlType();		
 		
 		// set sqr term coeff
 		SqrCoeffXmlType sqr = new SqrCoeffXmlType();
@@ -89,7 +89,7 @@ public class OpfDataSetter extends AclfDataSetter {
 	 * @param point
 	 */
 	public static void setPWModel(IncCostXmlType incCost, double[] point){
-		PieceWiseLinearModelXmlType pwModel = odmObjFactory.createPieceWiseLinearModelXmlType();
+		PieceWiseLinearModelXmlType pwModel = OdmObjFactory.createPieceWiseLinearModelXmlType();
 		int size = point.length;
 		List<StairStepXmlType> stepList = pwModel.getStairStep();
 		for(int i =0 ; i<size/2-1; i++){
@@ -119,7 +119,7 @@ public class OpfDataSetter extends AclfDataSetter {
 	 */
 	private static void setStep(List<StairStepXmlType> stepList,double price_val,
 			OPFUnitCostXmlType priceUnit, double amount_val, MWUnitXmlType mwUnit){
-		StairStepXmlType step = odmObjFactory.createStairStepXmlType();
+		StairStepXmlType step = OdmObjFactory.createStairStepXmlType();
 		CostPriceXmlType cost = new CostPriceXmlType();				
 		cost.setValue(price_val);
 		cost.setUnit(priceUnit);

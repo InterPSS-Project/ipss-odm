@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.modify;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.util.Collections;
 import java.util.Hashtable;
@@ -64,7 +64,7 @@ public class NetModificationHelper {
 	 * @return
 	 */
 	public NetModificationXmlType createNetModificationList(String id, String desc) {
-		NetModificationXmlType rec = odmObjFactory.createNetModificationXmlType();
+		NetModificationXmlType rec = OdmObjFactory.createNetModificationXmlType();
 		rec.setId(id);
 		rec.setDesc(desc);
 		addModifyRecord(rec);
@@ -77,7 +77,7 @@ public class NetModificationHelper {
 	 * @return
 	 */	
 	public BranchChangeRecSetXmlType createBranchChangeRecSetXmlType(NetModificationXmlType netModifyList) {
-		BranchChangeRecSetXmlType branchChangeSet = odmObjFactory.createBranchChangeRecSetXmlType();
+		BranchChangeRecSetXmlType branchChangeSet = OdmObjFactory.createBranchChangeRecSetXmlType();
 		netModifyList.getBranchChangeRecSet().add(branchChangeSet);
 		return branchChangeSet;
 	}
@@ -88,7 +88,7 @@ public class NetModificationHelper {
 	 * @return
 	 */	
 	public BranchChangeRecXmlType createBranchChangeRecXmlType(BranchChangeRecSetXmlType branchSet) {
-		BranchChangeRecXmlType branchChange = odmObjFactory.createBranchChangeRecXmlType();
+		BranchChangeRecXmlType branchChange = OdmObjFactory.createBranchChangeRecXmlType();
 		branchSet.getBranchChangeRec().add(branchChange);
 		return branchChange;
 	}
@@ -99,7 +99,7 @@ public class NetModificationHelper {
 	 * @return
 	 */	
 	public BusChangeRecSetXmlType createBusChangeRecSetXmlType(NetModificationXmlType netModifyList) {
-		BusChangeRecSetXmlType busChangeSet = odmObjFactory.createBusChangeRecSetXmlType();
+		BusChangeRecSetXmlType busChangeSet = OdmObjFactory.createBusChangeRecSetXmlType();
 		netModifyList.getBusChangeRecSet().add(busChangeSet);
 		return busChangeSet;
 	}
@@ -110,7 +110,7 @@ public class NetModificationHelper {
 	 * @return
 	 */	
 	public BusChangeRecXmlType createBusChangeRecXmlType(BusChangeRecSetXmlType busSet) {
-		BusChangeRecXmlType busChange = odmObjFactory.createBusChangeRecXmlType();
+		BusChangeRecXmlType busChange = OdmObjFactory.createBusChangeRecXmlType();
 		busSet.getBusChangeRec().add(busChange);
 		return busChange;
 	}	
@@ -181,7 +181,7 @@ public class NetModificationHelper {
 	 */
 	public DailyDispatchXmlType getDailyDispatch() {
 		if (parser.getModification() == null)
-			addModifyRecord(odmObjFactory.createDailyDispatchXmlType());
+			addModifyRecord(OdmObjFactory.createDailyDispatchXmlType());
 		return (DailyDispatchXmlType)parser.getModification();
 	}	
 	
@@ -213,7 +213,7 @@ public class NetModificationHelper {
 	 */
 	public BranchLossAreaAllocationXmlType getBranchLossAreaAllocation() {
 		if (parser.getModification() == null)
-			addModifyRecord(odmObjFactory.createBranchLossAreaAllocationXmlType());
+			addModifyRecord(OdmObjFactory.createBranchLossAreaAllocationXmlType());
 		return (BranchLossAreaAllocationXmlType)parser.getModification();
 	}	
 
@@ -231,7 +231,7 @@ public class NetModificationHelper {
 	 */
 	public OverrideOutageScheduleXmlType getOverrideOutageSchedule() {
 		if (parser.getModification() == null)
-			addModifyRecord(odmObjFactory.createOverrideOutageScheduleXmlType());
+			addModifyRecord(OdmObjFactory.createOverrideOutageScheduleXmlType());
 		return (OverrideOutageScheduleXmlType)parser.getModification();
 	}
 	
@@ -240,7 +240,7 @@ public class NetModificationHelper {
 	
 	private void addModifyRecord(ModifyRecordXmlType rec) {
 		if (this.parser.getStudyCase().getModificationList() == null) {
-			this.parser.getStudyCase().setModificationList(odmObjFactory.createStudyCaseXmlTypeModificationList());
+			this.parser.getStudyCase().setModificationList(OdmObjFactory.createStudyCaseXmlTypeModificationList());
 		}
 		this.parser.getStudyCase().getModificationList().getModification().add(rec);
 	}	

@@ -26,7 +26,7 @@
 
 package org.ieee.odm.adapter.bpa.dynamic;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.xml.bind.JAXBElement;
 
@@ -51,7 +51,7 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 
 	if(strAry[0].equals("LA")||strAry[0].equals("LB")){
 		
-		DynamicLoadIEEEStaticLoadXmlType ieeeStaLoad=odmObjFactory.createDynamicLoadIEEEStaticLoadXmlType();
+		DynamicLoadIEEEStaticLoadXmlType ieeeStaLoad=OdmObjFactory.createDynamicLoadIEEEStaticLoadXmlType();
 		
 		double a1=0.0;
 		if(!strAry[5].equals("")){
@@ -121,7 +121,7 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 			ieeeStaLoad.setA8(a8);
 
 		}
-		DynamicLoadModelSelectionXmlType loadModel = odmObjFactory.createDynamicLoadModelSelectionXmlType();
+		DynamicLoadModelSelectionXmlType loadModel = OdmObjFactory.createDynamicLoadModelSelectionXmlType();
 				
 		loadModel.setIEEEStaticLoad(ieeeStaLoad); 
 		

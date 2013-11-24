@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.xml.bind.JAXBElement;
 
@@ -70,11 +70,11 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	public static LoadflowShuntYDataXmlType createContriShuntY(LoadflowBusXmlType busRec) {
 		BusShuntYDataXmlType shuntYData = busRec.getShuntYData();
 		if (shuntYData == null) { 
-			shuntYData = odmObjFactory.createBusShuntYDataXmlType();
+			shuntYData = OdmObjFactory.createBusShuntYDataXmlType();
 			busRec.setShuntYData(shuntYData);
-			shuntYData.setEquivY(odmObjFactory.createYXmlType());
+			shuntYData.setEquivY(OdmObjFactory.createYXmlType());
 		}
-		LoadflowShuntYDataXmlType contribShuntY = odmObjFactory.createLoadflowShuntYDataXmlType();
+		LoadflowShuntYDataXmlType contribShuntY = OdmObjFactory.createLoadflowShuntYDataXmlType();
 		shuntYData.getContributeShuntY().add(contribShuntY); 
 	    return contribShuntY;
 	}
@@ -86,13 +86,13 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	public static LoadflowLoadDataXmlType createContriLoad(LoadflowBusXmlType busRec) {
 		BusLoadDataXmlType loadData = busRec.getLoadData();
 		if (loadData == null) { 
-			loadData = odmObjFactory.createBusLoadDataXmlType();
+			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
-			LoadflowLoadDataXmlType equivLoad = odmObjFactory.createLoadflowLoadDataXmlType();
-			loadData.setEquivLoad(odmObjFactory.createEquivLoad(equivLoad));
+			LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+			loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
 		}
-		LoadflowLoadDataXmlType contribLoad = odmObjFactory.createLoadflowLoadDataXmlType();
-	    loadData.getContributeLoad().add(odmObjFactory.createEquivLoad(contribLoad)); 
+		LoadflowLoadDataXmlType contribLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+	    loadData.getContributeLoad().add(OdmObjFactory.createEquivLoad(contribLoad)); 
 	    return contribLoad;
 	}
 	
@@ -103,14 +103,14 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	public static LoadflowGenDataXmlType createContriGen(LoadflowBusXmlType busRec) {
 		BusGenDataXmlType genData = busRec.getGenData();
 		if (genData == null) {
-			genData = odmObjFactory.createBusGenDataXmlType();
+			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
-			LoadflowGenDataXmlType equivGen = odmObjFactory.createLoadflowGenDataXmlType();
-			genData.setEquivGen(odmObjFactory.createEquivGen(equivGen));
+			LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
+			genData.setEquivGen(OdmObjFactory.createEquivGen(equivGen));
 		}
 		// some model does not need ContributeGenList
-		LoadflowGenDataXmlType contribGen = odmObjFactory.createLoadflowGenDataXmlType();
-		genData.getContributeGen().add(odmObjFactory.createContributeGen(contribGen));
+		LoadflowGenDataXmlType contribGen = OdmObjFactory.createLoadflowGenDataXmlType();
+		genData.getContributeGen().add(OdmObjFactory.createContributeGen(contribGen));
 		return contribGen;
 	}
 
@@ -330,7 +330,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * 
 	 */
 	public static StaticVarCompensatorXmlType createSVC(LoadflowBusXmlType bus) {
-		StaticVarCompensatorXmlType svc = odmObjFactory.createStaticVarCompensatorXmlType();
+		StaticVarCompensatorXmlType svc = OdmObjFactory.createStaticVarCompensatorXmlType();
 		bus.setSvc(svc);
 		return svc;
 	}
@@ -343,7 +343,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		//if (bus.getShuntCompensatorData().getShuntCompensatorList() == null) {
 		//	bus.getShuntCompensatorData().setShuntCompensatorList(odmObjFactory.createShuntCompensatorDataXmlTypeShuntCompensatorList());
 		//}
-		ShuntCompensatorXmlType compensator = odmObjFactory.createShuntCompensatorXmlType();
+		ShuntCompensatorXmlType compensator = OdmObjFactory.createShuntCompensatorXmlType();
 		bus.setShuntCompensator(compensator);
 		return compensator; 
 	}

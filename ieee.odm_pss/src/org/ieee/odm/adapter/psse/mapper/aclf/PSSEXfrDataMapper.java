@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEXfrDataParser;
@@ -110,22 +110,22 @@ public class PSSEXfrDataMapper <
 		String ckt = dataParser.getString("CKT");
 		if (is3WXfr && isPsXfr) {
 			branRecXml = parser.createPSXfr3WBranch(fid, tid, tertId, ckt);
-	       	xfrInfoXml = odmObjFactory.createTransformer3WInfoXmlType(); 
+	       	xfrInfoXml = OdmObjFactory.createTransformer3WInfoXmlType(); 
 	       	branRecXml.setXfrInfo(xfrInfoXml);
 		}
 		else if (is3WXfr) {
 			branRecXml = (XfrBranchXmlType) parser.createXfr3WBranch(fid, tid, tertId, ckt);
-	       	xfrInfoXml = odmObjFactory.createTransformer3WInfoXmlType(); 
+	       	xfrInfoXml = OdmObjFactory.createTransformer3WInfoXmlType(); 
 	       	branRecXml.setXfrInfo(xfrInfoXml);
 		}
 		else if (isPsXfr) {
 			branRecXml = (XfrBranchXmlType) parser.createPSXfrBranch(fid, tid, ckt);
-	       	xfrInfoXml = odmObjFactory.createTransformerInfoXmlType(); 
+	       	xfrInfoXml = OdmObjFactory.createTransformerInfoXmlType(); 
 	       	branRecXml.setXfrInfo(xfrInfoXml);
 		}
 		else {
 			branRecXml = (XfrBranchXmlType) parser.createXfrBranch(fid, tid, ckt);
-	       	xfrInfoXml = odmObjFactory.createTransformerInfoXmlType(); 
+	       	xfrInfoXml = OdmObjFactory.createTransformerInfoXmlType(); 
 	       	branRecXml.setXfrInfo(xfrInfoXml);
 		}
 		
@@ -374,7 +374,7 @@ public class PSSEXfrDataMapper <
        	double rata1 = dataParser.getDouble("RATA1");
        	double ratb1 = dataParser.getDouble("RATB1");
        	double ratc1 = dataParser.getDouble("RATC1");
-    	branRecXml.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+    	branRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
     	AclfDataSetter.setBranchRatingLimitData(branRecXml.getRatingLimit(), rata1, ratb1, ratc1, ApparentPowerUnitType.MVA);
 		
 		/*
@@ -441,7 +441,7 @@ public class PSSEXfrDataMapper <
     	    
       		//if (!isPsXfr) {
       		 if(Math.abs(cod) != 3){
-           		TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+           		TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
            		branRecXml.setTapAdjustment(tapAdj);
            		tapAdj.setOffLine(cod < 0);
            		tapAdj.setTapAdjOnFromSide(onFromSide);
@@ -457,21 +457,21 @@ public class PSSEXfrDataMapper <
            		if (Math.abs(cod) == 1) {
            			
                		tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
-               		VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType();
+               		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
         	    	tapAdj.setVoltageAdjData(vAdjData);
         	    	//add adjust votlage bus
         	    	vAdjData.setAdjVoltageBus(parser.createBusRef(reBusId));
         	    	vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
-        	    	vAdjData.setRange(odmObjFactory.createLimitXmlType());
+        	    	vAdjData.setRange(OdmObjFactory.createLimitXmlType());
         	    	vAdjData.getRange().setMax(vma);
         	    	vAdjData.getRange().setMin(vmi);       
         	    }
            		else {
                  	tapAdj.setAdjustmentType(TapAdjustmentEnumType.M_VAR_FLOW);
-                 	MvarFlowAdjustmentDataXmlType mvaAdjData = odmObjFactory.createMvarFlowAdjustmentDataXmlType(); 
+                 	MvarFlowAdjustmentDataXmlType mvaAdjData = OdmObjFactory.createMvarFlowAdjustmentDataXmlType(); 
         	    	tapAdj.setMvarFlowAdjData(mvaAdjData);
         	    	mvaAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
-        	    	mvaAdjData.setRange(odmObjFactory.createLimitXmlType());
+        	    	mvaAdjData.setRange(OdmObjFactory.createLimitXmlType());
         	    	mvaAdjData.getRange().setMax(vma);
         	    	mvaAdjData.getRange().setMin(vmi);               		
            		}
@@ -479,10 +479,10 @@ public class PSSEXfrDataMapper <
     	    else {//COD =3 phase shifting adjustment
     	    	
     	    	PSXfrBranchXmlType branchPsXfr = (PSXfrBranchXmlType)branRecXml; 
-    	    	AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType();
+    	    	AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
     	    	branchPsXfr.setAngleAdjustment(angAdj);
     	    	angAdj.setAngleLimit(BaseDataSetter.createAngleLimit(rma, rmi, AngleUnitType.DEG));
-    	    	angAdj.setRange(odmObjFactory.createLimitXmlType());
+    	    	angAdj.setRange(OdmObjFactory.createLimitXmlType());
     	    	angAdj.getRange().setMax(vma);
     	    	angAdj.getRange().setMin(vmi);
     	    	angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
@@ -546,7 +546,7 @@ public class PSSEXfrDataMapper <
   	       	double ratb2 = dataParser.getDouble("RATB2");
   	       	double ratc2 = dataParser.getDouble("RATC2");
     		Xfr3WBranchXmlType branch3WXfr = (Xfr3WBranchXmlType)branRecXml; 
-    		branch3WXfr.setRatingLimit23(odmObjFactory.createBranchRatingLimitXmlType());
+    		branch3WXfr.setRatingLimit23(OdmObjFactory.createBranchRatingLimitXmlType());
        		AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit23(), rata2, ratb2, ratc2, ApparentPowerUnitType.MVA);
        	}
        	else if (isPsXfr) {
@@ -577,7 +577,7 @@ public class PSSEXfrDataMapper <
            	double ratc3 = dataParser.getDouble("RATC3");
     		if(cw==2)windv3 /=parser.getBus(tertId).getBaseVoltage().getValue();
       		branch3WXfr.setTertTurnRatio(BaseDataSetter.createTurnRatioPU(windv3));
-      		branch3WXfr.setRatingLimit13(odmObjFactory.createBranchRatingLimitXmlType());
+      		branch3WXfr.setRatingLimit13(OdmObjFactory.createBranchRatingLimitXmlType());
            	AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit13(), rata3, ratb3, ratc3, ApparentPowerUnitType.MVA);
            	if (isPsXfr) {
         		PSXfr3WBranchXmlType branchPsXfr3W = (PSXfr3WBranchXmlType)branRecXml; 

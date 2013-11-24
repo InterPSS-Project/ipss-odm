@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ucte.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ucte.parser.UCTEXfrDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
@@ -93,7 +93,7 @@ public class UCTEXfrDataMapper extends BaseUCTEDataMapper {
     	if (status == 8 || status == 9) 
     		branchRec.setOffLine(true);
     	
-    	branchRec.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+    	branchRec.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
     	AclfDataSetter.setBranchRatingLimitData(branchRec.getRatingLimit(),
 				currentLimit, CurrentUnitType.AMP);
 	}

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -117,7 +117,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		double ratea = dataParser.getDouble("RATEA", 0.0);
 		double rateb = dataParser.getDouble("RATEB", 0.0);
 		double ratec = dataParser.getDouble("RATEC", 0.0);
-		braRecXml.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+		braRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 		AclfDataSetter.setBranchRatingLimitData(braRecXml.getRatingLimit(),
     				ratea, rateb, ratec, ApparentPowerUnitType.MVA);
         

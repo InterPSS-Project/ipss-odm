@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ieeecdf.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFInterchangeDataParser;
 import org.ieee.odm.common.ODMException;
@@ -43,7 +43,7 @@ public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
 
 	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		InterchangeXmlType interchange = parser.createInterchange();
-		PowerInterchangeXmlType p = odmObjFactory.createPowerInterchangeXmlType();
+		PowerInterchangeXmlType p = OdmObjFactory.createPowerInterchangeXmlType();
 		this.processInterchangeData(str, p, parser);
 		interchange.setPowerEx(p);		
 	}

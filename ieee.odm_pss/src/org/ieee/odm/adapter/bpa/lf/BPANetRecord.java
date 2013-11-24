@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.bpa.lf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.util.StringTokenizer;
 
@@ -101,7 +101,7 @@ public class BPANetRecord<
 	
 		if(str.trim().startsWith("A")||str.trim().startsWith("AC")){
 			if (baseCaseNet.getAreaList() == null)
-				baseCaseNet.setAreaList(odmObjFactory.createNetworkXmlTypeAreaList());
+				baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
 			
 			String areaName="";
 			if(!strAry[2].equals("")){
@@ -110,7 +110,7 @@ public class BPANetRecord<
 			
 			ExchangeAreaXmlType  area =null;
 			if(!str.startsWith("AC+")) {
-				area= odmObjFactory.createExchangeAreaXmlType();
+				area= OdmObjFactory.createExchangeAreaXmlType();
 				baseCaseNet.getAreaList().getArea().add(area);
 				area.setName(areaName);
 			    area.setNumber(areaNumber);
@@ -136,7 +136,7 @@ public class BPANetRecord<
             
             if(!strAry[6].trim().equals("")){
             	if (baseCaseNet.getLossZoneList() == null)
-        			baseCaseNet.setLossZoneList(odmObjFactory.createNetworkXmlTypeLossZoneList());
+        			baseCaseNet.setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
             	
             	StringTokenizer st = new StringTokenizer(strAry[6]);
             	String zoneName="";        	
@@ -178,7 +178,7 @@ public class BPANetRecord<
 		*/
 		else if(str.trim().startsWith("I")){// I Record defines the inter-area power exchange
 			if (net.getInterchangeList() == null)
-				net.setInterchangeList(odmObjFactory.createLoadflowNetXmlTypeInterchangeList());
+				net.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
 
 			String fAreaName="";
 			if(!strAry[2].equals("")){
@@ -193,10 +193,10 @@ public class BPANetRecord<
 				exchangePower= new Double(strAry[4]).doubleValue();				
 			}			
 			if(!fAreaName.equals("")&&!tAreaName.equals("")){//&& exchangePower!=0
-				InterchangeXmlType interchange = odmObjFactory.createInterchangeXmlType();
+				InterchangeXmlType interchange = OdmObjFactory.createInterchangeXmlType();
 				net.getInterchangeList().getInterchange().add(interchange);
 				
-				AreaTransferXmlType transfer = odmObjFactory.createAreaTransferXmlType(); 
+				AreaTransferXmlType transfer = OdmObjFactory.createAreaTransferXmlType(); 
 				interchange.setAreaTransfer(transfer);
 				
 				//get area data

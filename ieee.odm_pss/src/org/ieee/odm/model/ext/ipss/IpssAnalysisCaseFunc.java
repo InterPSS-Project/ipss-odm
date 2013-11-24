@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.ext.ipss;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.PTradingEDHourlyAnalysisXmlType;
@@ -48,10 +48,10 @@ public class IpssAnalysisCaseFunc {
 	 */
 	public static void initPTradingEDHourlyAnalysis(PTradingEDHourlyAnalysisXmlType pt) {
 		
-		PtCaseDataXmlType casedata = odmObjFactory.createPtCaseDataXmlType();
+		PtCaseDataXmlType casedata = OdmObjFactory.createPtCaseDataXmlType();
 		pt.setCaseData(casedata);
 		
-		PtEDispatchFileXmlType edfile = odmObjFactory.createPtEDispatchFileXmlType();
+		PtEDispatchFileXmlType edfile = OdmObjFactory.createPtEDispatchFileXmlType();
 		casedata.setEdFile(edfile);
 		edfile.setFilename("ED file ...");
 		edfile.setGenPFactor(0.9);
@@ -60,7 +60,7 @@ public class IpssAnalysisCaseFunc {
 
 		casedata.setInterfaceLimitFilename("Interface limit file ...");
 		
-		PtAclfAnalysisXmlType aclf = odmObjFactory.createPtAclfAnalysisXmlType();
+		PtAclfAnalysisXmlType aclf = OdmObjFactory.createPtAclfAnalysisXmlType();
 		pt.setAclfAnalysis(aclf);
 		
 		aclf.setHour("12:00");
@@ -68,7 +68,7 @@ public class IpssAnalysisCaseFunc {
 		aclf.setGenQAdjustment(false);
 		aclf.setSwingBusPQAlloc(false);
 		
-		PtAnalysisOutputXmlType outOpt = odmObjFactory.createPtAnalysisOutputXmlType();
+		PtAnalysisOutputXmlType outOpt = OdmObjFactory.createPtAnalysisOutputXmlType();
 		pt.setOutputOption(outOpt);
 		outOpt.setBusVoltageUpperLimitPU(1.15);
 		outOpt.setBusVoltageLowerLimitPU(0.80);
@@ -86,8 +86,8 @@ public class IpssAnalysisCaseFunc {
 	 * @return
 	 */
 	public static PowerTradingInfoXmlType createDefaultPtInfo() {
-		PowerTradingInfoXmlType ptInfo = odmObjFactory.createPowerTradingInfoXmlType();
-		ptInfo.setLoadDist(odmObjFactory.createPtLoadDistributionXmlType());
+		PowerTradingInfoXmlType ptInfo = OdmObjFactory.createPowerTradingInfoXmlType();
+		ptInfo.setLoadDist(OdmObjFactory.createPtLoadDistributionXmlType());
 		setDefaultPtInfo(ptInfo);
 		return ptInfo;
 	}
@@ -97,9 +97,9 @@ public class IpssAnalysisCaseFunc {
 	 * 
 	 */
 	public static void setDefaultPtInfo(PowerTradingInfoXmlType ptInfo) {
-		ptInfo.getLoadDist().setMinLoadForDistFactor(odmObjFactory.createActivePowerXmlType());
+		ptInfo.getLoadDist().setMinLoadForDistFactor(OdmObjFactory.createActivePowerXmlType());
 		ptInfo.getLoadDist().getMinLoadForDistFactor().setValue(5.0);
 		ptInfo.getLoadDist().getMinLoadForDistFactor().setUnit(ActivePowerUnitType.MW);
-		ptInfo.getLoadDist().setAggregateGen(odmObjFactory.createAggregateGenXmlType());
+		ptInfo.getLoadDist().setAggregateGen(OdmObjFactory.createAggregateGenXmlType());
 	}
 }

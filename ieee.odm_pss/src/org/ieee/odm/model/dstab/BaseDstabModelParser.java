@@ -23,7 +23,7 @@
   */
 package org.ieee.odm.model.dstab;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
@@ -78,9 +78,9 @@ public class BaseDstabModelParser <
 	@SuppressWarnings("unchecked")
 	@Override public TNetXml createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
-			DStabNetXmlType baseCase = odmObjFactory.createDStabNetXmlType();
-			baseCase.setBusList(odmObjFactory.createNetworkXmlTypeBusList());
-			baseCase.setBranchList(odmObjFactory.createNetworkXmlTypeBranchList());
+			DStabNetXmlType baseCase = OdmObjFactory.createDStabNetXmlType();
+			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
+			baseCase.setBranchList(OdmObjFactory.createNetworkXmlTypeBranchList());
 			getStudyCase().setBaseCase(BaseJaxbHelper.network(baseCase));
 		}
 		return (TNetXml)getStudyCase().getBaseCase().getValue();
@@ -98,7 +98,7 @@ public class BaseDstabModelParser <
 	 */
 	@SuppressWarnings("unchecked")
 	public TBusXml createBus() {
-		DStabBusXmlType busRec = odmObjFactory.createDStabBusXmlType();
+		DStabBusXmlType busRec = OdmObjFactory.createDStabBusXmlType();
 		initDStabBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
 		return (TBusXml)busRec;
@@ -107,11 +107,11 @@ public class BaseDstabModelParser <
 	protected void initDStabBus(DStabBusXmlType busRec) {
 		initAcscBus(busRec);
 		
-   		DStabGenDataXmlType equivGen = odmObjFactory.createDStabGenDataXmlType();
-   		busRec.getGenData().setEquivGen(odmObjFactory.createDstabEquivGen(equivGen));		
+   		DStabGenDataXmlType equivGen = OdmObjFactory.createDStabGenDataXmlType();
+   		busRec.getGenData().setEquivGen(OdmObjFactory.createDstabEquivGen(equivGen));		
 
-   		DStabLoadDataXmlType equivLoad = odmObjFactory.createDStabLoadDataXmlType();
-   		busRec.getLoadData().setEquivLoad(odmObjFactory.createDstabEquivLoad(equivLoad));		
+   		DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
+   		busRec.getLoadData().setEquivLoad(OdmObjFactory.createDstabEquivLoad(equivLoad));		
 	}		
 
 	/**
@@ -137,7 +137,7 @@ public class BaseDstabModelParser <
 	 */
 	@SuppressWarnings("unchecked")
 	@Override public TLineXml createLineBranch() {
-		LineDStabXmlType line = odmObjFactory.createLineDStabXmlType();
+		LineDStabXmlType line = OdmObjFactory.createLineDStabXmlType();
 		initDStabLineBranch(line);
 		return (TLineXml)line;
 	}
@@ -153,7 +153,7 @@ public class BaseDstabModelParser <
 	 */
 	@SuppressWarnings("unchecked")
 	@Override public TXfrXml createXfrBranch() {
-		XfrDStabXmlType xfr = odmObjFactory.createXfrDStabXmlType();
+		XfrDStabXmlType xfr = OdmObjFactory.createXfrDStabXmlType();
 		initDStabXfrBranch(xfr);
 		return (TXfrXml)xfr;
 	}
@@ -169,7 +169,7 @@ public class BaseDstabModelParser <
 	 */
 	@SuppressWarnings("unchecked")
 	@Override public TPsXfrXml createPSXfrBranch() {
-		PSXfrDStabXmlType psXfr = odmObjFactory.createPSXfrDStabXmlType();
+		PSXfrDStabXmlType psXfr = OdmObjFactory.createPSXfrDStabXmlType();
 		initDStabPsXfrBranch(psXfr);
 		return (TPsXfrXml)psXfr;
 	}

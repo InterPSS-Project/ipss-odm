@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ucte.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ucte.parser.UCTEExPowerDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
@@ -51,10 +51,10 @@ public class UCTEExPowerDataMapper extends BaseUCTEDataMapper {
 		double exPower = this.dataParser.getDouble("exPower", 0.0);  
 
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
-		InterchangeXmlType interChange = odmObjFactory.createInterchangeXmlType();
+		InterchangeXmlType interChange = OdmObjFactory.createInterchangeXmlType();
 		baseCaseNet.getInterchangeList().getInterchange().add(interChange);
 		
-		UCTEExchangeXmlType ucteExRec = odmObjFactory.createUCTEExchangeXmlType(); 
+		UCTEExchangeXmlType ucteExRec = OdmObjFactory.createUCTEExchangeXmlType(); 
 		interChange.setUcteExchange(ucteExRec);
 		ucteExRec.setFromIsoId(fromIsoId);
 		ucteExRec.setToIsoId(toIsoId);

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.ext.ipss;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.schema.AggregateGenBusXmlType;
 import org.ieee.odm.schema.AggregateGenGroupXmlType;
@@ -69,7 +69,7 @@ public class IpssAggregateGenHelper {
 	 * @return
 	 */
 	public AggregateGenGroupXmlType createAggregateGenGroup(String id) {
-		AggregateGenGroupXmlType node = odmObjFactory.createAggregateGenGroupXmlType();
+		AggregateGenGroupXmlType node = OdmObjFactory.createAggregateGenGroupXmlType();
 		node.setId(id);
 		this.ap.getApGroup().add(node);
 		return node;
@@ -83,7 +83,7 @@ public class IpssAggregateGenHelper {
 	 * @return
 	 */
 	public AggregateGenBusXmlType createAggregateGenBus(String id, AggregateGenGroupXmlType node) {
-		AggregateGenBusXmlType bus = odmObjFactory.createAggregateGenBusXmlType();
+		AggregateGenBusXmlType bus = OdmObjFactory.createAggregateGenBusXmlType();
 		node.getApBus().add(bus);
 		bus.setBusId(id);
 		return bus;

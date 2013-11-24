@@ -80,7 +80,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	 */
 	
 	@Override public boolean parseInputStream(InputStream input) {
-		return parseInputStream(input, IODMModelParser.defaultEncoding);
+		return parseInputStream(input, IODMModelParser.DefaultEncoding);
 	}
 	
 	@Override public boolean parseInputStream(InputStream stream, String encoding) {
@@ -107,7 +107,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	@Override public boolean parseInput(String[] lines) {
 		try {
 			StringArrayReader reader = new StringArrayReader(lines);
-			this.parser = parseInputFile(reader, IODMModelParser.defaultEncoding);		
+			this.parser = parseInputFile(reader, IODMModelParser.DefaultEncoding);		
 			return true;
 		} catch (Exception e) {
 			ODMLogger.getLogger().severe(e.toString());
@@ -132,7 +132,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	}
 	
 	@Override public boolean parseFileContent(String fileContent) {
-		return parseFileContent(fileContent, IODMModelParser.defaultEncoding);
+		return parseFileContent(fileContent, IODMModelParser.DefaultEncoding);
 	}
 	
 	@Override public boolean parseFileContent(String fileContent, String encoding) {
@@ -191,7 +191,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	}
 
 	@Override public boolean parseInputFile(NetType type, String[] filenames) {
-		return parseInputFile(type, filenames, IODMModelParser.defaultEncoding);
+		return parseInputFile(type, filenames, IODMModelParser.DefaultEncoding);
 	}
 	
 	@Override public boolean parseInputFile(NetType type, String[] filenameAry, String encoding) {

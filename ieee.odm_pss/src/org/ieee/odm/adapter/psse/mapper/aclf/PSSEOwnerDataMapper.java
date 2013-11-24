@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEOwnerDataParser;
@@ -58,7 +58,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		int i = this.dataParser.getInt("I");
 		if (i > 0) {
 			LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
-			OwnerXmlType owner = odmObjFactory.createOwnerXmlType();
+			OwnerXmlType owner = OdmObjFactory.createOwnerXmlType();
 			baseCaseNet.getOwnerList().add(owner);
 
 			String name = this.dataParser.getString("OWNAME");

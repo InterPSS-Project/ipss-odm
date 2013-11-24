@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.acsc;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.xml.bind.JAXBElement;
 
@@ -76,8 +76,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static JAXBElement<ShortCircuitGenDataXmlType> createAcscEquivGen() {
-		ShortCircuitGenDataXmlType equivGen = odmObjFactory.createShortCircuitGenDataXmlType();
-		return odmObjFactory.createAcscEquivGen(equivGen);
+		ShortCircuitGenDataXmlType equivGen = OdmObjFactory.createShortCircuitGenDataXmlType();
+		return OdmObjFactory.createAcscEquivGen(equivGen);
 	}
 	
 	/**
@@ -103,13 +103,13 @@ public class AcscParserHelper extends AclfParserHelper {
 	public static ShortCircuitGenDataXmlType createAcscContributeGen(ShortCircuitBusXmlType busRec) {
 		BusGenDataXmlType genData = busRec.getGenData();
 		if (genData == null) {
-			genData = odmObjFactory.createBusGenDataXmlType();
+			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
 			genData.setEquivGen(createAcscEquivGen());
 		}
 		// some model does not need ContributeGenList
-		ShortCircuitGenDataXmlType contribGen = odmObjFactory.createShortCircuitGenDataXmlType();
-		genData.getContributeGen().add(odmObjFactory.createAcscContributeGen(contribGen));
+		ShortCircuitGenDataXmlType contribGen = OdmObjFactory.createShortCircuitGenDataXmlType();
+		genData.getContributeGen().add(OdmObjFactory.createAcscContributeGen(contribGen));
 		return contribGen;
 	}
 	
@@ -119,8 +119,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static JAXBElement<ShortCircuitLoadDataXmlType> createAcscEquivLoad() {
-		ShortCircuitLoadDataXmlType equivLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-		return odmObjFactory.createAcscEquivLoad(equivLoad);
+		ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+		return OdmObjFactory.createAcscEquivLoad(equivLoad);
 	}
 
 	/**
@@ -130,13 +130,13 @@ public class AcscParserHelper extends AclfParserHelper {
 	public static ShortCircuitLoadDataXmlType createAcscContributeLoad(ShortCircuitBusXmlType busRec) {
 		BusLoadDataXmlType loadData = busRec.getLoadData();
 		if (loadData == null) { 
-			loadData = odmObjFactory.createBusLoadDataXmlType();
+			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
-			ShortCircuitLoadDataXmlType equivLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-			loadData.setEquivLoad(odmObjFactory.createAcscEquivLoad(equivLoad));
+			ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+			loadData.setEquivLoad(OdmObjFactory.createAcscEquivLoad(equivLoad));
 		}
-		ShortCircuitLoadDataXmlType contribLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-	    loadData.getContributeLoad().add(odmObjFactory.createAcscContributeLoad(contribLoad)); 
+		ShortCircuitLoadDataXmlType contribLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+	    loadData.getContributeLoad().add(OdmObjFactory.createAcscContributeLoad(contribLoad)); 
 	    return contribLoad;
 	}	
 	
@@ -145,8 +145,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static XformerConnectionXmlType createDirectedGroundingConnection(){
-		XformerConnectionXmlType  xfrConnect = odmObjFactory.createXformerConnectionXmlType();
-		GroundingXmlType ground = odmObjFactory.createGroundingXmlType();
+		XformerConnectionXmlType  xfrConnect = OdmObjFactory.createXformerConnectionXmlType();
+		GroundingXmlType ground = OdmObjFactory.createGroundingXmlType();
 		ground.setGroundingConnection(GroundingEnumType.SOLID_GROUNDED);
 		xfrConnect.setGrounding(ground);
 		return xfrConnect;
@@ -160,8 +160,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static XformerConnectionXmlType createZGroundingConnection(double rg, double xg){
-		XformerConnectionXmlType  xfrConnect = odmObjFactory.createXformerConnectionXmlType();
-		GroundingXmlType ground = odmObjFactory.createGroundingXmlType();
+		XformerConnectionXmlType  xfrConnect = OdmObjFactory.createXformerConnectionXmlType();
+		GroundingXmlType ground = OdmObjFactory.createGroundingXmlType();
 		ground.setGroundingConnection(GroundingEnumType.Z_GROUNDED);
 		ground.setGroundingZ(BaseDataSetter.createZValue(rg, xg, ZUnitType.PU));
 		xfrConnect.setGrounding(ground);
@@ -173,8 +173,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static XformerConnectionXmlType createUnGroundingConnection(){
-		XformerConnectionXmlType  xfrConnect = odmObjFactory.createXformerConnectionXmlType();
-		GroundingXmlType ground = odmObjFactory.createGroundingXmlType();
+		XformerConnectionXmlType  xfrConnect = OdmObjFactory.createXformerConnectionXmlType();
+		GroundingXmlType ground = OdmObjFactory.createGroundingXmlType();
 		ground.setGroundingConnection(GroundingEnumType.UNGROUNDED);
 		xfrConnect.setGrounding(ground);
 		return xfrConnect;

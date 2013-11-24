@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.psse.v26.impl;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSELineDataParser;
@@ -153,7 +153,7 @@ public class PSSEV26BranchRecord {
 		final double rating2Mvar = branchDataParser.getDouble("RATEB", 0.0);
 		final double rating3Mvar = branchDataParser.getDouble("RATEC", 0.0);
 		
-		branchRec.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+		branchRec.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 		AclfDataSetter.setBranchRatingLimitData(branchRec.getRatingLimit(),
 				rating1Mvar, rating2Mvar, rating3Mvar,
 				ApparentPowerUnitType.MVA, 0.0,
@@ -211,17 +211,17 @@ public class PSSEV26BranchRecord {
 	    	double vup = xfrAdjDataParser.getDouble("VMA", 0.0);
 	    	double vlow = xfrAdjDataParser.getDouble("VMI", 0.0);
 	    	
-	    	TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType(); 
+	    	TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType(); 
 	    	branchData.setTapAdjustment(tapAdj);
 	    	tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
 	    	tapAdj.setTapLimit(BaseDataSetter.createTapLimit(tmax, tmin));
 	    	tapAdj.setTapAdjStepSize(tstep);
 	    	tapAdj.setTapAdjOnFromSide(true);
 
-	    	VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType(); 
+	    	VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType(); 
 	    	tapAdj.setVoltageAdjData(vAdjData);
 	    	vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
-	    	vAdjData.setRange(odmObjFactory.createLimitXmlType());
+	    	vAdjData.setRange(OdmObjFactory.createLimitXmlType());
 	    	vAdjData.getRange().setMax(vup);
 	    	vAdjData.getRange().setMin(vlow);
 	    	
@@ -249,10 +249,10 @@ public class PSSEV26BranchRecord {
 	    	double mwup = xfrAdjDataParser.getDouble("VMA", 0.0);
 	    	double mwlow = xfrAdjDataParser.getDouble("VMI", 0.0);
 
-	    	AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType(); 
+	    	AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType(); 
 	    	branchData.setAngleAdjustment(angAdj);
 	    	angAdj.setAngleLimit(BaseDataSetter.createAngleLimit(angmax, angmin, AngleUnitType.DEG));
-	    	angAdj.setRange(odmObjFactory.createLimitXmlType());
+	    	angAdj.setRange(OdmObjFactory.createLimitXmlType());
 	    	angAdj.getRange().setMax(mwup);
 	    	angAdj.getRange().setMin(mwlow);
 	    	angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
