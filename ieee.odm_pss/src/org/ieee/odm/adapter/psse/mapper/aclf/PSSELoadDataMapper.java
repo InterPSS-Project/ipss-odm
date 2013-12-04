@@ -107,7 +107,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 
 		double yp = dataParser.getDouble("YP", 0.0);
 	    double yq = dataParser.getDouble("YQ", 0.0);
+	    //TODO  Note YQ is negative for an inductive load in PSS/E. However, as a general convention, inductive load is positive
 		if (yp != 0.0 || yq != 0.0)
-			contribLoad.setConstZLoad(BaseDataSetter.createPowerValue(yp, yq, ApparentPowerUnitType.MVA));
+			contribLoad.setConstZLoad(BaseDataSetter.createPowerValue(yp, -yq, ApparentPowerUnitType.MVA));
 	}
 }

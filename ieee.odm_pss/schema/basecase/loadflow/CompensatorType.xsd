@@ -1,12 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ns:schema 
-	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
-	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
-	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
-	elementFormDefault="qualified" >
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" xmlns:pss="http://www.ieee.org/odm/Schema/2008" elementFormDefault="qualified" targetNamespace="http://www.ieee.org/odm/Schema/2008">
     
 
-    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"></ns:include>
+    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"/>
     
 	
     <ns:annotation>
@@ -16,46 +12,46 @@
 	
     <ns:complexType name="ShuntCompensatorXmlType">
 		<ns:sequence>
-			<ns:element name="cimRdfRec" type="pss:CimRdfXmlType" minOccurs="0"/>
-			<ns:element name="cimSwitches" maxOccurs="1" minOccurs="0" type="pss:CimSwitchListXmlType"/>
-			<ns:element name="desiredVoltageRange" type="pss:VoltageLimitXmlType" minOccurs="1"/>
-			<ns:element name="bInit" type="ns:double" minOccurs="1"/>
-			<ns:element name="VarPercent" type="ns:double" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="block" type="pss:ShuntCompensatorBlockXmlType" maxOccurs="unbounded" minOccurs="1"/>
-			<ns:element name="remoteControlledBus" type="pss:IDRefRecordXmlType" minOccurs="0"/>
-			<ns:element name="vscDcLine" type="ns:string" minOccurs="0"/>
-			<ns:element name="bZeroSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="bPosSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="gZeroSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="gPosSeqPerSection" type="pss:YUnitType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="maxSections" type="ns:long" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="maxVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="minVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="norminalQOutput" type="pss:ReactivePowerXmlType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="norminalVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="norminalSwitchedInSections" type="ns:long" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="slop" type="ns:double" maxOccurs="1" minOccurs="0"/>
-			<ns:element name="reactivePowerPerSec" type="pss:ReactivePowerXmlType" maxOccurs="1" minOccurs="0"/>
+			<ns:element minOccurs="0" name="cimRdfRec" type="pss:CimRdfXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="cimSwitches" type="pss:CimSwitchListXmlType"/>
+			<ns:element minOccurs="1" name="desiredVoltageRange" type="pss:VoltageLimitXmlType"/>
+			<ns:element minOccurs="1" name="bInit" type="pss:ReactivePowerXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="VarPercent" type="ns:double"/>
+			<ns:element maxOccurs="unbounded" minOccurs="1" name="block" type="pss:ShuntCompensatorBlockXmlType"/>
+			<ns:element minOccurs="0" name="remoteControlledBus" type="pss:IDRefRecordXmlType"/>
+			<ns:element minOccurs="0" name="vscDcLine" type="ns:string"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="bZeroSeqPerSection" type="pss:YUnitType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="bPosSeqPerSection" type="pss:YUnitType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="gZeroSeqPerSection" type="pss:YUnitType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="gPosSeqPerSection" type="pss:YUnitType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="maxSections" type="ns:long"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="maxVoltage" type="pss:VoltageXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="minVoltage" type="pss:VoltageXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="norminalQOutput" type="pss:ReactivePowerXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="norminalVoltage" type="pss:VoltageXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="norminalSwitchedInSections" type="ns:long"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="slop" type="ns:double"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="reactivePowerPerSec" type="pss:ReactivePowerXmlType"/>
 		</ns:sequence>
-		<ns:attribute name="mode" use="required" type="pss:ShuntCompensatorModeEnumType"/>
-		<ns:attribute name="adjMethod" use="required" type="pss:ShuntCompensatorAdjustMethodEnumType"/>
+		<ns:attribute name="mode" type="pss:ShuntCompensatorModeEnumType" use="required"/>
+		<ns:attribute name="adjMethod" type="pss:ShuntCompensatorAdjustMethodEnumType" use="required"/>
 		<ns:attribute name="offLine" type="ns:boolean" use="required"/>
 	</ns:complexType>
 
 	<ns:complexType name="ShuntCompensatorBlockXmlType">
 		<ns:sequence>
-			<ns:element name="incrementB" type="pss:ReactivePowerXmlType" minOccurs="1"></ns:element>
-		    <ns:element name="zeroSeqIncrementB" type="pss:ReactivePowerXmlType" minOccurs="0"></ns:element>
+			<ns:element minOccurs="1" name="incrementB" type="pss:ReactivePowerXmlType"/>
+		    <ns:element minOccurs="0" name="zeroSeqIncrementB" type="pss:ReactivePowerXmlType"/>
 		</ns:sequence>
-		<ns:attribute name="steps" type="ns:int" use="required"></ns:attribute>
+		<ns:attribute name="steps" type="ns:int" use="required"/>
 	</ns:complexType>    
 
 
     <ns:simpleType name="ShuntCompensatorModeEnumType">
 		<ns:restriction base="ns:string">
-			<ns:enumeration value="Fixed"></ns:enumeration>
-			<ns:enumeration value="Discrete"></ns:enumeration>
-			<ns:enumeration value="Continuous"></ns:enumeration>
+			<ns:enumeration value="Fixed"/>
+			<ns:enumeration value="Discrete"/>
+			<ns:enumeration value="Continuous"/>
 		</ns:restriction>
 	</ns:simpleType>
     
@@ -63,14 +59,18 @@
     <ns:simpleType name="ShuntCompensatorAdjustMethodEnumType">
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="DataInputOrder">
-				<ns:annotation><ns:documentation>
+				<ns:annotation>
+          <ns:documentation>
 				B steps and blocks are switched on in input order, and off in reverse  input order
-				</ns:documentation></ns:annotation>
+				</ns:documentation>
+        </ns:annotation>
 			</ns:enumeration>
 			<ns:enumeration value="HighestB">
-				<ns:annotation><ns:documentation>
+				<ns:annotation>
+          <ns:documentation>
 				B steps and blocks are switched on and off such that the next highest  (or lowest, as appropriate) total admittance is achieved.
-				</ns:documentation></ns:annotation>			
+				</ns:documentation>
+        </ns:annotation>			
 			</ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
@@ -78,24 +78,24 @@
     
     <ns:complexType name="StaticVarCompensatorXmlType">
 		<ns:sequence>
-			<ns:element name="cimRdfRec" type="pss:CimRdfXmlType" minOccurs="0"></ns:element>
-			<ns:element name="cimSwitches" maxOccurs="1" minOccurs="0" type="pss:CimSwitchListXmlType"></ns:element>
-			<ns:element name="offLine" type="ns:boolean" minOccurs="1"></ns:element>
-			<ns:element name="ratedVoltage" type="pss:VoltageXmlType" minOccurs="1"></ns:element>
-			<ns:element name="voltageSetPoint" type="pss:VoltageXmlType" minOccurs="1"></ns:element>
-			<ns:element name="capacitiveRating" type="pss:ReactivePowerXmlType" minOccurs="1"></ns:element>
-			<ns:element name="inductiveRating" type="pss:ReactivePowerXmlType" minOccurs="1"></ns:element>
-			<ns:element name="controlMode" minOccurs="1" type="pss:SVCControlModeEnumType"> </ns:element>
-			<ns:element name="slope" type="ns:double" minOccurs="1"></ns:element>
+			<ns:element minOccurs="0" name="cimRdfRec" type="pss:CimRdfXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="cimSwitches" type="pss:CimSwitchListXmlType"/>
+			<ns:element minOccurs="1" name="offLine" type="ns:boolean"/>
+			<ns:element minOccurs="1" name="ratedVoltage" type="pss:VoltageXmlType"/>
+			<ns:element minOccurs="1" name="voltageSetPoint" type="pss:VoltageXmlType"/>
+			<ns:element minOccurs="1" name="capacitiveRating" type="pss:ReactivePowerXmlType"/>
+			<ns:element minOccurs="1" name="inductiveRating" type="pss:ReactivePowerXmlType"/>
+			<ns:element minOccurs="1" name="controlMode" type="pss:SVCControlModeEnumType"> </ns:element>
+			<ns:element minOccurs="1" name="slope" type="ns:double"/>
 		</ns:sequence>
 	</ns:complexType>
 		
 	
     <ns:simpleType name="SVCControlModeEnumType">
 		<ns:restriction base="ns:string">
-			<ns:enumeration value="Voltage"></ns:enumeration>
-			<ns:enumeration value="ReactivePower"></ns:enumeration>
-			<ns:enumeration value="Off"></ns:enumeration>
+			<ns:enumeration value="Voltage"/>
+			<ns:enumeration value="ReactivePower"/>
+			<ns:enumeration value="Off"/>
 		</ns:restriction>
 	</ns:simpleType>
 </ns:schema>
