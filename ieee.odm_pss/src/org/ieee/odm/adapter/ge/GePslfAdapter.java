@@ -25,7 +25,6 @@
 package org.ieee.odm.adapter.ge;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.ge.mapper.GEAreaDataMapper;
 import org.ieee.odm.adapter.ge.mapper.GEBranchDataMapper;
@@ -35,6 +34,7 @@ import org.ieee.odm.adapter.ge.mapper.GELoadDataMapper;
 import org.ieee.odm.adapter.ge.mapper.GEXformerDataMapper;
 import org.ieee.odm.adapter.ge.mapper.GEZoneDataMapper;
 import org.ieee.odm.adapter.ge.mapper.GENetDatMapper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;

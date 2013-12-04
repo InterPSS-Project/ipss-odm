@@ -24,7 +24,6 @@
 
 package org.ieee.odm.adapter.psse.impl;
 
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEAreaDataMapper;
@@ -41,6 +40,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.PSSESwitchedSShuntDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEXfrDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEXfrZTableDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEZoneDataMapper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;

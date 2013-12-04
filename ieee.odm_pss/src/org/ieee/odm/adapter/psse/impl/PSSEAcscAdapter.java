@@ -26,7 +26,6 @@ package org.ieee.odm.adapter.psse.impl;
 
 import java.util.StringTokenizer;
 
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.acsc.PSSEBranchZeroSeqMapper;
 import org.ieee.odm.adapter.psse.mapper.acsc.PSSEFixedShuntZeroSeqMapper;
@@ -38,6 +37,7 @@ import org.ieee.odm.adapter.psse.mapper.acsc.PSSEShuntLoadZeroSeqMapper;
 import org.ieee.odm.adapter.psse.mapper.acsc.PSSESwitchShuntZeroSeqMapper;
 import org.ieee.odm.adapter.psse.mapper.acsc.PSSEXfrZeroSeqDataMapper;
 import org.ieee.odm.adapter.psse.mapper.acsc.PSSEZeroSeqMutualZMapper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;

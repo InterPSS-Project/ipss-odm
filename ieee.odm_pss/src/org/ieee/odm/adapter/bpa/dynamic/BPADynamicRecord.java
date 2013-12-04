@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.bpa.dynamic;
 
-import org.ieee.odm.adapter.IFileReader;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;

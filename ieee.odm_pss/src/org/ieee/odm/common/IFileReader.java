@@ -22,9 +22,8 @@
  *
  */
 
-package org.ieee.odm.adapter;
+package org.ieee.odm.common;
 
-import org.ieee.odm.common.ODMException;
 
 /**
  * interface for implementing text file reader

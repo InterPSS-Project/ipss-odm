@@ -25,7 +25,6 @@
 package org.ieee.odm.adapter.ieeecdf;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFBranchDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFBusDataMapper;
@@ -33,6 +32,7 @@ import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFInterchangeDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFLossZoneDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFNetDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFTielineDataMapper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;

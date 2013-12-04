@@ -27,13 +27,13 @@ package org.ieee.odm.adapter.ucte;
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.ucte.mapper.UCTEExPowerDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTELineDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTENodeDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTEXfrAdjustDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTEXfrDataMapper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;

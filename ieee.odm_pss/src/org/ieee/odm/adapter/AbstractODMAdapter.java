@@ -27,14 +27,17 @@ package org.ieee.odm.adapter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
+import org.ieee.odm.common.ODMTextFileReader;
 import org.ieee.odm.model.IODMModelParser;
 
 /**
@@ -159,7 +162,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	
 	protected IODMModelParser parseInputFile(
 			final java.io.BufferedReader din, String encoding) throws Exception {
-		FileReader reader = new FileReader(din);
+		IFileReader reader = new ODMTextFileReader(din);
 		return parseInputFile(reader, encoding);
 	}	
 
@@ -218,10 +221,10 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	
 	protected IODMModelParser parseInputFile(IODMAdapter.NetType type,
 			final java.io.BufferedReader[] dinAry, String encoding) throws Exception {
-		IFileReader[] fAry = new FileReader[dinAry.length];
+		IFileReader[] fAry = new ODMTextFileReader[dinAry.length];
 		int cnt = 0;
 		for (java.io.BufferedReader din: dinAry) {
-			fAry[cnt++] = new FileReader(din);
+			fAry[cnt++] = new ODMTextFileReader(din);
 		}
 		return parseInputFile(type, fAry, encoding);
 	}	
@@ -250,19 +253,6 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	 */
 	abstract protected IODMModelParser parseInputFile(IODMAdapter.NetType type, IFileReader[] dins, String encoding) throws ODMException;
 	
-	private class FileReader implements IFileReader {
-		java.io.BufferedReader din = null;
-		public FileReader(java.io.BufferedReader din) { this.din = din;}
-		public String readLine() throws ODMException {
-			try {
-				return din.readLine();
-				//System.out.println(str);
-			} catch (IOException e) {
-				throw new ODMException(e.toString());
-			}
-		}
-	}
-
 	/**
 	 * Class for processing a set of input date lines String[] line-by-line
 	 * 

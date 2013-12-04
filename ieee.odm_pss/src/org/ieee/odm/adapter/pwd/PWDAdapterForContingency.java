@@ -1,9 +1,9 @@
 package org.ieee.odm.adapter.pwd;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.pwd.impl.ContingencyDataProcessor;
 import org.ieee.odm.adapter.pwd.impl.PWDHelper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;

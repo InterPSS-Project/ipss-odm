@@ -24,13 +24,13 @@
 
 package org.ieee.odm.adapter.psse.impl;
 
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper.DynModelType;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynExciterMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;

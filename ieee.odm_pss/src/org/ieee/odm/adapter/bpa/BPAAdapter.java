@@ -27,11 +27,11 @@
 package org.ieee.odm.adapter.bpa;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.bpa.dynamic.BPADynamicRecord;
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.adapter.bpa.lf.BPALoadflowRecord;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;

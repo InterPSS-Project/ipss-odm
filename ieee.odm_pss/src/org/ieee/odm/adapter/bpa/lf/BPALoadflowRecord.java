@@ -29,7 +29,7 @@ package org.ieee.odm.adapter.bpa.lf;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ieee.odm.adapter.IFileReader;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;

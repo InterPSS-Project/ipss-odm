@@ -24,7 +24,6 @@
 package org.ieee.odm.adapter.psse.v26;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
-import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEOwnerDataMapper;
@@ -33,6 +32,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.PSSEZoneDataMapper;
 import org.ieee.odm.adapter.psse.v26.impl.PSSEV26BranchRecord;
 import org.ieee.odm.adapter.psse.v26.impl.PSSEV26BusRecord;
 import org.ieee.odm.adapter.psse.v26.impl.PSSEV26NetRecord;
+import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
