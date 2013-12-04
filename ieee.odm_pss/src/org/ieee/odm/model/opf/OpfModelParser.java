@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.opf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
@@ -91,7 +91,7 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 	 * @param originalFormat
 	 */
 	public void setOPFTransInfo(OriginalDataFormatEnumType originalDataFormat) {
-		ContentInfoXmlType info = odmObjFactory.createContentInfoXmlType();
+		ContentInfoXmlType info = OdmObjFactory.createContentInfoXmlType();
 		getStudyCase().setContentInfo(info);
 		info.setOriginalDataFormat(originalDataFormat);
 		info.setAdapterProviderName("www.interpss.org");
@@ -120,11 +120,11 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 		if (getStudyCase().getBaseCase() == null) {
 			BaseOpfNetworkXmlType baseCase;
 			if (netType == OpfNetType.DclfOpf)
-				baseCase = odmObjFactory.createOpfDclfNetworkXmlType();
+				baseCase = OdmObjFactory.createOpfDclfNetworkXmlType();
 			else
-				baseCase = odmObjFactory.createOpfNetworkXmlType();
-			baseCase.setBusList(odmObjFactory.createNetworkXmlTypeBusList());
-			baseCase.setBranchList(odmObjFactory.createNetworkXmlTypeBranchList());
+				baseCase = OdmObjFactory.createOpfNetworkXmlType();
+			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
+			baseCase.setBranchList(OdmObjFactory.createNetworkXmlTypeBranchList());
 			getStudyCase().setBaseCase(BaseJaxbHelper.network(baseCase));
 		}
 		return (BaseOpfNetworkXmlType)getStudyCase().getBaseCase().getValue();
@@ -141,7 +141,7 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 	 * @return
 	 */
 	public OpfGenBusXmlType createOpfGenBus() {
-		OpfGenBusXmlType busRec = odmObjFactory.createOpfGenBusXmlType();
+		OpfGenBusXmlType busRec = OdmObjFactory.createOpfGenBusXmlType();
 		busRec.setOffLine(false);
 		busRec.setAreaNumber(1);
 		busRec.setZoneNumber(1);
@@ -184,9 +184,9 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 	 * @return
 	 */
 	public OpfBranchXmlType createOpfBranch() {
-		OpfBranchXmlType branch = odmObjFactory.createOpfBranchXmlType();
-		branch.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
-		branch.setLineInfo(odmObjFactory.createLineBranchInfoXmlType());
+		OpfBranchXmlType branch = OdmObjFactory.createOpfBranchXmlType();
+		branch.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
+		branch.setLineInfo(OdmObjFactory.createLineBranchInfoXmlType());
 		intiBranchData(branch);
 		return branch;
 	}
@@ -197,7 +197,7 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 	 * @return
 	 */
 	public PieceWiseLinearModelXmlType createPWCostModel(){
-		return odmObjFactory.createPieceWiseLinearModelXmlType();
+		return OdmObjFactory.createPieceWiseLinearModelXmlType();
 	}
 	
 	/**
@@ -206,7 +206,7 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 	 * @return
 	 */
 	public QuadraticModelXmlType createQuadraticCostModel(){
-		return odmObjFactory.createQuadraticModelXmlType();
+		return OdmObjFactory.createQuadraticModelXmlType();
 	}
 
 	/**

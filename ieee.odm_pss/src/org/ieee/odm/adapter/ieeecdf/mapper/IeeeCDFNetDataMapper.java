@@ -27,29 +27,36 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFNetDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
+import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 
-public class IeeeCDFNetDataMapper extends BaseIeeeCDFDataMapper {
+/**
+ * IEEE CDF network (head) record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
+public class IeeeCDFNetDataMapper extends AbstractIeeeCDFDataMapper {
 	public final static String Token_Date = "Date";
 	public final static String Token_OrgName = "Originator Name";
 	public final static String Token_Year = "Year";
 	public final static String Token_Season = "Season";
 	public final static String Token_CaseId = "Case Identification";
 	
+	/**
+	 * constructor
+	 */
 	public IeeeCDFNetDataMapper() {
 		this.dataParser = new IeeeCDFNetDataParser();
 	}
 	
-	public void mapInputLine(final String str, 
-			final LoadflowNetXmlType baseCaseNet) throws ODMException {
-		// parse the input data line {"Date", "Originator", "MVA", "Year", "Season", "CaseId"}
+	@Override public void mapInputLine(final String str, final AclfModelParser parser) throws ODMException {
 		dataParser.parseFields(str);
 
-		//NameValuePairListXmlType nvList = this.factory.createNameValuePairListXmlType();
-		//baseCaseNet.setNvPairList(nvList);
-
+		LoadflowNetXmlType baseCaseNet = parser.getNet();
+		
 		//[0] Columns  2- 9   Date, in format DD/MM/YY with leading zeros.  If no date provided, use 0b/0b/0b where b is blank.
 		if (dataParser.exist("Date")) {
 			final String date = dataParser.getString("Date");

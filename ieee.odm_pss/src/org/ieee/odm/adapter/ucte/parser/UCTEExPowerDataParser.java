@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ucte.parser;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing UCTE exchange power data line string
@@ -43,16 +43,16 @@ public class UCTEExPowerDataParser extends AbstractDataFieldParser {
 	}
 	
 	@Override public void parseFields(final String str) throws ODMException {
-		String fromIsoId = ModelStringUtil.getString(str, 1, 2);
+		String fromIsoId = ODMModelStringUtil.getString(str, 1, 2);
 		this.setValue(0, fromIsoId);
 		
-		String toIsoId = ModelStringUtil.getString(str, 4, 5);
+		String toIsoId = ODMModelStringUtil.getString(str, 4, 5);
 		this.setValue(1, toIsoId);
 		
-		String exPower = ModelStringUtil.getString(str, 7, 13);  
+		String exPower = ODMModelStringUtil.getString(str, 7, 13);  
 		this.setValue(2, exPower);
 		
-		String comment = ModelStringUtil.getString(str, 15, 26);
+		String comment = ODMModelStringUtil.getString(str, 15, 26);
 		this.setValue(3, comment);
 	}
 }

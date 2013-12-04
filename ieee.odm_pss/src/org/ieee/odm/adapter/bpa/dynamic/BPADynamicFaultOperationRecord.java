@@ -24,12 +24,12 @@
 
 package org.ieee.odm.adapter.bpa.dynamic;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AcscFaultCategoryEnumType;
@@ -76,16 +76,16 @@ public class BPADynamicFaultOperationRecord {
     			parId=strAry[7];   			
     		}
     		
-    		double bus1RatedV=ModelStringUtil.getDouble(strAry[3],0.0);
-    		double bus2RatedV=ModelStringUtil.getDouble(strAry[6],0.0);
-    		double operationTime=ModelStringUtil.getDouble(strAry[9],0.0);
-    		double r=ModelStringUtil.getDouble(strAry[10],0.0);
-    		double x=ModelStringUtil.getDouble(strAry[11],0.0);
-    		double faultLocation=ModelStringUtil.getDouble(strAry[12],0.0);
+    		double bus1RatedV=ODMModelStringUtil.getDouble(strAry[3],0.0);
+    		double bus2RatedV=ODMModelStringUtil.getDouble(strAry[6],0.0);
+    		double operationTime=ODMModelStringUtil.getDouble(strAry[9],0.0);
+    		double r=ODMModelStringUtil.getDouble(strAry[10],0.0);
+    		double x=ODMModelStringUtil.getDouble(strAry[11],0.0);
+    		double faultLocation=ODMModelStringUtil.getDouble(strAry[12],0.0);
     		
     		// bus fault
     		if(mode==1||mode==-1||mode==2||mode==-2){ 
-    			DStabBusFaultXmlType busFault=odmObjFactory.createDStabBusFaultXmlType();
+    			DStabBusFaultXmlType busFault=OdmObjFactory.createDStabBusFaultXmlType();
     			busFault.setFaultCategory(AcscFaultCategoryEnumType.FAULT_3_PHASE);
     			
     			// not permanent bus fault;
@@ -144,7 +144,7 @@ public class BPADynamicFaultOperationRecord {
     		}
 			// branch fault
     		else if(mode==3||mode==-3){
-    			DStabBranchFaultXmlType braFault=odmObjFactory.createDStabBranchFaultXmlType();	
+    			DStabBranchFaultXmlType braFault=OdmObjFactory.createDStabBranchFaultXmlType();	
 				braFault.setFaultCategory(AcscFaultCategoryEnumType.FAULT_3_PHASE);
 				
 				if(breaker1Opened==false&&breaker2Opened==false){    				
@@ -187,20 +187,20 @@ public class BPADynamicFaultOperationRecord {
     		if(strAry[12].equals("")){
     			String busId = BPABusRecord.getBusId(strAry[1]);
         		BusIDRefXmlType bus=parser.createBusRef(busId);
-    			LoadChangeDynamicEventXmlType loadChange=odmObjFactory.createLoadChangeDynamicEventXmlType();
+    			LoadChangeDynamicEventXmlType loadChange=OdmObjFactory.createLoadChangeDynamicEventXmlType();
      		    loadChange.setBus(bus);
      		    
-     		    double busRatedV=ModelStringUtil.getDouble(strAry[2], 0.0);
+     		    double busRatedV=ODMModelStringUtil.getDouble(strAry[2], 0.0);
      		    loadChange.setBusRatedVoltage(DStabDataSetter.createVoltageValue(busRatedV, VoltageUnitType.KV));
-     			double operationTime=ModelStringUtil.getDouble(strAry[5], 0.0);
+     			double operationTime=ODMModelStringUtil.getDouble(strAry[5], 0.0);
      			loadChange.setOperationTime(DStabDataSetter.createTimePeriodValue(operationTime, TimePeriodUnitType.CYCLE));
      		    
-     			double pp=ModelStringUtil.getDouble(strAry[6], 0.0);
-     		    double qp=ModelStringUtil.getDouble(strAry[7], 0.0);
-     		    double pc=ModelStringUtil.getDouble(strAry[8], 0.0);
-     		    double qc=ModelStringUtil.getDouble(strAry[9], 0.0);
-    		    double pz=ModelStringUtil.getDouble(strAry[10], 0.0);
-    		    double qz=ModelStringUtil.getDouble(strAry[11], 0.0);
+     			double pp=ODMModelStringUtil.getDouble(strAry[6], 0.0);
+     		    double qp=ODMModelStringUtil.getDouble(strAry[7], 0.0);
+     		    double pc=ODMModelStringUtil.getDouble(strAry[8], 0.0);
+     		    double qc=ODMModelStringUtil.getDouble(strAry[9], 0.0);
+    		    double pz=ODMModelStringUtil.getDouble(strAry[10], 0.0);
+    		    double qz=ODMModelStringUtil.getDouble(strAry[11], 0.0);
        		    if(pp!=0.0||qp!=0.0){
        			    loadChange.setConstantPChange(DStabDataSetter.createPowerValue(pp, qp, ApparentPowerUnitType.MVA));
        		    }
@@ -215,12 +215,12 @@ public class BPADynamicFaultOperationRecord {
     		else{
     			String busId = BPABusRecord.getBusId(strAry[1]);
         		BusIDRefXmlType bus=parser.createBusRef(busId);
-    			GenChangeDynamicEventXmlType genChange= odmObjFactory.createGenChangeDynamicEventXmlType();
+    			GenChangeDynamicEventXmlType genChange= OdmObjFactory.createGenChangeDynamicEventXmlType();
      		    genChange.setBus(bus);
      		    
-     		    double busRatedV=ModelStringUtil.getDouble(strAry[2], 0.0);
+     		    double busRatedV=ODMModelStringUtil.getDouble(strAry[2], 0.0);
     		    genChange.setBusRatedVoltage(DStabDataSetter.createVoltageValue(busRatedV, VoltageUnitType.KV));
-         		double operationTime=ModelStringUtil.getDouble(strAry[5], 0.0);
+         		double operationTime=ODMModelStringUtil.getDouble(strAry[5], 0.0);
      			genChange.setOperationTime(DStabDataSetter.createTimePeriodValue(operationTime, TimePeriodUnitType.CYCLE));
      			
     		    String genId="";
@@ -229,7 +229,7 @@ public class BPADynamicFaultOperationRecord {
          			genChange.setGeneratorId(genId);
          		}
          		
-     			double pg=ModelStringUtil.getDouble(strAry[12], 0.0);
+     			double pg=ODMModelStringUtil.getDouble(strAry[12], 0.0);
          		if(pg<90000){
      				genChange.setGenChange(DStabDataSetter.createPowerValue(pg, 0.0, ApparentPowerUnitType.MVA));
      			}else{
@@ -240,7 +240,7 @@ public class BPADynamicFaultOperationRecord {
         else if(mode==5){
         	int sign=new Integer(str.substring(32, 33).trim()).intValue();
       	    if(sign>0){
-      		    DcLineFaultXmlType dcFault=odmObjFactory.createDcLineFaultXmlType();
+      		    DcLineFaultXmlType dcFault=OdmObjFactory.createDcLineFaultXmlType();
       		    dcFault.setPermanentFault(true);
       		  
       		    String bus1Id = BPABusRecord.getBusId(strAry[1]);
@@ -250,8 +250,8 @@ public class BPADynamicFaultOperationRecord {
  		        dcFault.setFromACBus(bus1);
  		        dcFault.setToACBus(bus2);
  		      
- 		        double bus1RatedV=ModelStringUtil.getDouble(strAry[2], 0.0);
- 		        double bus2RatedV=ModelStringUtil.getDouble(strAry[4], 0.0);
+ 		        double bus1RatedV=ODMModelStringUtil.getDouble(strAry[2], 0.0);
+ 		        double bus2RatedV=ODMModelStringUtil.getDouble(strAry[4], 0.0);
  		        dcFault.setFromACRatedVol(DStabDataSetter.createVoltageValue(bus1RatedV, VoltageUnitType.KV));
  		        dcFault.setToACRatedVol(DStabDataSetter.createVoltageValue(bus2RatedV, VoltageUnitType.KV)); 		      
   	          
@@ -262,7 +262,7 @@ public class BPADynamicFaultOperationRecord {
  		        if(faultType==2){
  		        	dcFault.setFaultType(DcLineFaultEnumType.TO_BUS_BIPOLE_SHORT_CIRCUIT);
  		        }
- 		        double faultLocation=ModelStringUtil.getDouble(strAry[10], 0.0);
+ 		        double faultLocation=ODMModelStringUtil.getDouble(strAry[10], 0.0);
  		        if(faultType==3){
  		        	dcFault.setFaultType(DcLineFaultEnumType.FAULT_ON_LINE);
  		        	dcFault.setFaultLocationFromFromSide(faultLocation);
@@ -273,7 +273,7 @@ public class BPADynamicFaultOperationRecord {
  		        if(faultType==5){
  		        	dcFault.setFaultType(DcLineFaultEnumType.POWER_REVERSED);
  		        }
- 		        double changedScale=ModelStringUtil.getDouble(strAry[9], 0.0);
+ 		        double changedScale=ODMModelStringUtil.getDouble(strAry[9], 0.0);
  		        if(faultType==7){
  		        	dcFault.setFaultType(DcLineFaultEnumType.POWER_CHANGE_BY_SPECIFICATION);
  		        	dcFault.setChangedPower(DStabDataSetter.createPowerValue(changedScale, 0.0, ApparentPowerUnitType.MVA));		  
@@ -283,9 +283,9 @@ public class BPADynamicFaultOperationRecord {
  		        	dcFault.setChangedCurrent(DStabDataSetter.createCurrentValue(changedScale, CurrentUnitType.KA));
  		        }
   	    	  
- 		        double startTime=ModelStringUtil.getDouble(strAry[7], 0.0);
+ 		        double startTime=ODMModelStringUtil.getDouble(strAry[7], 0.0);
  		        dcFault.setStartTime(DStabDataSetter.createTimePeriodValue(startTime, TimePeriodUnitType.CYCLE));
- 		        double faultR=ModelStringUtil.getDouble(strAry[8], 0.0);
+ 		        double faultR=ODMModelStringUtil.getDouble(strAry[8], 0.0);
  		        dcFault.setFaultZ(DStabDataSetter.createZValue(faultR, 0.0, ZUnitType.PU));  	    	  
       	    }else{
       	    	// DC line currently is not considered. We will deal with it late
@@ -310,48 +310,48 @@ public class BPADynamicFaultOperationRecord {
 	final String[] strAry = new String[13];		
 	try{
 		if(mode==1||mode==2||mode==3||mode==-1||mode==-2||mode==-3){
-			strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
-			strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 4).trim();
-			strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
-			strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
-			strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,18, 18).trim();
-			strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
-			strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
-			strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,32, 32).trim();
-			strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,36, 37).trim();			
-			strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
-			strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,46, 51).trim();
-			strAry[11]=ModelStringUtil.getStringReturnEmptyString(str,52, 57).trim();
-			strAry[12]=ModelStringUtil.getStringReturnEmptyString(str,58, 63).trim();
+			strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+			strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str,4, 4).trim();
+			strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
+			strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+			strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,18, 18).trim();
+			strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
+			strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
+			strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,32, 32).trim();
+			strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,36, 37).trim();			
+			strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
+			strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,46, 51).trim();
+			strAry[11]=ODMModelStringUtil.getStringReturnEmptyString(str,52, 57).trim();
+			strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,58, 63).trim();
 		}else if(mode==4){
-			strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
-			strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
-			strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
-			strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,17, 17).trim();
+			strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+			strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
+			strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+			strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,17, 17).trim();
 			//omit these two BPA data：
 			//32 MOTOR，填写字符M，表示切除马达；否则，表示切除发电机 
 			//34 ILE，如果要切除配电网支路的静态负荷，填写LE卡对应的支路号 
-			strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,37, 37).trim();
-			strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
-			strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,46, 50).trim();
-			strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,51, 55).trim();
-			strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,56, 60).trim();
-			strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,61, 65).trim();
-			strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,66, 70).trim();
-			strAry[11]=ModelStringUtil.getStringReturnEmptyString(str,71, 75).trim();
-			strAry[12]=ModelStringUtil.getStringReturnEmptyString(str,76, 80).trim();
+			strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,37, 37).trim();
+			strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
+			strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,46, 50).trim();
+			strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,51, 55).trim();
+			strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,56, 60).trim();
+			strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,61, 65).trim();
+			strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,66, 70).trim();
+			strAry[11]=ODMModelStringUtil.getStringReturnEmptyString(str,71, 75).trim();
+			strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,76, 80).trim();
 		}else if(mode==5){
-			strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
-			strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
-			strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
-			strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
-			strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
-			strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,32, 33).trim();
-			strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,37, 37).trim();
-			strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
-			strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,46, 51).trim();
-			strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,52, 57).trim();
-			strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,58, 63).trim();			
+			strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+			strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
+			strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+			strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
+			strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
+			strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,32, 33).trim();
+			strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,37, 37).trim();
+			strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
+			strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,46, 51).trim();
+			strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,52, 57).trim();
+			strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,58, 63).trim();			
 		}
 	}catch(Exception e){
 		ODMLogger.getLogger().severe(e.toString());

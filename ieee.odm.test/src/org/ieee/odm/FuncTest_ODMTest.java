@@ -3,7 +3,7 @@ package org.ieee.odm;
 import static org.junit.Assert.assertTrue;
 
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class FuncTest_ODMTest {
 		if (parser.parse(str)) {
 			XfrBranchXmlType xfr = (XfrBranchXmlType)parser.getNet().getBranchList().getBranch().get(0).getValue();
 			
-			PSXfrBranchXmlType psXfr = (PSXfrBranchXmlType)ModelStringUtil.casting(
+			PSXfrBranchXmlType psXfr = (PSXfrBranchXmlType)ODMModelStringUtil.casting(
 							xfr, "aclfXfr", "aclfPSXfr", parser.getEncoding());
 			assertTrue(psXfr.getId() != null);
 			assertTrue(psXfr.getFromBus() != null);

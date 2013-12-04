@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.ge.mapper;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GELoadDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -44,7 +44,7 @@ public class GELoadDataMapper extends BaseGEDataMapper {
 	public void mapLineStr(String lineStr, final AclfModelParser parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
-	    final String busId = AbstractModelParser.BusIdPreFix+dataParser.getString("bus");
+	    final String busId = IODMModelParser.BusIdPreFix+dataParser.getString("bus");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 		if (busRec==null)

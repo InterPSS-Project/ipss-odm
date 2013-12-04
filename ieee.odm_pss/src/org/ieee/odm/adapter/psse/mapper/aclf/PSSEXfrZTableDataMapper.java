@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEXfrZTableDataParser;
@@ -55,10 +55,10 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		if (baseCaseNet.getXfrZTable() == null) {
-			baseCaseNet.setXfrZTable(odmObjFactory.createXformerZTableXmlType());
+			baseCaseNet.setXfrZTable(OdmObjFactory.createXformerZTableXmlType());
 			baseCaseNet.getXfrZTable().setAdjustSide(BranchBusSideEnumType.FROM_SIDE);
 		}
-		XformerZTableXmlType.XformerZTableItem item = odmObjFactory.createXformerZTableXmlTypeXformerZTableItem(); 
+		XformerZTableXmlType.XformerZTableItem item = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItem(); 
 		baseCaseNet.getXfrZTable().getXformerZTableItem().add(item);
 		
 		/*
@@ -68,7 +68,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		item.setNumber(i);
 		for (int n = 1; n < 12; n++) {
 			if (this.dataParser.exist("T"+n) && this.dataParser.exist("F"+n)) {
-				XformerZTableXmlType.XformerZTableItem.Lookup lookup = odmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup(); 
+				XformerZTableXmlType.XformerZTableItem.Lookup lookup = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup(); 
 				item.getLookup().add(lookup);
 				lookup.setTurnRatioShiftAngle(this.dataParser.getDouble("T"+n));
 				lookup.setScaleFactor(this.dataParser.getDouble("F"+n));

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ucte;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IFileReader;
@@ -117,7 +117,7 @@ public class UCTE_DEFAdapter extends AbstractODMAdapter {
     					recType = RecType.Xfr2WLookup;
     				else if (str.startsWith("##E")) {
     					recType = RecType.ExPower;
-    					baseCaseNet.setInterchangeList(odmObjFactory.createLoadflowNetXmlTypeInterchangeList());
+    					baseCaseNet.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
     				}
     				else {
     					// process data lines

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.ext.ipss;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import static org.ieee.odm.model.ext.ipss.IpssAnalysisCaseFunc.initPTradingEDHourlyAnalysis;
 
 import java.io.File;
@@ -97,7 +97,7 @@ public class IpssScenarioHelper {
 	public IpssScenarioHelper (IpssStudyScenarioXmlType sce) {
 		// parser is a place holder for scenario object, therefore it does not matter its type
 		this.parser = new AclfModelParser();
-		this.parser.getStudyCase().setStudyScenario(odmObjFactory.createIpssStudyScenario(sce));
+		this.parser.getStudyCase().setStudyScenario(OdmObjFactory.createIpssStudyScenario(sce));
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public IpssAnalysisCaseXmlType addNewAnalysisCase() {
-		IpssAnalysisCaseXmlType scase = odmObjFactory.createIpssAnalysisCaseXmlType();
+		IpssAnalysisCaseXmlType scase = OdmObjFactory.createIpssAnalysisCaseXmlType();
 		List<IpssAnalysisCaseXmlType> list = this.getIpssScenario().getAnalysisCaseList().getAnalysisCase();
 		list.add(scase);
 		scase.setId("StudyCaseId-" + list.size());
@@ -237,7 +237,7 @@ public class IpssScenarioHelper {
 	 */
 	public GridComputingXmlType getGridRunOption() {
 		if (this.getIpssScenario().getGridRunOption() == null) {
-			this.getIpssScenario().setGridRunOption(odmObjFactory.createGridComputingXmlType());
+			this.getIpssScenario().setGridRunOption(OdmObjFactory.createGridComputingXmlType());
 		}
 		return this.getIpssScenario().getGridRunOption();
 	}
@@ -265,7 +265,7 @@ public class IpssScenarioHelper {
 	 */
 	public AggregateGenXmlType getAggregateGroup() {
 		if (this.getPowerTradingInfo().getLoadDist().getAggregateGen() == null) {
-			this.getPowerTradingInfo().getLoadDist().setAggregateGen(odmObjFactory.createAggregateGenXmlType());
+			this.getPowerTradingInfo().getLoadDist().setAggregateGen(OdmObjFactory.createAggregateGenXmlType());
 		}
 		return this.getPowerTradingInfo().getLoadDist().getAggregateGen();
 	}
@@ -289,7 +289,7 @@ public class IpssScenarioHelper {
 	public AclfAnalysisXmlType getAclfAnalysis(String anaCaseId) {
 		IpssAnalysisCaseXmlType scase = getAnalysisCase(anaCaseId); 
 		if (scase.getAclfAnalysis() == null) {
-			scase.setAclfAnalysis(odmObjFactory.createAclfAnalysisXmlType());
+			scase.setAclfAnalysis(OdmObjFactory.createAclfAnalysisXmlType());
 		}
 		return scase.getAclfAnalysis();
 	}
@@ -312,7 +312,7 @@ public class IpssScenarioHelper {
 	public ContingencyAnalysisXmlType getContingencyAnalysis(String anaCaseId) {
 		IpssAnalysisCaseXmlType scase = getAnalysisCase(anaCaseId); 
 		if (scase.getContingencyAnalysis() == null) {
-			scase.setContingencyAnalysis(odmObjFactory.createContingencyAnalysisXmlType());
+			scase.setContingencyAnalysis(OdmObjFactory.createContingencyAnalysisXmlType());
 		}
 		return scase.getContingencyAnalysis();
 	}	
@@ -335,7 +335,7 @@ public class IpssScenarioHelper {
 	public AcscFaultAnalysisXmlType getAcscFaultAnalysis(String anaCaseId) {
 		IpssAnalysisCaseXmlType scase = getAnalysisCase(anaCaseId); 
 		if (scase.getAcscAnalysis() == null) {
-			scase.setAcscAnalysis(odmObjFactory.createAcscFaultAnalysisXmlType());
+			scase.setAcscAnalysis(OdmObjFactory.createAcscFaultAnalysisXmlType());
 		}
 		return scase.getAcscAnalysis();
 	}
@@ -346,10 +346,10 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public AcscBusFaultXmlType createAcscBusFault() {
-		AcscBusFaultXmlType busFault = odmObjFactory.createAcscBusFaultXmlType();
-		busFault.setRefBus(odmObjFactory.createBusRefXmlType());
-		busFault.setZLG(odmObjFactory.createZXmlType());
-		busFault.setZLL(odmObjFactory.createZXmlType());
+		AcscBusFaultXmlType busFault = OdmObjFactory.createAcscBusFaultXmlType();
+		busFault.setRefBus(OdmObjFactory.createBusRefXmlType());
+		busFault.setZLG(OdmObjFactory.createZXmlType());
+		busFault.setZLL(OdmObjFactory.createZXmlType());
 		return busFault;
 	}
 	
@@ -359,11 +359,11 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public AcscBranchFaultXmlType createAcscBranchFault() {
-		AcscBranchFaultXmlType braFault = odmObjFactory.createAcscBranchFaultXmlType();
-		braFault.setRefBranch(odmObjFactory.createBranchRefXmlType());
-		braFault.setZLG(odmObjFactory.createZXmlType());
-		braFault.setZLL(odmObjFactory.createZXmlType());
-		braFault.setReclosureTime(odmObjFactory.createTimePeriodXmlType());
+		AcscBranchFaultXmlType braFault = OdmObjFactory.createAcscBranchFaultXmlType();
+		braFault.setRefBranch(OdmObjFactory.createBranchRefXmlType());
+		braFault.setZLG(OdmObjFactory.createZXmlType());
+		braFault.setZLL(OdmObjFactory.createZXmlType());
+		braFault.setReclosureTime(OdmObjFactory.createTimePeriodXmlType());
 		return braFault;
 	}
 
@@ -385,7 +385,7 @@ public class IpssScenarioHelper {
 	public DStabSimulationXmlType getDStabSimulation(String anaCaseId) {
 		IpssAnalysisCaseXmlType scase = getAnalysisCase(anaCaseId); 
 		if (scase.getDStabAnalysis() == null) {
-			scase.setDStabAnalysis(odmObjFactory.createDStabSimulationXmlType());
+			scase.setDStabAnalysis(OdmObjFactory.createDStabSimulationXmlType());
 		}
 		return scase.getDStabAnalysis();
 	}
@@ -430,7 +430,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public DclfSenAnalysisXmlType createSenAnalysis(String anaCaseId) {
-		DclfSenAnalysisXmlType dclfCase = odmObjFactory.createDclfSenAnalysisXmlType();
+		DclfSenAnalysisXmlType dclfCase = OdmObjFactory.createDclfSenAnalysisXmlType();
 		getSenAnalysisList(anaCaseId).add(dclfCase);
 		return dclfCase;
 	}
@@ -442,7 +442,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public static DclfBranchSensitivityXmlType createGSF(DclfSenAnalysisXmlType dclfCase) {
-		DclfBranchSensitivityXmlType gsf = odmObjFactory.createDclfBranchSensitivityXmlType();
+		DclfBranchSensitivityXmlType gsf = OdmObjFactory.createDclfBranchSensitivityXmlType();
 		dclfCase.getGenShiftFactor().add(gsf);
 		return gsf;
 	}
@@ -454,7 +454,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public static LineOutageDFactorXmlType createLODF(DclfSenAnalysisXmlType dclfCase) {
-		LineOutageDFactorXmlType lodf = odmObjFactory.createLineOutageDFactorXmlType();
+		LineOutageDFactorXmlType lodf = OdmObjFactory.createLineOutageDFactorXmlType();
 		lodf.setOutageType(LODFOutageEnumType.SINGLE_BRANCH);
 		dclfCase.getLineOutageDFactor().add(lodf);
 		return lodf;
@@ -467,7 +467,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public static SenAnalysisOutOptionXmlType createSenAnalysisOutConfig(DclfSenAnalysisXmlType dclfCase) {
-		SenAnalysisOutOptionXmlType out = odmObjFactory.createSenAnalysisOutOptionXmlType();
+		SenAnalysisOutOptionXmlType out = OdmObjFactory.createSenAnalysisOutOptionXmlType();
 		dclfCase.setOutOption(out);
 		return out;
 	}	
@@ -479,9 +479,9 @@ public class IpssScenarioHelper {
 	 * @return
 	 */	
 	public static BranchRefXmlType createMonitorBranch(List<LODFMonitorBranchXmlType> braList) {
-		LODFMonitorBranchXmlType bra = odmObjFactory.createLODFMonitorBranchXmlType();
+		LODFMonitorBranchXmlType bra = OdmObjFactory.createLODFMonitorBranchXmlType();
 		braList.add(bra);
-		bra.setBranch(odmObjFactory.createBranchRefXmlType());
+		bra.setBranch(OdmObjFactory.createBranchRefXmlType());
 		return bra.getBranch();
 	}
 
@@ -492,9 +492,9 @@ public class IpssScenarioHelper {
 	 * @return
 	 */	
 	public static FlowInterfaceRefXmlType createMonitorInterface(List<LODFMonitorInterfaceXmlType> intfList) {
-		LODFMonitorInterfaceXmlType intf = odmObjFactory.createLODFMonitorInterfaceXmlType();
+		LODFMonitorInterfaceXmlType intf = OdmObjFactory.createLODFMonitorInterfaceXmlType();
 		intfList.add(intf);
-		intf.setInterface(odmObjFactory.createFlowInterfaceRefXmlType());
+		intf.setInterface(OdmObjFactory.createFlowInterfaceRefXmlType());
 		return intf.getInterface();
 	}
 
@@ -505,8 +505,8 @@ public class IpssScenarioHelper {
 	 * @return
 	 */
 	public static SenAnalysisBusXmlType createSenAnalysisBus(List<SenAnalysisBusXmlType> busList) {
-		SenAnalysisBusXmlType bus = odmObjFactory.createSenAnalysisBusXmlType();
-		bus.setAllocFactor(odmObjFactory.createFactorXmlType());
+		SenAnalysisBusXmlType bus = OdmObjFactory.createSenAnalysisBusXmlType();
+		bus.setAllocFactor(OdmObjFactory.createFactorXmlType());
 		busList.add(bus);
 		return bus;
 	}
@@ -518,7 +518,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */	
 	public static BranchShiftFactorXmlType createBranchSFactor(List<BranchShiftFactorXmlType> braList) {
-		BranchShiftFactorXmlType sf = odmObjFactory.createBranchShiftFactorXmlType();
+		BranchShiftFactorXmlType sf = OdmObjFactory.createBranchShiftFactorXmlType();
 		braList.add(sf);
 		return sf;
 	}
@@ -530,7 +530,7 @@ public class IpssScenarioHelper {
 	 * @return
 	 */	
 	public static InterfaceShiftFactorXmlType createInterfaceSFactor(List<InterfaceShiftFactorXmlType> infList) {
-		InterfaceShiftFactorXmlType sf = odmObjFactory.createInterfaceShiftFactorXmlType();
+		InterfaceShiftFactorXmlType sf = OdmObjFactory.createInterfaceShiftFactorXmlType();
 		infList.add(sf);
 		return sf;
 	}
@@ -556,8 +556,8 @@ public class IpssScenarioHelper {
 	public PTradingEDHourlyAnalysisXmlType getPtEDHourlyAnalysis(String anaCaseId) {
 		IpssAnalysisCaseXmlType scase = getAnalysisCase(anaCaseId); 
 		if (scase.getPtAnalysis() == null) {
-			PTradingEDHourlyAnalysisXmlType pt = odmObjFactory.createPTradingEDHourlyAnalysisXmlType();
-			scase.setPtAnalysis(odmObjFactory.createPtAnalysis(pt));
+			PTradingEDHourlyAnalysisXmlType pt = OdmObjFactory.createPTradingEDHourlyAnalysisXmlType();
+			scase.setPtAnalysis(OdmObjFactory.createPtAnalysis(pt));
 		}
 		return (PTradingEDHourlyAnalysisXmlType)scase.getPtAnalysis().getValue();
 	}
@@ -600,8 +600,8 @@ public class IpssScenarioHelper {
 	 */
 	public IpssAnalysisCaseXmlType addNewPTradingStudyCase(String ptName) {
 		IpssAnalysisCaseXmlType scase = this.addNewAnalysisCase();
-		PTradingEDHourlyAnalysisXmlType ptCase = odmObjFactory.createPTradingEDHourlyAnalysisXmlType();
-		scase.setPtAnalysis(odmObjFactory.createPtAnalysis(ptCase));
+		PTradingEDHourlyAnalysisXmlType ptCase = OdmObjFactory.createPTradingEDHourlyAnalysisXmlType();
+		scase.setPtAnalysis(OdmObjFactory.createPtAnalysis(ptCase));
 		ptCase.setName(ptName);
 		ptCase.setDesc("Analysis Case description");
 		initPTradingEDHourlyAnalysis(ptCase);
@@ -610,11 +610,11 @@ public class IpssScenarioHelper {
 	
 	private IpssStudyScenarioXmlType getIpssScenario() {
 		if (parser.getStudyScenario() == null) {
-			IpssStudyScenarioXmlType studyScenario = odmObjFactory.createIpssStudyScenarioXmlType();
-			studyScenario.setAnalysisCaseList(odmObjFactory.createIpssStudyScenarioXmlTypeAnalysisCaseList());
-			parser.getStudyCase().setStudyScenario(odmObjFactory.createIpssStudyScenario(studyScenario));
+			IpssStudyScenarioXmlType studyScenario = OdmObjFactory.createIpssStudyScenarioXmlType();
+			studyScenario.setAnalysisCaseList(OdmObjFactory.createIpssStudyScenarioXmlTypeAnalysisCaseList());
+			parser.getStudyCase().setStudyScenario(OdmObjFactory.createIpssStudyScenario(studyScenario));
 			
-			IpssAnalysisCaseXmlType scenario = odmObjFactory.createIpssAnalysisCaseXmlType();
+			IpssAnalysisCaseXmlType scenario = OdmObjFactory.createIpssAnalysisCaseXmlType();
 			studyScenario.getAnalysisCaseList().getAnalysisCase().add(scenario);
 		}
 		return (IpssStudyScenarioXmlType)parser.getStudyScenario();

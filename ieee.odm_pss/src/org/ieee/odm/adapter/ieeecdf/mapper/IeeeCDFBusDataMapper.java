@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFBusDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -41,20 +41,29 @@ import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 
-public class IeeeCDFBusDataMapper extends BaseIeeeCDFDataMapper {
-	
+/**
+ * IEEE CDF bus record ODM mapper
+ * 
+ * @author mzhou
+ *
+ */
+public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
+	/**
+	 * Constructor
+	 */
 	public IeeeCDFBusDataMapper() {
 		this.dataParser = new IeeeCDFBusDataParser();
 	}
 	 
-	public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
+	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		// parse the input data line
-		//final String[] strAry = IeeeCDFDataParser.getBusDataFields(str);
 		dataParser.parseFields(str);
 
 		//Columns  1- 4   Bus number [I] *
-		final String busId = AbstractModelParser.BusIdPreFix + dataParser.getString("BusNumber");
+		final String busId = IODMModelParser.BusIdPreFix + dataParser.getString("BusNumber");
 		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
+
+		// create bus xml record
 		LoadflowBusXmlType aclfBus = parser.createBus(busId);
 		aclfBus.setNumber(dataParser.getLong("BusNumber"));
 
@@ -93,7 +102,6 @@ public class IeeeCDFBusDataMapper extends BaseIeeeCDFDataMapper {
 		final double vpu = dataParser.getDouble("VMag");
 		final double angDeg = dataParser.getDouble("VAng");
 		aclfBus.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
-
 		aclfBus.setAngle(BaseDataSetter.createAngleValue(angDeg, AngleUnitType.DEG));
 
 		//Columns 41-49   Load MW [F] *

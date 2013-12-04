@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.dstab;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabNetXmlType;
@@ -46,7 +46,7 @@ public class DStabModelParser extends BaseDstabModelParser<DStabNetXmlType, DSta
 	 */
 	public DStabModelParser() {
 		super();
-		this.tranSimu = odmObjFactory.createDStabSimulationXmlType();
+		this.tranSimu = OdmObjFactory.createDStabSimulationXmlType();
 	}	
 	
 	/**
@@ -56,7 +56,7 @@ public class DStabModelParser extends BaseDstabModelParser<DStabNetXmlType, DSta
 	 */
 	public DStabModelParser(String encoding) {
 		super(encoding);
-		this.tranSimu = odmObjFactory.createDStabSimulationXmlType();
+		this.tranSimu = OdmObjFactory.createDStabSimulationXmlType();
 	}	
 	
 	/**

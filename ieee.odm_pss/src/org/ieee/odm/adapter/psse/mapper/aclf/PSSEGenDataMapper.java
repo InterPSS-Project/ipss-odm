@@ -28,7 +28,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEGenDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
@@ -96,7 +96,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		STAT - Initial machine status of one for in-service and zero for out-of-service; STAT = 1 by default.
 */		
 		int i = dataParser.getInt("I");
-	    final String busId = AbstractModelParser.BusIdPreFix+i;
+	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    BusXmlType busRecXml = parser.getBus(busId);
 	    if (busRecXml == null){
 	    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");
@@ -148,7 +148,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		 */
 	    int ireg = dataParser.getInt("IREG");
 	    if (ireg > 0) {
-	    	final String reBusId = AbstractModelParser.BusIdPreFix+ireg;
+	    	final String reBusId = IODMModelParser.BusIdPreFix+ireg;
 	    	contriGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
 	    }
 	    

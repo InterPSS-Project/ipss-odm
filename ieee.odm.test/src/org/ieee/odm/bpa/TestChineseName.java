@@ -3,7 +3,7 @@ package org.ieee.odm.bpa;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.junit.Test;
 
 public class TestChineseName {
@@ -15,12 +15,12 @@ public class TestChineseName {
 		char[] c=s.toCharArray();
         int cnCharNum=getNum(s);
         System.out.println(getStringReturnEmptyString(s,7,14-cnCharNum));
-        String s2=ModelStringUtil.replaceChineseChar(s);
-        System.out.println(ModelStringUtil.replaceChineseChar(s));
+        String s2=ODMModelStringUtil.replaceChineseChar(s);
+        System.out.println(ODMModelStringUtil.replaceChineseChar(s));
 		System.out.println(getStringReturnEmptyString(s2,15,18));
-		String str2=ModelStringUtil.replaceChineseChar(str);
+		String str2=ODMModelStringUtil.replaceChineseChar(str);
 		System.out.println(str2);
-		String sec= ModelStringUtil.getStringReturnEmptyString(str2,33, 33).trim();
+		String sec= ODMModelStringUtil.getStringReturnEmptyString(str2,33, 33).trim();
 		System.out.println(str.startsWith("L "));
 	}
 	

@@ -24,8 +24,8 @@
 
 package org.ieee.odm.model;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
-import static org.ieee.odm.model.base.ModelContansts.ODM_Schema_NS;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
+import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -46,7 +46,7 @@ import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BranchXmlType;
@@ -65,6 +65,8 @@ import org.ieee.odm.schema.StudyScenarioXmlType;
 
 /**
  * Abstract Xml parser implementation as the base for all the IEEE DOM schema parsers. 
+ * 
+ * 
  */
 public abstract class AbstractModelParser<
 				TNetXml extends NetworkXmlType, 
@@ -72,17 +74,14 @@ public abstract class AbstractModelParser<
 				TLineXml extends BaseBranchXmlType,
 				TXfrXml extends BaseBranchXmlType,
 				TPsXfrXml extends BaseBranchXmlType
-			> implements IODMModelParser {
-	/**
-	 * Bus pre-fix, default value "Bus", pre-fix added to the bus number to create Bus Id
-	 */
-	public static final String BusIdPreFix = "Bus";
+						> implements IODMModelParser {
+	/** input text file encoding */
+	protected String encoding = IODMModelParser.DefaultEncoding;
 	
-	protected String encoding = IODMModelParser.defaultEncoding;
-	
-	// bus and branch object cache for fast lookup. 
+	/** bus and branch object cache for fast lookup. */ 
 	protected Hashtable<String,IDRecordXmlType> objectCache = null;
 	
+	/** the root StudyCase element */
 	protected StudyCaseXmlType pssStudyCase = null;
 	
 	private static Unmarshaller unmarshaller = null;
@@ -102,7 +101,7 @@ public abstract class AbstractModelParser<
 	/**
 	 * constructor
 	 * 
-	 * @param encoding
+	 * @param encoding input text encoding
 	 */
 	public AbstractModelParser(String encoding) {
 		this();
@@ -122,25 +121,20 @@ public abstract class AbstractModelParser<
 	 * @param e encoding string
 	 */
 	public void setEncoding(String e) { this.encoding = e; }
-	/*
-	 *	property definition
-	 * 	=================== 
-	 */
-	
+
 	/**
-	 * get object cache
+	 * get object cache lookup table
 	 * 
 	 * @return
 	 */
 	public Hashtable<String,IDRecordXmlType> getObjectCache() { return this.objectCache; }
 
 	/**
-	 * parse the xml file to create a model parser object
+	 * parse the xml input file to create a model parser object
 	 * 
-	 * @param xmlFile
+	 * @param xmlFile input xml file
 	 */
-	@SuppressWarnings("unchecked")
-	public boolean parse(File xmlFile) {
+	@SuppressWarnings("unchecked") public boolean parse(File xmlFile) {
 		try {
 			JAXBElement<StudyCaseXmlType> elem = (JAXBElement<StudyCaseXmlType>)createUnmarshaller().unmarshal(xmlFile);
 			this.pssStudyCase = elem.getValue();
@@ -153,12 +147,11 @@ public abstract class AbstractModelParser<
 	}
 
 	/**
-	 * parse the xml string to create a model parser object
+	 * parse the xml string, representing an input xml file, to create a model parser object
 	 * 
 	 * @param xmlFile
 	 */
-	@SuppressWarnings("unchecked")
-	public boolean parse(String xmlString) {
+	@SuppressWarnings("unchecked") public boolean parse(String xmlString) {
 		try {
 			ByteArrayInputStream bStr = new ByteArrayInputStream(xmlString.getBytes());
 			JAXBElement<StudyCaseXmlType> elem = (JAXBElement<StudyCaseXmlType>)createUnmarshaller().unmarshal(bStr);
@@ -176,8 +169,7 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @param xmlFile
 	 */
-	@SuppressWarnings("unchecked")
-	public boolean parse(InputStream in) {
+	@SuppressWarnings("unchecked") public boolean parse(InputStream in) {
 		try {
 			Object obj = createUnmarshaller().unmarshal(in);
 			JAXBElement<StudyCaseXmlType> elem = (JAXBElement<StudyCaseXmlType>)obj;
@@ -211,7 +203,7 @@ public abstract class AbstractModelParser<
 	public abstract TNetXml createBaseCase();
 	
 	/**
-	 * get the base case object of type LoadflowXmlType
+	 * get the base case object
 	 * 
 	 * @return
 	 */
@@ -221,7 +213,7 @@ public abstract class AbstractModelParser<
 	
 	/**
 	 * check if the network info stored in the model parser object is for 
-	 * transmission network loadflow
+	 * transmission network type and loadflow analysis type
 	 */
 	public boolean isTransmissionLoadflow() {
 		return this.getStudyCase().getNetworkCategory() == NetworkCategoryEnumType.TRANSMISSION &&
@@ -239,7 +231,7 @@ public abstract class AbstractModelParser<
 	 * @param originalFormat
 	 */
 	public void initCaseContentInfo(OriginalDataFormatEnumType originalDataFormat) {
-		ContentInfoXmlType info = odmObjFactory.createContentInfoXmlType();
+		ContentInfoXmlType info = OdmObjFactory.createContentInfoXmlType();
 		getStudyCase().setContentInfo(info);
 		info.setOriginalDataFormat(originalDataFormat);
 		info.setAdapterProviderName("www.interpss.org");
@@ -250,24 +242,24 @@ public abstract class AbstractModelParser<
 		getStudyCase().setNetworkCategory(
 				NetworkCategoryEnumType.TRANSMISSION);		
 	}
+	
 	/**
 	 * Set BaseCase content info
+	 * 
 	 * @param originalDataFormat
 	 */
 	public void setCaseContentInfo(OriginalDataFormatEnumType originalDataFormat) {
-		ContentInfoXmlType info = odmObjFactory.createContentInfoXmlType();
+		ContentInfoXmlType info = OdmObjFactory.createContentInfoXmlType();
 		getStudyCase().setContentInfo(info);
 		info.setOriginalDataFormat(originalDataFormat);
 		info.setAdapterProviderName("www.interpss.org");
 		info.setAdapterProviderVersion("1.00");
-				
 	}
-	
 	
 	/**
 	 * Get the root schema element StudyCase
 	 * 
-	 * @return
+	 * @return the StudyCase element
 	 */
 	public StudyCaseXmlType getStudyCase() {
 		if (this.pssStudyCase == null) {
@@ -282,36 +274,25 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	protected TNetXml getBaseCase() {
+	@SuppressWarnings("unchecked") protected TNetXml getBaseCase() {
 		return (TNetXml)this.pssStudyCase.getBaseCase().getValue();
 	}
 
 	/**
-	 * get child networks
+	 * get child network list
 	 * 
-	 * @return
+	 * @return the list
 	 */
 	public List<JAXBElement<? extends NetworkXmlType>> getChildNetList() {
 		return this.pssStudyCase.getChildNet();
 	}
 	
-	/**
-	 * get modification info stored in the model parser object
-	 * 
-	 */
-	public ModifyRecordXmlType getModification() {
+	@Override public ModifyRecordXmlType getModification() {
 		return this.pssStudyCase.getModificationList() == null? null :
 			this.pssStudyCase.getModificationList().getModification().get(0);
 	}
 
-	/**
-	 * get modification record by record id
-	 * 
-	 * @param id modification record id
-	 * 
-	 */
-	public ModifyRecordXmlType getModification(String id) {
+	@Override public ModifyRecordXmlType getModification(String id) {
 		if (this.pssStudyCase.getModificationList() != null)
 			for (ModifyRecordXmlType mod : this.pssStudyCase.getModificationList().getModification()) {
 				if (mod.getId().equals(id))
@@ -321,25 +302,21 @@ public abstract class AbstractModelParser<
 		return null;
 	}
 	
-	/**
-	 * get study scenario info stored in the model object
-	 * 
-	 */
-	public StudyScenarioXmlType getStudyScenario() {
+	@Override public StudyScenarioXmlType getStudyScenario() {
 		return this.pssStudyCase.getStudyScenario() == null? null :
 					this.pssStudyCase.getStudyScenario().getValue();
 	}
 
 	/**
-	 * create a area xml record
+	 * create an area xml record
 	 * 
-	 * @return
+	 * @return the area xml record
 	 */
 	public NetAreaXmlType createNetworkArea() {
 		if(getBaseCase().getAreaList() == null){
-			getBaseCase().setAreaList(odmObjFactory.createNetworkXmlTypeAreaList());
+			getBaseCase().setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
 		}
-		NetAreaXmlType area = odmObjFactory.createNetAreaXmlType();
+		NetAreaXmlType area = OdmObjFactory.createNetAreaXmlType();
 		getBaseCase().getAreaList().getArea().add(area);
 		return area;
 	}
@@ -347,13 +324,13 @@ public abstract class AbstractModelParser<
 	/**
 	 * create a LossZone object
 	 * 
-	 * @return
+	 * @return the loss zone object
 	 */
 	public NetZoneXmlType createNetworkLossZone() {
 		if(getBaseCase().getLossZoneList() == null){
-			getBaseCase().setLossZoneList(odmObjFactory.createNetworkXmlTypeLossZoneList());
+			getBaseCase().setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
 		}
-		NetZoneXmlType zone = odmObjFactory.createNetZoneXmlType();
+		NetZoneXmlType zone = OdmObjFactory.createNetZoneXmlType();
 		getBaseCase().getLossZoneList().getLossZone().add(zone);
 		return zone;
 	}
@@ -393,14 +370,14 @@ public abstract class AbstractModelParser<
 	 * @param id
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public TBusXml getBus(String id) {
+	@SuppressWarnings("unchecked") public TBusXml getBus(String id) {
 		return (TBusXml)this.getCachedObject(id);
 	}	
 
 	/**
-	 * add a bus object into the branch list and to the cashe table
+	 * add a bus object into the BaseCase bus list and to the cashe table
 	 * 
+	 * @param bus bus object to be added
 	 */
 	public void addBus(TBusXml bus) {
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(bus));
@@ -408,9 +385,9 @@ public abstract class AbstractModelParser<
 	}
 	
 	/**
-	 * remove the branch object from the cache and branch list
+	 * remove a bus object from the cache and BaseCase bus list
 	 * 
-	 * @param branchId
+	 * @param busId
 	 * @return
 	 */
 	public boolean removeBus(String busId) {
@@ -459,7 +436,7 @@ public abstract class AbstractModelParser<
 	public BusIDRefXmlType createBusRef(String id) {
 		BusXmlType rec = this.getBus(id);
 		if (rec != null) {
-			BusIDRefXmlType refBus = odmObjFactory.createBusIDRefXmlType();
+			BusIDRefXmlType refBus = OdmObjFactory.createBusIDRefXmlType();
 			refBus.setIdRef(rec);
 			return refBus;
 		}
@@ -494,6 +471,7 @@ public abstract class AbstractModelParser<
 	 * add a new bus record to the base case and to the cache table
 	 * 
 	 * @param id
+	 * @param number
 	 * @return
 	 */
 	public TBusXml createBus(String id, long number) throws ODMException {
@@ -549,7 +527,6 @@ public abstract class AbstractModelParser<
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
-	
 	}
 	
 	/**
@@ -607,11 +584,10 @@ public abstract class AbstractModelParser<
 	
 	}
 	
-	
 	/**
 	 * Get the cashed branch object by id
 	 * 
-	 * @param id
+	 * @param branchId
 	 * @return
 	 */
 	public BaseBranchXmlType getBranch(String branchId) {
@@ -637,7 +613,8 @@ public abstract class AbstractModelParser<
 	
 	/**
 	 * add a branch object into the branch list and to the cashe table
-	 * 
+	 *
+	 * @param branch
 	 */
 	public void addBranch(BranchXmlType branch) {
 		getBaseCase().getBranchList().getBranch().add(BaseJaxbHelper.branch(branch));
@@ -653,9 +630,10 @@ public abstract class AbstractModelParser<
 	 * @return
 	 */
 	public BaseBranchXmlType getBranch(String fromId, String toId, String cirId) {
-		String id = ModelStringUtil.formBranchId(fromId, toId, cirId);
+		String id = ODMModelStringUtil.formBranchId(fromId, toId, cirId);
 		return this.getBranch(id);
 	}	
+	
 	/**
 	 * get the cashed branch record using fromId, toId and cirId
 	 * 
@@ -666,7 +644,7 @@ public abstract class AbstractModelParser<
 	 * @return
 	 */
 	public BaseBranchXmlType getBranch(String fromId, String toId, String tertId, String cirId) {
-		String id = ModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
+		String id = ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
 		return this.getBranch(id);
 	}	
 	
@@ -681,6 +659,11 @@ public abstract class AbstractModelParser<
 		this.addBranch(branch);
 	}
 	
+	/**
+	 * initialize a BaseBranchXmlType object.
+	 * 
+	 * @param branch
+	 */
 	protected void intiBranchData(BaseBranchXmlType branch) {
 		getBaseCase().getBranchList().getBranch().add(BaseJaxbHelper.branch(branch));
 		branch.setOffLine(false);
@@ -688,11 +671,21 @@ public abstract class AbstractModelParser<
 		branch.setZoneNumber(1);
 	}
 	
+	/**
+	 * add a BaseBranchXmlType object to the BaseCase
+	 * 
+	 * @param branch
+	 * @param fromId
+	 * @param toId
+	 * @param tertId
+	 * @param cirId
+	 * @throws ODMBranchDuplicationException
+	 */
 	protected void addBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
 		String id = tertId == null ?
-				ModelStringUtil.formBranchId(fromId, toId, cirId) : ModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
+				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
 		if (this.objectCache.get(id) != null ||
-				this.objectCache.get(ModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
+				this.objectCache.get(ODMModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
 			throw new ODMBranchDuplicationException("Branch record duplication, bus id: " + id);
 		}
 		this.objectCache.put(id, branch);		
@@ -712,7 +705,7 @@ public abstract class AbstractModelParser<
 	/**
 	 * create a Jaxb unmarshaller to unmarshall Xml document to odm object
 	 *  
-	 * @return
+	 * @return an unmarshaller object
 	 * @throws JAXBException
 	 */
 	public Unmarshaller createUnmarshaller() throws JAXBException {
@@ -727,7 +720,7 @@ public abstract class AbstractModelParser<
 	/**
 	 * create a Jaxb marshaller to marshall the odm object to an Xml document
 	 * 
-	 * @return
+	 * @return a marshaller object
 	 * @throws JAXBException
 	 */
 	public Marshaller createMarshaller() throws JAXBException {
@@ -747,7 +740,7 @@ public abstract class AbstractModelParser<
 	 */
 	public void stdout() {
 		try {
-			JAXBElement<StudyCaseXmlType> element = odmObjFactory.createPssStudyCase(getStudyCase());
+			JAXBElement<StudyCaseXmlType> element = OdmObjFactory.createPssStudyCase(getStudyCase());
 			createMarshaller().marshal( element, System.out );
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -760,7 +753,7 @@ public abstract class AbstractModelParser<
 	public String toXmlDoc() {
 		OutputStream ostream = new ByteArrayOutputStream();
 		try {
-			JAXBElement<StudyCaseXmlType> element = odmObjFactory.createPssStudyCase(getStudyCase());
+			JAXBElement<StudyCaseXmlType> element = OdmObjFactory.createPssStudyCase(getStudyCase());
 			createMarshaller().marshal( element, ostream );
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -779,7 +772,7 @@ public abstract class AbstractModelParser<
 		else {
 			try {
 				OutputStream ostream = new FileOutputStream(new File(outfile));
-				JAXBElement<StudyCaseXmlType> element = odmObjFactory.createPssStudyCase(getStudyCase());
+				JAXBElement<StudyCaseXmlType> element = OdmObjFactory.createPssStudyCase(getStudyCase());
 				createMarshaller().marshal( element, ostream );
 			} catch (Exception e) {
 				return e.toString() + " " + outfile;

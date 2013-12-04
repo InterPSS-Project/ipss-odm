@@ -37,7 +37,7 @@ import org.ieee.odm.schema.BusXmlType;
  * @author mzhou
  *
  */
-public class ModelStringUtil {
+public class ODMModelStringUtil {
 	/**
 	 * form branch id based on from node id, to node id and branch circuit id 
 	 * 

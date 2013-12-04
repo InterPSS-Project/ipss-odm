@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.acsc;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -79,28 +79,18 @@ public class BaseAcscModelParser<
 		return (ShortCircuitNetXmlType)getBaseCase();
 	}
 	
-	/**
-	 * create the base case object of type ShortCircuitNetXmlType
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TNetXml createBaseCase() {
+	@SuppressWarnings("unchecked") @Override public TNetXml createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
-			ShortCircuitNetXmlType baseCase = odmObjFactory.createShortCircuitNetXmlType();
-			baseCase.setBusList(odmObjFactory.createNetworkXmlTypeBusList());
-			baseCase.setBranchList(odmObjFactory.createNetworkXmlTypeBranchList());
+			ShortCircuitNetXmlType baseCase = OdmObjFactory.createShortCircuitNetXmlType();
+			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
+			baseCase.setBranchList(OdmObjFactory.createNetworkXmlTypeBranchList());
 			getStudyCase().setBaseCase(BaseJaxbHelper.network(baseCase));
 		}
 		return (TNetXml)getStudyCase().getBaseCase().getValue();
 	}
 	
-	/**
-	 * add a new Bus record to the base case
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TBusXml createBus() {
-		ShortCircuitBusXmlType busRec = odmObjFactory.createShortCircuitBusXmlType();
+	@SuppressWarnings("unchecked") @Override public TBusXml createBus() {
+		ShortCircuitBusXmlType busRec = OdmObjFactory.createShortCircuitBusXmlType();
 		initAcscBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
 		return (TBusXml)busRec;
@@ -110,25 +100,19 @@ public class BaseAcscModelParser<
 		initAclfBus(busRec);
 		// for those non-Gen or non-Load data, equivGen or equivLoad is not required
 		
-   		ShortCircuitGenDataXmlType equivGen = odmObjFactory.createShortCircuitGenDataXmlType();
-   		busRec.getGenData().setEquivGen(odmObjFactory.createAcscEquivGen(equivGen));		
+   		ShortCircuitGenDataXmlType equivGen = OdmObjFactory.createShortCircuitGenDataXmlType();
+   		busRec.getGenData().setEquivGen(OdmObjFactory.createAcscEquivGen(equivGen));		
 
-   		ShortCircuitLoadDataXmlType equivLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-   		busRec.getLoadData().setEquivLoad(odmObjFactory.createAcscEquivLoad(equivLoad));
+   		ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+   		busRec.getLoadData().setEquivLoad(OdmObjFactory.createAcscEquivLoad(equivLoad));
    		
    		//SC code, use to indicate contribution to SC analysis
    		busRec.setScCode(ShortCircuitBusEnumType.NON_CONTRIBUTING);
    	
 	}
 	
-	
-	
-	/**
-	 * create acsc Line 
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TLineXml createLineBranch() {
-		LineShortCircuitXmlType line = odmObjFactory.createLineShortCircuitXmlType();
+	@SuppressWarnings("unchecked") @Override public TLineXml createLineBranch() {
+		LineShortCircuitXmlType line = OdmObjFactory.createLineShortCircuitXmlType();
 		initAcscLineBranch(line);
 		return (TLineXml) line;
 		
@@ -138,14 +122,8 @@ public class BaseAcscModelParser<
 		initAclfLineBranch(line);
 	}
 	
-	
-	/**
-	 * create aclf xfr branch
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public TXfrXml createXfrBranch() {
-		XfrShortCircuitXmlType  xfr  =  odmObjFactory.createXfrShortCircuitXmlType();
+	@SuppressWarnings("unchecked") @Override public TXfrXml createXfrBranch() {
+		XfrShortCircuitXmlType  xfr  =  OdmObjFactory.createXfrShortCircuitXmlType();
 		return (TXfrXml) xfr;
 	}
 
@@ -153,24 +131,13 @@ public class BaseAcscModelParser<
 		initAclfXfrBranch(xfr);
 	}
 	
-	
-	/**
-	 * create aclf 3 winding xfr
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public TXfrXml createXfr3WBranch() {
-		Xfr3WShortCircuitXmlType w3xfr = odmObjFactory.createXfr3WShortCircuitXmlType();
+	@SuppressWarnings("unchecked") @Override public TXfrXml createXfr3WBranch() {
+		Xfr3WShortCircuitXmlType w3xfr = OdmObjFactory.createXfr3WShortCircuitXmlType();
 		return (TXfrXml) w3xfr;
 	}
     
-	/**
-	 * create aclf Phase-shifting xfr
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public TPsXfrXml createPSXfrBranch() {
-		PSXfrShortCircuitXmlType psXfr = odmObjFactory.createPSXfrShortCircuitXmlType();
+	@SuppressWarnings("unchecked") @Override public TPsXfrXml createPSXfrBranch() {
+		PSXfrShortCircuitXmlType psXfr = OdmObjFactory.createPSXfrShortCircuitXmlType();
 		initAcscPsXfrBranch(psXfr);
 		return (TPsXfrXml) psXfr;
 	}
@@ -196,6 +163,7 @@ public class BaseAcscModelParser<
 	 /**
 	  * get the Acsc Xfr object using the id. If the branch object is of type aclfXfr or DstabXfr,
 	  * cast it to the acscXfr type
+
 	  * @param fromId
 	  * @param toId
 	  * @param cirId

@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ucte.parser;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing UCTE line data line string
@@ -45,31 +45,31 @@ public class UCTELineDataParser extends AbstractDataFieldParser {
 	}
 	
 	@Override public void parseFields(final String str) throws ODMException {
-		String fromNodeId = ModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
+		String fromNodeId = ODMModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
 		this.setValue(0, fromNodeId);
 		
-		String toNodeId = ModelStringUtil.getString(str, 10, 17).trim().replace(' ', '_');
+		String toNodeId = ODMModelStringUtil.getString(str, 10, 17).trim().replace(' ', '_');
 		this.setValue(1, toNodeId);
 		
-		String orderCode = ModelStringUtil.getString(str, 19, 19);
+		String orderCode = ODMModelStringUtil.getString(str, 19, 19);
 		this.setValue(2, orderCode);
 
-		String status = ModelStringUtil.getString(str, 21, 21);  // 0 real, i equivalent
+		String status = ODMModelStringUtil.getString(str, 21, 21);  // 0 real, i equivalent
 		this.setValue(3, status);
 		
-		String rOhm = ModelStringUtil.getString(str, 23, 28);  
+		String rOhm = ODMModelStringUtil.getString(str, 23, 28);  
 		this.setValue(4, rOhm);
 		
-		String xOhm = ModelStringUtil.getString(str, 30, 35);  
+		String xOhm = ODMModelStringUtil.getString(str, 30, 35);  
 		this.setValue(5, xOhm);
 		
-		String bMuS = ModelStringUtil.getString(str, 37, 44);  
+		String bMuS = ODMModelStringUtil.getString(str, 37, 44);  
 		this.setValue(6, bMuS);
 		
-		String currentLimit = ModelStringUtil.getString(str, 46, 51);  
+		String currentLimit = ODMModelStringUtil.getString(str, 46, 51);  
 		this.setValue(7, currentLimit);
 
-		String elemName = ModelStringUtil.getString(str, 53, 64);		
+		String elemName = ODMModelStringUtil.getString(str, 53, 64);		
 		this.setValue(8, elemName);
 	}
 }

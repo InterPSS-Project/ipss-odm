@@ -29,7 +29,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.ieee.odm.model.aclf.AclfModelComparator;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BranchXmlType;

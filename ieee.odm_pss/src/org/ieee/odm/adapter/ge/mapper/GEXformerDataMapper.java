@@ -29,6 +29,7 @@ import org.ieee.odm.adapter.ge.parser.GEXfrDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
@@ -55,8 +56,8 @@ public class GEXformerDataMapper extends BaseGEDataMapper {
 		double angls = this.dataParser.getDouble("angls", 0.0);
 		boolean isPsXfr = anglp != 0.0 || angls != 0.0;
 
-		final String fid = AclfModelParser.BusIdPreFix + this.dataParser.getString("f_bus");
-		final String tid = AclfModelParser.BusIdPreFix + this.dataParser.getString("t_bus");
+		final String fid = IODMModelParser.BusIdPreFix + this.dataParser.getString("f_bus");
+		final String tid = IODMModelParser.BusIdPreFix + this.dataParser.getString("t_bus");
 		final String cId = this.dataParser.getString("ck").replace(' ', '_');
 		XfrBranchXmlType branchRec = null;
 		try {

@@ -3,7 +3,7 @@ package org.ieee.odm.adapter.psse.parser.dynamic.exciter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 public class PSSEExcIEEE1968Type1Parser extends BasePSSEDataParser {
 	public PSSEExcIEEE1968Type1Parser(PsseVersion ver) {
@@ -37,7 +37,7 @@ public class PSSEExcIEEE1968Type1Parser extends BasePSSEDataParser {
 		int cnt =strAry.length;
 		for (int i = 0; i <cnt ; i++){
 			if(i==1){//GenId, need to trim the quote
-				setValue(i,ModelStringUtil.trimQuote(strAry[i].trim()));
+				setValue(i,ODMModelStringUtil.trimQuote(strAry[i].trim()));
 			}
 			else setValue(i, strAry[i].trim());
 		}

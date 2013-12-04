@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.bpa.lf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.text.NumberFormat;
 
@@ -34,7 +34,7 @@ import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
@@ -99,7 +99,7 @@ public class BPAXfrBranchRecord<
 			return;
 		}
 		
-		branchRec.setId(ModelStringUtil.formBranchId(fid, tid, cirId));
+		branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
 		
 		final double fVbase= new Double(strAry[4]).doubleValue();
 		final double tVbase= new Double(strAry[7]).doubleValue();	
@@ -167,7 +167,7 @@ public class BPAXfrBranchRecord<
 			if(Math.abs(rpu)>=1.0&&!strAry[12].contains(".")){
 				rpu=rpu*0.00001;   //F6.5
 			}
-			rpu=ModelStringUtil.getNumberFormat(rpu);
+			rpu=ODMModelStringUtil.getNumberFormat(rpu);
 			if(Math.abs(rpu)>0.1)
 				ODMLogger.getLogger().warning("Tranformer#"+fname+"-to-"+tname +
 						", the Resistance(R) now is"+rpu+" ,seems to be out of normal range[0~0.1]pu, please check!");
@@ -177,7 +177,7 @@ public class BPAXfrBranchRecord<
 			if(Math.abs(xpu)>=1&&!strAry[13].contains(".")){
 				xpu=xpu*0.00001;  //F6.5
 			}
-			xpu=ModelStringUtil.getNumberFormat(xpu);
+			xpu=ODMModelStringUtil.getNumberFormat(xpu);
 			if(Math.abs(xpu)>0.5)
 				ODMLogger.getLogger().warning("Tranformer#"+fname+"-to-"+tname+",the Reactance(X) now is"
 						+xpu+" ,seems to be out of normal range[0~0.5]pu, please check!");
@@ -328,7 +328,7 @@ public class BPAXfrBranchRecord<
 		}	
 		
 		if(dataType==tapAdjustment){	
-			TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+			TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 			branchRec.setTapAdjustment(tapAdj);
 			
             if(tapAdjSide==1){
@@ -370,7 +370,7 @@ public class BPAXfrBranchRecord<
 			tapAdj.setTapLimit(BaseDataSetter.createTapLimit(max, min));
 			tapAdj.setTapAdjStepSize(stepSize);
 			if (adjustType==tapVoltageAdjustment ){// voltage control					
-				VoltageAdjustmentDataXmlType voltTapAdj = odmObjFactory.createVoltageAdjustmentDataXmlType();
+				VoltageAdjustmentDataXmlType voltTapAdj = OdmObjFactory.createVoltageAdjustmentDataXmlType();
 				tapAdj.setVoltageAdjData(voltTapAdj);
 				try {
 					voltTapAdj.setAdjVoltageBus(parser.createBusRef(controlBusId));
@@ -384,7 +384,7 @@ public class BPAXfrBranchRecord<
 				BaseDataSetter.setLimit(voltTapAdj.getRange(), maxVoltPQ, minVoltPQ);				
 			} 
 			else if (adjustType==tapVarAdjustment) {// var control						
-				MvarFlowAdjustmentDataXmlType mvarTapAdj = odmObjFactory.createMvarFlowAdjustmentDataXmlType();
+				MvarFlowAdjustmentDataXmlType mvarTapAdj = OdmObjFactory.createMvarFlowAdjustmentDataXmlType();
 				tapAdj.setMvarFlowAdjData(mvarTapAdj);
 				BaseDataSetter.setLimit(mvarTapAdj.getRange(), maxVoltPQ, minVoltPQ);
 				mvarTapAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
@@ -393,9 +393,9 @@ public class BPAXfrBranchRecord<
 		} 
 		else if(dataType==angleAdjustment){
 			PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branchRec;
-			AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType();
+			AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
 			psXfrBranch.setAngleAdjustment(angAdj);
-			angAdj.setAngleLimit(odmObjFactory.createAngleLimitXmlType());
+			angAdj.setAngleLimit(OdmObjFactory.createAngleLimitXmlType());
 			BaseDataSetter.setLimit(angAdj.getAngleLimit(), maxVoltPQ, minVoltPQ);
 			BaseDataSetter.setLimit(angAdj.getRange(), maxVoltPQ, minVoltPQ);
 			angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
@@ -410,9 +410,9 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 		
 		final String[] strAry = new String[20];
 		try{
-			strAry[0] = ModelStringUtil.getStringReturnEmptyString(str,1, 2);
-            strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,3, 3).trim();
-			strAry[2] = ModelStringUtil.getStringReturnEmptyString(str,4, 6).trim();
+			strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str,1, 2);
+            strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,3, 3).trim();
+			strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 6).trim();
 			
 //			strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,7, 14).trim();
 //			strAry[4] = ModelStringUtil.getStringReturnEmptyString(str,15, 18).trim();
@@ -420,55 +420,55 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 //			strAry[6] = ModelStringUtil.getStringReturnEmptyString(str,20, 27).trim();			
 			
 			//----to process the Chinese characters in the fromBus name, if any.
-			String tem=ModelStringUtil.getStringReturnEmptyString(str,7, 14).trim();
-			int chnCharNum1=ModelStringUtil.getChineseCharNum(tem);
+			String tem=ODMModelStringUtil.getStringReturnEmptyString(str,7, 14).trim();
+			int chnCharNum1=ODMModelStringUtil.getChineseCharNum(tem);
 			
 //			System.out.println("chnCharNum1:"+chnCharNum1);
 			//from bus name
-			strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
+			strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
 			//from bus basekV
-			strAry[4] = ModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
+			strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
 			//meter
-			strAry[5] = ModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
+			strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
 			
 			//---to process the Chinese characters in the toBus name, if any.
-			tem=ModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1).trim();
-			int chnCharNum2=ModelStringUtil.getChineseCharNum(tem);
+			tem=ODMModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1).trim();
+			int chnCharNum2=ODMModelStringUtil.getChineseCharNum(tem);
 //			System.out.println("chnCharNum2:"+chnCharNum2);
 			//to bus name
-			strAry[6] = ModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1-chnCharNum2).trim();
+			strAry[6] = ODMModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1-chnCharNum2).trim();
 			
 			//--- replace all the Chinese Characters, since they are not used in the following processing.
-			String str2=ModelStringUtil.replaceChineseChar(str);
+			String str2=ODMModelStringUtil.replaceChineseChar(str);
 
 
-			strAry[7] = ModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
-			strAry[8] = ModelStringUtil.getStringReturnEmptyString(str2,32, 32).trim();
-			strAry[9] = ModelStringUtil.getStringReturnEmptyString(str2,33, 33).trim();
-			strAry[10] = ModelStringUtil.getStringReturnEmptyString(str2,34, 37).trim();
-			strAry[11] = ModelStringUtil.getStringReturnEmptyString(str2,38, 38).trim();
-			strAry[12] = ModelStringUtil.getStringReturnEmptyString(str2,39, 44).trim();
-			strAry[13] = ModelStringUtil.getStringReturnEmptyString(str2,45, 50).trim();
-			strAry[14] = ModelStringUtil.getStringReturnEmptyString(str2,51, 56).trim();
-			strAry[15] = ModelStringUtil.getStringReturnEmptyString(str2,57, 62).trim();
-			strAry[16] = ModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();//// tap of the fromBus
+			strAry[7] = ODMModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
+			strAry[8] = ODMModelStringUtil.getStringReturnEmptyString(str2,32, 32).trim();
+			strAry[9] = ODMModelStringUtil.getStringReturnEmptyString(str2,33, 33).trim();
+			strAry[10] = ODMModelStringUtil.getStringReturnEmptyString(str2,34, 37).trim();
+			strAry[11] = ODMModelStringUtil.getStringReturnEmptyString(str2,38, 38).trim();
+			strAry[12] = ODMModelStringUtil.getStringReturnEmptyString(str2,39, 44).trim();
+			strAry[13] = ODMModelStringUtil.getStringReturnEmptyString(str2,45, 50).trim();
+			strAry[14] = ODMModelStringUtil.getStringReturnEmptyString(str2,51, 56).trim();
+			strAry[15] = ODMModelStringUtil.getStringReturnEmptyString(str2,57, 62).trim();
+			strAry[16] = ODMModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();//// tap of the fromBus
            /*
             T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536. 			
            */
 			// tap of the toBus
 			if (str2.length() >= 68){
 				if(str2.length() <= 72)
-				     strAry[17] = ModelStringUtil.getStringReturnEmptyString(str2,68, str2.length()).trim();	
+				     strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str2,68, str2.length()).trim();	
 				else {
-					strAry[17]= ModelStringUtil.getStringReturnEmptyString(str2,68, 72).trim();
+					strAry[17]= ODMModelStringUtil.getStringReturnEmptyString(str2,68, 72).trim();
 				}
 			}
 			
 			if (str2.length() > 78)
-				strAry[18] = ModelStringUtil.getStringReturnEmptyString(str2,74, 77).trim();// str2.substring(74, 77).trim();
+				strAry[18] = ODMModelStringUtil.getStringReturnEmptyString(str2,74, 77).trim();// str2.substring(74, 77).trim();
 			
 			if (str2.length() > 81)
-				strAry[19] =ModelStringUtil.getStringReturnEmptyString(str2,77, 80).trim();// str2.substring(77, 80).trim();
+				strAry[19] =ODMModelStringUtil.getStringReturnEmptyString(str2,77, 80).trim();// str2.substring(77, 80).trim();
 		}catch(Exception e){
 			ODMLogger.getLogger().severe(e.toString() + "\n" + str);
 			e.printStackTrace();
@@ -481,9 +481,9 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 		
 		try{
 			// type 		
-            strAry[0] = ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
-            strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,3, 3).trim();
-			strAry[2] = ModelStringUtil.getStringReturnEmptyString(str,4, 6).trim();
+            strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+            strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,3, 3).trim();
+			strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 6).trim();
 //			//from bus name
 //			strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,7, 14).trim();
 //			// rated v
@@ -494,43 +494,43 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 //			strAry[6] = ModelStringUtil.getStringReturnEmptyString(str,20, 27).trim();
 			
 			//----to process the Chinese characters in the fromBus name, if any.
-			String tem=ModelStringUtil.getStringReturnEmptyString(str,7, 14).trim();
-			int chnCharNum1=ModelStringUtil.getChineseCharNum(tem);
+			String tem=ODMModelStringUtil.getStringReturnEmptyString(str,7, 14).trim();
+			int chnCharNum1=ODMModelStringUtil.getChineseCharNum(tem);
 			
 			//from bus name
-			strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
+			strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
 			//from bus basekV
-			strAry[4] = ModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
+			strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
 			//meter
-			strAry[5] = ModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
+			strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
 			
 			//---to process the Chinese characters in the toBus name, if any.
-			tem=ModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1).trim();
-			int chnCharNum2=ModelStringUtil.getChineseCharNum(tem);
+			tem=ODMModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1).trim();
+			int chnCharNum2=ODMModelStringUtil.getChineseCharNum(tem);
 			
 			//to bus name
-			strAry[6] = ModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1-chnCharNum2).trim();
+			strAry[6] = ODMModelStringUtil.getStringReturnEmptyString(str,20-chnCharNum1, 27-chnCharNum1-chnCharNum2).trim();
 			
 			//--- replace all the Chinese Characters, since they are not used in the following processing.
-			String str2=ModelStringUtil.replaceChineseChar(str);
+			String str2=ODMModelStringUtil.replaceChineseChar(str);
 			
 			
 			// to rated v
-			strAry[7] = ModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
+			strAry[7] = ODMModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
 			// controlled bus name and rated v
-			strAry[8] = ModelStringUtil.getStringReturnEmptyString(str2,34, 41).trim();
-			strAry[9] = ModelStringUtil.getStringReturnEmptyString(str2,42, 45).trim();
+			strAry[8] = ODMModelStringUtil.getStringReturnEmptyString(str2,34, 41).trim();
+			strAry[9] = ODMModelStringUtil.getStringReturnEmptyString(str2,42, 45).trim();
 			
 			//for R RV RQ RN
 			//max tap
-			strAry[10] = ModelStringUtil.getStringReturnEmptyString(str2,46, 50).trim();
+			strAry[10] = ODMModelStringUtil.getStringReturnEmptyString(str2,46, 50).trim();
 			// min tap
-			strAry[11] = ModelStringUtil.getStringReturnEmptyString(str2,51, 55).trim();
+			strAry[11] = ODMModelStringUtil.getStringReturnEmptyString(str2,51, 55).trim();
 			// total tap
-			strAry[12] = ModelStringUtil.getStringReturnEmptyString(str2,56, 57).trim();
+			strAry[12] = ODMModelStringUtil.getStringReturnEmptyString(str2,56, 57).trim();
 			
-			strAry[13] = ModelStringUtil.getStringReturnEmptyString(str2,58, 62).trim();
-			strAry[14] = ModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();
+			strAry[13] = ODMModelStringUtil.getStringReturnEmptyString(str2,58, 62).trim();
+			strAry[14] = ODMModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();
 		}catch(Exception e){
 			ODMLogger.getLogger().severe(e.toString());
 		}

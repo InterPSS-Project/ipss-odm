@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.ext.ipss;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.schema.DclfContingencySetXmlType;
@@ -61,7 +61,7 @@ public class IpssModificationHelper {
 	 * @return
 	 */
 	public OutageScheduleXmlType createOutageSchedule() {
-		OutageScheduleXmlType rec = odmObjFactory.createOutageScheduleXmlType();
+		OutageScheduleXmlType rec = OdmObjFactory.createOutageScheduleXmlType();
 		addModifyRecord(rec);
 		return rec;
 	}
@@ -82,7 +82,7 @@ public class IpssModificationHelper {
 	 * @return
 	 */
 	public DclfContingencySetXmlType createContingencySet() {
-		DclfContingencySetXmlType rec = odmObjFactory.createDclfContingencySetXmlType();
+		DclfContingencySetXmlType rec = OdmObjFactory.createDclfContingencySetXmlType();
 		addModifyRecord(rec);
 		return rec;
 	}
@@ -103,7 +103,7 @@ public class IpssModificationHelper {
 	 * @return
 	 */
 	public GenLoadModifyXmlType createGenLoadModify() {
-		GenLoadModifyXmlType rec = odmObjFactory.createGenLoadModifyXmlType();
+		GenLoadModifyXmlType rec = OdmObjFactory.createGenLoadModifyXmlType();
 		addModifyRecord(rec);
 		return rec;
 	}
@@ -134,7 +134,7 @@ public class IpssModificationHelper {
 
 	private void addModifyRecord(ModifyRecordXmlType rec) {
 		if (this.parser.getStudyCase().getModificationList() == null) {
-			this.parser.getStudyCase().setModificationList(odmObjFactory.createStudyCaseXmlTypeModificationList());
+			this.parser.getStudyCase().setModificationList(OdmObjFactory.createStudyCaseXmlTypeModificationList());
 		}
 		this.parser.getStudyCase().getModificationList().getModification().add(rec);
 	}

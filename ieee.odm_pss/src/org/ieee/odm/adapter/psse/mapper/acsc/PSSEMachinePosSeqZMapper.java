@@ -4,7 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSEMachinePosSeqZParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -43,7 +43,7 @@ public class PSSEMachinePosSeqZMapper <
 		double ZXPOS = dataParser.getDouble("ZXPOS");
 		
 		int i = dataParser.getInt("I");
-	    final String busId = AbstractModelParser.BusIdPreFix+i;
+	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    
 	    ShortCircuitBusXmlType acscBus=(ShortCircuitBusXmlType) parser.getBus(busId);
 	    //add SC code

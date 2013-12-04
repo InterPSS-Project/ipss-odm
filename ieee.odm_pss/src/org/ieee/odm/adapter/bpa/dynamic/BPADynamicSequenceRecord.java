@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.bpa.dynamic;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.text.NumberFormat;
 
@@ -32,7 +32,7 @@ import javax.xml.bind.JAXBElement;
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.BusXmlType;
@@ -105,8 +105,8 @@ public class BPADynamicSequenceRecord {
 			xfr.setXfrZeroSeq(xfrZeroSeq);
 			
 			//Z0
-			double x0=ModelStringUtil.getDouble(strAry[7], 0.0);
-			double r0=ModelStringUtil.getDouble(strAry[8], 0.0);
+			double x0=ODMModelStringUtil.getDouble(strAry[7], 0.0);
+			double r0=ODMModelStringUtil.getDouble(strAry[8], 0.0);
 			if(!strAry[7].contains(".")){
 				x0=x0/10000;
 			}
@@ -118,10 +118,10 @@ public class BPADynamicSequenceRecord {
 	    else if(strAry[0].equals("XR")){
 	    	final String busId = BPABusRecord.getBusId(strAry[1]);
         	DStabBusXmlType bus = parser.getDStabBus(busId);
-        	double busBase = ModelStringUtil.getDouble(strAry[2], 0.0);
+        	double busBase = ODMModelStringUtil.getDouble(strAry[2], 0.0);
         	bus.setBaseVoltage(DStabDataSetter.createVoltageValue(busBase, VoltageUnitType.KV));
-        	double r0 = ModelStringUtil.getDouble(strAry[3], 0.0);
-        	double x0 = ModelStringUtil.getDouble(strAry[4], 0.0);
+        	double r0 = ODMModelStringUtil.getDouble(strAry[3], 0.0);
+        	double x0 = ODMModelStringUtil.getDouble(strAry[4], 0.0);
         	if(!strAry[3].contains(".")){
 				r0=r0/10000;
 			}
@@ -173,8 +173,8 @@ public class BPADynamicSequenceRecord {
 
 	    	
 			//Z0			
-			double r0=ModelStringUtil.getDouble(strAry[7], 0.0);
-			double x0=ModelStringUtil.getDouble(strAry[8], 0.0);
+			double r0=ODMModelStringUtil.getDouble(strAry[7], 0.0);
+			double x0=ODMModelStringUtil.getDouble(strAry[8], 0.0);
 			if(!strAry[7].contains(".")){
 				r0=r0/10000;
 			}
@@ -184,8 +184,8 @@ public class BPADynamicSequenceRecord {
 			line.setZ0(DStabDataSetter.createZValue(r0, x0, ZUnitType.PU));
 			     		
     		//Y1
-			double g1=ModelStringUtil.getDouble(strAry[9], 0.0);
-			double b1=ModelStringUtil.getDouble(strAry[10], 0.0);
+			double g1=ODMModelStringUtil.getDouble(strAry[9], 0.0);
+			double b1=ODMModelStringUtil.getDouble(strAry[10], 0.0);
 			if(!strAry[9].contains(".")){
 				g1=g1/10000;
 			}
@@ -195,8 +195,8 @@ public class BPADynamicSequenceRecord {
 			line.setY0ShuntFromSide(DStabDataSetter.createYValue(g1, b1, YUnitType.PU));
 			     		
     		//Y2
-			double g2=ModelStringUtil.getDouble(strAry[11], 0.0);
-			double b2=ModelStringUtil.getDouble(strAry[12], 0.0);
+			double g2=ODMModelStringUtil.getDouble(strAry[11], 0.0);
+			double b2=ODMModelStringUtil.getDouble(strAry[12], 0.0);
 			if(!strAry[11].contains(".")){
 				g2=g2/10000;
 			}
@@ -222,15 +222,15 @@ public class BPADynamicSequenceRecord {
 			}
 			LineDStabXmlType line2 = parser.getDStabLine(line2fId, line2tId, line2cirId);
 			
-			double rm=ModelStringUtil.getDouble(strAry[11], 0.0);
-			double xm=ModelStringUtil.getDouble(strAry[12], 0.0);
+			double rm=ODMModelStringUtil.getDouble(strAry[11], 0.0);
+			double xm=ODMModelStringUtil.getDouble(strAry[12], 0.0);
 			if(!strAry[11].contains(".")){
 				rm=rm/10000;
 			}
 			if(!strAry[12].contains(".")){
 				xm=xm/10000;
 			}
-			MutualZeroZXmlType mutualZ0 =odmObjFactory.createMutualZeroZXmlType();
+			MutualZeroZXmlType mutualZ0 =OdmObjFactory.createMutualZeroZXmlType();
 			mutualZ0.setZM(DStabDataSetter.createZValue(rm, xm, ZUnitType.PU));
 			line1.getLineMutualZeroZ().add(mutualZ0);
 			line2.getLineMutualZeroZ().add(mutualZ0);			
@@ -375,37 +375,37 @@ public class BPADynamicSequenceRecord {
 	private static String[] getSequenceDataFields(String str){
 		final String[] strAry= new String[13];
 		// line type
-		strAry[0] = ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+		strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
 		
 		//----to process the Chinese characters in the fromBus name, if any.
-		String temp=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
-		int chnCharNum1=ModelStringUtil.getChineseCharNum(temp);		
+		String temp=ODMModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
+		int chnCharNum1=ODMModelStringUtil.getChineseCharNum(temp);		
 		//from bus name
-		strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,5, 12-chnCharNum1).trim();
+		strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,5, 12-chnCharNum1).trim();
 		
 		//---to process the Chinese characters in the toBus name, if any.
-		temp=ModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 26-chnCharNum1).trim();
-		int chnCharNum2=ModelStringUtil.getChineseCharNum(temp);
+		temp=ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 26-chnCharNum1).trim();
+		int chnCharNum2=ODMModelStringUtil.getChineseCharNum(temp);
 		//to bus name
-		strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 26-chnCharNum1-chnCharNum2).trim();
+		strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 26-chnCharNum1-chnCharNum2).trim();
 		
 		//LM card have 4 buses
 		if(str.substring(0, 2).startsWith("LM")){
 			//----to process the Chinese characters in the fromBus name 0f line2, if any.
-    		temp=ModelStringUtil.getStringReturnEmptyString(str,36-chnCharNum1-chnCharNum2, 43-chnCharNum1-chnCharNum2).trim();
-    		int chnCharNum3=ModelStringUtil.getChineseCharNum(temp);
+    		temp=ODMModelStringUtil.getStringReturnEmptyString(str,36-chnCharNum1-chnCharNum2, 43-chnCharNum1-chnCharNum2).trim();
+    		int chnCharNum3=ODMModelStringUtil.getChineseCharNum(temp);
     		//from bus name
-    		strAry[6] = ModelStringUtil.getStringReturnEmptyString(str,36-chnCharNum1-chnCharNum2, 43-chnCharNum1-chnCharNum2-chnCharNum3).trim();
+    		strAry[6] = ODMModelStringUtil.getStringReturnEmptyString(str,36-chnCharNum1-chnCharNum2, 43-chnCharNum1-chnCharNum2-chnCharNum3).trim();
     		
     		//---to process the Chinese characters in the toBus name of line2, if any.
-    		temp=ModelStringUtil.getStringReturnEmptyString(str,50-chnCharNum1-chnCharNum2-chnCharNum3, 57-chnCharNum1-chnCharNum2-chnCharNum3).trim();
-    		int chnCharNum4=ModelStringUtil.getChineseCharNum(temp);
+    		temp=ODMModelStringUtil.getStringReturnEmptyString(str,50-chnCharNum1-chnCharNum2-chnCharNum3, 57-chnCharNum1-chnCharNum2-chnCharNum3).trim();
+    		int chnCharNum4=ODMModelStringUtil.getChineseCharNum(temp);
     		//to bus name
-    		strAry[8] = ModelStringUtil.getStringReturnEmptyString(str,50-chnCharNum1-chnCharNum2-chnCharNum3, 57-chnCharNum1-chnCharNum2-chnCharNum3-chnCharNum4).trim();
+    		strAry[8] = ODMModelStringUtil.getStringReturnEmptyString(str,50-chnCharNum1-chnCharNum2-chnCharNum3, 57-chnCharNum1-chnCharNum2-chnCharNum3-chnCharNum4).trim();
 		}
 		
 		//--- replace all the Chinese Characters, since they are not used in the following processing.
-		if(chnCharNum1>0||chnCharNum2>0)str=ModelStringUtil.replaceChineseChar(str);
+		if(chnCharNum1>0||chnCharNum2>0)str=ODMModelStringUtil.replaceChineseChar(str);
 		
 		try{
 			if(str.substring(0, 2).startsWith("XO")){
@@ -413,80 +413,80 @@ public class BPADynamicSequenceRecord {
 	    		//bus1
 	    		//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
 	    		//bus1 Voltage
-	    		strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+	    		strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
 	    		//bus2
 	    		//strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
 	    		//bus2 Voltage
-	    		strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
+	    		strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
 	    		//zrLocation
-	    		strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,32, 32).trim();
+	    		strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,32, 32).trim();
 	    		//par
-	    		strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,34, 34).trim();
+	    		strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,34, 34).trim();
 	    		//X0
-	    		strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,38, 44).trim();
+	    		strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,38, 44).trim();
 	    		//R0
-	    		strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,45, 51).trim();		
+	    		strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,45, 51).trim();		
 				
 			}else if(str.substring(0, 2).startsWith("XR")){			
 				//strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
 	    		//bus1
 	    		//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
 	    		//bus1 Voltage
-	    		strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+	    		strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
 	    		//R0
-	    		strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,22, 28).trim();
+	    		strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,22, 28).trim();
 	    		//X0
-	    		strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,29, 35).trim();
+	    		strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,29, 35).trim();
 			}else if(str.substring(0, 2).startsWith("LO")){			
 				//strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
 	    		//bus1
 	    		//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
 	    		//bus1 Voltage
-	    		strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+	    		strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
 	    		//bus2
 	    		//strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
 	    		//bus2 Voltage
-	    		strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();    		
+	    		strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();    		
 	    		//par
-	    		strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,33, 33).trim();
+	    		strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,33, 33).trim();
 	    		//R0
-	    		strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,36, 42).trim();
+	    		strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,36, 42).trim();
 	    		//X0
-	    		strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,43, 49).trim();
+	    		strAry[8]=ODMModelStringUtil.getStringReturnEmptyString(str,43, 49).trim();
 	    		//G1
-	    		strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,50, 56).trim();
+	    		strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,50, 56).trim();
 	    		//B1
-	    		strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,57, 63).trim();
+	    		strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,57, 63).trim();
 	    		//G2
-	    		strAry[11]=ModelStringUtil.getStringReturnEmptyString(str,64, 70).trim();
+	    		strAry[11]=ODMModelStringUtil.getStringReturnEmptyString(str,64, 70).trim();
 	    		//B2
-	    		strAry[12]=ModelStringUtil.getStringReturnEmptyString(str,71, 77).trim();
+	    		strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,71, 77).trim();
 			}else if(str.substring(0, 2).startsWith("LM")){
 				//strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
 	    		//busI line 1
 	    		//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
 	    		//busI Voltage
-	    		strAry[2]=ModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
+	    		strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
 	    		//busJ line 1
 	    		//strAry[3]=ModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
 	    		//busJ Voltage
-	    		strAry[4]=ModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();    		
+	    		strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();    		
 	    		//par1
-	    		strAry[5]=ModelStringUtil.getStringReturnEmptyString(str,33, 33).trim();
+	    		strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,33, 33).trim();
 	    		//busK line2
 	    		//strAry[6]=ModelStringUtil.getStringReturnEmptyString(str,36, 43).trim();
 	    		//busK voltage
-	    		strAry[7]=ModelStringUtil.getStringReturnEmptyString(str,44, 47).trim();
+	    		strAry[7]=ODMModelStringUtil.getStringReturnEmptyString(str,44, 47).trim();
 	    		//busL line2
 	    		//strAry[8]=ModelStringUtil.getStringReturnEmptyString(str,50, 57).trim();
 	    		//busL voltage
-	    		strAry[9]=ModelStringUtil.getStringReturnEmptyString(str,58, 61).trim();
+	    		strAry[9]=ODMModelStringUtil.getStringReturnEmptyString(str,58, 61).trim();
 	    		//par2
-	    		strAry[10]=ModelStringUtil.getStringReturnEmptyString(str,64, 64).trim();
+	    		strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,64, 64).trim();
 	    		//Rm
-	    		strAry[11]=ModelStringUtil.getStringReturnEmptyString(str,67, 73).trim();
+	    		strAry[11]=ODMModelStringUtil.getStringReturnEmptyString(str,67, 73).trim();
 	    		//Xm
-	    		strAry[12]=ModelStringUtil.getStringReturnEmptyString(str,74, 80).trim();
+	    		strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,74, 80).trim();
 			}
 		}catch(Exception e){
 			ODMLogger.getLogger().severe(e.toString());

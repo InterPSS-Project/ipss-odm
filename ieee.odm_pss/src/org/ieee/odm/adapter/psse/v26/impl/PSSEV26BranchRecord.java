@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.psse.v26.impl;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSELineDataParser;
@@ -31,10 +31,11 @@ import org.ieee.odm.adapter.psse.parser.aclf.PSSEXfrAdjustDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
@@ -75,9 +76,9 @@ public class PSSEV26BranchRecord {
 		//final String[] strAry = getBranchDataFields(str);	
 		branchDataParser.parseFields(str);
 		
-		final String fid = AbstractModelParser.BusIdPreFix+branchDataParser.getString("I");
-		final String tid = AbstractModelParser.BusIdPreFix+branchDataParser.getString("J");
-		final String cirId = ModelStringUtil.formatCircuitId(branchDataParser.getString("CKT"));
+		final String fid = IODMModelParser.BusIdPreFix+branchDataParser.getString("I");
+		final String tid = IODMModelParser.BusIdPreFix+branchDataParser.getString("J");
+		final String cirId = ODMModelStringUtil.formatCircuitId(branchDataParser.getString("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
         //      Branch resistance R, per unit  *
@@ -153,7 +154,7 @@ public class PSSEV26BranchRecord {
 		final double rating2Mvar = branchDataParser.getDouble("RATEB", 0.0);
 		final double rating3Mvar = branchDataParser.getDouble("RATEC", 0.0);
 		
-		branchRec.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+		branchRec.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 		AclfDataSetter.setBranchRatingLimitData(branchRec.getRatingLimit(),
 				rating1Mvar, rating2Mvar, rating3Mvar,
 				ApparentPowerUnitType.MVA, 0.0,
@@ -181,14 +182,14 @@ public class PSSEV26BranchRecord {
 		//final String[] strAry = getXfrAdjDataFields(str);		
 		xfrAdjDataParser.parseFields(str);
 		
-		final String fid = AbstractModelParser.BusIdPreFix+xfrAdjDataParser.getString("I");
-		final String tid = AbstractModelParser.BusIdPreFix+xfrAdjDataParser.getString("J");
-		final String cirId = ModelStringUtil.formatCircuitId(xfrAdjDataParser.getString("CKT"));
+		final String fid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getString("I");
+		final String tid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getString("J");
+		final String cirId = ODMModelStringUtil.formatCircuitId(xfrAdjDataParser.getString("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
 		BranchXmlType branchRec = (BranchXmlType)parser.getBranch(fid, tid, cirId);
 	    if (branchRec == null){
-			String branchId = ModelStringUtil.formBranchId(fid, tid, cirId);
+			String branchId = ODMModelStringUtil.formBranchId(fid, tid, cirId);
 			ODMLogger.getLogger().severe("Branch "+ branchId + " not found in the network");
 	    	return;
 	    }	
@@ -201,7 +202,7 @@ public class PSSEV26BranchRecord {
 	    	isNegative = true;
 	    	icon = - icon;
 	    }
-		final String iconId = icon > 0? AbstractModelParser.BusIdPreFix+icon : null;
+		final String iconId = icon > 0? IODMModelParser.BusIdPreFix+icon : null;
 
 		if (branchRec instanceof XfrBranchXmlType) {
 			XfrBranchXmlType branchData = (XfrBranchXmlType)branchRec;
@@ -211,17 +212,17 @@ public class PSSEV26BranchRecord {
 	    	double vup = xfrAdjDataParser.getDouble("VMA", 0.0);
 	    	double vlow = xfrAdjDataParser.getDouble("VMI", 0.0);
 	    	
-	    	TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType(); 
+	    	TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType(); 
 	    	branchData.setTapAdjustment(tapAdj);
 	    	tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
 	    	tapAdj.setTapLimit(BaseDataSetter.createTapLimit(tmax, tmin));
 	    	tapAdj.setTapAdjStepSize(tstep);
 	    	tapAdj.setTapAdjOnFromSide(true);
 
-	    	VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType(); 
+	    	VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType(); 
 	    	tapAdj.setVoltageAdjData(vAdjData);
 	    	vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
-	    	vAdjData.setRange(odmObjFactory.createLimitXmlType());
+	    	vAdjData.setRange(OdmObjFactory.createLimitXmlType());
 	    	vAdjData.getRange().setMax(vup);
 	    	vAdjData.getRange().setMin(vlow);
 	    	
@@ -249,10 +250,10 @@ public class PSSEV26BranchRecord {
 	    	double mwup = xfrAdjDataParser.getDouble("VMA", 0.0);
 	    	double mwlow = xfrAdjDataParser.getDouble("VMI", 0.0);
 
-	    	AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType(); 
+	    	AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType(); 
 	    	branchData.setAngleAdjustment(angAdj);
 	    	angAdj.setAngleLimit(BaseDataSetter.createAngleLimit(angmax, angmin, AngleUnitType.DEG));
-	    	angAdj.setRange(odmObjFactory.createLimitXmlType());
+	    	angAdj.setRange(OdmObjFactory.createLimitXmlType());
 	    	angAdj.getRange().setMax(mwup);
 	    	angAdj.getRange().setMin(mwlow);
 	    	angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);

@@ -5,7 +5,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSEXfrZeroSeqDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -83,9 +83,9 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
       	int j = dataParser.getInt("J");                
       	int k = dataParser.getInt("K");
       	
-      	final String fbusId = AbstractModelParser.BusIdPreFix+i;
-	    final String tbusId = AbstractModelParser.BusIdPreFix+j;
-	    final String terbusId = AbstractModelParser.BusIdPreFix+k;
+      	final String fbusId = IODMModelParser.BusIdPreFix+i;
+	    final String tbusId = IODMModelParser.BusIdPreFix+j;
+	    final String terbusId = IODMModelParser.BusIdPreFix+k;
 
                 
         boolean is3W = (k != 0); 

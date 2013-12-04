@@ -34,7 +34,7 @@ public class ODMBranchDuplicationException extends Exception {
 	private static final long serialVersionUID = 1;
 
 	/**
-	 * constrcuctor
+	 * constructor
 	 * 
 	 * @param msg
 	 */

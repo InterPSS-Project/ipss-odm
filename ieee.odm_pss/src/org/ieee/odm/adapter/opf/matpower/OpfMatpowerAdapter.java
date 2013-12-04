@@ -8,7 +8,6 @@ import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -166,7 +165,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		// parse the input data line
 		final String[] s = getBusDataFields(str);
 
-		final String busId = AbstractModelParser.BusIdPreFix + s[0];
+		final String busId = IODMModelParser.BusIdPreFix + s[0];
 		final int type = str2i(s[1]);
 		final double pl = str2d(s[2]);
 		final double ql = str2d(s[3]);
@@ -247,7 +246,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		// parse the input data line
 		final String[] s = getGenDataFields(str);
 		final String id = s[0];
-		final String busId = AbstractModelParser.BusIdPreFix + id;
+		final String busId = IODMModelParser.BusIdPreFix + id;
 		OpfGenBusXmlType bus = (OpfGenBusXmlType) parser.getBus(busId);
 		opfGenContainer.add(bus);
 		double pg = str2d(s[1]);
@@ -279,8 +278,8 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 	private void processBranchData(final String str, /*int cirId,*/ OpfModelParser parser) {
 		// parse the input data line
 		final String[] s = getBranchDataFields(str);
-		final String fid = AbstractModelParser.BusIdPreFix + s[0];
-		final String tid = AbstractModelParser.BusIdPreFix + s[1];
+		final String fid = IODMModelParser.BusIdPreFix + s[0];
+		final String tid = IODMModelParser.BusIdPreFix + s[1];
 
 		OpfBranchXmlType opfBra = null;
 		try {

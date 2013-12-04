@@ -24,12 +24,13 @@
 
 package org.ieee.odm.adapter.ge.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GEBranchDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
@@ -49,8 +50,8 @@ public class GEBranchDataMapper extends BaseGEDataMapper {
 	public void mapLineStr(String lineStr, final AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
 		dataParser.parseFields(lineStr);
 		
-		final String fid = AclfModelParser.BusIdPreFix + dataParser.getString("f_bus");
-		final String tid = AclfModelParser.BusIdPreFix + dataParser.getString("t_bus");
+		final String fid = IODMModelParser.BusIdPreFix + dataParser.getString("f_bus");
+		final String tid = IODMModelParser.BusIdPreFix + dataParser.getString("t_bus");
 		final String cId = dataParser.getString("ck").replace(' ', '_');
 		LineBranchXmlType branchRec = null;
 		branchRec = parser.createLineBranch(fid, tid, cId);
@@ -78,7 +79,7 @@ public class GEBranchDataMapper extends BaseGEDataMapper {
 		branchRec.setZoneNumber(dataParser.getInt("z"));
 		
 		LineBranchInfoXmlType lineInfo = branchRec.getLineInfo();
-		lineInfo.setLength(odmObjFactory.createLengthXmlType());
+		lineInfo.setLength(OdmObjFactory.createLengthXmlType());
 		lineInfo.getLength().setValue(dataParser.getDouble("l"));
 		lineInfo.getLength().setUnit(LengthUnitType.MILE);
 		

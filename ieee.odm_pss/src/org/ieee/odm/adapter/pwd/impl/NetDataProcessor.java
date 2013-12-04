@@ -1,6 +1,6 @@
 package org.ieee.odm.adapter.pwd.impl;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
@@ -46,12 +46,12 @@ public class NetDataProcessor extends InputLineStringParser  {
 			e.printStackTrace();
 		}
 		
-		NetAreaXmlType area=odmObjFactory.createNetAreaXmlType();
+		NetAreaXmlType area=OdmObjFactory.createNetAreaXmlType();
 		area.setNumber(areaNum);
 		area.setName(areaName);
 		
 		if(parser.getNet().getAreaList()==null)
-			parser.getNet().setAreaList(odmObjFactory.createNetworkXmlTypeAreaList());
+			parser.getNet().setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
 		
 		parser.getNet().getAreaList().getArea().add(area);
 	}
@@ -76,12 +76,12 @@ public class NetDataProcessor extends InputLineStringParser  {
 		}
 		
 				
-		NetZoneXmlType zone=odmObjFactory.createNetZoneXmlType();
+		NetZoneXmlType zone=OdmObjFactory.createNetZoneXmlType();
 		zone.setNumber(zoneNum);
 		zone.setName(zoneName);
 		
 		if(parser.getNet().getLossZoneList()==null)
-			parser.getNet().setLossZoneList(odmObjFactory.createNetworkXmlTypeLossZoneList());
+			parser.getNet().setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
 		
 		parser.getNet().getLossZoneList().getLossZone().add(zone);
 		
@@ -95,7 +95,7 @@ public class NetDataProcessor extends InputLineStringParser  {
 		PWDNetworkExtXmlType pwdNetExt =(PWDNetworkExtXmlType)parser.getNet().getExtension();
 		if(!initLimitSet){
 			if (pwdNetExt.getLimitSets()==null) 
-			    pwdNetExt.setLimitSets(odmObjFactory.createPWDNetworkExtXmlTypeLimitSets());
+			    pwdNetExt.setLimitSets(OdmObjFactory.createPWDNetworkExtXmlTypeLimitSets());
 			initLimitSet=true;
 		}
 		
@@ -111,7 +111,7 @@ public class NetDataProcessor extends InputLineStringParser  {
 		lsNum = getInt("LSNum");
 		limitSetName = getString("LSName");
 		
-		LimitSetXmlType limitSet = odmObjFactory.createLimitSetXmlType();
+		LimitSetXmlType limitSet = OdmObjFactory.createLimitSetXmlType();
 		limitSet.setNumber(lsNum);
 		limitSet.setName(limitSetName);
 		limitSet.setLsDiabled(isDisable);

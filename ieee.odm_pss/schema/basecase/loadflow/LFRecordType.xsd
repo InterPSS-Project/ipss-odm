@@ -329,6 +329,9 @@
 		</ns:documentation> </ns:annotation>
 		<ns:complexContent>
 			<ns:extension base="pss:CimConnectionRecordType">
+				<ns:annotation> <ns:documentation>
+				When code = FunctionLoad, the ZIP load units should be the same
+				</ns:documentation> </ns:annotation>
 				<ns:sequence>
 					<ns:element minOccurs="0" name="constPLoad" type="pss:PowerXmlType"/>
 					<ns:element minOccurs="0" name="constILoad" type="pss:PowerXmlType"/>

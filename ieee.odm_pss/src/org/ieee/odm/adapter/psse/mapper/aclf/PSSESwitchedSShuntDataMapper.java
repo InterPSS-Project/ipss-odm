@@ -24,12 +24,12 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSESwitchedShuntDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
@@ -68,14 +68,14 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		   //  20         21         22         23         24
 			  "N7",      "B7",      "N8",      "B8"  */
 		
-		final String busId = AbstractModelParser.BusIdPreFix+this.dataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+this.dataParser.getString("I");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType aclfBus = (LoadflowBusXmlType) parser.getBus(busId);
 		if (aclfBus==null){
 			throw new ODMException("Error: Bus not found in the network, bus number: " + busId);
         }
 				
-	    ShuntCompensatorXmlType shunt = odmObjFactory.createShuntCompensatorXmlType();
+	    ShuntCompensatorXmlType shunt = OdmObjFactory.createShuntCompensatorXmlType();
 	    aclfBus.setShuntCompensator(shunt);
 		
 		// genId is used to distinguish multiple generations at one bus		
@@ -93,7 +93,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		//SWREM - Number of remote bus to control. 0 to control own bus.
 		int busNo = this.dataParser.getInt("SWREM", 0);
 		if (busNo != 0) {
-			shunt.setRemoteControlledBus(parser.createBusRef(AbstractModelParser.BusIdPreFix+this.dataParser.getString("SWREM")));
+			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+this.dataParser.getString("SWREM")));
 		}
 
 		/* V30
@@ -125,7 +125,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	  		int n = this.dataParser.getInt("N"+(i+1), 0);
 			if(n>0){
 			  		double b = this.dataParser.getDouble("B"+(i+1), 0.0);
-			  		ShuntCompensatorBlockXmlType block = odmObjFactory.createShuntCompensatorBlockXmlType(); 
+			  		ShuntCompensatorBlockXmlType block = OdmObjFactory.createShuntCompensatorBlockXmlType(); 
 			  		shunt.getBlock().add(block);
 			  		block.setSteps(n);
 			  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));

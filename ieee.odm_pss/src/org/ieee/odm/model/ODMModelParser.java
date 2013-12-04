@@ -24,19 +24,22 @@
 
 package org.ieee.odm.model;
 
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.acsc.AcscModelParser;
 import org.ieee.odm.model.dc.DcSystemModelParser;
 import org.ieee.odm.model.dist.DistModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.opf.OpfModelParser;
+import org.ieee.odm.schema.BaseBranchXmlType;
+import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 
 /**
- * A generic Xml parser for the IEEE DOM schema, used when the network type is unknown 
+ * A generic Xml parser for the IEEE DOM schema, used when the network/analysis type is unknown.
+ * The to<*>ModelParser() method is used to "cast" to appropriate ODM model type whenever
+ * its network/analysis type is known.
  */
-public class ODMModelParser extends AclfModelParser {
+public class ODMModelParser extends AbstractModelParser<NetworkXmlType, BusXmlType, BaseBranchXmlType, BaseBranchXmlType, BaseBranchXmlType> {
 	/**
 	 * Default Constructor 
 	 * 
@@ -99,7 +102,31 @@ public class ODMModelParser extends AclfModelParser {
 		return (OpfModelParser)copyTo(new OpfModelParser(OpfModelParser.OpfNetType.OPF));
 	}
 	
-	private AbstractModelParser copyTo(AbstractModelParser parser) {
+	@Override public NetworkXmlType createBaseCase() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+
+	@Override public BusXmlType createBus() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+
+	@Override public BaseBranchXmlType createLineBranch() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+
+	@Override public BaseBranchXmlType createXfrBranch() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+
+	@Override public BaseBranchXmlType createXfr3WBranch() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+
+	@Override public BaseBranchXmlType createPSXfrBranch() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+
+	private AbstractModelParser<?,?,?,?,?> copyTo(AbstractModelParser<?,?,?,?,?> parser) {
 		parser.objectCache = this.objectCache;
 		parser.pssStudyCase = this.pssStudyCase;
 		return parser;

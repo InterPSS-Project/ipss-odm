@@ -4,11 +4,10 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.generator.PSSEGenrouDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.dstab.DStabParserHelper;
-import org.ieee.odm.schema.ClassicMachineXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
@@ -44,7 +43,7 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 		 */
 		
 		int i = dataParser.getInt("IBUS");
-	    final String busId = AbstractModelParser.BusIdPreFix+i;
+	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    String genId = dataParser.getString("MachId");
 	    
 	    //check model type

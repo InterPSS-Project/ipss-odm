@@ -5,7 +5,7 @@ import javax.xml.bind.JAXBElement;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
@@ -78,19 +78,19 @@ public class BPAGenLoadDataModifyRecord<
 		final String[] strAry = new String[20];
 		try{
 			// type
-			strAry[0] = ModelStringUtil.getStringReturnEmptyString(str,1, 2);
+			strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str,1, 2);
 			//zone name
 			if(strAry[0].equals(Modify_Gen_n_Load_BY_ZONE)||strAry[0].equals(Modify_ConstZILoad_BY_ZONE))
-               strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,4, 5).trim();
+               strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 5).trim();
 			// ower name
 			else if(strAry[0].equals(Modify_Gen_n_Load_BY_OWNER)||strAry[0].equals(Modify_ConstZILoad_BY_OWNER))
-			  strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,4, 6).trim();
+			  strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 6).trim();
 			// LoadP and LoadQ modification factor
-			strAry[2] = ModelStringUtil.getStringReturnEmptyString(str,10, 14).trim();
-			strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,16, 20).trim();
+			strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str,10, 14).trim();
+			strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,16, 20).trim();
 			// GenP and GenQ modification factor
-			strAry[4] = ModelStringUtil.getStringReturnEmptyString(str,22, 26).trim();
-			strAry[5] = ModelStringUtil.getStringReturnEmptyString(str,28, 32).trim();
+			strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str,22, 26).trim();
+			strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,28, 32).trim();
 			// for the rest optional setting, not implementation yet
 			//TODO
 			
@@ -112,8 +112,8 @@ public class BPAGenLoadDataModifyRecord<
 				if(genP!=0.0)genP*=genPFactor;
 				if(genQ!=0.0)genQ*=genQFactor;
 				if(genP!=0.0||genQ!=0){
-					  genP=ModelStringUtil.getNumberFormat(genP);
-					  genQ=ModelStringUtil.getNumberFormat(genQ);
+					  genP=ODMModelStringUtil.getNumberFormat(genP);
+					  genQ=ODMModelStringUtil.getNumberFormat(genQ);
 					bus.getGenData().getEquivGen().getValue().setPower(BaseDataSetter.createPowerValue(
 						genP,genQ,ApparentPowerUnitType.MVA));
 				}
@@ -135,8 +135,8 @@ public class BPAGenLoadDataModifyRecord<
 				  if(loadP!=0.0)loadP*=loadPFactor;
 				  if(loadQ!=0.0)loadQ*=loadQFactor;
 				  if(loadP!=0.0||loadQ!=0.0){
-					  loadP=ModelStringUtil.getNumberFormat(loadP);
-					  loadQ=ModelStringUtil.getNumberFormat(loadQ);
+					  loadP=ODMModelStringUtil.getNumberFormat(loadP);
+					  loadQ=ODMModelStringUtil.getNumberFormat(loadQ);
 					  bus.getLoadData().getEquivLoad().getValue().setConstPLoad(BaseDataSetter.createPowerValue(
 							loadP,loadQ,ApparentPowerUnitType.MVA));
 				  }

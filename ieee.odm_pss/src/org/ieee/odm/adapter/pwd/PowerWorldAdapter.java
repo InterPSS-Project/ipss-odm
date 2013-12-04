@@ -1,6 +1,6 @@
 package org.ieee.odm.adapter.pwd;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.xml.bind.JAXBElement;
 
@@ -51,7 +51,7 @@ public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
 		
 		// add PWD network extension 
-		PWDNetworkExtXmlType pwdNetExt = odmObjFactory.createPWDNetworkExtXmlType();
+		PWDNetworkExtXmlType pwdNetExt = OdmObjFactory.createPWDNetworkExtXmlType();
 		
 		// Since the LimitSet is not necessarily included but an optional data, 
 		// LimitSets is initialized when it is processed for the first time.

@@ -4,7 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSELoadZeroSeqDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
@@ -40,7 +40,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		dataParser.parseFields(lineStr);
 		
 		int i = dataParser.getInt("I");
-		final String busId = AbstractModelParser.BusIdPreFix+i;
+		final String busId = IODMModelParser.BusIdPreFix+i;
 		double gZero = dataParser.getDouble("GZERO");
 		double bZero = dataParser.getDouble("BZERO");
 		ShortCircuitBusXmlType scBusXmlType= (ShortCircuitBusXmlType) parser.getBus(busId);

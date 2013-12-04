@@ -28,10 +28,10 @@ import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for parsing IEEE CDF bus data line string
  * 
  * @author mzhou
  *
@@ -96,19 +96,19 @@ public class IeeeCDFBusDataParser extends AbstractDataFieldParser {
 
 			//Columns 107-114 Shunt conductance G (per unit) [F] *
 			//Columns 115-122 Shunt susceptance B (per unit) [F] *
-			this.setValue(15, ModelStringUtil.getString(str,107, 114));
-			this.setValue(16, ModelStringUtil.getString(str,115, 122));
+			this.setValue(15, ODMModelStringUtil.getString(str,107, 114));
+			this.setValue(16, ODMModelStringUtil.getString(str,115, 122));
 
 			//Columns 85-90   Desired volts (pu) [F] (This is desired remote voltage if this bus is controlling another bus.)
-			this.setValue(12, ModelStringUtil.getString(str,85, 90));
+			this.setValue(12, ODMModelStringUtil.getString(str,85, 90));
 
 			//Columns 91-98   Minimum MVAR or voltage limit [F]
 			//Columns 99-106  Maximum MVAR or voltage limit [F]
-			this.setValue(13, ModelStringUtil.getString(str,91, 98));
-			this.setValue(14, ModelStringUtil.getString(str,99, 106));
+			this.setValue(13, ODMModelStringUtil.getString(str,91, 98));
+			this.setValue(14, ODMModelStringUtil.getString(str,99, 106));
 
 			//Columns 124-127 Remote controlled bus number
-			this.setValue(17, ModelStringUtil.getString(str,123, 127).trim());
+			this.setValue(17, ODMModelStringUtil.getString(str,123, 127).trim());
 		}
 	}
 }

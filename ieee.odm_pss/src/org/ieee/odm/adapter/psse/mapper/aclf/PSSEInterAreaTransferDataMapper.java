@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEInterAreaTransferDataParser;
@@ -74,10 +74,10 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		*/
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		if (baseCaseNet.getInterchangeList() == null)
-			baseCaseNet.setInterchangeList(odmObjFactory.createLoadflowNetXmlTypeInterchangeList());
-		InterchangeXmlType interchange = odmObjFactory.createInterchangeXmlType();
+			baseCaseNet.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
+		InterchangeXmlType interchange = OdmObjFactory.createInterchangeXmlType();
 		baseCaseNet.getInterchangeList().getInterchange().add(interchange);
-		AreaTransferXmlType transfer = odmObjFactory.createAreaTransferXmlType(); 
+		AreaTransferXmlType transfer = OdmObjFactory.createAreaTransferXmlType(); 
 		interchange.setAreaTransfer(transfer);
 		
 		transfer.setFromArea(arfrom);

@@ -1,5 +1,5 @@
 /*
- * @(#)IeeeCDFLossZoneDataMapper.java   
+ * @(#)AbstractIeeeCDFDataMapper.java   
  *
  * Copyright (C) 2006 www.interpss.org
  *
@@ -24,36 +24,30 @@
 
 package org.ieee.odm.adapter.ieeecdf.mapper;
 
-import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFLossZoneDataParser;
+import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.schema.NetZoneXmlType;
 
 /**
- * IEEE CDF loss zone record ODM mapper
+ * Abstract base class for implementing data mapper to map an input data
+ * line to the ODM parser object.
  * 
  * @author mzhou
  *
  */
-public class IeeeCDFLossZoneDataMapper extends AbstractIeeeCDFDataMapper {
-
+public abstract class AbstractIeeeCDFDataMapper {
+	/** input date line parser*/
+	protected AbstractDataFieldParser dataParser = null;
+	
 	/**
-	 * Constructor
+	 * First the dataParser is used to parse the inout date line. Then, map the info stored 
+	 * in the parser object into the model parser object
+	 * 
+	 * @param strLine an input data line
+	 * @param parser ODM parser object
+	 * @throws ODMException
+	 * @throws ODMBranchDuplicationException
 	 */
-	public IeeeCDFLossZoneDataMapper() {
-		this.dataParser = new IeeeCDFLossZoneDataParser();
-	}
-
-	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
-		dataParser.parseFields(str);
-		
-		final NetZoneXmlType lossZone = parser.createNetworkLossZone();
-
-		//    	Columns  1- 3   Loss zone number [I] *
-		//    	Columns  5-16   Loss zone name [A] 
-		final int no = dataParser.getInt("ZoneNum");
-		final String name = dataParser.getString("ZoneName");
-		lossZone.setNumber(no);
-		lossZone.setName(name);
-	}
+	abstract void mapInputLine(final String strLine, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException;
 }

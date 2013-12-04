@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ucte.parser;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing UCTE xfr adjustment data line string
@@ -48,34 +48,34 @@ public class UCTEXfrAdjustDataParser extends AbstractDataFieldParser {
 	
 	@Override public void parseFields(final String str) throws ODMException {
 		int cnt = 0;
-		String fromNodeId = ModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
+		String fromNodeId = ODMModelStringUtil.getString(str, 1, 8).trim().replace(' ', '_');
 		this.setValue(cnt++, fromNodeId);
-		String toNodeId = ModelStringUtil.getString(str, 10, 17).trim().replace(' ', '_');
+		String toNodeId = ODMModelStringUtil.getString(str, 10, 17).trim().replace(' ', '_');
 		this.setValue(cnt++, toNodeId);
-		String orderCode = ModelStringUtil.getString(str, 19, 19);
+		String orderCode = ODMModelStringUtil.getString(str, 19, 19);
 		this.setValue(cnt++, orderCode);
 
-		String dUPhase = ModelStringUtil.getString(str, 21, 25);  
+		String dUPhase = ODMModelStringUtil.getString(str, 21, 25);  
 		this.setValue(cnt++, dUPhase);
-		String nPhase = ModelStringUtil.getString(str, 27, 28);  
+		String nPhase = ODMModelStringUtil.getString(str, 27, 28);  
 		this.setValue(cnt++, nPhase);
-		String n1Phase = ModelStringUtil.getString(str, 30, 32);  
+		String n1Phase = ODMModelStringUtil.getString(str, 30, 32);  
 		this.setValue(cnt++, n1Phase);
-		String uKvPhase = ModelStringUtil.getString(str, 34, 38);  
+		String uKvPhase = ODMModelStringUtil.getString(str, 34, 38);  
 		this.setValue(cnt++, uKvPhase);
 
-		String dUAngle = ModelStringUtil.getString(str, 40, 44);  
+		String dUAngle = ODMModelStringUtil.getString(str, 40, 44);  
 		this.setValue(cnt++, dUAngle);
-		String thetaDegAngle = ModelStringUtil.getString(str, 46, 50);  
+		String thetaDegAngle = ODMModelStringUtil.getString(str, 46, 50);  
 		this.setValue(cnt++, thetaDegAngle);
-		String nAngle = ModelStringUtil.getString(str, 52, 53);  
+		String nAngle = ODMModelStringUtil.getString(str, 52, 53);  
 		this.setValue(cnt++, nAngle);
-		String n1Angle = ModelStringUtil.getString(str, 55, 57);  
+		String n1Angle = ODMModelStringUtil.getString(str, 55, 57);  
 		this.setValue(cnt++, n1Angle);
-		String pMwAngle = ModelStringUtil.getString(str, 59, 63);  
+		String pMwAngle = ODMModelStringUtil.getString(str, 59, 63);  
 		this.setValue(cnt++, pMwAngle);
 
-		String type = ModelStringUtil.getString(str, 65, 68);		
+		String type = ODMModelStringUtil.getString(str, 65, 68);		
 		this.setValue(cnt++, type);
 	}
 }

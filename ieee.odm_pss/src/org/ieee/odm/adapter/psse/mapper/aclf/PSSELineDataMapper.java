@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -32,7 +32,7 @@ import org.ieee.odm.adapter.psse.parser.aclf.PSSELineDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -92,8 +92,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 			}
 		}
       	
-		final String fid = AbstractModelParser.BusIdPreFix+i;
-		final String tid = AbstractModelParser.BusIdPreFix+j;
+		final String fid = IODMModelParser.BusIdPreFix+i;
+		final String tid = IODMModelParser.BusIdPreFix+j;
 
 		LineBranchXmlType braRecXml;
 		try {
@@ -117,7 +117,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		double ratea = dataParser.getDouble("RATEA", 0.0);
 		double rateb = dataParser.getDouble("RATEB", 0.0);
 		double ratec = dataParser.getDouble("RATEC", 0.0);
-		braRecXml.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+		braRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 		AclfDataSetter.setBranchRatingLimitData(braRecXml.getRatingLimit(),
     				ratea, rateb, ratec, ApparentPowerUnitType.MVA);
         

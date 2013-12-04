@@ -24,33 +24,28 @@
 
 package org.ieee.odm.model.acsc;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ModelDataUtil;
-import org.ieee.odm.schema.ActivePowerUnitType;
+import org.ieee.odm.model.base.ODMModelDataUtil;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.GroundingEnumType;
 import org.ieee.odm.schema.GroundingXmlType;
-import org.ieee.odm.schema.LFGenCodeEnumType;
-import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LineShortCircuitXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.PSXfrShortCircuitXmlType;
-import org.ieee.odm.schema.PowerXmlType;
 import org.ieee.odm.schema.ShortCircuitBusEnumType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.ShortCircuitGenDataXmlType;
@@ -76,8 +71,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static JAXBElement<ShortCircuitGenDataXmlType> createAcscEquivGen() {
-		ShortCircuitGenDataXmlType equivGen = odmObjFactory.createShortCircuitGenDataXmlType();
-		return odmObjFactory.createAcscEquivGen(equivGen);
+		ShortCircuitGenDataXmlType equivGen = OdmObjFactory.createShortCircuitGenDataXmlType();
+		return OdmObjFactory.createAcscEquivGen(equivGen);
 	}
 	
 	/**
@@ -103,13 +98,13 @@ public class AcscParserHelper extends AclfParserHelper {
 	public static ShortCircuitGenDataXmlType createAcscContributeGen(ShortCircuitBusXmlType busRec) {
 		BusGenDataXmlType genData = busRec.getGenData();
 		if (genData == null) {
-			genData = odmObjFactory.createBusGenDataXmlType();
+			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
 			genData.setEquivGen(createAcscEquivGen());
 		}
 		// some model does not need ContributeGenList
-		ShortCircuitGenDataXmlType contribGen = odmObjFactory.createShortCircuitGenDataXmlType();
-		genData.getContributeGen().add(odmObjFactory.createAcscContributeGen(contribGen));
+		ShortCircuitGenDataXmlType contribGen = OdmObjFactory.createShortCircuitGenDataXmlType();
+		genData.getContributeGen().add(OdmObjFactory.createAcscContributeGen(contribGen));
 		return contribGen;
 	}
 	
@@ -119,8 +114,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static JAXBElement<ShortCircuitLoadDataXmlType> createAcscEquivLoad() {
-		ShortCircuitLoadDataXmlType equivLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-		return odmObjFactory.createAcscEquivLoad(equivLoad);
+		ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+		return OdmObjFactory.createAcscEquivLoad(equivLoad);
 	}
 
 	/**
@@ -130,13 +125,13 @@ public class AcscParserHelper extends AclfParserHelper {
 	public static ShortCircuitLoadDataXmlType createAcscContributeLoad(ShortCircuitBusXmlType busRec) {
 		BusLoadDataXmlType loadData = busRec.getLoadData();
 		if (loadData == null) { 
-			loadData = odmObjFactory.createBusLoadDataXmlType();
+			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
-			ShortCircuitLoadDataXmlType equivLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-			loadData.setEquivLoad(odmObjFactory.createAcscEquivLoad(equivLoad));
+			ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+			loadData.setEquivLoad(OdmObjFactory.createAcscEquivLoad(equivLoad));
 		}
-		ShortCircuitLoadDataXmlType contribLoad = odmObjFactory.createShortCircuitLoadDataXmlType();
-	    loadData.getContributeLoad().add(odmObjFactory.createAcscContributeLoad(contribLoad)); 
+		ShortCircuitLoadDataXmlType contribLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+	    loadData.getContributeLoad().add(OdmObjFactory.createAcscContributeLoad(contribLoad)); 
 	    return contribLoad;
 	}	
 	
@@ -145,8 +140,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static XformerConnectionXmlType createDirectedGroundingConnection(){
-		XformerConnectionXmlType  xfrConnect = odmObjFactory.createXformerConnectionXmlType();
-		GroundingXmlType ground = odmObjFactory.createGroundingXmlType();
+		XformerConnectionXmlType  xfrConnect = OdmObjFactory.createXformerConnectionXmlType();
+		GroundingXmlType ground = OdmObjFactory.createGroundingXmlType();
 		ground.setGroundingConnection(GroundingEnumType.SOLID_GROUNDED);
 		xfrConnect.setGrounding(ground);
 		return xfrConnect;
@@ -160,8 +155,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static XformerConnectionXmlType createZGroundingConnection(double rg, double xg){
-		XformerConnectionXmlType  xfrConnect = odmObjFactory.createXformerConnectionXmlType();
-		GroundingXmlType ground = odmObjFactory.createGroundingXmlType();
+		XformerConnectionXmlType  xfrConnect = OdmObjFactory.createXformerConnectionXmlType();
+		GroundingXmlType ground = OdmObjFactory.createGroundingXmlType();
 		ground.setGroundingConnection(GroundingEnumType.Z_GROUNDED);
 		ground.setGroundingZ(BaseDataSetter.createZValue(rg, xg, ZUnitType.PU));
 		xfrConnect.setGrounding(ground);
@@ -173,8 +168,8 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * @return
 	 */
 	public static XformerConnectionXmlType createUnGroundingConnection(){
-		XformerConnectionXmlType  xfrConnect = odmObjFactory.createXformerConnectionXmlType();
-		GroundingXmlType ground = odmObjFactory.createGroundingXmlType();
+		XformerConnectionXmlType  xfrConnect = OdmObjFactory.createXformerConnectionXmlType();
+		GroundingXmlType ground = OdmObjFactory.createGroundingXmlType();
 		ground.setGroundingConnection(GroundingEnumType.UNGROUNDED);
 		xfrConnect.setGrounding(ground);
 		return xfrConnect;
@@ -258,19 +253,19 @@ public class AcscParserHelper extends AclfParserHelper {
 							
 						}
 						
-						ZXmlType z11 = ModelDataUtil.ZXmlMultiplyDouble(z1, factor);
+						ZXmlType z11 = ODMModelDataUtil.ZXmlMultiplyDouble(z1, factor);
 						
 						if(equivPosZ ==null) equivPosZ = z11;
 						else{
-							equivPosZ =ModelDataUtil.addParallelZ(equivPosZ, z11); 
+							equivPosZ =ODMModelDataUtil.addParallelZ(equivPosZ, z11); 
 						}
 						if(contriGenData.getNegativeZ()!=null){
 							ZXmlType z2=contriGenData.getNegativeZ();
-							ZXmlType z21 = ModelDataUtil.ZXmlMultiplyDouble(z2, factor);
+							ZXmlType z21 = ODMModelDataUtil.ZXmlMultiplyDouble(z2, factor);
                             
 							if(equivNegZ==null) equivNegZ = z21;
 							else{
-								equivNegZ =ModelDataUtil.addParallelZ(equivNegZ, z21); 
+								equivNegZ =ODMModelDataUtil.addParallelZ(equivNegZ, z21); 
 							}
 							
 						}
@@ -280,11 +275,11 @@ public class AcscParserHelper extends AclfParserHelper {
 						
 						if(contriGenData.getZeroZ()!=null){
 							ZXmlType z0=contriGenData.getZeroZ();
-							ZXmlType z01 = ModelDataUtil.ZXmlMultiplyDouble(z0, factor);
+							ZXmlType z01 = ODMModelDataUtil.ZXmlMultiplyDouble(z0, factor);
                             
 							if(equivZeroZ==null) equivZeroZ = z01;
 							else{
-								equivZeroZ =ModelDataUtil.addParallelZ(equivZeroZ, z01); 
+								equivZeroZ =ODMModelDataUtil.addParallelZ(equivZeroZ, z01); 
 							}
 						}
 						
@@ -350,7 +345,7 @@ public class AcscParserHelper extends AclfParserHelper {
 					     if(contriLoadData.getShuntLoadNegativeY()!=null){
 					    	 if(equivShuntNegY  == null)equivShuntNegY  = contriLoadData.getShuntLoadNegativeY();
 					    	 else {
-					    		 ModelDataUtil.addParallelY(equivShuntNegY,contriLoadData.getShuntLoadNegativeY());
+					    		 ODMModelDataUtil.addParallelY(equivShuntNegY,contriLoadData.getShuntLoadNegativeY());
 							  }
 					     }
 					     else{ // negative sequence load data is not provided in the input data, assume y2 = equivY1
@@ -377,7 +372,7 @@ public class AcscParserHelper extends AclfParserHelper {
 					     if(contriLoadData.getShuntLoadZeroY()!=null){
 					    	 if(equivShuntZeroY  == null)equivShuntZeroY  = contriLoadData.getShuntLoadZeroY();
 					    	 else {
-					    		 ModelDataUtil.addParallelY(equivShuntZeroY,contriLoadData.getShuntLoadZeroY());
+					    		 ODMModelDataUtil.addParallelY(equivShuntZeroY,contriLoadData.getShuntLoadZeroY());
 							  }
 					     }
 					     //else, zero sequence load is open, do nothing

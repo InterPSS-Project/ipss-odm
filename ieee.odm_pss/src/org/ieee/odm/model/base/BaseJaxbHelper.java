@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.base;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.util.Comparator;
 import java.util.List;
@@ -107,19 +107,19 @@ public class BaseJaxbHelper {
 	public static JAXBElement<? extends NetworkXmlType> network(NetworkXmlType net) {
 		// be careful with inheritance here 
 		if (net instanceof DStabNetXmlType) 
-			return odmObjFactory.createDstabNet((DStabNetXmlType)net);
+			return OdmObjFactory.createDstabNet((DStabNetXmlType)net);
 		else if (net instanceof OpfDclfNetworkXmlType) 
-			return odmObjFactory.createDclfOpfNet((OpfDclfNetworkXmlType)net);
+			return OdmObjFactory.createDclfOpfNet((OpfDclfNetworkXmlType)net);
 		else if (net instanceof ShortCircuitNetXmlType) 
-			return odmObjFactory.createAcscNet((ShortCircuitNetXmlType)net);
+			return OdmObjFactory.createAcscNet((ShortCircuitNetXmlType)net);
 		else if (net instanceof LoadflowNetXmlType) 
-			return odmObjFactory.createAclfNet((LoadflowNetXmlType)net);
+			return OdmObjFactory.createAclfNet((LoadflowNetXmlType)net);
 		else if (net instanceof DcNetworkXmlType) 
-			return odmObjFactory.createDcNet((DcNetworkXmlType)net);
+			return OdmObjFactory.createDcNet((DcNetworkXmlType)net);
 		else if (net instanceof DistributionNetXmlType) 
-			return odmObjFactory.createDistNet((DistributionNetXmlType)net);
+			return OdmObjFactory.createDistNet((DistributionNetXmlType)net);
 		else
-			return odmObjFactory.createBaseCase(net);
+			return OdmObjFactory.createBaseCase(net);
 	}
 	
 	/**
@@ -148,44 +148,44 @@ public class BaseJaxbHelper {
 	public static JAXBElement<? extends BaseBranchXmlType> branch(BaseBranchXmlType branch) {
 		// be careful with inheritance here 
 		if (branch instanceof LineDStabXmlType) 
-			return odmObjFactory.createDstabLine((LineDStabXmlType)branch);
+			return OdmObjFactory.createDstabLine((LineDStabXmlType)branch);
 		else if (branch instanceof PSXfrDStabXmlType) 
-			return odmObjFactory.createDstabPSXfr((PSXfrDStabXmlType)branch);
+			return OdmObjFactory.createDstabPSXfr((PSXfrDStabXmlType)branch);
 		else if (branch instanceof XfrDStabXmlType) 
-			return odmObjFactory.createDstabXfr((XfrDStabXmlType)branch);
+			return OdmObjFactory.createDstabXfr((XfrDStabXmlType)branch);
 		
 		else if (branch instanceof LineShortCircuitXmlType) 
-			return odmObjFactory.createAcscLine((LineShortCircuitXmlType)branch);
+			return OdmObjFactory.createAcscLine((LineShortCircuitXmlType)branch);
 		else if (branch instanceof PSXfrShortCircuitXmlType) 
-			return odmObjFactory.createAcscPsXfr((PSXfrShortCircuitXmlType)branch);
+			return OdmObjFactory.createAcscPsXfr((PSXfrShortCircuitXmlType)branch);
 		else if (branch instanceof XfrShortCircuitXmlType) 
-			return odmObjFactory.createAcscXfr((XfrShortCircuitXmlType)branch);
+			return OdmObjFactory.createAcscXfr((XfrShortCircuitXmlType)branch);
 		
 		else if (branch instanceof LineBranchXmlType) 
-			return odmObjFactory.createAclfLine((LineBranchXmlType)branch);
+			return OdmObjFactory.createAclfLine((LineBranchXmlType)branch);
 		else if (branch instanceof PSXfr3WBranchXmlType) 
-			return odmObjFactory.createAclf3WPSXfr((PSXfr3WBranchXmlType)branch);
+			return OdmObjFactory.createAclf3WPSXfr((PSXfr3WBranchXmlType)branch);
 		else if (branch instanceof PSXfrBranchXmlType) 
-			return odmObjFactory.createAclfPSXfr((PSXfrBranchXmlType)branch);
+			return OdmObjFactory.createAclfPSXfr((PSXfrBranchXmlType)branch);
 		else if (branch instanceof Xfr3WBranchXmlType) 
-			return odmObjFactory.createAclf3WXfr((Xfr3WBranchXmlType)branch);
+			return OdmObjFactory.createAclf3WXfr((Xfr3WBranchXmlType)branch);
 		else if (branch instanceof XfrBranchXmlType) 
-			return odmObjFactory.createAclfXfr((XfrBranchXmlType)branch);
+			return OdmObjFactory.createAclfXfr((XfrBranchXmlType)branch);
 
 		else if (branch instanceof DcBranchXmlType) 
-			return odmObjFactory.createDcBranch((DcBranchXmlType)branch);
+			return OdmObjFactory.createDcBranch((DcBranchXmlType)branch);
 		
 		else if (branch instanceof FeederDistBranchXmlType) 
-			return odmObjFactory.createDistFeederBranch((FeederDistBranchXmlType)branch);
+			return OdmObjFactory.createDistFeederBranch((FeederDistBranchXmlType)branch);
 		else if (branch instanceof XFormerDistBranchXmlType) 
-			return odmObjFactory.createDistXfrBranch((XFormerDistBranchXmlType)branch);
+			return OdmObjFactory.createDistXfrBranch((XFormerDistBranchXmlType)branch);
 		else if (branch instanceof ReactorDistBranchXmlType) 
-			return odmObjFactory.createDistReactorBranch((ReactorDistBranchXmlType)branch);
+			return OdmObjFactory.createDistReactorBranch((ReactorDistBranchXmlType)branch);
 		else if (branch instanceof BreakerDistBranchXmlType) 
-			return odmObjFactory.createDistBreakerBranch((BreakerDistBranchXmlType)branch);
+			return OdmObjFactory.createDistBreakerBranch((BreakerDistBranchXmlType)branch);
 		
 		else
-			return odmObjFactory.createBranch(branch);
+			return OdmObjFactory.createBranch(branch);
 	}
 	
 	/**
@@ -214,31 +214,31 @@ public class BaseJaxbHelper {
 	public static JAXBElement<? extends BusXmlType> bus(BusXmlType bus) {
 		// be careful with inheritance here 
 		if (bus instanceof DStabBusXmlType)
-			return odmObjFactory.createDstabBus((DStabBusXmlType)bus);
+			return OdmObjFactory.createDstabBus((DStabBusXmlType)bus);
 		else if (bus instanceof ShortCircuitBusXmlType)
-			return odmObjFactory.createAcscBus((ShortCircuitBusXmlType)bus);
+			return OdmObjFactory.createAcscBus((ShortCircuitBusXmlType)bus);
 		else if (bus instanceof OpfDclfGenBusXmlType)
-			return odmObjFactory.createDclfOpfGenBus((OpfDclfGenBusXmlType)bus);
+			return OdmObjFactory.createDclfOpfGenBus((OpfDclfGenBusXmlType)bus);
 		else if (bus instanceof LoadflowBusXmlType)
-			return odmObjFactory.createAclfBus((LoadflowBusXmlType)bus);
+			return OdmObjFactory.createAclfBus((LoadflowBusXmlType)bus);
 		else if (bus instanceof DcBusXmlType)
-			return odmObjFactory.createDcBus((DcBusXmlType)bus);
+			return OdmObjFactory.createDcBus((DcBusXmlType)bus);
 
 		else if (bus instanceof UtilityDistBusXmlType)
-			return odmObjFactory.createDistUtilityBus((UtilityDistBusXmlType)bus);
+			return OdmObjFactory.createDistUtilityBus((UtilityDistBusXmlType)bus);
 		else if (bus instanceof GeneratorDistBusXmlType)
-			return odmObjFactory.createDistGeneratorBus((GeneratorDistBusXmlType)bus);
+			return OdmObjFactory.createDistGeneratorBus((GeneratorDistBusXmlType)bus);
 		else if (bus instanceof SynchronousMotorDistBusXmlType)
-			return odmObjFactory.createDistSynMotorBus((SynchronousMotorDistBusXmlType)bus);
+			return OdmObjFactory.createDistSynMotorBus((SynchronousMotorDistBusXmlType)bus);
 		else if (bus instanceof InductionMotorDistBusXmlType)
-			return odmObjFactory.createDistIndMotorBus((InductionMotorDistBusXmlType)bus);
+			return OdmObjFactory.createDistIndMotorBus((InductionMotorDistBusXmlType)bus);
 		else if (bus instanceof MixedLoadDistBusXmlType)
-			return odmObjFactory.createDistMixedLoadBus((MixedLoadDistBusXmlType)bus);
+			return OdmObjFactory.createDistMixedLoadBus((MixedLoadDistBusXmlType)bus);
 		else if (bus instanceof NonContributingDistBusXmlType)
-			return odmObjFactory.createDistNonContributeBus((NonContributingDistBusXmlType)bus);
+			return OdmObjFactory.createDistNonContributeBus((NonContributingDistBusXmlType)bus);
 		
 		else
-			return odmObjFactory.createBus(bus);
+			return OdmObjFactory.createBus(bus);
 	}
 	
 
@@ -251,7 +251,7 @@ public class BaseJaxbHelper {
 	 */
 	public static void addNVPair(BaseRecordXmlType rec, String name, 
 					String value) {
-    	NameValuePairXmlType nvPair = odmObjFactory.createNameValuePairXmlType();
+    	NameValuePairXmlType nvPair = OdmObjFactory.createNameValuePairXmlType();
     	rec.getNvPair().add(nvPair);
     	nvPair.setName(name);
     	nvPair.setValue(value);
@@ -276,10 +276,10 @@ public class BaseJaxbHelper {
 	 * @param ownership ownership in pu
 	 */
 	public static void addOwner(BaseRecordXmlType rec, String id, double ownership) {
-		OwnerXmlType owner = odmObjFactory.createOwnerXmlType();
+		OwnerXmlType owner = OdmObjFactory.createOwnerXmlType();
 		rec.getOwnerList().add(owner);
 		owner.setId(id);
-		owner.setOwnership(odmObjFactory.createFactorXmlType());
+		owner.setOwnership(OdmObjFactory.createFactorXmlType());
 		owner.getOwnership().setValue(ownership);
 		owner.getOwnership().setUnit(FactorUnitType.PU);
 	}
@@ -328,7 +328,7 @@ public class BaseJaxbHelper {
 	 * @return
 	 */
 	public static BranchRefXmlType creatBranchRef(List<BranchRefXmlType> braList) {
-		BranchRefXmlType bra = odmObjFactory.createBranchRefXmlType();
+		BranchRefXmlType bra = OdmObjFactory.createBranchRefXmlType();
 		braList.add(bra);
 		return bra;
 	}

@@ -33,7 +33,7 @@ import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.DStabBusXmlType;
@@ -168,6 +168,6 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
      */
     private String getModelType(String lineStr){
     	String[] strAry =lineStr.split("\\s+");
-    	return(ModelStringUtil.trimQuote(strAry[1]));
+    	return(ODMModelStringUtil.trimQuote(strAry[1]));
     }
 }

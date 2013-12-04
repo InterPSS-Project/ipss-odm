@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.psse.v26.impl;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEAreaInterchangeDataParser;
@@ -93,9 +93,9 @@ public class PSSEV26NetRecord {
 		final double mw = areaInterDataParser.getDouble("ExpoertMw", 0.0);
 		final double err = areaInterDataParser.getDouble("ExTolerance", 0.0);
     
-		PowerInterchangeXmlType interchange = odmObjFactory.createPowerInterchangeXmlType();
-		baseCaseNet.setInterchangeList(odmObjFactory.createLoadflowNetXmlTypeInterchangeList());
-		InterchangeXmlType ex = odmObjFactory.createInterchangeXmlType();
+		PowerInterchangeXmlType interchange = OdmObjFactory.createPowerInterchangeXmlType();
+		baseCaseNet.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
+		InterchangeXmlType ex = OdmObjFactory.createInterchangeXmlType();
 		baseCaseNet.getInterchangeList().getInterchange().add(ex);
 		ex.setPowerEx(interchange);
 	

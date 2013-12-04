@@ -39,7 +39,7 @@ public class IEEE9cn_DStabTest {
 		assertTrue(adapter.parseInputFile(IODMAdapter.NetType.DStabNet,
 				new String[] { "testdata/bpa/IEEE9_cn.dat", 
 				               "testdata/bpa/IEEE9-dyn_cn.swi"},
-				IODMModelParser.chineseEncoding));
+				IODMModelParser.ChineseEncoding));
 		
 		DStabModelParser parser = (DStabModelParser)adapter.getModel();
 		parser.stdout();

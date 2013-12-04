@@ -24,8 +24,6 @@
 
 package org.ieee.odm.adapter.ieeecdf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
-
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IFileReader;
 import org.ieee.odm.adapter.IODMAdapter;
@@ -39,105 +37,140 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.schema.InterchangeXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
-import org.ieee.odm.schema.ObjectFactory;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
-import org.ieee.odm.schema.PowerInterchangeXmlType;
 
+/**
+ * IEEE Common Format ODM parser implementation
+ * 
+ * @author mzhou
+ *
+ */
 public class IeeeCDFAdapter  extends AbstractODMAdapter {
+	/** data section indicator for the beginning */
+	private static final int DataNotDefine = 0;
+	/** Bus data section indicator */
 	private static final int BusData = 1;
+	/** Branch data section indicator */
 	private static final int BranchData = 2;
+	/** Loss zone data section indicator */
 	private static final int LossZone = 3;
+	/** inter-change data section indicator */
 	private static final int InterchangeData = 4;
+	/** Tie line data section indicator */
 	private static final int TielineData = 5;
 
-	//private ObjectFactory factory = null;
-
+	/** Bus data line parser */
 	private IeeeCDFBusDataMapper busDataMapper = new IeeeCDFBusDataMapper();
+	/** Branch data line parser */
 	private IeeeCDFBranchDataMapper branchDataMapper = new IeeeCDFBranchDataMapper();
+	/** Network data (head line) line parser */
 	private IeeeCDFNetDataMapper netDataMappe = new IeeeCDFNetDataMapper();
+	/** Loss zone data line parser */
 	private IeeeCDFLossZoneDataMapper zoneDataMapper = new IeeeCDFLossZoneDataMapper();
+	/** inter-exchange data line parser */
 	private IeeeCDFInterchangeDataMapper exchangeDataMapper = new IeeeCDFInterchangeDataMapper();
+	/** tie line data line parser */
 	private IeeeCDFTielineDataMapper tieLineDataMapper = new IeeeCDFTielineDataMapper();
 	
+	/**
+	 * constructor
+	 */
 	public IeeeCDFAdapter() {
 		super();
-		//this.factory = new ObjectFactory();		
 	}
 	 
-	@Override
-	protected AclfModelParser parseInputFile(
-			final IFileReader din, String encoding) throws ODMException {
+	@Override protected AclfModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
+		// IEEE CDF file stores Aclf Network info 
 		AclfModelParser parser = new AclfModelParser(encoding);
 		parser.initCaseContentInfo(OriginalDataFormatEnumType.IEEE_CDF);
 
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
 		baseCaseNet.setId("Base_Case_from_IEEECDF_format");
 
+		// read the first line - head line
+		// sample :  
+		//       08/19/93 UW ARCHIVE           100.0  1962 W IEEE 14 Bus Test Case
 		String str = din.readLine();
-		netDataMappe.mapInputLine(str, baseCaseNet);
+		netDataMappe.mapInputLine(str, parser);
 
-		int dataType = 0;
+		int dataLineIndicator = DataNotDefine;
 		do {
-			str = din.readLine(); //kvaBase
-			//NOTE: Some data miss the "END OF DATA" string at the end of the file, which may cause a problem
+			str = din.readLine(); 
+			// NOTE: Some data file misses the "END OF DATA" string at the end of the file, which may cause a problem
 			if(str!=null){
-			    if (str.trim().equals("END OF DATA")) break;
+			    if (str.trim().equals("END OF DATA")) 
+			    	break;
 				try {
-					// process the data
-					if (str.startsWith("-999") || str.startsWith("-99")
-							|| str.startsWith("-9")) {
-						dataType = 0;
-					} else if (dataType == BusData) {
-						busDataMapper.mapInputLine(str, parser);
-					} else if (dataType == BranchData) {
-						branchDataMapper.mapInputLine(str, parser);
-					} else if (dataType == LossZone) {
-						zoneDataMapper.processLossZoneData(str, parser.createNetworkLossZone());
-					} else if (dataType == InterchangeData) {
-						InterchangeXmlType interchange = parser.createInterchange();
-						PowerInterchangeXmlType p = odmObjFactory.createPowerInterchangeXmlType();
-						exchangeDataMapper.processInterchangeData(str, p, parser);
-						interchange.setPowerEx(p);
-					} else if (dataType == TielineData) {
-						tieLineDataMapper.processTielineData(str, parser.createTieline(), parser);
-					} else if ((str.length() > 3)
+					/*
+					 * process section head record - for example
+					 * 
+					 *   BUS DATA FOLLOWS  
+					 */
+					if ((str.length() > 3)
 							&& str.substring(0, 3).equals("BUS")) {
-						dataType = BusData;
+						dataLineIndicator = BusData;
 						ODMLogger.getLogger().fine("load bus data");
-					} else if ((str.length() > 6)
+					} 
+					else if ((str.length() > 6)
 							&& str.substring(0, 6).equals("BRANCH")) {
-						dataType = BranchData;
+						dataLineIndicator = BranchData;
 						ODMLogger.getLogger().fine("load branch data");
-					} else if ((str.length() > 4)
+					} 
+					else if ((str.length() > 4)
 							&& str.substring(0, 4).equals("LOSS")) {
-						dataType = LossZone;
-						//baseCaseNet.addNewLossZoneList();
+						dataLineIndicator = LossZone;
 						ODMLogger.getLogger().fine("load loss zone data");
-					} else if ((str.length() > 11)
+					} 
+					else if ((str.length() > 11)
 							&& str.substring(0, 11).equals("INTERCHANGE")) {
-						dataType = InterchangeData;
-						//baseCaseNet.addNewInterchangeList();
+						dataLineIndicator = InterchangeData;
 						ODMLogger.getLogger().fine("load interchange data");
-					} else if ((str.length() > 3)
+					} 
+					else if ((str.length() > 3)
 							&& str.substring(0, 3).equals("TIE")) {
-						dataType = TielineData;
-						//baseCaseNet.addNewTieLineList();
+						dataLineIndicator = TielineData;
 						ODMLogger.getLogger().fine("load tieline data");
 					}
+
+					/*
+					 * data section end indicator line processing
+					 */
+					else if (str.startsWith("-999") || str.startsWith("-99") || str.startsWith("-9")) {
+						dataLineIndicator = DataNotDefine;
+					} 
+
+					/*
+					 * parse data line
+					 */
+					else if (dataLineIndicator == BusData) {
+						busDataMapper.mapInputLine(str, parser);
+					} 
+					else if (dataLineIndicator == BranchData) {
+						branchDataMapper.mapInputLine(str, parser);
+					} 
+					else if (dataLineIndicator == LossZone) {
+						zoneDataMapper.mapInputLine(str, parser);
+					} 
+					else if (dataLineIndicator == InterchangeData) {
+						exchangeDataMapper.mapInputLine(str, parser);
+					} 
+					else if (dataLineIndicator == TielineData) {
+						tieLineDataMapper.mapInputLine(str, parser);
+					} 
 				} catch (final Exception e) {
 					ODMLogger.getLogger().severe(e.toString() + "\n" + str);
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
-		
-			  
 		} while (str!=null);
 
 		return parser;
 	}
 
+	/**
+	 * IEEE CDF does not support multiple files
+	 */
 	protected IODMModelParser parseInputFile(IODMAdapter.NetType type, final IFileReader[] din, String encoding) throws ODMException {
 		throw new ODMException("not implemented yet");
 	}

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.model.dc;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
@@ -59,10 +59,10 @@ public class DcSystemModelParser extends BaseAclfModelParser<DcNetworkXmlType, D
 	@Override
 	public DcNetworkXmlType createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
-			DcNetworkXmlType baseCase = odmObjFactory.createDcNetworkXmlType();
+			DcNetworkXmlType baseCase = OdmObjFactory.createDcNetworkXmlType();
 			
-			baseCase.setBusList(odmObjFactory.createNetworkXmlTypeBusList());
-			baseCase.setBranchList(odmObjFactory.createNetworkXmlTypeBranchList());
+			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
+			baseCase.setBranchList(OdmObjFactory.createNetworkXmlTypeBranchList());
 			getStudyCase().setBaseCase(BaseJaxbHelper.network(baseCase));
 		}
 		return (DcNetworkXmlType)getStudyCase().getBaseCase().getValue();
@@ -79,7 +79,7 @@ public class DcSystemModelParser extends BaseAclfModelParser<DcNetworkXmlType, D
 	 * @return
 	 */
 	public DcBusXmlType createDcBus() {
-		DcBusXmlType busRec = odmObjFactory.createDcBusXmlType();
+		DcBusXmlType busRec = OdmObjFactory.createDcBusXmlType();
 		busRec.setOffLine(false);
 		busRec.setAreaNumber(1);
 		busRec.setZoneNumber(1);
@@ -159,7 +159,7 @@ public class DcSystemModelParser extends BaseAclfModelParser<DcNetworkXmlType, D
 	 * @return
 	 */
 	public DcBranchXmlType createDcBranch() {
-		DcBranchXmlType branch = odmObjFactory.createDcBranchXmlType();
+		DcBranchXmlType branch = OdmObjFactory.createDcBranchXmlType();
 		intiBranchData(branch);
 		return branch;
 	}

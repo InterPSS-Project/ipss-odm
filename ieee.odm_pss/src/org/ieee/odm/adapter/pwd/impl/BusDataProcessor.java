@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -102,7 +103,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		
 		if(busNum==-1) 
 			ODMLogger.getLogger().severe("bus Num is not defined yet!");
-		busId=AbstractModelParser.BusIdPreFix+busNum;
+		busId=IODMModelParser.BusIdPreFix+busNum;
 		
 		LoadflowBusXmlType bus=parser.createBus(busId);
 		bus.setId(busId);
@@ -185,7 +186,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		} catch (ODMException e) {
 			e.printStackTrace();
 		}
-		busId=AbstractModelParser.BusIdPreFix+busNum;
+		busId=IODMModelParser.BusIdPreFix+busNum;
 		
 		LoadflowBusXmlType bus=parser.getBus(busId);
 		
@@ -313,7 +314,7 @@ public class BusDataProcessor extends InputLineStringParser {
 				e.printStackTrace();
 		   }
 
-			String busId = AbstractModelParser.BusIdPreFix + busNum;
+			String busId = IODMModelParser.BusIdPreFix + busNum;
 			LoadflowBusXmlType bus = parser.getBus(busId);
 			
 			//save custom string as NV pairs
@@ -392,7 +393,7 @@ public class BusDataProcessor extends InputLineStringParser {
 
 					// set remote bus data
 					
-					String regBusId = AbstractModelParser.BusIdPreFix + regBusNum;
+					String regBusId = IODMModelParser.BusIdPreFix + regBusNum;
 		
 					// set this gen bus data
 					AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet,
@@ -517,7 +518,7 @@ public class BusDataProcessor extends InputLineStringParser {
 
 		//TODO no shunt status defined in ODM
 		
-		String busId=AbstractModelParser.BusIdPreFix+busNum;
+		String busId=IODMModelParser.BusIdPreFix+busNum;
 		LoadflowBusXmlType bus=parser.getBus(busId);
 		
 		AclfDataSetter.setShuntCompensatorData(bus, mode, normalMVR, vHigh, vLow);
@@ -531,7 +532,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		
 		// regulate a remote bus
 		if(busNum!=regBusNum)
-			shunt.setRemoteControlledBus(parser.createBusRef(AbstractModelParser.BusIdPreFix+regBusNum));
+			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+regBusNum));
 		
 		if(steps1>0&&MVarPerStep1!=0)
 		AclfDataSetter.addShuntCompensatorBlock(bus, steps1, MVarPerStep1, ReactivePowerUnitType.MVAR);

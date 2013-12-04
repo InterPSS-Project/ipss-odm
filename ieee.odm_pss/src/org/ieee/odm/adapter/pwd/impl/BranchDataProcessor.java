@@ -1,11 +1,11 @@
 package org.ieee.odm.adapter.pwd.impl;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -164,8 +164,8 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			   //	
 			   //***END OF DATA PROCESSING, BEGIN DATA SETTING *********************************
                //
-				fromBusId =AclfModelParser.BusIdPreFix + fromBusNum;
-				toBusId   =AclfModelParser.BusIdPreFix + toBusNum;
+				fromBusId =IODMModelParser.BusIdPreFix + fromBusNum;
+				toBusId   =IODMModelParser.BusIdPreFix + toBusNum;
 
 				// create a branch record
 				BranchXmlType branch = parser.createLineBranch(fromBusId,
@@ -225,7 +225,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 							YUnitType.PU));
 
 				// set rating limit
-				branch.setRatingLimit(odmObjFactory
+				branch.setRatingLimit(OdmObjFactory
 						.createBranchRatingLimitXmlType());
 
 				AclfDataSetter.setBranchRatingLimitData(
@@ -388,10 +388,10 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			if(gMag==0&&g!=0)gMag=g;
 			if(bMag==0&&b!=0)bMag=b;
 			
-		    fromBusId=AbstractModelParser.BusIdPreFix+fromBusNum;
-		    toBusId=AbstractModelParser.BusIdPreFix+toBusNum;
+		    fromBusId=IODMModelParser.BusIdPreFix+fromBusNum;
+		    toBusId=IODMModelParser.BusIdPreFix+toBusNum;
 		    
-		    if(regBusNum>0)regBusId=AbstractModelParser.BusIdPreFix+regBusNum;
+		    if(regBusNum>0)regBusId=IODMModelParser.BusIdPreFix+regBusNum;
 		    
 		    // create a branch record
 		    XfrBranchXmlType xfr=null;
@@ -496,7 +496,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				} 
 				
 				if (xfrMvaBase != 0.0) {
-					xfr.setXfrInfo(odmObjFactory.createTransformerInfoXmlType());
+					xfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
 					TransformerInfoXmlType xfrInfo = xfr.getXfrInfo();
 					xfrInfo.setDataOnSystemBase(false);
 					xfrInfo.setRatedPower(BaseDataSetter.createApparentPower(xfrMvaBase, ApparentPowerUnitType.MVA));
@@ -505,7 +505,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				}
 
 			//set rating limit
-			xfr.setRatingLimit(odmObjFactory.createBranchRatingLimitXmlType());
+			xfr.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 			
 			AclfDataSetter.setBranchRatingLimitData(xfr.getRatingLimit(),
 					mvaRating1, mvaRating2, mvaRating3, ApparentPowerUnitType.MVA);
@@ -513,7 +513,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			//set XFCorrection table number
 			if(xfTableNum != 0){
 			    if(xfr.getXfrInfo()==null)
-			    	xfr.setXfrInfo(odmObjFactory.createTransformerInfoXmlType());
+			    	xfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
 			    TransformerInfoXmlType xfrInfo = xfr.getXfrInfo();
 			    xfrInfo.setZTableNumber(xfTableNum);
 
@@ -545,7 +545,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		angAdj.setOffLine(!isXFAutoControl);
 		angAdj.setAngleAdjOnFromSide(true);
 		
-		angAdj.setAngleLimit(odmObjFactory.createAngleLimitXmlType());
+		angAdj.setAngleLimit(OdmObjFactory.createAngleLimitXmlType());
 		/*
 		 * It is assumed here that the {xfrTapMax, xfrTapMin} are also 
 		 * used to represent Angle adjustment Limit;
@@ -595,7 +595,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			double xfrStep, String regBusId, XfrCtrlTargetType regTargetType,
 			XfrType xfrType, XfrBranchXmlType xfr) {
 		//tap control
-		TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+		TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 		xfr.setTapAdjustment(tapAdj);
 		tapAdj.setOffLine(!isXFAutoControl);
 		tapAdj.setTapLimit(BaseDataSetter.createTapLimit(xfrTapMax, xfrTapMin));
@@ -606,7 +606,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		if(xfrType!=null){
 			if(xfrType==XfrType.LTC){
 				tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
-		  		VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType();
+		  		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
 		  		tapAdj.setVoltageAdjData(vAdjData);
 		  		//common setting
 		  		vAdjData.setDesiredVoltageUnit(VoltageUnitType.PU);
@@ -618,7 +618,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		            	}
 		            	else{
 		            		vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
-		    		  		vAdjData.setRange(odmObjFactory.createLimitXmlType());
+		    		  		vAdjData.setRange(OdmObjFactory.createLimitXmlType());
 		    		  		BaseDataSetter.setLimit(vAdjData.getRange(), xfrRegMax,
 		    						xfrRegMin);
 		            	}
@@ -643,7 +643,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			}
 			else if(xfrType==XfrType.Mvar){
 				tapAdj.setAdjustmentType(TapAdjustmentEnumType.M_VAR_FLOW);
-			    MvarFlowAdjustmentDataXmlType mvarAdjData = odmObjFactory.createMvarFlowAdjustmentDataXmlType();
+			    MvarFlowAdjustmentDataXmlType mvarAdjData = OdmObjFactory.createMvarFlowAdjustmentDataXmlType();
 		  		tapAdj.setMvarFlowAdjData(mvarAdjData);
 		  		//common setting
 		  		mvarAdjData.setRange(new LimitXmlType());

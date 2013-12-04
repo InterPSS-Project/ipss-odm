@@ -28,7 +28,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEDcLine2TDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.AbstractModelParser;
+import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.ActivePowerUnitType;
@@ -109,8 +109,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		       STPI = this.dataParser.getDouble("STPI"),
 		       XCAPI = this.dataParser.getDouble("XCAPI");	
 		
-		final String fid = AbstractModelParser.BusIdPreFix+IPR;
-		final String tid = AbstractModelParser.BusIdPreFix+IPI;
+		final String fid = IODMModelParser.BusIdPreFix+IPR;
+		final String tid = IODMModelParser.BusIdPreFix+IPI;
 		DCLineData2TXmlType dcLine2T;
 		dcLine2T = parser.createDCLine2TRecord(fid, tid, DCLineID);
 
@@ -196,14 +196,14 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		rectifier.setMinFiringAngle(BaseDataSetter.createAngleValue(ALFMN, AngleUnitType.DEG));
 		rectifier.setAcSideRatedVoltage(BaseDataSetter.createVoltageValue(EBASR, VoltageUnitType.KV));
 		if (ICR != 0)
-			rectifier.setFiringAngleMeasuringBusId(parser.createBusRef(AbstractModelParser.BusIdPreFix+ICR));
+			rectifier.setFiringAngleMeasuringBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+ICR));
 		
 		inverter.setNumberofBridges(NBI);
 		inverter.setMaxFiringAngle(BaseDataSetter.createAngleValue(GAMMX, AngleUnitType.DEG));
 		inverter.setMinFiringAngle(BaseDataSetter.createAngleValue(GAMMN, AngleUnitType.DEG));
 		inverter.setAcSideRatedVoltage(BaseDataSetter.createVoltageValue(EBASI, VoltageUnitType.KV));
 		if (ICI != 0)
-			inverter.setFiringAngleMeasuringBusId(parser.createBusRef(AbstractModelParser.BusIdPreFix+ICI));
+			inverter.setFiringAngleMeasuringBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+ICI));
 		
 		/*
 			RCR Rectifier commutating transformer resistance per bridge; entered in ohms. No default allowed.
@@ -242,14 +242,14 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 				one dc converter. IDR = '1' by default.
 		*/
 		if (IFR != 0 && ITR != 0) {
-			rectifier.setRefXfrFromBusId(parser.createBusRef(AbstractModelParser.BusIdPreFix+IFR));
-			rectifier.setRefXfrToBusId(parser.createBusRef(AbstractModelParser.BusIdPreFix+ITR));
+			rectifier.setRefXfrFromBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+IFR));
+			rectifier.setRefXfrToBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+ITR));
 			rectifier.setRefXfrCirId(IDR);
 		}
 
 		if (IFI != 0 && ITI != 0) {
-			inverter.setRefXfrFromBusId(parser.createBusRef(AbstractModelParser.BusIdPreFix+IFI));
-			inverter.setRefXfrToBusId(parser.createBusRef(AbstractModelParser.BusIdPreFix+ITI));
+			inverter.setRefXfrFromBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+IFI));
+			inverter.setRefXfrToBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+ITI));
 			inverter.setRefXfrCirId(IDI);
 		}
 	}

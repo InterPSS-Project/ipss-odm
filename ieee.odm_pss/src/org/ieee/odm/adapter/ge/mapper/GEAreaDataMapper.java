@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ge.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GEAreaDataParser;
@@ -47,8 +47,8 @@ public class GEAreaDataMapper extends BaseGEDataMapper {
 		
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
 		if (baseCaseNet.getAreaList() == null)
-			baseCaseNet.setAreaList(odmObjFactory.createNetworkXmlTypeAreaList());
-		ExchangeAreaXmlType area = odmObjFactory.createExchangeAreaXmlType();
+			baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
+		ExchangeAreaXmlType area = OdmObjFactory.createExchangeAreaXmlType();
 		baseCaseNet.getAreaList().getArea().add(area);
 		area.setId(dataParser.getString("arnum"));
 		area.setNumber(dataParser.getInt("arnum"));

@@ -24,16 +24,16 @@
 
 package org.ieee.odm.adapter.ucte.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.ucte.UCTE_DEFAdapter;
 import org.ieee.odm.adapter.ucte.parser.UCTEXfrAdjustDataParser;
+import org.ieee.odm.common.ODMModelContansts;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.model.base.ModelContansts;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
@@ -98,7 +98,7 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
 			xfrBranch.setToTurnRatio(BaseDataSetter.createTurnRatioPU(ratioFactor/x));
 			
 			if (uKvPhase > 0.0) {
-				TapAdjustmentXmlType tapAdj = odmObjFactory.createTapAdjustmentXmlType();
+				TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
 				xfrBranch.setTapAdjustment(tapAdj);
 				tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
 				
@@ -112,7 +112,7 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
           		tapAdj.setTapAdjStepSize(dUPhase);
           		tapAdj.setTapAdjOnFromSide(false);
           		
-          		VoltageAdjustmentDataXmlType vAdjData = odmObjFactory.createVoltageAdjustmentDataXmlType();
+          		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
           		tapAdj.setVoltageAdjData(vAdjData);
           		
           		vAdjData.setMode(AdjustmentModeEnumType.VALUE_ADJUSTMENT);
@@ -149,7 +149,7 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
 					x = 1.0 / Math.sqrt(1.0 + a*a);
 				}
 				else {
-					double theta = thetaDegAngle * ModelContansts.Deg2Rad,
+					double theta = thetaDegAngle * ODMModelContansts.Deg2Rad,
 					       asin = a*Math.sin(theta),
 					       acos = 1.0 + a*Math.cos(theta),
 					       asinMax = aMax*Math.sin(theta),
@@ -168,14 +168,14 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
 				angMin = 2.0 * Math.atan(aMin/2.0);
 			}
 			
-			PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)ModelStringUtil.casting(
+			PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)ODMModelStringUtil.casting(
 					xfrBranch, "XfrBranchXmlType", "PSXfrBranchXmlType", parser.getEncoding());
 			
-			psXfrBranch.setToAngle(BaseDataSetter.createAngleValue(-ang*ModelContansts.Rad2Deg, AngleUnitType.DEG));
+			psXfrBranch.setToAngle(BaseDataSetter.createAngleValue(-ang*ODMModelContansts.Rad2Deg, AngleUnitType.DEG));
 			psXfrBranch.setToTurnRatio(BaseDataSetter.createTurnRatioPU(ratioFactor/x));
 			
 			if (pMwAngle != 0.0) {
-				AngleAdjustmentXmlType angAdj = odmObjFactory.createAngleAdjustmentXmlType();
+				AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
 				psXfrBranch.setAngleAdjustment(angAdj);
           		angAdj.setMode(AdjustmentModeEnumType.VALUE_ADJUSTMENT);
           		angAdj.setDesiredValue(pMwAngle);				

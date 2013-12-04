@@ -51,9 +51,10 @@ import org.ieee.odm.schema.ObjectFactory;
  *
  */
 public class ODMObjectFactory {
-	public static ObjectFactory odmObjFactory = null;	
+	/** ODM xml schema factor object*/
+	public static ObjectFactory OdmObjFactory = null;	
     static    {
-    	odmObjFactory = new ObjectFactory();
+    	OdmObjFactory = new ObjectFactory();
     } 
 	
     /**
@@ -125,20 +126,32 @@ public class ODMObjectFactory {
 	public static IODMAdapter createODMAdapter(ODMFileFormatEnum f) throws ODMException {
 		if ( f == ODMFileFormatEnum.IeeeCDF ) 
 			return new IeeeCDFAdapter();
+		
 		else if ( f == ODMFileFormatEnum.PsseV26 )
 			return new PSSEV26Adapter();
 		else if ( f == ODMFileFormatEnum.PsseV30 )
 			return new PSSEAdapter(PsseVersion.PSSE_30);
+		else if ( f == ODMFileFormatEnum.PsseV31 )
+			return new PSSEAdapter(PsseVersion.PSSE_31);
+		else if ( f == ODMFileFormatEnum.PsseV32 )
+			return new PSSEAdapter(PsseVersion.PSSE_32);
+		else if ( f == ODMFileFormatEnum.PsseV33 )
+			return new PSSEAdapter(PsseVersion.PSSE_33);
+		
 		else if ( f == ODMFileFormatEnum.GePSLF ) 
 			return new GePslfAdapter(GePslfAdapter.Version.PSLF15);
+		
 		else if ( f == ODMFileFormatEnum.UCTE ) 
 			return new UCTE_DEFAdapter();
+		
 		else if ( f == ODMFileFormatEnum.BPA ) 
 			return new BPAAdapter();
+		
 		else if ( f == ODMFileFormatEnum.PWD ) 
 			return new PowerWorldAdapter();
 		else if ( f == ODMFileFormatEnum.PWD_Contingency ) 
 			return new PWDAdapterForContingency();
+		
 		else if ( f == ODMFileFormatEnum.MatPower ) 
 			return new OpfMatpowerAdapter();
 		

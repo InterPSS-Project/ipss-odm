@@ -29,7 +29,9 @@ import java.util.LinkedHashMap;
 import org.ieee.odm.common.ODMException;
 
 /**
- *  A generic class for holding {position, name, value} date structure
+ *  A generic class for holding {position, name, value} date structure for implementing
+ *  ODM parser. The key is to decouple input data field position in input data file
+ *  and input data field parsing/mapping logic.
  *   
  * @author mzhou
  */
@@ -53,9 +55,20 @@ public class BaseInputLineStringParser {
 	}
 	
 	/**
-	 * set parser meta data
+	 * set parser meta data. For example,
+		
+		String[] {
+		   //  0---------------1---------------2---------------3---------------4
+		     "BusNumber",  "BusName",       "Area",          "Zone",        "Type", 
+		   //  5               6               7               8               9
+		     "VMag",        "VAng",         "LoadP",         "LoadQ",       "GenP", 
+		   //  10              11              12              13              14
+		     "GenQ",       "BaseKV",        "DesiredV",     "MaxVarVolt",   "MinVarVolt", 
+		   //  15              16              17              
+		     "ShuntG",    "ShuntB",         "RemoteBusNumber" 
+		};	 
 	 * 
-	 * @param dataAry meta date string array
+	 * @param dataAry meta data string array
 	 */
 	public void setMetadata(String[] dataAry) {
 		//renew the position table for each data section
@@ -103,10 +116,10 @@ public class BaseInputLineStringParser {
 	}
 	
 	/**
-	 * Get field of type String
+	 * Get field of type String by key
 	 * 
-	 * @param key
-	 * @return
+	 * @param key data field key
+	 * @return the data field
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public String getString(String key) throws ODMException {
@@ -117,11 +130,11 @@ public class BaseInputLineStringParser {
 	}
 	
 	/**
-	 * Get field of type String
+	 * Get field of type String by key 
 	 * 
-	 * @param key
-	 * @param defValue
-	 * @return
+	 * @param key data field key
+	 * @param defValue default value for field
+	 * @return the data field
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public String getString(String key, String defValue) throws ODMException {
@@ -132,9 +145,9 @@ public class BaseInputLineStringParser {
 	}
 
 	/**
-	 * Get field of type double
+	 * Get field of type double by the key
 	 * 
-	 * @param key
+	 * @param key data field key
 	 * @return field of type double
 	 * @throws ODMException throw exception if the field does not exist
 	 */

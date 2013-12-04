@@ -27,7 +27,7 @@ package org.ieee.odm.adapter;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Base class for parsing input data file string line
+ * abstract class for parsing input data file string line implementation
  * 
  * @author mzhou
  *

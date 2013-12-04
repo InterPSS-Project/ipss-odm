@@ -23,7 +23,7 @@
  */
 package org.ieee.odm.adapter.bpa.lf;
 
-import static org.ieee.odm.ODMObjectFactory.odmObjFactory;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.util.StringTokenizer;
 
@@ -32,7 +32,7 @@ import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.model.base.ModelStringUtil;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.ApparentPowerXmlType;
 import org.ieee.odm.schema.AreaTransferXmlType;
@@ -101,7 +101,7 @@ public class BPANetRecord<
 	
 		if(str.trim().startsWith("A")||str.trim().startsWith("AC")){
 			if (baseCaseNet.getAreaList() == null)
-				baseCaseNet.setAreaList(odmObjFactory.createNetworkXmlTypeAreaList());
+				baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
 			
 			String areaName="";
 			if(!strAry[2].equals("")){
@@ -110,7 +110,7 @@ public class BPANetRecord<
 			
 			ExchangeAreaXmlType  area =null;
 			if(!str.startsWith("AC+")) {
-				area= odmObjFactory.createExchangeAreaXmlType();
+				area= OdmObjFactory.createExchangeAreaXmlType();
 				baseCaseNet.getAreaList().getArea().add(area);
 				area.setName(areaName);
 			    area.setNumber(areaNumber);
@@ -136,7 +136,7 @@ public class BPANetRecord<
             
             if(!strAry[6].trim().equals("")){
             	if (baseCaseNet.getLossZoneList() == null)
-        			baseCaseNet.setLossZoneList(odmObjFactory.createNetworkXmlTypeLossZoneList());
+        			baseCaseNet.setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
             	
             	StringTokenizer st = new StringTokenizer(strAry[6]);
             	String zoneName="";        	
@@ -178,7 +178,7 @@ public class BPANetRecord<
 		*/
 		else if(str.trim().startsWith("I")){// I Record defines the inter-area power exchange
 			if (net.getInterchangeList() == null)
-				net.setInterchangeList(odmObjFactory.createLoadflowNetXmlTypeInterchangeList());
+				net.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
 
 			String fAreaName="";
 			if(!strAry[2].equals("")){
@@ -193,10 +193,10 @@ public class BPANetRecord<
 				exchangePower= new Double(strAry[4]).doubleValue();				
 			}			
 			if(!fAreaName.equals("")&&!tAreaName.equals("")){//&& exchangePower!=0
-				InterchangeXmlType interchange = odmObjFactory.createInterchangeXmlType();
+				InterchangeXmlType interchange = OdmObjFactory.createInterchangeXmlType();
 				net.getInterchangeList().getInterchange().add(interchange);
 				
-				AreaTransferXmlType transfer = odmObjFactory.createAreaTransferXmlType(); 
+				AreaTransferXmlType transfer = OdmObjFactory.createAreaTransferXmlType(); 
 				interchange.setAreaTransfer(transfer);
 				
 				//get area data
@@ -245,32 +245,32 @@ public class BPANetRecord<
 		
 		try{
 			if (str.trim().startsWith("A")||str.trim().startsWith("AC")||str.trim().startsWith("AC+")){			
-				strAry[0] = ModelStringUtil.getStringReturnEmptyString(str, 1, 2);
-				strAry[1] = ModelStringUtil.getStringReturnEmptyString(str, 3, 3);
-				strAry[2] = ModelStringUtil.getStringReturnEmptyString(str, 4, 13);
-				strAry[3] = ModelStringUtil.getStringReturnEmptyString(str, 14, 21);
-				strAry[4] = ModelStringUtil.getStringReturnEmptyString(str, 22, 25);
-				strAry[5] = ModelStringUtil.getStringReturnEmptyString(str, 26, 34);
+				strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str, 1, 2);
+				strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str, 3, 3);
+				strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str, 4, 13);
+				strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str, 14, 21);
+				strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str, 22, 25);
+				strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str, 26, 34);
 				// zones within area
 				int strlength=str.trim().length();
 				if(strlength<=36) strAry[6]="";
-				else strAry[6] = ModelStringUtil.getStringReturnEmptyString(str,36, strlength);
+				else strAry[6] = ODMModelStringUtil.getStringReturnEmptyString(str,36, strlength);
 			}
 			else if(str.trim().startsWith("AO")){ 
-			    strAry[0] = ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
-				strAry[1] = ModelStringUtil.getStringReturnEmptyString(str,3, 3).trim();
+			    strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+				strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,3, 3).trim();
 				// area name
-				strAry[2] = ModelStringUtil.getStringReturnEmptyString(str,4, 13).trim();
+				strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 13).trim();
 				// zones within the area
 				int strlength=str.length();
-				strAry[3] = ModelStringUtil.getStringReturnEmptyString(str,15, strlength).trim();				
+				strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,15, strlength).trim();				
 			}
 			else if(str.trim().startsWith("I")){
-			    strAry[0] = ModelStringUtil.getStringReturnEmptyString(str, 1, 1);
-				strAry[1] = ModelStringUtil.getStringReturnEmptyString(str, 3, 3);
-				strAry[2] = ModelStringUtil.getStringReturnEmptyString(str, 4, 13);
-				strAry[3] = ModelStringUtil.getStringReturnEmptyString(str, 15, 24);
-				strAry[4] = ModelStringUtil.getStringReturnEmptyString(str, 27, 34);		
+			    strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str, 1, 1);
+				strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str, 3, 3);
+				strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str, 4, 13);
+				strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str, 15, 24);
+				strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str, 27, 34);		
 			}	
 		}	catch (Exception e){
 			ODMLogger.getLogger().severe(e.toString());
