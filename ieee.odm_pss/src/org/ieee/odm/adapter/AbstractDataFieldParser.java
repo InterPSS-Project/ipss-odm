@@ -58,6 +58,10 @@ public abstract class AbstractDataFieldParser extends BaseInputLineStringParser 
 	 */
 	abstract public String[] getMetadata();
 	
+	///////////////////////////////////////////////////////////////////
+	///////////     Methods for parsing input file line(s)   //////////
+    ///////////////////////////////////////////////////////////////////
+	
 	/**
 	 * parse a line in the input file
 	 * 
@@ -75,6 +79,10 @@ public abstract class AbstractDataFieldParser extends BaseInputLineStringParser 
 	public void parseFields(final String[] strAry) throws ODMException {
 		throw new ODMException("Function not implemented");
 	}
+
+	///////////////////////////////////////////////////////////////////
+	///////////     Methods for parsing an input file        //////////
+    ///////////////////////////////////////////////////////////////////
 	
 	/**
 	 * parse the whole file
@@ -90,6 +98,7 @@ public abstract class AbstractDataFieldParser extends BaseInputLineStringParser 
 				parseFields(str);
 		} while (str!=null);	
 	}	
+	
 	/**
 	 * parse the whole file
 	 * 
