@@ -148,6 +148,7 @@
 			<ns:enumeration value="GE-PSLF"></ns:enumeration>
 			<ns:enumeration value="Cim"></ns:enumeration>
 			<ns:enumeration value="OPF-Matpower"></ns:enumeration>
+			<ns:enumeration value="PSASP"></ns:enumeration>
 			<ns:enumeration value="Custom"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
