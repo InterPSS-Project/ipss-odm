@@ -410,7 +410,7 @@ public class PSSEXfrDataMapper <
       	String reBusId = IODMModelParser.BusIdPreFix+cont;
       	if(cont == 0)reBusId=fid;//by default set to the winding one bus
       		
-		// COD1,CONT1,RMA,RMI,VMA,VMI,NTP,TAB, 
+		// COD1,CONT1,RMA,RMI,VMA,VMI,NTP,TAB1, 
 		//Sample data : 1,    31, 1.10000, 0.90000, 1.09255, 1.04255, 33, 0, 0.00000, 0.00000
       	/*
         RMA1, RMI1 The upper and lower limits, respectively, of either:

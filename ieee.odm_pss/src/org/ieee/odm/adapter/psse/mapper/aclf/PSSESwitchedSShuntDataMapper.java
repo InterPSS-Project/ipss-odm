@@ -117,7 +117,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		
 		//BINIT - Initial switched shunt admittance, MVAR at 1.0 per unit volts
 		final double binit = this.dataParser.getDouble("BINIT", 0.0);
-		shunt.setBInit(binit);
+		shunt.setBInit(BaseDataSetter.createReactivePowerValue(binit, ReactivePowerUnitType.MVAR));
 		
 		//N1 - Number of steps for block 1, first 0 is end of blocks
 		//B1 - Admittance increment of block 1 in MVAR at 1.0 per unit volts. N2, B2, etc, as N1, B1
