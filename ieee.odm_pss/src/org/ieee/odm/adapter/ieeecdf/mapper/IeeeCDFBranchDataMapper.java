@@ -99,7 +99,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		branch.setAreaNumber(dataParser.getInt("Area", 0));
 		branch.setZoneNumber(dataParser.getInt("Zone", 0));
 
-		branch.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
+		//branch.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
 
 		//    	Columns 20-29   Branch resistance R, per unit [F] *
 		//    	Columns 30-40   Branch reactance X, per unit [F] * No zero impedance lines
