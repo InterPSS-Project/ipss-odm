@@ -118,7 +118,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		final double ratio = dataParser.getDouble("TurnRatio");
 		final double angle = dataParser.getDouble("ShiftAngle");
 		if (branchType > 0) {
-			if (angle == 0.0) {   // PsXfr branch
+			if (angle == 0.0) {   // regular Xfr branch
 				XfrBranchXmlType xfrBranch = (XfrBranchXmlType)branch;
 				AclfDataSetter.createXformerData(xfrBranch,
 						rpu, xpu, ZUnitType.PU, ratio, 1.0, 
@@ -134,7 +134,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 				else {
 					throw new ODMException("Error: fromBusRecord and/or toBusRecord cannot be found, fromId, toId: " + fid + ", " + tid);
 				}
-			} else {     // regualer Xfr branch
+			} else {     // psXfr branch
 				PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branch;
 				AclfDataSetter.createPhaseShiftXfrData(psXfrBranch, rpu, xpu, ZUnitType.PU,
 						ratio, 1.0, angle, 0.0, AngleUnitType.DEG,
