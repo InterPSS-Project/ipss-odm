@@ -123,6 +123,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * @param parser
 	 * @return
 	 */
+	@Deprecated
 	public static boolean createBusEquivData(IODMModelParser parser) {
 		createBusEquivGenData(parser);
 		

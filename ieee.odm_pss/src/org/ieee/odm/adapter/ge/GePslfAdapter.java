@@ -324,7 +324,7 @@ public class GePslfAdapter  extends AbstractODMAdapter {
   			throw new ODMException("GE data input error, line no " + lineNo + ", " + e.toString() + "\n" + lineStr);
   		}
 
-  		AclfParserHelper.createBusEquivData(parser);
+  		//AclfParserHelper.createBusEquivData(parser);
   		
 		return parser;
 	}

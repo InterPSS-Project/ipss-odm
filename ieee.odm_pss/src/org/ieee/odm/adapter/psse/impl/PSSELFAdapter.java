@@ -247,7 +247,7 @@ public class PSSELFAdapter <
     		throw new ODMException("PSSE data input error, line no " + lineNo + ", " + e.toString());
   		}
              
-		AclfParserHelper.createBusEquivData(parser);
+		//AclfParserHelper.createBusEquivData(parser);
   		
    	   	return parser;
 	}
