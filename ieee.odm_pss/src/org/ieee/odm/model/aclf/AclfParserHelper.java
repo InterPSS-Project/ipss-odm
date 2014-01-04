@@ -94,7 +94,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 			loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
 		}
 		LoadflowLoadDataXmlType contribLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
-	    loadData.getContributeLoad().add(OdmObjFactory.createEquivLoad(contribLoad)); 
+	    loadData.getContributeLoad().add(OdmObjFactory.createContributeLoad(contribLoad)); 
 	    return contribLoad;
 	}
 	
