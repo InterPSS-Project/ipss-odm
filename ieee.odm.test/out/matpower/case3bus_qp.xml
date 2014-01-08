@@ -14,11 +14,19 @@
                 <baseVoltage unit="KV" value="10.0"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
+                <genData>
+                    <equivGen code="Swing" offLine="false">
+                        <power unit="MVA" re="0.0" im="0.0"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <desiredAngle unit="DEG" value="0.0"/>
+                    </equivGen>
+                </genData>
                 <loadData>
                     <equivLoad code="CONST_P">
                         <constPLoad unit="MVA" re="132.66" im="0.0"/>
                     </equivLoad>
                 </loadData>
+                <shuntYData/>
                 <operatingMode>PVGenerator</operatingMode>
                 <incCost>
                     <costModel>Quadratic model</costModel>
@@ -28,16 +36,26 @@
                         <constCoeff>10000.0</constCoeff>
                     </quadraticModel>
                 </incCost>
+                <constraints>
+                    <activePowerLimit unit="MW" max="200.0" min="20.0"/>
+                </constraints>
             </aclfBus>
             <aclfBus xsi:type="OpfGenBusXmlType" id="Bus2" areaNumber="1" zoneNumber="1" number="2" offLine="false" name="Bus2">
                 <baseVoltage unit="KV" value="10.0"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
+                <genData>
+                    <equivGen code="PV" offLine="false">
+                        <power unit="MVA" re="120.0" im="0.0"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                    </equivGen>
+                </genData>
                 <loadData>
                     <equivLoad code="CONST_P">
                         <constPLoad unit="MVA" re="44.22" im="0.0"/>
                     </equivLoad>
                 </loadData>
+                <shuntYData/>
                 <operatingMode>PVGenerator</operatingMode>
                 <incCost>
                     <costModel>Quadratic model</costModel>
@@ -47,16 +65,26 @@
                         <constCoeff>10000.0</constCoeff>
                     </quadraticModel>
                 </incCost>
+                <constraints>
+                    <activePowerLimit unit="MW" max="150.0" min="10.0"/>
+                </constraints>
             </aclfBus>
             <aclfBus xsi:type="OpfGenBusXmlType" id="Bus3" areaNumber="1" zoneNumber="1" number="3" offLine="false" name="Bus3">
                 <baseVoltage unit="KV" value="10.0"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
+                <genData>
+                    <equivGen code="PV" offLine="false">
+                        <power unit="MVA" re="10.0" im="0.0"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                    </equivGen>
+                </genData>
                 <loadData>
                     <equivLoad code="CONST_P">
                         <constPLoad unit="MVA" re="44.22" im="0.0"/>
                     </equivLoad>
                 </loadData>
+                <shuntYData/>
                 <operatingMode>PVGenerator</operatingMode>
                 <incCost>
                     <costModel>Quadratic model</costModel>
@@ -66,6 +94,9 @@
                         <constCoeff>10000.0</constCoeff>
                     </quadraticModel>
                 </incCost>
+                <constraints>
+                    <activePowerLimit unit="MW" max="20.0" min="5.0"/>
+                </constraints>
             </aclfBus>
         </busList>
         <branchList>

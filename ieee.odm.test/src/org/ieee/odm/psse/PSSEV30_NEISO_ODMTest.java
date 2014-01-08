@@ -39,6 +39,7 @@ import org.ieee.odm.schema.DcLineControlModeEnumType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
@@ -112,10 +113,12 @@ public class PSSEV30_NEISO_ODMTest {
         */
 		bus = parser.getBus("Bus3");
 		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getPower().getRe() == 0.0);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getPower().getIm() == -65.628);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue() == 1.03842);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getQLimit().getMax() == 441.0);
+		
+		LoadflowGenDataXmlType Gen1= bus.getGenData().getContributeGen().get(0).getValue();
+		assertTrue(Gen1.getPower().getRe() == 0.0);
+		assertTrue(Gen1.getPower().getIm() == -65.628);
+		assertTrue(Gen1.getDesiredVoltage().getValue() == 1.03842);
+		assertTrue(Gen1.getQLimit().getMax() == 441.0);
 		assertTrue(bus.getGenData().getContributeGen().size() == 1);
 		
 		/*

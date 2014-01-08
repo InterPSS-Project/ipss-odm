@@ -85,7 +85,7 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(busRec.getVoltage().getValue() == 1.0);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
 		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(busRec.getLoadData() == null);
+		assertTrue(busRec.getLoadData().getEquivLoad() == null);
 		assertTrue(busRec.getOperatingMode().equals(OpfGenOperatingModeEnumType.PV_GENERATOR));
 		assertTrue(busRec.getIncCost().getCostModel().equals(CostModelEnumType.PIECE_WISE_LINEAR_MODEL));
 		assertTrue(busRec.getIncCost().getPieceWiseLinearModel().getStairStep().get(0).getPrice().getValue()==10);

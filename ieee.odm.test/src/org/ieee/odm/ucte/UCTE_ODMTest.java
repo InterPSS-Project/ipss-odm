@@ -69,7 +69,7 @@ public class UCTE_ODMTest {
 		// if voltage not defined, it is equal to the base voltage
 		assertTrue(busRec.getVoltage().getValue() == 380.0);
 		assertTrue(busRec.getVoltage().getUnit() == VoltageUnitType.KV);
-		assertTrue(busRec.getGenData() == null);
+		assertTrue(busRec.getGenData().getEquivGen() == null);
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 280.0);
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0.0);
 		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
@@ -82,7 +82,7 @@ public class UCTE_ODMTest {
 		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getRe() == 150.0);
 		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getIm() == 0.0);
 		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getUnit() == ApparentPowerUnitType.MVA);
-		assertTrue(busRec.getLoadData() == null);
+		assertTrue(busRec.getLoadData().getEquivLoad() == null);
 		
 		// B4____1 is a swing bus
 		// B4    1                 3 405.00 70.0000 .000000 .000000 .000000                

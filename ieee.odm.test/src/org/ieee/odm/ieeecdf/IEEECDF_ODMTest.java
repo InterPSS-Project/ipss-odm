@@ -78,7 +78,7 @@ public class IEEECDF_ODMTest {
 		assertTrue(adapter.parseInputFile("testdata/ieee_format/Ieee14Bus.ieee"));
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		//System.out.println(parser.toXmlDoc());
+		System.out.println(parser.toXmlDoc());
 		
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
 		assertTrue(baseCaseNet.getBusList().getBus().size() == 14);
@@ -98,8 +98,8 @@ public class IEEECDF_ODMTest {
 		assertTrue(busRec.getVoltage().getValue() == 1.060);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
 		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(busRec.getLoadData() == null);
-		assertTrue(busRec.getShuntYData().getEquivY() == null);
+		assertTrue(busRec.getLoadData().getEquivLoad()==null);
+		assertTrue(busRec.getShuntYData().getEquivY()== null);
 
 		// Bus 2 is a PV bus with load
 		//   2 Bus 2     HV  1  1  2 1.045  -4.98     21.7     12.7     40.0    42.4   132.0  1.045    50.0   -40.0   0.0    0.0        0
@@ -133,7 +133,7 @@ public class IEEECDF_ODMTest {
 		//    7 Bus 7     ZV  1  1  0 1.062 -13.37      0.0      0.0      0.0     0.0    35.0  0.0       0.0     0.0   0.0    0.0        0
 		busRec = parser.getBus("Bus7");
 		//assertTrue(busRec.getLoadflowData().getGenData() == null);
-		assertTrue(busRec.getLoadData() == null);
+		assertTrue(busRec.getLoadData().getEquivLoad() == null);
 		assertTrue(busRec.getShuntYData().getEquivY() == null);
 
 		// Check Branch Data
