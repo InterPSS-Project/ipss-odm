@@ -127,8 +127,8 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 
 		//Columns 107-114 Shunt conductance G (per unit) [F] *
 		//Columns 115-122 Shunt susceptance B (per unit) [F] *
-		final double gPU = dataParser.getDouble("ShuntG",0);
-		final double bPU = dataParser.getDouble("ShuntB",0);
+		final double gPU = dataParser.getDouble("ShuntG");
+		final double bPU = dataParser.getDouble("ShuntB");
 		if (gPU != 0.0 || bPU != 0.0) {
 			aclfBus.getShuntYData().setEquivY(BaseDataSetter.createYValue(gPU, bPU, YUnitType.PU));
 		}

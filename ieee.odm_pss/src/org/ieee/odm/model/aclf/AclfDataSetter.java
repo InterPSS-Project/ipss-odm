@@ -27,7 +27,6 @@ package org.ieee.odm.model.aclf;
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.activation.UnsupportedDataTypeException;
-import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.AngleUnitType;
@@ -142,12 +141,6 @@ public class AclfDataSetter extends BaseDataSetter {
 			double v, VoltageUnitType vUnit,
 			double ang, AngleUnitType angUnit,
 			double p, double q, ApparentPowerUnitType pUnit) {
-		//TODO follow the implementation of setLoadData, equivGen is created when is needed
-
-		if(bus.getGenData().getEquivGen()==null){
-			LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
-   		    bus.getGenData().setEquivGen(OdmObjFactory.createEquivGen(equivGen));
-		}
 		setGenData(bus, code, v, vUnit, ang, angUnit);
    		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
 		equivGen.setPower(createPowerValue(p, q, pUnit));

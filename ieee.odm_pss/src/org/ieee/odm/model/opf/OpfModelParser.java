@@ -142,7 +142,6 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 	 */
 	public OpfGenBusXmlType createOpfGenBus() {
 		OpfGenBusXmlType busRec = OdmObjFactory.createOpfGenBusXmlType();
-		initAclfBus(busRec);
 		busRec.setOffLine(false);
 		busRec.setAreaNumber(1);
 		busRec.setZoneNumber(1);

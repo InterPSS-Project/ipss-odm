@@ -118,17 +118,15 @@ public class BaseAclfModelParser<
 		busRec.setZoneNumber(1);	
 		
 		busRec.setGenData(OdmObjFactory.createBusGenDataXmlType());
-		//TODO equivGen/Load do NOT need to initialize in advance
-   		//LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
-   		//busRec.getGenData().setEquivGen(OdmObjFactory.createEquivGen(equivGen));	
+   		LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
+   		busRec.getGenData().setEquivGen(OdmObjFactory.createEquivGen(equivGen));	
    		
 		busRec.setLoadData(OdmObjFactory.createBusLoadDataXmlType());
-   		//LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
-   		//busRec.getLoadData().setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));   		
+   		LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+   		busRec.getLoadData().setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));   		
 
    		busRec.setShuntYData(OdmObjFactory.createBusShuntYDataXmlType());
-   		//TODO
-   		//busRec.getShuntYData().setEquivY(OdmObjFactory.createYXmlType());   		
+   		busRec.getShuntYData().setEquivY(OdmObjFactory.createYXmlType());   		
 	}
 	
 	/*
