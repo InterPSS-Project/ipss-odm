@@ -80,7 +80,7 @@ public class PSSEV30_NEISO_ODMTest {
 		LoadflowBusXmlType bus = parser.getBus("Bus1");
 		assertTrue(bus.getBaseVoltage().getValue() == 345.0);
 		assertTrue(bus.getBaseVoltage().getUnit() == VoltageUnitType.KV);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.NONE_GEN);
+		assertTrue(bus.getGenCode() == LFGenCodeEnumType.NONE_GEN);
 
 		/*
       <bus id="Bus3" number="3" areaNumber="1" name="'0001        '" offLine="false">
@@ -112,7 +112,7 @@ public class PSSEV30_NEISO_ODMTest {
       </bus>
         */
 		bus = parser.getBus("Bus3");
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(bus.getGenCode() == LFGenCodeEnumType.PV);
 		
 		LoadflowGenDataXmlType Gen1= bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(Gen1.getPower().getRe() == 0.0);

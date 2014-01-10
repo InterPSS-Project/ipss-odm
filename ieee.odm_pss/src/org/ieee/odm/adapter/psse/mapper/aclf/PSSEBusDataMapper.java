@@ -106,9 +106,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		LFGenCodeEnumType genType = ide == 3? LFGenCodeEnumType.SWING : 
 								( ide == 1? LFGenCodeEnumType.NONE_GEN :     
 									( ide == 2 ? LFGenCodeEnumType.PV : LFGenCodeEnumType.NONE_GEN ));
-		AclfDataSetter.setGenData(aclfBusXml, genType, vm, VoltageUnitType.PU, va, AngleUnitType.DEG, 
-						0.0, 0.0,	ApparentPowerUnitType.MVA);
-
+		
+		aclfBusXml.setGenCode(genType);
 		if (ide == 1 || ide == 2 || ide == 3) 
 			aclfBusXml.setOffLine(false);
 		else

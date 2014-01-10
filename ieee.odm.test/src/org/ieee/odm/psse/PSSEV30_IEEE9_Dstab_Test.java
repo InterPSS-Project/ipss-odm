@@ -118,10 +118,10 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	 * Gen GENSAL-> Eq11Machine
 	 */
 	 DStabBusXmlType bus1 = dstabParser.getDStabBus("Bus1");
-	 assertTrue(bus1.getGenData().getEquivGen().getValue().getCode()==LFGenCodeEnumType.SWING);
-	 assertTrue(bus1.getLoadData().getEquivLoad().getValue().getCode()==LFLoadCodeEnumType.NONE_LOAD);
+	 assertTrue(bus1.getGenData().getContributeGen().get(0).getValue().getCode()==LFGenCodeEnumType.SWING);
+	 assertTrue(bus1.getLoadData().getContributeLoad().get(0).getValue().getCode()==LFLoadCodeEnumType.NONE_LOAD);
 	 
-	DStabGenDataXmlType bus1Gen = (DStabGenDataXmlType) bus1.getGenData().getEquivGen().getValue();
+	DStabGenDataXmlType bus1Gen = (DStabGenDataXmlType) bus1.getGenData().getContributeGen().get(0).getValue();
 	
 	assertTrue(bus1Gen.getDesiredVoltage().getValue()==1.04);
 	assertTrue(bus1Gen.getPotiveZ().getIm()==0.04);
@@ -178,7 +178,7 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	 * 
 	 */
 	 DStabBusXmlType bus3 = dstabParser.getDStabBus("Bus3");
-	 assertTrue(bus3.getGenData().getEquivGen().getValue().getCode()==LFGenCodeEnumType.PV);
+	 assertTrue(bus3.getGenCode()==LFGenCodeEnumType.PV);
 	 
 	 DStabGenDataXmlType contriGen3 = (DStabGenDataXmlType) bus3.getGenData().getContributeGen().get(0).getValue();
 	

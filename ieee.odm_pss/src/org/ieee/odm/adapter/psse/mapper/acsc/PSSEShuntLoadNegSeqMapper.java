@@ -56,10 +56,12 @@ public class PSSEShuntLoadNegSeqMapper <
 		double gNeg = dataParser.getDouble("GNEG");
 		double bNeg = dataParser.getDouble("BNEG");
 		ShortCircuitBusXmlType scBusXmlType= (ShortCircuitBusXmlType) parser.getBus(busId);
-		((ShortCircuitLoadDataXmlType)scBusXmlType.getLoadData().getEquivLoad().getValue())
-					.setShuntLoadNegativeY(BaseDataSetter.createYValue(gNeg, bNeg, YUnitType.PU));
-		//check against the positive sequence 
-		//
+		//TODO PSS/E use the equivLoad concept for the sequence load data, we can add the concept
+		// of bus totalLoadNegativeY and totalLoadZeroY to the acscBus level, which overrides the 
+		// contributeLoad, only for sequence load data.
+		
+		//((ShortCircuitLoadDataXmlType)scBusXmlType.getLoadData).setShuntLoadNegativeY(BaseDataSetter.createYValue(gNeg, bNeg, YUnitType.PU));
+		
 		
 	}
 

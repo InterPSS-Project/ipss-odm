@@ -40,6 +40,7 @@ import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
@@ -214,43 +215,46 @@ public class BPABusRecord<
 			}	
 			
 			// set load
+			String loadId = "Load1";
 			if (loadMw != 0.0 || loadMvar != 0.0) {
-				AclfDataSetter.setLoadData(busRec,
+				AclfDataSetter.setLoadData(busRec,loadId,
 						LFLoadCodeEnumType.CONST_P, loadMw,
 						loadMvar, ApparentPowerUnitType.MVA);
 			}
-			
+			String genId = "Gen1";
+			LoadflowGenDataXmlType gen = null;
 			if(busType==swingBus){
+				busRec.setGenCode(LFGenCodeEnumType.SWING);
 				// set bus voltage
 					busRec.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
 				// set bus angle
 				busRec.setAngle(BaseDataSetter.createAngleValue(vMinOrAngDeg, AngleUnitType.DEG));
 				
 				//set gen data
-				AclfDataSetter.setGenData(busRec,
+			   gen = AclfDataSetter.setGenData(busRec,genId,
 							LFGenCodeEnumType.SWING,
 							vpu, VoltageUnitType.PU,
 							vMinOrAngDeg, AngleUnitType.DEG,pGen,0, ApparentPowerUnitType.MVA);
 				// set Q limit
 				if(qGenOrQGenMax!=0.0||qGenMin!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit( 
+					gen.setQLimit(BaseDataSetter.createReactivePowerLimit( 
 							qGenOrQGenMax, qGenMin, ReactivePowerUnitType.MVAR));				
 				}
 				
 				// set P limit
 				if(pGenMax!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setPLimit(BaseDataSetter.createActivePowerLimit(
+					gen.setPLimit(BaseDataSetter.createActivePowerLimit(
 							pGenMax, 0, ActivePowerUnitType.MW));
 				}	
 			}
-			else if(busType==pqBus){			
-				AclfDataSetter.setGenData(busRec,
+			else if(busType==pqBus){
+				busRec.setGenCode(LFGenCodeEnumType.PQ);
+				gen =AclfDataSetter.setGenData(busRec,genId,
 						LFGenCodeEnumType.NONE_GEN, 
 						1.0, VoltageUnitType.PU, 0.0, AngleUnitType.DEG);
 				if(pGen!=0.0||qGenOrQGenMax!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setCode(LFGenCodeEnumType.PQ);
-					busRec.getGenData().getEquivGen().getValue()
-						.setPower(BaseDataSetter.createPowerValue(
+					gen.setCode(LFGenCodeEnumType.PQ);
+					gen.setPower(BaseDataSetter.createPowerValue(
 							pGen, qGenOrQGenMax, ApparentPowerUnitType.MVA));
 			    // for a PQ Bus, it is not proper to set the Vlimit;
 //				// set V limit    
@@ -268,27 +272,28 @@ public class BPABusRecord<
 				}
 			}
 			else if(busType==pvBus || busType==pvBusNoQLimit){
+				busRec.setGenCode(LFGenCodeEnumType.PV);
 				// set bus voltage
 					busRec.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
 				// set gen data
-				AclfDataSetter.setGenData(busRec,
+				gen =AclfDataSetter.setGenData(busRec,genId,
 							LFGenCodeEnumType.PV, 
 							vpu, VoltageUnitType.PU, 0.0, AngleUnitType.DEG,
 							pGen, 0.0, ApparentPowerUnitType.MVA);
 				// set Q limit
 				if(qGenOrQGenMax!=0.0||qGenMin!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit( 
+					gen.setQLimit(BaseDataSetter.createReactivePowerLimit( 
 							qGenOrQGenMax, qGenMin, ReactivePowerUnitType.MVAR));	
 				// for "BE" type the limit if disabled
 					if (busType==pvBusNoQLimit)
-						busRec.getGenData().getEquivGen().getValue().getQLimit().setActive(false);
+						gen.getQLimit().setActive(false);
 					   //TODO BPA automatically balance the shuntVar at BE Type Bus, 
 					   // considering Ipss does not support such function, set it  to zero here.
 					  // AclfDataSetter.setBusShuntVar(busRec, 0, YUnitType.PU);
 				}
 				// set P limit
 				if(pGenMax!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setPLimit(BaseDataSetter.createActivePowerLimit(
+					gen.setPLimit(BaseDataSetter.createActivePowerLimit(
 							pGenMax, 0, ActivePowerUnitType.MW));
 				}	
 				
@@ -330,10 +335,15 @@ public class BPABusRecord<
 			double controlledBusRatedVol=ODMModelStringUtil.getDouble(strAry[17], 0.0);
 			
 			if(strAry[0].equals("BG")||strAry[0].equals("BX")){
-				if(!controlledBus.equals("")) {			
-					busRec.getGenData().getEquivGen().getValue().getRemoteVoltageControlBus().setIdRef(controlledBus);
-					busRec.getGenData().getEquivGen().getValue().setDesiredVoltage(BaseDataSetter.createVoltageValue(
+				if(!controlledBus.equals("")) {	
+					if(busRec.getGenData().getContributeGen().size()==1){
+						LoadflowGenDataXmlType gen =busRec.getGenData().getContributeGen().get(0).getValue();
+					    gen.getRemoteVoltageControlBus().setIdRef(controlledBus);
+					    gen.setDesiredVoltage(BaseDataSetter.createVoltageValue(
 							controlledBusRatedVol, VoltageUnitType.PU));
+					}
+					else
+						ODMLogger.getLogger().severe("For the BG,BX type bus #"+busRec.getId() +" no generator is defined!");
 				}
 			}
 			

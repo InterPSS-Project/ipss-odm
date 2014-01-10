@@ -199,7 +199,7 @@ public class BusDataProcessor extends InputLineStringParser {
 					  loadZMW, loadZMVR, ApparentPowerUnitType.MVA);
 			  
 			}else{ 
-				AclfDataSetter.setLoadData(bus, LFLoadCodeEnumType.CONST_P, 
+				AclfDataSetter.setLoadData(bus, loadId,LFLoadCodeEnumType.CONST_P, 
 				loadSMW, loadSMVR, ApparentPowerUnitType.MVA);
 			  }
 		//}
@@ -257,7 +257,7 @@ public class BusDataProcessor extends InputLineStringParser {
 						
 				 busNum=getLong("BusNum");// mandatory filed
 				
-				 genId =exist("GenID")?getString("GenID"):"";
+				 genId =exist("GenID")?getString("GenID"):"Gen1";
 				   
 				   
 				  if (exist("GenStatus")) 
@@ -316,7 +316,7 @@ public class BusDataProcessor extends InputLineStringParser {
 
 			String busId = IODMModelParser.BusIdPreFix + busNum;
 			LoadflowBusXmlType bus = parser.getBus(busId);
-			
+			LoadflowGenDataXmlType equivGen= null;
 			//save custom string as NV pairs
 			if(!substation.equals(""))BaseJaxbHelper.addNVPair(bus, STATION_TOKEN, substation);
 			if(!customString.equals(""))BaseJaxbHelper.addNVPair(bus, "Gen_CustomString", customString);
@@ -331,12 +331,11 @@ public class BusDataProcessor extends InputLineStringParser {
 
 					if (busNum != swingBusNum) {// This bus is a PV bus
 						
-						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet, VoltageUnitType.PU, 0, AngleUnitType.DEG,
+						equivGen=AclfDataSetter.setGenData(bus,genId, LFGenCodeEnumType.PV, genVoltSet, VoltageUnitType.PU, 0, AngleUnitType.DEG,
 								genMW, genMVR, ApparentPowerUnitType.MVA);
 
-						LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
-						
-						equivGen.setId(genId);
+
+						//equivGen.setId(genId);
 						equivGen.setOffLine(!genOnLine);
 						// equivGen.setRatedPower(BaseDataSetter.createApparentPower(genMVABase,
 						// ApparentPowerUnitType.MVA));
@@ -358,13 +357,13 @@ public class BusDataProcessor extends InputLineStringParser {
 					} else { // swing bus
 						//VoltageXmlType v = bus.getVoltage();
 						AngleXmlType angle = bus.getAngle();
-						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.SWING,
+						equivGen=AclfDataSetter.setGenData(bus, genId,LFGenCodeEnumType.SWING,
 								genVoltSet, VoltageUnitType.PU, angle.getValue(),
 								angle.getUnit(), genMW, genMVR,
 								ApparentPowerUnitType.MVA);
 
-						LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
-						equivGen.setId(genId);
+						//LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+						//equivGen.setId(genId);
 						equivGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
 						equivGen.setOffLine(!genOnLine);
 
@@ -396,13 +395,13 @@ public class BusDataProcessor extends InputLineStringParser {
 					String regBusId = IODMModelParser.BusIdPreFix + regBusNum;
 		
 					// set this gen bus data
-					AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet,
+					equivGen = AclfDataSetter.setGenData(bus, genId,LFGenCodeEnumType.PV, genVoltSet,
 							VoltageUnitType.PU, 0, AngleUnitType.DEG, genMW,
 							genMVR, ApparentPowerUnitType.MVA);
 
-					LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+					//LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
 							
-					equivGen.setId(genId);
+					//equivGen.setId(genId);
 					equivGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
 					
 					equivGen.setPLimit(BaseDataSetter.createActivePowerLimit(
@@ -423,7 +422,7 @@ public class BusDataProcessor extends InputLineStringParser {
 				}
 
 				// process generator participation factor
-				LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+				//LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
 				if (genAGCAble)
 					equivGen.setMwControlParticipateFactor(partFactor);
 			}

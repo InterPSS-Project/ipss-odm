@@ -96,7 +96,7 @@ public class PSSEV30_ODMTest {
  */
 		LoadflowBusXmlType bus = parser.getBus("Bus1");
 		assertTrue(bus.getBaseVoltage().getValue() == 13.8);
-		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+		LoadflowGenDataXmlType equivGen = bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(equivGen.getCode() == LFGenCodeEnumType.SWING);
 		assertTrue(equivGen.getDesiredVoltage().getValue() == 1.0);
 		assertTrue(equivGen.getDesiredAngle().getValue() == 0.0);
@@ -122,9 +122,9 @@ public class PSSEV30_ODMTest {
       </bus>
 */
 		bus = parser.getBus("Bus2");
-		assertTrue(bus.getLoadData().getEquivLoad() == null);
-		equivGen = bus.getGenData().getEquivGen().getValue();
-		assertTrue(equivGen.getCode() == LFGenCodeEnumType.NONE_GEN);
+		assertTrue(bus.getLoadData().getContributeLoad().size()==0);
+		//equivGen = bus.getGenData().getEquivGen().getValue();
+		//assertTrue(equivGen.getCode() == LFGenCodeEnumType.NONE_GEN);
 		
 /*
   <aclfBus id="Bus5" areaNumber="1" zoneNumber="1" number="5" offLine="false" name="UNO-U2      ">
@@ -158,10 +158,10 @@ public class PSSEV30_ODMTest {
             </aclfBus>
 */
 		bus = parser.getBus("Bus5");
-		assertTrue(bus.getLoadData().getEquivLoad() == null);
+		
 		assertTrue(bus.getLoadData().getContributeLoad().size() == 0);
-		equivGen = bus.getGenData().getEquivGen().getValue();
-		assertTrue(equivGen.getCode() == LFGenCodeEnumType.PV);
+		//equivGen = bus.getGenData().getEquivGen().getValue();
+		assertTrue(bus.getGenCode() == LFGenCodeEnumType.PV);
 		
 		Gen1= bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(Gen1.getPower().getRe() == 22.5);

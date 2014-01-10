@@ -218,7 +218,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		aclfBus.setAngle(BaseDataSetter.createAngleValue(va, AngleUnitType.DEG));
 
 		if (pl != 0.0 || ql != 0.0) {
-			AclfDataSetter.setLoadData(aclfBus, LFLoadCodeEnumType.CONST_P, pl,
+			AclfDataSetter.setLoadData(aclfBus,"Load1", LFLoadCodeEnumType.CONST_P, pl,
 					ql, ApparentPowerUnitType.MVA);
 		}
 
@@ -230,7 +230,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 								: LFGenCodeEnumType.OFF));
 
 		if (type == 2 || type == 3) {
-			AclfDataSetter.setGenData(aclfBus, genType, vm, VoltageUnitType.PU,
+			AclfDataSetter.setGenData(aclfBus,"Gen1", genType, vm, VoltageUnitType.PU,
 					va, AngleUnitType.DEG, 0, 0, ApparentPowerUnitType.MVA);
 		}
 
@@ -251,8 +251,8 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		opfGenContainer.add(bus);
 		double pg = str2d(s[1]);
 		double qg = str2d(s[2]);
-
-		LoadflowGenDataXmlType gen = bus.getGenData().getEquivGen().getValue();
+        //TODO assuming there is only one generator 
+		LoadflowGenDataXmlType gen = bus.getGenData().getContributeGen().get(0).getValue();
 		gen.setPower(BaseDataSetter.createPowerValue(pg, qg,
 				ApparentPowerUnitType.MVA));
 

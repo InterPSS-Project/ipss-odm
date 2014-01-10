@@ -107,11 +107,11 @@ public class BaseDstabModelParser <
 	protected void initDStabBus(DStabBusXmlType busRec) {
 		initAcscBus(busRec);
 		
-   		DStabGenDataXmlType equivGen = OdmObjFactory.createDStabGenDataXmlType();
-   		busRec.getGenData().setEquivGen(OdmObjFactory.createDstabEquivGen(equivGen));		
+   		//DStabGenDataXmlType equivGen = OdmObjFactory.createDStabGenDataXmlType();
+   		//busRec.getGenData().setEquivGen(OdmObjFactory.createDstabEquivGen(equivGen));		
 
-   		DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
-   		busRec.getLoadData().setEquivLoad(OdmObjFactory.createDstabEquivLoad(equivLoad));		
+   		//DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
+   		//busRec.getLoadData().setEquivLoad(OdmObjFactory.createDstabEquivLoad(equivLoad));		
 	}		
 
 	/**

@@ -39,6 +39,7 @@ import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
+import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
@@ -122,6 +123,10 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	    contriGen.setId(id);
 	    contriGen.setName("Gen:" + id + "(" + i + ")");
 	    contriGen.setDesc("PSSE Generator " + id + " at Bus " + i);
+	    contriGen.setCode(((LoadflowBusXmlType)busRecXml).getGenCode());
+	    //desired voltage angle for swing type gen is only obtained from the bus record
+	    if( contriGen.getCode()==LFGenCodeEnumType.SWING)
+	    	contriGen.setDesiredAngle(((LoadflowBusXmlType)busRecXml).getAngle());
 	    
 	    int stat = dataParser.getInt("STAT");
 	    contriGen.setOffLine(stat!=1);

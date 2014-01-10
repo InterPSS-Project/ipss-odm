@@ -105,16 +105,16 @@ public class BPAGenLoadDataModifyRecord<
 	}
 	private static boolean modifyGenData(LoadflowBusXmlType bus, double genPFactor,double genQFactor){
 		try{
-			if(bus.getGenData()!=null&&bus.getGenData().getEquivGen()!=null
-					&&bus.getGenData().getEquivGen().getValue().getPower()!=null){
-				double genP=bus.getGenData().getEquivGen().getValue().getPower().getRe();
-				double genQ=bus.getGenData().getEquivGen().getValue().getPower().getIm();
+			if(bus.getGenData()!=null&&bus.getGenData().getContributeGen().size()>0
+					&&bus.getGenData().getContributeGen().get(0).getValue().getPower()!=null){
+				double genP=bus.getGenData().getContributeGen().get(0).getValue().getPower().getRe();
+				double genQ=bus.getGenData().getContributeGen().get(0).getValue().getPower().getIm();
 				if(genP!=0.0)genP*=genPFactor;
 				if(genQ!=0.0)genQ*=genQFactor;
 				if(genP!=0.0||genQ!=0){
 					  genP=ODMModelStringUtil.getNumberFormat(genP);
 					  genQ=ODMModelStringUtil.getNumberFormat(genQ);
-					bus.getGenData().getEquivGen().getValue().setPower(BaseDataSetter.createPowerValue(
+					  bus.getGenData().getContributeGen().get(0).getValue().setPower(BaseDataSetter.createPowerValue(
 						genP,genQ,ApparentPowerUnitType.MVA));
 				}
 			}
@@ -128,16 +128,16 @@ public class BPAGenLoadDataModifyRecord<
 	}
 	private static boolean modifyLoadData(LoadflowBusXmlType bus, double loadPFactor,double loadQFactor){
 		try{
-			if(bus.getLoadData()!=null&&bus.getLoadData().getEquivLoad()!=null
-					&&bus.getLoadData().getEquivLoad().getValue().getConstPLoad()!=null){
-				  double loadP=bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe();
-				  double loadQ=bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm();
+			if(bus.getLoadData()!=null&&bus.getLoadData().getContributeLoad()!=null
+					&&bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad()!=null){
+				  double loadP=bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe();
+				  double loadQ=bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getIm();
 				  if(loadP!=0.0)loadP*=loadPFactor;
 				  if(loadQ!=0.0)loadQ*=loadQFactor;
 				  if(loadP!=0.0||loadQ!=0.0){
 					  loadP=ODMModelStringUtil.getNumberFormat(loadP);
 					  loadQ=ODMModelStringUtil.getNumberFormat(loadQ);
-					  bus.getLoadData().getEquivLoad().getValue().setConstPLoad(BaseDataSetter.createPowerValue(
+					  bus.getLoadData().getContributeLoad().get(0).getValue().setConstPLoad(BaseDataSetter.createPowerValue(
 							loadP,loadQ,ApparentPowerUnitType.MVA));
 				  }
 

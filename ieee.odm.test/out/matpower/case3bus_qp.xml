@@ -10,23 +10,22 @@
     <aclfNet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="OpfNetworkXmlType" id="Opf_from_Matpower_case3bus">
         <basePower unit="MVA" value="100.0"/>
         <busList>
-            <aclfBus xsi:type="OpfGenBusXmlType" id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="Bus1">
+            <aclfBus xsi:type="OpfGenBusXmlType" GenCode="Swing" id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="Bus1">
                 <baseVoltage unit="KV" value="10.0"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
                 <genData>
-                    <equivGen code="Swing" offLine="false">
+                    <contributeGen code="Swing" id="Gen1" offLine="false">
                         <power unit="MVA" re="0.0" im="0.0"/>
                         <desiredVoltage unit="PU" value="1.0"/>
                         <desiredAngle unit="DEG" value="0.0"/>
-                    </equivGen>
+                    </contributeGen>
                 </genData>
                 <loadData>
-                    <equivLoad code="CONST_P">
+                    <contributeLoad code="CONST_P" id="Load1">
                         <constPLoad unit="MVA" re="132.66" im="0.0"/>
-                    </equivLoad>
+                    </contributeLoad>
                 </loadData>
-                <shuntYData/>
                 <operatingMode>PVGenerator</operatingMode>
                 <incCost>
                     <costModel>Quadratic model</costModel>
@@ -40,22 +39,21 @@
                     <activePowerLimit unit="MW" max="200.0" min="20.0"/>
                 </constraints>
             </aclfBus>
-            <aclfBus xsi:type="OpfGenBusXmlType" id="Bus2" areaNumber="1" zoneNumber="1" number="2" offLine="false" name="Bus2">
+            <aclfBus xsi:type="OpfGenBusXmlType" GenCode="PV" id="Bus2" areaNumber="1" zoneNumber="1" number="2" offLine="false" name="Bus2">
                 <baseVoltage unit="KV" value="10.0"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
                 <genData>
-                    <equivGen code="PV" offLine="false">
+                    <contributeGen code="PV" id="Gen1" offLine="false">
                         <power unit="MVA" re="120.0" im="0.0"/>
                         <desiredVoltage unit="PU" value="1.0"/>
-                    </equivGen>
+                    </contributeGen>
                 </genData>
                 <loadData>
-                    <equivLoad code="CONST_P">
+                    <contributeLoad code="CONST_P" id="Load1">
                         <constPLoad unit="MVA" re="44.22" im="0.0"/>
-                    </equivLoad>
+                    </contributeLoad>
                 </loadData>
-                <shuntYData/>
                 <operatingMode>PVGenerator</operatingMode>
                 <incCost>
                     <costModel>Quadratic model</costModel>
@@ -69,22 +67,21 @@
                     <activePowerLimit unit="MW" max="150.0" min="10.0"/>
                 </constraints>
             </aclfBus>
-            <aclfBus xsi:type="OpfGenBusXmlType" id="Bus3" areaNumber="1" zoneNumber="1" number="3" offLine="false" name="Bus3">
+            <aclfBus xsi:type="OpfGenBusXmlType" GenCode="PV" id="Bus3" areaNumber="1" zoneNumber="1" number="3" offLine="false" name="Bus3">
                 <baseVoltage unit="KV" value="10.0"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
                 <genData>
-                    <equivGen code="PV" offLine="false">
+                    <contributeGen code="PV" id="Gen1" offLine="false">
                         <power unit="MVA" re="10.0" im="0.0"/>
                         <desiredVoltage unit="PU" value="1.0"/>
-                    </equivGen>
+                    </contributeGen>
                 </genData>
                 <loadData>
-                    <equivLoad code="CONST_P">
+                    <contributeLoad code="CONST_P" id="Load1">
                         <constPLoad unit="MVA" re="44.22" im="0.0"/>
-                    </equivLoad>
+                    </contributeLoad>
                 </loadData>
-                <shuntYData/>
                 <operatingMode>PVGenerator</operatingMode>
                 <incCost>
                     <costModel>Quadratic model</costModel>
