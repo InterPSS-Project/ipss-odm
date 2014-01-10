@@ -142,7 +142,7 @@ public class DStabParserHelper extends AcscParserHelper {
 		if (genData == null) {
 			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
-			//genData.setEquivGen(createDStabEquivGen());
+			genData.setEquivGen(createDStabEquivGen());
 		}
 		// some model does not need ContributeGenList
 		DStabGenDataXmlType contribGen = OdmObjFactory.createDStabGenDataXmlType();
@@ -169,8 +169,8 @@ public class DStabParserHelper extends AcscParserHelper {
 		if (loadData == null) { 
 			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
-			//DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
-			//loadData.setEquivLoad(OdmObjFactory.createDstabEquivLoad(equivLoad));
+			DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
+			loadData.setEquivLoad(OdmObjFactory.createDstabEquivLoad(equivLoad));
 		}
 		DStabLoadDataXmlType contribLoad = OdmObjFactory.createDStabLoadDataXmlType();
 	    loadData.getContributeLoad().add(OdmObjFactory.createDstabContributeLoad(contribLoad)); 

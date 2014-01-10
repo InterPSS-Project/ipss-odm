@@ -27,7 +27,6 @@ package org.ieee.odm.adapter.ge.mapper;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GEBusDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -37,7 +36,6 @@ import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
-import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 
 public class GEBusDataMapper extends BaseGEDataMapper {
@@ -68,15 +66,10 @@ public class GEBusDataMapper extends BaseGEDataMapper {
 		int ty = dataParser.getInt("ty");
 		LFGenCodeEnumType genType = ty == 0? LFGenCodeEnumType.SWING : 
 				( ty == 1? LFGenCodeEnumType.PQ : LFGenCodeEnumType.PV);
-		String genId = busId+"-mach"+1;
-		
-		LoadflowGenDataXmlType gen = AclfDataSetter.setGenData(busRec,genId, genType, dataParser.getDouble("vs"), 
+		AclfDataSetter.setGenData(busRec, genType, dataParser.getDouble("vs"), 
 				VoltageUnitType.PU, dataParser.getDouble("an"), AngleUnitType.DEG, 
 				0.0, 0.0,	ApparentPowerUnitType.MVA);
-		
-		 gen.setVoltageLimit(
+		busRec.getGenData().getEquivGen().getValue().setVoltageLimit(
 				BaseDataSetter.createVoltageLimit(dataParser.getDouble("vma"), dataParser.getDouble("vmi"), VoltageUnitType.PU));
-		
-	
 	}
 }

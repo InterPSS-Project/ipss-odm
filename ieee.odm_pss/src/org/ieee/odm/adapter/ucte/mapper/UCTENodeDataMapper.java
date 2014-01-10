@@ -36,7 +36,6 @@ import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
-import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 
@@ -90,18 +89,17 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
       	aclfBus.setVoltage(BaseDataSetter.createVoltageValue(voltage, VoltageUnitType.KV));
 
       	aclfBus.setAngle(BaseDataSetter.createAngleValue(0.0, AngleUnitType.DEG));    	
-    	String loadId ="Load1";
+    	
 		if (pLoadMW != 0.0 || qLoadMvar != 0.0) {
-			AclfDataSetter.setLoadData(aclfBus,loadId,
+			AclfDataSetter.setLoadData(aclfBus,
 					LFLoadCodeEnumType.CONST_P, pLoadMW,
 					qLoadMvar, ApparentPowerUnitType.MVA);
 		}
-		String genId ="Gen1";
-		LoadflowGenDataXmlType gen=null;
+
 		switch (nodeType) {
 		case 0: // PQ bus
 			if (pGenMW != 0.0 || qGenMvar != 0.0) {
-				AclfDataSetter.setGenData(aclfBus,genId,
+				AclfDataSetter.setGenData(aclfBus,
 						LFGenCodeEnumType.PQ,
 						1.0, VoltageUnitType.PU, 0.0, AngleUnitType.DEG,
 						pGenMW, qGenMvar, ApparentPowerUnitType.MVA);				
@@ -110,7 +108,7 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 		case 1: // Q angle bus
 			throw new ODMException("Node type = 1, not support currently. Please contact support@interpss.org");
 		case 2: // PV bus
-			gen=AclfDataSetter.setGenData(aclfBus,genId,
+			AclfDataSetter.setGenData(aclfBus,
 					LFGenCodeEnumType.PV, 
 					voltage, VoltageUnitType.KV, 0.0, AngleUnitType.DEG,
 					pGenMW, qGenMvar, ApparentPowerUnitType.MVA);
@@ -118,12 +116,12 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 					&& maxGenMVar > minGenMVar) {
 				// PV Bus limit control
 				ODMLogger.getLogger().fine("Bus is a PVLimitBus, id: " + id);
-				gen.setQLimit(BaseDataSetter.createReactivePowerLimit(  
+				aclfBus.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit(  
 						maxGenMVar, minGenMVar, ReactivePowerUnitType.MVAR));
 			}
 			break;
 		case 3: // swing bus
-			gen=AclfDataSetter.setGenData(aclfBus,genId,
+			AclfDataSetter.setGenData(aclfBus,
 					LFGenCodeEnumType.SWING,
 					voltage, VoltageUnitType.KV, 0.0, AngleUnitType.DEG,
 					pGenMW, qGenMvar, ApparentPowerUnitType.MVA);

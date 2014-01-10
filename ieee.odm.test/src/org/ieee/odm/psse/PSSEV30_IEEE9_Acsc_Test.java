@@ -11,6 +11,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.model.acsc.AcscModelParser;
 import org.ieee.odm.schema.GroundingEnumType;
+import org.ieee.odm.schema.GroundingXmlType;
 import org.ieee.odm.schema.LineShortCircuitXmlType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.ShortCircuitGenDataXmlType;
@@ -170,10 +171,6 @@ public class PSSEV30_IEEE9_Acsc_Test {
 		assertTrue(scXfr_14.getToSideConnection().getXfrConnection()== XformrtConnectionEnumType.WYE);
 		assertTrue(scXfr_14.getToSideConnection().getGrounding().getGroundingConnection()==GroundingEnumType.SOLID_GROUNDED);
 	}
-	//TODO
-	/*
-	 * Sequence load data
-	 */
 
 }
 

@@ -90,7 +90,8 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		if (loadData == null) { 
 			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
-			
+			LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+			loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
 		}
 		LoadflowLoadDataXmlType contribLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
 	    loadData.getContributeLoad().add(OdmObjFactory.createContributeLoad(contribLoad)); 
@@ -107,20 +108,21 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		if (genData == null) {
 			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
+			LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
+			genData.setEquivGen(OdmObjFactory.createEquivGen(equivGen));
 		}
 		// some model does not need ContributeGenList
 		LoadflowGenDataXmlType contribGen = OdmObjFactory.createLoadflowGenDataXmlType();
 		genData.getContributeGen().add(OdmObjFactory.createContributeGen(contribGen));
 		return contribGen;
 	}
-    
+
 	/**
 	 * create bus EquivData info after the contributing records are defined
 	 * 
 	 * @param parser
 	 * @return
 	 */
-	/*
 	@Deprecated
 	public static boolean createBusEquivData(IODMModelParser parser) {
 		createBusEquivGenData(parser);
@@ -131,13 +133,11 @@ public class AclfParserHelper extends BaseJaxbHelper {
 
 		return true;
 	}	
-	*/
 	
 	/**
 	 * consolidate bus genContributionList to the equiv gen 
 	 * 
 	 */
-    /*
 	@SuppressWarnings("unchecked") public static boolean createBusEquivGenData(IODMModelParser parser ) {
 		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
@@ -232,12 +232,11 @@ public class AclfParserHelper extends BaseJaxbHelper {
 
 		return true;
 	}
-   */
+
 	/**
 	 * consolidate bus loadContributionList to the load 
 	 * 
 	 */
-    /*
 	@SuppressWarnings("unchecked") public static boolean createBusEquivLoadData(IODMModelParser parser) {
 		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
@@ -294,12 +293,11 @@ public class AclfParserHelper extends BaseJaxbHelper {
 
 		return true;
 	}
-	*/
+	
 	/**
 	 * consolidate bus loadContributionList to the load 
 	 * 
 	 */
-    /*
 	@SuppressWarnings("unchecked") public static boolean createBusEquivShuntYData(IODMModelParser parser) {
 		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
@@ -326,7 +324,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		}
 		return true;
 	}
-    */
+
 	
 	/**
 	 * create a SVC object under the bus object

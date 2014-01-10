@@ -28,13 +28,11 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.activation.UnsupportedDataTypeException;
 
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.ApparentPowerXmlType;
 import org.ieee.odm.schema.BranchRatingLimitXmlType;
-import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
 import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.CurrentXmlType;
@@ -76,24 +74,20 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param q
 	 * @param unit
 	 */
-	public static void setLoadData(LoadflowBusXmlType bus, String loadId,
+	public static void setLoadData(LoadflowBusXmlType bus, 
 			LFLoadCodeEnumType code, 
 			double p, double q, ApparentPowerUnitType unit) {
-		if(bus.getLoadData()==null){
-		  BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
-		  bus.setLoadData(loadData);
-		}
-		
-		LoadflowLoadDataXmlType load = OdmObjFactory.createLoadflowLoadDataXmlType();
-		bus.getLoadData().getContributeLoad().add(OdmObjFactory.createContributeLoad(load));
-		load.setId(loadId);
-    	load.setCode(code);
+		BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
+		bus.setLoadData(loadData);
+		LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+		loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
+    	bus.getLoadData().getEquivLoad().getValue().setCode(code);
     	if(code==LFLoadCodeEnumType.CONST_P)
-    	    load.setConstPLoad(createPowerValue(p, q, unit));
+    	    equivLoad.setConstPLoad(createPowerValue(p, q, unit));
     	else if(code==LFLoadCodeEnumType.CONST_I)
-    		load.setConstILoad(createPowerValue(p, q, unit));
+    		equivLoad.setConstILoad(createPowerValue(p, q, unit));
     	else if (code==LFLoadCodeEnumType.CONST_Z)
-    		load.setConstZLoad(createPowerValue(p, q, unit));
+    		equivLoad.setConstZLoad(createPowerValue(p, q, unit));
 		else
 			try {
 				throw new UnsupportedDataTypeException();
@@ -118,21 +112,20 @@ public class AclfDataSetter extends BaseDataSetter {
 	public static void setZIPLoadData(LoadflowBusXmlType bus,double loadSP,
 			double loadSQ,double loadIP,double loadIQ, double loadZP, double loadZQ,
 			ApparentPowerUnitType unit){
-		BusLoadDataXmlType loadData =bus.getLoadData();
-		if(bus.getLoadData()==null){
-		    loadData = OdmObjFactory.createBusLoadDataXmlType();
-		    bus.setLoadData(loadData);
-		}
-		LoadflowLoadDataXmlType load = OdmObjFactory.createLoadflowLoadDataXmlType();
-		loadData.getContributeLoad().add((OdmObjFactory.createContributeLoad(load)));
-    	load.setCode(LFLoadCodeEnumType.FUNCTION_LOAD);
-    	load.setConstPLoad(createPowerValue(loadSP, loadSQ, unit));
-    	load.setConstILoad(createPowerValue(loadIP, loadIQ, unit));
-    	load.setConstZLoad(createPowerValue(loadZP, loadZQ, unit));
+		
+		BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
+		bus.setLoadData(loadData);
+		LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+		loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
+    	bus.getLoadData().getEquivLoad().getValue().setCode(LFLoadCodeEnumType.FUNCTION_LOAD);
+    	
+    	equivLoad.setConstPLoad(createPowerValue(loadSP, loadSQ, unit));
+    	equivLoad.setConstILoad(createPowerValue(loadIP, loadIQ, unit));
+    	equivLoad.setConstZLoad(createPowerValue(loadZP, loadZQ, unit));
 	}
 	
 	/**
-	 * set contribute Gen object, then set value(code, p, q, unit) to the created EquivGenData object
+	 * set EquivGen object, then set value(code, p, q, unit) to the created EquivGenData object
 	 * 
 	 * @param bus
 	 * @param code
@@ -144,41 +137,24 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param q
 	 * @param pUnit
 	 */
-	public static LoadflowGenDataXmlType setGenData(LoadflowBusXmlType bus, String genId,LFGenCodeEnumType code, 
+	public static void setGenData(LoadflowBusXmlType bus, LFGenCodeEnumType code, 
 			double v, VoltageUnitType vUnit,
 			double ang, AngleUnitType angUnit,
 			double p, double q, ApparentPowerUnitType pUnit) {
-		BusGenDataXmlType genData =bus.getGenData();
-		if(genData==null){
-			genData = OdmObjFactory.createBusGenDataXmlType();
-		    bus.setGenData(genData);
-		}
-		LoadflowGenDataXmlType gen = OdmObjFactory.createLoadflowGenDataXmlType();
-		genData.getContributeGen().add((OdmObjFactory.createContributeGen(gen)));
-		gen.setId(genId);
-		gen.setCode(code);
-		if(bus.getGenCode()==null)
-		    bus.setGenCode(code);
-		else{
-			if(code != bus.getGenCode())
-				ODMLogger.getLogger().severe("GenCode of Bus #"+ bus.getId()+" is :" + bus.getGenCode()+
-						"not consistent with the input Generator GenCode :"+code);
-		}
-			
-   		
-		gen.setPower(createPowerValue(p, q, pUnit));
+		setGenData(bus, code, v, vUnit, ang, angUnit);
+   		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+		equivGen.setPower(createPowerValue(p, q, pUnit));
    		if (code == LFGenCodeEnumType.PV) {
-   			gen.setDesiredVoltage(createVoltageValue(v, vUnit));
+   			equivGen.setDesiredVoltage(createVoltageValue(v, vUnit));
    		}
    		else if (code == LFGenCodeEnumType.SWING) {
-   			gen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   			gen.setDesiredAngle(createAngleValue(ang, angUnit));
+   			equivGen.setDesiredVoltage(createVoltageValue(v, vUnit));
+   			equivGen.setDesiredAngle(createAngleValue(ang, angUnit));
    		}
-   		return gen;
 	}	
 
 	/**
-	 * create contribute Gen object, then set value(code, voltage) to the created object
+	 * set EquivGen object, then set value(code, p, q, unit) to the created EquivGenData object
 	 * 
 	 * @param bus
 	 * @param code
@@ -187,31 +163,13 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param ang
 	 * @param angUnit
 	 */
-	
-	public static LoadflowGenDataXmlType setGenData(LoadflowBusXmlType bus,String genId, LFGenCodeEnumType code, 
+	public static void setGenData(LoadflowBusXmlType bus, LFGenCodeEnumType code, 
 			double v, VoltageUnitType vUnit,
 			double ang, AngleUnitType angUnit) {
-		BusGenDataXmlType genData =bus.getGenData();
-		if(genData==null){
-			genData = OdmObjFactory.createBusGenDataXmlType();
-		    bus.setGenData(genData);
-		}
-		LoadflowGenDataXmlType gen = OdmObjFactory.createLoadflowGenDataXmlType();
-		genData.getContributeGen().add((OdmObjFactory.createContributeGen(gen)));
-		gen.setId(genId);
-   		gen.setCode(code);
-   		
-   		if (code == LFGenCodeEnumType.PV) {
-   			gen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   		}
-   		else if (code == LFGenCodeEnumType.SWING) {
-   			gen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   			gen.setDesiredAngle(createAngleValue(ang, angUnit));
-   		}
-   		return gen;
+   		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+   		equivGen.setCode(code);
 	}	
-   
-	
+
 	/**
 	 * Set bus shunt Y 
 	 * 

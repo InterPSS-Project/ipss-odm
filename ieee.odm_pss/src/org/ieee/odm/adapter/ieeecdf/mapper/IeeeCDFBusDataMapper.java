@@ -109,8 +109,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		final double loadMw = dataParser.getDouble("LoadP");
 		final double loadMvar = dataParser.getDouble("LoadQ");
 		if (loadMw != 0.0 || loadMvar != 0.0) {
-			String loadId = busId+"-Load";
-			AclfDataSetter.setLoadData(aclfBus,loadId,
+			AclfDataSetter.setLoadData(aclfBus,
 					LFLoadCodeEnumType.CONST_P, loadMw,
 					loadMvar, ApparentPowerUnitType.MVA);
 		}
@@ -122,10 +121,8 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 
 		LFGenCodeEnumType genType = type == 3? LFGenCodeEnumType.SWING :
 				( type == 2? LFGenCodeEnumType.PV : LFGenCodeEnumType.PQ );
-		aclfBus.setGenCode(genType);
-		String genId = busId+"-Gen";
-		LoadflowGenDataXmlType equivGen = AclfDataSetter.setGenData(
-				aclfBus, genId,genType, vpu, VoltageUnitType.PU, angDeg, AngleUnitType.DEG, 
+		AclfDataSetter.setGenData(
+				aclfBus, genType, vpu, VoltageUnitType.PU, angDeg, AngleUnitType.DEG, 
 				genMw, genMvar,	ApparentPowerUnitType.MVA);
 
 		//Columns 107-114 Shunt conductance G (per unit) [F] *
@@ -148,11 +145,11 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		final String reBusId = dataParser.getString("RemoteBusNumber");
 
 		if (max != 0.0 || min != 0.0) {
-			
+			LoadflowGenDataXmlType equivGen = aclfBus.getGenData().getEquivGen().getValue();
 			if (type == 1) {
 				equivGen.setVoltageLimit(BaseDataSetter.createVoltageLimit(max, min, VoltageUnitType.PU));
 			} else if (type == 2) {
-				equivGen.setQLimit(BaseDataSetter.createReactivePowerLimit(max, min, ReactivePowerUnitType.MVAR));
+				aclfBus.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit(max, min, ReactivePowerUnitType.MVAR));
 				if (reBusId != null && !reBusId.equals("0")
 						&& !reBusId.equals(busId)) {
 					equivGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));

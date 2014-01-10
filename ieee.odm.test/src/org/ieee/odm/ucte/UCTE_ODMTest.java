@@ -69,20 +69,20 @@ public class UCTE_ODMTest {
 		// if voltage not defined, it is equal to the base voltage
 		assertTrue(busRec.getVoltage().getValue() == 380.0);
 		assertTrue(busRec.getVoltage().getUnit() == VoltageUnitType.KV);
-		assertTrue(busRec.getGenData().getContributeGen().size() == 0);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 280.0);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getIm() == 0.0);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
-		assertTrue(busRec.getShuntYData().getEquivY().getIm()==0.0);
+		assertTrue(busRec.getGenData().getEquivGen() == null);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 280.0);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0.0);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		assertTrue(busRec.getShuntYData().getEquivY() == null);
 
 		// A2____1 is a load bus
 		// A2    1                 0        .000000 .000000 -150.00 .000000                
 		busRec = parser.getBus("A2____1");
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getCode() == LFGenCodeEnumType.PQ);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getPower().getRe() == 150.0);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getPower().getIm() == 0.0);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getPower().getUnit() == ApparentPowerUnitType.MVA);
-		assertTrue(busRec.getLoadData().getContributeLoad().size()==0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PQ);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getRe() == 150.0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getIm() == 0.0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getUnit() == ApparentPowerUnitType.MVA);
+		assertTrue(busRec.getLoadData().getEquivLoad() == null);
 		
 		// B4____1 is a swing bus
 		// B4    1                 3 405.00 70.0000 .000000 .000000 .000000                
@@ -90,10 +90,10 @@ public class UCTE_ODMTest {
 		assertTrue(busRec.getVoltage().getValue() == 405.0);
 		assertTrue(busRec.getVoltage().getUnit() == VoltageUnitType.KV);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 70.0);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getIm() == 0.0);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 70.0);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0.0);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 
 		// A1____1->A2____1 is a line
 		// A1    1  A2    1  1 0 1.3600 19.350 240.9601    480 

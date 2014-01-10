@@ -44,7 +44,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		double gZero = dataParser.getDouble("GZERO");
 		double bZero = dataParser.getDouble("BZERO");
 		ShortCircuitBusXmlType scBusXmlType= (ShortCircuitBusXmlType) parser.getBus(busId);
-//		((ShortCircuitLoadDataXmlType)scBusXmlType.getLoadData().getEquivLoad().getValue())
-//						.setShuntLoadNegativeY(BaseDataSetter.createYValue(gZero, bZero, YUnitType.PU));
+		((ShortCircuitLoadDataXmlType)scBusXmlType.getLoadData().getEquivLoad().getValue())
+						.setShuntLoadNegativeY(BaseDataSetter.createYValue(gZero, bZero, YUnitType.PU));
 	}
 }

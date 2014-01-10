@@ -29,8 +29,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import java.util.Hashtable;
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
-
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
@@ -120,12 +118,12 @@ public class BaseAclfModelParser<
 		busRec.setZoneNumber(1);	
 		
 		busRec.setGenData(OdmObjFactory.createBusGenDataXmlType());
-   		//LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
-   		//busRec.getGenData().setEquivGen(OdmObjFactory.createEquivGen(equivGen));	
+   		LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType();
+   		busRec.getGenData().setEquivGen(OdmObjFactory.createEquivGen(equivGen));	
    		
 		busRec.setLoadData(OdmObjFactory.createBusLoadDataXmlType());
-   		//LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
-   		//busRec.getLoadData().setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));   		
+   		LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
+   		busRec.getLoadData().setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));   		
 
    		busRec.setShuntYData(OdmObjFactory.createBusShuntYDataXmlType());
    		busRec.getShuntYData().setEquivY(OdmObjFactory.createYXmlType());   		
@@ -386,29 +384,5 @@ public class BaseAclfModelParser<
 			}
 		}
 		return this.interfaceLookupTable.get(id);
-	}
-	
-	public LoadflowGenDataXmlType getContributeGen(String busId, String genId){
-		LoadflowBusXmlType bus = (LoadflowBusXmlType) getBus(busId);
-		if(bus!=null && bus.getGenData()!=null){
-			for(JAXBElement<? extends LoadflowGenDataXmlType> genElem: bus.getGenData().getContributeGen()){
-				if(genElem.getValue().getId().equals(genId))
-					return genElem.getValue();
-			}
-		}
-		
-		return null;
-	}
-	
-	public LoadflowLoadDataXmlType getContributeLoad(String busId, String loadId){
-		LoadflowBusXmlType bus = (LoadflowBusXmlType) getBus(busId);
-		if(bus!=null && bus.getGenData()!=null){
-			for(JAXBElement<? extends LoadflowLoadDataXmlType> loadElem: bus.getLoadData().getContributeLoad()){
-				if(loadElem.getValue().getId().equals(loadId))
-					return loadElem.getValue();
-			}
-		}
-		
-		return null;
 	}
 }

@@ -66,10 +66,9 @@ public class PSSEV26_ODMTest {
         </bus>
       		 */
 		LoadflowBusXmlType bus = parser.getBus("Bus15021");
-		assertTrue(bus.getGenCode() == LFGenCodeEnumType.SWING);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getDesiredVoltage().getValue() == 1.07);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getDesiredAngle().getValue() == 3.1024);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue() == 1.07);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredAngle().getValue() == 3.1024);
 				
 		/*
         <baseVoltage value="115.0" unit="KV"/>
@@ -96,14 +95,12 @@ public class PSSEV26_ODMTest {
 						
 		// gen bus
 		bus = parser.getBus("Bus31435");
-		assertTrue(bus.getGenCode() == LFGenCodeEnumType.PV);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getCode() == LFGenCodeEnumType.PV);
-		
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getPower().getRe() == 8.52);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getPower().getIm() == 2.51);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getDesiredVoltage().getValue() == 1.0203);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getQLimit().getMax() == 10.0);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getQLimit().getMin() == -6.0);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getPower().getRe() == 8.52);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getPower().getIm() == 2.51);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue() == 1.0203);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getQLimit().getMax() == 10.0);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getQLimit().getMin() == -6.0);
 
 		/*
           <loadData code="CONST_P">
@@ -113,10 +110,9 @@ public class PSSEV26_ODMTest {
           </loadData>
 		 */
 		bus = parser.getBus("Bus36016");
-		assertTrue(bus.getLoadData().getContributeLoad().size()==1);
-		assertTrue(bus.getLoadData().getContributeLoad().get(0).getValue().getCode() == LFLoadCodeEnumType.CONST_P);
-		assertTrue(bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 6.5);
-		assertTrue(bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getIm() == 3.86);
+		assertTrue(bus.getLoadData().getEquivLoad().getValue().getCode() == LFLoadCodeEnumType.CONST_P);
+		assertTrue(bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 6.5);
+		assertTrue(bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 3.86);
 
 		/*
           <shuntQData>
@@ -146,9 +142,8 @@ public class PSSEV26_ODMTest {
       </bus>
 		 */
 		bus = parser.getBus("Bus32252");
-		assertTrue(bus.getGenCode() == LFGenCodeEnumType.PV);
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getCode() == LFGenCodeEnumType.PV);
-		assertTrue(bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 20.32);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 20.32);
 		
 		// bus turned off case
 /*
@@ -163,7 +158,7 @@ public class PSSEV26_ODMTest {
       </bus>
  */
 		bus = parser.getBus("Bus32252");
-		assertTrue(bus.getGenData().getContributeGen().get(0).getValue().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
 
 		// Branch info
 		// =========

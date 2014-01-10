@@ -30,8 +30,6 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -99,50 +97,33 @@ public class IEEECDF_ODMTest {
 		assertTrue(busRec.getBaseVoltage().getValue() == 132.0);
 		assertTrue(busRec.getVoltage().getValue() == 1.060);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
-		assertTrue(busRec.getGenCode() == LFGenCodeEnumType.SWING);
-		assertTrue(busRec.getLoadData().getContributeLoad().size()==0);
-		//TODO, mike, please check the following ShuntYData()
-		/* my local ODM output is  
-		 *     <shuntYData>
-                    <equivY im="0.0"/>
-               </shuntYData>
-            
-           
-		    @XmlAttribute
-		    protected Double re;
-		    @XmlAttribute(required = true)
-		    protected double im;
-		 ---------------------------------------------------
-		     im is required, why? 
-		 */
-		assertTrue(busRec.getShuntYData().getEquivY().getIm()== 0.0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(busRec.getLoadData().getEquivLoad()==null);
+		assertTrue(busRec.getShuntYData().getEquivY()== null);
 
 		// Bus 2 is a PV bus with load
 		//   2 Bus 2     HV  1  1  2 1.045  -4.98     21.7     12.7     40.0    42.4   132.0  1.045    50.0   -40.0   0.0    0.0        0
 		busRec = parser.getBus("Bus2");
 		//System.out.println(busRec);
-		assertTrue(busRec.getGenCode() == LFGenCodeEnumType.PV);
-		assertTrue(busRec.getGenData().getContributeGen().size()==1);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getPower().getRe() == 40.0);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getPower().getUnit() == ApparentPowerUnitType.MVA);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getQLimit().getMax() == 50.0);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getQLimit().getMin() == -40.0);
-		assertTrue(busRec.getGenData().getContributeGen().get(0).getValue().getQLimit().getUnit() == ReactivePowerUnitType.MVAR);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getRe() == 40.0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getUnit() == ApparentPowerUnitType.MVA);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getQLimit().getMax() == 50.0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getQLimit().getMin() == -40.0);
+		assertTrue(busRec.getGenData().getEquivGen().getValue().getQLimit().getUnit() == ReactivePowerUnitType.MVAR);
 		
-		assertTrue(busRec.getLoadData().getContributeLoad().size()==1);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getCode() == LFLoadCodeEnumType.CONST_P);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 21.7);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getIm() == 12.7);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getCode() == LFLoadCodeEnumType.CONST_P);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 21.7);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 12.7);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 
 		// Bus 9 is a load bus, also there is a capacitor of 0.19 pu
 		//    9 Bus 9     LV  1  1  0 1.056 -14.94     29.5     16.6      0.0     0.0    35.0  0.0       0.0     0.0   0.0    0.19       0
 		busRec = parser.getBus("Bus9");
-		assertTrue(busRec.getLoadData().getContributeLoad().size()==1);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getCode() == LFLoadCodeEnumType.CONST_P);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 29.5);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getIm() == 16.6);
-		assertTrue(busRec.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getCode() == LFLoadCodeEnumType.CONST_P);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 29.5);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 16.6);
+		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 		
 		assertTrue(busRec.getShuntYData().getEquivY().getRe() == 0.0);
 		assertTrue(busRec.getShuntYData().getEquivY().getIm() == 0.19);
@@ -152,8 +133,8 @@ public class IEEECDF_ODMTest {
 		//    7 Bus 7     ZV  1  1  0 1.062 -13.37      0.0      0.0      0.0     0.0    35.0  0.0       0.0     0.0   0.0    0.0        0
 		busRec = parser.getBus("Bus7");
 		//assertTrue(busRec.getLoadflowData().getGenData() == null);
-		assertTrue(busRec.getLoadData().getContributeLoad().size()==0);
-		assertTrue(busRec.getShuntYData().getEquivY().getIm() == 0.0);
+		assertTrue(busRec.getLoadData().getEquivLoad() == null);
+		assertTrue(busRec.getShuntYData().getEquivY() == null);
 
 		// Check Branch Data
 		// =================

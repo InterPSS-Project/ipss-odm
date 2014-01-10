@@ -9,7 +9,6 @@ import org.ieee.odm.opf.matpower.OPF_Matpower_ODMTest;
 import org.ieee.odm.psse.PSSEV26_ODMTest;
 import org.ieee.odm.psse.PSSEV30_GuideSampleTest;
 import org.ieee.odm.psse.PSSEV30_IEEE39_Acsc_Test;
-import org.ieee.odm.psse.PSSEV30_IEEE9_Acsc_Test;
 import org.ieee.odm.psse.PSSEV30_NEISO_ODMTest;
 import org.ieee.odm.psse.PSSEV30_ODMTest;
 import org.ieee.odm.psse.PSSEV30_SegmentTest;
@@ -45,7 +44,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	PSSEV30_GuideSampleTest.class,
 	PSSEV30_SegmentTest.class,
 	PSSEV30_IEEE39_Acsc_Test.class,
-	PSSEV30_IEEE9_Acsc_Test.class,
 	
 	PWD_IEEE14Bus_ODMTest.class,
 	LineStringParserTest.class,

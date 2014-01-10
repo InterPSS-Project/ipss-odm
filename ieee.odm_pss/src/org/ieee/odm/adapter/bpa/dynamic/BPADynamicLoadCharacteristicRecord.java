@@ -135,8 +135,8 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 				bus=(DStabBusXmlType)busElem.getValue();
 				// assume the zone id is the same as bus.zoneName
 				if(areaName.equals(bus.getAreaName())){
-					if(bus.getLoadData()!=null &&bus.getLoadData().getContributeLoad().size()==1){
-						DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getContributeLoad().get(0).getValue();
+					if(bus.getLoadData().getEquivLoad()!=null){
+						DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue();
 						load.setLocation(LoadCharacteristicLocationEnumType.AT_AREA);
 						load.setLoadModel(loadModel);
 					}
@@ -152,8 +152,8 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 				bus=(DStabBusXmlType)busElem.getValue();
 				// assume the zone id is the same as bus.zoneName
 				if(zoneName.equals(bus.getZoneName())){
-					if(bus.getLoadData()!=null  &&bus.getLoadData().getContributeLoad().size()==1){
-						DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getContributeLoad().get(0).getValue();
+					if(bus.getLoadData().getEquivLoad()!=null){
+						DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue();
 					   load.setLocation(LoadCharacteristicLocationEnumType.AT_ZONE);
 					   load.setLoadModel(loadModel);
 					}
@@ -174,7 +174,7 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 			}
 			bus = parser.getDStabBus(BusId);
 			if (bus !=null) {
-			 DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getContributeLoad().get(0).getValue();
+			 DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue();
 		     load.setLocation(LoadCharacteristicLocationEnumType.AT_BUS);
 		     load.setLoadModel(loadModel);
 		}

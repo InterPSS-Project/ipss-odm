@@ -69,7 +69,7 @@ public class BPADynamicExciterRecord {
     	String busId = BPABusRecord.getBusId(strAry[1]);
     	DStabBusXmlType bus = parser.getDStabBus(busId);
     	
-    	DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getContributeGen().get(0).getValue();
+    	DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
     	
     	if(type==EA){
     		ExcIEEE1968Type1XmlType exc = DStabParserHelper.createExcIEEE1968Type1XmlType(dynGen);
@@ -1258,7 +1258,7 @@ else if(type==FK){
     	}
     	else if(str.substring(0, 2).trim().equals("FZ")||
     			str.substring(0, 2).trim().equals("F+")){// continued record for BPA Exciter models.
-    		DStabGenDataXmlType genData = (DStabGenDataXmlType)parser.getDStabBus(busId).getGenData().getContributeGen().get(0).getValue();
+    		DStabGenDataXmlType genData = (DStabGenDataXmlType)parser.getDStabBus(busId).getGenData().getEquivGen().getValue();
     		ExciterModelXmlType exc = genData.getExciter().getValue();   	
         	
         	if(str.substring(0, 2).trim().equals("FZ")){

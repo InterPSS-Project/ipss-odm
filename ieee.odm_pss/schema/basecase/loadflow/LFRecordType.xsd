@@ -20,12 +20,10 @@
     </ns:annotation>
     </ns:element>
     
-    <ns:element name="childAclfNet" substitutionGroup="pss:childNet" type="pss:LoadflowNetXmlType">
-        <ns:annotation>
-      <ns:documentation>
+    <ns:element name="childAclfNet" type="pss:LoadflowNetXmlType" substitutionGroup="pss:childNet">
+        <ns:annotation><ns:documentation>
 		LoadflowNetXmlType network could be defined as a child network
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
      
     <ns:element name="aclfBus" substitutionGroup="pss:bus" type="pss:LoadflowBusXmlType">
@@ -37,58 +35,45 @@
     </ns:element>
     
     <ns:element name="contributeGen" type="pss:LoadflowGenDataXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		Contributing generator at bus for defining generator data for Loadflow study
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
     
     <ns:element name="equivGen" type="pss:LoadflowGenDataXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		equiv generator at bus for defining equiv generator data for Loadflow study
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
 
     <ns:element name="contributeLoad" type="pss:LoadflowLoadDataXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		Contributing load at bus for defining load data for Loadflow study
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
     
     <ns:element name="equivLoad" type="pss:LoadflowLoadDataXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		equiv load at bus for defining equiv load data for Loadflow study
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
     
     <ns:element name="contributeShuntY" type="pss:LoadflowShuntYDataXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		Contributing shunt Y at bus for defining equiv shunt Y data for Loadflow study
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
     
     <ns:element name="equivY" type="pss:YXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		equiv shunt Y at bus for defining equiv shunt Y data for Loadflow study
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
                 
     <ns:element name="aclfLine" substitutionGroup="pss:branch" type="pss:LineBranchXmlType">
         <ns:annotation> <ns:documentation>
 		Line Branch record for defining line for AC Loadflow  
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
 
     <ns:element name="aclfXfr" substitutionGroup="pss:branch" type="pss:XfrBranchXmlType">
@@ -98,8 +83,7 @@
     </ns:element>
     
     <ns:element name="aclf3WXfr" substitutionGroup="pss:branch" type="pss:Xfr3WBranchXmlType">
-        <ns:annotation>
-      <ns:documentation>
+        <ns:annotation><ns:documentation>
 		3W Xfr Branch record for defining line for AC Loadflow  
 		</ns:documentation> </ns:annotation>
     </ns:element>
@@ -107,8 +91,7 @@
     <ns:element name="aclfPSXfr" substitutionGroup="pss:branch" type="pss:PSXfrBranchXmlType">
         <ns:annotation> <ns:documentation>
 		PS Xfr Branch record for defining line for AC Loadflow  
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
     </ns:element>
     
     <ns:element name="aclf3WPSXfr" substitutionGroup="pss:branch" type="pss:PSXfr3WBranchXmlType">
@@ -123,12 +106,10 @@
  -->
 
     <ns:complexType name="LoadflowNetXmlType">
-		<ns:annotation>
-      <ns:documentation>
+		<ns:annotation><ns:documentation>
 			Network container for AC Loadflow study. It is a sub type of the NetworkXmlType,
 			which has a bus list of BusXmlType and a branch list of BaseBranchXmlType 
-		</ns:documentation>
-    </ns:annotation>
+		</ns:documentation></ns:annotation>
 		<ns:complexContent>
 			<ns:extension base="pss:NetworkXmlType">
 				<ns:sequence>
@@ -249,8 +230,6 @@
 
 <!--  
 		Bus objects
-		GenCode is required to determined bus type and it must be unique, while load code is not necessary, 
-		as loads connecting to the bus may be of different types. 
  -->
 
 	<ns:complexType name="LoadflowBusXmlType">
@@ -264,26 +243,21 @@
 				<ns:sequence>
 					<ns:element maxOccurs="1" minOccurs="0" name="voltage" type="pss:VoltageXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="angle" type="pss:AngleXmlType"/>
-                    <ns:element maxOccurs="1" minOccurs="0" name="powerInjection" type="pss:PowerXmlType"/>
+                    <ns:element maxOccurs="1" minOccurs="0" name="powerInjection" type="pss:PowerXmlType" />
                     <ns:element maxOccurs="1" minOccurs="0" name="genData" type="pss:BusGenDataXmlType">
-						<ns:annotation>
-              <ns:documentation>
-								Loadflow bus gen contains  a list to hold contributing Generators and supports multiple generator connecting to the same bus. 
-						</ns:documentation>
-            </ns:annotation>
+						<ns:annotation><ns:documentation>
+								Loadflow bus gen has an equivGen and a list contribGen. For gen models with contribGen list,
+								the contribGen list are summarized into the equivGen after the data is loaded
+						</ns:documentation></ns:annotation>
 					</ns:element>
 					<ns:element maxOccurs="1" minOccurs="0" name="loadData" type="pss:BusLoadDataXmlType">
-						<ns:annotation>
-              <ns:documentation>
-								Loadflow bus load contains  a list to hold contributing loads and supports multiple loads connecting to the same bus. 
-						</ns:documentation>
-            </ns:annotation>
+						<ns:annotation><ns:documentation>
+								Loadflow bus load has an equivLoad and a list contribLoad. For load models with contribLoad list,
+								the contribLoad list are summarized into the equivLoad after the data is loaded
+						</ns:documentation></ns:annotation>
 					</ns:element>
-                    <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType"/>
-                    <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>
-					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>
-				</ns:sequence>
-				<ns:attribute name="GenCode" type="pss:LFGenCodeEnumType" use="required"/>
+                    <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType" />
+                    <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
@@ -291,6 +265,7 @@
 	
 	<ns:complexType name="BusGenDataXmlType">
 		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivGen"/>
 			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeGen"/>
 		</ns:sequence>
 	</ns:complexType>
@@ -298,6 +273,7 @@
 
 	<ns:complexType name="BusLoadDataXmlType">
 		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivLoad"/>
 			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeLoad"/>
 		</ns:sequence>
 	</ns:complexType>
@@ -312,7 +288,7 @@
     <ns:complexType name="LoadflowGenDataXmlType">
 		<ns:annotation> <ns:documentation>
 			EquivGen is intended for Loadflow study. For PQ bus, p, q are specified using the power field. For Swing bus, 
-			desiredVoltage and desiredAngle are used. For PV bus power.re and designedVoltage are used.
+			desiredVoltage and desiredAngle are used For PV bus power.re and designedVoltage are used.
 			It is used to define LoadflowBusXmlType equivGen and contribGen list
 		</ns:documentation> </ns:annotation>
 		<ns:complexContent>
@@ -321,8 +297,7 @@
 					<ns:element maxOccurs="1" minOccurs="0" name="power" type="pss:PowerXmlType">
 						<ns:annotation> <ns:documentation>
 						If the unit in in PU, it is based on network baseKva
-						</ns:documentation>
-            </ns:annotation>
+						</ns:documentation></ns:annotation>
 					</ns:element>
 					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
 					<ns:element minOccurs="0" name="desiredAngle" type="pss:AngleXmlType"/>
@@ -334,15 +309,12 @@
 					<ns:element minOccurs="0" name="sourceZ" type="pss:ZXmlType">
 						<ns:annotation> <ns:documentation>
 						In GE-PSLF, it is called CompensatingZ
-						</ns:documentation>
-            </ns:annotation>
+						</ns:documentation></ns:annotation>
 					</ns:element>
 					<ns:element minOccurs="0" name="xfrZ" type="pss:ZXmlType">
-						<ns:annotation>
-              <ns:documentation>
+						<ns:annotation><ns:documentation>
 						In GE PSLF, it is called CharacteristicZ
-						</ns:documentation>
-            </ns:annotation>
+						</ns:documentation></ns:annotation>
 					</ns:element>
 					<ns:element minOccurs="0" name="xfrTap" type="ns:double"/>
 					<ns:element minOccurs="0" name="mvarVControlParticipateFactor" type="ns:double"/>
