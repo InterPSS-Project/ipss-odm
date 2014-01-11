@@ -79,15 +79,14 @@ public class AclfDataSetter extends BaseDataSetter {
 			double p, double q, ApparentPowerUnitType unit) {
 		BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
 		bus.setLoadData(loadData);
-		LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
-		loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
-    	bus.getLoadData().getEquivLoad().getValue().setCode(code);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
+		defaultLoad.setCode(code);
     	if(code==LFLoadCodeEnumType.CONST_P)
-    	    equivLoad.setConstPLoad(createPowerValue(p, q, unit));
+    	    defaultLoad.setConstPLoad(createPowerValue(p, q, unit));
     	else if(code==LFLoadCodeEnumType.CONST_I)
-    		equivLoad.setConstILoad(createPowerValue(p, q, unit));
+    		defaultLoad.setConstILoad(createPowerValue(p, q, unit));
     	else if (code==LFLoadCodeEnumType.CONST_Z)
-    		equivLoad.setConstZLoad(createPowerValue(p, q, unit));
+    		defaultLoad.setConstZLoad(createPowerValue(p, q, unit));
 		else
 			try {
 				throw new UnsupportedDataTypeException();
@@ -113,15 +112,15 @@ public class AclfDataSetter extends BaseDataSetter {
 			double loadSQ,double loadIP,double loadIQ, double loadZP, double loadZQ,
 			ApparentPowerUnitType unit){
 		
-		BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
-		bus.setLoadData(loadData);
-		LoadflowLoadDataXmlType equivLoad = OdmObjFactory.createLoadflowLoadDataXmlType();
-		loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
-    	bus.getLoadData().getEquivLoad().getValue().setCode(LFLoadCodeEnumType.FUNCTION_LOAD);
+		//BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
+		//bus.setLoadData(loadData);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
+		//loadData.setEquivLoad(OdmObjFactory.createEquivLoad(equivLoad));
+		defaultLoad.setCode(LFLoadCodeEnumType.FUNCTION_LOAD);
     	
-    	equivLoad.setConstPLoad(createPowerValue(loadSP, loadSQ, unit));
-    	equivLoad.setConstILoad(createPowerValue(loadIP, loadIQ, unit));
-    	equivLoad.setConstZLoad(createPowerValue(loadZP, loadZQ, unit));
+    	defaultLoad.setConstPLoad(createPowerValue(loadSP, loadSQ, unit));
+    	defaultLoad.setConstILoad(createPowerValue(loadIP, loadIQ, unit));
+    	defaultLoad.setConstZLoad(createPowerValue(loadZP, loadZQ, unit));
 	}
 	
 	/**
@@ -142,14 +141,14 @@ public class AclfDataSetter extends BaseDataSetter {
 			double ang, AngleUnitType angUnit,
 			double p, double q, ApparentPowerUnitType pUnit) {
 		setGenData(bus, code, v, vUnit, ang, angUnit);
-   		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
-		equivGen.setPower(createPowerValue(p, q, pUnit));
+   		LoadflowGenDataXmlType defaulfGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		defaulfGen.setPower(createPowerValue(p, q, pUnit));
    		if (code == LFGenCodeEnumType.PV) {
-   			equivGen.setDesiredVoltage(createVoltageValue(v, vUnit));
+   			defaulfGen.setDesiredVoltage(createVoltageValue(v, vUnit));
    		}
    		else if (code == LFGenCodeEnumType.SWING) {
-   			equivGen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   			equivGen.setDesiredAngle(createAngleValue(ang, angUnit));
+   			defaulfGen.setDesiredVoltage(createVoltageValue(v, vUnit));
+   			defaulfGen.setDesiredAngle(createAngleValue(ang, angUnit));
    		}
 	}	
 
@@ -166,8 +165,8 @@ public class AclfDataSetter extends BaseDataSetter {
 	public static void setGenData(LoadflowBusXmlType bus, LFGenCodeEnumType code, 
 			double v, VoltageUnitType vUnit,
 			double ang, AngleUnitType angUnit) {
-   		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
-   		equivGen.setCode(code);
+   		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+   		defaultGen.setCode(code);
 	}	
 
 	/**

@@ -29,6 +29,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.ODMModelStringUtil;
@@ -40,6 +41,7 @@ import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
@@ -220,6 +222,7 @@ public class BPABusRecord<
 						loadMvar, ApparentPowerUnitType.MVA);
 			}
 			
+			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
 			if(busType==swingBus){
 				// set bus voltage
 					busRec.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
@@ -233,13 +236,13 @@ public class BPABusRecord<
 							vMinOrAngDeg, AngleUnitType.DEG,pGen,0, ApparentPowerUnitType.MVA);
 				// set Q limit
 				if(qGenOrQGenMax!=0.0||qGenMin!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit( 
+					defaultGen.setQLimit(BaseDataSetter.createReactivePowerLimit( 
 							qGenOrQGenMax, qGenMin, ReactivePowerUnitType.MVAR));				
 				}
 				
 				// set P limit
 				if(pGenMax!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setPLimit(BaseDataSetter.createActivePowerLimit(
+					defaultGen.setPLimit(BaseDataSetter.createActivePowerLimit(
 							pGenMax, 0, ActivePowerUnitType.MW));
 				}	
 			}
@@ -248,9 +251,8 @@ public class BPABusRecord<
 						LFGenCodeEnumType.NONE_GEN, 
 						1.0, VoltageUnitType.PU, 0.0, AngleUnitType.DEG);
 				if(pGen!=0.0||qGenOrQGenMax!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setCode(LFGenCodeEnumType.PQ);
-					busRec.getGenData().getEquivGen().getValue()
-						.setPower(BaseDataSetter.createPowerValue(
+					defaultGen.setCode(LFGenCodeEnumType.PQ);
+					defaultGen.setPower(BaseDataSetter.createPowerValue(
 							pGen, qGenOrQGenMax, ApparentPowerUnitType.MVA));
 			    // for a PQ Bus, it is not proper to set the Vlimit;
 //				// set V limit    
@@ -277,18 +279,18 @@ public class BPABusRecord<
 							pGen, 0.0, ApparentPowerUnitType.MVA);
 				// set Q limit
 				if(qGenOrQGenMax!=0.0||qGenMin!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit( 
+					defaultGen.setQLimit(BaseDataSetter.createReactivePowerLimit( 
 							qGenOrQGenMax, qGenMin, ReactivePowerUnitType.MVAR));	
 				// for "BE" type the limit if disabled
 					if (busType==pvBusNoQLimit)
-						busRec.getGenData().getEquivGen().getValue().getQLimit().setActive(false);
+						defaultGen.getQLimit().setActive(false);
 					   //TODO BPA automatically balance the shuntVar at BE Type Bus, 
 					   // considering Ipss does not support such function, set it  to zero here.
 					  // AclfDataSetter.setBusShuntVar(busRec, 0, YUnitType.PU);
 				}
 				// set P limit
 				if(pGenMax!=0.0){
-					busRec.getGenData().getEquivGen().getValue().setPLimit(BaseDataSetter.createActivePowerLimit(
+					defaultGen.setPLimit(BaseDataSetter.createActivePowerLimit(
 							pGenMax, 0, ActivePowerUnitType.MW));
 				}	
 				
@@ -329,16 +331,14 @@ public class BPABusRecord<
 			final String controlledBus= strAry[16];
 			double controlledBusRatedVol=ODMModelStringUtil.getDouble(strAry[17], 0.0);
 			
+			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
 			if(strAry[0].equals("BG")||strAry[0].equals("BX")){
 				if(!controlledBus.equals("")) {			
-					busRec.getGenData().getEquivGen().getValue().getRemoteVoltageControlBus().setIdRef(controlledBus);
-					busRec.getGenData().getEquivGen().getValue().setDesiredVoltage(BaseDataSetter.createVoltageValue(
+					defaultGen.getRemoteVoltageControlBus().setIdRef(controlledBus);
+					defaultGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(
 							controlledBusRatedVol, VoltageUnitType.PU));
 				}
 			}
-			
-			
-								
 	}
 	
 	private static String[] getBusDataFields(final String str) throws Exception {

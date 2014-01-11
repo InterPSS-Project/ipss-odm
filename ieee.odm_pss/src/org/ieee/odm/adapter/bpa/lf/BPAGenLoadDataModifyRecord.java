@@ -3,6 +3,7 @@ package org.ieee.odm.adapter.bpa.lf;
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMLogger;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.ODMModelStringUtil;
@@ -10,6 +11,8 @@ import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 
 public class BPAGenLoadDataModifyRecord<
@@ -104,17 +107,18 @@ public class BPAGenLoadDataModifyRecord<
 		
 	}
 	private static boolean modifyGenData(LoadflowBusXmlType bus, double genPFactor,double genQFactor){
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 		try{
-			if(bus.getGenData()!=null&&bus.getGenData().getEquivGen()!=null
-					&&bus.getGenData().getEquivGen().getValue().getPower()!=null){
-				double genP=bus.getGenData().getEquivGen().getValue().getPower().getRe();
-				double genQ=bus.getGenData().getEquivGen().getValue().getPower().getIm();
+			if(bus.getGenData()!=null&&defaultGen!=null
+					&&defaultGen.getPower()!=null){
+				double genP=defaultGen.getPower().getRe();
+				double genQ=defaultGen.getPower().getIm();
 				if(genP!=0.0)genP*=genPFactor;
 				if(genQ!=0.0)genQ*=genQFactor;
 				if(genP!=0.0||genQ!=0){
 					  genP=ODMModelStringUtil.getNumberFormat(genP);
 					  genQ=ODMModelStringUtil.getNumberFormat(genQ);
-					bus.getGenData().getEquivGen().getValue().setPower(BaseDataSetter.createPowerValue(
+					  defaultGen.setPower(BaseDataSetter.createPowerValue(
 						genP,genQ,ApparentPowerUnitType.MVA));
 				}
 			}
@@ -127,17 +131,18 @@ public class BPAGenLoadDataModifyRecord<
 		
 	}
 	private static boolean modifyLoadData(LoadflowBusXmlType bus, double loadPFactor,double loadQFactor){
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
 		try{
-			if(bus.getLoadData()!=null&&bus.getLoadData().getEquivLoad()!=null
-					&&bus.getLoadData().getEquivLoad().getValue().getConstPLoad()!=null){
-				  double loadP=bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe();
-				  double loadQ=bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm();
+			if(bus.getLoadData()!=null&&defaultLoad!=null
+					&&defaultLoad.getConstPLoad()!=null){
+				  double loadP=defaultLoad.getConstPLoad().getRe();
+				  double loadQ=defaultLoad.getConstPLoad().getIm();
 				  if(loadP!=0.0)loadP*=loadPFactor;
 				  if(loadQ!=0.0)loadQ*=loadQFactor;
 				  if(loadP!=0.0||loadQ!=0.0){
 					  loadP=ODMModelStringUtil.getNumberFormat(loadP);
 					  loadQ=ODMModelStringUtil.getNumberFormat(loadQ);
-					  bus.getLoadData().getEquivLoad().getValue().setConstPLoad(BaseDataSetter.createPowerValue(
+					  defaultLoad.setConstPLoad(BaseDataSetter.createPowerValue(
 							loadP,loadQ,ApparentPowerUnitType.MVA));
 				  }
 

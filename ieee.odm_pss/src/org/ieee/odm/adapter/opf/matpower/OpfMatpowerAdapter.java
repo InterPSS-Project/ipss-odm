@@ -10,6 +10,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.opf.OpfDataSetter;
 import org.ieee.odm.model.opf.OpfModelParser;
@@ -252,15 +253,15 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		double pg = str2d(s[1]);
 		double qg = str2d(s[2]);
 
-		LoadflowGenDataXmlType gen = bus.getGenData().getEquivGen().getValue();
-		gen.setPower(BaseDataSetter.createPowerValue(pg, qg,
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		defaultGen.setPower(BaseDataSetter.createPowerValue(pg, qg,
 				ApparentPowerUnitType.MVA));
 
 		int status = str2i(s[7]);
 		if (status > 0) {
-			gen.setOffLine(false);
+			defaultGen.setOffLine(false);
 		} else {
-			gen.setOffLine(true);
+			defaultGen.setOffLine(true);
 		}
 
 		double pgmax = str2d(s[8]);

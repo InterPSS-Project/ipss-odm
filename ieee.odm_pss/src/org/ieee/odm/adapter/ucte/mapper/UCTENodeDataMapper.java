@@ -29,6 +29,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.AngleUnitType;
@@ -36,6 +37,7 @@ import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 
@@ -116,7 +118,8 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 					&& maxGenMVar > minGenMVar) {
 				// PV Bus limit control
 				ODMLogger.getLogger().fine("Bus is a PVLimitBus, id: " + id);
-				aclfBus.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit(  
+				LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(aclfBus.getGenData());
+				defaultGen.setQLimit(BaseDataSetter.createReactivePowerLimit(  
 						maxGenMVar, minGenMVar, ReactivePowerUnitType.MVAR));
 			}
 			break;

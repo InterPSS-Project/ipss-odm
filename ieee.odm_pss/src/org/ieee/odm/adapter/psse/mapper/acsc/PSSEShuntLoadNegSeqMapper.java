@@ -5,6 +5,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSEMachineZeroSeqZParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
+import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
@@ -56,8 +57,8 @@ public class PSSEShuntLoadNegSeqMapper <
 		double gNeg = dataParser.getDouble("GNEG");
 		double bNeg = dataParser.getDouble("BNEG");
 		ShortCircuitBusXmlType scBusXmlType= (ShortCircuitBusXmlType) parser.getBus(busId);
-		((ShortCircuitLoadDataXmlType)scBusXmlType.getLoadData().getEquivLoad().getValue())
-					.setShuntLoadNegativeY(BaseDataSetter.createYValue(gNeg, bNeg, YUnitType.PU));
+		ShortCircuitLoadDataXmlType load = AcscParserHelper.getDefaultScLoad(scBusXmlType.getLoadData());
+		load.setShuntLoadNegativeY(BaseDataSetter.createYValue(gNeg, bNeg, YUnitType.PU));
 		//check against the positive sequence 
 		//
 		

@@ -112,10 +112,12 @@ public class DStabParserHelper extends AcscParserHelper {
 	 * 
 	 * @return
 	 */
+	/*
 	public static JAXBElement<DStabGenDataXmlType> createDStabEquivGen() {
 		DStabGenDataXmlType equivGen = OdmObjFactory.createDStabGenDataXmlType();
 		return OdmObjFactory.createDstabEquivGen(equivGen);
 	}
+	*/
 	
 	/**
 	 * get DStab Gen Data object on the acscBus with id = genId
@@ -139,11 +141,13 @@ public class DStabParserHelper extends AcscParserHelper {
 	 */
 	public static DStabGenDataXmlType createDStabContributeGen(DStabBusXmlType busRec) {
 		BusGenDataXmlType genData = busRec.getGenData();
+		/* this should never happen
 		if (genData == null) {
 			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
 			genData.setEquivGen(createDStabEquivGen());
 		}
+		*/
 		// some model does not need ContributeGenList
 		DStabGenDataXmlType contribGen = OdmObjFactory.createDStabGenDataXmlType();
 		genData.getContributeGen().add(OdmObjFactory.createDstabContributeGen(contribGen));
@@ -155,10 +159,12 @@ public class DStabParserHelper extends AcscParserHelper {
 	 * 
 	 * @return
 	 */
+	/*
 	public static JAXBElement<DStabLoadDataXmlType> createDStabEquivLoad() {
 		DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
 		return OdmObjFactory.createDstabEquivLoad(equivLoad);
 	}
+	*/
 
 	/**
 	 * create a DStab Contribution Load object
@@ -166,12 +172,14 @@ public class DStabParserHelper extends AcscParserHelper {
 	 */
 	public static DStabLoadDataXmlType createDStabContriLoad(DStabBusXmlType busRec) {
 		BusLoadDataXmlType loadData = busRec.getLoadData();
+		/* this should never happen
 		if (loadData == null) { 
 			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
 			DStabLoadDataXmlType equivLoad = OdmObjFactory.createDStabLoadDataXmlType();
 			loadData.setEquivLoad(OdmObjFactory.createDstabEquivLoad(equivLoad));
 		}
+		*/
 		DStabLoadDataXmlType contribLoad = OdmObjFactory.createDStabLoadDataXmlType();
 	    loadData.getContributeLoad().add(OdmObjFactory.createDstabContributeLoad(contribLoad)); 
 	    return contribLoad;

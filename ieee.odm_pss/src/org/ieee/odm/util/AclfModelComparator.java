@@ -29,6 +29,7 @@ import java.util.List;
 import org.ieee.odm.common.ODMNumericUtil;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
@@ -36,6 +37,8 @@ import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.interpss.numeric.util.NumericUtil;
@@ -70,44 +73,44 @@ public class AclfModelComparator {
                 </genData>
 */
 		if (base.getGenData() != null && bus.getGenData() != null) {
-			if (base.getGenData().getEquivGen().getValue().getCode() != bus.getGenData().getEquivGen().getValue().getCode())
+			LoadflowGenDataXmlType baseGen = AclfParserHelper.getDefaultGen(base.getGenData());
+			LoadflowGenDataXmlType busGen = AclfParserHelper.getDefaultGen(bus.getGenData());		
+			if (baseGen.getCode() != busGen.getCode())
 				msgList.add("\nBus EquivGen code not equal: " + id + ", " + 
-						base.getGenData().getEquivGen().getValue().getCode() + baseStr + 
-						"  " + bus.getGenData().getEquivGen().getValue().getCode() + format);
-			if (base.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV) {
-				if (!NumericUtil.equals(base.getGenData().getEquivGen().getValue().getPower().getRe(), bus.getGenData().getEquivGen().getValue().getPower().getRe()))
-					msgList.add("\nBus EquivGen power not equal: " + id + " " + base.getGenData().getEquivGen().getValue().getCode() 
-							+ "   " + BaseJaxbHelper.toStr(base.getGenData().getEquivGen().getValue().getPower()) + baseStr
-							+ "   " + BaseJaxbHelper.toStr(bus.getGenData().getEquivGen().getValue().getPower()) + format);
-				if (!ODMNumericUtil.equals(base.getGenData().getEquivGen().getValue().getDesiredVoltage(), 
-						                bus.getGenData().getEquivGen().getValue().getDesiredVoltage()))
-					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + base.getGenData().getEquivGen().getValue().getCode() 
-							+ "   " + BaseJaxbHelper.toStr(base.getGenData().getEquivGen().getValue().getDesiredVoltage()) + baseStr
-							+ "   " + BaseJaxbHelper.toStr(bus.getGenData().getEquivGen().getValue().getDesiredVoltage()) + format);
+					baseGen.getCode() + baseStr + 
+					"  " + busGen.getCode() + format);
+			if (baseGen.getCode() == LFGenCodeEnumType.PV) {
+				if (!NumericUtil.equals(baseGen.getPower().getRe(), busGen.getPower().getRe()))
+					msgList.add("\nBus EquivGen power not equal: " + id + " " + baseGen.getCode() 
+							+ "   " + BaseJaxbHelper.toStr(baseGen.getPower()) + baseStr
+							+ "   " + BaseJaxbHelper.toStr(busGen.getPower()) + format);
+				if (!ODMNumericUtil.equals(baseGen.getDesiredVoltage(), busGen.getDesiredVoltage()))
+					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + baseGen.getCode() 
+							+ "   " + BaseJaxbHelper.toStr(baseGen.getDesiredVoltage()) + baseStr
+							+ "   " + BaseJaxbHelper.toStr(busGen.getDesiredVoltage()) + format);
 			}
-			else if (base.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PQ) {
-				if (!ODMNumericUtil.equals(base.getGenData().getEquivGen().getValue().getPower(), bus.getGenData().getEquivGen().getValue().getPower()))
-					msgList.add("\nBus EquivGen power not equal: " + id + " " + base.getGenData().getEquivGen().getValue().getCode()
-							+ "   " + BaseJaxbHelper.toStr(base.getGenData().getEquivGen().getValue().getPower()) + baseStr
-							+ "   " + BaseJaxbHelper.toStr(bus.getGenData().getEquivGen().getValue().getPower()) + format);
+			else if (baseGen.getCode() == LFGenCodeEnumType.PQ) {
+				if (!ODMNumericUtil.equals(baseGen.getPower(), busGen.getPower()))
+					msgList.add("\nBus EquivGen power not equal: " + id + " " + baseGen.getCode()
+							+ "   " + BaseJaxbHelper.toStr(baseGen.getPower()) + baseStr
+							+ "   " + BaseJaxbHelper.toStr(busGen.getPower()) + format);
 			}
-			else if (base.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING) {
-				if (!ODMNumericUtil.equals(base.getGenData().getEquivGen().getValue().getDesiredVoltage(), 
-		                bus.getGenData().getEquivGen().getValue().getDesiredVoltage()))
-					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + base.getGenData().getEquivGen().getValue().getCode()
-							+ "   " + BaseJaxbHelper.toStr(base.getGenData().getEquivGen().getValue().getDesiredVoltage()) + baseStr
-							+ "   " + BaseJaxbHelper.toStr(bus.getGenData().getEquivGen().getValue().getDesiredVoltage()) + format);
+			else if (baseGen.getCode() == LFGenCodeEnumType.SWING) {
+				if (!ODMNumericUtil.equals(baseGen.getDesiredVoltage(), busGen.getDesiredVoltage()))
+					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + baseGen.getCode()
+							+ "   " + BaseJaxbHelper.toStr(baseGen.getDesiredVoltage()) + baseStr
+							+ "   " + BaseJaxbHelper.toStr(busGen.getDesiredVoltage()) + format);
 			}
 		}
-		else if (base.getGenData() == null && bus.getGenData() != null 
-						&& bus.getGenData().getEquivGen().getValue().getCode() != LFGenCodeEnumType.NONE_GEN ||
-				 base.getGenData() != null && bus.getGenData() == null 
-				 		&& base.getGenData().getEquivGen().getValue().getCode() != LFGenCodeEnumType.NONE_GEN) {
-			msgList.add("\nBus EquivGen model not equal: " + id + ", " + 
-					base.getGenData().getEquivGen().getValue().getCode() + baseStr + 
-					"  " + bus.getGenData().getEquivGen().getValue().getCode() + format);
-		}	
-			
+		else if (base.getGenData() == null && bus.getGenData() != null) {
+			LoadflowGenDataXmlType baseGen = AclfParserHelper.getDefaultGen(base.getGenData());
+			LoadflowGenDataXmlType busGen = AclfParserHelper.getDefaultGen(bus.getGenData());		
+			if ( busGen.getCode() != LFGenCodeEnumType.NONE_GEN || baseGen.getCode() != LFGenCodeEnumType.NONE_GEN) {
+				msgList.add("\nBus EquivGen model not equal: " + id + ", " + 
+						baseGen.getCode() + baseStr + 
+						"  " + busGen.getCode() + format);
+			}		
+		}
 /*
                 <loadData>
                     <equivLoad code="CONST_P">
@@ -116,22 +119,26 @@ public class AclfModelComparator {
                 </loadData>
 */
 		if (base.getLoadData() != null && bus.getLoadData() != null) {
-			if (base.getLoadData().getEquivLoad().getValue().getCode() != bus.getLoadData().getEquivLoad().getValue().getCode())
+			LoadflowLoadDataXmlType baseLoad = AclfParserHelper.getDefaultLoad(base.getLoadData());
+			LoadflowLoadDataXmlType busLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());				
+			if (baseLoad.getCode() != busLoad.getCode())
 				msgList.add("\nBus EquivLoad code not equal: " + id + ", " + 
-						base.getLoadData().getEquivLoad().getValue().getCode() + baseStr + 
-						"  " + bus.getLoadData().getEquivLoad().getValue().getCode() + format);
-			if (!ODMNumericUtil.equals(base.getLoadData().getEquivLoad().getValue().getConstPLoad(), bus.getLoadData().getEquivLoad().getValue().getConstPLoad()))
+						baseLoad.getCode() + baseStr + 
+						"  " + busLoad.getCode() + format);
+			if (!ODMNumericUtil.equals(baseLoad.getConstPLoad(), busLoad.getConstPLoad()))
 					msgList.add("\nBus EquivLoad constP not equal: " + id 
-							+ "   " + BaseJaxbHelper.toStr(base.getLoadData().getEquivLoad().getValue().getConstPLoad()) + baseStr
-							+ "   " + BaseJaxbHelper.toStr(bus.getLoadData().getEquivLoad().getValue().getConstPLoad()) + format);
+							+ "   " + BaseJaxbHelper.toStr(baseLoad.getConstPLoad()) + baseStr
+							+ "   " + BaseJaxbHelper.toStr(busLoad.getConstPLoad()) + format);
 		}
-		else if (base.getLoadData() == null && bus.getLoadData() != null 
-						&& bus.getLoadData().getEquivLoad().getValue().getCode() != LFLoadCodeEnumType.NONE_LOAD ||
+		else if (base.getLoadData() == null && bus.getLoadData() != null) {
+			LoadflowLoadDataXmlType baseLoad = AclfParserHelper.getDefaultLoad(base.getLoadData());
+			LoadflowLoadDataXmlType busLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
+			if (busLoad.getCode() != LFLoadCodeEnumType.NONE_LOAD ||
 				 base.getLoadData() != null && bus.getLoadData() == null 
-				 		&& base.getLoadData().getEquivLoad().getValue().getCode() != LFLoadCodeEnumType.NONE_LOAD) {
-			msgList.add("\nBus EquivLoad model not equal: " + id + ", " + 
-					base.getLoadData().getEquivLoad().getValue().getCode() + baseStr + 
-					"  " + bus.getLoadData().getEquivLoad().getValue().getCode() + format);
+				 		&& baseLoad.getCode() != LFLoadCodeEnumType.NONE_LOAD) 
+				msgList.add("\nBus EquivLoad model not equal: " + id + ", " + 
+					baseLoad.getCode() + baseStr + 
+					"  " + busLoad.getCode() + format);
 		}
 		
 /*

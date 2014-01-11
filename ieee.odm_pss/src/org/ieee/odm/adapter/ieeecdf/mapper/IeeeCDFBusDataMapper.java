@@ -30,6 +30,7 @@ import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
@@ -145,15 +146,15 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		final String reBusId = dataParser.getString("RemoteBusNumber");
 
 		if (max != 0.0 || min != 0.0) {
-			LoadflowGenDataXmlType equivGen = aclfBus.getGenData().getEquivGen().getValue();
+			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(aclfBus.getGenData());
 			if (type == 1) {
-				equivGen.setVoltageLimit(BaseDataSetter.createVoltageLimit(max, min, VoltageUnitType.PU));
+				defaultGen.setVoltageLimit(BaseDataSetter.createVoltageLimit(max, min, VoltageUnitType.PU));
 			} else if (type == 2) {
-				aclfBus.getGenData().getEquivGen().getValue().setQLimit(BaseDataSetter.createReactivePowerLimit(max, min, ReactivePowerUnitType.MVAR));
+				defaultGen.setQLimit(BaseDataSetter.createReactivePowerLimit(max, min, ReactivePowerUnitType.MVAR));
 				if (reBusId != null && !reBusId.equals("0")
 						&& !reBusId.equals(busId)) {
-					equivGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));
-					equivGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
+					defaultGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));
+					defaultGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
 				}
 			}
 		}

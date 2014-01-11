@@ -5,6 +5,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.acsc.PSSELoadZeroSeqDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
+import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
@@ -44,7 +45,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 		double gZero = dataParser.getDouble("GZERO");
 		double bZero = dataParser.getDouble("BZERO");
 		ShortCircuitBusXmlType scBusXmlType= (ShortCircuitBusXmlType) parser.getBus(busId);
-		((ShortCircuitLoadDataXmlType)scBusXmlType.getLoadData().getEquivLoad().getValue())
-						.setShuntLoadNegativeY(BaseDataSetter.createYValue(gZero, bZero, YUnitType.PU));
+		ShortCircuitLoadDataXmlType load = AcscParserHelper.getDefaultScLoad(scBusXmlType.getLoadData());
+		load.setShuntLoadNegativeY(BaseDataSetter.createYValue(gZero, bZero, YUnitType.PU));
 	}
 }

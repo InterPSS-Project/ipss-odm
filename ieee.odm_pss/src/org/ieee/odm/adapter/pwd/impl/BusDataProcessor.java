@@ -7,6 +7,7 @@ import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.ActivePowerUnitType;
@@ -334,26 +335,26 @@ public class BusDataProcessor extends InputLineStringParser {
 						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet, VoltageUnitType.PU, 0, AngleUnitType.DEG,
 								genMW, genMVR, ApparentPowerUnitType.MVA);
 
-						LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+						LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 						
-						equivGen.setId(genId);
-						equivGen.setOffLine(!genOnLine);
+						defaultGen.setId(genId);
+						defaultGen.setOffLine(!genOnLine);
 						// equivGen.setRatedPower(BaseDataSetter.createApparentPower(genMVABase,
 						// ApparentPowerUnitType.MVA));
-						equivGen.setPLimit(BaseDataSetter
+						defaultGen.setPLimit(BaseDataSetter
 								.createActivePowerLimit(genMWMax, genMWMin,
 										ActivePowerUnitType.MW));
 
-						equivGen.getPLimit().setActive(pLimitForced);
+						defaultGen.getPLimit().setActive(pLimitForced);
 
-						equivGen.setQLimit(BaseDataSetter
+						defaultGen.setQLimit(BaseDataSetter
 								.createReactivePowerLimit(genMVRMax, genMVRMin,
 										ReactivePowerUnitType.MVAR));
 
 						if (areaNum != -1)
-							equivGen.setAreaNumber(areaNum);
+							defaultGen.setAreaNumber(areaNum);
 						if (zoneNum != -1)
-							equivGen.setZoneNumber(zoneNum);
+							defaultGen.setZoneNumber(zoneNum);
 
 					} else { // swing bus
 						//VoltageXmlType v = bus.getVoltage();
@@ -363,26 +364,26 @@ public class BusDataProcessor extends InputLineStringParser {
 								angle.getUnit(), genMW, genMVR,
 								ApparentPowerUnitType.MVA);
 
-						LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
-						equivGen.setId(genId);
-						equivGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
-						equivGen.setOffLine(!genOnLine);
+						LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+						defaultGen.setId(genId);
+						defaultGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
+						defaultGen.setOffLine(!genOnLine);
 
 						// p limit
-						equivGen.setPLimit(BaseDataSetter
+						defaultGen.setPLimit(BaseDataSetter
 								.createActivePowerLimit(genMWMax, genMWMin,
 										ActivePowerUnitType.MW));
 					
-						equivGen.getPLimit().setActive(pLimitForced);
+						defaultGen.getPLimit().setActive(pLimitForced);
 						// q limit
-						equivGen.setQLimit(BaseDataSetter
+						defaultGen.setQLimit(BaseDataSetter
 								.createReactivePowerLimit(genMVRMax, genMVRMin,
 										ReactivePowerUnitType.MVAR));
 
 						if (areaNum != -1)
-							equivGen.setAreaNumber(areaNum);
+							defaultGen.setAreaNumber(areaNum);
 						if (zoneNum != -1)
-							equivGen.setZoneNumber(zoneNum);
+							defaultGen.setZoneNumber(zoneNum);
 
 					}
 
@@ -400,32 +401,32 @@ public class BusDataProcessor extends InputLineStringParser {
 							VoltageUnitType.PU, 0, AngleUnitType.DEG, genMW,
 							genMVR, ApparentPowerUnitType.MVA);
 
-					LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+					LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 							
-					equivGen.setId(genId);
-					equivGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
+					defaultGen.setId(genId);
+					defaultGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
 					
-					equivGen.setPLimit(BaseDataSetter.createActivePowerLimit(
+					defaultGen.setPLimit(BaseDataSetter.createActivePowerLimit(
 							genMWMax, genMWMin, ActivePowerUnitType.MW));
 
-					equivGen.getPLimit().setActive(pLimitForced);
+					defaultGen.getPLimit().setActive(pLimitForced);
 
-					equivGen.setQLimit(BaseDataSetter.createReactivePowerLimit(
+					defaultGen.setQLimit(BaseDataSetter.createReactivePowerLimit(
 							genMVRMax, genMVRMin, ReactivePowerUnitType.MVAR));
 
 					if (areaNum != -1)
-						equivGen.setAreaNumber(areaNum);
+						defaultGen.setAreaNumber(areaNum);
 					if (zoneNum != -1)
-						equivGen.setZoneNumber(zoneNum);
+						defaultGen.setZoneNumber(zoneNum);
 					// define the remote control bus
-					equivGen.setRemoteVoltageControlBus(parser
+					defaultGen.setRemoteVoltageControlBus(parser
 							.createBusRef(regBusId));
 				}
 
 				// process generator participation factor
-				LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
+				LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 				if (genAGCAble)
-					equivGen.setMwControlParticipateFactor(partFactor);
+					defaultGen.setMwControlParticipateFactor(partFactor);
 			}
 		}//end of if-subData
 	}

@@ -30,12 +30,14 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 
 public class GEBusDataMapper extends BaseGEDataMapper {
@@ -69,7 +71,8 @@ public class GEBusDataMapper extends BaseGEDataMapper {
 		AclfDataSetter.setGenData(busRec, genType, dataParser.getDouble("vs"), 
 				VoltageUnitType.PU, dataParser.getDouble("an"), AngleUnitType.DEG, 
 				0.0, 0.0,	ApparentPowerUnitType.MVA);
-		busRec.getGenData().getEquivGen().getValue().setVoltageLimit(
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+		defaultGen.setVoltageLimit(
 				BaseDataSetter.createVoltageLimit(dataParser.getDouble("vma"), dataParser.getDouble("vmi"), VoltageUnitType.PU));
 	}
 }

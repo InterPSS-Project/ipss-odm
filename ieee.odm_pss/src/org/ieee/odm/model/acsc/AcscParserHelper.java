@@ -70,10 +70,12 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * 
 	 * @return
 	 */
+	/*
 	public static JAXBElement<ShortCircuitGenDataXmlType> createAcscEquivGen() {
 		ShortCircuitGenDataXmlType equivGen = OdmObjFactory.createShortCircuitGenDataXmlType();
 		return OdmObjFactory.createAcscEquivGen(equivGen);
 	}
+	*/
 	
 	/**
 	 * get Acsc Gen Data object on the acscBus with id = genId
@@ -97,11 +99,13 @@ public class AcscParserHelper extends AclfParserHelper {
 	 */
 	public static ShortCircuitGenDataXmlType createAcscContributeGen(ShortCircuitBusXmlType busRec) {
 		BusGenDataXmlType genData = busRec.getGenData();
+		/* this should never happen
 		if (genData == null) {
 			genData = OdmObjFactory.createBusGenDataXmlType();
 			busRec.setGenData(genData);
 			genData.setEquivGen(createAcscEquivGen());
 		}
+		*/
 		// some model does not need ContributeGenList
 		ShortCircuitGenDataXmlType contribGen = OdmObjFactory.createShortCircuitGenDataXmlType();
 		genData.getContributeGen().add(OdmObjFactory.createAcscContributeGen(contribGen));
@@ -113,23 +117,27 @@ public class AcscParserHelper extends AclfParserHelper {
 	 * 
 	 * @return
 	 */
+	/*
 	public static JAXBElement<ShortCircuitLoadDataXmlType> createAcscEquivLoad() {
 		ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
 		return OdmObjFactory.createAcscEquivLoad(equivLoad);
 	}
-
+	 */
+	
 	/**
 	 * create a ShortCircuit Contribution Load object
 	 * 
 	 */
 	public static ShortCircuitLoadDataXmlType createAcscContributeLoad(ShortCircuitBusXmlType busRec) {
 		BusLoadDataXmlType loadData = busRec.getLoadData();
+		/* this should never happen
 		if (loadData == null) { 
 			loadData = OdmObjFactory.createBusLoadDataXmlType();
 			busRec.setLoadData(loadData);
 			ShortCircuitLoadDataXmlType equivLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
 			loadData.setEquivLoad(OdmObjFactory.createAcscEquivLoad(equivLoad));
 		}
+		*/
 		ShortCircuitLoadDataXmlType contribLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
 	    loadData.getContributeLoad().add(OdmObjFactory.createAcscContributeLoad(contribLoad)); 
 	    return contribLoad;
@@ -211,12 +219,13 @@ public class AcscParserHelper extends AclfParserHelper {
 		for ( JAXBElement<? extends BusXmlType> busXml : baseCaseNet.getBusList().getBus()) {
 			ShortCircuitBusXmlType scBusXml = (ShortCircuitBusXmlType)busXml.getValue();
 			
-			if(scBusXml.getScCode()==ShortCircuitBusEnumType.CONTRIBUTING &&
-					scBusXml.getGenData().getEquivGen()!=null &&
+			if(scBusXml.getScCode()==ShortCircuitBusEnumType.CONTRIBUTING ) {
+				/* this should never happen  
+				&& scBusXml.getGenData().getEquivGen()!=null &&
 				    scBusXml.getGenData().getContributeGen()!=null){
-					
+				*/	
 					//Consolidate the positive and negative sequence to scEquivLoadData
-					ShortCircuitGenDataXmlType scEquivData = (ShortCircuitGenDataXmlType)scBusXml.getGenData().getEquivGen().getValue();
+					ShortCircuitGenDataXmlType defaultGen = getDefaultScGen(scBusXml.getGenData());
 					
 					// gen z is init as a large Z, or open circuit
 					ZXmlType equivPosZ  = null;
@@ -306,14 +315,22 @@ public class AcscParserHelper extends AclfParserHelper {
 						
 						ODMLogger.getLogger().warning("posZ of gen is not provided, Bus Id, GenId #"+scBusXml.getId());
 						*/
-						scEquivData.setPotiveZ(equivPosZ);
-						scEquivData.setNegativeZ(equivNegZ);
-						scEquivData.setZeroZ(equivZeroZ);
+						defaultGen.setPotiveZ(equivPosZ);
+						defaultGen.setNegativeZ(equivNegZ);
+						defaultGen.setZeroZ(equivZeroZ);
  					}
 			}
 						
 		}
 		return true;
+	}
+
+	public static ShortCircuitGenDataXmlType getDefaultScGen(BusGenDataXmlType genData) {
+		return (ShortCircuitGenDataXmlType)genData.getContributeGen().get(0).getValue();
+	}
+
+	public static ShortCircuitLoadDataXmlType getDefaultScLoad(BusLoadDataXmlType loadData) {
+		return (ShortCircuitLoadDataXmlType)loadData.getContributeLoad().get(0).getValue();
 	}
 
 	/**
@@ -330,7 +347,7 @@ public class AcscParserHelper extends AclfParserHelper {
 			
 			if(scBusXml.getLoadData()!=null){
 				
-				ShortCircuitLoadDataXmlType scEquivData = (ShortCircuitLoadDataXmlType)scBusXml.getLoadData().getEquivLoad().getValue();
+				ShortCircuitLoadDataXmlType defaultLoad = getDefaultScLoad(scBusXml.getLoadData());
 				
 				YXmlType equivShuntNegY  = null;
 				YXmlType equivShuntZeroY = null;
@@ -382,11 +399,11 @@ public class AcscParserHelper extends AclfParserHelper {
 				// we assume Y is in pu on the system base
 				if(equivShuntNegY!=null) {
 					equivShuntNegY.setUnit(YUnitType.PU);
-					scEquivData.setShuntLoadNegativeY(equivShuntNegY);
+					defaultLoad.setShuntLoadNegativeY(equivShuntNegY);
 				}
 				if(equivShuntZeroY!=null) {
 					equivShuntZeroY.setUnit(YUnitType.PU);
-					scEquivData.setShuntLoadZeroY(equivShuntZeroY);
+					defaultLoad.setShuntLoadZeroY(equivShuntZeroY);
 				}
 			}
 			
