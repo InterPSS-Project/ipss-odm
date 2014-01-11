@@ -36,11 +36,11 @@
 		</ns:documentation></ns:annotation>
     </ns:element>   
     
-     <ns:element name="dstabEquivGen" substitutionGroup="pss:equivGen" type="pss:DStabGenDataXmlType">
+     <!-- ns:element name="dstabEquivGen" substitutionGroup="pss:equivGen" type="pss:DStabGenDataXmlType">
         <ns:annotation><ns:documentation>
 		Equiv generator data record for dynamic stability analysis
 		</ns:documentation></ns:annotation>
-    </ns:element>   
+    </ns:element -->   
 	
      <ns:element name="dstabContributeLoad" substitutionGroup="pss:contributeLoad" type="pss:DStabLoadDataXmlType">
         <ns:annotation><ns:documentation>
@@ -48,11 +48,11 @@
 		</ns:documentation></ns:annotation>
     </ns:element>   
     
-     <ns:element name="dstabEquivLoad" substitutionGroup="pss:equivLoad" type="pss:DStabLoadDataXmlType">
+     <!-- ns:element name="dstabEquivLoad" substitutionGroup="pss:equivLoad" type="pss:DStabLoadDataXmlType">
         <ns:annotation><ns:documentation>
 		Equiv load data record for dynamic stability analysis
 		</ns:documentation></ns:annotation>
-    </ns:element> 
+    </ns:element --> 
 	
 	
 	<ns:element name="dstabLine" type="pss:LineDStabXmlType" substitutionGroup="pss:branch">

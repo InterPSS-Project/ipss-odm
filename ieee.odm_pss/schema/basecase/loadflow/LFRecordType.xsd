@@ -40,11 +40,11 @@
 		</ns:documentation></ns:annotation>
     </ns:element>
     
-    <ns:element name="equivGen" type="pss:LoadflowGenDataXmlType">
+    <!-- ns:element name="equivGen" type="pss:LoadflowGenDataXmlType">
         <ns:annotation><ns:documentation>
 		equiv generator at bus for defining equiv generator data for Loadflow study
 		</ns:documentation></ns:annotation>
-    </ns:element>
+    </ns:element -->
 
     <ns:element name="contributeLoad" type="pss:LoadflowLoadDataXmlType">
         <ns:annotation><ns:documentation>
@@ -52,11 +52,11 @@
 		</ns:documentation></ns:annotation>
     </ns:element>
     
-    <ns:element name="equivLoad" type="pss:LoadflowLoadDataXmlType">
+    <!-- ns:element name="equivLoad" type="pss:LoadflowLoadDataXmlType">
         <ns:annotation><ns:documentation>
 		equiv load at bus for defining equiv load data for Loadflow study
 		</ns:documentation></ns:annotation>
-    </ns:element>
+    </ns:element -->
     
     <ns:element name="contributeShuntY" type="pss:LoadflowShuntYDataXmlType">
         <ns:annotation><ns:documentation>
@@ -265,7 +265,7 @@
 	
 	<ns:complexType name="BusGenDataXmlType">
 		<ns:sequence>
-			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivGen"/>
+			<!--  ns:element maxOccurs="1" minOccurs="0" ref="pss:equivGen"/ -->
 			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeGen"/>
 		</ns:sequence>
 	</ns:complexType>
@@ -273,7 +273,7 @@
 
 	<ns:complexType name="BusLoadDataXmlType">
 		<ns:sequence>
-			<ns:element maxOccurs="1" minOccurs="0" ref="pss:equivLoad"/>
+			<!-- ns:element maxOccurs="1" minOccurs="0" ref="pss:equivLoad"/ -->
 			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeLoad"/>
 		</ns:sequence>
 	</ns:complexType>

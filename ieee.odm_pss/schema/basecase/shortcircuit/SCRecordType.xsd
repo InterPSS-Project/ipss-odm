@@ -36,11 +36,11 @@
 		</ns:documentation></ns:annotation>
     </ns:element>   
     
-     <ns:element name="acscEquivGen" substitutionGroup="pss:equivGen" type="pss:ShortCircuitGenDataXmlType">
+     <!-- ns:element name="acscEquivGen" substitutionGroup="pss:equivGen" type="pss:ShortCircuitGenDataXmlType">
         <ns:annotation><ns:documentation>
 		Equiv generator data record for short circuit analysis
 		</ns:documentation></ns:annotation>
-    </ns:element>   
+    </ns:element -->   
 	
      <ns:element name="acscContributeLoad" substitutionGroup="pss:contributeLoad" type="pss:ShortCircuitLoadDataXmlType">
         <ns:annotation><ns:documentation>
@@ -48,11 +48,11 @@
 		</ns:documentation></ns:annotation>
     </ns:element>   
     
-     <ns:element name="acscEquivLoad" substitutionGroup="pss:equivLoad" type="pss:ShortCircuitLoadDataXmlType">
+     <!-- ns:element name="acscEquivLoad" substitutionGroup="pss:equivLoad" type="pss:ShortCircuitLoadDataXmlType">
         <ns:annotation><ns:documentation>
 		Equiv load data record for short circuit analysis
 		</ns:documentation></ns:annotation>
-    </ns:element> 
+    </ns:element --> 
         
     <ns:element name="acscLine" substitutionGroup="pss:branch" type="pss:LineShortCircuitXmlType">
         <ns:annotation><ns:documentation>
