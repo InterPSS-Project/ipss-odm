@@ -48,7 +48,9 @@ public class BPADynamicPSSRecord {
     	String busId = BPABusRecord.getBusId(strAry[1]);
     	DStabBusXmlType bus = parser.getDStabBus(busId);
     	
-    	DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();   
+    	//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();   
+		DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus.getGenData());
+
     	//machine Id
     	String macId="1";
     	if(!strAry[3].equals("")){

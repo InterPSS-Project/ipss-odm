@@ -33,11 +33,14 @@ import java.util.logging.Logger;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.ucte.UCTE_DEFAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
@@ -69,20 +72,21 @@ public class UCTE_ODMTest {
 		// if voltage not defined, it is equal to the base voltage
 		assertTrue(busRec.getVoltage().getValue() == 380.0);
 		assertTrue(busRec.getVoltage().getUnit() == VoltageUnitType.KV);
-		assertTrue(busRec.getGenData().getEquivGen() == null);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 280.0);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0.0);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(busRec.getLoadData());
+		assertTrue(defaultLoad.getConstPLoad().getRe() == 280.0);
+		assertTrue(defaultLoad.getConstPLoad().getIm() == 0.0);
+		assertTrue(defaultLoad.getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 		assertTrue(busRec.getShuntYData().getEquivY() == null);
 
 		// A2____1 is a load bus
 		// A2    1                 0        .000000 .000000 -150.00 .000000                
 		busRec = parser.getBus("A2____1");
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PQ);
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getRe() == 150.0);
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getIm() == 0.0);
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getPower().getUnit() == ApparentPowerUnitType.MVA);
-		assertTrue(busRec.getLoadData().getEquivLoad() == null);
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+		assertTrue(busRec.getGenData().getCode() == LFGenCodeEnumType.PQ);
+		assertTrue(defaultGen.getPower().getRe() == 150.0);
+		assertTrue(defaultGen.getPower().getIm() == 0.0);
+		assertTrue(defaultGen.getPower().getUnit() == ApparentPowerUnitType.MVA);
+		//assertTrue(busRec.getLoadData().getEquivLoad() == null);
 		
 		// B4____1 is a swing bus
 		// B4    1                 3 405.00 70.0000 .000000 .000000 .000000                
@@ -90,10 +94,12 @@ public class UCTE_ODMTest {
 		assertTrue(busRec.getVoltage().getValue() == 405.0);
 		assertTrue(busRec.getVoltage().getUnit() == VoltageUnitType.KV);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 70.0);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0.0);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+		assertTrue(busRec.getGenData().getCode() == LFGenCodeEnumType.SWING);
+		defaultLoad = AclfParserHelper.getDefaultLoad(busRec.getLoadData());
+		assertTrue(defaultLoad.getConstPLoad().getRe() == 70.0);
+		assertTrue(defaultLoad.getConstPLoad().getIm() == 0.0);
+		assertTrue(defaultLoad.getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 
 		// A1____1->A2____1 is a line
 		// A1    1  A2    1  1 0 1.3600 19.350 240.9601    480 

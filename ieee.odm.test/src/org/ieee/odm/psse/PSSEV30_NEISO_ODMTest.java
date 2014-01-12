@@ -34,6 +34,7 @@ import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.DcLineControlModeEnumType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
@@ -80,7 +81,8 @@ public class PSSEV30_NEISO_ODMTest {
 		LoadflowBusXmlType bus = parser.getBus("Bus1");
 		assertTrue(bus.getBaseVoltage().getValue() == 345.0);
 		assertTrue(bus.getBaseVoltage().getUnit() == VoltageUnitType.KV);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.NONE_GEN);
+		//LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.NONE_GEN);
 
 		/*
       <bus id="Bus3" number="3" areaNumber="1" name="'0001        '" offLine="false">
@@ -112,7 +114,8 @@ public class PSSEV30_NEISO_ODMTest {
       </bus>
         */
 		bus = parser.getBus("Bus3");
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
+		//defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.PV);
 		
 		LoadflowGenDataXmlType Gen1= bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(Gen1.getPower().getRe() == 0.0);

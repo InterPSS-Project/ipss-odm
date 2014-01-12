@@ -5,9 +5,12 @@ import static org.junit.Assert.assertTrue;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.pwd.PowerWorldAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.junit.Test;
 
@@ -23,7 +26,7 @@ public class PwdAdapterTest {
 		IODMAdapter adapter = new PowerWorldAdapter();
 		assertTrue(adapter.parseInputFile("testdata/pwd/B5R.aux"));
 		AclfModelParser parser=(AclfModelParser) adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 
 		//check network data
 		assertTrue(parser.getNet().getBasePower().getValue()==100.0);
@@ -57,16 +60,18 @@ public class PwdAdapterTest {
 		
 		//check bus data
 		LoadflowBusXmlType bus1=(LoadflowBusXmlType) parser.getBus("Bus1");
-		assertTrue(bus1.getGenData().getEquivGen().getValue().getCode()==LFGenCodeEnumType.SWING);
-		assertTrue(bus1.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue()==1.0);
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus1.getGenData());
+		assertTrue(bus1.getGenData().getCode()==LFGenCodeEnumType.SWING);
+		assertTrue(defaultGen.getDesiredVoltage().getValue()==1.0);
 		
-		assertTrue(Math.abs(bus1.getGenData().getEquivGen().getValue().getPower().getRe()-100.0056)<1E-3);
-		assertTrue(Math.abs(bus1.getGenData().getEquivGen().getValue().getQLimit().getMax()-99998.999)<1E-3);
-		assertTrue(Math.abs(bus1.getGenData().getEquivGen().getValue().getQLimit().getMin()-(-99998.999))<1E-3);
-		assertTrue(Math.abs(bus1.getGenData().getEquivGen().getValue().getPLimit().getMax()-800.0)<1E-4);
-		assertTrue(bus1.getGenData().getEquivGen().getValue().getPLimit().getMin()==0.0);
-		assertTrue(bus1.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe()==100.0);
-		assertTrue(bus1.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm()==0.0);
+		assertTrue(Math.abs(defaultGen.getPower().getRe()-100.0056)<1E-3);
+		assertTrue(Math.abs(defaultGen.getQLimit().getMax()-99998.999)<1E-3);
+		assertTrue(Math.abs(defaultGen.getQLimit().getMin()-(-99998.999))<1E-3);
+		assertTrue(Math.abs(defaultGen.getPLimit().getMax()-800.0)<1E-4);
+		assertTrue(defaultGen.getPLimit().getMin()==0.0);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus1.getLoadData());
+		assertTrue(defaultLoad.getConstPLoad().getRe()==100.0);
+		assertTrue(defaultLoad.getConstPLoad().getIm()==0.0);
 		
 		//check line data
 		LineBranchXmlType line=(LineBranchXmlType) parser.getNet().getBranchList().getBranch().get(0).getValue();
@@ -108,15 +113,17 @@ public class PwdAdapterTest {
 		assertTrue(bus2.getBaseVoltage().getValue()==132.00);
 		assertTrue(bus2.isOffLine()==false);
 		
-		assertTrue(bus2.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue()==1.045000);
-		assertTrue(bus2.getGenData().getEquivGen().getValue().getPower().getRe() == 40.0);
-		assertTrue(bus2.getGenData().getEquivGen().getValue().getQLimit().getMax() == 50.0);
-		assertTrue(bus2.getGenData().getEquivGen().getValue().getQLimit().getMin() == -40.0);
-		assertTrue(bus2.getGenData().getEquivGen().getValue().getPLimit().getMax() == 10000.0);
-		assertTrue(bus2.getGenData().getEquivGen().getValue().getPLimit().getMin()==-10000.0);
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus2.getGenData());
+		assertTrue(defaultGen.getDesiredVoltage().getValue()==1.045000);
+		assertTrue(defaultGen.getPower().getRe() == 40.0);
+		assertTrue(defaultGen.getQLimit().getMax() == 50.0);
+		assertTrue(defaultGen.getQLimit().getMin() == -40.0);
+		assertTrue(defaultGen.getPLimit().getMax() == 10000.0);
+		assertTrue(defaultGen.getPLimit().getMin()==-10000.0);
 		
-		assertTrue(bus2.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe()==21.700);
-		assertTrue(bus2.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm()==12.700);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus2.getLoadData());
+		assertTrue(defaultLoad.getConstPLoad().getRe()==21.700);
+		assertTrue(defaultLoad.getConstPLoad().getIm()==12.700);
 		
 		//check line data
 		/*BusNum,BusNum:1,LineCircuit,LineStatus,LineR,LineX,LineC,LineG

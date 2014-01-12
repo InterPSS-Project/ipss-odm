@@ -35,6 +35,7 @@ import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.ActivePowerUnitType;
+import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
@@ -132,6 +133,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 
 	    double vs = dataParser.getDouble("VS");
 	    contriGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vs, VoltageUnitType.PU));
+	    contriGen.setDesiredAngle(BaseDataSetter.createAngleValue(0.0, AngleUnitType.RAD));
 		
 	    double pt = dataParser.getDouble("PT", 0.0);
 	    double pb = dataParser.getDouble("PB", 0.0);

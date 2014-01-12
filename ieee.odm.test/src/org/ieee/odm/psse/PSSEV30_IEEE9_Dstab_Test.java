@@ -11,9 +11,11 @@ import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.dstab.DStabModelParser;
+import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
+import org.ieee.odm.schema.DStabLoadDataXmlType;
 import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
@@ -118,13 +120,14 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	 * Gen GENSAL-> Eq11Machine
 	 */
 	 DStabBusXmlType bus1 = dstabParser.getDStabBus("Bus1");
-	 assertTrue(bus1.getGenData().getEquivGen().getValue().getCode()==LFGenCodeEnumType.SWING);
-	 assertTrue(bus1.getLoadData().getEquivLoad().getValue().getCode()==LFLoadCodeEnumType.NONE_LOAD);
+	 DStabGenDataXmlType defaultGen = DStabParserHelper.getDefaultGen(bus1.getGenData());
+	 DStabLoadDataXmlType defaultLoad = DStabParserHelper.getDefaultLoad(bus1.getLoadData());
 	 
-	DStabGenDataXmlType bus1Gen = (DStabGenDataXmlType) bus1.getGenData().getEquivGen().getValue();
-	
-	assertTrue(bus1Gen.getDesiredVoltage().getValue()==1.04);
-	assertTrue(bus1Gen.getPotiveZ().getIm()==0.04);
+	 assertTrue(defaultGen.getCode()==LFGenCodeEnumType.SWING);
+	 assertTrue(defaultLoad.getCode()==LFLoadCodeEnumType.NONE_LOAD);
+	 
+	assertTrue(defaultGen.getDesiredVoltage().getValue()==1.04);
+	assertTrue(defaultGen.getPotiveZ().getIm()==0.04);
 	
 	DStabGenDataXmlType contriGen = (DStabGenDataXmlType) bus1.getGenData().getContributeGen().get(0).getValue();
 	assertTrue(contriGen.getMvaBase().getValue()==100.0);
@@ -178,7 +181,8 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	 * 
 	 */
 	 DStabBusXmlType bus3 = dstabParser.getDStabBus("Bus3");
-	 assertTrue(bus3.getGenData().getEquivGen().getValue().getCode()==LFGenCodeEnumType.PV);
+	 defaultGen = DStabParserHelper.getDefaultGen(bus3.getGenData());
+	 assertTrue(defaultGen.getCode()==LFGenCodeEnumType.PV);
 	 
 	 DStabGenDataXmlType contriGen3 = (DStabGenDataXmlType) bus3.getGenData().getContributeGen().get(0).getValue();
 	

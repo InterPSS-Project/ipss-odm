@@ -65,7 +65,8 @@ public class BPADynamicGeneratorRecord {
     	if (str.substring(0,2).trim().equals("MC")){
     		String busId = BPABusRecord.getBusId(strAry[1]);
         	DStabBusXmlType bus = parser.getDStabBus(busId);
-        	DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
+        	//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
+        	DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus.getGenData());
     		ClassicMachineXmlType mach = DStabParserHelper.createClassicMachine(dynGen);
     		
     		double ratedVoltage=ODMModelStringUtil.getDouble(strAry[2], 0.0);
@@ -159,7 +160,8 @@ public class BPADynamicGeneratorRecord {
     		if(!strAry[3].equals("")){
     		    dynGenId=strAry[3];
     		}
-    		DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
+    		//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
+    		DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus.getGenData());
     		dynGen.setId(dynGenId);
 			double ratedVoltage=ODMModelStringUtil.getDouble(strAry[2], 0.0);
 		   	dynGen.setRatedMachVoltage(DStabDataSetter.createVoltageValue(ratedVoltage, VoltageUnitType.KV));
@@ -289,13 +291,15 @@ public class BPADynamicGeneratorRecord {
 			
 			if(!busId1.equals("")&&Vol1!=0.0){
 		    	DStabBusXmlType bus1 = parser.getDStabBus(busId1);
-		    	DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus1.getGenData().getEquivGen().getValue();
+		    	//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus1.getGenData().getEquivGen().getValue();
+	    		DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus1.getGenData());
+
 				dynGen.setRatedMachVoltage(DStabDataSetter.createVoltageValue(Vol1, VoltageUnitType.KV));
 				EquiMachineXmlType mach = DStabParserHelper.createEquiMachine(dynGen);
 				
 				EquiMachineXmlType.EquivGen equGen =OdmObjFactory.createEquiMachineXmlTypeEquivGen();
 				if(bus1.getGenData()!=null){
-					double pGen=bus1.getGenData().getEquivGen().getValue().getPower().getRe();
+					double pGen=dynGen.getPower().getRe();
 					equGen.setEquiPgen(pGen);//TODO why only pGen, for equivalence, qGen should be included
 					equGen.setPGenUnit(ApparentPowerUnitType.MVA);
 					mach.setEquivGen(equGen);

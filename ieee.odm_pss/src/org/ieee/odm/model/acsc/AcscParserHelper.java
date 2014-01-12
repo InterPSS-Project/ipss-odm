@@ -326,10 +326,16 @@ public class AcscParserHelper extends AclfParserHelper {
 	}
 
 	public static ShortCircuitGenDataXmlType getDefaultScGen(BusGenDataXmlType genData) {
+		if (genData.getContributeGen().size() == 0)
+			genData.getContributeGen().add(OdmObjFactory.createContributeGen(
+					OdmObjFactory.createShortCircuitGenDataXmlType()));
 		return (ShortCircuitGenDataXmlType)genData.getContributeGen().get(0).getValue();
 	}
 
 	public static ShortCircuitLoadDataXmlType getDefaultScLoad(BusLoadDataXmlType loadData) {
+		if (loadData.getContributeLoad().size() == 0)
+			loadData.getContributeLoad().add(OdmObjFactory.createContributeLoad(
+					OdmObjFactory.createShortCircuitLoadDataXmlType()));
 		return (ShortCircuitLoadDataXmlType)loadData.getContributeLoad().get(0).getValue();
 	}
 

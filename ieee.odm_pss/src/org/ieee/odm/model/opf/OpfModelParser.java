@@ -145,6 +145,7 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, L
 		busRec.setOffLine(false);
 		busRec.setAreaNumber(1);
 		busRec.setZoneNumber(1);
+		busRec.setGenData(OdmObjFactory.createBusGenDataXmlType());
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
 		return busRec;
 	}	

@@ -28,7 +28,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import javax.xml.bind.JAXBElement;
 
-import org.ieee.odm.ODMObjectFactory;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.schema.BusGenDataXmlType;
@@ -119,6 +118,13 @@ public class DStabParserHelper extends AcscParserHelper {
 	}
 	*/
 	
+	public static DStabGenDataXmlType getDefaultGen(BusGenDataXmlType genData) {
+		if (genData.getContributeGen().size() == 0)
+			genData.getContributeGen().add(OdmObjFactory.createDstabContributeGen(
+					OdmObjFactory.createDStabGenDataXmlType()));		
+		return (DStabGenDataXmlType)genData.getContributeGen().get(0).getValue();
+	}
+	
 	/**
 	 * get DStab Gen Data object on the acscBus with id = genId
 	 * 
@@ -165,6 +171,13 @@ public class DStabParserHelper extends AcscParserHelper {
 		return OdmObjFactory.createDstabEquivLoad(equivLoad);
 	}
 	*/
+	
+	public static DStabLoadDataXmlType getDefaultLoad(BusLoadDataXmlType loadData) {
+		if (loadData.getContributeLoad().size() == 0)
+			loadData.getContributeLoad().add(OdmObjFactory.createDstabContributeLoad(
+					OdmObjFactory.createDStabLoadDataXmlType()));		
+		return (DStabLoadDataXmlType)loadData.getContributeLoad().get(0).getValue();
+	}	
 
 	/**
 	 * create a DStab Contribution Load object

@@ -34,6 +34,7 @@ import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.BranchBusSideEnumType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
@@ -63,19 +64,14 @@ public class PSSEV30_ODMTest {
 		assertTrue(net.getBasePower().getValue() == 100.0);
 
 /*
- <aclfBus id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="UNO-U1      ">
+            <aclfBus id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="UNO-U1      ">
                 <ownerList id="1">
                     <ownership unit="PU" value="1.0"/>
                 </ownerList>
                 <baseVoltage unit="KV" value="13.8"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="0.0"/>
-                <genData>
-                    <equivGen code="Swing">
-                        <power unit="MVA" re="0.0" im="0.0"/>
-                        <desiredVoltage unit="PU" value="1.0"/>
-                        <desiredAngle unit="DEG" value="0.0"/>
-                    </equivGen>
+                <genData code="Swing">
                     <contributeGen id="1" offLine="false" name="Gen:1(1)">
                         <desc>PSSE Generator 1 at Bus 1</desc>
                         <ownerList id="1">
@@ -83,6 +79,7 @@ public class PSSEV30_ODMTest {
                         </ownerList>
                         <power unit="MVA" re="22.546" im="15.854"/>
                         <desiredVoltage unit="PU" value="1.0"/>
+                        <desiredAngle unit="RAD" value="0.0"/>
                         <qLimit unit="MVAR" max="35.0" min="-35.0"/>
                         <pLimit unit="MW" max="45.0" min="15.0"/>
                         <mvaBase unit="MVA" value="68.24"/>
@@ -91,15 +88,17 @@ public class PSSEV30_ODMTest {
                     </contributeGen>
                 </genData>
                 <loadData/>
-                <shuntYData/>
+                <shuntYData>
+                    <equivY im="0.0"/>
+                </shuntYData>
             </aclfBus>
  */
 		LoadflowBusXmlType bus = parser.getBus("Bus1");
 		assertTrue(bus.getBaseVoltage().getValue() == 13.8);
-		LoadflowGenDataXmlType equivGen = bus.getGenData().getEquivGen().getValue();
-		assertTrue(equivGen.getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(equivGen.getDesiredVoltage().getValue() == 1.0);
-		assertTrue(equivGen.getDesiredAngle().getValue() == 0.0);
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(defaultGen.getDesiredVoltage().getValue() == 1.0);
+		assertTrue(defaultGen.getDesiredAngle().getValue() == 0.0);
 		LoadflowGenDataXmlType Gen1= bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(Gen1.getPLimit().getMax() == 45.0);
 		assertTrue(Gen1.getPLimit().getMin() == 15.0);
@@ -107,38 +106,33 @@ public class PSSEV30_ODMTest {
 		assertTrue(Gen1.getQLimit().getMin() == -35.0);
 		
 /*		
-      <bus id="Bus2" number="2" areaNumber="1" name="'UNO-230     '" offLine="false">
-        <ownerList>
-          <owner id="1"/>
-        </ownerList>
-        <baseVoltage value="230.0" unit="KV"/>
-        <loadflowData>
-          <voltage value="0.97352" unit="PU"/>
-          <angle value="-2.2818" unit="DEG"/>
-          <genData>
-            <equivGen code="NoneGen"/>
-          </genData>
-        </loadflowData>
-      </bus>
+            <aclfBus id="Bus2" areaNumber="1" zoneNumber="1" number="2" offLine="false" name="UNO-230     ">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.97352"/>
+                <angle unit="DEG" value="-2.2818"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData>
+                    <equivY im="0.0"/>
+                </shuntYData>
+            </aclfBus>
 */
 		bus = parser.getBus("Bus2");
-		assertTrue(bus.getLoadData().getEquivLoad() == null);
-		equivGen = bus.getGenData().getEquivGen().getValue();
-		assertTrue(equivGen.getCode() == LFGenCodeEnumType.NONE_GEN);
+		assertTrue(bus.getLoadData().getContributeLoad().size() == 0);
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.NONE_GEN);
 		
 /*
-  <aclfBus id="Bus5" areaNumber="1" zoneNumber="1" number="5" offLine="false" name="UNO-U2      ">
+            <aclfBus id="Bus5" areaNumber="1" zoneNumber="1" number="5" offLine="false" name="UNO-U2      ">
                 <ownerList id="1">
                     <ownership unit="PU" value="1.0"/>
                 </ownerList>
                 <baseVoltage unit="KV" value="13.8"/>
                 <voltage unit="PU" value="1.0"/>
                 <angle unit="DEG" value="-0.0047"/>
-                <genData>
-                    <equivGen code="PV">
-                        <power unit="MVA" re="0.0" im="0.0"/>
-                        <desiredVoltage unit="PU" value="1.0"/>
-                    </equivGen>
+                <genData code="PV">
                     <contributeGen id="1" offLine="false" name="Gen:1(5)">
                         <desc>PSSE Generator 1 at Bus 5</desc>
                         <ownerList id="1">
@@ -146,6 +140,7 @@ public class PSSEV30_ODMTest {
                         </ownerList>
                         <power unit="MVA" re="22.5" im="15.852"/>
                         <desiredVoltage unit="PU" value="1.0"/>
+                        <desiredAngle unit="RAD" value="0.0"/>
                         <qLimit unit="MVAR" max="35.0" min="-35.0"/>
                         <pLimit unit="MW" max="45.0" min="15.0"/>
                         <mvaBase unit="MVA" value="68.24"/>
@@ -154,14 +149,13 @@ public class PSSEV30_ODMTest {
                     </contributeGen>
                 </genData>
                 <loadData/>
-                <shuntYData/>
+                <shuntYData>
+                    <equivY im="0.0"/>
+                </shuntYData>
             </aclfBus>
 */
 		bus = parser.getBus("Bus5");
-		assertTrue(bus.getLoadData().getEquivLoad() == null);
-		assertTrue(bus.getLoadData().getContributeLoad().size() == 0);
-		equivGen = bus.getGenData().getEquivGen().getValue();
-		assertTrue(equivGen.getCode() == LFGenCodeEnumType.PV);
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.PV);
 		
 		Gen1= bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(Gen1.getPower().getRe() == 22.5);

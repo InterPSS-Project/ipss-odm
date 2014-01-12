@@ -34,6 +34,7 @@ import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter;
 import org.ieee.odm.adapter.opf.matpower.OpfMatpowerAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.opf.OpfModelParser;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.CostModelEnumType;
@@ -41,6 +42,8 @@ import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.OpfGenBusXmlType;
 import org.ieee.odm.schema.OpfGenOperatingModeEnumType;
@@ -84,8 +87,9 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(busRec.getBaseVoltage().getValue() == 10.0);
 		assertTrue(busRec.getVoltage().getValue() == 1.0);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(busRec.getLoadData().getEquivLoad() == null);
+		//LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+		assertTrue(busRec.getGenData().getCode() == LFGenCodeEnumType.SWING);
+		//assertTrue(busRec.getLoadData().getEquivLoad() == null);
 		assertTrue(busRec.getOperatingMode().equals(OpfGenOperatingModeEnumType.PV_GENERATOR));
 		assertTrue(busRec.getIncCost().getCostModel().equals(CostModelEnumType.PIECE_WISE_LINEAR_MODEL));
 		assertTrue(busRec.getIncCost().getPieceWiseLinearModel().getStairStep().get(0).getPrice().getValue()==10);
@@ -97,10 +101,11 @@ public class OPF_Matpower_ODMTest {
 		//   2 Bus 2     HV  1  1  2 1.045  -4.98     21.7     12.7     40.0    42.4   132.0  1.045    50.0   -40.0   0.0    0.0        0
 		LoadflowBusXmlType bus3 =  parser.getBus("Bus3");
 		//System.out.println(busRec);
-		assertTrue(bus3.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe()==150);		
-		assertTrue(bus3.getLoadData().getEquivLoad().getValue().getCode() == LFLoadCodeEnumType.CONST_P);		
-		assertTrue(bus3.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 0);
-		assertTrue(bus3.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus3.getLoadData());
+		assertTrue(defaultLoad.getConstPLoad().getRe()==150);		
+		assertTrue(defaultLoad.getCode() == LFLoadCodeEnumType.CONST_P);		
+		assertTrue(defaultLoad.getConstPLoad().getIm() == 0);
+		assertTrue(defaultLoad.getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 
 		
 		// Check Branch Data
@@ -150,7 +155,9 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(busRec.getBaseVoltage().getValue() == 10.0);
 		assertTrue(busRec.getVoltage().getValue() == 1.0);
 		assertTrue(busRec.getAngle().getValue() == 0.0);
-		assertTrue(busRec.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);		
+		
+		//LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+		assertTrue(busRec.getGenData().getCode() == LFGenCodeEnumType.SWING);		
 		assertTrue(busRec.getOperatingMode().equals(OpfGenOperatingModeEnumType.PV_GENERATOR));
 		assertTrue(busRec.getIncCost().getCostModel().equals(CostModelEnumType.QUADRATIC_MODEL));
 		assertTrue(busRec.getIncCost().getQuadraticModel().getSqrCoeff().getValue() == 0.00463);
@@ -159,8 +166,9 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(busRec.getConstraints().getActivePowerLimit().getMax() == 200);
 		assertTrue(busRec.getConstraints().getActivePowerLimit().getMin() == 20);
 		
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe()== 132.66);
-		assertTrue(busRec.getLoadData().getEquivLoad().getValue().getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(busRec.getLoadData());
+		assertTrue(defaultLoad.getConstPLoad().getRe()== 132.66);
+		assertTrue(defaultLoad.getConstPLoad().getUnit() == ApparentPowerUnitType.MVA);
 
 		
 		// Check Branch Data

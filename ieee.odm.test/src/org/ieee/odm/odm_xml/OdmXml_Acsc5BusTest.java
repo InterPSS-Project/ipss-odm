@@ -32,6 +32,7 @@ import java.io.FileInputStream;
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.model.acsc.AcscModelParser;
+import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LineShortCircuitXmlType;
@@ -57,18 +58,18 @@ public class OdmXml_Acsc5BusTest {
 		
 		for (JAXBElement<? extends BusXmlType> bus : parser.getNet().getBusList().getBus()) {
 			ShortCircuitBusXmlType scBus = (ShortCircuitBusXmlType)bus.getValue();
+			ShortCircuitGenDataXmlType defaultGen = AcscParserHelper.getDefaultScGen(scBus.getGenData());
 			
 			System.out.println("ScBus: " + scBus.getId() + ", ScCode: " + scBus.getScCode());
 			if (scBus.getId().equals("Bus1") || scBus.getId().equals("Bus2") || scBus.getId().equals("Bus3")) 
 				assertTrue(scBus.getScCode() == ShortCircuitBusEnumType.NON_CONTRIBUTING);
 			else if (scBus.getId().equals("Bus4") || scBus.getId().equals("Bus5")) {
 				assertTrue(scBus.getScCode() == ShortCircuitBusEnumType.CONTRIBUTING);
-				assertTrue(scBus.getGenData() != null && scBus.getGenData().getEquivGen() != null);
+				assertTrue(scBus.getGenData() != null && defaultGen != null);
 			}
 			
-			if (scBus.getGenData() != null && scBus.getGenData().getEquivGen() != null) {
-				ShortCircuitGenDataXmlType scGenData = (ShortCircuitGenDataXmlType)scBus.getGenData().getEquivGen().getValue();
-				System.out.println("   ScGenData: " + scGenData.getPotiveZ().getRe() + "+j" + scGenData.getPotiveZ().getIm());
+			if (scBus.getGenData() != null && defaultGen != null) {
+				System.out.println("   ScGenData: " + defaultGen.getPotiveZ().getRe() + "+j" + defaultGen.getPotiveZ().getIm());
 			}
 		}
 

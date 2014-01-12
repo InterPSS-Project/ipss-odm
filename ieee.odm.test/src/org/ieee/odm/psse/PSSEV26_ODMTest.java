@@ -33,10 +33,13 @@ import java.util.logging.Logger;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.psse.v26.PSSEV26Adapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.junit.Test;
@@ -66,9 +69,10 @@ public class PSSEV26_ODMTest {
         </bus>
       		 */
 		LoadflowBusXmlType bus = parser.getBus("Bus15021");
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue() == 1.07);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredAngle().getValue() == 3.1024);
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(defaultGen.getDesiredVoltage().getValue() == 1.07);
+		assertTrue(defaultGen.getDesiredAngle().getValue() == 3.1024);
 				
 		/*
         <baseVoltage value="115.0" unit="KV"/>
@@ -84,23 +88,25 @@ public class PSSEV26_ODMTest {
 		assertTrue(bus.getAngle().getValue() == -10.5533);			
 		
 		/*
-          <genData code="PV">
-            <equivGen>
-              <power re="8.52" im="2.51" unit="MVA"/>
-              <desiredVoltage value="1.0203" unit="PU"/>
-              <qLimit max="10.0" min="-6.0" unit="MVAR"/>
-            </equivGen>
-          </genData>
+                <genData code="PV">
+                    <contributeGen id="1" offLine="false">
+                        <power unit="MVA" re="8.52" im="2.51"/>
+                        <mvaBase unit="MVA" value="100.0"/>
+                        <sourceZ unit="PU" re="0.0" im="1.0"/>
+                        <xfrTap>1.0</xfrTap>
+                    </contributeGen>
+                </genData>
 		 */
 						
 		// gen bus
 		bus = parser.getBus("Bus31435");
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getPower().getRe() == 8.52);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getPower().getIm() == 2.51);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getDesiredVoltage().getValue() == 1.0203);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getQLimit().getMax() == 10.0);
-		assertTrue(bus.getGenData().getEquivGen().getValue().getQLimit().getMin() == -6.0);
+		defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(defaultGen.getPower().getRe() == 8.52);
+		assertTrue(defaultGen.getPower().getIm() == 2.51);
+		assertTrue(defaultGen.getDesiredVoltage().getValue() == 1.0203);
+		assertTrue(defaultGen.getQLimit().getMax() == 10.0);
+		assertTrue(defaultGen.getQLimit().getMin() == -6.0);
 
 		/*
           <loadData code="CONST_P">
@@ -110,9 +116,10 @@ public class PSSEV26_ODMTest {
           </loadData>
 		 */
 		bus = parser.getBus("Bus36016");
-		assertTrue(bus.getLoadData().getEquivLoad().getValue().getCode() == LFLoadCodeEnumType.CONST_P);
-		assertTrue(bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 6.5);
-		assertTrue(bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getIm() == 3.86);
+		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
+		assertTrue(defaultLoad.getCode() == LFLoadCodeEnumType.CONST_P);
+		assertTrue(defaultLoad.getConstPLoad().getRe() == 6.5);
+		assertTrue(defaultLoad.getConstPLoad().getIm() == 3.86);
 
 		/*
           <shuntQData>
@@ -124,26 +131,27 @@ public class PSSEV26_ODMTest {
 
 		// two loads on a bus, also, gen on the bus is turned off
 		/*
-      <bus id="No32252" number="32252" name="'APLHIL 1'" areaNumber="1" zoneNumber="1">
-        <loadflowData>
-          <genData code="OFF">
-            <equivGen/>
-            <contributeGenList>
-              <contributeGen id="' 1'" offLine="true">
-              </contributeGen>
-            </contributeGenList>
-          </genData>
-          <loadData code="CONST_P">
-            <equivLoad>
-              <constPLoad re="20.32" im="0.9199999999999999" unit="MVA"/>
-            </equivLoad>
-          </loadData>
-        </loadflowData>
-      </bus>
+                <loadData>
+                    <contributeLoad code="CONST_P" id="' 1'" areaNumber="1" zoneNumber="1" offLine="false">
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="12.82" im="0.58"/>
+                    </contributeLoad>
+                    <contributeLoad code="CONST_P" id="' 2'" areaNumber="1" zoneNumber="1" offLine="false">
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="7.5" im="0.34"/>
+                    </contributeLoad>
+                </loadData>
 		 */
 		bus = parser.getBus("Bus32252");
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
-		assertTrue(bus.getLoadData().getEquivLoad().getValue().getConstPLoad().getRe() == 20.32);
+		defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.PV);
+		defaultLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
+		assertTrue(bus.getLoadData().getContributeLoad().get(0).getValue().getConstPLoad().getRe() == 12.82);
+		assertTrue(bus.getLoadData().getContributeLoad().get(1).getValue().getConstPLoad().getRe() == 7.5);
 		
 		// bus turned off case
 /*
@@ -158,7 +166,7 @@ public class PSSEV26_ODMTest {
       </bus>
  */
 		bus = parser.getBus("Bus32252");
-		assertTrue(bus.getGenData().getEquivGen().getValue().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.PV);
 
 		// Branch info
 		// =========

@@ -247,9 +247,7 @@ public class BPABusRecord<
 				}	
 			}
 			else if(busType==pqBus){			
-				AclfDataSetter.setGenData(busRec,
-						LFGenCodeEnumType.NONE_GEN, 
-						1.0, VoltageUnitType.PU, 0.0, AngleUnitType.DEG);
+				AclfDataSetter.setGenData(busRec, LFGenCodeEnumType.NONE_GEN);
 				if(pGen!=0.0||qGenOrQGenMax!=0.0){
 					defaultGen.setCode(LFGenCodeEnumType.PQ);
 					defaultGen.setPower(BaseDataSetter.createPowerValue(

@@ -35,10 +35,12 @@ import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
+import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.ClassicMachineXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
+import org.ieee.odm.schema.DStabLoadDataXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq1Ed1MachineXmlType;
 import org.ieee.odm.schema.LineDStabXmlType;
@@ -131,8 +133,8 @@ public class BPADynamicSequenceRecord {
         	double factor = r0*r0+x0*x0;
         	//ScSimpleBusXmlType.ScShuntLoadData scsld =odmObjFactory.createScSimpleBusXmlTypeScShuntLoadData();
 
-        	((ShortCircuitLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue())
-        		.setShuntLoadZeroY(DStabDataSetter.createYValue(r0/factor, -x0/factor, YUnitType.PU));
+    		DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
+        	load.setShuntLoadZeroY(DStabDataSetter.createYValue(r0/factor, -x0/factor, YUnitType.PU));
 
         	//bus.setScShuntLoadData(scsld);
 	    }
@@ -296,13 +298,13 @@ public class BPADynamicSequenceRecord {
 			}
 			//negative sequence load data 
 			if(bus.getLoadData()!=null){
-				if(bus.getLoadData().getEquivLoad()!=null){
+				DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
+				if(load!=null){
 					//TODO 这里将负荷负序导纳等效成对地支路负序阻抗，但节点本身的并联接地支路的负序参数呢？
 					//hard coded values
 					//ScSimpleBusXmlType.ScShuntLoadData scsld = odmObjFactory.createScSimpleBusXmlTypeScShuntLoadData();
 
-					((ShortCircuitLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue())
-							.setShuntLoadNegativeY(DStabDataSetter.createYValue(0.19, 0.36, YUnitType.PU));
+					load.setShuntLoadNegativeY(DStabDataSetter.createYValue(0.19, 0.36, YUnitType.PU));
 			        //bus.setScShuntLoadData(scsld);
 				}
 			}

@@ -41,7 +41,14 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V30
+		/* Format V26
+		 * 
+0,100.0
+  20090212163844,CASE:110408-EMSDB:DB38,CASE:081908-EMSDB:DB36, 10
+VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
+		 * 
+		 * 
+		 * Format V30
 		 * 
 		 * 	 String[0] indicator
 	     *   String[1] baseKav
@@ -81,26 +88,36 @@ public class PSSEHeaderDataParser extends BasePSSEDataParser {
 		String lineStr2 = lineAry[1];
 		String lineStr3 = lineAry[2];
 		
-		StringTokenizer st = new StringTokenizer(lineStr, ",");
-		
-		String ind = st.nextToken();  			   
-		int indicator = new Integer(ind).intValue();
-		if (indicator !=0){
-			throw new ODMException("Error: Only base case can be process");
-		}
-		setValue(0, ind);
-
-		setValue(1, st.nextToken().trim());  			   
-		setValue(2, st.nextToken().trim());   // version  			   
-		setValue(3, st.nextToken().trim());  			   
-		setValue(4, st.nextToken().trim());     			   
-		
-		if (lineStr2!= null){
+		if (this.version == PsseVersion.PSSE_26) {
+			StringTokenizer st = new StringTokenizer(lineStr, ",");
+			setValue(0, st.nextToken());
+			setValue(1, st.nextToken().trim()); 
+			setValue(2, "VER 26");
 			setValue(6, lineStr2);
+			setValue(7, lineStr3);			
 		}
-		
-		if (lineStr3!= null){
-			setValue(7, lineStr3);
+		else {
+			StringTokenizer st = new StringTokenizer(lineStr, ",");
+			
+			String ind = st.nextToken();  			   
+			int indicator = new Integer(ind).intValue();
+			if (indicator !=0){
+				throw new ODMException("Error: Only base case can be process");
+			}
+			setValue(0, ind);
+
+			setValue(1, st.nextToken().trim());  			   
+			setValue(2, st.nextToken().trim());   // version  			   
+			setValue(3, st.nextToken().trim());  			   
+			setValue(4, st.nextToken().trim());     			   
+			
+			if (lineStr2!= null){
+				setValue(6, lineStr2);
+			}
+			
+			if (lineStr3!= null){
+				setValue(7, lineStr3);
+			}			
 		}
   	}
 }

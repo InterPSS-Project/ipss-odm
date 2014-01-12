@@ -33,7 +33,9 @@ import java.util.logging.Logger;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.pwd.PowerWorldAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.LFGenCodeEnumType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.junit.Test;
 
 public class PWD_IEEE14Bus_ODMTest { 
@@ -50,10 +52,8 @@ public class PWD_IEEE14Bus_ODMTest {
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//System.out.println(parser.toXmlDoc());
 		
-		assertTrue(parser.getBus("Bus1").getGenData().getEquivGen().getValue().getCode()
-				==LFGenCodeEnumType.SWING);
-		assertTrue(parser.getBus("Bus2").getGenData().getEquivGen().getValue().getCode()
-				==LFGenCodeEnumType.PV);
+		assertTrue(parser.getBus("Bus1").getGenData().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(parser.getBus("Bus2").getGenData().getCode() == LFGenCodeEnumType.PV);
 	}
 
 	//@Test
@@ -69,10 +69,10 @@ public class PWD_IEEE14Bus_ODMTest {
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//System.out.println(parser.toXmlDoc());
 		
-		assertTrue(parser.getBus("Bus1").getGenData().getEquivGen().getValue().getCode()
-				==LFGenCodeEnumType.SWING);
-		assertTrue(parser.getBus("Bus2").getGenData().getEquivGen().getValue().getCode()
-				==LFGenCodeEnumType.PV);
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus1").getGenData());
+		assertTrue(defaultGen.getCode() ==LFGenCodeEnumType.SWING);
+		defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus2").getGenData());
+		assertTrue(defaultGen.getCode()	== LFGenCodeEnumType.PV);
 	}
 }
 

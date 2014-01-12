@@ -35,6 +35,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
+import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabLoadDataXmlType;
@@ -126,6 +127,8 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 		loadModel.setIEEEStaticLoad(ieeeStaLoad); 
 		
 		// The following processing sequence is arranged according to their priorities.
+
+		//DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
 		
 		//area name
 		String areaName="";
@@ -133,10 +136,10 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 			areaName=strAry[4];
 			for(JAXBElement<? extends BusXmlType> busElem:parser.getDStabNet().getBusList().getBus()){
 				bus=(DStabBusXmlType)busElem.getValue();
+				DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
 				// assume the zone id is the same as bus.zoneName
 				if(areaName.equals(bus.getAreaName())){
-					if(bus.getLoadData().getEquivLoad()!=null){
-						DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue();
+					if(load!=null){
 						load.setLocation(LoadCharacteristicLocationEnumType.AT_AREA);
 						load.setLoadModel(loadModel);
 					}
@@ -150,10 +153,10 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 			zoneName=strAry[3];
 			for(JAXBElement<? extends BusXmlType> busElem:parser.getDStabNet().getBusList().getBus()){
 				bus=(DStabBusXmlType)busElem.getValue();
+				DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
 				// assume the zone id is the same as bus.zoneName
 				if(zoneName.equals(bus.getZoneName())){
-					if(bus.getLoadData().getEquivLoad()!=null){
-						DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue();
+					if(load!=null){
 					   load.setLocation(LoadCharacteristicLocationEnumType.AT_ZONE);
 					   load.setLoadModel(loadModel);
 					}
@@ -173,11 +176,11 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 				e.printStackTrace();
 			}
 			bus = parser.getDStabBus(BusId);
-			if (bus !=null) {
-			 DStabLoadDataXmlType load = (DStabLoadDataXmlType)bus.getLoadData().getEquivLoad().getValue();
-		     load.setLocation(LoadCharacteristicLocationEnumType.AT_BUS);
-		     load.setLoadModel(loadModel);
-		}
+			DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
+			if (load !=null) {
+				load.setLocation(LoadCharacteristicLocationEnumType.AT_BUS);
+				load.setLoadModel(loadModel);
+			}
 			else throw new ODMException("Bus not found for Load Char rec: " + str);
 		
 		}

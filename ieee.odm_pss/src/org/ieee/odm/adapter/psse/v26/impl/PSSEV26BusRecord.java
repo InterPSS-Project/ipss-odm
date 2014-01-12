@@ -113,14 +113,14 @@ public class PSSEV26BusRecord {
 			IDE = 1 by default.
 		*/			
 		final int IDE = busDataParser.getInt("IDE", 1);
-		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
 		if (IDE ==3){//Swing bus
 			/*
 			busRec.setGenData(OdmObjFactory.createBusGenDataXmlType());
 			LoadflowGenDataXmlType equivGen = OdmObjFactory.createLoadflowGenDataXmlType(); 
 			busRec.getGenData().setEquivGen(OdmObjFactory.createEquivGen(equivGen));
 			*/
-			defaultGen.setCode(LFGenCodeEnumType.SWING);
+			busRec.getGenData().setCode(LFGenCodeEnumType.SWING);
+			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
 			defaultGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
 			defaultGen.setDesiredAngle(BaseDataSetter.createAngleValue(angDeg, AngleUnitType.DEG));
 		}
@@ -130,7 +130,7 @@ public class PSSEV26BusRecord {
 			busRec.setGenData(OdmObjFactory.createBusGenDataXmlType());
 			busRec.getGenData().setEquivGen(OdmObjFactory.createEquivGen(OdmObjFactory.createLoadflowGenDataXmlType()));
 			*/
-			defaultGen.setCode(LFGenCodeEnumType.PV);
+			busRec.getGenData().setCode(LFGenCodeEnumType.PV);
 		} else if (IDE==4){// Isolated bus
 			// should be no gen and load defined
 			busRec.setOffLine(true);
@@ -219,20 +219,11 @@ public class PSSEV26BusRecord {
 	    if (CYloadMw!=0.0 || CYloadMvar!=0.0)
 	    	contribLoad.setConstZLoad(BaseDataSetter.createPowerValue(
 	    			CYloadMw, CYloadMvar, ApparentPowerUnitType.MVA));
-	    /*
-	    // processing equiv load data
-	    loadData.getEquivLoad().getValue().setCode(LFLoadCodeEnumType.CONST_P);
-	    LoadflowLoadDataXmlType load = loadData.getEquivLoad().getValue();
-	    if (load == null) {
-	    	load = OdmObjFactory.createLoadflowLoadDataXmlType();
-	    	load.setConstPLoad(OdmObjFactory.createPowerXmlType());
-	    }
-	    if(load.getConstPLoad() == null)
-	    	load.setConstPLoad(OdmObjFactory.createPowerXmlType());
-	    double tp = CPloadMw + CIloadMw + CYloadMw + load.getConstPLoad().getRe();
-	    double tq = CQloadMvar + CIloadMvar + CYloadMvar  + load.getConstPLoad().getIm();;
-	    load.setConstPLoad(BaseDataSetter.createPowerValue(tp, tq, ApparentPowerUnitType.MVA));
-	    */
+
+	    contribLoad.setCode(LFLoadCodeEnumType.CONST_P);
+	    //double tp = CPloadMw + CIloadMw + CYloadMw + load.getConstPLoad().getRe();
+	    //double tq = CQloadMvar + CIloadMvar + CYloadMvar  + load.getConstPLoad().getIm();;
+	    //contribLoad.setConstPLoad(BaseDataSetter.createPowerValue(tp, tq, ApparentPowerUnitType.MVA));
 	}
 	
 	public void processGenData(final String str,final AclfModelParser parser) throws ODMException {
@@ -302,30 +293,17 @@ public class PSSEV26BusRecord {
 				genDataParser.getString("O3"), genDataParser.getDouble("F3", 0.0), 
 				genDataParser.getString("O4"), genDataParser.getDouble("F4", 0.0));
 
-		/*
-		// processing Equiv Gen Data
-		if (!contriGen.isOffLine()) {
-			// power may exist already
-			if (equivGen.getPower() != null) {
-				genMw += equivGen.getPower().getRe();
-				genMvar += equivGen.getPower().getIm();
-			}
-			equivGen.setPower(BaseDataSetter.createPowerValue(genMw, genMvar, ApparentPowerUnitType.MVA));
 
-			final double vSpecPu = genDataParser.getDouble("VS", 1.0);
-			if (genData.getEquivGen().getValue().getCode() == LFGenCodeEnumType.SWING) {
-				equivGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));
-			}
-			else {
-				// qmax, gmin in Mvar. there may exist already
-				double max = genDataParser.getDouble("QT", 0.0);
-				double min = genDataParser.getDouble("QB", 0.0);
-				if (equivGen.getQLimit() != null) {
-					max += equivGen.getQLimit().getMax();
-					min += equivGen.getQLimit().getMin();
-				}
-				equivGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));
-				equivGen.setQLimit(BaseDataSetter.createReactivePowerLimit(max, min, ReactivePowerUnitType.MVAR));
+		final double vSpecPu = genDataParser.getDouble("VS", 1.0);
+		if (genData.getCode() == LFGenCodeEnumType.SWING) {
+			contriGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));
+		}
+		else {
+			// qmax, gmin in Mvar. there may exist already
+			double max = genDataParser.getDouble("QT", 0.0);
+			double min = genDataParser.getDouble("QB", 0.0);
+			contriGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vSpecPu, VoltageUnitType.PU));
+			contriGen.setQLimit(BaseDataSetter.createReactivePowerLimit(max, min, ReactivePowerUnitType.MVAR));
 
 				// Desired volts (pu) (This is desired remote voltage if this bus is controlling another bus.)
 				/*  IREG  
@@ -334,15 +312,8 @@ public class PSSEV26BusRecord {
 					final String reBusId = IODMModelParser.BusIdPreFix+genDataParser.getString("IREG");
 					equivGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
 				}
-			}
+				*/
 		}
-//		else {  there might be multiple gen on a bus
-//			if (genData.getEquivGen() == null)
-//				genData.setEquivGen(odmObjFactory.createLoadflowGenDataXmlType());
-//			genData.getEquivGen().setCode(LFGenCodeEnumType.OFF);
-//		}
- * 
- */
 		
 		//System.out.println(busRec.toString());
     }
