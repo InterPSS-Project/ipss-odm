@@ -41,6 +41,7 @@ public class PSSEV30_IEEE39_Acsc_Test {
 		//generator sequence data @bus 30
 		//ZPOS = ZNeg = ZZero =2.24000E-01
 		
+		
 		ShortCircuitBusXmlType bus30 = acscParser.getBus("Bus30");
 		ShortCircuitGenDataXmlType scGen = (ShortCircuitGenDataXmlType) bus30.getGenData().getContributeGen().get(0).getValue();
 		assertTrue( scGen.getPotiveZ().getIm()== 2.24000E-01);

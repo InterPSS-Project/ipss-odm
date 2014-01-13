@@ -99,12 +99,12 @@ public class BaseAcscModelParser<
 	protected void initAcscBus(ShortCircuitBusXmlType busRec) {
 		initAclfBus(busRec);
 		// for those non-Gen or non-Load data, equivGen or equivLoad is not required
-		
-   		ShortCircuitGenDataXmlType defaultGen = OdmObjFactory.createShortCircuitGenDataXmlType();
-   		busRec.getGenData().getContributeGen().add(OdmObjFactory.createAcscContributeGen(defaultGen));		
+		//TODO no defaultGen for AcscBus 
+   		//ShortCircuitGenDataXmlType defaultGen = OdmObjFactory.createShortCircuitGenDataXmlType();
+   		//busRec.getGenData().getContributeGen().add(OdmObjFactory.createAcscContributeGen(defaultGen));		
 
-   		ShortCircuitLoadDataXmlType defaulLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
-   		busRec.getLoadData().getContributeLoad().add(OdmObjFactory.createAcscContributeLoad(defaulLoad));
+   		//ShortCircuitLoadDataXmlType defaulLoad = OdmObjFactory.createShortCircuitLoadDataXmlType();
+   		//busRec.getLoadData().getContributeLoad().add(OdmObjFactory.createAcscContributeLoad(defaulLoad));
    		
    		//SC code, use to indicate contribution to SC analysis
    		busRec.setScCode(ShortCircuitBusEnumType.NON_CONTRIBUTING);

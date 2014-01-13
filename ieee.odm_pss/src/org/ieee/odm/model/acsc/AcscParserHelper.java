@@ -87,8 +87,12 @@ public class AcscParserHelper extends AclfParserHelper {
 	public static ShortCircuitGenDataXmlType getAcscContritueGen(ShortCircuitBusXmlType acscBus, String genId) throws ODMException {
 		for (JAXBElement<? extends LoadflowGenDataXmlType> elem : acscBus.getGenData().getContributeGen()) {
 			ShortCircuitGenDataXmlType scGenData = (ShortCircuitGenDataXmlType)elem.getValue();
-			if (scGenData.getId().equals(genId))
-				return scGenData;
+			if(scGenData.getId()!=null){
+			   if (scGenData.getId().equals(genId))
+				   return scGenData;
+			}
+			else
+				throw new ODMException("The ID of one existing Generator is NULL for bus#"+acscBus.getId());
 		}
     	throw new ODMException("Generator not found, ID: " + genId + "@Bus:" + acscBus.getId());
 	}

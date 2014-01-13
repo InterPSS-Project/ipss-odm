@@ -121,10 +121,10 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	 */
 	 DStabBusXmlType bus1 = dstabParser.getDStabBus("Bus1");
 	 DStabGenDataXmlType defaultGen = DStabParserHelper.getDefaultGen(bus1.getGenData());
-	 DStabLoadDataXmlType defaultLoad = DStabParserHelper.getDefaultLoad(bus1.getLoadData());
+	 //DStabLoadDataXmlType defaultLoad = DStabParserHelper.getDefaultLoad(bus1.getLoadData());
 	 
 	 assertTrue(bus1.getGenData().getCode()==LFGenCodeEnumType.SWING);
-	 assertTrue(defaultLoad.getCode()==LFLoadCodeEnumType.NONE_LOAD);
+	 //assertTrue(defaultLoad.getCode()==LFLoadCodeEnumType.NONE_LOAD);
 	 
 	assertTrue(defaultGen.getDesiredVoltage().getValue()==1.04);
 	assertTrue(defaultGen.getPotiveZ().getIm()==0.04);

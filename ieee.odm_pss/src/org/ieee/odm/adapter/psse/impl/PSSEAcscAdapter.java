@@ -280,8 +280,8 @@ public class PSSEAcscAdapter <
   			e.printStackTrace();
     		throw new ODMException("PSSE data input error, line no " + lineNo + ", " + e.toString());
   		}
-  		
-		AcscParserHelper.createBusScEquivData(parser);		
+  		//TODO no SC Equiv data
+		//AcscParserHelper.createBusScEquivData(parser);		
 		
 		return parser;
 		
