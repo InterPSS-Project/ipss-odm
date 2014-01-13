@@ -249,7 +249,7 @@ public class BPABusRecord<
 			else if(busType==pqBus){			
 				AclfDataSetter.setGenData(busRec, LFGenCodeEnumType.NONE_GEN);
 				if(pGen!=0.0||qGenOrQGenMax!=0.0){
-					defaultGen.setCode(LFGenCodeEnumType.PQ);
+					busRec.getGenData().setCode(LFGenCodeEnumType.PQ);
 					defaultGen.setPower(BaseDataSetter.createPowerValue(
 							pGen, qGenOrQGenMax, ApparentPowerUnitType.MVA));
 			    // for a PQ Bus, it is not proper to set the Vlimit;

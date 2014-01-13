@@ -75,29 +75,29 @@ public class AclfModelComparator {
 		if (base.getGenData() != null && bus.getGenData() != null) {
 			LoadflowGenDataXmlType baseGen = AclfParserHelper.getDefaultGen(base.getGenData());
 			LoadflowGenDataXmlType busGen = AclfParserHelper.getDefaultGen(bus.getGenData());		
-			if (baseGen.getCode() != busGen.getCode())
+			if (base.getGenData().getCode() != bus.getGenData().getCode())
 				msgList.add("\nBus EquivGen code not equal: " + id + ", " + 
-					baseGen.getCode() + baseStr + 
-					"  " + busGen.getCode() + format);
-			if (baseGen.getCode() == LFGenCodeEnumType.PV) {
+						base.getGenData().getCode() + baseStr + 
+					"  " + bus.getGenData().getCode() + format);
+			if (base.getGenData().getCode() == LFGenCodeEnumType.PV) {
 				if (!NumericUtil.equals(baseGen.getPower().getRe(), busGen.getPower().getRe()))
-					msgList.add("\nBus EquivGen power not equal: " + id + " " + baseGen.getCode() 
+					msgList.add("\nBus EquivGen power not equal: " + id + " " + base.getGenData().getCode() 
 							+ "   " + BaseJaxbHelper.toStr(baseGen.getPower()) + baseStr
 							+ "   " + BaseJaxbHelper.toStr(busGen.getPower()) + format);
 				if (!ODMNumericUtil.equals(baseGen.getDesiredVoltage(), busGen.getDesiredVoltage()))
-					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + baseGen.getCode() 
+					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + base.getGenData().getCode() 
 							+ "   " + BaseJaxbHelper.toStr(baseGen.getDesiredVoltage()) + baseStr
 							+ "   " + BaseJaxbHelper.toStr(busGen.getDesiredVoltage()) + format);
 			}
-			else if (baseGen.getCode() == LFGenCodeEnumType.PQ) {
+			else if (base.getGenData().getCode() == LFGenCodeEnumType.PQ) {
 				if (!ODMNumericUtil.equals(baseGen.getPower(), busGen.getPower()))
-					msgList.add("\nBus EquivGen power not equal: " + id + " " + baseGen.getCode()
+					msgList.add("\nBus EquivGen power not equal: " + id + " " + base.getGenData().getCode()
 							+ "   " + BaseJaxbHelper.toStr(baseGen.getPower()) + baseStr
 							+ "   " + BaseJaxbHelper.toStr(busGen.getPower()) + format);
 			}
-			else if (baseGen.getCode() == LFGenCodeEnumType.SWING) {
+			else if (base.getGenData().getCode() == LFGenCodeEnumType.SWING) {
 				if (!ODMNumericUtil.equals(baseGen.getDesiredVoltage(), busGen.getDesiredVoltage()))
-					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + baseGen.getCode()
+					msgList.add("\nBus EquivGen desiredVoltage not equal: " + id + " " + base.getGenData().getCode()
 							+ "   " + BaseJaxbHelper.toStr(baseGen.getDesiredVoltage()) + baseStr
 							+ "   " + BaseJaxbHelper.toStr(busGen.getDesiredVoltage()) + format);
 			}
@@ -105,10 +105,10 @@ public class AclfModelComparator {
 		else if (base.getGenData() == null && bus.getGenData() != null) {
 			LoadflowGenDataXmlType baseGen = AclfParserHelper.getDefaultGen(base.getGenData());
 			LoadflowGenDataXmlType busGen = AclfParserHelper.getDefaultGen(bus.getGenData());		
-			if ( busGen.getCode() != LFGenCodeEnumType.NONE_GEN || baseGen.getCode() != LFGenCodeEnumType.NONE_GEN) {
+			if ( bus.getGenData().getCode() != LFGenCodeEnumType.NONE_GEN || base.getGenData().getCode() != LFGenCodeEnumType.NONE_GEN) {
 				msgList.add("\nBus EquivGen model not equal: " + id + ", " + 
-						baseGen.getCode() + baseStr + 
-						"  " + busGen.getCode() + format);
+						base.getGenData().getCode() + baseStr + 
+						"  " + bus.getGenData().getCode() + format);
 			}		
 		}
 /*

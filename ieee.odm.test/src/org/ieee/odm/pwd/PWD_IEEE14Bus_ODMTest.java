@@ -69,10 +69,10 @@ public class PWD_IEEE14Bus_ODMTest {
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//System.out.println(parser.toXmlDoc());
 		
-		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus1").getGenData());
-		assertTrue(defaultGen.getCode() ==LFGenCodeEnumType.SWING);
-		defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus2").getGenData());
-		assertTrue(defaultGen.getCode()	== LFGenCodeEnumType.PV);
+		//LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus1").getGenData());
+		assertTrue(parser.getBus("Bus1").getGenData().getCode() ==LFGenCodeEnumType.SWING);
+		//defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus2").getGenData());
+		assertTrue(parser.getBus("Bus2").getGenData().getCode()	== LFGenCodeEnumType.PV);
 	}
 }
 

@@ -322,8 +322,6 @@
 					<ns:element minOccurs="0" name="mvarVControlParticipateFactor" type="ns:double"/>
 					<ns:element minOccurs="0" name="mwControlParticipateFactor" type="ns:double"/>
 				</ns:sequence>
-				<ns:attribute name="code" type="pss:LFGenCodeEnumType" use="optional">
-				</ns:attribute>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>

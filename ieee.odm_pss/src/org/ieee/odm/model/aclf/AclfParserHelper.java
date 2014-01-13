@@ -162,7 +162,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
 			BusGenDataXmlType genData = busRec.getGenData();
-			LoadflowGenDataXmlType defuultGen = getDefaultGen(genData);
+			LoadflowGenDataXmlType defaultGen = getDefaultGen(genData);
 			if (genData != null) {
 				if ( genData.getContributeGen().size() > 0) {
 					LoadflowGenDataXmlType equivGen = getDefaultGen(genData);
@@ -210,10 +210,10 @@ public class AclfParserHelper extends BaseJaxbHelper {
 						}
 					}
 					
-					if (offLine && defuultGen.getCode() != LFGenCodeEnumType.SWING)
+					if (offLine && genData.getCode() != LFGenCodeEnumType.SWING)
 						// generator on a swing bus might turned off
-						defuultGen.setCode(LFGenCodeEnumType.OFF);
-					else if (defuultGen.getCode() == LFGenCodeEnumType.PV) {
+						genData.setCode(LFGenCodeEnumType.OFF);
+					else if (genData.getCode() == LFGenCodeEnumType.PV) {
 						equivGen.setPower(BaseDataSetter.createPowerValue(pgen, qgen, ApparentPowerUnitType.MVA));
 						if (qmax != 0.0 || qmin != 0.0) {
 							equivGen.setQLimit(BaseDataSetter.createReactivePowerLimit(qmax, qmin, ReactivePowerUnitType.MVAR));
@@ -223,7 +223,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 						}
 						else {
 							// this is the case when the generator is turn-off
-							defuultGen.setCode(LFGenCodeEnumType.PQ);
+							genData.setCode(LFGenCodeEnumType.PQ);
 						}
 					}	
 					else {  // PQ bus	
@@ -234,18 +234,18 @@ public class AclfParserHelper extends BaseJaxbHelper {
 					}
 					
 					if (remoteBusId != null && !remoteBusId.equals(busRec.getId()) && 
-							defuultGen.getCode() == LFGenCodeEnumType.PV){
+							genData.getCode() == LFGenCodeEnumType.PV){
 						// Remote Q  Bus control, we need to change this bus to a GPQ bus so that its Q could be adjusted
-						defuultGen.setRemoteVoltageControlBus(
+						defaultGen.setRemoteVoltageControlBus(
 								((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).createBusRef(remoteBusId));
 					}
 				}
 				else {
-					defuultGen.setCode(LFGenCodeEnumType.NONE_GEN);
-					if (defuultGen.getPower() != null)
-						defuultGen.setPower(null);
-					if (defuultGen.getVoltageLimit() != null)
-						defuultGen.setVoltageLimit(null);
+					genData.setCode(LFGenCodeEnumType.NONE_GEN);
+					if (defaultGen.getPower() != null)
+						defaultGen.setPower(null);
+					if (defaultGen.getVoltageLimit() != null)
+						defaultGen.setVoltageLimit(null);
 				}
 			}
 		}
