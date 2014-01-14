@@ -66,7 +66,7 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(adapter.parseInputFile("testdata/matpower/case3bus.m"));
 		
 		OpfModelParser parser = (OpfModelParser)adapter.getModel();
-		System.out.println(parser.toXmlDoc("out/matpower/case3bus.xml"));
+		//System.out.println(parser.toXmlDoc("out/matpower/case3bus.xml"));
 		
 		//LoadflowNetXmlType baseCaseNet = parser.getAclfNet();
 		OpfNetworkXmlType net = parser.getOpfNetwork();
@@ -134,7 +134,7 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(adapter.parseInputFile("testdata/matpower/case3bus_qp.m"));
 		
 		OpfModelParser parser = (OpfModelParser)adapter.getModel();
-		System.out.println(parser.toXmlDoc("out/matpower/case3bus_qp.xml"));
+		//System.out.println(parser.toXmlDoc("out/matpower/case3bus_qp.xml"));
 		
 		LoadflowNetXmlType baseCaseNet = parser.getNet();
 		OpfNetworkXmlType net = parser.getOpfNetwork();
