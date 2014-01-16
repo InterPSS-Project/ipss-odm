@@ -88,6 +88,27 @@ public class BaseInputLineStringParser {
 	public void setValue(int position, String value) {
 		this.fieldTable.put(this.positionTable.get(position), value);
 	}
+
+	/**
+	 * set values according to its array position
+	 * 
+	 * @param values
+	 */
+	public void setValue(String[] values) {
+		int pos = 0;
+		for (String s : values)
+			this.fieldTable.put(this.positionTable.get(pos++), s);
+	}
+	
+	/**
+	 * set value to the key
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void setValue(String key, String value) {
+		this.fieldTable.put(key, value);
+	}
 	
 	/**
 	 * clear the name-value pair table 
@@ -113,6 +134,18 @@ public class BaseInputLineStringParser {
 	 */
 	public boolean exist(String key) {
 		return this.fieldTable.get(key) != null;
+	}
+	
+	/**
+	 * Get field by position
+	 * 
+	 * @param pos get data field position
+	 * @return the data field
+	 * @throws ODMException throw exception if the field does not exist
+	 */
+	public String getValue(int pos) {
+		String field = this.fieldTable.get(this.positionTable.get(pos));
+		return field;
 	}
 	
 	/**
