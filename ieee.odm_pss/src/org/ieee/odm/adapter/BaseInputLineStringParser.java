@@ -88,6 +88,27 @@ public class BaseInputLineStringParser {
 	public void setValue(int position, String value) {
 		this.fieldTable.put(this.positionTable.get(position), value);
 	}
+
+	/**
+	 * set values according to its array position
+	 * 
+	 * @param values
+	 */
+	public void setValue(String[] values) {
+		int pos = 0;
+		for (String s : values)
+			this.fieldTable.put(this.positionTable.get(pos++), s);
+	}
+	
+	/**
+	 * set value to the key
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void setValue(String key, String value) {
+		this.fieldTable.put(key, value);
+	}
 	
 	/**
 	 * clear the name-value pair table 
