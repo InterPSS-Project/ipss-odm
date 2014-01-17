@@ -135,6 +135,7 @@
 						</ns:complexType>
 					</ns:element>
 					<ns:element minOccurs="0" name="xfrZTable" type="pss:XformerZTableXmlType"/>
+					<ns:element minOccurs="0" name="busVLimit" type="pss:VoltageLimitXmlType"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -257,7 +258,8 @@
 						</ns:documentation></ns:annotation>
 					</ns:element>
                     <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType" />
-                    <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>				</ns:sequence>
+                    <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="vLimit" type="pss:VoltageLimitXmlType"/>
+				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
