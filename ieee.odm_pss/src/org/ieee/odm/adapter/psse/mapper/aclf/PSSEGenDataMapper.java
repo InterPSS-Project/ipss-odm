@@ -40,6 +40,7 @@ import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
+import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
@@ -142,6 +143,16 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	    double qt = dataParser.getDouble("QT", 0.0);
 	    double qb = dataParser.getDouble("QB", 0.0);
 	    contriGen.setQLimit(BaseDataSetter.createReactivePowerLimit(qt, qb, ReactivePowerUnitType.MVAR));
+	    /*
+	     * for bus type 2, it is set as PV bus by default. If Qmax = QMin, it is set to PQ bus
+	     */
+	    LoadflowBusXmlType aclfBusXml = (LoadflowBusXmlType)busRecXml;
+	    if (aclfBusXml.getGenData().getCode() == LFGenCodeEnumType.PV && !contriGen.isOffLine()) {
+	    	if (qt == qb) {
+	    		aclfBusXml.getGenData().setCode(LFGenCodeEnumType.PQ);
+	    	}
+	    }
+	    
 		/*
 		 * Bus number, or extended bus name enclosed in single quotes, of a remote Type 1 or 2 bus for which voltage 
 		 * is to be regulated by this plant to the value specified by VS. If bus IREG is other than a Type 1 or 2 bus, 
