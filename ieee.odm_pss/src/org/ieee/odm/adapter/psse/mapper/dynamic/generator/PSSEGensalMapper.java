@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.generator.PSSEGensalDataParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -43,7 +44,7 @@ public class PSSEGensalMapper extends BasePSSEDataMapper{
 	    String genId = dataParser.getString("MachId");
 	    
 	    //check model type
-	    //GENROU and GENROE data format are the same
+	    //GENSAL and GENSAE data format are the same
 	    if(!(dataParser.getString("Type").equals("GENSAL")||
 	    		dataParser.getString("Type").equals("GENSAE"))){
 	    	throw new ODMException("machine  : Id"+
@@ -56,6 +57,8 @@ public class PSSEGensalMapper extends BasePSSEDataMapper{
 	    
 	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
 	   
+	   if(dstabGenData!=null){
+		   
 	   Eq11MachineXmlType mach = DStabParserHelper.createEq11Machine(dstabGenData);
 	   
 	   double Td1 = dataParser.getDouble("T'do");
@@ -102,6 +105,11 @@ public class PSSEGensalMapper extends BasePSSEDataMapper{
 	   s1.setSe100(s100); 
 	   s1.setSe120(s120);
 	   mach.setSeFmt1(s1);
+	   
+	   }
+	   else{
+		   ODMLogger.getLogger().severe("Machine # "+genId +" is not found in Bus #"+busId);
+	   }
 	   
 	   
 	}

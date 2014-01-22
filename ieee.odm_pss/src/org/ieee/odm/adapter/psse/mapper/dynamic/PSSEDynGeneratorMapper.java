@@ -31,6 +31,10 @@ public class PSSEDynGeneratorMapper extends BasePSSEDataMapper{
 		else if(type.equalsIgnoreCase("GENSAL")){
 			machGensalMapper.procLineString(lineStr, parser);
 		}
+		//GENSAE data is same as the GENSAL
+		else if(type.equalsIgnoreCase("GENSAE")){
+			machGensalMapper.procLineString(lineStr, parser);
+		}
 		else{
 			throw new ODMException("The input Generator dynamic model type #"+ type+" is not supporged yet!");
 		}

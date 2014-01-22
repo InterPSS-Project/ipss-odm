@@ -29,6 +29,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
@@ -135,10 +136,12 @@ public class DStabParserHelper extends AcscParserHelper {
 	public static DStabGenDataXmlType getDStabContritueGen(DStabBusXmlType dstabBus, String genId) throws ODMException {
 		for (JAXBElement<? extends LoadflowGenDataXmlType> elem : dstabBus.getGenData().getContributeGen()) {
 			DStabGenDataXmlType dstabGenData = (DStabGenDataXmlType)elem.getValue();
-			if (dstabGenData.getId().equals(genId))
+			if (dstabGenData.getId().equalsIgnoreCase(genId)) // change to NOT Case sensitive
 				return dstabGenData;
 		}
-    	throw new ODMException("Generator not found, ID: " + genId + "@Bus:" + dstabBus.getId());
+		//TODO wecc system has gens without machine
+    	ODMLogger.getLogger().severe("Generator not found, ID: " + genId + "@Bus:" + dstabBus.getId());
+    	return null;
 	}
 	
 	/**

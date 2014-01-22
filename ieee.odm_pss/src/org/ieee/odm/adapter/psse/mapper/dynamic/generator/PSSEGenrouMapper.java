@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.generator.PSSEGenrouDataParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -21,11 +22,11 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	}
 	
 	/*
-	 * Xd, Xq, X’d, X’q, X"d, X"q, Xl, H, and D are in pu, 
+	 * Xd, Xq, X'd, X'q, X"d, X"q, Xl, H, and D are in pu, 
        machine MVA base. 
        X"qmust be equal to X"d.
        
-       IBUS, ’GENROU’, I, T’do, T"do, T"qo, T"qo, H, D, Xd, Xq, X’d, X’q, X"d, Xl, S(1.0), S(1.2)/
+       IBUS, modelType, T'do, T"do, T"qo, T"qo, H, D, Xd, Xq, X'd, X'q, X"d, Xl, S(1.0), S(1.2)/
 	 */
 	
 	public void procLineString(String lineStr, DStabModelParser parser) throws ODMException {
@@ -60,6 +61,7 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	    
 	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
 	   
+	   if(dstabGenData!=null){
 	   Eq11Ed11MachineXmlType mach = DStabParserHelper.createEq11Ed11Machine(dstabGenData);
 	   
 	   double Td1 = dataParser.getDouble("T'do");
@@ -108,7 +110,10 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	   s1.setSe120(s120);
 	   mach.setSeFmt1(s1);
 	   
-	   
+	   }
+	   else{
+		   ODMLogger.getLogger().severe("Machine # "+genId +" is not found in Bus #"+busId);
+	   }
 	}
 
 }

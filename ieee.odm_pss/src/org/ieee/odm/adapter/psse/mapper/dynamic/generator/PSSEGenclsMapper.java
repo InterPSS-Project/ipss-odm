@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.generator.PSSEGenclsDataParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.dstab.DStabParserHelper;
@@ -46,7 +47,7 @@ public class PSSEGenclsMapper extends BasePSSEDataMapper{
 	    DStabBusXmlType busXml = parser.getBus(busId);
 	    
 	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
-	   
+	   if(dstabGenData!=null){
 	   ClassicMachineXmlType mach = DStabParserHelper.createClassicMachine(dstabGenData);
 	   
 	 //set the type info
@@ -61,6 +62,11 @@ public class PSSEGenclsMapper extends BasePSSEDataMapper{
 		   else
 			   throw new ODMException("Source Z of of classic type(GENCLS) machine  : Id"+
 		             genId+" @ Bus"+i+"is not defined");
+	   }
+	   
+	   }
+	   else{
+		   ODMLogger.getLogger().severe("Machine # "+genId +" is not found in Bus #"+busId);
 	   }
 	   
 	}
