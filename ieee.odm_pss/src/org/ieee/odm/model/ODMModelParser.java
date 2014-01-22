@@ -102,30 +102,34 @@ public class ODMModelParser extends AbstractModelParser<NetworkXmlType, BusXmlTy
 		return (OpfModelParser)copyTo(new OpfModelParser(OpfModelParser.OpfNetType.OPF));
 	}
 	
-	@Override public NetworkXmlType createBaseCase() {
+	@Override protected NetworkXmlType createBaseCase() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override public BusXmlType createBus() {
+	@Override protected BusXmlType createBus() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override public BaseBranchXmlType createLineBranch() {
+	@Override protected BaseBranchXmlType createLineBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override public BaseBranchXmlType createXfrBranch() {
+	@Override protected BaseBranchXmlType createXfrBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override public BaseBranchXmlType createXfr3WBranch() {
+	@Override protected BaseBranchXmlType createXfr3WBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override public BaseBranchXmlType createPSXfrBranch() {
+	@Override protected BaseBranchXmlType createPSXfrBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
+	@Override protected BaseBranchXmlType createPSXfr3WBranch() {
+		throw new RuntimeException("Programming error, method not implemented");
+	}
+	
 	private AbstractModelParser<?,?,?,?,?> copyTo(AbstractModelParser<?,?,?,?,?> parser) {
 		parser.objectCache = this.objectCache;
 		parser.pssStudyCase = this.pssStudyCase;

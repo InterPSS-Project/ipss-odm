@@ -31,12 +31,12 @@ import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
-import org.ieee.odm.schema.DStabGenDataXmlType;
-import org.ieee.odm.schema.DStabLoadDataXmlType;
 import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.LineDStabXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.PSXfr3WDStabXmlType;
 import org.ieee.odm.schema.PSXfrDStabXmlType;
+import org.ieee.odm.schema.Xfr3WDStabXmlType;
 import org.ieee.odm.schema.XfrDStabXmlType;
 
 public class BaseDstabModelParser <
@@ -76,7 +76,7 @@ public class BaseDstabModelParser <
 	 * create the base case object of type ShortCircuitNetXmlType
 	 */
 	@SuppressWarnings("unchecked")
-	@Override public TNetXml createBaseCase() {
+	@Override protected TNetXml createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
 			DStabNetXmlType baseCase = OdmObjFactory.createDStabNetXmlType();
 			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
@@ -97,7 +97,7 @@ public class BaseDstabModelParser <
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public TBusXml createBus() {
+	protected TBusXml createBus() {
 		DStabBusXmlType busRec = OdmObjFactory.createDStabBusXmlType();
 		initDStabBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
@@ -130,13 +130,7 @@ public class BaseDstabModelParser <
 	 * 		================
 	 */
 
-	/**
-	 * create a LineBranchXmlType object
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TLineXml createLineBranch() {
+	@SuppressWarnings("unchecked") @Override protected TLineXml createLineBranch() {
 		LineDStabXmlType line = OdmObjFactory.createLineDStabXmlType();
 		initDStabLineBranch(line);
 		return (TLineXml)line;
@@ -146,13 +140,7 @@ public class BaseDstabModelParser <
 		initAcscLineBranch(line);
 	}	
 	
-	/**
-	 * create a XfrBranchXmlType object
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TXfrXml createXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected TXfrXml createXfrBranch() {
 		XfrDStabXmlType xfr = OdmObjFactory.createXfrDStabXmlType();
 		initDStabXfrBranch(xfr);
 		return (TXfrXml)xfr;
@@ -162,13 +150,7 @@ public class BaseDstabModelParser <
 		initAcscXfrBranch(xfr);
 	}	
 	
-	/**
-	 * create a PSXfrBranchXmlType object
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Override public TPsXfrXml createPSXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfrBranch() {
 		PSXfrDStabXmlType psXfr = OdmObjFactory.createPSXfrDStabXmlType();
 		initDStabPsXfrBranch(psXfr);
 		return (TPsXfrXml)psXfr;
@@ -177,6 +159,16 @@ public class BaseDstabModelParser <
 	protected void initDStabPsXfrBranch(PSXfrDStabXmlType psXfr) {
 		initAcscPsXfrBranch(psXfr);
 	}	
+	
+	@SuppressWarnings("unchecked") @Override protected TXfrXml createXfr3WBranch() {
+		Xfr3WDStabXmlType w3xfr = OdmObjFactory.createXfr3WDStabXmlType();
+		return (TXfrXml) w3xfr;
+	}
+
+	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfr3WBranch() {
+		PSXfr3WDStabXmlType branch = OdmObjFactory.createPSXfr3WDStabXmlType();
+		return (TPsXfrXml)branch;
+	}		
 	
 	/**
 	 * get the DStab Line object using the id. If the branch object is of type aclfLine or acscLine,

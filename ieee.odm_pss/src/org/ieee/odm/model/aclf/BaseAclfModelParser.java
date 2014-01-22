@@ -90,7 +90,7 @@ public class BaseAclfModelParser<
 		return (LoadflowNetXmlType)getBaseCase();
 	}
 	
-	@SuppressWarnings("unchecked") @Override public TNetXml createBaseCase() {
+	@SuppressWarnings("unchecked") @Override protected TNetXml createBaseCase() {
 		if (getStudyCase().getBaseCase() == null) {
 			LoadflowNetXmlType baseCase = OdmObjFactory.createLoadflowNetXmlType();
 			baseCase.setBusList(OdmObjFactory.createNetworkXmlTypeBusList());
@@ -105,7 +105,7 @@ public class BaseAclfModelParser<
 	 * 		=============
 	 */
 
-	@SuppressWarnings("unchecked") @Override public TBusXml createBus() {
+	@SuppressWarnings("unchecked") @Override protected TBusXml createBus() {
 		LoadflowBusXmlType busRec = OdmObjFactory.createLoadflowBusXmlType();
 		initAclfBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
@@ -195,57 +195,6 @@ public class BaseAclfModelParser<
 	public PSXfr3WBranchXmlType getPSXfr3WBranch(String fromId, String toId, String tertId, String cirId) {
 		return (PSXfr3WBranchXmlType)getBranch(fromId, toId, tertId, cirId);
 	}
-
-	/**
-	 * create a PSXfr3WBranchXmlType object
-	 * 
-	 * @return
-	 */
-	@SuppressWarnings("unchecked") public TPsXfrXml createPSXfr3WBranch() {
-		PSXfr3WBranchXmlType branch = OdmObjFactory.createPSXfr3WBranchXmlType();
-		intiBranchData(branch);
-		return (TPsXfrXml)branch;
-	}
-
-	
-	@SuppressWarnings("unchecked") @Override public TLineXml createLineBranch() {
-		LineBranchXmlType line = OdmObjFactory.createLineBranchXmlType();
-		initAclfLineBranch(line);
-		return (TLineXml) line;
-	}
-    
-	protected void initAclfLineBranch(LineBranchXmlType line) {
-		line.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
-		line.setLineInfo(OdmObjFactory.createLineBranchInfoXmlType());
-	}
-	
-	@SuppressWarnings("unchecked") @Override public TXfrXml createXfrBranch() {
-		XfrBranchXmlType  xfr  =  OdmObjFactory.createXfrBranchXmlType();
-		initAclfXfrBranch(xfr);
-		return (TXfrXml) xfr;
-	}
-
-	protected void initAclfXfrBranch(XfrBranchXmlType  xfr) {
-		xfr.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
-		xfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
-	}
-	
-	
-	@SuppressWarnings("unchecked") @Override public TXfrXml createXfr3WBranch() {
-		Xfr3WBranchXmlType w3xfr = OdmObjFactory.createXfr3WBranchXmlType();
-		return (TXfrXml) w3xfr;
-	}
-
-	@SuppressWarnings("unchecked") @Override public TPsXfrXml createPSXfrBranch() {
-		PSXfrBranchXmlType psXfr = OdmObjFactory.createPSXfrBranchXmlType();
-		initAclfPsXfrBranch(psXfr);
-		return (TPsXfrXml) psXfr;
-	}
-	
-	protected void initAclfPsXfrBranch(PSXfrBranchXmlType psXfr) {
-		psXfr.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
-		psXfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
-	}
 	
 	/**
 	 * add a new 3W PS Xfr branch record to the base case and to the cache table
@@ -261,6 +210,51 @@ public class BaseAclfModelParser<
 		return branch;
 	}
 	
+
+	@SuppressWarnings("unchecked") @Override protected  TLineXml createLineBranch() {
+		LineBranchXmlType line = OdmObjFactory.createLineBranchXmlType();
+		initAclfLineBranch(line);
+		return (TLineXml) line;
+	}
+    
+	protected void initAclfLineBranch(LineBranchXmlType line) {
+		line.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
+		line.setLineInfo(OdmObjFactory.createLineBranchInfoXmlType());
+	}
+	
+	@SuppressWarnings("unchecked") @Override protected  TXfrXml createXfrBranch() {
+		XfrBranchXmlType  xfr  =  OdmObjFactory.createXfrBranchXmlType();
+		initAclfXfrBranch(xfr);
+		return (TXfrXml) xfr;
+	}
+
+	protected void initAclfXfrBranch(XfrBranchXmlType  xfr) {
+		xfr.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
+		xfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
+	}
+	
+	
+	@SuppressWarnings("unchecked") @Override protected  TPsXfrXml createPSXfrBranch() {
+		PSXfrBranchXmlType psXfr = OdmObjFactory.createPSXfrBranchXmlType();
+		initAclfPsXfrBranch(psXfr);
+		return (TPsXfrXml) psXfr;
+	}
+	
+	protected void initAclfPsXfrBranch(PSXfrBranchXmlType psXfr) {
+		psXfr.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
+		psXfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
+	}
+
+	@SuppressWarnings("unchecked") @Override protected  TXfrXml createXfr3WBranch() {
+		Xfr3WBranchXmlType w3xfr = OdmObjFactory.createXfr3WBranchXmlType();
+		return (TXfrXml) w3xfr;
+	}
+
+	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfr3WBranch() {
+		PSXfr3WBranchXmlType branch = OdmObjFactory.createPSXfr3WBranchXmlType();
+		return (TPsXfrXml)branch;
+	}
+
 	/**
 	 * Get the cashed dcLine2T object by id
 	 * 

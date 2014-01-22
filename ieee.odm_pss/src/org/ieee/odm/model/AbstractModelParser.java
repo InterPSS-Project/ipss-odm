@@ -200,7 +200,7 @@ public abstract class AbstractModelParser<
 	 * create BaseCase object, which should be a child of NetworkXmlType, for
 	 * example LoadflowXmlType
 	 */
-	public abstract TNetXml createBaseCase();
+	protected abstract TNetXml createBaseCase();
 	
 	/**
 	 * get the base case object
@@ -448,7 +448,7 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @return
 	 */
-	public abstract TBusXml createBus();
+	protected abstract TBusXml createBus();
 	
 	/**
 	 * create a bus object with the id, make sure there is no duplication
@@ -489,28 +489,35 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @return
 	 */
-	public abstract TLineXml createLineBranch();
+	protected abstract TLineXml createLineBranch();
 	
 	/**
 	 * create Xformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	public abstract TXfrXml  createXfrBranch();
+	protected abstract TXfrXml  createXfrBranch();
 	
 	/**
 	 * create 3W Xformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	public abstract TXfrXml  createXfr3WBranch();
+	protected abstract TXfrXml  createXfr3WBranch();
 	
 	/**
 	 * create PsXformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	public abstract TPsXfrXml  createPSXfrBranch();
+	protected abstract TPsXfrXml  createPSXfrBranch();
+
+	/**
+	 * create 3W PsXformer branch object, an abstract method to be implemented by the subclass
+	 * 
+	 * @return
+	 */
+	protected abstract TPsXfrXml  createPSXfr3WBranch();
 	
 	/**
 	 * create Line branch object
