@@ -71,6 +71,18 @@
 		PsXfr Branch record for acsc analysis
 		</ns:documentation></ns:annotation>
     </ns:element>
+    
+    <ns:element name="acsc3WXfr" substitutionGroup="pss:branch" type="pss:Xfr3WShortCircuitXmlType">
+        <ns:annotation><ns:documentation>
+		3W Xfr Branch record for defining line for AC Loadflow  
+		</ns:documentation> </ns:annotation>
+    </ns:element>
+    
+    <ns:element name="acsc3WPSXfr" substitutionGroup="pss:branch" type="pss:PSXfr3WShortCircuitXmlType">
+        <ns:annotation> <ns:documentation>
+		3W PS Xfr Branch record for define 
+		</ns:documentation> </ns:annotation>
+    </ns:element>    
 
 <!-- 
 		Network object

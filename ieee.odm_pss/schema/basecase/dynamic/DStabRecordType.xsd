@@ -75,6 +75,17 @@
 		</ns:documentation></ns:annotation>
 	</ns:element>
 	
+    <ns:element name="dstab3WXfr" substitutionGroup="pss:branch" type="pss:Xfr3WDStabXmlType">
+        <ns:annotation><ns:documentation>
+		3W Xfr Branch record for defining line for AC Loadflow  
+		</ns:documentation> </ns:annotation>
+    </ns:element>
+    
+    <ns:element name="dstab3WPSXfr" substitutionGroup="pss:branch" type="pss:PSXfr3WDStabXmlType">
+        <ns:annotation> <ns:documentation>
+		3W PS Xfr Branch record for define 
+		</ns:documentation> </ns:annotation>
+    </ns:element> 	
 <!-- 
 		Network object
  -->	
