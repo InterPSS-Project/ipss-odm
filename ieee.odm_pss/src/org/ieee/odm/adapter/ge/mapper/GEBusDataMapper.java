@@ -69,7 +69,7 @@ public class GEBusDataMapper extends BaseGEDataMapper {
 		LFGenCodeEnumType genType = ty == 0? LFGenCodeEnumType.SWING : 
 				( ty == 1? LFGenCodeEnumType.PQ : LFGenCodeEnumType.PV);
 		AclfDataSetter.setGenData(busRec, genType, dataParser.getDouble("vs"), 
-				VoltageUnitType.PU, dataParser.getDouble("an"), AngleUnitType.DEG, 
+				VoltageUnitType.PU,  
 				0.0, 0.0,	ApparentPowerUnitType.MVA);
 		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
 		defaultGen.setVoltageLimit(

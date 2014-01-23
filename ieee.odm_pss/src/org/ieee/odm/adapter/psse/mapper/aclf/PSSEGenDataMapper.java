@@ -134,7 +134,6 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 
 	    double vs = dataParser.getDouble("VS");
 	    contriGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(vs, VoltageUnitType.PU));
-	    contriGen.setDesiredAngle(BaseDataSetter.createAngleValue(0.0, AngleUnitType.RAD));
 		
 	    double pt = dataParser.getDouble("PT", 0.0);
 	    double pb = dataParser.getDouble("PB", 0.0);

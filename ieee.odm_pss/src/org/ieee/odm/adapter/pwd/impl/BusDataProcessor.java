@@ -332,7 +332,7 @@ public class BusDataProcessor extends InputLineStringParser {
 
 					if (busNum != swingBusNum) {// This bus is a PV bus
 						
-						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet, VoltageUnitType.PU, 0, AngleUnitType.DEG,
+						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet, VoltageUnitType.PU, 
 								genMW, genMVR, ApparentPowerUnitType.MVA);
 
 						LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
@@ -360,8 +360,7 @@ public class BusDataProcessor extends InputLineStringParser {
 						//VoltageXmlType v = bus.getVoltage();
 						AngleXmlType angle = bus.getAngle();
 						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.SWING,
-								genVoltSet, VoltageUnitType.PU, angle.getValue(),
-								angle.getUnit(), genMW, genMVR,
+								genVoltSet, VoltageUnitType.PU, genMW, genMVR,
 								ApparentPowerUnitType.MVA);
 
 						LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
@@ -398,7 +397,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		
 					// set this gen bus data
 					AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet,
-							VoltageUnitType.PU, 0, AngleUnitType.DEG, genMW,
+							VoltageUnitType.PU, genMW,
 							genMVR, ApparentPowerUnitType.MVA);
 
 					LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());

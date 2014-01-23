@@ -123,7 +123,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		LFGenCodeEnumType genType = type == 3? LFGenCodeEnumType.SWING :
 				( type == 2? LFGenCodeEnumType.PV : LFGenCodeEnumType.PQ );
 		AclfDataSetter.setGenData(
-				aclfBus, genType, vpu, VoltageUnitType.PU, angDeg, AngleUnitType.DEG, 
+				aclfBus, genType, vpu, VoltageUnitType.PU,  
 				genMw, genMvar,	ApparentPowerUnitType.MVA);
 
 		//Columns 107-114 Shunt conductance G (per unit) [F] *

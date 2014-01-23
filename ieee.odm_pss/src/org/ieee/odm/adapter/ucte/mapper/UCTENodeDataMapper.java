@@ -103,7 +103,7 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 			if (pGenMW != 0.0 || qGenMvar != 0.0) {
 				AclfDataSetter.setGenData(aclfBus,
 						LFGenCodeEnumType.PQ,
-						1.0, VoltageUnitType.PU, 0.0, AngleUnitType.DEG,
+						1.0, VoltageUnitType.PU, 
 						pGenMW, qGenMvar, ApparentPowerUnitType.MVA);				
 			}
 			break;
@@ -112,7 +112,7 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 		case 2: // PV bus
 			AclfDataSetter.setGenData(aclfBus,
 					LFGenCodeEnumType.PV, 
-					voltage, VoltageUnitType.KV, 0.0, AngleUnitType.DEG,
+					voltage, VoltageUnitType.KV, 
 					pGenMW, qGenMvar, ApparentPowerUnitType.MVA);
 			if (((maxGenMVar != 0.0) || (minGenMVar != 0.0))
 					&& maxGenMVar > minGenMVar) {
@@ -126,7 +126,7 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 		case 3: // swing bus
 			AclfDataSetter.setGenData(aclfBus,
 					LFGenCodeEnumType.SWING,
-					voltage, VoltageUnitType.KV, 0.0, AngleUnitType.DEG,
+					voltage, VoltageUnitType.KV, 
 					pGenMW, qGenMvar, ApparentPowerUnitType.MVA);
 			break;
 		default:

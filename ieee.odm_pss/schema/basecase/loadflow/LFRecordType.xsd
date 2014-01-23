@@ -303,8 +303,7 @@
 						If the unit in in PU, it is based on network baseKva
 						</ns:documentation></ns:annotation>
 					</ns:element>
-					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
-					<ns:element minOccurs="0" name="desiredAngle" type="pss:AngleXmlType"/>
+					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType"/>
 					<ns:element minOccurs="0" name="qLimit" type="pss:ReactivePowerLimitXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="pLimit" type="pss:ActivePowerLimitXmlType"/>
