@@ -69,6 +69,26 @@ public class IEEECDF_ODMTest {
 		assertTrue(baseCaseNet.getBasePower().getValue() == 100.0);
 		assertTrue(baseCaseNet.getBasePower().getUnit() == ApparentPowerUnitType.MVA);
 	}
+
+	@Test
+	public void testCaseInputFileSwingBusAngle() throws Exception {
+		final LogManager logMgr = LogManager.getLogManager();
+		Logger logger = Logger.getLogger("IEEE ODM Logger");
+		logger.setLevel(Level.INFO);
+		logMgr.addLogger(logger);
+		
+		IODMAdapter adapter = new IeeeCDFAdapter();
+		assertTrue(adapter.parseInputFile("testdata/ieee_format/Ieee14Bus_SwingAng.ieee"));
+		
+		AclfModelParser parser = (AclfModelParser)adapter.getModel();
+		//System.out.println(parser.toXmlDoc());
+		
+		LoadflowBusXmlType busRec = parser.getBus("Bus1");
+		//System.out.println(busRec);
+		assertTrue(busRec.getBaseVoltage().getValue() == 132.0);
+		assertTrue(busRec.getVoltage().getValue() == 1.060);
+		assertTrue(busRec.getAngle().getValue() == 1.0);
+	}
 	
 	@Test
 	public void testCaseInputFile() throws Exception {
