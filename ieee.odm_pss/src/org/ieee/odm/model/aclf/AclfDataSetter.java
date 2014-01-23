@@ -142,10 +142,7 @@ public class AclfDataSetter extends BaseDataSetter {
 		setGenData(bus, code);
    		LoadflowGenDataXmlType defaulfGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 		defaulfGen.setPower(createPowerValue(p, q, pUnit));
-   		if (code == LFGenCodeEnumType.PV) {
-   			defaulfGen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   		}
-   		else if (code == LFGenCodeEnumType.SWING) {
+   		if (code == LFGenCodeEnumType.PV || code == LFGenCodeEnumType.SWING) {
    			defaulfGen.setDesiredVoltage(createVoltageValue(v, vUnit));
    		}
 	}	
