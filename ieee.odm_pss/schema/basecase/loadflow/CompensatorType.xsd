@@ -10,14 +10,14 @@
 	</ns:annotation>
     
 	
-    <ns:complexType name="ShuntCompensatorXmlType">
+    <ns:complexType name="SwitchedShuntXmlType">
 		<ns:sequence>
 			<ns:element minOccurs="0" name="cimRdfRec" type="pss:CimRdfXmlType"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="cimSwitches" type="pss:CimSwitchListXmlType"/>
 			<ns:element minOccurs="1" name="desiredVoltageRange" type="pss:VoltageLimitXmlType"/>
 			<ns:element minOccurs="1" name="bInit" type="pss:ReactivePowerXmlType"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="VarPercent" type="ns:double"/>
-			<ns:element maxOccurs="unbounded" minOccurs="1" name="block" type="pss:ShuntCompensatorBlockXmlType"/>
+			<ns:element maxOccurs="unbounded" minOccurs="1" name="block" type="pss:SwitchedShuntBlockXmlType"/>
 			<ns:element minOccurs="0" name="remoteControlledBus" type="pss:IDRefRecordXmlType"/>
 			<ns:element minOccurs="0" name="vscDcLine" type="ns:string"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="bZeroSeqPerSection" type="pss:YUnitType"/>
@@ -33,12 +33,12 @@
 			<ns:element maxOccurs="1" minOccurs="0" name="slop" type="ns:double"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="reactivePowerPerSec" type="pss:ReactivePowerXmlType"/>
 		</ns:sequence>
-		<ns:attribute name="mode" type="pss:ShuntCompensatorModeEnumType" use="required"/>
-		<ns:attribute name="adjMethod" type="pss:ShuntCompensatorAdjustMethodEnumType" use="required"/>
+		<ns:attribute name="mode" type="pss:SwitchedShuntModeEnumType" use="required"/>
+		<ns:attribute name="adjMethod" type="pss:SwitchedShuntAdjustMethodEnumType" use="required"/>
 		<ns:attribute name="offLine" type="ns:boolean" use="required"/>
 	</ns:complexType>
 
-	<ns:complexType name="ShuntCompensatorBlockXmlType">
+	<ns:complexType name="SwitchedShuntBlockXmlType">
 		<ns:sequence>
 			<ns:element minOccurs="1" name="incrementB" type="pss:ReactivePowerXmlType"/>
 		    <ns:element minOccurs="0" name="zeroSeqIncrementB" type="pss:ReactivePowerXmlType"/>
@@ -47,7 +47,7 @@
 	</ns:complexType>    
 
 
-    <ns:simpleType name="ShuntCompensatorModeEnumType">
+    <ns:simpleType name="SwitchedShuntModeEnumType">
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="Fixed"/>
 			<ns:enumeration value="Discrete"/>
@@ -56,7 +56,7 @@
 	</ns:simpleType>
     
     
-    <ns:simpleType name="ShuntCompensatorAdjustMethodEnumType">
+    <ns:simpleType name="SwitchedShuntAdjustMethodEnumType">
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="DataInputOrder">
 				<ns:annotation>

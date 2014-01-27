@@ -12,8 +12,8 @@ import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
-import org.ieee.odm.schema.ShuntCompensatorBlockXmlType;
-import org.ieee.odm.schema.ShuntCompensatorXmlType;
+import org.ieee.odm.schema.SwitchedShuntBlockXmlType;
+import org.ieee.odm.schema.SwitchedShuntXmlType;
 
 public class PSSESwitchShuntZeroSeqMapper <
     TNetXml  extends NetworkXmlType, 
@@ -40,10 +40,10 @@ public class PSSESwitchShuntZeroSeqMapper <
          The zero sequence admittance switched on at a bus is determined from the bus’ positive sequence 
          value, with the same number of blocks and steps in each block switched on
         */
-        ShuntCompensatorXmlType shunt = scBus.getShuntCompensator();
+        SwitchedShuntXmlType shunt = scBus.getSwitchedShunt();
         int k = 1;
         if(shunt !=null){
-           for(ShuntCompensatorBlockXmlType block: shunt.getBlock()){
+           for(SwitchedShuntBlockXmlType block: shunt.getBlock()){
         	    block.setZeroSeqIncrementB(
         			BaseDataSetter.createReactivePowerValue(dataParser.getDouble("BZ"+k++), ReactivePowerUnitType.PU));
            }

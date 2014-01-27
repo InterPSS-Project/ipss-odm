@@ -19,8 +19,8 @@ import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
-import org.ieee.odm.schema.ShuntCompensatorModeEnumType;
-import org.ieee.odm.schema.ShuntCompensatorXmlType;
+import org.ieee.odm.schema.SwitchedShuntModeEnumType;
+import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
  /**
@@ -453,7 +453,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		String shuntId="";
 		boolean closed=false;
 		double vHigh=1.0,vLow=1.0,normalMVR=0,MVarPerStep1=0,MVarPerStep2=0;
-		ShuntCompensatorModeEnumType mode=null; //Control Mode: Fixed, Discrete, Continuous, or Bus Shunt;
+		SwitchedShuntModeEnumType mode=null; //Control Mode: Fixed, Discrete, Continuous, or Bus Shunt;
 		
 		String CustomStrToken="CustomString";
 		String customString ="";
@@ -477,9 +477,9 @@ public class BusDataProcessor extends InputLineStringParser {
 			
 		if (exist("SSCMode")){
 			String modeStr=getString("SSCMode");
-		    	mode=modeStr.equalsIgnoreCase("Discrete")?ShuntCompensatorModeEnumType.DISCRETE:
-		    				(modeStr.equalsIgnoreCase("Continuous")?ShuntCompensatorModeEnumType.CONTINUOUS:
-		    					ShuntCompensatorModeEnumType.FIXED);
+		    	mode=modeStr.equalsIgnoreCase("Discrete")?SwitchedShuntModeEnumType.DISCRETE:
+		    				(modeStr.equalsIgnoreCase("Continuous")?SwitchedShuntModeEnumType.CONTINUOUS:
+		    					SwitchedShuntModeEnumType.FIXED);
 		}
 		if (exist("SSVHigh"))
 			vHigh=getDouble("SSVHigh");
@@ -522,7 +522,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		LoadflowBusXmlType bus=parser.getBus(busId);
 		
 		AclfDataSetter.setShuntCompensatorData(bus, mode, normalMVR, vHigh, vLow);
-		ShuntCompensatorXmlType shunt=bus.getShuntCompensator();
+		SwitchedShuntXmlType shunt=bus.getSwitchedShunt();
 		
 	
 		// store custom string
