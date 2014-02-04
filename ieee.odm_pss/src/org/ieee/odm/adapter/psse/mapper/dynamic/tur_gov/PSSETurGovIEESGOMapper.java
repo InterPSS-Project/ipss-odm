@@ -29,7 +29,7 @@ public class PSSETurGovIEESGOMapper extends BasePSSEDataMapper{
 	  //  5----------6----------7----------8----------9
 	     "T3",     "T4",      "T5",      "T6",     "K1",  	 
 	  //  10----------11--------12---------13---------14	
-		 "K2",      "K2",       "K3",   "PMAX",   "PMIN"	
+		 "K2",       "K3",   "PMAX",   "PMIN"	
 	 */			
 		
 		/*
@@ -58,7 +58,7 @@ public class PSSETurGovIEESGOMapper extends BasePSSEDataMapper{
 	   
 	   gov.setT4(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T4")));
 	   
-	   gov.setT4(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T5")));
+	   gov.setT5(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T5")));
 	   
 	   gov.setT6(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T6")));
 	   

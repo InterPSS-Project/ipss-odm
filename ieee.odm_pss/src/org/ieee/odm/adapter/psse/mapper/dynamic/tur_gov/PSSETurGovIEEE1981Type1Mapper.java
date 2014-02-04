@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.tur_gov.PSSETurGovIEEE1981Type1Parser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -42,6 +43,9 @@ public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataMapper{
 		 * 
 		*/
 		int i = dataParser.getInt("IBUS");
+		int j = dataParser.getInt("JBUS");
+		if(j!=0) 
+		   ODMLogger.getLogger().severe("IEEE G1 model currently does NOT support more than one buses, IEEG1 @ Bus" +i );
 	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    String genId = dataParser.getString("MachId");
 	    
@@ -50,7 +54,7 @@ public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataMapper{
 	    	throw new ODMException(" Governor of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a IEEEG1 type");
 	    }
-
+     
 	   DStabBusXmlType busXml = parser.getBus(busId);
 	    
 	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);

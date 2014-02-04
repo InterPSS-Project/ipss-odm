@@ -33,20 +33,20 @@ public class DynamicModelLibHelper {
 			Arrays.asList("GENROE","GENDCO","GENTRA","CGEN1"));
 	
 	private List<String> ExciterList =new ArrayList<>(
-			//Arrays.asList("IEEET1")
+			Arrays.asList("IEEET1")
 			);
 	private List<String> UnSupportedExciterList =new ArrayList<>(
-			Arrays.asList("IEEET1","IEEET2","IEEET3","IEEET4", //IEEE 1968
+			Arrays.asList("IEEET2","IEEET3","IEEET4", //IEEE 1968
 					"ESAC3A","ESAC8B","ESST2A","ESST3A","ESST4B",
 					"EXAC1","EXAC1A","EXAC2","EXAC41A","EXDC2","EXELI","EXPIC1","EXST1","EXST2","EXST3",
 					"IEEEX1","IEEEX2","IEEEX3","IEEEX4", //IEEE 1979 Type1->4
 					"ST5B","ST6B","ST7B", //IEEE2005
 					"REXSY1","REXSYS","SCRX"));
 	
-	private List<String> TurGovList =new ArrayList<>();
+	private List<String> TurGovList =new ArrayList<>(Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST"));
 	
 	private List<String> UnsupportedTurGovList =new ArrayList<>(
-			Arrays.asList("IEESGO","IEEEG1","IEEEG3","TGOV1","GGOV1","HYGOV","GAST","HYGOV2","IEEEG2","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));
+			Arrays.asList("IEEEG3","GGOV1","HYGOV","HYGOV2","IEEEG2","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));
 	
 	private List<String> LoadModelList =new ArrayList<>(
 			Arrays.asList("IEELBL","IEELAR","CIMTR4","CIMWBL"));

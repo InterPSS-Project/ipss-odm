@@ -5,25 +5,27 @@ import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
-public class PSSETurGovIEESGOParser extends BasePSSEDataParser {
-	public PSSETurGovIEESGOParser(PsseVersion ver) {
+public class PSSETurGovGASTParser extends BasePSSEDataParser {
+	public PSSETurGovGASTParser(PsseVersion ver) {
 		super(ver);
 	}
 	
 	/*
-	 * //PSSE IEESGO -> IEEE 1973 standard Tur-Gov model
-	 * IBUS, 扞EESGO� I, T1, T2, T3, T4, T5, T6, K1, K2, K3, PMAX, PMIN/ 
+	 * //PSSE GAST -> Gas turbine-governor model
+	 * IBUS, 'GAST', ID, R,T1,T2,T3,AT,KT,VMAX,VMIN,Dturb/
+	 *
 	 */
 	
 	@Override
 	public String[] getMetadata() {
 		return new String[]{
 			//  0----------1----------2----------3----------4
-				"IBUS", "Type",   "MachId",   "T1",       "T2",
+				"IBUS", "Type",   "MachId",     "R",     "T1",
 			//  5----------6----------7----------8----------9
-				"T3",     "T4",      "T5",      "T6",     "K1",  	 
+				"T2",     "T3",      "AT",      "KT",    "VMAX",   	 
 			//  10----------11--------12---------13---------14	
-				"K2",       "K3",   "PMAX",   "PMIN"		   
+				"VMIN",     "Dturb",    
+			
 					
 		};
 		
@@ -42,7 +44,5 @@ public class PSSETurGovIEESGOParser extends BasePSSEDataParser {
 		}
 		
 	}
-	
-	
 
 }

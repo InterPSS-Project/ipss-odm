@@ -199,6 +199,9 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
     		
     }
     private boolean skipCommentLine(String lineStr){
+    	if(lineStr.trim().length()==0.0){
+    		return true;
+    	}
 		//Check if the first line of multiInteger(String s) {
     	int busNum;
 		if(lineStr.trim().startsWith("//") || lineStr.trim().startsWith("/"))
@@ -206,11 +209,12 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
 		// skip a line if it is not started with a bus Number, which is an integer, 
 	    try { 
 	    	String[] strAry =lineStr.split("\\s+");
-	        busNum =Integer.parseInt(" "+strAry[0]); 
-	    } catch(NumberFormatException e) { 
-	        return false; 
+	        busNum =Integer.parseInt(strAry[0]); 
+	    } catch(NumberFormatException e) {
+	    	//System.out.println("Error when processing line: \n"+ lineStr);
+	        return true; 
 	    }
 	    // only got here if we didn't return false
-	    return true;
+	    return false;
 	}
 }

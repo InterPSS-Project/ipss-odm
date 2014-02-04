@@ -105,7 +105,7 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	   //A and B are such that the points (1.0, S1.0) and (1.2, S1.2)
 	   
 	   SeFmt1 s1= DStabParserHelper.createMachineSeFmt1();
-	   s1.setSliner(1.0); // by default
+	   //s1.setSliner(1.0); // by default
 	   s1.setSe100(s100); 
 	   s1.setSe120(s120);
 	   mach.setSeFmt1(s1);
