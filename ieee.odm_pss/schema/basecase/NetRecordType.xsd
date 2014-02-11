@@ -383,7 +383,13 @@
 			<ns:enumeration value="TertiarySide"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
-	
+
+    <ns:simpleType name="BranchFlowDirectionEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="From_To"></ns:enumeration>
+			<ns:enumeration value="To_From"></ns:enumeration>
+		</ns:restriction>
+	</ns:simpleType>	
 <!-- 
 	 CIM record type
 	 ===============
