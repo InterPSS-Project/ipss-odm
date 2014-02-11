@@ -490,6 +490,9 @@ public class PSSEXfrDataMapper <
     	    	angAdj.getRange().setMin(vmi);
     	    	angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
     	    	angAdj.setDesiredMeasuredOnFromSide(onFromSide);
+    	    	// PSS/E PsXfr angle is defined at the fromside
+    	    	angAdj.setAngleAdjOnFromSide(true);
+    	    	angAdj.setDesiredMeasuredOnFromSide(branRecXml.getMeterLocation() == BranchBusSideEnumType.FROM_SIDE);
     	    }              	
       	}
       	
