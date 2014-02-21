@@ -445,7 +445,8 @@ public class PSSEXfrDataMapper <
            		TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
            		branRecXml.setTapAdjustment(tapAdj);
            		tapAdj.setOffLine(cod < 0);
-           		tapAdj.setTapAdjOnFromSide(onFromSide);
+           		// PSS/E control tap is always on the from side
+           		tapAdj.setTapAdjOnFromSide(true);
            		// cw=1, RMA, RMI are Off-nominal turns ratio in pu of winding one bus base voltage
            		// cw=2, RMA, RMI are Actual winding one voltage in kV 
            		if(cw==2){
