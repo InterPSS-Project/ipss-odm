@@ -72,8 +72,8 @@ public class PSSEGensalMapper extends BasePSSEDataMapper{
 	   double Xq = dataParser.getDouble("Xq");
 	   double Xd1 = dataParser.getDouble("X'd");
 	   double Xd11 = dataParser.getDouble("X''d");
-	   double s100 = dataParser.getDouble("S(1.0)");
-	   double s120 = dataParser.getDouble("S(1.2)");
+	   double s100 = dataParser.getDouble("S(1.0)")*100; // in percentage
+	   double s120 = dataParser.getDouble("S(1.2)")*100;
 	   
 	   
 	   

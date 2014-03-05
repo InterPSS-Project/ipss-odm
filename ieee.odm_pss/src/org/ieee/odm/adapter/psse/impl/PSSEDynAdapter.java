@@ -70,8 +70,8 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
       			lineStr = din.readLine();
       			if (lineStr != null) {
       				lineNo++;
-      				if(skipCommentLine(lineStr)){
-      					System.out.println("Comment line :"+lineStr);
+      				if(skipInvalidLine(lineStr)){
+      					System.out.println("Invalid line, line# "+lineNo+",:"+lineStr);
       					continue;
       				}
       				lineStr = lineStr.trim();
@@ -198,7 +198,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
     	return null;
     		
     }
-    private boolean skipCommentLine(String lineStr){
+    private boolean skipInvalidLine(String lineStr){
     	if(lineStr.trim().length()==0.0){
     		return true;
     	}
@@ -208,8 +208,8 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
 			return true;
 		// skip a line if it is not started with a bus Number, which is an integer, 
 	    try { 
-	    	String[] strAry =lineStr.split("\\s+");
-	        busNum =Integer.parseInt(strAry[0]); 
+	    	String[] strAry =lineStr.trim().split("\\s+");
+	        busNum =Integer.parseInt(strAry[0].trim()); 
 	    } catch(NumberFormatException e) {
 	    	//System.out.println("Error when processing line: \n"+ lineStr);
 	        return true; 
