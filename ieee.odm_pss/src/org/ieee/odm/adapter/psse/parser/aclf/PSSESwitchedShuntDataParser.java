@@ -59,9 +59,9 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		I,    MODSW, VSWHI, VSWLO, SWREM,         扲MIDNT� BINIT, N1, B1, N2, B2, ... N8, B8
                                                             nbPosition(7) 
                                                             
-        Format V30
-		==========
-		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, 扲MIDNT� BINIT, N1, B1, N2, B2, ... N8, B8
+        Format V30, 31
+		==============
+		I,    MODSW, VSWHI, VSWLO, SWREM,  RMPCT, 'RMIDNT', BINIT, N1, B1, N2, B2, ... N8, B8
                                                             nbPosition(8) 
 	Sample Data
 		8441,1,1.03869,0.99869,    0,100.0,'        ',  334.80, 3,  50.40, 1,  37.80, 2,  36.00, 1,  37.80, 1,  36.00
@@ -86,8 +86,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 			N1 - Number of steps for block 1, first 0 is end of blocks
 			B1 - Admittance increment of block 1 in MVAR at 1.0 per unit volts.
 			N2, B2, etc, as N1, B1
-			
-			
+
 		Format V32, V33
 		===============
 		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, 扲MIDNT� BINIT, N1, B1, N2, B2, ... N8, B8
@@ -106,7 +105,7 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 			                       "ADJM",    "STAT",                   // V32,V33
 			                                             "VSWHI",
 		   //  5          6          7          8          9
-			  "VSWLO",   "SWREM", "RMPCT",  "RMIDNT",                   // V30, V32,V33 
+			  "VSWLO",   "SWREM", "RMPCT",  "RMIDNT",                   // V30, v31, V32,V33 
 			                                             "BINIT",     
 		   //  10         11         12         13         14
 			  "N1",      "B1",      "N2",      "B2",      "N3",      
@@ -129,7 +128,8 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
 		nbPosition = 6;
   		if (this.version == PsseVersion.PSSE_29)
   			nbPosition = 7;
-  		else if (this.version == PsseVersion.PSSE_30)
+  		else if (this.version == PsseVersion.PSSE_30 || 
+  				 this.version == PsseVersion.PSSE_31 )
   			nbPosition = 8;
   		else if (this.version == PsseVersion.PSSE_32 ||
   				 this.version == PsseVersion.PSSE_33)
@@ -138,7 +138,8 @@ public class PSSESwitchedShuntDataParser extends BasePSSEDataParser {
   		for ( int i = 0; i < this.nbPosition; i++) { 
   			if (i==2 && (this.version == PsseVersion.PSSE_26 ||
   					     this.version == PsseVersion.PSSE_29 ||
-  	  			         this.version == PsseVersion.PSSE_30))
+  	  			         this.version == PsseVersion.PSSE_30 ||
+  	  			         this.version == PsseVersion.PSSE_31))
   				i += 2;
   	  		this.setValue(i, st.nextToken().trim());
   		}

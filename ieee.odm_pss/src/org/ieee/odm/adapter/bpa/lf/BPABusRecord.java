@@ -232,8 +232,7 @@ public class BPABusRecord<
 				//set gen data
 				AclfDataSetter.setGenData(busRec,
 							LFGenCodeEnumType.SWING,
-							vpu, VoltageUnitType.PU,
-							vMinOrAngDeg, AngleUnitType.DEG,pGen,0, ApparentPowerUnitType.MVA);
+							vpu, VoltageUnitType.PU, pGen,0, ApparentPowerUnitType.MVA);
 				// set Q limit
 				if(qGenOrQGenMax!=0.0||qGenMin!=0.0){
 					defaultGen.setQLimit(BaseDataSetter.createReactivePowerLimit( 
@@ -273,7 +272,7 @@ public class BPABusRecord<
 				// set gen data
 				AclfDataSetter.setGenData(busRec,
 							LFGenCodeEnumType.PV, 
-							vpu, VoltageUnitType.PU, 0.0, AngleUnitType.DEG,
+							vpu, VoltageUnitType.PU, 
 							pGen, 0.0, ApparentPowerUnitType.MVA);
 				// set Q limit
 				if(qGenOrQGenMax!=0.0||qGenMin!=0.0){

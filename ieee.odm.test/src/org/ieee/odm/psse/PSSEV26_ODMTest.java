@@ -72,8 +72,7 @@ public class PSSEV26_ODMTest {
 		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.SWING);
 		assertTrue(defaultGen.getDesiredVoltage().getValue() == 1.07);
-		assertTrue(defaultGen.getDesiredAngle().getValue() == 3.1024);
-				
+						
 		/*
         <baseVoltage value="115.0" unit="KV"/>
         <loadflowData>

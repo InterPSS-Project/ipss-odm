@@ -37,9 +37,9 @@ import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
-import org.ieee.odm.schema.ShuntCompensatorBlockXmlType;
-import org.ieee.odm.schema.ShuntCompensatorModeEnumType;
-import org.ieee.odm.schema.ShuntCompensatorXmlType;
+import org.ieee.odm.schema.SwitchedShuntBlockXmlType;
+import org.ieee.odm.schema.SwitchedShuntModeEnumType;
+import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 
 public class PSSESwitchedSShuntDataMapper <
@@ -75,14 +75,14 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 			throw new ODMException("Error: Bus not found in the network, bus number: " + busId);
         }
 				
-	    ShuntCompensatorXmlType shunt = OdmObjFactory.createShuntCompensatorXmlType();
-	    aclfBus.setShuntCompensator(shunt);
+	    SwitchedShuntXmlType shunt = OdmObjFactory.createSwitchedShuntXmlType();
+	    aclfBus.setSwitchedShunt(shunt);
 		
 		// genId is used to distinguish multiple generations at one bus		
 		int mode = this.dataParser.getInt("MODSW",  0);
-		shunt.setMode(mode ==0? ShuntCompensatorModeEnumType.FIXED :
-						mode ==1? ShuntCompensatorModeEnumType.DISCRETE : 
-							ShuntCompensatorModeEnumType.CONTINUOUS);
+		shunt.setMode(mode ==0? SwitchedShuntModeEnumType.FIXED :
+						mode ==1? SwitchedShuntModeEnumType.DISCRETE : 
+							SwitchedShuntModeEnumType.CONTINUOUS);
 		
 		//VSWHI - Desired voltage upper limit, per unit
 		//VSWLO - Desired voltage lower limit, per unit
@@ -125,7 +125,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	  		int n = this.dataParser.getInt("N"+(i+1), 0);
 			if(n>0){
 			  		double b = this.dataParser.getDouble("B"+(i+1), 0.0);
-			  		ShuntCompensatorBlockXmlType block = OdmObjFactory.createShuntCompensatorBlockXmlType(); 
+			  		SwitchedShuntBlockXmlType block = OdmObjFactory.createSwitchedShuntBlockXmlType(); 
 			  		shunt.getBlock().add(block);
 			  		block.setSteps(n);
 			  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));

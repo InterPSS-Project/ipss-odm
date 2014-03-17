@@ -49,7 +49,7 @@ import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.LoadflowShuntYDataXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
-import org.ieee.odm.schema.ShuntCompensatorXmlType;
+import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.StaticVarCompensatorXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XformerZTableXmlType;
@@ -362,12 +362,12 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * 
 	 * @param bus
 	 */
-	public static ShuntCompensatorXmlType createShuntCompensator(LoadflowBusXmlType bus) {
+	public static SwitchedShuntXmlType createShuntCompensator(LoadflowBusXmlType bus) {
 		//if (bus.getShuntCompensatorData().getShuntCompensatorList() == null) {
 		//	bus.getShuntCompensatorData().setShuntCompensatorList(odmObjFactory.createShuntCompensatorDataXmlTypeShuntCompensatorList());
 		//}
-		ShuntCompensatorXmlType compensator = OdmObjFactory.createShuntCompensatorXmlType();
-		bus.setShuntCompensator(compensator);
+		SwitchedShuntXmlType compensator = OdmObjFactory.createSwitchedShuntXmlType();
+		bus.setSwitchedShunt(compensator);
 		return compensator; 
 	}
 	

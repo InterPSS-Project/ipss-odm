@@ -47,9 +47,9 @@ import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.MvaRatingXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
-import org.ieee.odm.schema.ShuntCompensatorBlockXmlType;
-import org.ieee.odm.schema.ShuntCompensatorModeEnumType;
-import org.ieee.odm.schema.ShuntCompensatorXmlType;
+import org.ieee.odm.schema.SwitchedShuntBlockXmlType;
+import org.ieee.odm.schema.SwitchedShuntModeEnumType;
+import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.TransformerInfoXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.VoltageXmlType;
@@ -138,17 +138,12 @@ public class AclfDataSetter extends BaseDataSetter {
 	 */
 	public static void setGenData(LoadflowBusXmlType bus, LFGenCodeEnumType code, 
 			double v, VoltageUnitType vUnit,
-			double ang, AngleUnitType angUnit,
 			double p, double q, ApparentPowerUnitType pUnit) {
 		setGenData(bus, code);
    		LoadflowGenDataXmlType defaulfGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 		defaulfGen.setPower(createPowerValue(p, q, pUnit));
-   		if (code == LFGenCodeEnumType.PV) {
+   		if (code == LFGenCodeEnumType.PV || code == LFGenCodeEnumType.SWING) {
    			defaulfGen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   		}
-   		else if (code == LFGenCodeEnumType.SWING) {
-   			defaulfGen.setDesiredVoltage(createVoltageValue(v, vUnit));
-   			defaulfGen.setDesiredAngle(createAngleValue(ang, angUnit));
    		}
 	}	
 
@@ -202,10 +197,10 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param vHigh
 	 * @param vLow
 	 */
-	public static void setShuntCompensatorData(LoadflowBusXmlType bus,ShuntCompensatorModeEnumType mode
+	public static void setShuntCompensatorData(LoadflowBusXmlType bus,SwitchedShuntModeEnumType mode
 			, double normalMvar, double vHigh, double vLow){
-		ShuntCompensatorXmlType shunt = OdmObjFactory.createShuntCompensatorXmlType();
-		bus.setShuntCompensator(shunt);
+		SwitchedShuntXmlType shunt = OdmObjFactory.createSwitchedShuntXmlType();
+		bus.setSwitchedShunt(shunt);
 		shunt.setDesiredVoltageRange(createVoltageLimit(vHigh, vLow, VoltageUnitType.KV));
 		shunt.setNorminalQOutput(createReactivePowerValue(normalMvar, ReactivePowerUnitType.MVAR));
 		shunt.setMode(mode);
@@ -222,8 +217,8 @@ public class AclfDataSetter extends BaseDataSetter {
 	 */
 	public static void addShuntCompensatorBlock(LoadflowBusXmlType bus,int steps, double mvarPerStep,
 			ReactivePowerUnitType type){
-		ShuntCompensatorXmlType shunt= bus.getShuntCompensator();
-		ShuntCompensatorBlockXmlType block=OdmObjFactory.createShuntCompensatorBlockXmlType();
+		SwitchedShuntXmlType shunt= bus.getSwitchedShunt();
+		SwitchedShuntBlockXmlType block=OdmObjFactory.createSwitchedShuntBlockXmlType();
 		shunt.getBlock().add(block);
 		block.setSteps(steps);
 		block.setIncrementB(createReactivePowerValue(mvarPerStep, type));

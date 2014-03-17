@@ -33,23 +33,21 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.model.acsc.AcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.model.dstab.DStabModelParser;
+import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchBusSideEnumType;
+import org.ieee.odm.schema.BranchFlowDirectionEnumType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.MvarFlowAdjustmentDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
-import org.ieee.odm.schema.ShortCircuitNetXmlType;
 import org.ieee.odm.schema.TapAdjustmentEnumType;
 import org.ieee.odm.schema.TapAdjustmentXmlType;
 import org.ieee.odm.schema.Transformer3WInfoXmlType;
@@ -447,7 +445,8 @@ public class PSSEXfrDataMapper <
            		TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
            		branRecXml.setTapAdjustment(tapAdj);
            		tapAdj.setOffLine(cod < 0);
-           		tapAdj.setTapAdjOnFromSide(onFromSide);
+           		// PSS/E control tap is always on the from side
+           		tapAdj.setTapAdjOnFromSide(true);
            		// cw=1, RMA, RMI are Off-nominal turns ratio in pu of winding one bus base voltage
            		// cw=2, RMA, RMI are Actual winding one voltage in kV 
            		if(cw==2){
@@ -486,10 +485,18 @@ public class PSSEXfrDataMapper <
     	    	branchPsXfr.setAngleAdjustment(angAdj);
     	    	angAdj.setAngleLimit(BaseDataSetter.createAngleLimit(rma, rmi, AngleUnitType.DEG));
     	    	angAdj.setRange(OdmObjFactory.createLimitXmlType());
+    	    	/*
+    	    	 active power flow into the transformer at the winding one bus end in MW when |COD1| is 3. 
+    	    	 */
     	    	angAdj.getRange().setMax(vma);
     	    	angAdj.getRange().setMin(vmi);
+    	    	angAdj.setFlowDirection(BranchFlowDirectionEnumType.FROM_TO);
+    	    	angAdj.setDesiredActivePowerUnit(ActivePowerUnitType.MW);
     	    	angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
     	    	angAdj.setDesiredMeasuredOnFromSide(onFromSide);
+    	    	// PSS/E PsXfr angle is defined at the fromside
+    	    	angAdj.setAngleAdjOnFromSide(true);
+    	    	angAdj.setDesiredMeasuredOnFromSide(branRecXml.getMeterLocation() == BranchBusSideEnumType.FROM_SIDE);
     	    }              	
       	}
       	

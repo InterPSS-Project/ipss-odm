@@ -98,7 +98,6 @@ public class PSSEV30_ODMTest {
 		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
 		assertTrue(bus.getGenData().getCode() == LFGenCodeEnumType.SWING);
 		assertTrue(defaultGen.getDesiredVoltage().getValue() == 1.0);
-		assertTrue(defaultGen.getDesiredAngle().getValue() == 0.0);
 		LoadflowGenDataXmlType Gen1= bus.getGenData().getContributeGen().get(0).getValue();
 		assertTrue(Gen1.getPLimit().getMax() == 45.0);
 		assertTrue(Gen1.getPLimit().getMin() == 15.0);

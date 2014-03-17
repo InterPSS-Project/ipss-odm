@@ -258,7 +258,7 @@
 						</ns:documentation></ns:annotation>
 					</ns:element>
                     <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType" />
-                    <ns:element maxOccurs="1" minOccurs="0" name="shuntCompensator" type="pss:ShuntCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="vLimit" type="pss:VoltageLimitXmlType"/>
+                    <ns:element maxOccurs="1" minOccurs="0" name="switchedShunt" type="pss:SwitchedShuntXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="vLimit" type="pss:VoltageLimitXmlType"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -303,8 +303,7 @@
 						If the unit in in PU, it is based on network baseKva
 						</ns:documentation></ns:annotation>
 					</ns:element>
-					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
-					<ns:element minOccurs="0" name="desiredAngle" type="pss:AngleXmlType"/>
+					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType"/>
 					<ns:element minOccurs="0" name="qLimit" type="pss:ReactivePowerLimitXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="pLimit" type="pss:ActivePowerLimitXmlType"/>
@@ -506,6 +505,7 @@
 				<ns:sequence>
 					<ns:element minOccurs="1" name="angleLimit" type="pss:AngleLimitXmlType"/>
 					<ns:element minOccurs="1" name="angleAdjOnFromSide" type="ns:boolean"/>
+					<ns:element minOccurs="1" name="flowDirection" type="pss:BranchFlowDirectionEnumType"/>
 					<ns:element minOccurs="1" name="desiredActivePowerUnit" type="pss:ActivePowerUnitType"/>
 					<ns:element minOccurs="1" name="desiredMeasuredOnFromSide" type="ns:boolean"/>
 				</ns:sequence>

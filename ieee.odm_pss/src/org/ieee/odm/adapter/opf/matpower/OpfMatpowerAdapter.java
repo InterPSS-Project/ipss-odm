@@ -232,7 +232,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 
 		if (type == 2 || type == 3) {
 			AclfDataSetter.setGenData(aclfBus, genType, vm, VoltageUnitType.PU,
-					va, AngleUnitType.DEG, 0, 0, ApparentPowerUnitType.MVA);
+					0, 0, ApparentPowerUnitType.MVA);
 		}
 
 		double baseKva = parser.getBaseOpfNet().getBasePower().getValue() / 1000;
