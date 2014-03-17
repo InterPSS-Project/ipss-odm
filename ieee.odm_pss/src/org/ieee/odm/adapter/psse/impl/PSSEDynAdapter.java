@@ -114,9 +114,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
   			e.printStackTrace();
     		throw new ODMException("PSSE dynamic data input error, line no " + lineNo + ", " + e.toString());
   		}
-  		//
-  		//dynLibHelper.saveSupportedModelDataToFile("output/wecc_sup_v0.2.dyr");
-  		//System.out.println(dynLibHelper.getUnsupportdGenRecs());
+
   		System.out.println(dynLibHelper.getUnsupportdSVCRecs());
 		return parser;
 	}

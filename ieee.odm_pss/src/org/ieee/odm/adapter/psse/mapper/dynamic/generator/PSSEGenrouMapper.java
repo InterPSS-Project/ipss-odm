@@ -58,7 +58,7 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	   
 	    
 	   DStabBusXmlType busXml = parser.getBus(busId);
-	    
+	   if(busXml!=null){ 
 	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
 	   
 	   if(dstabGenData!=null){
@@ -113,6 +113,10 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	   }
 	   else{
 		   ODMLogger.getLogger().severe("Machine # "+genId +" is not found in Bus #"+busId);
+	   }
+	}
+	   else{
+		   ODMLogger.getLogger().severe("Bus # "+busId +" is not available in load flow data");
 	   }
 	}
 
