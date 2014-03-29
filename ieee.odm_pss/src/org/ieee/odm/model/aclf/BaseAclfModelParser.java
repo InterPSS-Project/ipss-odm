@@ -61,9 +61,6 @@ public class BaseAclfModelParser<
 					TXfrXml extends BaseBranchXmlType,
 					TPsXfrXml extends BaseBranchXmlType
 				> extends AbstractModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> {
-
-	private Hashtable<String, FlowInterfaceRecXmlType> interfaceLookupTable = null;
-	
 	/**
 	 * Default Constructor 
 	 * 
@@ -254,6 +251,10 @@ public class BaseAclfModelParser<
 		PSXfr3WBranchXmlType branch = OdmObjFactory.createPSXfr3WBranchXmlType();
 		return (TPsXfrXml)branch;
 	}
+	
+	/*
+	 * HVDC related functions
+	 */
 
 	/**
 	 * Get the cashed dcLine2T object by id
@@ -290,94 +291,4 @@ public class BaseAclfModelParser<
 		dcLine.getInverter().setBusId(createBusRef(invId));
 		return dcLine;
 	}	
-	
-	/*
-	 * 		Network object functions
-	 * 		========================
-	 */
-	
-	/**
-	 * create a tieLine object
-	 * 
-	 * @return
-	 */
-	public TielineXmlType createTieline() {
-		LoadflowNetXmlType net = getAclfNet();
-		if (net.getTieLineList() == null)
-			net.setTieLineList(OdmObjFactory.createLoadflowNetXmlTypeTieLineList());
-		TielineXmlType tieLine = OdmObjFactory.createTielineXmlType();
-		net.getTieLineList().getTieline().add(tieLine);
-		return tieLine;
-	}	
-	
-	/**
-	 * create a Interchange object
-	 * 
-	 * @return
-	 */
-	public InterchangeXmlType createInterchange() {
-		LoadflowNetXmlType net = getAclfNet();
-		if (net.getInterchangeList() == null)
-			net.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
-		InterchangeXmlType interchange = OdmObjFactory.createInterchangeXmlType();
-		net.getInterchangeList().getInterchange().add(interchange);
-		return interchange;
-	}	
-
-	/**
-	 * get interface object list
-	 * 
-	 * @return
-	 */
-	public List<FlowInterfaceRecXmlType> getInterfaceList() {
-		LoadflowNetXmlType net = getAclfNet();
-		return net.getFlowInterfaceList().getFlowInterface();
-	}	
-	
-	/**
-	 * create a Interface object
-	 * 
-	 * @return
-	 */
-	public FlowInterfaceRecXmlType createInterface() {
-		LoadflowNetXmlType net = getAclfNet();
-		if (net.getFlowInterfaceList() == null)
-			net.setFlowInterfaceList(OdmObjFactory.createLoadflowNetXmlTypeFlowInterfaceList());
-		FlowInterfaceRecXmlType inter = OdmObjFactory.createFlowInterfaceRecXmlType();
-		net.getFlowInterfaceList().getFlowInterface().add(inter);
-		return inter;
-	}	
-
-	/**
-	 * get Interface record by id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public FlowInterfaceRecXmlType getInterface(String id) {
-		LoadflowNetXmlType net = getAclfNet();
-		if (net.getFlowInterfaceList() != null)
-			for (FlowInterfaceRecXmlType inter : net.getFlowInterfaceList().getFlowInterface()) {
-				if (id.equals(inter.getId()))
-					return inter;
-			}
-		return null;
-	}	
-	
-	/**
-	 * get Interface record by id
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public FlowInterfaceRecXmlType getInterfaceCached(String id) {
-		LoadflowNetXmlType net = getAclfNet();
-		if (this.interfaceLookupTable == null) {
-			this.interfaceLookupTable = new Hashtable<String, FlowInterfaceRecXmlType>();
-			for (FlowInterfaceRecXmlType inter : net.getFlowInterfaceList().getFlowInterface()) {
-				this.interfaceLookupTable.put(inter.getId(), inter);
-			}
-		}
-		return this.interfaceLookupTable.get(id);
-	}
 }

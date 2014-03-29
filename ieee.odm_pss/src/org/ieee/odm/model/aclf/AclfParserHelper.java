@@ -26,6 +26,9 @@ package org.ieee.odm.model.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import java.util.Hashtable;
+import java.util.List;
+
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMLogger;
@@ -39,6 +42,8 @@ import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
 import org.ieee.odm.schema.BusShuntYDataXmlType;
 import org.ieee.odm.schema.BusXmlType;
+import org.ieee.odm.schema.FlowInterfaceRecXmlType;
+import org.ieee.odm.schema.InterchangeXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
@@ -51,6 +56,7 @@ import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.StaticVarCompensatorXmlType;
+import org.ieee.odm.schema.TielineXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XformerZTableXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
