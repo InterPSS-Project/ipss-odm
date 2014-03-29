@@ -279,6 +279,7 @@ public class BaseAclfModelParser<
 	public DCLineData2TXmlType createDCLine2TRecord(String recId, String invId, String dcLineId) throws ODMBranchDuplicationException {
 		DCLineData2TXmlType dcLine = OdmObjFactory.createDCLineData2TXmlType();
 		addBranch2BaseCase(dcLine, recId, invId, null, dcLineId);
+		intiBranchData(dcLine);
 		
 		ConverterXmlType rectifier = OdmObjFactory.createConverterXmlType();
 		dcLine.setRectifier(rectifier);

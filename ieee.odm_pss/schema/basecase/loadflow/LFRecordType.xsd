@@ -96,10 +96,15 @@
     
     <ns:element name="aclf3WPSXfr" substitutionGroup="pss:branch" type="pss:PSXfr3WBranchXmlType">
         <ns:annotation> <ns:documentation>
-		3W PS Xfr Branch record for define 
+		3W PS Xfr Branch record for defining 3W xfr for AC loadflow 
 		</ns:documentation> </ns:annotation>
     </ns:element>
 
+    <ns:element name="aclf2THvdc" substitutionGroup="pss:branch" type="pss:DCLineData2TXmlType">
+        <ns:annotation> <ns:documentation>
+		3W PS Xfr Branch record for defineing 2T HVDC line for AC loadflow 
+		</ns:documentation> </ns:annotation>
+    </ns:element>
 		
 <!-- 
 		Network object

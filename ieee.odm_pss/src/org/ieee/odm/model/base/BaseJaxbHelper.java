@@ -38,6 +38,7 @@ import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BreakerDistBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.ComplexXmlType;
+import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.DcBranchXmlType;
@@ -171,7 +172,9 @@ public class BaseJaxbHelper {
 			return OdmObjFactory.createAclf3WXfr((Xfr3WBranchXmlType)branch);
 		else if (branch instanceof XfrBranchXmlType) 
 			return OdmObjFactory.createAclfXfr((XfrBranchXmlType)branch);
-
+		else if (branch instanceof DCLineData2TXmlType) 
+			return OdmObjFactory.createAclf2THvdc((DCLineData2TXmlType)branch);
+		
 		else if (branch instanceof DcBranchXmlType) 
 			return OdmObjFactory.createDcBranch((DcBranchXmlType)branch);
 		
