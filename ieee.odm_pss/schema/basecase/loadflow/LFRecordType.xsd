@@ -296,9 +296,8 @@
 
     <ns:complexType name="LoadflowGenDataXmlType">
 		<ns:annotation> <ns:documentation>
-			EquivGen is intended for Loadflow study. For PQ bus, p, q are specified using the power field. For Swing bus, 
-			desiredVoltage and desiredAngle are used For PV bus power.re and designedVoltage are used.
-			It is used to define LoadflowBusXmlType equivGen and contribGen list
+			For PQ bus, p, q are specified using the power field. For Swing bus, 
+			desiredVoltage are used. For PV bus power.re and designedVoltage are used.
 		</ns:documentation> </ns:annotation>
 		<ns:complexContent>
 			<ns:extension base="pss:CimConnectionRecordType">
@@ -308,12 +307,35 @@
 						If the unit in in PU, it is based on network baseKva
 						</ns:documentation></ns:annotation>
 					</ns:element>
-					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType"/>
-					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType"/>
-					<ns:element minOccurs="0" name="qLimit" type="pss:ReactivePowerLimitXmlType"/>
-					<ns:element maxOccurs="1" minOccurs="0" name="pLimit" type="pss:ActivePowerLimitXmlType"/>
-					<ns:element maxOccurs="1" minOccurs="0" name="voltageLimit" type="pss:VoltageLimitXmlType"/>
-					<ns:element minOccurs="0" name="mvaBase" type="pss:ApparentPowerXmlType"/>
+					<ns:element minOccurs="0" name="desiredVoltage" type="pss:VoltageXmlType">
+						<ns:annotation> <ns:documentation>
+						For Swing and PV bus definition
+						</ns:documentation></ns:annotation>					
+					</ns:element>					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType">
+						<ns:annotation> <ns:documentation>
+						If not null, the gen Q is used to control the remote bus voltage
+						</ns:documentation></ns:annotation>						
+					</ns:element>
+					<ns:element minOccurs="0" name="qLimit" type="pss:ReactivePowerLimitXmlType">
+						<ns:annotation> <ns:documentation>
+						For PV bus, if not null, the PV bus control has to within the reactive limit 
+						</ns:documentation></ns:annotation>	
+					</ns:element>
+					<ns:element maxOccurs="1" minOccurs="0" name="pLimit" type="pss:ActivePowerLimitXmlType">
+						<ns:annotation> <ns:documentation>
+						gen active power limit
+						</ns:documentation></ns:annotation>						
+					</ns:element>
+					<ns:element maxOccurs="1" minOccurs="0" name="voltageLimit" type="pss:VoltageLimitXmlType">
+						<ns:annotation> <ns:documentation>
+						For PQ bus, if not null, the PQ bus control has to within the voltage limit
+						</ns:documentation></ns:annotation>						
+					</ns:element>
+					<ns:element minOccurs="0" name="mvaBase" type="pss:ApparentPowerXmlType">
+						<ns:annotation> <ns:documentation>
+						
+						</ns:documentation></ns:annotation>						
+					</ns:element>
 					<ns:element minOccurs="0" name="sourceZ" type="pss:ZXmlType">
 						<ns:annotation> <ns:documentation>
 						In GE-PSLF, it is called CompensatingZ
