@@ -27,7 +27,7 @@ public class PSSETurGovTGOV1Mapper extends BasePSSEDataMapper{
 	 * PSSE TGOV1
 	 * TGOV1 is a simple model representing governor action and the reheater time 
 	 * constant effect for a steam turbine. The ratio, T2/T3, equals the fraction 
-	 * of turbine power that is developed by the highpressure turbine. T3is the 
+	 * of turbine power that is developed by the high pressure turbine. T3 is the 
 	 * reheater time constant, and T1 is the governor time constant
 	 * 
 	        //  0----------1----------2----------3----------4

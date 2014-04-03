@@ -105,7 +105,8 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
     	// set input data to the bus object
 		LFGenCodeEnumType genType = ide == 3? LFGenCodeEnumType.SWING : 
 								( ide == 1? LFGenCodeEnumType.NONE_GEN :     
-									( ide == 2 ? LFGenCodeEnumType.PV : LFGenCodeEnumType.NONE_GEN ));
+									( ide == 2 ? LFGenCodeEnumType.PV : 
+										ide==4?LFGenCodeEnumType.OFF: LFGenCodeEnumType.NONE_GEN ));
 		AclfDataSetter.setGenData(aclfBusXml, genType);
 
 		if (ide == 1 || ide == 2 || ide == 3) 

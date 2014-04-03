@@ -29,6 +29,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
@@ -56,10 +57,13 @@ import org.ieee.odm.schema.ExcIEEE1968Type2XmlType;
 import org.ieee.odm.schema.ExcIEEE1968Type3XmlType;
 import org.ieee.odm.schema.ExcIEEE1968Type4XmlType;
 import org.ieee.odm.schema.ExcIEEE1981ST1XmlType;
+import org.ieee.odm.schema.ExcIEEE1981TypeAC1XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeAC2XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeDC1XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeDC2XmlType;
 import org.ieee.odm.schema.ExcIEEE1992TypeAC1AXmlType;
+import org.ieee.odm.schema.ExcIEEE2005TypeST3AXmlType;
+import org.ieee.odm.schema.ExcIEEE2005TypeST4BXmlType;
 import org.ieee.odm.schema.ExcIEEEModified1968Type1XmlType;
 import org.ieee.odm.schema.ExcSimpleTypeXmlType;
 import org.ieee.odm.schema.ExcTSATTypeEXC34XmlType;
@@ -72,6 +76,7 @@ import org.ieee.odm.schema.GovHydroXmlType;
 import org.ieee.odm.schema.GovIEEE1981Type1XmlType;
 import org.ieee.odm.schema.GovIEEE1981Type2XmlType;
 import org.ieee.odm.schema.GovIEEE1981Type3XmlType;
+import org.ieee.odm.schema.GovPSSEGASTModelXmlType;
 import org.ieee.odm.schema.GovPSSEIEESGOModelXmlType;
 import org.ieee.odm.schema.GovPSSETGOV1ModelXmlType;
 import org.ieee.odm.schema.GovSimpleTypeXmlType;
@@ -135,10 +140,12 @@ public class DStabParserHelper extends AcscParserHelper {
 	public static DStabGenDataXmlType getDStabContritueGen(DStabBusXmlType dstabBus, String genId) throws ODMException {
 		for (JAXBElement<? extends LoadflowGenDataXmlType> elem : dstabBus.getGenData().getContributeGen()) {
 			DStabGenDataXmlType dstabGenData = (DStabGenDataXmlType)elem.getValue();
-			if (dstabGenData.getId().equals(genId))
+			if (dstabGenData.getId().equalsIgnoreCase(genId)) // change to NOT Case sensitive
 				return dstabGenData;
 		}
-    	throw new ODMException("Generator not found, ID: " + genId + "@Bus:" + dstabBus.getId());
+		//TODO wecc system has gens without machine
+    	ODMLogger.getLogger().severe("Generator not found, ID: " + genId + "@Bus:" + dstabBus.getId());
+    	return null;
 	}
 	
 	/**
@@ -306,6 +313,30 @@ public class DStabParserHelper extends AcscParserHelper {
 	}
 
 	/**
+	 * create Exc model record of type IEEE2005TypeST3A
+	 * 
+	 * @param gen
+	 * @return
+	 */
+	public static ExcIEEE2005TypeST3AXmlType createExcIEEE2005TypeST3AXmlType(DStabGenDataXmlType gen) {
+		ExcIEEE2005TypeST3AXmlType exc = OdmObjFactory.createExcIEEE2005TypeST3AXmlType();
+		gen.setExciter(OdmObjFactory.createExcIEEE2005TypeST3A(exc));
+		return exc;
+	}
+	
+	/**
+	 * create Exc model record of type IEEE2005TypeST3A
+	 * 
+	 * @param gen
+	 * @return
+	 */
+	public static ExcIEEE2005TypeST4BXmlType createExcIEEE2005TypeST4BXmlType(DStabGenDataXmlType gen) {
+		ExcIEEE2005TypeST4BXmlType exc = OdmObjFactory.createExcIEEE2005TypeST4BXmlType();
+		gen.setExciter(OdmObjFactory.createExcIEEE2005TypeST4B(exc));
+		return exc;
+	}
+	
+	/**
 	 * create Exc model record of type IEEE1992TypeAC1A
 	 * 
 	 * @param gen
@@ -314,6 +345,19 @@ public class DStabParserHelper extends AcscParserHelper {
 	public static ExcIEEE1992TypeAC1AXmlType createExcIEEE1992TypeAC1AXmlType(DStabGenDataXmlType gen) {
 		ExcIEEE1992TypeAC1AXmlType exc = OdmObjFactory.createExcIEEE1992TypeAC1AXmlType();
 		gen.setExciter(OdmObjFactory.createExcIEEE1992TypeAC1A(exc));
+		return exc;
+	}
+	
+	
+	/**
+	 * create Exc model record of type IEEE1981TypeAC1
+	 * 
+	 * @param gen
+	 * @return
+	 */
+	public static ExcIEEE1981TypeAC1XmlType createExcIEEE1981TypeAC1XmlType(DStabGenDataXmlType gen) {
+		ExcIEEE1981TypeAC1XmlType exc = OdmObjFactory.createExcIEEE1981TypeAC1XmlType();
+		gen.setExciter(OdmObjFactory.createExcIEEE1981TypeAC1(exc));
 		return exc;
 	}
 
@@ -754,6 +798,13 @@ public class DStabParserHelper extends AcscParserHelper {
 		GovPSSETGOV1ModelXmlType tgov1=OdmObjFactory.createGovPSSETGOV1ModelXmlType();
 		gen.setGovernor(OdmObjFactory.createGovPSSETGOV1(tgov1));
 		return tgov1;
+		
+	}
+	
+	public static GovPSSEGASTModelXmlType createGovPSSEGASTXmlType(DStabGenDataXmlType gen){
+		GovPSSEGASTModelXmlType gast=OdmObjFactory.createGovPSSEGASTModelXmlType();
+		gen.setGovernor(OdmObjFactory.createGovPSSEGAST(gast));
+		return gast;
 		
 	}
 	

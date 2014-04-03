@@ -70,25 +70,40 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
       			lineStr = din.readLine();
       			if (lineStr != null) {
       				lineNo++;
-      				if(lineStr.trim().length()>0){//only process when it is not a blank line
+      				if(skipInvalidLine(lineStr)){
+      					System.out.println("Invalid line, line# "+lineNo+",:"+lineStr);
+      					continue;
+      				}
+      				lineStr = lineStr.trim();
+      				if(lineStr.length()>0){//only process when it is not a blank line
       					while(!isModelDataCompleted(lineStr)){
       						lineStr += din.readLine();
+      						lineNo++;
       					}
       					//remove the "/" at the end of data definition
+      					
       					lineStr =lineStr.substring(0, lineStr.lastIndexOf("/"));
       					
       					modelType = getModelType(lineStr);
-      					if(dynLibHelper.getModelType(modelType)==DynModelType.GENERATOR){
-      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
-      					}
-      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
-      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
-      					}
-      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
-      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+      					DynModelType type = dynLibHelper.getModelType(modelType);
+      					if(type!=null){
+	      					if(type==DynModelType.GENERATOR){
+	      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
+	      					}
+	      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
+	      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      					}
+	      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
+	      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      					}
+	      					
+	      					//save supported model data
+	      					dynLibHelper.saveSupportedModelData(lineStr);
       					}
       					else{
-      						throw new Exception("The input dynamic model is not supported yet, Type #"+modelType);
+      						//System.out.println("model unsupported :"+lineStr);
+      						//throw new Exception("The input dynamic model is not supported yet, Type #"+modelType);
+      						dynLibHelper.procUnsupportedModel(modelType, lineStr);
       					}
       				}
       				
@@ -99,6 +114,8 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
   			e.printStackTrace();
     		throw new ODMException("PSSE dynamic data input error, line no " + lineNo + ", " + e.toString());
   		}
+
+  		System.out.println(dynLibHelper.getUnsupportdSVCRecs());
 		return parser;
 	}
 
@@ -168,6 +185,34 @@ public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXml
      */
     private String getModelType(String lineStr){
     	String[] strAry =lineStr.split("\\s+");
-    	return(ODMModelStringUtil.trimQuote(strAry[1]));
+    	if(strAry.length>2)
+    	    return(ODMModelStringUtil.trimQuote(strAry[1]));
+		else
+			try {
+				throw new Exception("The input data is not correct model data"+lineStr);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+    	return null;
+    		
     }
+    private boolean skipInvalidLine(String lineStr){
+    	if(lineStr.trim().length()==0.0){
+    		return true;
+    	}
+		//Check if the first line of multiInteger(String s) {
+    	int busNum;
+		if(lineStr.trim().startsWith("//") || lineStr.trim().startsWith("/"))
+			return true;
+		// skip a line if it is not started with a bus Number, which is an integer, 
+	    try { 
+	    	String[] strAry =lineStr.trim().split("\\s+");
+	        busNum =Integer.parseInt(strAry[0].trim()); 
+	    } catch(NumberFormatException e) {
+	    	//System.out.println("Error when processing line: \n"+ lineStr);
+	        return true; 
+	    }
+	    // only got here if we didn't return false
+	    return false;
+	}
 }

@@ -1,30 +1,29 @@
-package org.ieee.odm.adapter.psse.parser.dynamic.tur_gov;
+package org.ieee.odm.adapter.psse.parser.dynamic.exciter;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.BasePSSEDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
-public class PSSETurGovIEESGOParser extends BasePSSEDataParser {
-	public PSSETurGovIEESGOParser(PsseVersion ver) {
+public class PSSEExcIEEE1981ST1Parser extends BasePSSEDataParser {
+	public PSSEExcIEEE1981ST1Parser(PsseVersion ver) {
 		super(ver);
 	}
 	
 	/*
-	 * //PSSE IEESGO -> IEEE 1973 standard Tur-Gov model
-	 * IBUS, 扞EESGO� I, T1, T2, T3, T4, T5, T6, K1, K2, K3, PMAX, PMIN/ 
+	 * PSS/E EXST1 type -> IEEE 1981 Type ST1
+	 * IBUS, 'EXST1', TR, VIMAX,VIMIN, TC,TB, KA, TA, VRMAX, VRMIN, KC, KF, TF/
 	 */
 	
 	@Override
 	public String[] getMetadata() {
 		return new String[]{
 			//  0----------1----------2----------3----------4
-				"IBUS", "Type",   "MachId",   "T1",       "T2",
+				"IBUS",  "Type",   "MachId",   "TR",       "VIMAX",
 			//  5----------6----------7----------8----------9
-				"T3",     "T4",      "T5",      "T6",     "K1",  	 
-			//  10----------11--------12---------13---------14	
-				"K2",       "K3",   "PMAX",   "PMIN"		   
-					
+				"VIMIN",     "TC",    "TB",      "KA",    "TA",     	 
+			//  10----------11----------12--------13--------14	
+				"VRMAX",   "VRMIN",    "KC",      "KF",    "TF"	
 		};
 		
 	}
@@ -35,14 +34,11 @@ public class PSSETurGovIEESGOParser extends BasePSSEDataParser {
 		String[] strAry=lineStr.split("\\s+");
 		int cnt =strAry.length;
 		for (int i = 0; i <cnt ; i++){
-			if(i==1){// model type, need to trim the quote
+			if(i==1){//Model type, need to trim the quote
 				setValue(i,ODMModelStringUtil.trimQuote(strAry[i].trim()));
 			}
 			else setValue(i, strAry[i].trim());
 		}
 		
 	}
-	
-	
-
 }

@@ -142,17 +142,22 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	    double qt = dataParser.getDouble("QT", 0.0);
 	    double qb = dataParser.getDouble("QB", 0.0);
 	    contriGen.setQLimit(BaseDataSetter.createReactivePowerLimit(qt, qb, ReactivePowerUnitType.MVAR));
-	    /*
-	     * for bus type 2, it is set as PV bus by default. If Qmax = QMin, it is set to PQ bus
-	     */
-	    LoadflowBusXmlType aclfBusXml = (LoadflowBusXmlType)busRecXml;
-	    if (aclfBusXml.getGenData().getCode() == LFGenCodeEnumType.PV && !contriGen.isOffLine()) {
-	    	if (qt == qb) {
-	    		aclfBusXml.getGenData().setCode(LFGenCodeEnumType.PQ);
-	    	}
-	    }
 	    
-		/*
+	    /*
+         * for bus type 2, it is set as PV bus by default. If Qmax = QMin, it is set to PQ bus
+         */
+        LoadflowBusXmlType aclfBusXml = (LoadflowBusXmlType)busRecXml;
+        if (aclfBusXml.getGenData().getCode() == LFGenCodeEnumType.PV && !contriGen.isOffLine()) {
+                if (qt == qb) {
+                        aclfBusXml.getGenData().setCode(LFGenCodeEnumType.PQ);
+                }
+        }
+	    //Gen at bus of type 1 and 4 is offLine
+	    if (aclfBusXml.getGenData().getCode() == LFGenCodeEnumType.NONE_GEN ||
+	    		aclfBusXml.getGenData().getCode() == LFGenCodeEnumType.OFF)
+	    contriGen.setOffLine(true);
+	    
+	    /*
 		 * Bus number, or extended bus name enclosed in single quotes, of a remote Type 1 or 2 bus for which voltage 
 		 * is to be regulated by this plant to the value specified by VS. If bus IREG is other than a Type 1 or 2 bus, 
 		 * bus I regulates its own voltage to the value specified by VS. IREG is entered as zero if the plant is to 

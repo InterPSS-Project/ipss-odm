@@ -20,6 +20,9 @@
 			Naming convention
 			    excIEEE*, ExcIEEE* : for IEEE types  
 	 -->		
+    <!-- IEEE std 2005 -->
+    <ns:element name="excIEEE2005TypeST3A" substitutionGroup="pss:exciter" type="pss:ExcIEEE2005TypeST3AXmlType" />
+    <ns:element name="excIEEE2005TypeST4B" substitutionGroup="pss:exciter" type="pss:ExcIEEE2005TypeST4BXmlType" />
     
 	<!-- IEEE std 1992--> 
     <ns:element name="excIEEE1992TypeAC1A" substitutionGroup="pss:exciter" type="pss:ExcIEEE1992TypeAC1AXmlType" />
@@ -27,7 +30,7 @@
     
     
     <!-- IEEE std 1981--> 
-    
+    <ns:element name="excIEEE1981TypeAC1" substitutionGroup="pss:exciter" type="pss:ExcIEEE1981TypeAC1XmlType" />
     <ns:element name="excIEEE1981TypeAC2" substitutionGroup="pss:exciter" type="pss:ExcIEEE1981TypeAC2XmlType" />
     <ns:element name="excIEEE1981ST1" substitutionGroup="pss:exciter" type="pss:ExcIEEE1981ST1XmlType" />
     <ns:element name="excIEEE1981TypeDC1" substitutionGroup="pss:exciter" type="pss:ExcIEEE1981TypeDC1XmlType" />
@@ -144,10 +147,7 @@
 	</ns:complexType>
     
 
-<!-- 
-		IEEE 1981 model set
- -->
-    <!-- Alternator-supplied rectifier excitation system-->
+
 
     <ns:complexType name="ExcIEEE1968Type4XmlType">
 		<ns:complexContent>
@@ -169,9 +169,37 @@
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
+		
+ <!-- 
+		IEEE 1981 model set
+ -->
+
+    <!-- Alternator-supplied rectifier excitation system-->
     
-	
-	<!-- direct current commutator exciters -->
+     <ns:complexType name="ExcIEEE1981TypeAC1XmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ExcSimpleTypeXmlType">
+				<ns:sequence>
+					<ns:element maxOccurs="1" minOccurs="1" name="TR" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TB" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TC" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VAMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VAMIN" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KB" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TE" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KF" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TF" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KC" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KD" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KE" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="E1" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="SE1" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="E2" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="SE2" type="ns:double" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
 	
     <ns:complexType name="ExcIEEE1981TypeAC2XmlType">
 		<ns:complexContent>
@@ -192,11 +220,17 @@
 					<ns:element maxOccurs="1" minOccurs="1" name="KD" type="ns:double" />
 					<ns:element maxOccurs="1" minOccurs="1" name="KE" type="ns:double" />
 					<ns:element maxOccurs="1" minOccurs="1" name="VLR" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="E1" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="SE1" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="E2" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="SE2" type="ns:double" />
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
     
+
+	<!-- direct current commutator exciters -->
 	
     <ns:complexType name="ExcIEEE1981TypeDC1XmlType">
 		<ns:complexContent>
@@ -242,10 +276,7 @@
 	</ns:complexType>
     
 
- 
- <!-- 
-		IEEE 1992 model set
- -->
+
 
     <ns:complexType name="ExcIEEE1981ST1XmlType">
 		<ns:complexContent>
@@ -264,6 +295,10 @@
 		</ns:complexContent>
 	</ns:complexType>
     
+     
+ <!-- 
+		IEEE 1992 model set
+ -->
 	
     <ns:complexType name="ExcIEEE1992TypeAC1AXmlType">
 		<ns:complexContent>
@@ -289,9 +324,7 @@
 	</ns:complexType>
 
 
-<!-- 
-		Other models
- -->
+
 	
 
     <ns:complexType name="ExcIEEE1992TypeST1AXmlType">
@@ -319,7 +352,70 @@
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
-    
+	
+	
+ <!-- 
+		IEEE 2005 model set
+ -->	
+	
+	<ns:complexType name="ExcIEEE2005TypeST3AXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ExcSimpleTypeXmlType">
+				<ns:sequence>
+				    <ns:element maxOccurs="1" minOccurs="1" name="TR" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="0" name="VIMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="0" name="VIMIN" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KM" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TB" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TC" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KG" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KP" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KI" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VBMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KC" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="XL" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VGMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="TM" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="THETAP" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VMMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VMMIN" type="ns:double" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+	<ns:complexType name="ExcIEEE2005TypeST4BXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:ExcSimpleTypeXmlType">
+				<ns:sequence>
+				    <ns:element maxOccurs="1" minOccurs="1" name="TR" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="0" name="KPR" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="0" name="KIR" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KPM" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KIM" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VMMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VMMIN" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KG" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KP" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KI" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="VBMAX" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="KC" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="XL" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="THETAP" type="ns:double" />
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	
+	
+	
+<!-- 
+		Other models
+ -->
+	
+	
     <ns:complexType name="ExcTSATTypeEXC34XmlType">
 		<ns:complexContent>
 			<ns:extension base="pss:ExcSimpleTypeXmlType">
