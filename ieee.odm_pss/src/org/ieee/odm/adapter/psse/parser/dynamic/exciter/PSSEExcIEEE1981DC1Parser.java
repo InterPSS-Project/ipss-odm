@@ -23,7 +23,7 @@ public class PSSEExcIEEE1981DC1Parser extends BasePSSEDataParser {
 				//  5----------6----------7----------8----------9
 					"TA",    "TB",      "TC",    "VRMAX",   "VRMIN",     	 
 				//  10----------11----------12--------13--------14	
-					"KE",      "TE",      "KF",    "TF1",      "Switch",   		   
+					"KE",      "TE",      "KF",    "TF",      "Switch",   		   
 				//  15----------16----
 					"E1",   "SE(E1)",     "E2",    "SE(E2)"			
 			};

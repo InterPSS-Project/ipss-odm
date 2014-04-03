@@ -53,29 +53,32 @@ public class PSSEExcIEEE1968Type1Mapper extends BasePSSEDataMapper{
 	    }
 
 	   DStabBusXmlType busXml = parser.getBus(busId);
-	    
-	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+	   if(busXml !=null){ 
+		   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+		   if(dstabGenData!=null){
+		   ExcIEEE1968Type1XmlType exc = DStabParserHelper.createExcIEEE1968Type1XmlType(dstabGenData);
+		   
+		   exc.setDesc(dataParser.getString("Type"));
+		   exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
+		   exc.setKA(dataParser.getDouble("KA"));
+		   
+		   exc.setTA(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TA")));
+		   exc.setVRMAX(dataParser.getDouble("VRMAX"));
+		   exc.setVRMIN(dataParser.getDouble("VRMIN"));
+		   
+		   exc.setKE(dataParser.getDouble("KE"));
+		   exc.setTE(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TE")));
+		   
+		   exc.setKF(dataParser.getDouble("KF"));
+		   exc.setTF(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TF")));
+		   
+		   exc.setE1(dataParser.getDouble("E1"));
+		   exc.setSE1(dataParser.getDouble("SE(E1)"));
+		   exc.setE2(dataParser.getDouble("E2"));
+		   exc.setSE2(dataParser.getDouble("SE(E2)"));
+		   }
 	   
-	   ExcIEEE1968Type1XmlType exc = DStabParserHelper.createExcIEEE1968Type1XmlType(dstabGenData);
-	   
-	   exc.setDesc(dataParser.getString("Type"));
-	   exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
-	   exc.setKA(dataParser.getDouble("KA"));
-	   
-	   exc.setTA(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TA")));
-	   exc.setVRMAX(dataParser.getDouble("VRMAX"));
-	   exc.setVRMIN(dataParser.getDouble("VRMIN"));
-	   
-	   exc.setKE(dataParser.getDouble("KE"));
-	   exc.setTE(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TE")));
-	   
-	   exc.setKF(dataParser.getDouble("KF"));
-	   exc.setTF(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TF")));
-	   
-	   exc.setE1(dataParser.getDouble("E1"));
-	   exc.setSE1(dataParser.getDouble("SE(E1)"));
-	   exc.setE2(dataParser.getDouble("E2"));
-	   exc.setSE2(dataParser.getDouble("SE(E2)"));
+	   }
 		
 	}
 

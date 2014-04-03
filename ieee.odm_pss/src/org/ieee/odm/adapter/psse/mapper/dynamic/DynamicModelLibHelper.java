@@ -31,19 +31,19 @@ public class DynamicModelLibHelper {
 			Arrays.asList("GENROU","GENSAL","GENCLS","GENSAE"));
 	private List<String> UnSupportedGeneratorList =new ArrayList<>(
 			Arrays.asList("GENROE","GENDCO","GENTRA","CGEN1"));
-	
+	//TODO Don't use "EXAC1", it is found to cause errors for wecc system
 	private List<String> ExciterList =new ArrayList<>(
-			Arrays.asList("IEEET1")
+			Arrays.asList("IEEET1","IEEEX1","EXST1","ESST3A","ESST4B")//
 			);
 	private List<String> UnSupportedExciterList =new ArrayList<>(
 			Arrays.asList("IEEET2","IEEET3","IEEET4", //IEEE 1968
-					"ESAC3A","ESAC8B","ESST2A","ESST3A","ESST4B",
-					"EXAC1","EXAC1A","EXAC2","EXAC41A","EXDC2","EXELI","EXPIC1","EXST1","EXST2","EXST3",
-					"IEEEX1","IEEEX2","IEEEX3","IEEEX4", //IEEE 1979 Type1->4
+					"ESAC3A","ESAC8B","ESST2A",
+					"EXAC1A","EXAC2","EXAC41A","EXDC2","EXELI","EXPIC1","EXST2","EXST3",
+					"IEEEX2","IEEEX3","IEEEX4", //IEEE 1979 Type1->4
 					"ST5B","ST6B","ST7B", //IEEE2005
 					"REXSY1","REXSYS","SCRX"));
-	
-	private List<String> TurGovList =new ArrayList<>(Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST"));
+	//Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST")
+	private List<String> TurGovList =new ArrayList<>();//Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST")
 	
 	private List<String> UnsupportedTurGovList =new ArrayList<>(
 			Arrays.asList("IEEEG3","GGOV1","HYGOV","HYGOV2","IEEEG2","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));

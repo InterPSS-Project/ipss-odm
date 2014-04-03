@@ -57,10 +57,13 @@ import org.ieee.odm.schema.ExcIEEE1968Type2XmlType;
 import org.ieee.odm.schema.ExcIEEE1968Type3XmlType;
 import org.ieee.odm.schema.ExcIEEE1968Type4XmlType;
 import org.ieee.odm.schema.ExcIEEE1981ST1XmlType;
+import org.ieee.odm.schema.ExcIEEE1981TypeAC1XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeAC2XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeDC1XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeDC2XmlType;
 import org.ieee.odm.schema.ExcIEEE1992TypeAC1AXmlType;
+import org.ieee.odm.schema.ExcIEEE2005TypeST3AXmlType;
+import org.ieee.odm.schema.ExcIEEE2005TypeST4BXmlType;
 import org.ieee.odm.schema.ExcIEEEModified1968Type1XmlType;
 import org.ieee.odm.schema.ExcSimpleTypeXmlType;
 import org.ieee.odm.schema.ExcTSATTypeEXC34XmlType;
@@ -310,6 +313,30 @@ public class DStabParserHelper extends AcscParserHelper {
 	}
 
 	/**
+	 * create Exc model record of type IEEE2005TypeST3A
+	 * 
+	 * @param gen
+	 * @return
+	 */
+	public static ExcIEEE2005TypeST3AXmlType createExcIEEE2005TypeST3AXmlType(DStabGenDataXmlType gen) {
+		ExcIEEE2005TypeST3AXmlType exc = OdmObjFactory.createExcIEEE2005TypeST3AXmlType();
+		gen.setExciter(OdmObjFactory.createExcIEEE2005TypeST3A(exc));
+		return exc;
+	}
+	
+	/**
+	 * create Exc model record of type IEEE2005TypeST3A
+	 * 
+	 * @param gen
+	 * @return
+	 */
+	public static ExcIEEE2005TypeST4BXmlType createExcIEEE2005TypeST4BXmlType(DStabGenDataXmlType gen) {
+		ExcIEEE2005TypeST4BXmlType exc = OdmObjFactory.createExcIEEE2005TypeST4BXmlType();
+		gen.setExciter(OdmObjFactory.createExcIEEE2005TypeST4B(exc));
+		return exc;
+	}
+	
+	/**
 	 * create Exc model record of type IEEE1992TypeAC1A
 	 * 
 	 * @param gen
@@ -318,6 +345,19 @@ public class DStabParserHelper extends AcscParserHelper {
 	public static ExcIEEE1992TypeAC1AXmlType createExcIEEE1992TypeAC1AXmlType(DStabGenDataXmlType gen) {
 		ExcIEEE1992TypeAC1AXmlType exc = OdmObjFactory.createExcIEEE1992TypeAC1AXmlType();
 		gen.setExciter(OdmObjFactory.createExcIEEE1992TypeAC1A(exc));
+		return exc;
+	}
+	
+	
+	/**
+	 * create Exc model record of type IEEE1981TypeAC1
+	 * 
+	 * @param gen
+	 * @return
+	 */
+	public static ExcIEEE1981TypeAC1XmlType createExcIEEE1981TypeAC1XmlType(DStabGenDataXmlType gen) {
+		ExcIEEE1981TypeAC1XmlType exc = OdmObjFactory.createExcIEEE1981TypeAC1XmlType();
+		gen.setExciter(OdmObjFactory.createExcIEEE1981TypeAC1(exc));
 		return exc;
 	}
 
