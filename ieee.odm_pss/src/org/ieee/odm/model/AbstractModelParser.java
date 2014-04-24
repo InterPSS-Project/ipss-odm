@@ -695,7 +695,7 @@ public abstract class AbstractModelParser<
 				this.objectCache.get(ODMModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
 			throw new ODMBranchDuplicationException("Branch record duplication, bus id: " + id);
 		}
-		this.objectCache.put(id, branch);		
+		this.objectCache.put(cirId, branch);		
 		branch.setCircuitId(cirId);
 		branch.setId(id);
 		branch.setFromBus(createBusRef(fromId));
