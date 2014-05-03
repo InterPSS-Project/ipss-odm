@@ -555,6 +555,26 @@ public abstract class AbstractModelParser<
 	}
 	
 	/**
+	 * create PSASP Xformer branch object
+	 * 
+	 * @param fBusId from bus id
+	 * @param toBusId to bus id
+	 * @param cirId branch circuit number
+	 * @return
+	 * @throws ODMException
+	 * @throws ODMBranchDuplicationException
+	 */
+	public TXfrXml createPSASPXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+		TXfrXml branch = createXfrBranch();
+		intiBranchData(branch);
+		addPSASPBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
+		return branch;
+	
+	}
+	
+	
+	
+	/**
 	 * create 3W Xformer branch object
 	 * 
 	 * @param fBusId from bus id
@@ -689,6 +709,32 @@ public abstract class AbstractModelParser<
 	 * @throws ODMBranchDuplicationException
 	 */
 	protected void addBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
+		String id = tertId == null ?
+				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
+		if (this.objectCache.get(id) != null ||
+				this.objectCache.get(ODMModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
+			throw new ODMBranchDuplicationException("Branch record duplication, bus id: " + id);
+		}
+		this.objectCache.put(id, branch);		
+		branch.setCircuitId(cirId);
+		branch.setId(id);
+		branch.setFromBus(createBusRef(fromId));
+		branch.setToBus(createBusRef(toId));		
+		if (tertId != null)
+			branch.setTertiaryBus(createBusRef(tertId));		
+	}	
+	
+	/**
+	 * add a BaseBranchXmlType object to the BaseCase
+	 * 
+	 * @param branch
+	 * @param fromId
+	 * @param toId
+	 * @param tertId
+	 * @param cirId
+	 * @throws ODMBranchDuplicationException
+	 */
+	protected void addPSASPBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
 		String id = tertId == null ?
 				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
 		if (this.objectCache.get(id) != null ||
