@@ -29,30 +29,15 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.ieee.odm.common.ODMBranchDuplicationException;
-import org.ieee.odm.model.base.ODMModelStringUtil;
-import org.ieee.odm.schema.ConverterXmlType;
-import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.FlowInterfaceRecXmlType;
 import org.ieee.odm.schema.InterchangeXmlType;
-import org.ieee.odm.schema.LineBranchXmlType;
-import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
-import org.ieee.odm.schema.PSXfr3WBranchXmlType;
-import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.TielineXmlType;
-import org.ieee.odm.schema.Xfr3WBranchXmlType;
-import org.ieee.odm.schema.XfrBranchXmlType;
 
 /**
  * An Aclf Xml parser implementation for the IEEE DOM schema. 
  */
-public class AclfModelParser extends BaseAclfModelParser<
-				LoadflowNetXmlType, 
-				LoadflowBusXmlType, 
-				LineBranchXmlType, 
-				XfrBranchXmlType, 
-				PSXfrBranchXmlType> {
+public class AclfModelParser extends BaseAclfModelParser<LoadflowNetXmlType> {
 
 	private Hashtable<String, FlowInterfaceRecXmlType> interfaceLookupTable = null;
 	

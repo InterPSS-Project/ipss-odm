@@ -52,8 +52,8 @@ public class PWD_IEEE14Bus_ODMTest {
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//System.out.println(parser.toXmlDoc());
 		
-		assertTrue(parser.getBus("Bus1").getGenData().getCode() == LFGenCodeEnumType.SWING);
-		assertTrue(parser.getBus("Bus2").getGenData().getCode() == LFGenCodeEnumType.PV);
+		assertTrue(parser.getAclfBus("Bus1").getGenData().getCode() == LFGenCodeEnumType.SWING);
+		assertTrue(parser.getAclfBus("Bus2").getGenData().getCode() == LFGenCodeEnumType.PV);
 	}
 
 	//@Test
@@ -70,9 +70,9 @@ public class PWD_IEEE14Bus_ODMTest {
 		//System.out.println(parser.toXmlDoc());
 		
 		//LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus1").getGenData());
-		assertTrue(parser.getBus("Bus1").getGenData().getCode() ==LFGenCodeEnumType.SWING);
+		assertTrue(parser.getAclfBus("Bus1").getGenData().getCode() ==LFGenCodeEnumType.SWING);
 		//defaultGen = AclfParserHelper.getDefaultGen(parser.getBus("Bus2").getGenData());
-		assertTrue(parser.getBus("Bus2").getGenData().getCode()	== LFGenCodeEnumType.PV);
+		assertTrue(parser.getAclfBus("Bus2").getGenData().getCode()	== LFGenCodeEnumType.PV);
 	}
 }
 

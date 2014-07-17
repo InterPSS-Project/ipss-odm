@@ -79,7 +79,7 @@ public class BPAAdapter  extends AbstractODMAdapter {
 		} while (str.startsWith(".") || str.trim().equals(""));  // bypass lines starts with . or blank lines
 		
 		if(str.equals("loadflow") || str.contains("POWERFLOW")){
-			new BPALoadflowRecord<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>().processLfData(parser, din);			
+			new BPALoadflowRecord().processLfData(parser, din);			
 			return parser;
 		}
 		throw new ODMException("Only LF data file could be prcessed by this method");
@@ -107,7 +107,7 @@ public class BPAAdapter  extends AbstractODMAdapter {
 			} while (str.startsWith(".") || str.trim().equals(""));
 			
 			if(str.equals("loadflow") || str.contains("POWERFLOW")){
-				new BPALoadflowRecord<DStabNetXmlType, DStabBusXmlType, LineDStabXmlType, XfrDStabXmlType, PSXfrDStabXmlType>().processLfData(parser, din);			
+				new BPALoadflowRecord().processLfData(parser, din);			
 			}
 			//timer.logStd("Load LF data");
 			

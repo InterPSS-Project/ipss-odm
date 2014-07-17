@@ -7,19 +7,12 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LineShortCircuitXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
-public class PSSEBranchZeroSeqMapper<
-        TNetXml extends NetworkXmlType, 
-        TBusXml extends BusXmlType,
-        TLineXml extends BranchXmlType,
-        TXfrXml extends BranchXmlType,
-        TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEBranchZeroSeqMapper extends BasePSSEDataMapper{
     
 	public PSSEBranchZeroSeqMapper(PsseVersion ver) {
 		super(ver);
@@ -56,7 +49,7 @@ public class PSSEBranchZeroSeqMapper<
             
 	 */
 	
-	public void procLineString(String lineStr, BaseAcscModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAcscModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		this.dataParser.parseFields(lineStr);
 		
 		/*

@@ -47,12 +47,7 @@ import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 
-public class BPABusRecord<
-					TNetXml extends NetworkXmlType, 
-					TBusXml extends BusXmlType,
-					TLineXml extends BranchXmlType,
-					TXfrXml extends BranchXmlType,
-					TPsXfrXml extends BranchXmlType> {
+public class BPABusRecord {
 	private static final int swingBus=1;
 	private static final int pqBus=2;
 	private static final int pvBus=3;		
@@ -98,7 +93,7 @@ public class BPABusRecord<
 		return id; 
 	}
 	
-	public void processBusData(final String str, BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser) throws Exception {		
+	public void processBusData(final String str, BaseAclfModelParser<? extends NetworkXmlType> parser) throws Exception {		
 		final double baseMVA = parser.getNet().getBasePower().getValue();
 
 		// parse the input data line
@@ -302,7 +297,7 @@ public class BPABusRecord<
 			*/
 			if(busType==supplementaryBusInfo){
 				
-				TBusXml Bus=parser.getBus(getBusId(busName));
+				BusXmlType Bus=parser.getBus(getBusId(busName));
 				final String loadType=strAry[5];
 				//loadType: *I or 01 for constI,  and *P or 02 for constP
 				final double p=ODMModelStringUtil.getDouble(strAry[6], 0.0);

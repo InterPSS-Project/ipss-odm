@@ -46,39 +46,31 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkCategoryEnumType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
 
-public class PSSELFAdapter <
-				TNetXml extends NetworkXmlType, 
-				TBusXml extends BusXmlType,
-				TLineXml extends BranchXmlType,
-				TXfrXml extends BranchXmlType,
-				TPsXfrXml extends BranchXmlType> extends BasePSSEAdapter{
+public class PSSELFAdapter extends BasePSSEAdapter{
 
-	private PSSEHeaderDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> headerDataMapper = null;	
-	private PSSEAreaDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> areaDataMapper = null;
-	private PSSEZoneDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> zoneDataMapper = null;
-	private PSSEOwnerDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> ownerDataMapper = null;
-	private PSSEInterAreaTransferDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> interAreaDataMapper = null;
-	private PSSEXfrZTableDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> zTableDataMapper = null;
+	private PSSEHeaderDataMapper headerDataMapper = null;	
+	private PSSEAreaDataMapper areaDataMapper = null;
+	private PSSEZoneDataMapper zoneDataMapper = null;
+	private PSSEOwnerDataMapper ownerDataMapper = null;
+	private PSSEInterAreaTransferDataMapper interAreaDataMapper = null;
+	private PSSEXfrZTableDataMapper zTableDataMapper = null;
 	
-	private PSSEBusDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> busDataMapper = null;
-	private PSSEGenDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> genDataMapper = null;
-	private PSSEFixedShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> fixedShuntDataMapper = null;
-	private PSSELoadDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> loadDataMapper = null;
-	private PSSESwitchedSShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> switchedShuntDataMapper = null;
+	private PSSEBusDataMapper busDataMapper = null;
+	private PSSEGenDataMapper genDataMapper = null;
+	private PSSEFixedShuntDataMapper fixedShuntDataMapper = null;
+	private PSSELoadDataMapper loadDataMapper = null;
+	private PSSESwitchedSShuntDataMapper switchedShuntDataMapper = null;
 	
-	private PSSELineDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> lineDataMapper = null;
-	private PSSEXfrDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> xfrDataMapper = null;
-	private PSSEDcLine2TDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> dcLine2TDataMapper = null;
+	private PSSELineDataMapper lineDataMapper = null;
+	private PSSEXfrDataMapper xfrDataMapper = null;
+	private PSSEDcLine2TDataMapper dcLine2TDataMapper = null;
 	
 	private 	boolean headerProcessed = false;
 	private 	boolean busProcessed = false;
@@ -109,20 +101,20 @@ public class PSSELFAdapter <
 	public PSSELFAdapter(PsseVersion ver) {
 		super(ver);
 		
-		this.headerDataMapper = new PSSEHeaderDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.areaDataMapper = new PSSEAreaDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.zoneDataMapper = new PSSEZoneDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.ownerDataMapper = new PSSEOwnerDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.interAreaDataMapper = new PSSEInterAreaTransferDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.zTableDataMapper = new PSSEXfrZTableDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.busDataMapper = new PSSEBusDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.genDataMapper = new PSSEGenDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.loadDataMapper = new PSSELoadDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.fixedShuntDataMapper = new PSSEFixedShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.switchedShuntDataMapper = new PSSESwitchedSShuntDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.lineDataMapper = new PSSELineDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.xfrDataMapper = new PSSEXfrDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		this.dcLine2TDataMapper = new PSSEDcLine2TDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
+		this.headerDataMapper = new PSSEHeaderDataMapper(ver);
+		this.areaDataMapper = new PSSEAreaDataMapper(ver);
+		this.zoneDataMapper = new PSSEZoneDataMapper(ver);
+		this.ownerDataMapper = new PSSEOwnerDataMapper(ver);
+		this.interAreaDataMapper = new PSSEInterAreaTransferDataMapper(ver);
+		this.zTableDataMapper = new PSSEXfrZTableDataMapper(ver);
+		this.busDataMapper = new PSSEBusDataMapper(ver);
+		this.genDataMapper = new PSSEGenDataMapper(ver);
+		this.loadDataMapper = new PSSELoadDataMapper(ver);
+		this.fixedShuntDataMapper = new PSSEFixedShuntDataMapper(ver);
+		this.switchedShuntDataMapper = new PSSESwitchedSShuntDataMapper(ver);
+		this.lineDataMapper = new PSSELineDataMapper(ver);
+		this.xfrDataMapper = new PSSEXfrDataMapper(ver);
+		this.dcLine2TDataMapper = new PSSEDcLine2TDataMapper(ver);
 	}
 	
     /**
@@ -144,8 +136,8 @@ public class PSSELFAdapter <
 		return (AclfModelParser) this.parser;
 	}
 	
-	private BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> getParser() {
-		return (BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) this.parser;
+	private BaseAclfModelParser<? extends NetworkXmlType> getParser() {
+		return (BaseAclfModelParser<? extends NetworkXmlType>) this.parser;
 	}
 	
 	@Override

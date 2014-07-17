@@ -36,7 +36,7 @@ import org.ieee.odm.schema.XfrDStabXmlType;
 /**
  * A DStab ODM Xml model parser for the IEEE DOM schema. 
  */
-public class DStabModelParser extends BaseDstabModelParser<DStabNetXmlType, DStabBusXmlType, LineDStabXmlType, XfrDStabXmlType, PSXfrDStabXmlType> {
+public class DStabModelParser extends BaseDstabModelParser<DStabNetXmlType> {
 	// some input file might carry DStab Simu data;
 	private DStabSimulationXmlType tranSimu = null;
 	

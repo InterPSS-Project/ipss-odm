@@ -285,12 +285,9 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		    if(regBusNum>0)regBusId=IODMModelParser.BusIdPreFix+regBusNum;
 		    
 		    // create a branch record
-		    XfrBranchXmlType xfr=null;
-		    
-		    //phase shifting transformer or traditional transformer
-		    xfr=phaseAngle!=0?parser.createPSXfrBranch(fromBusId, toBusId, circuitId)
-		    
-		    			               :parser.createXfrBranch(fromBusId, toBusId, circuitId);;
+		  //phase shifting transformer or traditional transformer
+		    XfrBranchXmlType xfr= (XfrBranchXmlType)(phaseAngle!=0?parser.createPSXfrBranch(fromBusId, toBusId, circuitId)
+		    			               :parser.createXfrBranch(fromBusId, toBusId, circuitId));
 		    
 			/*
 			 * common setting for Transformer branch

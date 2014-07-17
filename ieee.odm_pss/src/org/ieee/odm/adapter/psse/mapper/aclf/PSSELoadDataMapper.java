@@ -36,7 +36,6 @@ import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.ApparentPowerUnitType;
-import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
@@ -44,12 +43,7 @@ import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 
-public class PSSELoadDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSELoadDataMapper extends BasePSSEDataMapper{
 	public PSSELoadDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSELoadDataParser(ver);
@@ -58,7 +52,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	/*
 	 * LoadData I, ID, STATUS, AREA, ZONE, PL, QL, IP, IQ, YP, YQ, OWNER
 	 */	
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		//procLineString(lineStr, version);
 		this.dataParser.parseFields(lineStr);
 /*

@@ -29,28 +29,25 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.schema.BranchXmlType;
+import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
+import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LineShortCircuitXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WShortCircuitXmlType;
+import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.PSXfrShortCircuitXmlType;
 import org.ieee.odm.schema.ShortCircuitBusEnumType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.ShortCircuitNetXmlType;
 import org.ieee.odm.schema.Xfr3WShortCircuitXmlType;
+import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.XfrShortCircuitXmlType;
 
 /**
  * An Acsc ODM Xml parser for the IEEE DOM schema. 
  */
-public class BaseAcscModelParser<
-					TNetXml extends NetworkXmlType, 
-					TBusXml extends BusXmlType,
-					TLineXml extends BranchXmlType,
-					TXfrXml extends BranchXmlType,
-					TPsXfrXml extends BranchXmlType
-				> extends BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> {	
+public class BaseAcscModelParser<TNetXml extends NetworkXmlType> extends BaseAclfModelParser<TNetXml> {	
 
 	/**
 	 * Default Constructor 
@@ -88,11 +85,21 @@ public class BaseAcscModelParser<
 		return (TNetXml)getStudyCase().getBaseCase().getValue();
 	}
 	
-	@SuppressWarnings("unchecked") @Override protected TBusXml createBus() {
+	/**
+	 * Get the cashed bus object by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public ShortCircuitBusXmlType getAcscBus(String id) {
+		return (ShortCircuitBusXmlType)this.getBus(id);
+	}	
+	
+	@SuppressWarnings("unchecked") @Override protected <T extends BusXmlType> T createBus() {
 		ShortCircuitBusXmlType busRec = OdmObjFactory.createShortCircuitBusXmlType();
 		initAcscBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
-		return (TBusXml)busRec;
+		return (T)busRec;
 	}	
 	
 	protected void initAcscBus(ShortCircuitBusXmlType busRec) {
@@ -110,10 +117,10 @@ public class BaseAcscModelParser<
    	
 	}
 	
-	@SuppressWarnings("unchecked") @Override protected TLineXml createLineBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends LineBranchXmlType> T createLineBranch() {
 		LineShortCircuitXmlType line = OdmObjFactory.createLineShortCircuitXmlType();
 		initAcscLineBranch(line);
-		return (TLineXml) line;
+		return (T) line;
 		
 	}
 
@@ -121,34 +128,34 @@ public class BaseAcscModelParser<
 		initAclfLineBranch(line);
 	}
 	
-	@SuppressWarnings("unchecked") @Override protected TXfrXml createXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends XfrBranchXmlType> T createXfrBranch() {
 		XfrShortCircuitXmlType  xfr  =  OdmObjFactory.createXfrShortCircuitXmlType();
 		initAcscXfrBranch(xfr);
-		return (TXfrXml) xfr;
+		return (T) xfr;
 	}
 
 	protected void initAcscXfrBranch(XfrShortCircuitXmlType  xfr) {
 		initAclfXfrBranch(xfr);
 	}
 	
-	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends PSXfrBranchXmlType> T createPSXfrBranch() {
 		PSXfrShortCircuitXmlType psXfr = OdmObjFactory.createPSXfrShortCircuitXmlType();
 		initAcscPsXfrBranch(psXfr);
-		return (TPsXfrXml) psXfr;
+		return (T) psXfr;
 	}
 
 	protected void initAcscPsXfrBranch(PSXfrShortCircuitXmlType psXfr) {
 		initAclfPsXfrBranch(psXfr);
 	}
 
-	@SuppressWarnings("unchecked") @Override protected TXfrXml createXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends BaseBranchXmlType> T createXfr3WBranch() {
 		Xfr3WShortCircuitXmlType w3xfr = OdmObjFactory.createXfr3WShortCircuitXmlType();
-		return (TXfrXml) w3xfr;
+		return (T) w3xfr;
 	}
 
-	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends BaseBranchXmlType> T createPSXfr3WBranch() {
 		PSXfr3WShortCircuitXmlType branch = OdmObjFactory.createPSXfr3WShortCircuitXmlType();
-		return (TPsXfrXml)branch;
+		return (T)branch;
 	}	
 	
 	/**

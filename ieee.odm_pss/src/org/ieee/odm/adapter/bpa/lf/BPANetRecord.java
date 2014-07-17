@@ -46,24 +46,19 @@ import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 
-public class BPANetRecord<
-				TNetXml extends NetworkXmlType, 
-				TBusXml extends BusXmlType,
-				TLineXml extends BranchXmlType,
-				TXfrXml extends BranchXmlType,
-				TPsXfrXml extends BranchXmlType> {
+public class BPANetRecord {
 	/*
 	 *   Network data
 	 *   ============ 
 	 */
-	public void processReadComment(final String str, final TNetXml baseCaseNet){
+	public <T extends NetworkXmlType> void processReadComment(final String str, final T baseCaseNet){
 		
 	//	adapter.logErr("This line is for comment only:  "+str);
 		// to do in future
 		
 	}
 
-	public void processNetData(final String str, final TNetXml baseCaseNet) {
+	public  <T extends NetworkXmlType> void processNetData(final String str, final T baseCaseNet) {
 			// parse the input data line
 			final String[] strAry = getNetDataFields(str);			
 	        //read powerflow, caseID,projectName, 			
@@ -92,8 +87,8 @@ public class BPANetRecord<
 	 *   ================ 
 	 */
 
-	public void processAreaData(final String str,final BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser ,
-			final TNetXml baseCaseNet, int areaNumber	) throws ODMException {
+	public <T extends NetworkXmlType> void processAreaData(final String str,final BaseAclfModelParser<? extends NetworkXmlType> parser,
+			final T baseCaseNet, int areaNumber	) throws ODMException {
 		LoadflowNetXmlType net = (LoadflowNetXmlType)baseCaseNet;
 		
 		final String[] strAry = getAreaDataFields(str);
@@ -278,7 +273,7 @@ public class BPANetRecord<
 		return strAry;
 	}
 	
-	private NetAreaXmlType getAreaByName(final TNetXml baseNet, final String areaName) throws ODMException{
+	private <T extends NetworkXmlType> NetAreaXmlType getAreaByName(final T baseNet, final String areaName) throws ODMException{
 		NetAreaXmlType targetArea=null;
 		LoadflowNetXmlType net = (LoadflowNetXmlType)baseNet;
 		for(NetAreaXmlType area : net.getAreaList().getArea()){

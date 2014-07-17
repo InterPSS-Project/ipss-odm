@@ -164,7 +164,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * 
 	 */
 	@SuppressWarnings("unchecked") public static boolean createBusEquivGenData(IODMModelParser parser ) {
-		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
+		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
 			BusGenDataXmlType genData = busRec.getGenData();
@@ -243,7 +243,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 							genData.getCode() == LFGenCodeEnumType.PV){
 						// Remote Q  Bus control, we need to change this bus to a GPQ bus so that its Q could be adjusted
 						defaultGen.setRemoteVoltageControlBus(
-								((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).createBusRef(remoteBusId));
+								((AbstractModelParser<LoadflowNetXmlType>) parser).createBusRef(remoteBusId));
 					}
 				}
 				else {
@@ -264,7 +264,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * 
 	 */
 	@SuppressWarnings("unchecked") public static boolean createBusEquivLoadData(IODMModelParser parser) {
-		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
+		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
 			BusLoadDataXmlType loadData = busRec.getLoadData();
@@ -325,7 +325,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 	 * 
 	 */
 	@SuppressWarnings("unchecked") public static boolean createBusEquivShuntYData(IODMModelParser parser) {
-		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType>) parser).getNet(); 
+		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType>) parser).getNet(); 
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
 			BusShuntYDataXmlType shuntYData = busRec.getShuntYData();

@@ -73,7 +73,7 @@ public class PSSEAdapter extends AbstractODMAdapter {
      * @throws ODMException
      */
 	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws ODMException {
-	    return new PSSELFAdapter<>(this.adptrVersion).parseLoadflowFile(din, encoding);
+	    return new PSSELFAdapter(this.adptrVersion).parseLoadflowFile(din, encoding);
 	}
 	/**
 	 * parse the aclf and sequence network files. The first file in the input "din" array is for aclf
@@ -85,7 +85,7 @@ public class PSSEAdapter extends AbstractODMAdapter {
 	 * @throws ODMException
 	 */
 	public IODMModelParser parseAcscFiles(final IFileReader[] din, String encoding) throws ODMException {
-		return new PSSEAcscAdapter<>(this.adptrVersion).parseInputFile(NetType.AcscNet, din, encoding);
+		return new PSSEAcscAdapter(this.adptrVersion).parseInputFile(NetType.AcscNet, din, encoding);
 	}
 	
 	/**

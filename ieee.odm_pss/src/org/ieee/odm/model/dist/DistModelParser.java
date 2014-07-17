@@ -46,7 +46,7 @@ import org.ieee.odm.schema.XFormerDistBranchXmlType;
 /**
  * A Dist ODM Xml model parser for the IEEE DOM schema. 
  */
-public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType, DistBusXmlType, FeederDistBranchXmlType, XFormerDistBranchXmlType, XFormerDistBranchXmlType> {
+public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType> {
 	/**
 	 * Default Constructor 
 	 * 

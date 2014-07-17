@@ -61,8 +61,8 @@ public class GEXformerDataMapper extends BaseGEDataMapper {
 		final String cId = this.dataParser.getString("ck").replace(' ', '_');
 		XfrBranchXmlType branchRec = null;
 		try {
-			branchRec = isPsXfr?
-				parser.createPSXfrBranch(fid, tid, cId) : parser.createXfrBranch(fid, tid, cId);
+			branchRec = (XfrBranchXmlType)(isPsXfr?
+				parser.createPSXfrBranch(fid, tid, cId) : parser.createXfrBranch(fid, tid, cId));
 		} catch (Exception e) {
 			ODMLogger.getLogger().severe("branch data error, " + e.toString());
 		}				

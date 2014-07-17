@@ -54,27 +54,24 @@ import org.ieee.odm.schema.BusIDRefXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.ContentInfoXmlType;
 import org.ieee.odm.schema.IDRecordXmlType;
+import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.ModifyRecordXmlType;
 import org.ieee.odm.schema.NetAreaXmlType;
 import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.NetworkCategoryEnumType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
+import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.StudyCaseXmlType;
 import org.ieee.odm.schema.StudyScenarioXmlType;
+import org.ieee.odm.schema.XfrBranchXmlType;
 
 /**
  * Abstract Xml parser implementation as the base for all the IEEE DOM schema parsers. 
  * 
  * 
  */
-public abstract class AbstractModelParser<
-				TNetXml extends NetworkXmlType, 
-				TBusXml extends BusXmlType,
-				TLineXml extends BaseBranchXmlType,
-				TXfrXml extends BaseBranchXmlType,
-				TPsXfrXml extends BaseBranchXmlType
-						> implements IODMModelParser {
+public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implements IODMModelParser {
 	/** input text file encoding */
 	protected String encoding = IODMModelParser.DefaultEncoding;
 	
@@ -370,8 +367,8 @@ public abstract class AbstractModelParser<
 	 * @param id
 	 * @return
 	 */
-	@SuppressWarnings("unchecked") public TBusXml getBus(String id) {
-		return (TBusXml)this.getCachedObject(id);
+	@SuppressWarnings("unchecked") public <T extends BusXmlType> T getBus(String id) {
+		return (T)this.getCachedObject(id);
 	}	
 
 	/**
@@ -379,7 +376,7 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @param bus bus object to be added
 	 */
-	public void addBus(TBusXml bus) {
+	public <T extends BusXmlType> void addBus(T bus) {
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(bus));
 		this.objectCache.put(bus.getId(), bus);
 	}
@@ -407,7 +404,7 @@ public abstract class AbstractModelParser<
 	 * @param busId id of the bus to be removed
 	 * @param bus bus object to be added
 	 */
-	public void replaceBus(String busId, TBusXml bus) {
+	public <T extends BusXmlType> void replaceBus(String busId, T bus) {
 		this.removeBus(busId);
 		this.addBus(bus);
 	}
@@ -419,7 +416,7 @@ public abstract class AbstractModelParser<
 	 * @param id
 	 * @throws Exception
 	 */
-	public void setBusId(TBusXml busRec, String id) throws ODMException {
+	public <T extends BusXmlType> void setBusId(T busRec, String id) throws ODMException {
 		busRec.setId(id);
 		if (this.objectCache.get(id) != null) {
 			throw new ODMException("Bus record duplication, bus id: " + id);
@@ -448,7 +445,7 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @return
 	 */
-	protected abstract TBusXml createBus();
+	protected abstract <T extends BusXmlType> T createBus();
 	
 	/**
 	 * create a bus object with the id, make sure there is no duplication
@@ -457,8 +454,8 @@ public abstract class AbstractModelParser<
 	 * @return
 	 * @throws Exception
 	 */
-	public TBusXml createBus(String id) throws ODMException {
-		TBusXml busRec = createBus();
+	public <T extends BusXmlType> T createBus(String id) throws ODMException {
+		T busRec = createBus();
 		busRec.setId(id);
 		if (this.objectCache.get(id) != null) {
 			throw new ODMException("Bus record duplication, bus id: " + id);
@@ -474,8 +471,8 @@ public abstract class AbstractModelParser<
 	 * @param number
 	 * @return
 	 */
-	public TBusXml createBus(String id, long number) throws ODMException {
-		TBusXml busRec = createBus(id);
+	public <T extends BusXmlType> T createBus(String id, long number) throws ODMException {
+		T busRec = createBus(id);
 		busRec.setNumber(number);
 		return busRec;
 	}	
@@ -489,35 +486,35 @@ public abstract class AbstractModelParser<
 	 * 
 	 * @return
 	 */
-	protected abstract TLineXml createLineBranch();
+	protected abstract <T extends LineBranchXmlType> T createLineBranch();
 	
 	/**
 	 * create Xformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	protected abstract TXfrXml  createXfrBranch();
+	protected abstract <T extends XfrBranchXmlType> T  createXfrBranch();
 	
 	/**
 	 * create 3W Xformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	protected abstract TXfrXml  createXfr3WBranch();
+	protected abstract <T extends BaseBranchXmlType> T  createXfr3WBranch();
 	
 	/**
 	 * create PsXformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	protected abstract TPsXfrXml  createPSXfrBranch();
+	protected abstract <T extends PSXfrBranchXmlType> T  createPSXfrBranch();
 
 	/**
 	 * create 3W PsXformer branch object, an abstract method to be implemented by the subclass
 	 * 
 	 * @return
 	 */
-	protected abstract TPsXfrXml  createPSXfr3WBranch();
+	protected abstract <T extends BaseBranchXmlType> T  createPSXfr3WBranch();
 	
 	/**
 	 * create Line branch object
@@ -529,8 +526,8 @@ public abstract class AbstractModelParser<
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	public TLineXml createLineBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
-		TLineXml branch = createLineBranch();
+	public <T extends LineBranchXmlType> T createLineBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+		T branch = createLineBranch();
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
@@ -546,8 +543,8 @@ public abstract class AbstractModelParser<
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	public TXfrXml createXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
-		TXfrXml branch = createXfrBranch();
+	public <T extends XfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+		T branch = createXfrBranch();
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
@@ -564,8 +561,8 @@ public abstract class AbstractModelParser<
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	public TXfrXml createPSASPXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
-		TXfrXml branch = createXfrBranch();
+	public <T extends PSXfrBranchXmlType> T createPSASPXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+		T branch = createXfrBranch();
 		intiBranchData(branch);
 		addPSASPBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
@@ -585,8 +582,8 @@ public abstract class AbstractModelParser<
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	public TXfrXml createXfr3WBranch(String fBusId,String toBusId, String terBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
-		TXfrXml branch = createXfr3WBranch();
+	public <T extends BaseBranchXmlType> T createXfr3WBranch(String fBusId,String toBusId, String terBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+		T branch = createXfr3WBranch();
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, terBusId, cirId);
 		return branch;
@@ -603,8 +600,8 @@ public abstract class AbstractModelParser<
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	public TPsXfrXml createPSXfrBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
-		TPsXfrXml branch = createPSXfrBranch();
+	public <T extends PSXfrBranchXmlType> T createPSXfrBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+		T branch = createPSXfrBranch();
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;

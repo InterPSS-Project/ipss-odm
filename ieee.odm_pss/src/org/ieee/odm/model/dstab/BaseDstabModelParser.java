@@ -28,24 +28,21 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.schema.BranchXmlType;
+import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabNetXmlType;
+import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LineDStabXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WDStabXmlType;
+import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.PSXfrDStabXmlType;
 import org.ieee.odm.schema.Xfr3WDStabXmlType;
+import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.XfrDStabXmlType;
 
-public class BaseDstabModelParser <
-				TNetXml extends NetworkXmlType, 
-				TBusXml extends BusXmlType,
-				TLineXml extends BranchXmlType,
-				TXfrXml extends BranchXmlType,
-				TPsXfrXml extends BranchXmlType
-				> extends BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> {
+public class BaseDstabModelParser <TNetXml extends NetworkXmlType> extends BaseAcscModelParser<TNetXml> {
 
 	/**
 	 * default constructor
@@ -90,6 +87,15 @@ public class BaseDstabModelParser <
 	 * 		Bus functions
 	 * 		=============
 	 */
+	/**
+	 * Get the cashed bus object by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public DStabBusXmlType getDstabBus(String id) {
+		return (DStabBusXmlType)this.getBus(id);
+	}	
 	
 	/**
 	 * add a new Bus record to the base case
@@ -97,11 +103,11 @@ public class BaseDstabModelParser <
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected TBusXml createBus() {
+	protected <T extends BusXmlType> T createBus() {
 		DStabBusXmlType busRec = OdmObjFactory.createDStabBusXmlType();
 		initDStabBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
-		return (TBusXml)busRec;
+		return (T)busRec;
 	}
 	
 	protected void initDStabBus(DStabBusXmlType busRec) {
@@ -130,44 +136,44 @@ public class BaseDstabModelParser <
 	 * 		================
 	 */
 
-	@SuppressWarnings("unchecked") @Override protected TLineXml createLineBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends LineBranchXmlType> T createLineBranch() {
 		LineDStabXmlType line = OdmObjFactory.createLineDStabXmlType();
 		initDStabLineBranch(line);
-		return (TLineXml)line;
+		return (T)line;
 	}
 	
 	protected void initDStabLineBranch(LineDStabXmlType line) {
 		initAcscLineBranch(line);
 	}	
 	
-	@SuppressWarnings("unchecked") @Override protected TXfrXml createXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends XfrBranchXmlType> T createXfrBranch() {
 		XfrDStabXmlType xfr = OdmObjFactory.createXfrDStabXmlType();
 		initDStabXfrBranch(xfr);
-		return (TXfrXml)xfr;
+		return (T)xfr;
 	}
 
 	protected void initDStabXfrBranch(XfrDStabXmlType xfr) {
 		initAcscXfrBranch(xfr);
 	}	
 	
-	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends PSXfrBranchXmlType> T createPSXfrBranch() {
 		PSXfrDStabXmlType psXfr = OdmObjFactory.createPSXfrDStabXmlType();
 		initDStabPsXfrBranch(psXfr);
-		return (TPsXfrXml)psXfr;
+		return (T)psXfr;
 	}
 
 	protected void initDStabPsXfrBranch(PSXfrDStabXmlType psXfr) {
 		initAcscPsXfrBranch(psXfr);
 	}	
 	
-	@SuppressWarnings("unchecked") @Override protected TXfrXml createXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends BaseBranchXmlType> T createXfr3WBranch() {
 		Xfr3WDStabXmlType w3xfr = OdmObjFactory.createXfr3WDStabXmlType();
-		return (TXfrXml) w3xfr;
+		return (T) w3xfr;
 	}
 
-	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends BaseBranchXmlType> T createPSXfr3WBranch() {
 		PSXfr3WDStabXmlType branch = OdmObjFactory.createPSXfr3WDStabXmlType();
-		return (TPsXfrXml)branch;
+		return (T)branch;
 	}		
 	
 	/**

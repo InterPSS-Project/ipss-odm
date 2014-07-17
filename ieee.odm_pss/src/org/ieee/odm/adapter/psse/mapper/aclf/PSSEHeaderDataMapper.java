@@ -39,24 +39,17 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 
-public class PSSEHeaderDataMapper <
-	TNetXml extends NetworkXmlType, 
-	TBusXml extends BusXmlType,
-	TLineXml extends BranchXmlType,
-	TXfrXml extends BranchXmlType,
-	TPsXfrXml extends BranchXmlType>  extends BasePSSEDataMapper {
+public class PSSEHeaderDataMapper extends BasePSSEDataMapper {
 	
 	public PSSEHeaderDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEHeaderDataParser(ver);
 	}
 	
-	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String[] lineStrAry, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		
 		if (PSSEAdapter.getVersionNo(this.version) >= 31) {

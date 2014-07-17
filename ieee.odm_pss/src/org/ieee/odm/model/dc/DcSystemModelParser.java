@@ -35,7 +35,7 @@ import org.ieee.odm.schema.DcNetworkXmlType;
 /**
  * A Dc system Xml model parser for the IEEE DOM schema. 
  */
-public class DcSystemModelParser extends BaseAclfModelParser<DcNetworkXmlType, DcBusXmlType, DcBranchXmlType, DcBranchXmlType, DcBranchXmlType> {
+public class DcSystemModelParser extends BaseAclfModelParser<DcNetworkXmlType> {
 	/**
 	 * Default Constructor 
 	 * 

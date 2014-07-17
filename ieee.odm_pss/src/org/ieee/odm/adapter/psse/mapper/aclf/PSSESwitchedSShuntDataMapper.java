@@ -32,8 +32,6 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
@@ -42,19 +40,14 @@ import org.ieee.odm.schema.SwitchedShuntModeEnumType;
 import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 
-public class PSSESwitchedSShuntDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSESwitchedSShuntDataMapper extends BasePSSEDataMapper{
 
 	public PSSESwitchedSShuntDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSESwitchedShuntDataParser(ver);
 	}
 	
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 /*
 		   //  0----------1----------2----------3----------4

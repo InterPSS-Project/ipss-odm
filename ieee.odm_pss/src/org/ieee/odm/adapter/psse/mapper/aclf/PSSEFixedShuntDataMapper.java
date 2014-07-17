@@ -32,19 +32,13 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowShuntYDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.YUnitType;
 
-public class PSSEFixedShuntDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEFixedShuntDataMapper extends BasePSSEDataMapper{
 	
 	public PSSEFixedShuntDataMapper(PsseVersion ver) {
 		super(ver);
@@ -54,7 +48,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	/*
 			  "I",      "ID",     "STATUS",    "GL",     "BL"
 	 */	
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		//procLineString(lineStr, version);
 		this.dataParser.parseFields(lineStr);
 

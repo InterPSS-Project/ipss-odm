@@ -35,28 +35,15 @@ import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.model.acsc.AcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchBusSideEnumType;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.LineBranchXmlType;
-import org.ieee.odm.schema.LineDStabXmlType;
-import org.ieee.odm.schema.LineShortCircuitXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
-import org.ieee.odm.schema.ShortCircuitNetXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
-public class PSSELineDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSELineDataMapper extends BasePSSEDataMapper{
 
 	public PSSELineDataMapper(PsseVersion ver) {
 		super(ver);
@@ -67,7 +54,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
 	 * BranchData
 	 * I,J,CKT,R,X,B,RATEA,RATEB,RATEC,GI,BI,GJ,BJ,ST,LEN,O1,F1,...,O4,F4
 	 */
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		//procLineFields(lineStr, version);
 		dataParser.parseFields(lineStr);
 		//System.out.println(lineStr + "\n" + dataParser.toString());

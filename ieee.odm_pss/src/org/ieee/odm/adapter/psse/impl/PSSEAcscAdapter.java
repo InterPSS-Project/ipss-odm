@@ -42,20 +42,12 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscModelParser;
-import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ShortCircuitNetXmlType;
 
-public class PSSEAcscAdapter <
-				TNetXml extends NetworkXmlType, 
-				TBusXml extends BusXmlType,
-				TLineXml extends BranchXmlType,
-				TXfrXml extends BranchXmlType,
-				TPsXfrXml extends BranchXmlType> extends PSSELFAdapter<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>{
+public class PSSEAcscAdapter extends PSSELFAdapter {
 	
 	/*
 	 * PSS/E V30 Sequence Data sections and their sequence:
@@ -74,35 +66,35 @@ public class PSSEAcscAdapter <
 	
 	// Data Mappers
 	
-	private PSSEMachineNegSeqZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> machNegSeqZMapper =null;
-	private PSSEMachinePosSeqZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> machPosSeqZMapper =null;
-	private PSSEMachineZeroSeqZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> machZeroSeqZMapper =null;
-	private PSSEShuntLoadNegSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> shuntLoadNegSeqMapper =null;
-	private PSSEShuntLoadZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> shuntLoadZeroSeqMapper =null;
-	private PSSEBranchZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>  branchZeroSeqMapper= null;
-	private PSSEZeroSeqMutualZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>  zeroSeqMutualZMapper= null;
-	private PSSEXfrZeroSeqDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> xfrZeroSeqMapper =null;
-	private PSSESwitchShuntZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> switchShuntZeroSeqMapper =null;
+	private PSSEMachineNegSeqZMapper machNegSeqZMapper =null;
+	private PSSEMachinePosSeqZMapper machPosSeqZMapper =null;
+	private PSSEMachineZeroSeqZMapper machZeroSeqZMapper =null;
+	private PSSEShuntLoadNegSeqMapper shuntLoadNegSeqMapper =null;
+	private PSSEShuntLoadZeroSeqMapper shuntLoadZeroSeqMapper =null;
+	private PSSEBranchZeroSeqMapper  branchZeroSeqMapper= null;
+	private PSSEZeroSeqMutualZMapper  zeroSeqMutualZMapper= null;
+	private PSSEXfrZeroSeqDataMapper xfrZeroSeqMapper =null;
+	private PSSESwitchShuntZeroSeqMapper switchShuntZeroSeqMapper =null;
 	
 	// Fixed shunt NOT Included in V30
-	private PSSEFixedShuntZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> fixedShuntZeroSeqMapper = null;
+	private PSSEFixedShuntZeroSeqMapper fixedShuntZeroSeqMapper = null;
 	
 	public PSSEAcscAdapter(PsseVersion ver) {
 		super(ver);
 		
-		machPosSeqZMapper = new PSSEMachinePosSeqZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		machNegSeqZMapper = new PSSEMachineNegSeqZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		machZeroSeqZMapper = new PSSEMachineZeroSeqZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		shuntLoadNegSeqMapper = new PSSEShuntLoadNegSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> (ver);
-		shuntLoadZeroSeqMapper = new PSSEShuntLoadZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		branchZeroSeqMapper= new PSSEBranchZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		zeroSeqMutualZMapper = new PSSEZeroSeqMutualZMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		xfrZeroSeqMapper = new PSSEXfrZeroSeqDataMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
-		switchShuntZeroSeqMapper = new PSSESwitchShuntZeroSeqMapper<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>(ver);
+		machPosSeqZMapper = new PSSEMachinePosSeqZMapper(ver);
+		machNegSeqZMapper = new PSSEMachineNegSeqZMapper(ver);
+		machZeroSeqZMapper = new PSSEMachineZeroSeqZMapper(ver);
+		shuntLoadNegSeqMapper = new PSSEShuntLoadNegSeqMapper (ver);
+		shuntLoadZeroSeqMapper = new PSSEShuntLoadZeroSeqMapper(ver);
+		branchZeroSeqMapper= new PSSEBranchZeroSeqMapper(ver);
+		zeroSeqMutualZMapper = new PSSEZeroSeqMutualZMapper(ver);
+		xfrZeroSeqMapper = new PSSEXfrZeroSeqDataMapper(ver);
+		switchShuntZeroSeqMapper = new PSSESwitchShuntZeroSeqMapper(ver);
 	}
 
-	private BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> getParser() {
-		return (BaseAcscModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>) this.parser;
+	private BaseAcscModelParser<? extends NetworkXmlType> getParser() {
+		return (BaseAcscModelParser<? extends NetworkXmlType>) this.parser;
 	}
 	
 	/*

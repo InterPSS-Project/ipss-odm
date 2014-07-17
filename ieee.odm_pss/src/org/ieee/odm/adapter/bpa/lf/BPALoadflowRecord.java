@@ -45,19 +45,14 @@ import org.ieee.odm.schema.NetworkXmlType;
  * @author mzhou
  *
  */
-public class BPALoadflowRecord<
-					TNetXml extends NetworkXmlType, 
-					TBusXml extends BusXmlType,
-					TLineXml extends BranchXmlType,
-					TXfrXml extends BranchXmlType,
-					TPsXfrXml extends BranchXmlType> {
+public class BPALoadflowRecord {
 	public final static String Token_CaseType = "Type";
 	public final static String Token_ProjectName = "Original Project Name";
 	public final static String Token_CaseId = "Case Identification";
 	public final static String Token_BN="Bus Name";
 	
-	public void processLfData(BaseAclfModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser, final IFileReader din) throws ODMException {
-		TNetXml baseCaseNet = parser.getNet();
+	public void processLfData(BaseAclfModelParser<? extends NetworkXmlType> parser, final IFileReader din) throws ODMException {
+		NetworkXmlType baseCaseNet = parser.getNet();
 		baseCaseNet.setId("Base_Case_from_BPA_loadflow_format");			
 
 		// we set default base MVA here, since MVA line is optional
@@ -87,7 +82,7 @@ public class BPALoadflowRecord<
 					else if(str.startsWith("(POWERFLOW")||str.startsWith("/")
 							||str.startsWith(">")){
 						ODMLogger.getLogger().fine("load header data");
-						new BPANetRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processNetData(str, baseCaseNet);
+						new BPANetRecord().processNetData(str, baseCaseNet);
 					}
 					else if(str.startsWith("A")||str.trim().startsWith("I")){
 						areaList.add(str);
@@ -96,7 +91,7 @@ public class BPALoadflowRecord<
 					else if(str.trim().startsWith("B")||str.trim().startsWith("+")
 							||str.trim().startsWith("X")){
 						ODMLogger.getLogger().fine("load AC bus data");						
-						new BPABusRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processBusData(str, parser);
+						new BPABusRecord().processBusData(str, parser);
 //						System.out.println(str); //for test
 					}
 					else if( str.trim().startsWith("L") || str.trim().startsWith("E") ||
@@ -112,10 +107,10 @@ public class BPALoadflowRecord<
 					else if( str.trim().startsWith("PA")||str.trim().startsWith("PZ")||str.trim().startsWith("PO")
 							||str.trim().startsWith("PC")||str.trim().startsWith("PB")){
 						ODMLogger.getLogger().fine("load Gen AND Load modification data");
-						new BPAGenLoadDataModifyRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processGenLoadModificationData(str,parser);
+						new BPAGenLoadDataModifyRecord().processGenLoadModificationData(str,parser);
 					}
 					else{
-						new BPANetRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processReadComment(str, baseCaseNet);
+						new BPANetRecord().processReadComment(str, baseCaseNet);
 					}						
 				}
 				catch (final Exception e) {
@@ -141,19 +136,19 @@ public class BPALoadflowRecord<
 	 * @param parser
 	 * @throws ODMException
 	 */
-	private void processBranchInfo(List<String> strList, BaseAclfModelParser<TNetXml,TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser) throws ODMException {
+	private void processBranchInfo(List<String> strList, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		for (String str : strList) {
 			if( str.trim().startsWith("L")||str.trim().startsWith("E")){
 				ODMLogger.getLogger().fine("load AC line data");
-				new BPALineBranchRecord<TNetXml,TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processBranchData(str, parser);
+				new BPALineBranchRecord().processBranchData(str, parser);
 			}
 			else if( str.trim().startsWith("T")){
 				ODMLogger.getLogger().fine("load transformer data");
-				new BPAXfrBranchRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processXfrData(str, parser);
+				new BPAXfrBranchRecord().processXfrData(str, parser);
 			}
 			else if(str.trim().startsWith("R")){
 				ODMLogger.getLogger().fine("load transformer adjustment data");
-				new BPAXfrBranchRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processXfrAdjustData(str, parser);
+				new BPAXfrBranchRecord().processXfrAdjustData(str, parser);
 			}
 			else if( str.trim().startsWith("LD")||str.trim().startsWith("LM") ||
 					 str.trim().startsWith("BD")||str.trim().startsWith("BM")){
@@ -164,12 +159,12 @@ public class BPALoadflowRecord<
 		}
 	}
 	
-	private void processInterAreaExchangeData(List<String> strList, BaseAclfModelParser<TNetXml,TBusXml, TLineXml, TXfrXml, TPsXfrXml> parser) throws ODMException{
-		TNetXml baseCaseNet = parser.getNet();
+	private void processInterAreaExchangeData(List<String> strList, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException{
+		NetworkXmlType baseCaseNet = parser.getNet();
 		int areaNumber=0;
 		for (String str : strList) {
 			if(str.startsWith("AC ")||str.startsWith("A ")) areaNumber++; //only AC,NOT AC+
-			new BPANetRecord<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml>().processAreaData(str, parser, baseCaseNet, areaNumber );
+			new BPANetRecord().processAreaData(str, parser, baseCaseNet, areaNumber );
 		}
 	}
 }

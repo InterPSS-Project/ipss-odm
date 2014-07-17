@@ -34,28 +34,20 @@ import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.AngleUnitType;
-import org.ieee.odm.schema.ApparentPowerUnitType;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 
-public class PSSEBusDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEBusDataMapper extends BasePSSEDataMapper{
 
 	public PSSEBusDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEBusDataParser(ver);
 	}
 	
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		//System.out.println(lineStr + "\n" + dataParser.toString());
 		

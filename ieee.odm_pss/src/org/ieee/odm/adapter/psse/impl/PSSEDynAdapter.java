@@ -36,13 +36,9 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
-import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabNetXmlType;
-import org.ieee.odm.schema.LineDStabXmlType;
-import org.ieee.odm.schema.PSXfrDStabXmlType;
-import org.ieee.odm.schema.XfrDStabXmlType;
 
-public class PSSEDynAdapter extends PSSEAcscAdapter<DStabNetXmlType, DStabBusXmlType, LineDStabXmlType, XfrDStabXmlType, PSXfrDStabXmlType>{
+public class PSSEDynAdapter extends PSSEAcscAdapter {
 
     DynamicModelLibHelper dynLibHelper = new DynamicModelLibHelper();
 	PSSEDynGeneratorMapper generatorMapper =null; 

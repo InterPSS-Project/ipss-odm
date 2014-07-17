@@ -29,11 +29,7 @@ import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.schema.LineBranchXmlType;
-import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
-import org.ieee.odm.schema.PSXfrBranchXmlType;
-import org.ieee.odm.schema.XfrBranchXmlType;
 
 /**
  * Base ODM adapter for PSS/E input format
@@ -46,12 +42,7 @@ public class BasePSSEAdapter extends AbstractODMAdapter {
 	public final static String Token_CaseId = "Case ID";		
 
 	protected PsseVersion adptrtVersion;
-	protected BaseAclfModelParser<
-					? extends LoadflowNetXmlType, 
-			        ? extends LoadflowBusXmlType, 
-			        ? extends LineBranchXmlType, 
-					? extends XfrBranchXmlType, 
-					? extends PSXfrBranchXmlType> parser =null;
+	protected BaseAclfModelParser<? extends LoadflowNetXmlType> parser =null;
 	
 	protected String  elemCntStr = "";
 	

@@ -54,13 +54,7 @@ import org.ieee.odm.schema.XfrBranchXmlType;
 /**
  * A base Aclf Xml parser implementation for the IEEE DOM schema. 
  */
-public class BaseAclfModelParser<
-					TNetXml extends NetworkXmlType, 
-					TBusXml extends BusXmlType,
-					TLineXml extends BaseBranchXmlType,
-					TXfrXml extends BaseBranchXmlType,
-					TPsXfrXml extends BaseBranchXmlType
-				> extends AbstractModelParser<TNetXml, TBusXml, TLineXml, TXfrXml, TPsXfrXml> {
+public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends AbstractModelParser<TNetXml> {
 	/**
 	 * Default Constructor 
 	 * 
@@ -102,11 +96,21 @@ public class BaseAclfModelParser<
 	 * 		=============
 	 */
 
-	@SuppressWarnings("unchecked") @Override protected TBusXml createBus() {
+	/**
+	 * Get the cashed Loadflow bus object by id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public LoadflowBusXmlType getAclfBus(String id) {
+		return (LoadflowBusXmlType)this.getBus(id);
+	}
+	
+	@SuppressWarnings("unchecked") @Override protected <T extends BusXmlType> T createBus() {
 		LoadflowBusXmlType busRec = OdmObjFactory.createLoadflowBusXmlType();
 		initAclfBus(busRec);
 		getBaseCase().getBusList().getBus().add(BaseJaxbHelper.bus(busRec));
-		return (TBusXml)busRec;
+		return (T)busRec;
 	}	
 	
 	protected void initAclfBus(LoadflowBusXmlType busRec) {
@@ -139,9 +143,8 @@ public class BaseAclfModelParser<
 	 * @param cirId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public TLineXml getLineBranch(String fromId, String toId, String cirId) {
-		return (TLineXml)getBranch(fromId, toId, cirId);
+	@SuppressWarnings("unchecked") public <T extends LineBranchXmlType> T getLineBranch(String fromId, String toId, String cirId) {
+		return (T)getBranch(fromId, toId, cirId);
 	}
 	
 	/**
@@ -152,8 +155,8 @@ public class BaseAclfModelParser<
 	 * @param cirId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked") public TXfrXml getXfrBranch(String fromId, String toId, String cirId) {
-		return (TXfrXml)getBranch(fromId, toId, cirId);
+	@SuppressWarnings("unchecked") public <T extends XfrBranchXmlType> T getXfrBranch(String fromId, String toId, String cirId) {
+		return (T)getBranch(fromId, toId, cirId);
 	}
 	
 	/**
@@ -164,8 +167,8 @@ public class BaseAclfModelParser<
 	 * @param cirId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked") public TXfrXml getXfr3WBranch(String fromId, String toId, String tertId, String cirId) {
-		return (TXfrXml)getBranch(fromId, toId, tertId, cirId);
+	@SuppressWarnings("unchecked") public <T extends BaseBranchXmlType> T getXfr3WBranch(String fromId, String toId, String tertId, String cirId) {
+		return (T)getBranch(fromId, toId, tertId, cirId);
 	}
 
 	/**
@@ -208,10 +211,10 @@ public class BaseAclfModelParser<
 	}
 	
 
-	@SuppressWarnings("unchecked") @Override protected  TLineXml createLineBranch() {
+	@SuppressWarnings("unchecked") @Override protected  <T extends LineBranchXmlType> T createLineBranch() {
 		LineBranchXmlType line = OdmObjFactory.createLineBranchXmlType();
 		initAclfLineBranch(line);
-		return (TLineXml) line;
+		return (T) line;
 	}
     
 	protected void initAclfLineBranch(LineBranchXmlType line) {
@@ -219,10 +222,10 @@ public class BaseAclfModelParser<
 		line.setLineInfo(OdmObjFactory.createLineBranchInfoXmlType());
 	}
 	
-	@SuppressWarnings("unchecked") @Override protected  TXfrXml createXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected  <T extends XfrBranchXmlType> T createXfrBranch() {
 		XfrBranchXmlType  xfr  =  OdmObjFactory.createXfrBranchXmlType();
 		initAclfXfrBranch(xfr);
-		return (TXfrXml) xfr;
+		return (T) xfr;
 	}
 
 	protected void initAclfXfrBranch(XfrBranchXmlType  xfr) {
@@ -231,10 +234,10 @@ public class BaseAclfModelParser<
 	}
 	
 	
-	@SuppressWarnings("unchecked") @Override protected  TPsXfrXml createPSXfrBranch() {
+	@SuppressWarnings("unchecked") @Override protected  <T extends PSXfrBranchXmlType> T createPSXfrBranch() {
 		PSXfrBranchXmlType psXfr = OdmObjFactory.createPSXfrBranchXmlType();
 		initAclfPsXfrBranch(psXfr);
-		return (TPsXfrXml) psXfr;
+		return (T) psXfr;
 	}
 	
 	protected void initAclfPsXfrBranch(PSXfrBranchXmlType psXfr) {
@@ -242,14 +245,14 @@ public class BaseAclfModelParser<
 		psXfr.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
 	}
 
-	@SuppressWarnings("unchecked") @Override protected  TXfrXml createXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override protected  <T extends BaseBranchXmlType> T createXfr3WBranch() {
 		Xfr3WBranchXmlType w3xfr = OdmObjFactory.createXfr3WBranchXmlType();
-		return (TXfrXml) w3xfr;
+		return (T) w3xfr;
 	}
 
-	@SuppressWarnings("unchecked") @Override protected TPsXfrXml createPSXfr3WBranch() {
+	@SuppressWarnings("unchecked") @Override protected <T extends BaseBranchXmlType> T createPSXfr3WBranch() {
 		PSXfr3WBranchXmlType branch = OdmObjFactory.createPSXfr3WBranchXmlType();
-		return (TPsXfrXml)branch;
+		return (T)branch;
 	}
 	
 	/*

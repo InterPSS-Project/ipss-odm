@@ -8,20 +8,13 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.ShortCircuitGenDataXmlType;
 import org.ieee.odm.schema.ZUnitType;
 
 
-public class PSSEMachineZeroSeqZMapper <
-    TNetXml extends NetworkXmlType, 
-    TBusXml extends BusXmlType,
-    TLineXml extends BranchXmlType,
-    TXfrXml extends BranchXmlType,
-    TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEMachineZeroSeqZMapper extends BasePSSEDataMapper{
 	public PSSEMachineZeroSeqZMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEMachineZeroSeqZParser(ver);
@@ -38,7 +31,7 @@ public class PSSEMachineZeroSeqZMapper <
 	 */
 	
 	
-	public void procLineString(String lineStr, BaseAcscModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAcscModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
 		String machId = dataParser.getString("ID");

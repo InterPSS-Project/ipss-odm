@@ -42,8 +42,6 @@ import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchBusSideEnumType;
 import org.ieee.odm.schema.BranchFlowDirectionEnumType;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.MvarFlowAdjustmentDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
@@ -59,19 +57,14 @@ import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
-public class PSSEXfrDataMapper <
-				TNetXml extends NetworkXmlType, 
-				TBusXml extends BusXmlType,
-				TLineXml extends BranchXmlType,
-				TXfrXml extends BranchXmlType,
-				TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEXfrDataMapper extends BasePSSEDataMapper{
 
 	public PSSEXfrDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEXfrDataParser(ver);
 	}
 
-	public void procLineString(String[] lineStrAry, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException, ODMBranchDuplicationException {
+	public void procLineString(String[] lineStrAry, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException, ODMBranchDuplicationException {
 		//procLineString(lineStr1, lineStr2, lineStr3, lineStr4, lineStr5, version);
 		dataParser.parseFields(lineStrAry);
 		

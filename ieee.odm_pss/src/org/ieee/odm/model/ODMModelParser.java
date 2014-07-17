@@ -32,14 +32,16 @@ import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.opf.OpfModelParser;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
+import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.PSXfrBranchXmlType;
 
 /**
  * A generic Xml parser for the IEEE DOM schema, used when the network/analysis type is unknown.
  * The to<*>ModelParser() method is used to "cast" to appropriate ODM model type whenever
  * its network/analysis type is known.
  */
-public class ODMModelParser extends AbstractModelParser<NetworkXmlType, BusXmlType, BaseBranchXmlType, BaseBranchXmlType, BaseBranchXmlType> {
+public class ODMModelParser extends AbstractModelParser<NetworkXmlType> {
 	/**
 	 * Default Constructor 
 	 * 
@@ -110,11 +112,11 @@ public class ODMModelParser extends AbstractModelParser<NetworkXmlType, BusXmlTy
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override protected BaseBranchXmlType createLineBranch() {
+	@Override protected LineBranchXmlType createLineBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override protected BaseBranchXmlType createXfrBranch() {
+	@Override protected PSXfrBranchXmlType createXfrBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
@@ -122,7 +124,7 @@ public class ODMModelParser extends AbstractModelParser<NetworkXmlType, BusXmlTy
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
-	@Override protected BaseBranchXmlType createPSXfrBranch() {
+	@Override protected PSXfrBranchXmlType createPSXfrBranch() {
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 
@@ -130,7 +132,7 @@ public class ODMModelParser extends AbstractModelParser<NetworkXmlType, BusXmlTy
 		throw new RuntimeException("Programming error, method not implemented");
 	}
 	
-	private AbstractModelParser<?,?,?,?,?> copyTo(AbstractModelParser<?,?,?,?,?> parser) {
+	private AbstractModelParser<?> copyTo(AbstractModelParser<?> parser) {
 		parser.objectCache = this.objectCache;
 		parser.pssStudyCase = this.pssStudyCase;
 		return parser;

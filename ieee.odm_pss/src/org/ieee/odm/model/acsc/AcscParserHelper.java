@@ -207,7 +207,7 @@ public class AcscParserHelper extends AclfParserHelper {
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean createBusScEquivGenData(IODMModelParser parser ) throws ODMException {
-		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<ShortCircuitNetXmlType, ShortCircuitBusXmlType, LineShortCircuitXmlType, XfrShortCircuitXmlType, PSXfrShortCircuitXmlType>) parser).getNet();
+		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<ShortCircuitNetXmlType>) parser).getNet();
 		double sysMVABase = baseCaseNet.getBasePower().getValue();
 		if(baseCaseNet.getBasePower().getUnit()==ApparentPowerUnitType.MVA){
 			//target unit, do nothing
@@ -350,7 +350,7 @@ public class AcscParserHelper extends AclfParserHelper {
 	 */
 	@SuppressWarnings("unchecked")
 	public static boolean createBusScEquivLoadData(IODMModelParser parser ) throws ODMException {
-		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType, LoadflowBusXmlType, LineShortCircuitXmlType, XfrShortCircuitXmlType, PSXfrShortCircuitXmlType>) parser).getNet();
+		LoadflowNetXmlType baseCaseNet = ((AbstractModelParser<LoadflowNetXmlType>) parser).getNet();
 
 		for ( JAXBElement<? extends BusXmlType> busXml : baseCaseNet.getBusList().getBus()) {
 			ShortCircuitBusXmlType scBusXml = (ShortCircuitBusXmlType)busXml.getValue();

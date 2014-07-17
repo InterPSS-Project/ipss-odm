@@ -33,7 +33,6 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
@@ -90,11 +89,10 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		int branchType = dataParser.getInt("Type", 0);
 
 		// create branch xml record
-		BranchXmlType branch = null;
-		branch = branchType == 0?
+		BranchXmlType branch = (BranchXmlType) (branchType == 0?
 			parser.createLineBranch(fid, tid, cirId) :
 						((branchType == 1 || branchType == 2 || branchType == 3)?
-								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId));
+								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId)));
 
 		branch.setAreaNumber(dataParser.getInt("Area", 0));
 		branch.setZoneNumber(dataParser.getInt("Zone", 0));

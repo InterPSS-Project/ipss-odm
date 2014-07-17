@@ -35,9 +35,7 @@ import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.ActivePowerUnitType;
-import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
-import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
@@ -49,12 +47,7 @@ import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
-public class PSSEGenDataMapper<
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEGenDataMapper extends BasePSSEDataMapper{
 	
 	public PSSEGenDataMapper(PsseVersion ver) {
 		super(ver);
@@ -85,7 +78,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
      6,'1 ',     4.600,    -0.923,     2.700,    -1.800,1.02500,     0,     6.200, 0.00000E+0, 1.80000E-1, 0.00000E+0, 0.00000E+0,1.00000,1,  100.0,     5.600,     0.000,   7,1.0000
 	 */
 
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		//procFields(lineStr, version);
 		dataParser.parseFields(lineStr);
 

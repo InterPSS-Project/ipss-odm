@@ -7,20 +7,13 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.SwitchedShuntBlockXmlType;
 import org.ieee.odm.schema.SwitchedShuntXmlType;
 
-public class PSSESwitchShuntZeroSeqMapper <
-    TNetXml  extends NetworkXmlType, 
-    TBusXml  extends BusXmlType,
-    TLineXml extends BranchXmlType,
-    TXfrXml  extends BranchXmlType,
-    TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSESwitchShuntZeroSeqMapper extends BasePSSEDataMapper{
 	
 	public PSSESwitchShuntZeroSeqMapper(PsseVersion ver) {
 		super(ver);
@@ -28,7 +21,7 @@ public class PSSESwitchShuntZeroSeqMapper <
 	}
 	
 	//I, BZ1, BZ2, ... BZ8
-	public void procLineString(String lineStr, BaseAcscModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAcscModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
 		int i = dataParser.getInt("I");

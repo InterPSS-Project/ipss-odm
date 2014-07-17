@@ -51,7 +51,7 @@ import org.ieee.odm.schema.XfrBranchXmlType;
  * An OPF ODM Xml parser for the IEEE DOM schema. It supports two types of Opf net
  * 
  */
-public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType, LoadflowBusXmlType, LineBranchXmlType, XfrBranchXmlType, PSXfrBranchXmlType> {
+public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType> {
 	/**
 	 * OPF network type
 	 * 

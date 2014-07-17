@@ -9,20 +9,13 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.XformerConnectionXmlType;
 import org.ieee.odm.schema.XformrtConnectionEnumType;
 import org.ieee.odm.schema.XfrShortCircuitXmlType;
 import org.ieee.odm.schema.ZUnitType;
 
-public class PSSEXfrZeroSeqDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEXfrZeroSeqDataMapper extends BasePSSEDataMapper{
 	
 	public PSSEXfrZeroSeqDataMapper(PsseVersion ver) {
 		super(ver);
@@ -76,7 +69,7 @@ TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
                   For 3-winding xfr, stands for the winding 2 zero sequence impedance
           R3, X3  Winding 3 zero sequence impedance 
 	 */
-	public void procLineString(String lineStr, BaseAcscModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAcscModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
 		int i = dataParser.getInt("I");

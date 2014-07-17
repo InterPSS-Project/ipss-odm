@@ -31,25 +31,18 @@ import org.ieee.odm.adapter.psse.parser.aclf.PSSEInterAreaTransferDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.schema.AreaTransferXmlType;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.InterchangeXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 
-public class PSSEInterAreaTransferDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEInterAreaTransferDataMapper extends BasePSSEDataMapper{
 	
 	public PSSEInterAreaTransferDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEInterAreaTransferDataParser(ver);
 	}
 	
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
 		int	arfrom = this.dataParser.getInt("ARFROM");

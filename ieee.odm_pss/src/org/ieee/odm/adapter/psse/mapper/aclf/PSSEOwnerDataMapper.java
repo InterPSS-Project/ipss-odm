@@ -30,25 +30,18 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSEOwnerDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.schema.BranchXmlType;
-import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OwnerXmlType;
 
-public class PSSEOwnerDataMapper <
-TNetXml extends NetworkXmlType, 
-TBusXml extends BusXmlType,
-TLineXml extends BranchXmlType,
-TXfrXml extends BranchXmlType,
-TPsXfrXml extends BranchXmlType> extends BasePSSEDataMapper{
+public class PSSEOwnerDataMapper extends BasePSSEDataMapper{
 	
 	public PSSEOwnerDataMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEOwnerDataParser(ver);
 	}
 
-	public void procLineString(String lineStr, BaseAclfModelParser<TNetXml, TBusXml,TLineXml,TXfrXml,TPsXfrXml> parser) throws ODMException {
+	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
 		/*
