@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	protected String encoding = IODMModelParser.DefaultEncoding;
 	
 	/** bus and branch object cache for fast lookup. */ 
-	protected Hashtable<String,IDRecordXmlType> objectCache = null;
+	protected HashMap<String,IDRecordXmlType> objectCache = null;
 	
 	/** the root StudyCase element */
 	protected StudyCaseXmlType pssStudyCase = null;
@@ -89,7 +90,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * 
 	 */
 	public AbstractModelParser() {
-		this.objectCache = new Hashtable<String, IDRecordXmlType>();
+		this.objectCache = new HashMap<>();
 		if (!(this instanceof ODMModelParser)) {
 			this.getStudyCase().setId("ODM_StudyCase");
 		}
@@ -124,7 +125,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * 
 	 * @return
 	 */
-	public Hashtable<String,IDRecordXmlType> getObjectCache() { return this.objectCache; }
+	public HashMap<String,IDRecordXmlType> getObjectCache() { return this.objectCache; }
 
 	/**
 	 * parse the xml input file to create a model parser object
