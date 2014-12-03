@@ -270,7 +270,7 @@ public class PSSEAcscAdapter extends PSSELFAdapter {
       		} while (lineStr != null);//END OF DO-LOOP
   		} catch (Exception e) {
   			e.printStackTrace();
-    		throw new ODMException("PSSE data input error, line no " + lineNo + ", " + e.toString());
+    		throw new ODMException("PSSE Sequence data input error, line # " + lineNo + ", " + e.toString());
   		}
   		//TODO no SC Equiv data
 		//AcscParserHelper.createBusScEquivData(parser);		

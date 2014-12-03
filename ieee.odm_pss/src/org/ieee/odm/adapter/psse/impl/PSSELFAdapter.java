@@ -236,7 +236,7 @@ public class PSSELFAdapter extends BasePSSEAdapter{
     		} while (lineStr != null);
   		} catch (Exception e) {
   			e.printStackTrace();
-    		throw new ODMException("PSSE data input error, line no " + lineNo + ", " + e.toString());
+    		throw new ODMException("PSSE power flow data input error, line # " + lineNo + ", " + e.toString());
   		}
              
 		//AclfParserHelper.createBusEquivData(parser);

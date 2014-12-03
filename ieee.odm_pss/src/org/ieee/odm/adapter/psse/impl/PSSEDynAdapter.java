@@ -108,7 +108,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 		
   		} catch (Exception e) {
   			e.printStackTrace();
-    		throw new ODMException("PSSE dynamic data input error, line no " + lineNo + ", " + e.toString());
+    		throw new ODMException("PSSE dynamic data input error, line # " + lineNo + ", " + e.toString());
   		}
 
   		System.out.println(dynLibHelper.getUnsupportdSVCRecs());
