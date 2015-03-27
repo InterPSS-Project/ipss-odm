@@ -25,14 +25,14 @@
 	
 	<ns:element name="dstabBus" type="pss:DStabBusXmlType" substitutionGroup="pss:bus">
 		<ns:annotation><ns:documentation>
-		Bus record for dynamic stability analysis. aclfBus/acscBus could be used also
+		Bus record for dynamic stability analysis. aclfBus/acscBus could be used also. It may contain 0-* dstabContributeGen records.
 		</ns:documentation></ns:annotation>
 	</ns:element>
 	
 	
-     <ns:element name="dstabContributeGen" substitutionGroup="pss:contributeGen" type="pss:DStabGenDataXmlType">
+    <ns:element name="dstabContributeGen" substitutionGroup="pss:contributeGen" type="pss:DStabGenDataXmlType">
         <ns:annotation><ns:documentation>
-		Contributing generator data record for dynamic stability analysis
+		Contributing generator data record for dynamic stability analysis. It includes machine, exc, gov, pss definition
 		</ns:documentation></ns:annotation>
     </ns:element>   
     
@@ -42,13 +42,13 @@
 		</ns:documentation></ns:annotation>
     </ns:element -->   
 	
-     <ns:element name="dstabContributeLoad" substitutionGroup="pss:contributeLoad" type="pss:DStabLoadDataXmlType">
+    <ns:element name="dstabContributeLoad" substitutionGroup="pss:contributeLoad" type="pss:DStabLoadDataXmlType">
         <ns:annotation><ns:documentation>
 		Contributing load data record for dynamic stability analysis
 		</ns:documentation></ns:annotation>
     </ns:element>   
     
-     <!-- ns:element name="dstabEquivLoad" substitutionGroup="pss:equivLoad" type="pss:DStabLoadDataXmlType">
+    <!-- ns:element name="dstabEquivLoad" substitutionGroup="pss:equivLoad" type="pss:DStabLoadDataXmlType">
         <ns:annotation><ns:documentation>
 		Equiv load data record for dynamic stability analysis
 		</ns:documentation></ns:annotation>

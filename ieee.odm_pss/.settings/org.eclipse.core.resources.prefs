@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//schema/ODMSchema.xsd=UTF8
+encoding//schema/basecase/dynamic/exc/BPAExciterModel.xsd=UTF8
 encoding//schema/basecase/loadflow/CompensatorType.xsd=UTF8
 encoding//schema/basecase/loadflow/LFRecordType.xsd=UTF8
 encoding//schema/common/DataType.xsd=UTF8
