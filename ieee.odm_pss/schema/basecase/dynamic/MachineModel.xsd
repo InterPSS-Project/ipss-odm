@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ns:schema 
-	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
-	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
-	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
-	elementFormDefault="qualified" >
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" xmlns:pss="http://www.ieee.org/odm/Schema/2008" elementFormDefault="qualified" targetNamespace="http://www.ieee.org/odm/Schema/2008">
 	
-    <ns:include schemaLocation="../../common/DataType.xsd" />
-    <ns:include schemaLocation="exc/IEEEExciterModel.xsd" />
-    <ns:include schemaLocation="exc/BPAExciterModel.xsd" />
-    <ns:include schemaLocation="gov/IEEEGovernorModel.xsd" />
-    <ns:include schemaLocation="gov/BPAGovernorModel.xsd" />
-    <ns:include schemaLocation="gov/PSSEGovernorModel.xsd" />
-    <ns:include schemaLocation="pss/IEEEStabilizerModel.xsd" />
-    <ns:include schemaLocation="pss/BPAStabilizerModel.xsd" />
+    <ns:include schemaLocation="../../common/DataType.xsd"/>
+    <ns:include schemaLocation="exc/IEEEExciterModel.xsd"/>
+    <ns:include schemaLocation="exc/BPAExciterModel.xsd"/>
+    <ns:include schemaLocation="gov/IEEEGovernorModel.xsd"/>
+    <ns:include schemaLocation="gov/BPAGovernorModel.xsd"/>
+    <ns:include schemaLocation="gov/PSSEGovernorModel.xsd"/>
+    <ns:include schemaLocation="pss/IEEEStabilizerModel.xsd"/>
+    <ns:include schemaLocation="pss/BPAStabilizerModel.xsd"/>
     
 		
     <ns:annotation>
 		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
 	</ns:annotation>
     
-    <ns:element name="machineModel" type="pss:MachineModelXmlType" />
+    <ns:element name="machineModel" type="pss:MachineModelXmlType"/>
     
-    <ns:element name="equiMachModel" substitutionGroup="pss:machineModel" type="pss:EquiMachineXmlType" />
+    <ns:element name="equiMachModel" substitutionGroup="pss:machineModel" type="pss:EquiMachineXmlType"/>
     
-    <ns:element name="classicMachModel" substitutionGroup="pss:machineModel" type="pss:ClassicMachineXmlType" />
+    <ns:element name="classicMachModel" substitutionGroup="pss:machineModel" type="pss:ClassicMachineXmlType"/>
     
-    <ns:element name="eq1MachModel" substitutionGroup="pss:machineModel" type="pss:Eq1MachineXmlType" />
+    <ns:element name="eq1MachModel" substitutionGroup="pss:machineModel" type="pss:Eq1MachineXmlType"/>
 
 	<!--  transientMachModel and eq1Ed1MachMode are the same -->
-    <ns:element name="eq1Ed1MachModel" substitutionGroup="pss:machineModel" type="pss:Eq1Ed1MachineXmlType" />
-    <ns:element name="transientMachModel" substitutionGroup="pss:machineModel" type="pss:Eq1Ed1MachineXmlType" />
+    <ns:element name="eq1Ed1MachModel" substitutionGroup="pss:machineModel" type="pss:Eq1Ed1MachineXmlType"/>
+    <ns:element name="transientMachModel" substitutionGroup="pss:machineModel" type="pss:Eq1Ed1MachineXmlType"/>
 
-    <ns:element name="eq11MachModel" substitutionGroup="pss:machineModel" type="pss:Eq11MachineXmlType" />
+    <ns:element name="eq11MachModel" substitutionGroup="pss:machineModel" type="pss:Eq11MachineXmlType"/>
     
 	<!--  subTransientMachModel and eq11Ed11MachMode are the same -->
-    <ns:element name="subTransientMachModel" substitutionGroup="pss:machineModel" type="pss:Eq11Ed11MachineXmlType" />
-    <ns:element name="eq11Ed11MachModel" substitutionGroup="pss:machineModel" type="pss:Eq11Ed11MachineXmlType" />
+    <ns:element name="subTransientMachModel" substitutionGroup="pss:machineModel" type="pss:Eq11Ed11MachineXmlType"/>
+    <ns:element name="eq11Ed11MachModel" substitutionGroup="pss:machineModel" type="pss:Eq11Ed11MachineXmlType"/>
     
    
     <ns:complexType abstract="true" name="MachineModelXmlType">
-		<ns:annotation><ns:documentation>
+		<ns:annotation>
+      <ns:documentation>
 		Parent type for all machine model types
-		</ns:documentation></ns:annotation>
+		</ns:documentation>
+    </ns:annotation>
 		<ns:sequence>
-			<ns:element maxOccurs="1" minOccurs="0" name="name" type="ns:string" />
-			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="name" type="ns:string"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string"/>
 		</ns:sequence>
 	</ns:complexType>
     
@@ -52,18 +50,20 @@
     <ns:complexType name="EquiMachineXmlType">
 		<ns:complexContent>
 			<ns:extension base="pss:MachineModelXmlType">
-				<ns:annotation><ns:documentation>
+				<ns:annotation>
+          <ns:documentation>
 				There are two ways to define an equivalent machine: equivalent source data or equivalent gen data
 				from Loadflow analysis
-				</ns:documentation></ns:annotation>
+				</ns:documentation>
+        </ns:annotation>
 				<ns:choice>
-					<ns:element minOccurs="0" name="equivSource" type="pss:ScEquivSourceXmlType" />
+					<ns:element minOccurs="0" name="equivSource" type="pss:ScEquivSourceXmlType"/>
 					<ns:element minOccurs="0" name="equivGen">
 						<ns:complexType>
 							<ns:sequence>
-								<ns:element maxOccurs="1" minOccurs="0" name="equiPgen" type="ns:double" />
-								<ns:element maxOccurs="1" minOccurs="0" name="pGenUnit" type="pss:ApparentPowerUnitType" />
-								<ns:element maxOccurs="1" minOccurs="0" name="DCLineBus" type="ns:boolean" />
+								<ns:element maxOccurs="1" minOccurs="0" name="equiPgen" type="ns:double"/>
+								<ns:element maxOccurs="1" minOccurs="0" name="pGenUnit" type="pss:ApparentPowerUnitType"/>
+								<ns:element maxOccurs="1" minOccurs="0" name="DCLineBus" type="ns:boolean"/>
 							</ns:sequence>
 						</ns:complexType>
 					</ns:element>
@@ -77,9 +77,9 @@
 		<ns:complexContent>
 			<ns:extension base="pss:MachineModelXmlType">
 				<ns:sequence>
-					<ns:element maxOccurs="1" minOccurs="1" name="H" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="D" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="0" name="poles" type="ns:int" />
+					<ns:element maxOccurs="1" minOccurs="1" name="H" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="D" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="poles" type="ns:int"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -90,7 +90,8 @@
 		<ns:complexContent>
 			<ns:extension base="pss:AbstractMachineXmlType">
 				<ns:sequence>
-					<ns:element maxOccurs="1" minOccurs="1" name="xd1" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="xd1" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="ra" type="ns:double"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -101,36 +102,38 @@
 		<ns:complexContent>
 			<ns:extension base="pss:AbstractMachineXmlType">
 				<ns:sequence>
-					<ns:element maxOccurs="1" minOccurs="0" name="xl" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="0" name="x0" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="0" name="x2" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="ra" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="xd" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="xq" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="xd1" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="Td01" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="0" name="xl" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="x0" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="x2" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="ra" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="xd" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="xq" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="xd1" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="Td01" type="pss:TimePeriodXmlType"/>
 					<ns:choice>
-						<ns:annotation><ns:documentation>
+						<ns:annotation>
+              <ns:documentation>
 						Two ways to define machine saturation. format-1: se100, se120 and sliner; 
 						format-2: e1, e2, se1, se2 and af
-						</ns:documentation></ns:annotation>
+						</ns:documentation>
+            </ns:annotation>
 						<ns:element name="seFmt1">
 							<ns:complexType>
 								<ns:sequence>
-									<ns:element maxOccurs="1" minOccurs="1" name="se100" type="ns:double" />
-									<ns:element maxOccurs="1" minOccurs="1" name="se120" type="ns:double" />
-									<ns:element maxOccurs="1" minOccurs="1" name="sliner" type="ns:double" />
+									<ns:element maxOccurs="1" minOccurs="1" name="se100" type="ns:double"/>
+									<ns:element maxOccurs="1" minOccurs="1" name="se120" type="ns:double"/>
+									<ns:element maxOccurs="1" minOccurs="1" name="sliner" type="ns:double"/>
 								</ns:sequence>
 							</ns:complexType>
 						</ns:element>
 						<ns:element name="seFmt2">
 							<ns:complexType>
 								<ns:sequence>
-									<ns:element maxOccurs="1" minOccurs="1" name="e1" type="ns:double" />
-									<ns:element maxOccurs="1" minOccurs="1" name="e2" type="ns:double" />
-									<ns:element maxOccurs="1" minOccurs="1" name="se1" type="ns:double" />
-									<ns:element maxOccurs="1" minOccurs="1" name="se2" type="ns:double" />
-									<ns:element maxOccurs="1" minOccurs="0" name="af" type="ns:double" />
+									<ns:element maxOccurs="1" minOccurs="1" name="e1" type="ns:double"/>
+									<ns:element maxOccurs="1" minOccurs="1" name="e2" type="ns:double"/>
+									<ns:element maxOccurs="1" minOccurs="1" name="se1" type="ns:double"/>
+									<ns:element maxOccurs="1" minOccurs="1" name="se2" type="ns:double"/>
+									<ns:element maxOccurs="1" minOccurs="0" name="af" type="ns:double"/>
 								</ns:sequence>
 							</ns:complexType>
 						</ns:element>
@@ -146,8 +149,8 @@
 		<ns:complexContent>
 			<ns:extension base="pss:Eq1MachineXmlType">
 				<ns:sequence>
-					<ns:element maxOccurs="1" minOccurs="1" name="xq1" type="ns:double" />
-					<ns:element maxOccurs="1" minOccurs="1" name="Tq01" type="pss:TimePeriodXmlType" />
+					<ns:element maxOccurs="1" minOccurs="1" name="xq1" type="ns:double"/>
+					<ns:element maxOccurs="1" minOccurs="1" name="Tq01" type="pss:TimePeriodXmlType"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -158,7 +161,7 @@
 		<ns:complexContent>
 		<ns:extension base="pss:Eq1MachineXmlType">
 		<ns:sequence>
-			<ns:element maxOccurs="1" minOccurs="1" name="xq11" type="ns:double" />
+			<ns:element maxOccurs="1" minOccurs="1" name="xq11" type="ns:double"/>
 			<ns:element maxOccurs="1" minOccurs="1" name="Tq011" type="pss:TimePeriodXmlType">	</ns:element>
 			<ns:element maxOccurs="1" minOccurs="1" name="xd11" type="ns:double">	</ns:element>
 			<ns:element maxOccurs="1" minOccurs="1" name="Td011" type="pss:TimePeriodXmlType">
@@ -172,7 +175,7 @@
 		<ns:complexContent>
 			<ns:extension base="pss:Eq1Ed1MachineXmlType">
 				<ns:sequence>
-					<ns:element maxOccurs="1" minOccurs="1" name="xd11" type="ns:double" />
+					<ns:element maxOccurs="1" minOccurs="1" name="xd11" type="ns:double"/>
 					<ns:element maxOccurs="1" minOccurs="1" name="Td011" type="pss:TimePeriodXmlType">	</ns:element>
 					<ns:element maxOccurs="1" minOccurs="1" name="xq11" type="ns:double">	</ns:element>
 					<ns:element maxOccurs="1" minOccurs="1" name="Tq011" type="pss:TimePeriodXmlType">

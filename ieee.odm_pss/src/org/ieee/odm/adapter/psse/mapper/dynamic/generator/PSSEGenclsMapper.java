@@ -58,9 +58,10 @@ public class PSSEGenclsMapper extends BasePSSEDataMapper{
 	   mach.setD(dataParser.getDouble("D"));
 	   //x'd = XSOURCE
 	   if(dstabGenData.getSourceZ()!=null){
-		   if(dstabGenData.getSourceZ().getIm()>0)
+		   if(dstabGenData.getSourceZ().getIm()>0){
+			   mach.setRa(dstabGenData.getSourceZ().getRe());
 			   mach.setXd1(dstabGenData.getSourceZ().getIm());
-		   else
+		   }else
 			   throw new ODMException("Source Z of of classic type(GENCLS) machine  : Id"+
 		             genId+" @ Bus"+i+"is not defined");
 	   }
