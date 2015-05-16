@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ns:schema 
-	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
-	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
-	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
-	elementFormDefault="qualified" >
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ns:schema xmlns:ns="http://www.w3.org/2001/XMLSchema" xmlns:pss="http://www.ieee.org/odm/Schema/2008" elementFormDefault="qualified" targetNamespace="http://www.ieee.org/odm/Schema/2008">
     
 
-    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"></ns:include>
+    <ns:include schemaLocation="../../basecase/NetRecordType.xsd"/>
     
 	
     <ns:annotation>
-		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
     
 
@@ -18,37 +14,37 @@
 		<ns:complexContent>
 			<ns:extension base="pss:BaseBranchXmlType">
 				<ns:sequence>
-					<ns:element name="controlMode" default="blocked" maxOccurs="1" minOccurs="1" type="pss:DcLineControlModeEnumType">
+					<ns:element default="blocked" maxOccurs="1" minOccurs="1" name="controlMode" type="pss:DcLineControlModeEnumType">
 					</ns:element>
-					<ns:element name="lineR" type="pss:RXmlType" maxOccurs="1" minOccurs="1">
+					<ns:element maxOccurs="1" minOccurs="1" name="lineR" type="pss:RXmlType">
 					</ns:element>
-					<ns:element name="lineG" type="pss:GXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="lineG" type="pss:GXmlType">
 					</ns:element>
-					<ns:element name="currentDemand" maxOccurs="1" minOccurs="0" type="pss:CurrentXmlType">
+					<ns:element maxOccurs="1" minOccurs="0" name="currentDemand" type="pss:CurrentXmlType">
 					</ns:element>
-					<ns:element name="powerDemand" type="pss:ActivePowerXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="powerDemand" type="pss:ActivePowerXmlType">
 					</ns:element>
-					<ns:element name="controlOnRectifierSide" type="ns:boolean" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="controlOnRectifierSide" type="ns:boolean">
 					</ns:element>
-					<ns:element name="scheduledDCVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="scheduledDCVoltage" type="pss:VoltageXmlType">
 					</ns:element>
-					<ns:element name="meteredEnd" maxOccurs="1" minOccurs="0" type="pss:DcLineMeteredEndEnumType">
+					<ns:element maxOccurs="1" minOccurs="0" name="meteredEnd" type="pss:DcLineMeteredEndEnumType">
 					</ns:element>
-					<ns:element name="modeSwitchDCVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="modeSwitchDCVoltage" type="pss:VoltageXmlType">
 					</ns:element>
-					<ns:element name="compoundingR" type="pss:RXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="compoundingR" type="pss:RXmlType">
 					</ns:element>
-					<ns:element name="powerOrCurrentMarginPU" maxOccurs="1" minOccurs="0" type="ns:double">	
+					<ns:element maxOccurs="1" minOccurs="0" name="powerOrCurrentMarginPU" type="ns:double">	
 					</ns:element>
-					<ns:element name="minDCVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="minDCVoltage" type="pss:VoltageXmlType">
 					</ns:element>
-					<ns:element name="maxDCCurrent" type="pss:CurrentXmlType" maxOccurs="1" minOccurs="0">
+					<ns:element maxOccurs="1" minOccurs="0" name="maxDCCurrent" type="pss:CurrentXmlType">
 					</ns:element>
-					<ns:element name="length" maxOccurs="1" minOccurs="0" type="pss:LengthXmlType">
+					<ns:element maxOccurs="1" minOccurs="0" name="length" type="pss:LengthXmlType">
 					</ns:element>
-					<ns:element name="rectifier" type="pss:ConverterXmlType" minOccurs="1">
+					<ns:element minOccurs="1" name="rectifier" type="pss:ConverterXmlType">
 					</ns:element>
-					<ns:element name="inverter" type="pss:ConverterXmlType" minOccurs="1"></ns:element>
+					<ns:element minOccurs="1" name="inverter" type="pss:ConverterXmlType"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -57,81 +53,46 @@
     
     <ns:complexType name="ConverterXmlType">
 		<ns:sequence>
-			<ns:element name="busId" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="1"></ns:element>
-			<ns:element name="numberofBridges" type="ns:int" maxOccurs="1" minOccurs="1">
-				<ns:annotation><ns:documentation>
-				每极桥数，Bi
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="1" name="busId" type="pss:IDRefRecordXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="1" name="numberofBridges" type="ns:int">
+				<ns:annotation>
+                  <ns:documentation>
+				               每极桥数，Bi
+				   </ns:documentation>
+               </ns:annotation>
 			</ns:element>
-			<ns:element name="minFiringAngle" type="pss:AngleXmlType" maxOccurs="1" minOccurs="1">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="1" name="minFiringAngle" type="pss:AngleXmlType">
 			</ns:element>
-			<ns:element name="maxFiringAngle" type="pss:AngleXmlType" maxOccurs="1" minOccurs="1">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="1" name="maxFiringAngle" type="pss:AngleXmlType">
 			</ns:element>
-			<ns:element name="firingAngleMeasuringBusId" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="firingAngleMeasuringBusId" type="pss:IDRefRecordXmlType">
 			</ns:element>
-			<ns:element name="acSideRatedVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="1">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="1" name="acSideRatedVoltage" type="pss:VoltageXmlType">
 			</ns:element>
-			<ns:element name="commutatingZ" type="pss:ZXmlType" maxOccurs="1" minOccurs="1">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="1" name="commutatingZ" type="pss:ZXmlType">
 			</ns:element>
-			<ns:element name="commutatingCapacitor" type="ns:double" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="commutatingCapacitor" type="ns:double">
 			</ns:element>
-			<ns:element name="xformerTurnRatio" type="ns:double" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-				
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="xformerTurnRatio" type="ns:double">
 			</ns:element>
-			<ns:element name="xformerTapSetting" type="pss:TapXmlType" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-				抽头级数，Ntapi
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="xformerTapSetting" type="pss:TapXmlType">
+				 <ns:annotation>
+                    <ns:documentation>
+				                      抽头级数，Ntapi
+				    </ns:documentation>
+                 </ns:annotation>
 			</ns:element>
-			<ns:element name="xformerTapLimit" type="pss:TapLimitXmlType" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>		
+			<ns:element maxOccurs="1" minOccurs="0" name="xformerTapLimit" type="pss:TapLimitXmlType">
 			</ns:element>
-			<ns:element name="xformerTapStepSize" type="ns:double" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="xformerTapStepSize" type="ns:double">
 			</ns:element>
-			<ns:element name="dcSdieRatedVoltage" type="pss:VoltageXmlType" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="dcSdieRatedVoltage" type="pss:VoltageXmlType">
 			</ns:element>
-			<ns:element name="refXfrFromBusId" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>			
+			<ns:element maxOccurs="1" minOccurs="0" name="refXfrFromBusId" type="pss:IDRefRecordXmlType">		
 			</ns:element>
-			<ns:element name="refXfrToBusId" type="pss:IDRefRecordXmlType" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="refXfrToBusId" type="pss:IDRefRecordXmlType">
 			</ns:element>
-			<ns:element name="refXfrCirId" type="ns:string" maxOccurs="1" minOccurs="0">
-				<ns:annotation><ns:documentation>
-
-				</ns:documentation></ns:annotation>
+			<ns:element maxOccurs="1" minOccurs="0" name="refXfrCirId" type="ns:string">
 			</ns:element>
 		</ns:sequence>
 	</ns:complexType>
@@ -139,17 +100,17 @@
 
     <ns:simpleType name="DcLineControlModeEnumType">
 		<ns:restriction base="ns:string">
-			<ns:enumeration value="blocked"></ns:enumeration>
-			<ns:enumeration value="power"></ns:enumeration>
-			<ns:enumeration value="current"></ns:enumeration>
+			<ns:enumeration value="blocked"/>
+			<ns:enumeration value="power"/>
+			<ns:enumeration value="current"/>
 		</ns:restriction>
 	</ns:simpleType>
     
 
     <ns:simpleType name="DcLineMeteredEndEnumType">
 		<ns:restriction base="ns:string">
-			<ns:enumeration value="rectifier"></ns:enumeration>
-			<ns:enumeration value="inverter"></ns:enumeration>
+			<ns:enumeration value="rectifier"/>
+			<ns:enumeration value="inverter"/>
 		</ns:restriction>
 	</ns:simpleType>
     
@@ -157,4 +118,70 @@
 		<ns:sequence>
 		</ns:sequence>
 	</ns:complexType>
+	
+	
+	
+	<ns:complexType name="VSCHVDC2TXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:BaseBranchXmlType">
+				<ns:sequence>			
+					<ns:element maxOccurs="1" minOccurs="1" name="Rdc" type="pss:RXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="MVARating" type="pss:ApparentPowerXmlType"/>
+					<ns:element minOccurs="1" name="rectifier" type="pss:VSCConverterXmlType"/>
+					<ns:element minOccurs="1" name="inverter" type="pss:VSCConverterXmlType"/>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+ 
+ 
+	 <ns:complexType name="VSCConverterXmlType">
+			<ns:sequence>
+				<ns:element maxOccurs="1" minOccurs="1" name="busId" type="pss:IDRefRecordXmlType"/>
+				<ns:element maxOccurs="1" minOccurs="1" name="dcControlMode" type="pss:VSCDCControlModeEnumType"/>
+				<ns:element maxOccurs="1" minOccurs="1" name="acControlMode" type="pss:VSCACControlModeEnumType"/>
+				<ns:element maxOccurs="1" minOccurs="1" name="acSetPoint" type="ns:double"/>
+				<ns:element maxOccurs="1" minOccurs="1" name="dcSetPoint" type="ns:double"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="ALoss" type="ns:double">
+					<ns:annotation>
+					     <ns:documentation>
+						 converter loss (KW)= Aloss + (Idc * Bloss)
+						 Aloss is entered in kW. Bloss is entered in kW/amp. Aloss = Bloss = 0.0 by default.
+					     </ns:documentation>
+					</ns:annotation>
+				</ns:element>
+				<ns:element maxOccurs="1" minOccurs="0" name="BLoss" type="ns:double">
+					<ns:annotation>
+					     <ns:documentation>
+						 converter loss (KW)= Aloss + (Idc * Bloss)
+						 Aloss is entered in kW. Bloss is entered in kW/amp. Aloss = Bloss = 0.0 by default.
+					     </ns:documentation>
+					</ns:annotation>
+				</ns:element>
+				<ns:element maxOccurs="1" minOccurs="0" name="MinLoss" type="ns:double"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="MVARating" type="pss:ApparentPowerXmlType"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="maxDCCurrent" type="pss:CurrentXmlType"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="powerWeightFactor" type="ns:double"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="QMax" type="pss:ReactivePowerXmlType"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="QMin" type="pss:ReactivePowerXmlType"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="remoteCtrlBusId" type="pss:IDRefRecordXmlType"/>
+				<ns:element maxOccurs="1" minOccurs="0" name="remoteCtrlPercent" type="ns:double"/>
+			</ns:sequence>
+	</ns:complexType>
+ 
+     <ns:simpleType name="VSCDCControlModeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="blocked"/>
+			<ns:enumeration value="RealPower"/>
+			<ns:enumeration value="DCVoltage"/>
+		</ns:restriction>
+	</ns:simpleType>
+	
+     <ns:simpleType name="VSCACControlModeEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="ReactivePower"/>
+			<ns:enumeration value="Voltage"/>
+		</ns:restriction>
+     </ns:simpleType>
+	
 </ns:schema>
