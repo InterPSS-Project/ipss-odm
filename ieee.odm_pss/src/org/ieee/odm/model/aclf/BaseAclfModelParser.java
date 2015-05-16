@@ -48,6 +48,8 @@ import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.TielineXmlType;
+import org.ieee.odm.schema.VSCConverterXmlType;
+import org.ieee.odm.schema.VSCHVDC2TXmlType;
 import org.ieee.odm.schema.Xfr3WBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 
@@ -272,6 +274,20 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 		return (DCLineData2TXmlType)this.getCachedObject(id);
 	}
 	
+	
+	/**
+	 * Get the cashed VSCHVDC2T object by id
+	 * 
+	 * @param recId
+	 * @param invId
+	 * @param dcLineId
+	 * @return
+	 */
+	public VSCHVDC2TXmlType getVSCHVDC2TRecord(String recId, String invId, String dcLineId) {
+		String id = ODMModelStringUtil.formBranchId(recId, invId, dcLineId);
+		return (VSCHVDC2TXmlType )this.getCachedObject(id);
+	}
+	
 	/**
 	 * add a new 2T DcLine record to the base case and to the cache table
 	 * 
@@ -290,6 +306,31 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 		dcLine.getRectifier().setBusId(createBusRef(recId));
 	
 		ConverterXmlType inverter = OdmObjFactory.createConverterXmlType();
+		dcLine.setInverter(inverter);
+		dcLine.getInverter().setBusId(createBusRef(invId));
+		return dcLine;
+	}	
+	
+	
+	
+	/**
+	 * add a new 2T VSC-HVDC record to the base case and to the cache table
+	 * 
+	 * @param recId
+	 * @param invId
+	 * @param dcLineId
+	 * @return
+	 */
+	public VSCHVDC2TXmlType  createVSCHVDC2TRecord(String recId, String invId, String dcLineId) throws ODMBranchDuplicationException {
+		VSCHVDC2TXmlType dcLine = OdmObjFactory.createVSCHVDC2TXmlType();
+		addBranch2BaseCase(dcLine, recId, invId, null, dcLineId);
+		intiBranchData(dcLine);
+		
+		VSCConverterXmlType rectifier = OdmObjFactory.createVSCConverterXmlType();
+		dcLine.setRectifier(rectifier);
+		dcLine.getRectifier().setBusId(createBusRef(recId));
+	
+		VSCConverterXmlType inverter = OdmObjFactory.createVSCConverterXmlType();
 		dcLine.setInverter(inverter);
 		dcLine.getInverter().setBusId(createBusRef(invId));
 		return dcLine;
