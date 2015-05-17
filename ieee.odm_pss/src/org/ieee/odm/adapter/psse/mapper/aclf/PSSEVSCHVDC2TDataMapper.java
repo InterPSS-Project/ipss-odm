@@ -184,7 +184,7 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 			   vsc2.setAcControlMode(VSCACControlModeEnumType.VOLTAGE);
 		}
 		else if(vsc2ACControlMode == 2){
-			vsc2.setAcControlMode(VSCACControlModeEnumType.REACTIVE_POWER);
+			vsc2.setAcControlMode(VSCACControlModeEnumType.POWER_FACTOR);
 		}
 		
 		vsc2.setAcSetPoint(vsc2ACSet);

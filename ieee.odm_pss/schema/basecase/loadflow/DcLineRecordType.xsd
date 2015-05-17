@@ -179,6 +179,7 @@
 	
      <ns:simpleType name="VSCACControlModeEnumType">
 		<ns:restriction base="ns:string">
+		    <ns:enumeration value="PowerFactor"/>
 			<ns:enumeration value="ReactivePower"/>
 			<ns:enumeration value="Voltage"/>
 		</ns:restriction>
