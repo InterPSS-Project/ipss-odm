@@ -37,6 +37,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.PSSELineDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSELoadDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEOwnerDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSESwitchedSShuntDataMapper;
+import org.ieee.odm.adapter.psse.mapper.aclf.PSSEVSCHVDC2TDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEXfrDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEXfrZTableDataMapper;
 import org.ieee.odm.adapter.psse.mapper.aclf.PSSEZoneDataMapper;
@@ -71,6 +72,7 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 	private PSSELineDataMapper lineDataMapper = null;
 	private PSSEXfrDataMapper xfrDataMapper = null;
 	private PSSEDcLine2TDataMapper dcLine2TDataMapper = null;
+	private PSSEVSCHVDC2TDataMapper vschvdc2TDataMapper = null;
 	
 	private 	boolean headerProcessed = false;
 	private 	boolean busProcessed = false;
@@ -115,6 +117,7 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 		this.lineDataMapper = new PSSELineDataMapper(ver);
 		this.xfrDataMapper = new PSSEXfrDataMapper(ver);
 		this.dcLine2TDataMapper = new PSSEDcLine2TDataMapper(ver);
+		this.vschvdc2TDataMapper = new PSSEVSCHVDC2TDataMapper(ver);
 	}
 	
     /**
@@ -196,7 +199,9 @@ public class PSSELFAdapter extends BasePSSEAdapter{
       					process2THvdcLineStr(lineStr, din);
       				}
       				else if (!vscDcLineProcessed) {
-      					processVscHvdcLineStr(lineStr);	 
+      					if (!isEndRecLine(lineStr))
+      						lineNo = lineNo + 2;
+      					processVscHvdcLineStr(lineStr, din);	 
       				}
       				else if (!switchedShuntProcessed && PSSEAdapter.getVersionNo(this.adptrtVersion) <= 30) {
       					processSwitchedShuntLineStr(lineStr);	 
@@ -386,7 +391,7 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 		}			
 	}
 	
-	private void processVscHvdcLineStr(String lineStr) throws ODMException {
+	private void processVscHvdcLineStr(String lineStr,final IFileReader din) throws ODMException, ODMBranchDuplicationException {
 		if (isEndRecLine(lineStr)) {
 			assert lineStr.toUpperCase().contains("END OF VSC DC LINE DATA"); 
 			vscDcLineProcessed = true;
@@ -394,8 +399,9 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 			this.elemCntStr += "vscDcLine record " + vscDcLineCnt +"\n";
 		}
 		else {
-			//	PSSEVscDCLineDataRec rec = new PSSEVscDCLineDataRec(lineStr, version);
-			//	rec.processVscDCLine(adjNet, msg);
+			String lineStr2 = din.readLine();
+			String lineStr3 = din.readLine();
+		    this.vschvdc2TDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
 			vscDcLineCnt++;
 		}		
 	}

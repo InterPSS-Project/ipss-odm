@@ -1,7 +1,7 @@
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.parser.aclf.PSSEDcLine2TDataParser;
+import org.ieee.odm.adapter.psse.parser.aclf.PSSEVSCHVDC2TDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
@@ -9,7 +9,6 @@ import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.CurrentUnitType;
-import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VSCACControlModeEnumType;
@@ -22,7 +21,7 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 	
 	public PSSEVSCHVDC2TDataMapper(PsseVersion ver) {
 		super(ver);
-		this.dataParser = new PSSEDcLine2TDataParser(ver);
+		this.dataParser = new PSSEVSCHVDC2TDataParser(ver);
 	}
 	
 	public void procLineString(String[] lineStrAry, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException, ODMBranchDuplicationException {
@@ -40,12 +39,12 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 		int vsc1DCControlType = this.dataParser.getInt("TYPE1"); 
 		int vsc1ACControlMode = this.dataParser.getInt("MODE1"); 
 		
-		double  vsc1DCSet = this.dataParser.getInt("DCSET1"); 
-		double  vsc1ACSet = this.dataParser.getInt("ACSET1"); 
+		double  vsc1DCSet = this.dataParser.getDouble("DCSET1"); 
+		double  vsc1ACSet = this.dataParser.getDouble("ACSET1"); 
 		
-		double  vsc1ALoss = this.dataParser.getInt("ALOSS1"); 
-		double  vsc1BLoss = this.dataParser.getInt("BLOSS1"); 
-		double  vsc1MinLoss = this.dataParser.getInt("MinLOSS1"); 
+		double  vsc1ALoss = this.dataParser.getDouble("ALOSS1"); 
+		double  vsc1BLoss = this.dataParser.getDouble("BLOSS1"); 
+		double  vsc1MinLoss = this.dataParser.getDouble("MINLOSS1"); 
 		double  vsc1MVARating = this.dataParser.getDouble("SMAX1"); 
 		double  vsc1CurRating = this.dataParser.getDouble("IMAX1"); 
 		double  vsc1PWF = this.dataParser.getDouble("PWF1");
@@ -60,12 +59,12 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 		int vsc2DCControlType = this.dataParser.getInt("TYPE2"); 
 		int vsc2ACControlMode = this.dataParser.getInt("MODE2"); 
 		
-		double  vsc2DCSet = this.dataParser.getInt("DCSET2"); 
-		double  vsc2ACSet = this.dataParser.getInt("ACSET2"); 
+		double  vsc2DCSet = this.dataParser.getDouble("DCSET2"); 
+		double  vsc2ACSet = this.dataParser.getDouble("ACSET2"); 
 		
-		double  vsc2ALoss = this.dataParser.getInt("ALOSS2"); 
-		double  vsc2BLoss = this.dataParser.getInt("BLOSS2"); 
-		double  vsc2MinLoss = this.dataParser.getInt("MinLOSS2"); 
+		double  vsc2ALoss = this.dataParser.getDouble("ALOSS2"); 
+		double  vsc2BLoss = this.dataParser.getDouble("BLOSS2"); 
+		double  vsc2MinLoss = this.dataParser.getDouble("MINLOSS2"); 
 		double  vsc2MVARating = this.dataParser.getDouble("SMAX2"); 
 		double  vsc2CurRating = this.dataParser.getDouble("IMAX2"); 
 		double  vsc2PWF = this.dataParser.getDouble("PWF2");
@@ -92,9 +91,10 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 		String invId = isVSC1Rec? vsc2BusId:vsc1BusId;
 		
 		VSCHVDC2TXmlType vscHVDC2T = parser.createVSCHVDC2TRecord(recId, invId, name);
+		vscHVDC2T.setName(name);
 		
 		// set status
-		
+		vscHVDC2T.setOffLine(MDC==0?true:false);
 		
 		//Rdc
 		vscHVDC2T.setRdc(BaseDataSetter.createRValue(RDC, ZUnitType.OHM));
@@ -127,9 +127,13 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 			   vsc1.setAcControlMode(VSCACControlModeEnumType.VOLTAGE);
 		}
 		else if(vsc1ACControlMode == 2){
-			vsc1.setAcControlMode(VSCACControlModeEnumType.REACTIVE_POWER);
+			vsc1.setAcControlMode(VSCACControlModeEnumType.POWER_FACTOR);
+			
+			// check the power factor
+			  if(Math.abs(vsc1ACSet)>1.0)
+				  throw new Error (" The power factor setting for VSC1 of # "+name+" # is not a valid number");
 		}
-		
+		 
 		vsc1.setAcSetPoint(vsc1ACSet);
 		
 		
@@ -185,6 +189,8 @@ public class PSSEVSCHVDC2TDataMapper extends BasePSSEDataMapper{
 		}
 		else if(vsc2ACControlMode == 2){
 			vsc2.setAcControlMode(VSCACControlModeEnumType.POWER_FACTOR);
+			if(Math.abs(vsc2ACSet)>1.0)
+				  throw new Error (" The power factor setting for VSC2 of # "+name+" # is not a valid number");
 		}
 		
 		vsc2.setAcSetPoint(vsc2ACSet);
