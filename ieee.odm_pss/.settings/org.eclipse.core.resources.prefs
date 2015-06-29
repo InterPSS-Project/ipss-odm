@@ -1,11 +1,4 @@
 eclipse.preferences.version=1
-encoding//schema/ODMSchema.xsd=UTF8
-encoding//schema/basecase/dynamic/exc/BPAExciterModel.xsd=UTF8
-encoding//schema/basecase/loadflow/CompensatorType.xsd=UTF8
-encoding//schema/basecase/loadflow/DcLineRecordType.xsd=UTF8
-encoding//schema/basecase/loadflow/LFRecordType.xsd=UTF8
-encoding//schema/common/DataType.xsd=UTF8
-encoding//schema/common/UnitType.xsd=UTF8
 encoding//src/org/ieee/odm/adapter/psse/mapper/dynamic/generator/PSSEGenrouMapper.java=UTF-8
 encoding//src/org/ieee/odm/adapter/psse/parser/aclf/PSSEGenDataParser.java=UTF-8
 encoding//src/org/ieee/odm/adapter/psse/parser/aclf/PSSEHeaderDataParser.java=UTF-8
