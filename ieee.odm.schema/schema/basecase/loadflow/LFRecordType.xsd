@@ -9,7 +9,7 @@
     
 	
     <ns:annotation>
-		<ns:documentation>Copyright www.interpss.org 2008-2012</ns:documentation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
     
     <ns:element name="aclfNet" substitutionGroup="pss:baseCase" type="pss:LoadflowNetXmlType">

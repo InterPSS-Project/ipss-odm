@@ -9,7 +9,7 @@
     <ns:import schemaLocation="../../common/DataType.xsd" namespace="http://www.ieee.org/odm/Schema/2008"></ns:import>
 
     <ns:annotation>
-		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
 
     <ns:annotation>

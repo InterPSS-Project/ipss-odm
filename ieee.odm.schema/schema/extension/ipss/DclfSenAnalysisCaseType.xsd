@@ -12,7 +12,7 @@
     <ns:import namespace="http://www.ieee.org/odm/Schema/2008" schemaLocation="../../scenario/StudyScenario.xsd" />
 	
 	<ns:annotation>
-		<ns:documentation>Copyright www.interpss.org 2008-2011</ns:documentation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
 
 	<ns:complexType name="DclfSenAnalysisXmlType">

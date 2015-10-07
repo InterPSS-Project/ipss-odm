@@ -8,7 +8,7 @@
 	<ns:include schemaLocation="ipss/PWDExtensionType.xsd"></ns:include>
 	
 	<ns:annotation>
-		<ns:documentation>Copyright www.interpss.org 2008-2010</ns:documentation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
 
 	<ns:annotation>

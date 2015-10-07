@@ -9,7 +9,7 @@
     <ns:include schemaLocation="../../../common/DataType.xsd" />
     
     <ns:annotation>
-		<ns:documentation>Copyright www.interpss.org 2008-2013</ns:documentation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
 	
 	<!-- 
