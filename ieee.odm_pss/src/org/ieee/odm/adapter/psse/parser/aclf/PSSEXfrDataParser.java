@@ -213,8 +213,14 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 
 		int N2 = 21;   // Line-1 has 21 fields
 		st = new StringTokenizer(lineStr2, ",");
-		for (int i = N2; i < N2+3; i++)
+		for (int i = N2; i < N2+3; i++){
 			setValue(i, st.nextToken().trim());
+			if(i==N2+1 && !st.hasMoreTokens()){
+				// if MVA base is not provided, use 100 MW as default
+				setValue(N2+2, "100.0");
+				break;
+			}
+		}
 		if (k != 0) {
 			for (int i = N2+3; i < N2+11; i++)
 				setValue(i, st.nextToken().trim());

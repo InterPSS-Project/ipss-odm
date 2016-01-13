@@ -74,7 +74,7 @@ public class PSSEXfrDataMapper extends BasePSSEDataMapper{
 		
       	int i = dataParser.getInt("I");
       	int j = dataParser.getInt("J");                
-      	int k = dataParser.getInt("K");                
+      	int k = dataParser.getInt("K");
                 
         boolean is3WXfr = k != 0; 
         
@@ -200,7 +200,8 @@ public class PSSEXfrDataMapper extends BasePSSEDataMapper{
 		int cm = dataParser.getInt("CM", 1);
 		double mag1 = dataParser.getDouble("MAG1", 0.0);
 		double mag2 = dataParser.getDouble("MAG2", 0.0);
-		double sbase1_2 = dataParser.getDouble("SBASE1-2");
+		// updated to fix a bug when "SBASE1-2" is blank, use default value = SBASE
+		double sbase1_2 = dataParser.getDouble("SBASE1-2",sysMVABase);
     	if (cm == 2) {
     		if (mag1 != 0.0 || mag2 != 0.0){
     			//p=U1^2*g
@@ -236,8 +237,9 @@ public class PSSEXfrDataMapper extends BasePSSEDataMapper{
     	*/
     	xfrInfoXml.setRatedPower(BaseDataSetter.createPowerMvaValue(sbase1_2));
        	if (is3WXfr) {
-       		double sbase2_3 = dataParser.getDouble("SBASE2-3");
-       		double sbase3_1 = dataParser.getDouble("SBASE3-1");
+       		double sbase2_3 = dataParser.getDouble("SBASE2-3",sysMVABase);
+       		double sbase3_1 = dataParser.getDouble("SBASE3-1",sysMVABase);
+       		
        		double vmstar = dataParser.getDouble("VMSTAR");
        		double anstar = dataParser.getDouble("ANSTAR");
     		Transformer3WInfoXmlType xfr3WInfo = (Transformer3WInfoXmlType)xfrInfoXml;
@@ -288,8 +290,8 @@ public class PSSEXfrDataMapper extends BasePSSEDataMapper{
        	}
        	
        	if (is3WXfr) {
-    		double sbase2_3 = dataParser.getDouble("SBASE2-3");
-    		double sbase3_1 = dataParser.getDouble("SBASE3-1");
+    		double sbase2_3 = dataParser.getDouble("SBASE2-3",sysMVABase);
+    		double sbase3_1 = dataParser.getDouble("SBASE3-1",sysMVABase);
            	double r2_3 = dataParser.getDouble("R2-3", 0.0);
            	double x2_3 = dataParser.getDouble("X2-3", 0.0);
            	double r3_1 = dataParser.getDouble("R3-1", 0.0);
