@@ -553,7 +553,9 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	}
 	
 	/**
-	 * create PSASP Xformer branch object
+	 * createXfrBranch() should be used instead
+	 * 
+	 * create PSASP Xformer branch object 
 	 * 
 	 * @param fBusId from bus id
 	 * @param toBusId to bus id
@@ -562,14 +564,15 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
+	/*
 	public <T extends PSXfrBranchXmlType> T createPSASPXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
 		intiBranchData(branch);
-		addPSASPBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
+		addBaseBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
 	
 	}
-	
+	*/
 	
 	
 	/**
@@ -732,7 +735,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * @param cirId
 	 * @throws ODMBranchDuplicationException
 	 */
-	protected void addPSASPBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
+	protected void addBaseBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
 		String id = tertId == null ?
 				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
 		if (this.objectCache.get(id) != null ||
