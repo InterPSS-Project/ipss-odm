@@ -560,19 +560,18 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * @param fBusId from bus id
 	 * @param toBusId to bus id
 	 * @param cirId branch circuit number
+	 * @param idName branch name, which is used to be an identifier
 	 * @return
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	/*
-	public <T extends PSXfrBranchXmlType> T createPSASPXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
+	public <T extends PSXfrBranchXmlType> T createPSASPXfrBranch(String fBusId, String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
 		intiBranchData(branch);
-		addBaseBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
+		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId, idName);
 		return branch;
 	
 	}
-	*/
 	
 	
 	/**
@@ -609,8 +608,26 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
-	
 	}
+	
+	/**
+	 * create PsXformer branch object
+	 * 
+	 * @param fBusId from bus id
+	 * @param toBusId to bus id
+	 * @param cirId branch circuit number
+	 * @param idName branch name, which is used to be an identifier
+	 * @return
+	 * @throws ODMException
+	 * @throws ODMBranchDuplicationException
+	 */
+	public <T extends PSXfrBranchXmlType> T createPSXfrBranch(String fBusId,String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
+		T branch = createPSXfrBranch();
+		intiBranchData(branch);
+		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId, idName);
+		return branch;
+	}
+	
 	
 	/**
 	 * Get the cashed branch object by id
@@ -726,29 +743,21 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	}	
 	
 	/**
-	 * add a BaseBranchXmlType object to the BaseCase
+	 * There are cases that a Xfr/PsXfr branch needs to be retrieved by its idName. Add a BaseBranchXmlType object to the BaseCase. 
+	 * The branch can be by branch id or idName
 	 * 
 	 * @param branch
 	 * @param fromId
 	 * @param toId
 	 * @param tertId
 	 * @param cirId
+	 * @param idName branch name, which is used to be an identifier
 	 * @throws ODMBranchDuplicationException
 	 */
-	protected void addBaseBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
-		String id = tertId == null ?
-				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
-		if (this.objectCache.get(id) != null ||
-				this.objectCache.get(ODMModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
-			throw new ODMBranchDuplicationException("Branch record duplication, bus id: " + id);
-		}
-		this.objectCache.put(cirId, branch);		
-		branch.setCircuitId(cirId);
-		branch.setId(id);
-		branch.setFromBus(createBusRef(fromId));
-		branch.setToBus(createBusRef(toId));		
-		if (tertId != null)
-			branch.setTertiaryBus(createBusRef(tertId));		
+	protected void addBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId, String idName)  throws ODMBranchDuplicationException {
+		addBranch2BaseCase(branch, fromId, toId, tertId, cirId);	
+		branch.setName(idName);
+		this.objectCache.put(idName, branch);		
 	}	
 
 	/*
