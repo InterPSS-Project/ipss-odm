@@ -49,7 +49,6 @@ public class PSSEBusDataMapper extends BasePSSEDataMapper{
 	
 	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
-		//System.out.println(lineStr + "\n" + dataParser.toString());
 		
 		int i = dataParser.getInt("I");
 		String iStr = IODMModelParser.BusIdPreFix+i;

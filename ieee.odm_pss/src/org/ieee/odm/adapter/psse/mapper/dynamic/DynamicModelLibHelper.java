@@ -32,9 +32,8 @@ public class DynamicModelLibHelper {
 	private List<String> UnSupportedGeneratorList =new ArrayList<>(
 			Arrays.asList("GENROE","GENDCO","GENTRA","CGEN1"));
 	//TODO Don't use "EXAC1", it is found to cause errors for wecc system
-	private List<String> ExciterList =new ArrayList<>(
-			Arrays.asList("IEEET1","IEEEX1","EXST1","ESST3A","ESST4B")//
-			);
+	private List<String> ExciterList = new ArrayList<>(); //new ArrayList<>(Arrays.asList("IEEET1","IEEEX1","EXST1","ESST3A","ESST4B"));
+	
 	private List<String> UnSupportedExciterList =new ArrayList<>(
 			Arrays.asList("IEEET2","IEEET3","IEEET4", //IEEE 1968
 					"ESAC3A","ESAC8B","ESST2A",
@@ -43,7 +42,7 @@ public class DynamicModelLibHelper {
 					"ST5B","ST6B","ST7B", //IEEE2005
 					"REXSY1","REXSYS","SCRX"));
 	
-	private List<String> TurGovList = Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST");//Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST")
+	private List<String> TurGovList = new ArrayList<>();//Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST");//Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST")
 	
 	private List<String> UnsupportedTurGovList =new ArrayList<>(
 			Arrays.asList("IEEEG3","GGOV1","HYGOV","HYGOV2","IEEEG2","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));
@@ -63,17 +62,17 @@ public class DynamicModelLibHelper {
 	}
 	
 	public DynModelType getModelType(String typeStr) {
-		if(GeneratorList.contains(typeStr))
+		if(GeneratorList.contains(typeStr.toUpperCase()))
 			return DynModelType.GENERATOR;
-		else if(ExciterList.contains(typeStr))
+		else if(ExciterList.contains(typeStr.toUpperCase()))
 			return  DynModelType.EXCITER;
-		else if(TurGovList.contains(typeStr))
+		else if(TurGovList.contains(typeStr.toUpperCase()))
 			return DynModelType.TUR_GOV;
-		else if(PssList.contains(typeStr))
+		else if(PssList.contains(typeStr.toUpperCase()))
 			return DynModelType.STABILIZER;
-		else if(FactsList.contains(typeStr))
+		else if(FactsList.contains(typeStr.toUpperCase()))
 			return DynModelType.FACTS;
-		else if(HvdcList.contains(typeStr))
+		else if(HvdcList.contains(typeStr.toUpperCase()))
 			return DynModelType.HVDC;
 		else {
 			ODMLogger.getLogger().severe("The input model data type is not found in the dynamic lib collection, Type #"+typeStr);

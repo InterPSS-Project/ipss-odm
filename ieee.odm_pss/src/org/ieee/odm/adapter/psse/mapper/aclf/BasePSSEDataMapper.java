@@ -25,14 +25,16 @@
 package org.ieee.odm.adapter.psse.mapper.aclf;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.BaseDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BaseRecordXmlType;
 
-public class BasePSSEDataMapper {
+public class BasePSSEDataMapper extends  BaseDataMapper{
 	protected PsseVersion version = null;
-	protected AbstractDataFieldParser dataParser = null;
+	//protected AbstractDataFieldParser dataParser = null;
+	
 	
 	public BasePSSEDataMapper(PsseVersion ver) {
 		this.version = ver;
