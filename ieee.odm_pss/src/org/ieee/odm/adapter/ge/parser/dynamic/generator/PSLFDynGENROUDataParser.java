@@ -34,22 +34,24 @@ public class PSLFDynGENROUDataParser extends AbstractDataFieldParser {
 		int k = 0;
 		// for the ID, there could be blank within quotes
 		for (int i = 0; i <cnt ; i++){
-			if(i<5){
+			if(i==0)
+				setValue(k++, strAry[i].trim().toUpperCase());
+			else if(i<5){
 				if(strAry[i].contains("\"")){
-					setValue(k++,ODMModelStringUtil.trimQuote(strAry[i].trim()));
+					setValue(k++,ODMModelStringUtil.trimQuote(strAry[i]).trim());
 				}
 				else setValue(k++, strAry[i].trim());
 			}
-			if(i==5 || i==6){
+			else if(i==5 || i==6){
 				// skip the " : #9"
 			}
-			if(i==7){
+			else if(i==7){
 				if(strAry[i].contains("mva=")){
 					String mvaString = strAry[i].substring(4, strAry[i].length()); 
 					setValue(k++,mvaString);
 				}
 			}
-			if(i>7){
+			else if(i>7){
 				if(strAry[i].contains("\"")){
 					// just skip items like "tpdo"
 				}

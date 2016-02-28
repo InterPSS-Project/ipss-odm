@@ -7,7 +7,9 @@ import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGenclsMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGenrouMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGensalMapper;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
+import org.ieee.odm.schema.LoadflowNetXmlType;
 
 public class PSLFDynGeneratorMapper {
 	
@@ -16,6 +18,15 @@ public class PSLFDynGeneratorMapper {
 	protected PSSEGenrouMapper genrouMapper = new PSSEGenrouMapper(new PSLFDynGENROUDataParser());
 	
 	protected PSSEGensalMapper gensalMapper = new PSSEGensalMapper(new PSLFDynGENSALDataParser());
+	
+	public PSLFDynGeneratorMapper(){
+		
+	}
+	
+//    public PSLFDynGeneratorMapper(BaseAclfModelParser<? extends LoadflowNetXmlType> parser){
+//	   genclsMapper.
+//	}
+	
 	
 	
 	public void procLineString(String type,String lineStr, DStabModelParser parser) throws ODMException {

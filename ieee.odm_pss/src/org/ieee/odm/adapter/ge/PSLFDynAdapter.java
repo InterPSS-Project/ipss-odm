@@ -34,6 +34,7 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 		public PSLFDynAdapter(DStabModelParser dynParser){
 			this();
 			parser = dynParser;
+			
 		}
 		
 		/*
@@ -118,7 +119,7 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	    private String getModelType(String lineStr){
 	    	String[] strAry =lineStr.split("\\s+");
 	    	if(strAry.length>2)
-	    	    return(ODMModelStringUtil.trimQuote(strAry[0]));
+	    	    return strAry[0];
 			else
 				try {
 					throw new Exception("The input data is not correct model data"+lineStr);
@@ -160,5 +161,9 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 			
 			throw new UnsupportedOperationException();
 		}
-
+		
+		@Override public void setModelParser(IODMModelParser parser){
+			this.odmParser = parser;
+			this.parser = (BaseAclfModelParser<? extends LoadflowNetXmlType>) parser;
+		}
 }
