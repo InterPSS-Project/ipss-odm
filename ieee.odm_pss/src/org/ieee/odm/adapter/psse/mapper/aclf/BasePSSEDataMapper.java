@@ -33,8 +33,10 @@ import org.ieee.odm.schema.BaseRecordXmlType;
 
 public class BasePSSEDataMapper extends  BaseDataMapper{
 	protected PsseVersion version = null;
-	//protected AbstractDataFieldParser dataParser = null;
 	
+	public BasePSSEDataMapper(){
+		
+	}
 	
 	public BasePSSEDataMapper(PsseVersion ver) {
 		this.version = ver;

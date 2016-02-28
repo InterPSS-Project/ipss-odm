@@ -1,5 +1,6 @@
 package org.ieee.odm.adapter.psse.mapper.dynamic.generator;
 
+import org.ieee.odm.adapter.AbstractDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.generator.PSSEGenrouDataParser;
@@ -19,6 +20,10 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	public PSSEGenrouMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEGenrouDataParser(ver);
+	}
+	
+	public PSSEGenrouMapper(AbstractDataFieldParser parser){
+		this.dataParser = parser;
 	}
 	
 	/*
