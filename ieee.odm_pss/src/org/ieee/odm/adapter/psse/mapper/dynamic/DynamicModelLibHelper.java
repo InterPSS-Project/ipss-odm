@@ -28,7 +28,7 @@ public class DynamicModelLibHelper {
 	
 	//TODO This model list should be extended or updated along with the progress of implementation 
 	private List<String> GeneratorList =new ArrayList<>(
-			Arrays.asList("GENROU","GENSAL","GENCLS","GENSAE"));
+			Arrays.asList("GENROU","GENSAL","GENCLS","GENSAE","GENTPF","GENTPJ"));
 	private List<String> UnSupportedGeneratorList =new ArrayList<>(
 			Arrays.asList("GENROE","GENDCO","GENTRA","CGEN1"));
 	//TODO Don't use "EXAC1", it is found to cause errors for wecc system

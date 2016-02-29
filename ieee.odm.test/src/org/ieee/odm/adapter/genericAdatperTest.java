@@ -37,7 +37,8 @@ public class genericAdatperTest {
 		  
 		  adapter.parseInputFile(NetType.DStabNet, new String[]{
 			"testData/psse/IEEE9Bus/ieee9.raw",
-			"testData/ge/ieee9_onlyGen_GE.dyd"
+			"testData/ge/ieee9_dyn_Gentpf_GE.dyd"
+			//"testData/ge/ieee9_onlyGen_GE.dyd"
 	        });
 		  
 		    DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
@@ -56,7 +57,7 @@ public class genericAdatperTest {
 			 //assertTrue(defaultLoad.getCode()==LFLoadCodeEnumType.NONE_LOAD);
 			 
 			assertTrue(defaultGen.getDesiredVoltage().getValue()==1.04);
-			assertTrue(defaultGen.getPotiveZ().getIm()==0.04);
+			assertTrue(defaultGen.getSourceZ().getIm()==0.04);
 			
 			DStabGenDataXmlType contriGen = (DStabGenDataXmlType) bus1.getGenData().getContributeGen().get(0).getValue();
 			assertTrue(contriGen.getMvaBase().getValue()==100.0);

@@ -1,8 +1,11 @@
 package org.ieee.odm.adapter.ge.mapper.dynamic;
 
+import org.ieee.odm.adapter.ge.mapper.dynamic.generator.PSLFDynGENTypeFMapper;
+import org.ieee.odm.adapter.ge.mapper.dynamic.generator.PSLFDynGENTypeJMapper;
 import org.ieee.odm.adapter.ge.parser.dynamic.generator.PSLFDynGENCLSDataParser;
 import org.ieee.odm.adapter.ge.parser.dynamic.generator.PSLFDynGENROUDataParser;
 import org.ieee.odm.adapter.ge.parser.dynamic.generator.PSLFDynGENSALDataParser;
+import org.ieee.odm.adapter.ge.parser.dynamic.generator.PSLFDynGenTypeJFDataParser;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGenclsMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGenrouMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGensalMapper;
@@ -18,6 +21,10 @@ public class PSLFDynGeneratorMapper {
 	protected PSSEGenrouMapper genrouMapper = new PSSEGenrouMapper(new PSLFDynGENROUDataParser());
 	
 	protected PSSEGensalMapper gensalMapper = new PSSEGensalMapper(new PSLFDynGENSALDataParser());
+	
+	protected PSLFDynGENTypeFMapper gentpfMapper = new PSLFDynGENTypeFMapper(new PSLFDynGenTypeJFDataParser());
+	
+	protected PSLFDynGENTypeJMapper gentpjMapper = new PSLFDynGENTypeJMapper(new PSLFDynGenTypeJFDataParser());
 	
 	public PSLFDynGeneratorMapper(){
 		
@@ -41,6 +48,12 @@ public class PSLFDynGeneratorMapper {
 		//GENSAE data is same as the GENSAL
 		else if(type.equalsIgnoreCase("GENSAE")){
 			gensalMapper.procLineString(lineStr, parser);
+		}
+		else if(type.equalsIgnoreCase("GENTPF")){
+			gentpfMapper.procLineString(lineStr, parser);
+		}
+		else if(type.equalsIgnoreCase("GENTPJ")){
+			gentpjMapper.procLineString(lineStr, parser);
 		}
 		else{
 			throw new ODMException("The input Generator dynamic model type #"+ type+" is not supporged yet!");
