@@ -67,27 +67,29 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	      		
 	      					
 	      					modelType = getModelType(lineStr);
-	      					DynModelType type = dynLibHelper.getModelType(modelType);
-	      					
-	      					if(type!=null){
-		      					if(type==DynModelType.GENERATOR){
-		      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
-		      					}
-//		      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
-//		      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
-//		      					}
-//		      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
-//		      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
-//		      					}
+	      					if(modelType !=null){
+		      					DynModelType type = dynLibHelper.getModelType(modelType);
 		      					
-		      					//save supported model data
-		      					if(saveSupportedData)
-		      					    dynLibHelper.saveSupportedModelData(lineStr);
-	      					}
-	      					else{
-	      						//System.out.println("model unsupported :"+lineStr);
-	      						//throw new Exception("The input dynamic model is not supported yet, Type #"+modelType);
-	      						dynLibHelper.procUnsupportedModel(modelType, lineStr);
+		      					if(type!=null){
+			      					if(type==DynModelType.GENERATOR){
+			      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
+			      					}
+	//		      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
+	//		      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	//		      					}
+	//		      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
+	//		      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	//		      					}
+			      					
+			      					//save supported model data
+			      					if(saveSupportedData)
+			      					    dynLibHelper.saveSupportedModelData(lineStr);
+		      					}
+		      					else{
+		      						//System.out.println("model unsupported :"+lineStr);
+		      						//throw new Exception("The input dynamic model is not supported yet, Type #"+modelType);
+		      						dynLibHelper.procUnsupportedModel(modelType, lineStr);
+		      					}
 	      					}
 	      				}
 	      				
@@ -121,11 +123,12 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	    	if(strAry.length>2)
 	    	    return strAry[0];
 			else
-				try {
-					throw new Exception("The input data is not correct model data"+lineStr);
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
+				System.out.println("The input data is not correct model data : "+lineStr);
+//				try {
+//					throw new Exception("The input data is not correct model data : "+lineStr);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				} 
 	    	return null;
 	    		
 	    }

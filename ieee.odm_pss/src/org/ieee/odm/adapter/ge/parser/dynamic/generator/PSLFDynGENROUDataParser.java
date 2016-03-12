@@ -27,9 +27,16 @@ public class PSLFDynGENROUDataParser extends AbstractDataFieldParser {
 	
 	@Override 
 	public void parseFields(final String lineStr) throws ODMException {
+		
+		boolean hasMVAData = lineStr.contains("mva=");
+		
 		this.clearNVPairTableData();
 		// split the line string by multi-blanks while treating contents within quotes as a single entities
 		String[] strAry=lineStr.split("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+		
+//		if(strAry[1].equals("23601")){
+//			System.out.println("debugging...");
+//		}
 		int cnt =strAry.length;
 		int k = 0;
 		// for the ID, there could be blank within quotes
@@ -45,19 +52,37 @@ public class PSLFDynGENROUDataParser extends AbstractDataFieldParser {
 			else if(i==5 || i==6){
 				// skip the " : #9"
 			}
-			else if(i==7){
-				if(strAry[i].contains("mva=")){
-					String mvaString = strAry[i].substring(4, strAry[i].length()); 
-					setValue(k++,mvaString);
-				}
-			}
-			else if(i>7){
+		   else if(i>=7){
+				
 				if(strAry[i].contains("\"")){
 					// just skip items like "tpdo"
+				
 				}
 				
-			    else setValue(k++, strAry[i].trim());
-				}
+			    else{
+			    	
+			    	if(i==7){
+					    	if(hasMVAData){
+								  if(strAry[i].contains("mva=")){
+									String mvaString = strAry[i].substring(4, strAry[i].length()); 
+									setValue(k++,mvaString);
+								 }
+							  }
+					    	 else{
+					    		 // since MVA is in the meta data part, even it is not provided, k index need to be updated
+					    		 //setValue(k++,"-999"); //use -999 to denote that MVA is not provided;
+					    		 k++;
+					    		 // the data corresponding to i=7 becomes the parameter next to MVA.
+					    		 setValue(k++, strAry[i].trim());
+					    	 }
+					    	
+					}
+			    	
+			    	else setValue(k++, strAry[i].trim());
+			    }
+				
+				
+			} //end of i>=7
 		}
 		
 	}

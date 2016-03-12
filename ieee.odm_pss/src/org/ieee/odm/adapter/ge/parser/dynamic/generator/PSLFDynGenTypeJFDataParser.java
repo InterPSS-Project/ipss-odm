@@ -17,9 +17,9 @@ public class PSLFDynGenTypeJFDataParser extends AbstractDataFieldParser {
 				//  10----------11----------12--------13--------14	
 					 "H",       "D",      "Xd",    "Xq",       "X'd",
 				//  15----------16-------17---------18---------19----
-					"X'q",   "X''d",   "Xl",     "S(1.0)",   "S(1.2)", 
-				//  20--------21--------22---------23-----------24---
-					"Ra",    "Rcomp",  "Xcomp",   "accel",     "Kis"
+					"X'q",   "X''d",     "X''q",     "Xl",     "S(1.0)",   
+				//  20--------21--------22---------23-----------24-------25 (Kis for TypeJ only)
+					"S(1.2)",  "Ra",    "Rcomp",  "Xcomp",   "accel",     "Kis"
 				   
 			};
 		
@@ -27,7 +27,17 @@ public class PSLFDynGenTypeJFDataParser extends AbstractDataFieldParser {
 	
 	@Override 
 	public void parseFields(final String lineStr) throws ODMException {
+		
+//		if(lineStr.contains("gentpj   34634")){
+//			System.out.println("debugging....");
+//		}
+		
+		
+		boolean hasMVAData = lineStr.contains("mva=");
+			
 		this.clearNVPairTableData();
+		
+		
 		// split the line string by multi-blanks while treating contents within quotes as a single entities
 		String[] strAry=lineStr.split("\\s+(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
 		int cnt =strAry.length;
@@ -45,20 +55,51 @@ public class PSLFDynGenTypeJFDataParser extends AbstractDataFieldParser {
 			else if(i==5 || i==6){
 				// skip the " : #9"
 			}
-			else if(i==7){
-				if(strAry[i].contains("mva=")){
-					String mvaString = strAry[i].substring(4, strAry[i].length()); 
-					setValue(k++,mvaString);
-				}
-			}
-			else if(i>7){
+			
+			else if(i>=7){
+				
 				if(strAry[i].contains("\"")){
 					// just skip items like "tpdo"
+				
 				}
 				
-			    else setValue(k++, strAry[i].trim());
-				}
+			    else{
+			    	
+			    	if(i==7){
+					    	if(hasMVAData){
+								  if(strAry[i].contains("mva=")){
+									String mvaString = strAry[i].substring(4, strAry[i].length()); 
+									setValue(k++,mvaString);
+								 }
+							  }
+					    	 else{
+					    		 // since MVA is in the meta data part, even it is not provided, k index need to be updated
+					    		 //setValue(k++,"-999"); //use -999 to denote that MVA is not provided;
+					    		 k++;
+					    		 // the data corresponding to i=7 becomes the parameter next to MVA.
+					    		 setValue(k++, strAry[i].trim());
+					    	 }
+					    	
+					}
+			    	
+			    	else setValue(k++, strAry[i].trim());
+			    }
+				
+				
+			}
 		}
+		
+		// check data consistency
+//		if(strAry[0].equalsIgnoreCase("GENTPJ")){
+//			if(k!=26) {
+//				System.out.println("GENTPJ data is not completed :" + lineStr);
+//			}
+//		}
+//		else if(strAry[0].equalsIgnoreCase("GENTPF")){
+//			if(k!=25) {
+//				System.out.println("GENTPF data is not completed :" + lineStr);
+//			}
+//		}
 		
 	}
 

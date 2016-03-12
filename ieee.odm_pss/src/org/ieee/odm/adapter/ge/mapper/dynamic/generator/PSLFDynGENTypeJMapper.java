@@ -86,7 +86,9 @@ public class PSLFDynGENTypeJMapper extends BaseDataMapper{
 	   double s100 = dataParser.getDouble("S(1.0)")*100; // in percentage
 	   double s120 = dataParser.getDouble("S(1.2)")*100;
 	   
-	   if(Tq1>0){
+	  
+	   
+	   if(Tq1>0 && Td11>0.0){
 		   Eq11Ed11MachineXmlType mach = DStabParserHelper.createEq11Ed11Machine(dstabGenData);
 		   
 		   //set the type info
@@ -119,7 +121,7 @@ public class PSLFDynGENTypeJMapper extends BaseDataMapper{
 		   s1.setSe120(s120);
 		   mach.setSeFmt1(s1);
 	   }
-	   else{
+	   else if(Tq1==0.0 && Td11>0.0){
 		   
            Eq11MachineXmlType mach = DStabParserHelper.createEq11Machine(dstabGenData);
 		   
@@ -151,6 +153,9 @@ public class PSLFDynGENTypeJMapper extends BaseDataMapper{
 		   s1.setSe100(s100); 
 		   s1.setSe120(s120);
 		   mach.setSeFmt1(s1);
+	   }
+	   else {//if(Td1>0 && Td11==0.0)
+		   ODMLogger.getLogger().severe("Unsupported GenTypeJ Gen data set @ "+"Machine # "+genId +" is not found in Bus #"+busId);
 	   }
 	   
 	   

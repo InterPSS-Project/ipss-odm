@@ -12,8 +12,14 @@ import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
+import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
-
+/**
+ * A generic adapter that supports the formats for the power flow, sequence and dynamic data can be different.
+ * For example, the power flow is of PSS/E format, and the dynamic data is of PSLF format.
+ * @author Qiuhua
+ *
+ */
 public class GenericODMAdapter extends AbstractODMAdapter{
 	
 	protected BaseAclfModelParser<? extends LoadflowNetXmlType> parser =null;
@@ -86,7 +92,14 @@ public class GenericODMAdapter extends AbstractODMAdapter{
 			String encoding) throws ODMException {
 		
 		if(type==NetType.DStabNet && dins.length>=2){
+			
+			DStabNetXmlType baseCaseNet = (DStabNetXmlType) parser.getNet();
+			
 			if(dins.length==2){
+				
+				baseCaseNet.setHasLoadflowData(true);
+				baseCaseNet.setPositiveSeqDataOnly(true);
+				
 				pfAdapter.parseInputFile(dins[0], encoding);
 				
 				//TODO not applicable to PSS/E dyn adapter

@@ -82,8 +82,8 @@ public class PSSEGenrouMapper extends BasePSSEDataMapper{
 	   double Xd1 = dataParser.getDouble("X'd");
 	   double Xq1 = dataParser.getDouble("X'q");
 	   double Xd11 = dataParser.getDouble("X''d");
-	   double s100 = dataParser.getDouble("S(1.0)")*100; // in percentage
-	   double s120 = dataParser.getDouble("S(1.2)")*100;
+	   double s100 = dataParser.getDouble("S(1.0)",0.0)*100; // in percentage
+	   double s120 = dataParser.getDouble("S(1.2)",0.0)*100;
 	   
 	   //set the type info
 	   mach.setDesc(dataParser.getString("Type"));
