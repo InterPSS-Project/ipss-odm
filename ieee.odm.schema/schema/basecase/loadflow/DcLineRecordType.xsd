@@ -145,8 +145,6 @@
     		<ns:enumeration value="blocked" />
     		<ns:enumeration value="power" />
     		<ns:enumeration value="current" />
-    		<ns:enumeration value="value"></ns:enumeration>
-    		<ns:enumeration value="value1"></ns:enumeration>
     	</ns:restriction>
     </ns:simpleType>
 
@@ -155,8 +153,6 @@
     	<ns:restriction base="ns:string">
     		<ns:enumeration value="double" />
     		<ns:enumeration value="single" />
-    		<ns:enumeration value="value"></ns:enumeration>
-    		<ns:enumeration value="value1"></ns:enumeration>
     	</ns:restriction>
     </ns:simpleType>
     
