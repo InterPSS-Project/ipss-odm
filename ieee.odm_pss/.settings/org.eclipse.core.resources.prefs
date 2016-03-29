@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/org/ieee/odm/adapter/psse/mapper/aclf/PSSEDcLine2TDataMapper.java=UTF-8
 encoding//src/org/ieee/odm/adapter/psse/mapper/dynamic/generator/PSSEGenrouMapper.java=UTF-8
 encoding//src/org/ieee/odm/adapter/psse/parser/aclf/PSSEGenDataParser.java=UTF-8
 encoding//src/org/ieee/odm/adapter/psse/parser/aclf/PSSEHeaderDataParser.java=UTF-8

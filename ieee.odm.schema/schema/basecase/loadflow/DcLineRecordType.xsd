@@ -63,17 +63,17 @@
 						name="length" type="pss:LengthXmlType">
 					</ns:element>
 					<ns:element minOccurs="1" name="rectifier"
-						type="pss:ConverterXmlType">
+						type="pss:ThyristorConverterXmlType">
 					</ns:element>
 					<ns:element minOccurs="1" name="inverter"
-						type="pss:ConverterXmlType" />
+						type="pss:ThyristorConverterXmlType" />
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
 	
     
-    <ns:complexType name="ConverterXmlType">
+    <ns:complexType name="ThyristorConverterXmlType">
 		<ns:sequence>
 			<ns:element maxOccurs="1" minOccurs="1" name="busId"
 				type="pss:IDRefRecordXmlType" />

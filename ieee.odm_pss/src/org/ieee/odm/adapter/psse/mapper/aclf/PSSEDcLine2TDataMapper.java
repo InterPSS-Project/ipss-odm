@@ -33,12 +33,12 @@ import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.AngleUnitType;
-import org.ieee.odm.schema.ConverterXmlType;
 import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.DcLineControlModeEnumType;
 import org.ieee.odm.schema.DcLineMeteredEndEnumType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.ThyristorConverterXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.ZUnitType;
 
@@ -134,7 +134,7 @@ public class PSSEDcLine2TDataMapper extends BasePSSEDataMapper{
 		
 		/*
 			VSCHD Scheduled compounded dc voltage; entered in kV. No default allowed.
-			METER Metered end code of either ’R’ (for rectifier) or ’I’ (for inverter). METER = ’I’ by default.
+			METER Metered end code of either æ‰²ï¿½ (for rectifier) or æ‰žï¿½ (for inverter). METER = æ‰žï¿½ by default.
 		*/
 		dcLine2T.setScheduledDCVoltage(BaseDataSetter.createVoltageValue(VSCHD, VoltageUnitType.KV));
 		dcLine2T.setMeteredEnd(METER.equals("R")? DcLineMeteredEndEnumType.RECTIFIER :
@@ -181,8 +181,8 @@ public class PSSEDcLine2TDataMapper extends BasePSSEDataMapper{
 				dc model are adjusted by the difference between the phase angles at this bus and
 				the ac/dc interface (i.e., the converter bus, IPR). ICR = 0 by default.
 			*/
-		ConverterXmlType rectifier = dcLine2T.getRectifier();
-		ConverterXmlType inverter = dcLine2T.getInverter();
+		ThyristorConverterXmlType rectifier = dcLine2T.getRectifier();
+		ThyristorConverterXmlType inverter = dcLine2T.getInverter();
 		
 		rectifier.setNumberofBridges(NBR);
 		rectifier.setMaxFiringAngle(BaseDataSetter.createAngleValue(ALFMX, AngleUnitType.DEG));

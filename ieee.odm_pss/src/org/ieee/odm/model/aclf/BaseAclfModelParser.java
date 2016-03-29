@@ -35,7 +35,7 @@ import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.ConverterXmlType;
+import org.ieee.odm.schema.ThyristorConverterXmlType;
 import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.FlowInterfaceRecXmlType;
 import org.ieee.odm.schema.InterchangeXmlType;
@@ -302,11 +302,11 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 		addBranch2BaseCase(dcLine, recId, invId, null, dcLineId);
 		intiBranchData(dcLine);
 		
-		ConverterXmlType rectifier = OdmObjFactory.createConverterXmlType();
+		ThyristorConverterXmlType rectifier = OdmObjFactory.createThyristorConverterXmlType();
 		dcLine.setRectifier(rectifier);
 		dcLine.getRectifier().setBusId(createBusRef(recId));
 	
-		ConverterXmlType inverter = OdmObjFactory.createConverterXmlType();
+		ThyristorConverterXmlType inverter = OdmObjFactory.createThyristorConverterXmlType();
 		dcLine.setInverter(inverter);
 		dcLine.getInverter().setBusId(createBusRef(invId));
 		return dcLine;
