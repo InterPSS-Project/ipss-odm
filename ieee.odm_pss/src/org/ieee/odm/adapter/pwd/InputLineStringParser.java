@@ -25,11 +25,9 @@
 package org.ieee.odm.adapter.pwd;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.ieee.odm.adapter.BaseInputLineStringParser;
-import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 
 /**
@@ -50,14 +48,14 @@ import org.ieee.odm.common.ODMLogger;
  *
  */
 public class InputLineStringParser extends BaseInputLineStringParser {
-	private List<String> dataList;
+	//private List<String> dataListx;
 	
 	/**
 	 * constructor
 	 */
 	public InputLineStringParser() {
 		super();
-		this.dataList = new ArrayList<String>();
+		//this.dataList = new ArrayList<String>();
 	}
 	
 	/**
@@ -149,7 +147,7 @@ public class InputLineStringParser extends BaseInputLineStringParser {
 	 * @return
 	 */
 	public String[] parseDataFields(String Str){
-	    this.dataList.clear();
+	    List<String> dataList = new ArrayList<>();
 
 		boolean quotBegin = false;
 
@@ -177,7 +175,7 @@ public class InputLineStringParser extends BaseInputLineStringParser {
 								(!Character.isWhitespace(charAry[i-1]) && 
 								 !(charAry[i-1] == '"' || charAry[i-1] == '\''))) {
 							endIdx = i;
-							this.dataList.add(s.substring(beginIdx, endIdx)); 
+							dataList.add(s.substring(beginIdx, endIdx)); 
 							//this.dataList.add(new String(charAry, beginIdx, endIdx-beginIdx));
 						}
 					}
@@ -185,7 +183,7 @@ public class InputLineStringParser extends BaseInputLineStringParser {
 					// space after it, it needs to be treated specially.
 					if (i == (length_1)) {
 						endIdx = length;
-						this.dataList.add(s.substring(beginIdx, endIdx));
+						dataList.add(s.substring(beginIdx, endIdx));
 						//this.dataList.add(new String(charAry, beginIdx, endIdx-beginIdx));
 					}
 				} // end if i>1 && !quotBegin
@@ -196,7 +194,7 @@ public class InputLineStringParser extends BaseInputLineStringParser {
 				    beginIdx=i+1;
 				}else{//this quotation completes a pair
 					endIdx=i;
-					this.dataList.add(s.substring(beginIdx, endIdx));
+					dataList.add(s.substring(beginIdx, endIdx));
 					//this.dataList.add(new String(charAry, beginIdx, endIdx-beginIdx));
 					quotBegin = false;
 				}
@@ -204,6 +202,6 @@ public class InputLineStringParser extends BaseInputLineStringParser {
 		   }
 		}
 		//System.out.println(dataList.toString());
-		return this.dataList.toArray(new String[1]);
+		return dataList.toArray(new String[1]);
 	}	
 } 
