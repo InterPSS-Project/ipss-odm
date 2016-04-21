@@ -54,7 +54,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	private List<String> errMsgList;
 	
 	/** ODM parser object*/
-	private IODMModelParser parser;
+	protected IODMModelParser odmParser;
 	
 	/**
 	 * constructor
@@ -69,8 +69,13 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	}
 
 	@Override public IODMModelParser getModel() {
-		return this.parser;
+		return this.odmParser;
 	}
+	
+	@Override public void setModelParser(IODMModelParser parser){
+		this.odmParser = parser;
+	}
+	
 
 	@Override public void logErr(String msg) {
 		this.status = false;
@@ -91,7 +96,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 			final BufferedReader din = new BufferedReader(new InputStreamReader(stream));
 			ODMLogger.getLogger().info("Parse input stream and create the parser object");
 			try {
-				this.parser = parseInputFile(din, encoding);
+				this.odmParser = parseInputFile(din, encoding);
 			} catch (IOException e) {
 				ODMLogger.getLogger().severe(e.toString());
 				this.errMsgList.add(e.toString());
@@ -110,7 +115,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	@Override public boolean parseInput(String[] lines) {
 		try {
 			StringArrayReader reader = new StringArrayReader(lines);
-			this.parser = parseInputFile(reader, IODMModelParser.DefaultEncoding);		
+			this.odmParser = parseInputFile(reader, IODMModelParser.DefaultEncoding);		
 			return true;
 		} catch (Exception e) {
 			ODMLogger.getLogger().severe(e.toString());
@@ -142,7 +147,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 		try {
 			final String[] strList = fileContent.split("\n");
 			ODMLogger.getLogger().info("Parse input fileContent and create the parser object, first line: " + strList[0]);
-			this.parser = parseInputFile( new IFileReader() {
+			this.odmParser = parseInputFile( new IFileReader() {
 				private int cnt = 0;
 				public String readLine() throws ODMException {
 					if (cnt < strList.length)
@@ -183,7 +188,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 			for (InputStream stream : streamAry) {
 				dinAry[cnt++] = new BufferedReader(new InputStreamReader(stream));
 			}
-			this.parser = parseInputFile(type, dinAry, encoding);
+			this.odmParser = parseInputFile(type, dinAry, encoding);
 		} catch (Exception e) {
 			ODMLogger.getLogger().severe(e.toString());
 			this.errMsgList.add(e.toString());

@@ -76,4 +76,10 @@ public class BasePSSEAdapter extends AbstractODMAdapter {
 	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din, String encoding) throws ODMException {
 		throw new UnsupportedOperationException();
 	}
+	
+	@Override public void setModelParser(IODMModelParser parser){
+		this.odmParser = parser;
+		this.parser = (BaseAclfModelParser<? extends LoadflowNetXmlType>) parser;
+	}
+	
 }

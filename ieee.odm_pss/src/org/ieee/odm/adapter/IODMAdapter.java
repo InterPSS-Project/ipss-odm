@@ -143,4 +143,10 @@ public interface IODMAdapter {
 	 * @return
 	 */
 	IODMModelParser getModel();
+	
+	/**
+	 * set ODM Model Parser
+	 * @param parser
+	 */
+	void setModelParser(IODMModelParser parser);
 }
