@@ -18,16 +18,16 @@ import org.junit.Test;
 
 public class genericAdatperTest {
 	
-//	@Test
-//	public void testGenericAdapterSameFormat(){
-//		  
-//		  GenericODMAdapter adapter = new GenericODMAdapter(ODMFileFormatEnum.PsseV30,ODMFileFormatEnum.GePSLF);
-//		  
-//		  adapter.parseInputFile(NetType.DStabNet, new String[]{
-//			"testData/psse/IEEE9Bus/ieee9.raw",
-//			"testData/psse/IEEE9Bus/ieee9_dyn_Model_2005Exc.dyr"
-//	         });
-//	}
+	@Test
+	public void testGenericAdapterSameFormat(){
+		  
+		  GenericODMAdapter adapter = new GenericODMAdapter(ODMFileFormatEnum.PsseV30,ODMFileFormatEnum.PsseV30);
+		  
+		  adapter.parseInputFile(NetType.DStabNet, new String[]{
+			"testData/psse/IEEE9Bus/ieee9.raw",
+			"testData/psse/IEEE9Bus/ieee9_dyn_Model_2005Exc.dyr"
+	         });
+	}
 	
 	
 	@Test
