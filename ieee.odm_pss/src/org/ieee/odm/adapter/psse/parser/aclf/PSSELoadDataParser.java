@@ -29,6 +29,7 @@ import java.util.StringTokenizer;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing IEEE CDF bus data line string
@@ -75,6 +76,10 @@ public class PSSELoadDataParser extends BasePSSEDataParser {
 		
   		StringTokenizer st = new StringTokenizer(str, ",");
 		for (int i = 0; i < 12; i++)
+			if(i==1){//load Id, need to trim the quote
+				setValue(i,ODMModelStringUtil.trimQuote(st.nextToken()).trim());
+			}
+			else
 			setValue(i, st.nextToken().trim());
 		
 		setValue(12, "1");

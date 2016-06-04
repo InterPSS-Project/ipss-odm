@@ -5,10 +5,8 @@
 	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
 	elementFormDefault="qualified" >
 	
-
     <ns:include schemaLocation="../../common/DataType.xsd"></ns:include>
     
-	
     <ns:annotation>
 		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
 	</ns:annotation>
@@ -40,6 +38,7 @@
 			<ns:enumeration value="IEEEStaticLoad"></ns:enumeration>
 			<ns:enumeration value="ComplexLoad"></ns:enumeration>
 			<ns:enumeration value="InductionMotor"></ns:enumeration>
+			<ns:enumeration value="WECCCompositeLoad"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
     
@@ -49,6 +48,7 @@
 			<ns:element name="IEEEStaticLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadIEEEStaticLoadXmlType"></ns:element>
 			<ns:element name="ComplexLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadComplexLoadXmlType"></ns:element>
 			<ns:element name="InductionMotor" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadInductionMotorXmlType"></ns:element>
+		    <ns:element name="CMPLDW" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadCMPLDWXmlType"></ns:element>
 		</ns:sequence>
 	</ns:complexType>
     
@@ -74,13 +74,145 @@
 			<ns:element name="a10" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
 		</ns:sequence>
 	</ns:complexType>
-    
+	
+	
+	<ns:complexType name="DynamicLoadCMPLDWXmlType">
+		<ns:sequence>
+			<ns:element name="modelDesc" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadEnumType">			</ns:element>
+			<ns:element name="mva" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Bss" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Rfdr" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Xfdr" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Fb" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Xxf" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="TfixHS" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="TfixLS" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="LTC" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Tmin" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Tmax" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="step" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vmin" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vmax" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Tdel" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttap" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Rcomp" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Xcomp" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Fma" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Fmb" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Fmc" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Fmd" type="ns:double" maxOccurs="1" minOccurs="1"></ns:element>
+			<ns:element name="Fel" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="PFel" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vd1" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vd2" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Frcel" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Pfs" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="P1e" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="P1c" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="P2e" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="P2c" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Pfreq" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Q1e" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Q1c" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Q2e" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Qfreq" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			
+			<ns:element name="MtpA" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="MtpB" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="MtpC" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="MtpD" type="ns:int" maxOccurs="1" minOccurs="0"></ns:element>
+			
+			<ns:element name="LfmA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="RsA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LsA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LpA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LppA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="TpoA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="TppoA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="HA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="etrqA" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vtr1A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttr1A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ftr1A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrc1A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trc1A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vtr2A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttr2A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ftr2A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrc2A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trc2A" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			
+			<ns:element name="LfmB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="RsB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LsB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LpB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LppB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="TpoB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="TppoB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="HB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="etrqB" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vtr1B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttr1B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ftr1B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrc1B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trc1B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vtr2B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttr2B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ftr2B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrc2B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trc2B" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			
+			<ns:element name="LfmC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="RsC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LsC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LpC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="LppC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="TpoC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="TppoC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="HC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="etrqC" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vtr1C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttr1C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ftr1C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrc1C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trc1C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vtr2C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ttr2C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Ftr2C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrc2C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trc2C" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			
+			<ns:element name="LfmD" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="CompPF" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vstall" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Rstall" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Xstall" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Tstall" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Frst" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vrst" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Trst" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="fuvr" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="vtr1" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="ttr1" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="vtr2" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="ttr2" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vc1off" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vc2off" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vc1on" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Vc2on" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Tth" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Th1t" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="Th2t" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+			<ns:element name="tv" type="ns:double" maxOccurs="1" minOccurs="0"></ns:element>
+    	</ns:sequence>
+	</ns:complexType>
 
     <ns:simpleType name="DynamicLoadEnumType">
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="IEEEStaticLoad"></ns:enumeration>
 			<ns:enumeration value="InductionMotor"></ns:enumeration>
 			<ns:enumeration value="complexLoad"></ns:enumeration>
+			<ns:enumeration value="CompositeLoadModel"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
     
@@ -140,6 +272,7 @@
 			<ns:element name="IEEEStaticLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadIEEEStaticLoadXmlType"></ns:element>
 			<ns:element name="ComplexLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadComplexLoadXmlType"></ns:element>
 			<ns:element name="InductionMotor" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadInductionMotorXmlType"></ns:element>
+			<ns:element name="CMPLDWLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadCMPLDWXmlType"></ns:element>
 		</ns:choice>
 	</ns:complexType>
 </ns:schema>

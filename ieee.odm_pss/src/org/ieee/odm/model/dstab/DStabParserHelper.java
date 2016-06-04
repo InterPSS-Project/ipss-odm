@@ -37,6 +37,7 @@ import org.ieee.odm.schema.ClassicMachineXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.DStabLoadDataXmlType;
+import org.ieee.odm.schema.DynamicLoadCMPLDWXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
 import org.ieee.odm.schema.Eq1Ed1MachineXmlType;
@@ -84,6 +85,7 @@ import org.ieee.odm.schema.GovSteamNRXmlType;
 import org.ieee.odm.schema.GovSteamTCDRXmlType;
 import org.ieee.odm.schema.GovSteamTCSRXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.PssBPADualInputXmlType;
 import org.ieee.odm.schema.PssBpaSgTypeXmlType;
 import org.ieee.odm.schema.PssBpaSpTypeXmlType;
@@ -203,8 +205,39 @@ public class DStabParserHelper extends AcscParserHelper {
 		DStabLoadDataXmlType contribLoad = OdmObjFactory.createDStabLoadDataXmlType();
 	    loadData.getContributeLoad().add(OdmObjFactory.createDstabContributeLoad(contribLoad)); 
 	    return contribLoad;
-	}	
+	}
+	
+	
+	/**
+	 * get DStab Load Data object on the acscBus with id = loadId
+	 * 
+	 * @param dstabBus
+	 * @param loadId
+	 * @return null if dstabLoadData not found
+	 */
+	public static DStabLoadDataXmlType getDStabLoad(DStabBusXmlType dstabBus, String loadId) throws ODMException {
+		for (JAXBElement<? extends LoadflowLoadDataXmlType> elem : dstabBus.getLoadData().getContributeLoad()) {
+			DStabLoadDataXmlType dstabLoadData = (DStabLoadDataXmlType)elem.getValue();
+			if (dstabLoadData.getId().equalsIgnoreCase(loadId)) // change to NOT Case sensitive
+				return dstabLoadData;
+		}
+		
+    	ODMLogger.getLogger().severe("Load not found, ID: " + loadId + "@Bus:" + dstabBus.getId());
+    	return null;
+	}
 
+	
+	public static DynamicLoadCMPLDWXmlType createDStabLoadCMPLDW(DStabLoadDataXmlType load){
+		
+		DynamicLoadCMPLDWXmlType dynLoad = OdmObjFactory.createDynamicLoadCMPLDWXmlType();
+		if(load.getLoadModel() == null)
+		      load.setLoadModel(OdmObjFactory.createDynamicLoadModelSelectionXmlType());
+		
+		load.getLoadModel().setCMPLDWLoad(dynLoad);
+		return dynLoad;
+	}
+	
+	
 	/*
 	 * Machine model creation functions
 	 * ================================

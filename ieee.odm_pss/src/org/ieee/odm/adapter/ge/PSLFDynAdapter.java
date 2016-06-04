@@ -2,6 +2,7 @@ package org.ieee.odm.adapter.ge;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.ge.mapper.dynamic.PSLFDynGeneratorMapper;
+import org.ieee.odm.adapter.ge.mapper.dynamic.PSLFDynLoadMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynExciterMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
@@ -24,11 +25,14 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	//	PSSEDynExciterMapper   exciterMapper =null;
 	//	PSSEDynTurGovMapper    turGovMapper = null;
 		
+		PSLFDynLoadMapper loadMapper = null;
+		
 		boolean saveSupportedData = false;
 		
 		public PSLFDynAdapter(){
 			
 			generatorMapper = new PSLFDynGeneratorMapper();
+			loadMapper = new PSLFDynLoadMapper();
 		}
 		
 		public PSLFDynAdapter(DStabModelParser dynParser){
@@ -74,12 +78,17 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 			      					if(type==DynModelType.GENERATOR){
 			      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
 			      					}
+			      					
 	//		      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
 	//		      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
 	//		      					}
 	//		      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
 	//		      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
 	//		      					}
+			      					
+			      					else if(type==DynModelType.LOAD){
+			      						loadMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
+			      					}
 			      					
 			      					//save supported model data
 			      					if(saveSupportedData)

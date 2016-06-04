@@ -24,7 +24,7 @@ public class DynamicModelLibHelper {
 	StringBuffer unsupportedSVC = new StringBuffer();
 	StringBuffer unsupportedElse = new StringBuffer();
 	
-	public enum DynModelType{GENERATOR,EXCITER,TUR_GOV,STABILIZER,FACTS,HVDC,VoltComp}
+	public enum DynModelType{GENERATOR,EXCITER,TUR_GOV,STABILIZER,FACTS,HVDC,VoltComp, LOAD}
 	
 	//TODO This model list should be extended or updated along with the progress of implementation 
 	private List<String> GeneratorList =new ArrayList<>(
@@ -48,7 +48,11 @@ public class DynamicModelLibHelper {
 			Arrays.asList("IEEEG3","GGOV1","HYGOV","HYGOV2","IEEEG2","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));
 	
 	private List<String> LoadModelList =new ArrayList<>(
+			Arrays.asList("CMPLDW")); //"IEELBL","IEELAR","CIMTR4","CIMWBL",
+	
+	private List<String> UnsupportedLoadList =new ArrayList<>(
 			Arrays.asList("IEELBL","IEELAR","CIMTR4","CIMWBL"));
+					
 	private List<String> PssList =new ArrayList<>();
 	private List<String> FactsList =new ArrayList<>();
 	private List<String> HvdcList =new ArrayList<>();
@@ -74,6 +78,8 @@ public class DynamicModelLibHelper {
 			return DynModelType.FACTS;
 		else if(HvdcList.contains(typeStr.toUpperCase()))
 			return DynModelType.HVDC;
+		else if (LoadModelList.contains(typeStr.toUpperCase()))
+			return DynModelType.LOAD;
 		else {
 			ODMLogger.getLogger().severe("The input model data type is not found in the dynamic lib collection, Type #"+typeStr);
 		    return null;
@@ -99,7 +105,7 @@ public class DynamicModelLibHelper {
 		else if(UnsupportedTurGovList.contains(typeStr)){
 			unsupportedGov.append("GOV,"+typeStr+","+busId+","+modelId+"\n");
 		}
-		else if(LoadModelList.contains(typeStr)){
+		else if(UnsupportedLoadList.contains(typeStr)){
 			unsupportedLoad.append("LOAD,"+typeStr+","+busId+","+modelId+"\n");
 		}
 		else if(shuntCompensatorList.contains(typeStr)){
