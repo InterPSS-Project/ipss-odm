@@ -553,9 +553,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	}
 	
 	/**
-	 * createXfrBranch() should be used instead
-	 * 
-	 * create PSASP Xformer branch object 
+	 * for creating PSASP Xformer branch object 
 	 * 
 	 * @param fBusId from bus id
 	 * @param toBusId to bus id
@@ -757,6 +755,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	protected void addBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId, String idName)  throws ODMBranchDuplicationException {
 		addBranch2BaseCase(branch, fromId, toId, tertId, cirId);	
 		branch.setName(idName);
+		// add the following item to the hashtable so that Xfr can be retrieved using its idName
 		this.objectCache.put(idName, branch);		
 	}	
 
