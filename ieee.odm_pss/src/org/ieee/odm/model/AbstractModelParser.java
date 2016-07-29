@@ -563,7 +563,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * @throws ODMException
 	 * @throws ODMBranchDuplicationException
 	 */
-	public <T extends PSXfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
+	public <T extends XfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
 		intiBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId, idName);
