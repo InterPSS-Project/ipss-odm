@@ -107,9 +107,11 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 			setValue(0, ind);
 
 			setValue(1, st.nextToken().trim());  			   
-			setValue(2, st.nextToken().trim());   // version  			   
-			setValue(3, st.nextToken().trim());  			   
-			setValue(4, st.nextToken().trim());     			   
+			setValue(2, st.nextToken().trim());   // version
+			if(st.hasMoreTokens())
+			   setValue(3, st.nextToken().trim());
+			if(st.hasMoreTokens())
+			   setValue(4, st.nextToken().trim());     			   
 			
 			if (lineStr2!= null){
 				setValue(6, lineStr2);

@@ -105,6 +105,16 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	        	double Fb = dataParser.getDouble("Fb");
 	        	
 	        	double Xxf =  dataParser.getDouble("Xxf");
+	        	int LTC =  dataParser.getInt("LTC");
+	        	double Tmin =  dataParser.getDouble("Tmin");
+	        	double Tmax =  dataParser.getDouble("Tmax");
+	        	double step =  dataParser.getDouble("step");
+	        	double Tfixls =  dataParser.getDouble("Tfixls");
+	        	double Tfixhs =  dataParser.getDouble("Tfixhs");
+	        	double Vmin =  dataParser.getDouble("Vmin");
+	        	double Vmax =  dataParser.getDouble("Vmax");
+	        	double Tdel =  dataParser.getDouble("Tdel");
+	        	double Ttap =  dataParser.getDouble("Ttap");
 	        	
 	        	double FmA = dataParser.getDouble("FmA");
 	        	double FmB = dataParser.getDouble("FmB");
@@ -212,6 +222,29 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	        	cmpldw.setXfdr(Xfdr);
 	        	cmpldw.setFb(Fb);
 	        	cmpldw.setXxf(Xxf);
+	        	
+	        	/*
+	        	 * int LTC =  dataParser.getInt("LTC");
+	        	double Tmin =  dataParser.getDouble("Tmin");
+	        	double Tmax =  dataParser.getDouble("Tmax");
+	        	double step =  dataParser.getDouble("step");
+	        	double Tfixls =  dataParser.getDouble("Tfixls");
+	        	double Tfixhs =  dataParser.getDouble("Tfixhs");
+	        	double Vmin =  dataParser.getDouble("Vmin");
+	        	double Vmax =  dataParser.getDouble("Vmax");
+	        	 */
+	        	cmpldw.setLTC(LTC);
+	        	cmpldw.setTmin(Tmin);
+	        	cmpldw.setTmax(Tmax);
+	        	cmpldw.setStep(step);
+	        	cmpldw.setTfixLS(Tfixls);
+	        	cmpldw.setTfixHS(Tfixhs);
+	        	cmpldw.setVmin(Vmin);
+	        	cmpldw.setVmax(Vmax);
+	        	cmpldw.setTdel(Tdel);
+	        	cmpldw.setTtap(Ttap);
+	        	cmpldw.setRcomp(0);
+	        	cmpldw.setXcomp(0);
 	        	
 	        	cmpldw.setFma(FmA);
 	        	cmpldw.setFmb(FmB);
