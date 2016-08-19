@@ -243,8 +243,8 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	        	cmpldw.setVmax(Vmax);
 	        	cmpldw.setTdel(Tdel);
 	        	cmpldw.setTtap(Ttap);
-	        	cmpldw.setRcomp(0);
-	        	cmpldw.setXcomp(0);
+	        	cmpldw.setRcomp(0.0);
+	        	cmpldw.setXcomp(0.0);
 	        	
 	        	cmpldw.setFma(FmA);
 	        	cmpldw.setFmb(FmB);
