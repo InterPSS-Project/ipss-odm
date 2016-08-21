@@ -63,9 +63,10 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	      				if(lineStr.length()>0){//only process when it is not a blank line
 	      					while(!isModelDataCompleted(lineStr)){
 	      						//remove the "/" at the end of data definition
-		      					lineStr =lineStr.substring(0, lineStr.lastIndexOf("/"));
+	      						//if(lineStr.lastIndexOf("/") ==lineStr.length()-1)
+		      				    lineStr =lineStr.substring(0, lineStr.lastIndexOf("/"));
 		      					
-	      						lineStr += din.readLine();
+	      						lineStr += " "+din.readLine().trim(); // add the blank to avoid data of two lines connecting together
 	      						lineNo++;
 	      					}
 	      		
@@ -116,7 +117,7 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 		
 		 private boolean isModelDataCompleted(String lineStr){
 			    // if the end of the line string is "/", then the data is not completed
-				boolean hasContiuneFlag = lineStr.trim().lastIndexOf("/")>0;
+				boolean hasContiuneFlag = lineStr.lastIndexOf("/")>0 && (lineStr.lastIndexOf("/") ==lineStr.length()-1);
 				return !hasContiuneFlag;
 			}
 		/**

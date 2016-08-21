@@ -65,6 +65,8 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	 */
 		
 		int i = dataParser.getInt("IBUS");
+		
+		
 	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    String loadId = dataParser.getString("Id");
 	    
@@ -148,72 +150,143 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	        	double Vrc2A = dataParser.getDouble("Vrc2A");
 	        	double Trc2A = dataParser.getDouble("Trc2A");
 	        	
-				
-	        	double LfmB = dataParser.getDouble("LfmB");
-	        	double RsB = dataParser.getDouble("RsA");
-	        	double LsB = dataParser.getDouble("LsA");
-	        	double LpB = dataParser.getDouble("LpB");
-	        	double LppB = dataParser.getDouble("LppB");
-	        	double TpoB = dataParser.getDouble("TpoB");
-	        	double TppoB = dataParser.getDouble("TppoB");
-	        	double HB = dataParser.getDouble("HB");
-	        	double EtrqB = dataParser.getDouble("EtrqB");
-	        	double Vtr1B = dataParser.getDouble("Vtr1B");
-	        	double Ttr1B = dataParser.getDouble("Ttr1B");
-	        	double Ftr1B = dataParser.getDouble("Ftr1B");
-	        	double Vrc1B = dataParser.getDouble("Vrc1B");
-	        	double Trc1B = dataParser.getDouble("Trc1A");
-	        	double Vtr2B = dataParser.getDouble("Vtr2B");
-	        	double Ttr2B = dataParser.getDouble("Ttr2B");
-	        	double Ftr2B = dataParser.getDouble("Ftr2B");
-	        	double Vrc2B = dataParser.getDouble("Vrc2B");
-	        	double Trc2B = dataParser.getDouble("Trc2B");
+	        
+	        	double LfmB = 0.0;
+	        	
+        		double RsB = 0.0;
+	        	double LsB = 0.0;
+	        	double LpB = 0.0;
+	        	double LppB = 0.0;
+	        	double TpoB = 0.0;
+	        	double TppoB = 0.0;
+	        	double HB = 0.0;
+	        	double EtrqB = 0.0;
+	        	double Vtr1B = 0.0;
+	        	double Ttr1B = 0.0;
+	        	double Ftr1B = 0.0;
+	        	double Vrc1B = 0.0;
+	        	double Trc1B = 0.0;
+	        	double Vtr2B = 0.0;
+	        	double Ttr2B = 0.0;
+	        	double Ftr2B = 0.0;
+	        	double Vrc2B = 0.0;
+	        	double Trc2B = 0.0;
+	        	
+	        	if(dataParser.exist("LfmB") ) {// criteria for determining no data definition for Motor B
+	        		 LfmB = dataParser.getDouble("LfmB");
+	                 RsB = dataParser.getDouble("RsB");
+    	             LsB = dataParser.getDouble("LsB");
+    	             LpB = dataParser.getDouble("LpB");
+    	             LppB = dataParser.getDouble("LppB");
+    	             TpoB = dataParser.getDouble("TpoB");
+    	             TppoB = dataParser.getDouble("TppoB");
+    	             HB = dataParser.getDouble("HB");
+    	             EtrqB = dataParser.getDouble("EtrqB");
+    	             Vtr1B = dataParser.getDouble("Vtr1B");
+    	             Ttr1B = dataParser.getDouble("Ttr1B");
+    	             Ftr1B = dataParser.getDouble("Ftr1B");
+    	             Vrc1B = dataParser.getDouble("Vrc1B");
+    	             Trc1B = dataParser.getDouble("Trc1B");
+    	             Vtr2B = dataParser.getDouble("Vtr2B");
+    	             Ttr2B = dataParser.getDouble("Ttr2B");
+    	             Ftr2B = dataParser.getDouble("Ftr2B");
+    	             Vrc2B = dataParser.getDouble("Vrc2B");
+    	             Trc2B = dataParser.getDouble("Trc2B");
+	        	}
 	        	
 	        	
-	        	double LfmC = dataParser.getDouble("LfmC");
-	        	double RsC = dataParser.getDouble("RsC");
-	        	double LsC = dataParser.getDouble("LsC");
-	        	double LpC = dataParser.getDouble("LpC");
-	        	double LppC = dataParser.getDouble("LppC");
-	        	double TpoC = dataParser.getDouble("TpoC");
-	        	double TppoC = dataParser.getDouble("TppoC");
-	        	double HC = dataParser.getDouble("HC");
-	        	double EtrqC = dataParser.getDouble("EtrqC");
-	        	double Vtr1C = dataParser.getDouble("Vtr1C");
-	        	double Ttr1C = dataParser.getDouble("Ttr1C");
-	        	double Ftr1C = dataParser.getDouble("Ftr1C");
-	        	double Vrc1C = dataParser.getDouble("Vrc1C");
-	        	double Trc1C = dataParser.getDouble("Trc1C");
-	        	double Vtr2C = dataParser.getDouble("Vtr2C");
-	        	double Ttr2C = dataParser.getDouble("Ttr2C");
-	        	double Ftr2C = dataParser.getDouble("Ftr2C");
-	        	double Vrc2C = dataParser.getDouble("Vrc2C");
-	        	double Trc2C = dataParser.getDouble("Trc2C");
+	        	double LfmC = 0.0;
+	        	double RsC = 0.0;
+	        	double LsC = 0.0;
+	        	double LpC = 0.0;
+	        	double LppC = 0.0;
+	        	double TpoC = 0.0;
+	        	double TppoC = 0.0;
+	        	double HC = 0.0;
+	        	double EtrqC = 0.0;
+	        	double Vtr1C = 0.0;
+	        	double Ttr1C = 0.0;
+	        	double Ftr1C = 0.0;
+	        	double Vrc1C = 0.0;
+	        	double Trc1C = 0.0;
+	        	double Vtr2C = 0.0;
+	        	double Ttr2C = 0.0;
+	        	double Ftr2C = 0.0;
+	        	double Vrc2C = 0.0;
+	        	double Trc2C = 0.0;
+	        	
+	        	if(dataParser.exist("LfmC") ) {// criteria for determining no data definition for Motor B
+		        	LfmC = dataParser.getDouble("LfmC");
+		        	RsC = dataParser.getDouble("RsC");
+		        	LsC = dataParser.getDouble("LsC");
+		        	LpC = dataParser.getDouble("LpC");
+		        	LppC = dataParser.getDouble("LppC");
+		        	TpoC = dataParser.getDouble("TpoC");
+		        	TppoC = dataParser.getDouble("TppoC");
+		        	HC = dataParser.getDouble("HC");
+		        	EtrqC = dataParser.getDouble("EtrqC");
+		        	Vtr1C = dataParser.getDouble("Vtr1C");
+		        	Ttr1C = dataParser.getDouble("Ttr1C");
+		        	Ftr1C = dataParser.getDouble("Ftr1C");
+		        	Vrc1C = dataParser.getDouble("Vrc1C");
+		        	Trc1C = dataParser.getDouble("Trc1C");
+		        	Vtr2C = dataParser.getDouble("Vtr2C");
+		        	Ttr2C = dataParser.getDouble("Ttr2C");
+		        	Ftr2C = dataParser.getDouble("Ftr2C");
+		        	Vrc2C = dataParser.getDouble("Vrc2C");
+		        	Trc2C = dataParser.getDouble("Trc2C");
+	        	}
 			
+	        	// Chances are that A/C motor is not defined
+	        	double LfmD = 0.0;
+	        	double comPf = 0.0;
+	        	double vstall =  0.0;
+	        	double rstall =  0.0;
+	        	double xstall = 0.0; 
+	        	double tstall =  0.0;
+	        	double Frst =  0.0;
 	        	
-	        	double LfmD = dataParser.getDouble("LfmD");
-	        	double comPf = dataParser.getDouble("CompPF");
-	        	double vstall = dataParser.getDouble("Vstall");
-	        	double rstall = dataParser.getDouble("Rstall");
-	        	double xstall = dataParser.getDouble("Xstall"); 
-	        	double tstall = dataParser.getDouble("Tstall");
-	        	double Frst = dataParser.getDouble("Frst");
+	        	double Vrst =  0.0;
+	        	double Trst =  0.0;
+	        	double Fuvr =  0.0;
+	        	double Vtr1 =  0.0;
+	        	double Ttr1 =  0.0;
+	        	double Vtr2 =  0.0;
+	        	double Ttr2 =  0.0;
+	        	double Vc1off =  0.0;
+	        	double Vc2off =  0.0;
+	        	double Vc1on =  0.0;
+	        	double Vc2on =  0.0;
+	        	double Tth =  0.0;
+	        	double Th1t =  0.0;
+	        	double Th2t =  0.0;
+	        	double Tv =  0.0;
 	        	
-	        	double Vrst = dataParser.getDouble("Vrst");
-	        	double Trst = dataParser.getDouble("Trst");
-	        	double Fuvr = dataParser.getDouble("Fuvr");
-	        	double Vtr1 = dataParser.getDouble("Vtr1");
-	        	double Ttr1 = dataParser.getDouble("Ttr1");
-	        	double Vtr2 = dataParser.getDouble("Vtr2");
-	        	double Ttr2 = dataParser.getDouble("Ttr2");
-	        	double Vc1off = dataParser.getDouble("Vc1off");
-	        	double Vc2off = dataParser.getDouble("Vc2off");
-	        	double Vc1on = dataParser.getDouble("Vc1on");
-	        	double Vc2on = dataParser.getDouble("Vc2on");
-	        	double Tth = dataParser.getDouble("Tth");
-	        	double Th1t = dataParser.getDouble("Th1t");
-	        	double Th2t = dataParser.getDouble("Th2t");
-	        	double Tv = dataParser.getDouble("Tv");
+	        	if(dataParser.exist("LfmD") ) {
+		        	LfmD = dataParser.getDouble("LfmD");
+		        	comPf = dataParser.getDouble("CompPF");
+		        	vstall = dataParser.getDouble("Vstall");
+		        	rstall = dataParser.getDouble("Rstall");
+		        	xstall = dataParser.getDouble("Xstall"); 
+		        	tstall = dataParser.getDouble("Tstall");
+		        	Frst = dataParser.getDouble("Frst");
+		        	
+		        	Vrst = dataParser.getDouble("Vrst");
+		        	Trst = dataParser.getDouble("Trst");
+		        	Fuvr = dataParser.getDouble("Fuvr");
+		        	Vtr1 = dataParser.getDouble("Vtr1");
+		        	Ttr1 = dataParser.getDouble("Ttr1");
+		        	Vtr2 = dataParser.getDouble("Vtr2");
+		        	Ttr2 = dataParser.getDouble("Ttr2");
+		        	Vc1off = dataParser.getDouble("Vc1off");
+		        	Vc2off = dataParser.getDouble("Vc2off");
+		        	Vc1on = dataParser.getDouble("Vc1on");
+		        	Vc2on = dataParser.getDouble("Vc2on");
+		        	Tth = dataParser.getDouble("Tth");
+		        	Th1t = dataParser.getDouble("Th1t");
+		        	Th2t = dataParser.getDouble("Th2t");
+		        	Tv = dataParser.getDouble("Tv");
+	        	}
 	        	
 	        	
 	        	cmpldw.setMva(mva);
@@ -335,7 +408,7 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	        	cmpldw.setRstall( rstall);
 	    
 	        	cmpldw.setXstall( xstall);
-	        	cmpldw.setTstall( rstall);
+	        	cmpldw.setTstall( tstall);
 
 	        	cmpldw.setFrst( Frst);
 	        	cmpldw.setVrst( Vrst);
