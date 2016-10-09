@@ -56,8 +56,16 @@ public class BPALineBranchRecord {
 			
 			final String fname =  strAry[3];
 			final String tname =  strAry[6];
-			final String fid =  BPABusRecord.getBusId(fname);
-			final String tid =  BPABusRecord.getBusId(tname);
+			double fVol=0.0;
+			double tVol=0.0;
+			if(!strAry[4].equals("")){
+				fVol= new Double(strAry[4]).doubleValue();
+			}
+			if(!strAry[7].equals("")){
+				tVol= new Double(strAry[4]).doubleValue();
+			}
+			final String fid =  BPABusRecord.getBusId(fname+fVol);
+			final String tid =  BPABusRecord.getBusId(tname+tVol);
 			ODMLogger.getLogger().fine("Branch data loaded, from-Bus, to-Bus: " + fid + ", " + tid);
 			
 			// set cirId, if not specified, set to 1
@@ -77,14 +85,7 @@ public class BPALineBranchRecord {
 			
 			// TODO owner code
 			
-			double fVol=0.0;
-			double tVol=0.0;
-			if(!strAry[4].equals("")){
-				fVol= new Double(strAry[4]).doubleValue();
-			}
-			if(!strAry[7].equals("")){
-				tVol= new Double(strAry[4]).doubleValue();
-			}
+			
 						
 			branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));			
 			
@@ -182,8 +183,16 @@ public class BPALineBranchRecord {
 			final String[] strAry = getBranchDataFields(str);
 			final String fname =  strAry[3];
 			final String tname =  strAry[6]; 
-			final String fid =  BPABusRecord.getBusId(fname);
-			final String tid =  BPABusRecord.getBusId(tname);
+			double fVol=0.0;
+			double tVol=0.0;
+			if(!strAry[4].equals("")){
+				fVol= new Double(strAry[4]).doubleValue();
+			}
+			if(!strAry[7].equals("")){
+				tVol= new Double(strAry[4]).doubleValue();
+			}
+			final String fid =  BPABusRecord.getBusId(fname+fVol);
+			final String tid =  BPABusRecord.getBusId(tname+tVol);
 			if(!strAry[9].equals("")){
 				final double fromShuntVar=new Double(strAry[9]).doubleValue();
 				double fShuntVar=ODMModelStringUtil.getNumberFormat(fromShuntVar/baseMVA); // x(pu)=Var/baseMVA

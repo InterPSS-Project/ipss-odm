@@ -75,8 +75,10 @@ public class BPAXfrBranchRecord {
 			
 		final String fname =  strAry[3];
 		final String tname =  strAry[6];
-		final String fid =  BPABusRecord.getBusId(fname);
-		final String tid =  BPABusRecord.getBusId(tname);
+		final double fVbase= new Double(strAry[4]).doubleValue();
+		final double tVbase= new Double(strAry[7]).doubleValue();	
+		final String fid =  BPABusRecord.getBusId(fname+fVbase);
+		final String tid =  BPABusRecord.getBusId(tname+tVbase);
 		ODMLogger.getLogger().fine("Branch data loaded, from-bus, to-bus: " + fid + ", " + tid);
 		//TODO change 1->0, since one uses "1" while CirId for the other is missing for some parallel branches in BPA
 		String cirId="1";
@@ -96,8 +98,7 @@ public class BPAXfrBranchRecord {
 		
 		branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
 		
-		final double fVbase= new Double(strAry[4]).doubleValue();
-		final double tVbase= new Double(strAry[7]).doubleValue();	
+		
 			
 			
 		//  set tieline data, measure location for power interchange, 1--from side, 2- to side

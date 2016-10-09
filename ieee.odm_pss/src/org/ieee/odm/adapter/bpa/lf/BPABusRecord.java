@@ -31,19 +31,24 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
+import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.ODMModelStringUtil;
+import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
+import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
+import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 
@@ -129,30 +134,30 @@ public class BPABusRecord {
 		final String ownerName=strAry[2];
 		//Name
 		final String busName = strAry[3];
-
+		//basekv
+		double baseKv=ODMModelStringUtil.getDouble(strAry[4], 100.0);
 
 		LoadflowBusXmlType busRec = null;
 		
 	    if(busType==pqBus||busType==pvBus||busType==pvBusNoQLimit||busType==swingBus){
-		    final String busId =  createBusId(busName);
+		    final String busId =  createBusId(busName+baseKv);
 			ODMLogger.getLogger().fine("Bus data loaded, busName: " + busId);	
 		try {
 			busRec = (LoadflowBusXmlType)parser.createBus(busId);
-			busRec.setName(busName);
+			busRec.setName(busName+baseKv);
 		} catch (ODMException e) {
 			ODMLogger.getLogger().severe(e.toString());
 			return;
 		}		
 		
 		busRec.setId(busId);		
-		busRec.setName(busName);
+		busRec.setName(busName+baseKv);
 		//Add bus number, according to input sequence
 		busRec.setNumber(busCnt);
 		
 		// TODO set bus owner
         //busRec.getOwnerList().getOwner().get(0).setName(ownerName);
-		//basekv
-		double baseKv=ODMModelStringUtil.getDouble(strAry[4], 100.0);
+		
 		busRec.setBaseVoltage(BaseDataSetter.createVoltageValue(baseKv, VoltageUnitType.KV));
 
 		// TODO area name??
@@ -207,17 +212,36 @@ public class BPABusRecord {
 			//	||g!=0||b!=0) {
 			// set G B
 			if (g != 0.0 || b != 0.0) {
-				busRec.getShuntYData().setEquivY(BaseDataSetter.createYValue(g, b,YUnitType.PU));
+				AclfDataSetter.addBusShuntY(busRec, g, b, YUnitType.PU);
 			}	
 			
 			// set load
 			if (loadMw != 0.0 || loadMvar != 0.0) {
-				AclfDataSetter.setLoadData(busRec,
-						LFLoadCodeEnumType.CONST_P, loadMw,
-						loadMvar, ApparentPowerUnitType.MVA);
+				LoadflowLoadDataXmlType contribLoad; 
+			    if (busRec instanceof DStabBusXmlType) {
+			    	contribLoad = DStabParserHelper.createDStabContriLoad((DStabBusXmlType)busRec);
+			    }
+			    else if (busRec instanceof ShortCircuitBusXmlType) {
+			    	contribLoad = AcscParserHelper.createAcscContributeLoad((ShortCircuitBusXmlType)busRec);
+			    } 
+			    else {
+			    	contribLoad = AclfParserHelper.createContriLoad((LoadflowBusXmlType)busRec); 
+			    }	
+			    contribLoad.setConstPLoad(AclfDataSetter.createPowerValue(loadMw, loadMvar, ApparentPowerUnitType.MVA));
+				
 			}
 			
-			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+			LoadflowGenDataXmlType defaultGen ;
+			if(busType==pvBus||busType==pvBusNoQLimit||busType==swingBus){
+			if(busRec instanceof DStabBusXmlType){
+				defaultGen = DStabParserHelper.createDStabContributeGen((DStabBusXmlType)busRec);
+		    }
+		    else if (busRec instanceof ShortCircuitBusXmlType) {
+		    	defaultGen = AcscParserHelper.createAcscContributeGen((ShortCircuitBusXmlType)busRec);
+		    } 
+		    else {
+		    	defaultGen = AclfParserHelper.createContriGen((LoadflowBusXmlType)busRec);
+		    }		
 			if(busType==swingBus){
 				// set bus voltage
 					busRec.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
@@ -323,14 +347,15 @@ public class BPABusRecord {
 			final String controlledBus= strAry[16];
 			double controlledBusRatedVol=ODMModelStringUtil.getDouble(strAry[17], 0.0);
 			
-			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
-			if(strAry[0].equals("BG")||strAry[0].equals("BX")){
-				if(!controlledBus.equals("")) {			
-					defaultGen.getRemoteVoltageControlBus().setIdRef(controlledBus);
-					defaultGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(
-							controlledBusRatedVol, VoltageUnitType.PU));
-				}
-			}
+//			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
+//			if(strAry[0].equals("BG")||strAry[0].equals("BX")){
+//				if(!controlledBus.equals("")) {			
+//					defaultGen.getRemoteVoltageControlBus().setIdRef(controlledBus);
+//					defaultGen.setDesiredVoltage(BaseDataSetter.createVoltageValue(
+//							controlledBusRatedVol, VoltageUnitType.PU));
+//				}
+//			}
+	    }
 	}
 	
 	private static String[] getBusDataFields(final String str) throws Exception {

@@ -234,7 +234,7 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param unit
 	 */
 	public static void addBusShuntY(LoadflowBusXmlType bus, double re, double im, YUnitType unit) {
-		if (bus.getShuntYData() == null) {
+		if (bus.getShuntYData() == null||bus.getShuntYData().getEquivY()==null) {
 			bus.setShuntYData(OdmObjFactory.createBusShuntYDataXmlType());
 			bus.getShuntYData().setEquivY(OdmObjFactory.createYXmlType());
 		}

@@ -49,6 +49,7 @@ import org.ieee.odm.schema.Eq1Ed1MachineXmlType;
 import org.ieee.odm.schema.Eq1MachineXmlType;
 import org.ieee.odm.schema.EquiMachineXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
+import org.ieee.odm.schema.ZUnitType;
 
 
 
@@ -104,7 +105,7 @@ public class BPADynamicGeneratorRecord {
 				xd1=xd1/10000;
 			}
     		mach.setXd1(xd1);
-    			
+    		dynGen.setPotiveZ(DStabDataSetter.createZValue(0, xd1, ZUnitType.PU));	
     		double D=ODMModelStringUtil.getDouble(strAry[18], 0.0);// Recommended value is 2
     		if(!strAry[18].contains(".")){
     			D=D/10000;
@@ -214,8 +215,8 @@ public class BPADynamicGeneratorRecord {
 			if(!strAry[9].contains(".")){
 				xd1=xd1/10000;
 			}
-			mach.setXd1(xd1);	    			
-    		
+			mach.setXd1(xd1);	
+			dynGen.setSourceZ(DStabDataSetter.createZValue(0, xd1, ZUnitType.PU));
 			double xq1=ODMModelStringUtil.getDouble(strAry[10], 0.0);
 			if(!strAry[10].contains(".")){
 				xq1=xq1/10000;
