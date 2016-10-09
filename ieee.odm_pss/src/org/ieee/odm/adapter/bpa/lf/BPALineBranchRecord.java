@@ -88,7 +88,7 @@ public class BPALineBranchRecord {
 			
 						
 			branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));			
-			
+			branchRec.setName(fname+" to "+tname);
 			String multiSectionId="";
 			if(!strAry[9].equals("")){
 				multiSectionId = strAry[9];
