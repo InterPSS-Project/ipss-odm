@@ -27,6 +27,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
@@ -36,9 +37,13 @@ import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.LengthUnitType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.VoltageUnitType;
+import org.ieee.odm.schema.VoltageXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.interpss.numeric.datatype.Unit.UnitType;
 
 public class BPALineBranchRecord {
 	public void processBranchData(final String str,	BaseAclfModelParser<? extends NetworkXmlType> parser)  throws ODMException {	
@@ -88,7 +93,7 @@ public class BPALineBranchRecord {
 			
 						
 			branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));			
-			branchRec.setName(fname+" to "+tname);
+			branchRec.setName(fname+fVol+" to "+tname+tVol);
 			String multiSectionId="";
 			if(!strAry[9].equals("")){
 				multiSectionId = strAry[9];
@@ -131,7 +136,7 @@ public class BPALineBranchRecord {
 				xpu=ODMModelStringUtil.getNumberFormat(xpu);
 				if(Math.abs(xpu)>1||Math.abs(xpu)<1E-5)
 					ODMLogger.getLogger().warning("Line#"+fname+"-to-"+tname+",the reactance now is"
-							+xpu+" ,seems to be out of normal range[1E-5~1]pu, please check!");
+							+xpu+" ,seems to be out of normal range[1E-5~1]pu, please check!");	
 			}
 			
 			if(!strAry[14].equals("")){

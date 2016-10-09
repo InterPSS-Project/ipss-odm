@@ -97,7 +97,7 @@ public class BPAXfrBranchRecord {
 		}
 		
 		branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
-		branchRec.setName(fname+" to "+tname);
+		branchRec.setName(fname+fVbase+" to "+tname+tVbase);
 		
 			
 			
