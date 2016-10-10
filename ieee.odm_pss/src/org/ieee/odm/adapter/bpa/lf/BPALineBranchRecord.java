@@ -165,12 +165,6 @@ public class BPALineBranchRecord {
 							+halfBpu+" ,seems to be out of normal range[-5,+5](pu), please check!");
 				}
 			}
-//			if(Math.abs(xpu)<0.0003){
-//				if(xpu>0)
-//					xpu=0.0003;
-//				if(xpu<0)
-//					xpu=-0.0003;
-//			}
 			if(rpu!=0.0||xpu!=0.0||halfGpu!=0.0||halfBpu!=0.0){
 				AclfDataSetter.setLineData(branchRec, rpu, xpu,
 						ZUnitType.PU, 2*halfGpu, 2*halfBpu, YUnitType.PU);;
@@ -188,6 +182,9 @@ public class BPALineBranchRecord {
 			if(!strAry[17].equals("")){
 				desc= strAry[17];
 				BaseJaxbHelper.addNVPair(branchRec, "branch description", desc);
+				if(desc.equals("ÁãÖ§Â·")){
+					
+				}
 			}			
 		}
 		/**
@@ -210,23 +207,22 @@ public class BPALineBranchRecord {
 			final String fid =  BPABusRecord.getBusId(fname+fVol);
 			final String tid =  BPABusRecord.getBusId(tname+tVol);
 			if(!strAry[9].equals("")){
-				final double fromShuntVar=new Double(strAry[9]).doubleValue();
-				double fShuntVar=ODMModelStringUtil.getNumberFormat(fromShuntVar/baseMVA); // x(pu)=Var/baseMVA
-				if(fShuntVar!=0.0){
+				final double fromShuntMVar=new Double(strAry[9]).doubleValue();
+				
+				if(fromShuntMVar!=0.0){
 					LoadflowBusXmlType fromBus= (LoadflowBusXmlType)parser.getBus(fid);
 					/*
 					 * It should be negative considering that positive sign means capacitive shunt var
 					 * 
 					 */
-					AclfDataSetter.addBusShuntVar(fromBus, -fShuntVar, YUnitType.PU);   
+					AclfDataSetter.addBusShuntVar(fromBus, -fromShuntMVar, YUnitType.MVAR);   
 				}
 			}
 			if(!strAry[10].equals("")){
-				final double toShuntVar=new Double(strAry[10]).doubleValue();
-				double tShuntVar=ODMModelStringUtil.getNumberFormat(toShuntVar/baseMVA);
-				if(tShuntVar!=0.0){
+				final double toShuntMVar=new Double(strAry[10]).doubleValue();
+				if(toShuntMVar!=0.0){
 					LoadflowBusXmlType toBus= (LoadflowBusXmlType)parser.getBus(tid);
-					AclfDataSetter.addBusShuntVar(toBus, -tShuntVar, YUnitType.PU);
+					AclfDataSetter.addBusShuntVar(toBus, -toShuntMVar, YUnitType.MVAR);
 				}
 			}
 		}
@@ -305,7 +301,7 @@ public class BPALineBranchRecord {
 			strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str2,67, 74).trim();
 		}else{
 			strAry[16] = ODMModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();
-			strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str2,69, 74).trim();
+			strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str,69-chnCharNum1, 74-chnCharNum1).trim();
 		}
 		// date of first put into use
 		strAry[18] = ODMModelStringUtil.getStringReturnEmptyString(str2,75, 77).trim();	

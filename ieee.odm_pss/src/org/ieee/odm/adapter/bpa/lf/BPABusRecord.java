@@ -179,9 +179,7 @@ public class BPABusRecord {
 		//Shunt mw--> G 
 		//Shunt var B -->B
 		double shuntMw=ODMModelStringUtil.getDouble(strAry[8], 0.0);
-		double shuntVar=ODMModelStringUtil.getDouble(strAry[9], 0.0);	       
-		final double g=ODMModelStringUtil.getNumberFormat(shuntMw/baseMVA);
-		final double b=ODMModelStringUtil.getNumberFormat(shuntVar/baseMVA);
+		double shuntMVar=ODMModelStringUtil.getDouble(strAry[9], 0.0);
 
 		// set pGenMax
 		double pGenMax=ODMModelStringUtil.getDouble(strAry[10], 0.0);
@@ -213,8 +211,8 @@ public class BPABusRecord {
 			//	vMinOrAngDeg!=0.0||pGenMax!=0.0
 			//	||g!=0||b!=0) {
 			// set G B
-			if (g != 0.0 || b != 0.0) {
-				AclfDataSetter.addBusShuntY(busRec, g, b, YUnitType.PU);
+			if (shuntMw != 0.0 || shuntMVar != 0.0) {
+				AclfDataSetter.addBusShuntY(busRec, shuntMw, shuntMVar, YUnitType.MVAR);
 			}	
 			
 			// set load
@@ -334,10 +332,8 @@ public class BPABusRecord {
 					final double ShuntG=ODMModelStringUtil.getDouble(strAry[8], 0.0);
 					final double ShuntB=ODMModelStringUtil.getDouble(strAry[9], 0.0);
 					//System.out.println("Shunt G +B="+ShuntG+","+ShuntB);
-					double re=ODMModelStringUtil.getNumberFormat(ShuntG/baseMVA); // x(pu)=Var/baseMVA
-					double im=ODMModelStringUtil.getNumberFormat(ShuntB/baseMVA);
-					if(re!=0.0||im!=0.0){
-						AclfDataSetter.addBusShuntY((LoadflowBusXmlType)Bus, re, im, YUnitType.PU);	
+					if(ShuntG!=0.0||ShuntB!=0.0){
+						AclfDataSetter.addBusShuntY((LoadflowBusXmlType)Bus, ShuntG, ShuntB, YUnitType.MVAR);	
 					}
 					//System.out.println("Im="+im+",Shunt B="+Bus.getShuntY().getIm());
 				}
