@@ -56,7 +56,7 @@ public class BPAXfrBranchRecord {
 	static final int transformer=1;
 	static final int phaseShiftXfr=2;
 	static final int transformerAndPhaseShiftXfr=3;
-
+	public static int TCardNO;
 	public void processXfrData(final String str, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		
 		int dataType=0;	    	
@@ -65,6 +65,7 @@ public class BPAXfrBranchRecord {
 			
 		if(strAry[0].startsWith("T")){
 			dataType=transformer;
+			TCardNO++;
 		}
 		else if(strAry[0].startsWith("TP")){
 			dataType=phaseShiftXfr;
@@ -98,7 +99,8 @@ public class BPAXfrBranchRecord {
 		
 		branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
 		branchRec.setName(fname+fVbase+" to "+tname+tVbase);
-		
+		BPALoadflowRecord.n++; 
+		branchRec.setNumber(BPALoadflowRecord.n);
 			
 			
 		//  set tieline data, measure location for power interchange, 1--from side, 2- to side

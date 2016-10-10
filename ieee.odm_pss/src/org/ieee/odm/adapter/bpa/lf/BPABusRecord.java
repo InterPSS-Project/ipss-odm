@@ -156,7 +156,8 @@ public class BPABusRecord {
 		busRec.setNumber(busCnt);
 		
 		// TODO set bus owner
-        //busRec.getOwnerList().getOwner().get(0).setName(ownerName);
+		if(ownerName.length()>1)
+        busRec.setDesc(ownerName);
 		
 		busRec.setBaseVoltage(BaseDataSetter.createVoltageValue(baseKv, VoltageUnitType.KV));
 

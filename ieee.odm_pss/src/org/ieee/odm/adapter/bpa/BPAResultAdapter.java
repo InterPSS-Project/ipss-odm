@@ -14,7 +14,7 @@ import com.interpss.core.aclf.AclfNetwork;
 
 public class BPAResultAdapter extends AbstractODMAdapter{
 	private AclfNetwork aclfNet;
-
+	private long n;
 	public BPAResultAdapter(AclfNetwork aclfNet){
 		this.aclfNet=aclfNet;
 	}
@@ -35,9 +35,10 @@ public class BPAResultAdapter extends AbstractODMAdapter{
 		String[] strAry=getBusVoltageData(str);
 		if (strAry[0] != null) {
 			try {
+				n++;
 				String id=BPABusRecord.getBusId(strAry[0]);
 				AclfBus bus = aclfNet.getBus(id);
-				bus.setVoltageMag(Double.valueOf(strAry[1]));
+				bus.setVoltageMag(Double.valueOf(strAry[1])/bus.getBaseVoltage()*1000);
 				bus.setVoltageAng(Double.valueOf(strAry[2])/180 * 3.1415926);
 			} catch (ODMException e) {
 				// TODO Auto-generated catch block
@@ -71,19 +72,21 @@ public class BPAResultAdapter extends AbstractODMAdapter{
 			//angle
 			String str2=itr.nextToken();
 			if (str2.length() > 10) {
+				strAry[1]=str2.substring(0,str2.length()-9);
 				strAry[2] = str2.substring(str2.length() - 6, str2.length() - 1);
 			} else {
+				strAry[1]=str2.substring(0,str2.length()-3);
 				String angle = itr.nextToken();
 				strAry[2] = angle.substring(0, angle.length() - 1);
 			}
 			
 			//mag
-			int count = itr.countTokens()-2;
-			for (int i = 0; i < count; i++){
-				itr.nextToken();
-			}
-				
-			strAry[1]=itr.nextToken().substring(0,5);
+//			int count = itr.countTokens()-2;
+//			for (int i = 0; i < count; i++){
+//				itr.nextToken();
+//			}
+//				
+//			strAry[1]=itr.nextToken().substring(0,5);
 		}
 		//System.out.println(strAry[0]);
 		return strAry;

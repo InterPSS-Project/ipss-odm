@@ -26,7 +26,7 @@ public class BPAGenLoadDataModifyRecord {
 	//TODO
 	private static final String Modify_ConstZILoad_BY_ZONE="PC";   //PC
 	private static final String Modify_ConstZILoad_BY_OWNER="PB";   //PB
-	
+	public static long ModifyCardNO;
 	public void processGenLoadModificationData(final String str, BaseAclfModelParser<? extends NetworkXmlType> parser)
 	throws Exception {
 		final String[] strAry =getModificationData(str);
@@ -52,11 +52,23 @@ public class BPAGenLoadDataModifyRecord {
 			}
 		}
 		else if(strAry[0].equals(Modify_Gen_n_Load_BY_ZONE)){
+			
 			for(JAXBElement<? extends BusXmlType> b : parser.getNet().getBusList().getBus()){
 				LoadflowBusXmlType bus=(LoadflowBusXmlType) b.getValue();
 				if(bus.getZoneName().equals(strAry[1])){
-					modifyLoadData(bus,loadP_Factor,loadQ_Factor);
-					modifyGenData(bus,genP_Factor,genQ_Factor);
+					if(strAry[6].length()>1){
+						if(bus.getDesc().equals(strAry[6])){
+							ModifyCardNO++;
+							//System.out.println(bus.getId());
+							modifyLoadData(bus, loadP_Factor, loadQ_Factor);
+							modifyGenData(bus, genP_Factor, genQ_Factor);
+						}
+					}else{
+						ModifyCardNO++;
+						//System.out.println(bus.getId());
+						modifyLoadData(bus, loadP_Factor, loadQ_Factor);
+						modifyGenData(bus, genP_Factor, genQ_Factor);
+					}
 				}
 			}
 		}
@@ -91,7 +103,7 @@ public class BPAGenLoadDataModifyRecord {
 			strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,28, 32).trim();
 			// for the rest optional setting, not implementation yet
 			//TODO
-			
+			strAry[6] = ODMModelStringUtil.getStringReturnEmptyString(str,35, 37).trim();
 		}catch(Exception e){
 			ODMLogger.getLogger().severe(e.toString() + "\n" + str);
 			e.printStackTrace();

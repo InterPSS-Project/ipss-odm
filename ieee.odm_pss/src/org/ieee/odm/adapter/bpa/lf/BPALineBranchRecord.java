@@ -46,10 +46,13 @@ import org.ieee.odm.schema.ZUnitType;
 import org.interpss.numeric.datatype.Unit.UnitType;
 
 public class BPALineBranchRecord {
+	public static int LCardNO;
+	public static int LPCardNO;
 	public void processBranchData(final String str,	BaseAclfModelParser<? extends NetworkXmlType> parser)  throws ODMException {	
 		final double baseMVA = parser.getNet().getBasePower().getValue();
 		// symmetry line data
 		if(str.startsWith("L ")){
+			LCardNO++;
 			// parse the branch input line str
 			final String[] strAry = getBranchDataFields(str);
 			
@@ -94,6 +97,8 @@ public class BPALineBranchRecord {
 						
 			branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));			
 			branchRec.setName(fname+fVol+" to "+tname+tVol);
+			BPALoadflowRecord.n++; 
+			branchRec.setNumber(BPALoadflowRecord.n);
 			String multiSectionId="";
 			if(!strAry[9].equals("")){
 				multiSectionId = strAry[9];
@@ -160,7 +165,12 @@ public class BPALineBranchRecord {
 							+halfBpu+" ,seems to be out of normal range[-5,+5](pu), please check!");
 				}
 			}
-			
+//			if(Math.abs(xpu)<0.0003){
+//				if(xpu>0)
+//					xpu=0.0003;
+//				if(xpu<0)
+//					xpu=-0.0003;
+//			}
 			if(rpu!=0.0||xpu!=0.0||halfGpu!=0.0||halfBpu!=0.0){
 				AclfDataSetter.setLineData(branchRec, rpu, xpu,
 						ZUnitType.PU, 2*halfGpu, 2*halfBpu, YUnitType.PU);;
@@ -185,6 +195,7 @@ public class BPALineBranchRecord {
 		 * and add it to the corresponding bus of the branch.
 		 */
 		else if(str.startsWith("L+")){
+			LPCardNO++;
 			final String[] strAry = getBranchDataFields(str);
 			final String fname =  strAry[3];
 			final String tname =  strAry[6]; 
