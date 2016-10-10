@@ -42,7 +42,7 @@ public class BPAGenLoadDataModifyRecord {
 			genP_Factor= new Double(strAry[4]).doubleValue();
 		if(!strAry[5].equals(""))
 			genQ_Factor= new Double(strAry[5]).doubleValue();
-		
+		ModifyCardNO++;
 		if(strAry[0].equals(Modify_Gen_n_Load_ALL)){
 			
 			for(JAXBElement<? extends BusXmlType> b : parser.getNet().getBusList().getBus()){
@@ -58,13 +58,12 @@ public class BPAGenLoadDataModifyRecord {
 				if(bus.getZoneName().equals(strAry[1])){
 					if(strAry[6].length()>1){
 						if(bus.getDesc().equals(strAry[6])){
-							ModifyCardNO++;
 							//System.out.println(bus.getId());
 							modifyLoadData(bus, loadP_Factor, loadQ_Factor);
 							modifyGenData(bus, genP_Factor, genQ_Factor);
 						}
 					}else{
-						ModifyCardNO++;
+						
 						//System.out.println(bus.getId());
 						modifyLoadData(bus, loadP_Factor, loadQ_Factor);
 						modifyGenData(bus, genP_Factor, genQ_Factor);

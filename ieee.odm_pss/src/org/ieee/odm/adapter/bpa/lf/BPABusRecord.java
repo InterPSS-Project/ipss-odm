@@ -58,7 +58,7 @@ public class BPABusRecord {
 	private static final int pvBus=3;		
 	private static final int pvBusNoQLimit=4;
 	private static final int supplementaryBusInfo=5;
-	
+	public static long BCardNO;
 	/*
 	 *  BPA data format does not have bus number, only has bus name. 
 	 *  Bus number is generated and a looupTable for busName -> BusId
@@ -143,6 +143,7 @@ public class BPABusRecord {
 		    final String busId =  createBusId(busName+baseKv);
 			ODMLogger.getLogger().fine("Bus data loaded, busName: " + busId);	
 		try {
+			BCardNO++;
 			busRec = (LoadflowBusXmlType)parser.createBus(busId);
 			busRec.setName(busName+baseKv);
 		} catch (ODMException e) {
@@ -185,7 +186,7 @@ public class BPABusRecord {
 		// set pGenMax
 		double pGenMax=ODMModelStringUtil.getDouble(strAry[10], 0.0);
 		double pGen=ODMModelStringUtil.getDouble(strAry[11], 0.0);	
-		
+
 		// qGen for PQ bus, qGenMax for PV bus
 		double qGenOrQGenMax=ODMModelStringUtil.getDouble(strAry[12], 0.0);
 		double qGenMin=ODMModelStringUtil.getDouble(strAry[13], 0.0);
@@ -233,7 +234,7 @@ public class BPABusRecord {
 			}
 			
 			LoadflowGenDataXmlType defaultGen ;
-			if(busType==pvBus||busType==pvBusNoQLimit||busType==swingBus){
+			if(busType==pvBus||busType==pvBusNoQLimit||busType==swingBus||busType==pqBus){
 			if(busRec instanceof DStabBusXmlType){
 				defaultGen = DStabParserHelper.createDStabContributeGen((DStabBusXmlType)busRec);
 		    }
@@ -245,7 +246,7 @@ public class BPABusRecord {
 		    }		
 			if(busType==swingBus){
 				// set bus voltage
-					busRec.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
+				busRec.setVoltage(BaseDataSetter.createVoltageValue(vpu, VoltageUnitType.PU));
 				// set bus angle
 				busRec.setAngle(BaseDataSetter.createAngleValue(vMinOrAngDeg, AngleUnitType.DEG));
 				
@@ -345,8 +346,8 @@ public class BPABusRecord {
 			/*for BG and BX, controlled bus name and voltage
 			 desired bus voltage is specified in strAry[14], equals to vpu
 			 */
-			final String controlledBus= strAry[16];
-			double controlledBusRatedVol=ODMModelStringUtil.getDouble(strAry[17], 0.0);
+//			final String controlledBus= strAry[16];
+//			double controlledBusRatedVol=ODMModelStringUtil.getDouble(strAry[17], 0.0);
 			
 //			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(busRec.getGenData());
 //			if(strAry[0].equals("BG")||strAry[0].equals("BX")){

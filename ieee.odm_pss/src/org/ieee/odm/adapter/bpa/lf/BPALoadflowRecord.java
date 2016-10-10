@@ -125,7 +125,7 @@ public class BPALoadflowRecord {
 		
 		//process inter-area exchange data
 		processInterAreaExchangeData(areaList,parser);
-		
+		System.out.println("BCard number£º"+BPABusRecord.BCardNO);
 		System.out.println("LCard number£º"+BPALineBranchRecord.LCardNO);
 		System.out.println("LPCard number£º"+BPALineBranchRecord.LPCardNO);
 		System.out.println("TCard number£º"+BPAXfrBranchRecord.TCardNO);
