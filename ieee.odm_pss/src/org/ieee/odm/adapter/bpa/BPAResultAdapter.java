@@ -10,6 +10,8 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
 import com.interpss.core.aclf.AclfBus;
+import com.interpss.core.aclf.AclfGen;
+import com.interpss.core.aclf.AclfGenCode;
 import com.interpss.core.aclf.AclfNetwork;
 
 public class BPAResultAdapter extends AbstractODMAdapter{
@@ -38,8 +40,12 @@ public class BPAResultAdapter extends AbstractODMAdapter{
 				n++;
 				String id=BPABusRecord.getBusId(strAry[0]);
 				AclfBus bus = aclfNet.getBus(id);
+				
 				bus.setVoltageMag(Double.valueOf(strAry[1])/bus.getBaseVoltage()*1000);
 				bus.setVoltageAng(Double.valueOf(strAry[2])/180 * 3.1415926);
+				
+				bus.setDesiredVoltMag(Double.valueOf(strAry[1])/bus.getBaseVoltage()*1000);
+				bus.setDesiredVoltAng(Double.valueOf(strAry[2])/180 * 3.1415926);
 			} catch (ODMException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

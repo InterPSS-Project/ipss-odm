@@ -23,6 +23,8 @@
  */
 
 package org.ieee.odm.adapter.bpa.dynamic;
+import java.text.DecimalFormat;
+
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
@@ -47,7 +49,7 @@ public class BPADynamicTurbineGovernorRecord {
 	public static void processTurbineGovernorData(String str, DStabModelParser parser) throws ODMException {
     	final String strAry[]=getTGDataFields(str);
     	
-    	String busId = BPABusRecord.getBusId(strAry[1]);
+    	String busId = BPABusRecord.getBusId(strAry[1]+strAry[2]);
     	DStabBusXmlType bus = parser.getDStabBus(busId);
     	
     	//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
@@ -504,6 +506,11 @@ public class BPADynamicTurbineGovernorRecord {
 		str=chineseCharNum==0?str:ODMModelStringUtil.replaceChineseChar(str);
 		//bus Voltage
 		strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+		//zhaolili,the united format rated voltage
+		double RatedVoltage= new Double(strAry[2]).doubleValue();
+		//System.out.println(RatedVoltage);
+		strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
+		
 		//Id
 		strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 16).trim();
     	try{

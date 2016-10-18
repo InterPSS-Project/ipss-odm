@@ -25,6 +25,7 @@ package org.ieee.odm.adapter.bpa.lf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import org.ieee.odm.common.ODMBranchDuplicationException;
@@ -56,7 +57,7 @@ public class BPAXfrBranchRecord {
 	static final int transformer=1;
 	static final int phaseShiftXfr=2;
 	static final int transformerAndPhaseShiftXfr=3;
-	public static int TCardNO;
+
 	public void processXfrData(final String str, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		
 		int dataType=0;	    	
@@ -65,7 +66,6 @@ public class BPAXfrBranchRecord {
 			
 		if(strAry[0].startsWith("T")){
 			dataType=transformer;
-			TCardNO++;
 		}
 		else if(strAry[0].startsWith("TP")){
 			dataType=phaseShiftXfr;
@@ -76,11 +76,12 @@ public class BPAXfrBranchRecord {
 			
 		final String fname =  strAry[3];
 		final String tname =  strAry[6];
-		final double fVbase= new Double(strAry[4]).doubleValue();
-		final double tVbase= new Double(strAry[7]).doubleValue();	
-		final String fid =  BPABusRecord.getBusId(fname+fVbase);
-		final String tid =  BPABusRecord.getBusId(tname+tVbase);
+		final String fnamebasevoltage =  strAry[3]+strAry[4];
+		final String tnamebasevoltage =  strAry[6]+strAry[7];
+		final String fid =  BPABusRecord.getBusId(fnamebasevoltage);
+		final String tid =  BPABusRecord.getBusId(tnamebasevoltage);
 		ODMLogger.getLogger().fine("Branch data loaded, from-bus, to-bus: " + fid + ", " + tid);
+		//System.out.println("XfrBranch data loaded, from-bus, to-bus: " + fnamebasevoltage + ", " + tnamebasevoltage);
 		//TODO change 1->0, since one uses "1" while CirId for the other is missing for some parallel branches in BPA
 		String cirId="1";
 		if(!strAry[8].equals("")){
@@ -93,14 +94,14 @@ public class BPAXfrBranchRecord {
 								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId));
 		} catch (ODMBranchDuplicationException e) {
 			ODMLogger.getLogger().severe("branch data error, " + e.toString()+ 
-					"  " + fname + "->" + tname + "_" + cirId);
+					"  " + fnamebasevoltage + "->" + tnamebasevoltage + "_" + cirId);
 			return;
 		}
 		
 		branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));
-		branchRec.setName(fname+fVbase+" to "+tname+tVbase);
-		BPALoadflowRecord.n++; 
-		branchRec.setNumber(BPALoadflowRecord.n);
+		
+		final double fVbase= new Double(strAry[4]).doubleValue();
+		final double tVbase= new Double(strAry[7]).doubleValue();	
 			
 			
 		//  set tieline data, measure location for power interchange, 1--from side, 2- to side
@@ -426,6 +427,8 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 			strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
 			//from bus basekV
 			strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
+			double fbasevoltage= Double.parseDouble(strAry[4].trim());//zhaolili,the united format
+			strAry[4]=new DecimalFormat("#.#").format(fbasevoltage);
 			//meter
 			strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
 			
@@ -441,6 +444,8 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 
 
 			strAry[7] = ODMModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
+			double tbasevoltage= Double.parseDouble(strAry[7].trim());//zhaolili,the united format
+			strAry[7]=new DecimalFormat("#.#").format(tbasevoltage);
 			strAry[8] = ODMModelStringUtil.getStringReturnEmptyString(str2,32, 32).trim();
 			strAry[9] = ODMModelStringUtil.getStringReturnEmptyString(str2,33, 33).trim();
 			strAry[10] = ODMModelStringUtil.getStringReturnEmptyString(str2,34, 37).trim();
@@ -499,6 +504,8 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 			strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
 			//from bus basekV
 			strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
+			double fbasevoltage= new Double(strAry[4]).doubleValue();//zhaolili,the united format
+			strAry[4]=new DecimalFormat("#.#").format(fbasevoltage);
 			//meter
 			strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
 			
@@ -515,6 +522,8 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 			
 			// to rated v
 			strAry[7] = ODMModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
+			double tbasevoltage= new Double(strAry[7]).doubleValue();//zhaolili,the united format
+			strAry[7]=new DecimalFormat("#.#").format(tbasevoltage);
 			// controlled bus name and rated v
 			strAry[8] = ODMModelStringUtil.getStringReturnEmptyString(str2,34, 41).trim();
 			strAry[9] = ODMModelStringUtil.getStringReturnEmptyString(str2,42, 45).trim();

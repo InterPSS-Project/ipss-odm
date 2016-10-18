@@ -50,7 +50,7 @@ public class BPALoadflowRecord {
 	public final static String Token_ProjectName = "Original Project Name";
 	public final static String Token_CaseId = "Case Identification";
 	public final static String Token_BN="Bus Name";
-	public static long n;
+	
 	public void processLfData(BaseAclfModelParser<? extends NetworkXmlType> parser, final IFileReader din) throws ODMException {
 		NetworkXmlType baseCaseNet = parser.getNet();
 		baseCaseNet.setId("Base_Case_from_BPA_loadflow_format");			
@@ -125,11 +125,7 @@ public class BPALoadflowRecord {
 		
 		//process inter-area exchange data
 		processInterAreaExchangeData(areaList,parser);
-		System.out.println("BCard number£º"+BPABusRecord.BCardNO);
-		System.out.println("LCard number£º"+BPALineBranchRecord.LCardNO);
-		System.out.println("LPCard number£º"+BPALineBranchRecord.LPCardNO);
-		System.out.println("TCard number£º"+BPAXfrBranchRecord.TCardNO);
-		System.out.println("ModifyCard number£º"+BPAGenLoadDataModifyRecord.ModifyCardNO);
+		
 		//TODO set the area info after getting the area data
 	}
 	

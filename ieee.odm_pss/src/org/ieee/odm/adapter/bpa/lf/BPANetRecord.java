@@ -25,6 +25,7 @@ package org.ieee.odm.adapter.bpa.lf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import java.text.DecimalFormat;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.common.ODMException;
@@ -45,6 +46,7 @@ import org.ieee.odm.schema.NetAreaXmlType;
 import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
+
 
 public class BPANetRecord {
 	/*
@@ -113,10 +115,15 @@ public class BPANetRecord {
 			else area=(ExchangeAreaXmlType) getAreaByName(baseCaseNet, areaName);
 			
 			String slackBusName="";
+			String slackBusNameV="";//zhaolili
 			double ratedVoltage=0;
 			if(!strAry[3].equals("")){
 				slackBusName=strAry[3];
-				String slackBusId=BPABusRecord.getBusId(slackBusName);
+				double basevoltage= new Double(strAry[4]).doubleValue();//zhaolili
+				strAry[4]=new DecimalFormat("#.#").format(basevoltage);//zhaolili
+				slackBusNameV=strAry[3]+strAry[4];
+				//System.out.println("NetRecord:"+slackBusNameV);
+				String slackBusId=BPABusRecord.getBusId(slackBusNameV);
 				area.setSwingBusId(parser.createBusRef(slackBusId));
 				
 			}
@@ -150,27 +157,7 @@ public class BPANetRecord {
             	}            	
             }
 		}
-		/*
-		else if(str.trim().startsWith("AO")){
-			final String dataType=strAry[0];
-			
-			if(!strAry[1].equals("")){
-				final String modCode= strAry[1];
-			}
-			if(!strAry[2].trim().equals("")){
-				String areaName=strAry[2];
-				NetAreaXmlType area=BaseJaxbHelper.getAreaRecordByAreaName(areaName, baseCaseNet);
-				if(area==null){
-					area.setName(areaName);
-				}
-			}
-			if(!strAry[3].trim().equals("")){
-				// suppose there is a maximum of 40 areas
-            	final String s[]= new String[40];
-            	int cnt=0, i=0;            	
-            }
-		}
-		*/
+		
 		else if(str.trim().startsWith("I")){// I Record defines the inter-area power exchange
 			if (net.getInterchangeList() == null)
 				net.setInterchangeList(OdmObjFactory.createLoadflowNetXmlTypeInterchangeList());
@@ -243,8 +230,13 @@ public class BPANetRecord {
 				strAry[0] = ODMModelStringUtil.getStringReturnEmptyString(str, 1, 2);
 				strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str, 3, 3);
 				strAry[2] = ODMModelStringUtil.getStringReturnEmptyString(str, 4, 13);
-				strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str, 14, 21);
-				strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str, 22, 25);
+				strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str, 14, 21).trim();
+				
+				strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str, 22, 25).trim();
+				double basevoltage= new Double(strAry[4]).doubleValue();//zhaolili
+				strAry[4]=new DecimalFormat("#.#").format(basevoltage);//zhaolili
+				
+				
 				strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str, 26, 34);
 				// zones within area
 				int strlength=str.trim().length();

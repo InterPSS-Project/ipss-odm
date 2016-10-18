@@ -26,6 +26,9 @@ package org.ieee.odm.model.dstab;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMException;
@@ -33,6 +36,7 @@ import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
+import org.ieee.odm.schema.CimSwitchListXmlType;
 import org.ieee.odm.schema.ClassicMachineXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
@@ -96,6 +100,7 @@ import org.ieee.odm.schema.PssIEEE1992Type2AXmlType;
 import org.ieee.odm.schema.PssIEEE1AXmlType;
 import org.ieee.odm.schema.PssIEEEDualInputXmlType;
 import org.ieee.odm.schema.PssSimpleTypeXmlType;
+import org.ieee.odm.schema.ShortCircuitGenDataXmlType;
 import org.ieee.odm.schema.SpeedGovBPAGSModelXmlType;
 import org.ieee.odm.schema.SpeedGovBPAGiGaCombinedXmlType;
 import org.ieee.odm.schema.SpeedGovBPARegGIModelXmlType;
@@ -126,10 +131,16 @@ public class DStabParserHelper extends AcscParserHelper {
 	*/
 	
 	public static DStabGenDataXmlType getDefaultGen(BusGenDataXmlType genData) {
+	    	
+		//System.out.println("genData.getContributeGen().size():"+genData.getContributeGen().size());
+		//genData.getContributeGen().clear();
+		//System.out.println("genData.getContributeGen().size()2:"+genData.getContributeGen().size());
 		if (genData.getContributeGen().size() == 0)
 			genData.getContributeGen().add(OdmObjFactory.createDstabContributeGen(
-					OdmObjFactory.createDStabGenDataXmlType()));		
-		return (DStabGenDataXmlType)genData.getContributeGen().get(0).getValue();
+					OdmObjFactory.createDStabGenDataXmlType()));	
+		
+			return (DStabGenDataXmlType) genData.getContributeGen().get(0).getValue();
+		//return OdmObjFactory.createDstabContributeGen(OdmObjFactory.createDStabGenDataXmlType()).getValue();
 	}
 	
 	/**

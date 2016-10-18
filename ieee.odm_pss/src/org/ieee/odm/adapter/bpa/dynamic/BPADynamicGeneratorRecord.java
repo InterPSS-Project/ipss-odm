@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.bpa.dynamic;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -64,7 +65,7 @@ public class BPADynamicGeneratorRecord {
     	DStabNetXmlType net = parser.getDStabNet();
     	
     	if (str.substring(0,2).trim().equals("MC")){
-    		String busId = BPABusRecord.getBusId(strAry[1]);
+    		String busId = BPABusRecord.getBusId(strAry[1]+strAry[2]);
         	DStabBusXmlType bus = parser.getDStabBus(busId);
         	//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
         	DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus.getGenData());
@@ -118,7 +119,7 @@ public class BPADynamicGeneratorRecord {
     	 */
     	
     	else if(str.substring(0, 2).trim().equals("M")){
-    		String busId = BPABusRecord.getBusId(strAry[1]);
+    		String busId = BPABusRecord.getBusId(strAry[1]+strAry[2]);
     		subTransBusIdList.add(busId);
     		
     		double xd11=ODMModelStringUtil.getDouble(strAry[8], 0.0); 
@@ -153,7 +154,7 @@ public class BPADynamicGeneratorRecord {
     	 * while M and MF records together represent sub-transient;
     	 */
     	else if(str.substring(0, 2).trim().equals("MF")){
-    		String busId = BPABusRecord.getBusId(strAry[1]);
+    		String busId = BPABusRecord.getBusId(strAry[1]+strAry[2]);
         	
     		DStabBusXmlType bus = parser.getDStabBus(busId);
         	
@@ -162,7 +163,7 @@ public class BPADynamicGeneratorRecord {
     		    dynGenId=strAry[3];
     		}
     		//DStabGenDataXmlType dynGen = (DStabGenDataXmlType)bus.getGenData().getEquivGen().getValue();
-    		DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus.getGenData());
+    		DStabGenDataXmlType dynGen =DStabParserHelper.getDefaultGen(bus.getGenData());
     		dynGen.setId(dynGenId);
 			double ratedVoltage=ODMModelStringUtil.getDouble(strAry[2], 0.0);
 		   	dynGen.setRatedMachVoltage(DStabDataSetter.createVoltageValue(ratedVoltage, VoltageUnitType.KV));
@@ -286,7 +287,7 @@ public class BPADynamicGeneratorRecord {
     	else if(str.substring(0, 2).trim().equals("LN")){    		
     		String busId1="";
 			if(!strAry[1].equals("")){
-				busId1 = BPABusRecord.getBusId(strAry[1]);
+				busId1 = BPABusRecord.getBusId(strAry[1]+strAry[2]);
 			}
 			double Vol1=ODMModelStringUtil.getDouble(strAry[2], 0.0);
 			
@@ -352,6 +353,10 @@ public class BPADynamicGeneratorRecord {
 				
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str2,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str2,16, 16).trim();
 				strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str2,17, 21).trim();
 				strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str2,23, 25).trim();
@@ -372,6 +377,10 @@ public class BPADynamicGeneratorRecord {
 				String str2=chineseCharNum==0?str:ODMModelStringUtil.replaceChineseChar(str);
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str2,4, 11).trim();
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str2,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str2,16, 16).trim();
 				strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str2,17, 22).trim();
 				strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str2,23, 25).trim();
@@ -399,6 +408,10 @@ public class BPADynamicGeneratorRecord {
 				String str2=chineseCharNum==0?str:ODMModelStringUtil.replaceChineseChar(str);
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,19, 26).trim();
 				strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,27, 30).trim();
 				strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,34, 41).trim();

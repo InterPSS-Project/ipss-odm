@@ -23,11 +23,12 @@
  */
 package org.ieee.odm.adapter.bpa.lf;
 
+import java.text.DecimalFormat;
+
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
@@ -37,22 +38,15 @@ import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.LengthUnitType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
-import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
-import org.ieee.odm.schema.VoltageUnitType;
-import org.ieee.odm.schema.VoltageXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
-import org.interpss.numeric.datatype.Unit.UnitType;
 
 public class BPALineBranchRecord {
-	public static int LCardNO;
-	public static int LPCardNO;
 	public void processBranchData(final String str,	BaseAclfModelParser<? extends NetworkXmlType> parser)  throws ODMException {	
 		final double baseMVA = parser.getNet().getBasePower().getValue();
 		// symmetry line data
 		if(str.startsWith("L ")){
-			LCardNO++;
 			// parse the branch input line str
 			final String[] strAry = getBranchDataFields(str);
 			
@@ -63,18 +57,13 @@ public class BPALineBranchRecord {
 			final String owner=strAry[2];
 			
 			final String fname =  strAry[3];
+			final String fnamebasevoltage =  strAry[3]+strAry[4];//zhaolili
 			final String tname =  strAry[6];
-			double fVol=0.0;
-			double tVol=0.0;
-			if(!strAry[4].equals("")){
-				fVol= new Double(strAry[4]).doubleValue();
-			}
-			if(!strAry[7].equals("")){
-				tVol= new Double(strAry[4]).doubleValue();
-			}
-			final String fid =  BPABusRecord.getBusId(fname+fVol);
-			final String tid =  BPABusRecord.getBusId(tname+tVol);
+			final String tnamebasevoltage =  strAry[6]+strAry[7];//zhaolili
+			final String fid =  BPABusRecord.getBusId(fnamebasevoltage);
+			final String tid =  BPABusRecord.getBusId(tnamebasevoltage);
 			ODMLogger.getLogger().fine("Branch data loaded, from-Bus, to-Bus: " + fid + ", " + tid);
+			//System.out.println("Branch data loaded, from-Bus, to-Bus: " + fnamebasevoltage + ", " + tnamebasevoltage);
 			
 			// set cirId, if not specified, set to 1
 			//TODO change 1->0, since one uses "1" while CirId for the other is missing for some parallel branches in BPA
@@ -86,19 +75,26 @@ public class BPALineBranchRecord {
 			try {
 				branchRec = (LineBranchXmlType) parser.createLineBranch(fid, tid, cirId);
 			} catch (Exception e) {
+				//ODMLogger.getLogger().severe("branch data error, " + e.toString() + 
+					//	"  " + fname + "->" + tname + "_" + cirId);
 				ODMLogger.getLogger().severe("branch data error, " + e.toString() + 
-						"  " + fname + "->" + tname + "_" + cirId);
+						"  " + fnamebasevoltage + "->" + tnamebasevoltage + "_" + cirId);//zhaolili
 				return;
 			}
 			
 			// TODO owner code
 			
-			
+			double fVol=0.0;
+			double tVol=0.0;
+			if(!strAry[4].equals("")){
+				fVol= new Double(strAry[4]).doubleValue();
+			}
+			if(!strAry[7].equals("")){
+				tVol= new Double(strAry[4]).doubleValue();
+			}
 						
 			branchRec.setId(ODMModelStringUtil.formBranchId(fid, tid, cirId));			
-			branchRec.setName(fname+fVol+" to "+tname+tVol);
-			BPALoadflowRecord.n++; 
-			branchRec.setNumber(BPALoadflowRecord.n);
+			
 			String multiSectionId="";
 			if(!strAry[9].equals("")){
 				multiSectionId = strAry[9];
@@ -141,7 +137,7 @@ public class BPALineBranchRecord {
 				xpu=ODMModelStringUtil.getNumberFormat(xpu);
 				if(Math.abs(xpu)>1||Math.abs(xpu)<1E-5)
 					ODMLogger.getLogger().warning("Line#"+fname+"-to-"+tname+",the reactance now is"
-							+xpu+" ,seems to be out of normal range[1E-5~1]pu, please check!");	
+							+xpu+" ,seems to be out of normal range[1E-5~1]pu, please check!");
 			}
 			
 			if(!strAry[14].equals("")){
@@ -165,6 +161,7 @@ public class BPALineBranchRecord {
 							+halfBpu+" ,seems to be out of normal range[-5,+5](pu), please check!");
 				}
 			}
+			
 			if(rpu!=0.0||xpu!=0.0||halfGpu!=0.0||halfBpu!=0.0){
 				AclfDataSetter.setLineData(branchRec, rpu, xpu,
 						ZUnitType.PU, 2*halfGpu, 2*halfBpu, YUnitType.PU);;
@@ -182,9 +179,6 @@ public class BPALineBranchRecord {
 			if(!strAry[17].equals("")){
 				desc= strAry[17];
 				BaseJaxbHelper.addNVPair(branchRec, "branch description", desc);
-				if(desc.equals("ÁãÖ§Â·")){
-					
-				}
 			}			
 		}
 		/**
@@ -192,37 +186,34 @@ public class BPALineBranchRecord {
 		 * and add it to the corresponding bus of the branch.
 		 */
 		else if(str.startsWith("L+")){
-			LPCardNO++;
 			final String[] strAry = getBranchDataFields(str);
 			final String fname =  strAry[3];
 			final String tname =  strAry[6]; 
-			double fVol=0.0;
-			double tVol=0.0;
-			if(!strAry[4].equals("")){
-				fVol= new Double(strAry[4]).doubleValue();
-			}
-			if(!strAry[7].equals("")){
-				tVol= new Double(strAry[4]).doubleValue();
-			}
-			final String fid =  BPABusRecord.getBusId(fname+fVol);
-			final String tid =  BPABusRecord.getBusId(tname+tVol);
+			final String fnamebasevoltage =  strAry[3]+strAry[4];//zhaolili
+			final String tnamebasevoltage =  strAry[6]+strAry[7]; //zhaolili
+			final String fid =  BPABusRecord.getBusId(fnamebasevoltage);
+			final String tid =  BPABusRecord.getBusId(tnamebasevoltage);
+			//System.out.println(str);
 			if(!strAry[9].equals("")){
-				final double fromShuntMVar=new Double(strAry[9]).doubleValue();
-				
-				if(fromShuntMVar!=0.0){
+				final double fromShuntVar=new Double(strAry[9]).doubleValue();
+				double fShuntVar=ODMModelStringUtil.getNumberFormat(fromShuntVar/baseMVA); // x(pu)=Var/baseMVA
+				//System.out.print(fShuntVar);
+				if(fShuntVar!=0.0){
 					LoadflowBusXmlType fromBus= (LoadflowBusXmlType)parser.getBus(fid);
+					//System.out.println(fromBus);
 					/*
 					 * It should be negative considering that positive sign means capacitive shunt var
 					 * 
 					 */
-					AclfDataSetter.addBusShuntVar(fromBus, -fromShuntMVar, YUnitType.MVAR);   
+					AclfDataSetter.addBusShuntVar(fromBus, -fShuntVar, YUnitType.PU);   
 				}
 			}
 			if(!strAry[10].equals("")){
-				final double toShuntMVar=new Double(strAry[10]).doubleValue();
-				if(toShuntMVar!=0.0){
+				final double toShuntVar=new Double(strAry[10]).doubleValue();
+				double tShuntVar=ODMModelStringUtil.getNumberFormat(toShuntVar/baseMVA);
+				if(tShuntVar!=0.0){
 					LoadflowBusXmlType toBus= (LoadflowBusXmlType)parser.getBus(tid);
-					AclfDataSetter.addBusShuntVar(toBus, -toShuntMVar, YUnitType.MVAR);
+					AclfDataSetter.addBusShuntVar(toBus, -tShuntVar, YUnitType.PU);
 				}
 			}
 		}
@@ -250,6 +241,9 @@ public class BPALineBranchRecord {
 		strAry[3] = ODMModelStringUtil.getStringReturnEmptyString(str,7, 14-chnCharNum1).trim();
 		//from bus basekV
 		strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str,15-chnCharNum1, 18-chnCharNum1).trim();
+		//zhaolili,the united format
+		double fbasevoltage= new Double(strAry[4]).doubleValue();;
+		strAry[4]=new DecimalFormat("#.#").format(fbasevoltage);
 		//meter
 		strAry[5] = ODMModelStringUtil.getStringReturnEmptyString(str,19-chnCharNum1, 19-chnCharNum1).trim();
 		
@@ -265,6 +259,9 @@ public class BPALineBranchRecord {
 		
 		//to bus baseKV
 		strAry[7] = ODMModelStringUtil.getStringReturnEmptyString(str2,28, 31).trim();
+		//zhaolili, the united format
+		double tbasevoltage= new Double(strAry[7]).doubleValue();;
+		strAry[7]=new DecimalFormat("#.#").format(tbasevoltage);
 		// circuit ID
 		strAry[8] = ODMModelStringUtil.getStringReturnEmptyString(str2,32, 32).trim();
 		
@@ -301,7 +298,7 @@ public class BPALineBranchRecord {
 			strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str2,67, 74).trim();
 		}else{
 			strAry[16] = ODMModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();
-			strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str,69-chnCharNum1, 74-chnCharNum1).trim();
+			strAry[17] = ODMModelStringUtil.getStringReturnEmptyString(str2,69, 74).trim();
 		}
 		// date of first put into use
 		strAry[18] = ODMModelStringUtil.getStringReturnEmptyString(str2,75, 77).trim();	

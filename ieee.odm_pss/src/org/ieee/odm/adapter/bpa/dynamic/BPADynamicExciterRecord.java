@@ -24,6 +24,8 @@
 
 package org.ieee.odm.adapter.bpa.dynamic;
 
+import java.text.DecimalFormat;
+
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
@@ -66,7 +68,7 @@ public class BPADynamicExciterRecord {
     	final String strAry[]=getExciterDataFields(str);
     	int type= getExcType(strAry[0]);
     	
-    	String busId = BPABusRecord.getBusId(strAry[1]);
+    	String busId = BPABusRecord.getBusId(strAry[1]+strAry[2]);
     	DStabBusXmlType bus = parser.getDStabBus(busId);
     	
     	DStabGenDataXmlType dynGen = DStabParserHelper.getDefaultGen(bus.getGenData());
@@ -1259,6 +1261,7 @@ else if(type==FK){
     	else if(str.substring(0, 2).trim().equals("FZ")||
     			str.substring(0, 2).trim().equals("F+")){// continued record for BPA Exciter models.
     		DStabGenDataXmlType genData = DStabParserHelper.getDefaultGen(bus.getGenData());
+    		System.out.println(genData);
     		ExciterModelXmlType exc = genData.getExciter().getValue();   	
         	
         	if(str.substring(0, 2).trim().equals("FZ")){
@@ -1908,6 +1911,10 @@ else if(type==FK){
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				//bus Voltage
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				//excId
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 16).trim();
 				//TR
@@ -1954,6 +1961,10 @@ else if(type==FK){
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				//bus Voltage
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				//excId
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 16).trim();
 				//Rc
@@ -1993,6 +2004,10 @@ else if(type==FK){
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				//bus Voltage
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				//excId
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 16).trim();
 				//Rc
@@ -2031,6 +2046,10 @@ else if(type==FK){
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				//bus Voltage
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				//excId
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 16).trim();
 				//SE1, 
@@ -2064,6 +2083,10 @@ else if(type==FK){
 				//strAry[1]=ModelStringUtil.getStringReturnEmptyString(str,4, 11).trim();
 				//bus Voltage
 				strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,12, 15).trim();
+				//zhaolili,the united format rated voltage
+				double RatedVoltage= new Double(strAry[2]).doubleValue();
+				//System.out.println(RatedVoltage);
+				strAry[2]=new DecimalFormat("#.#").format(RatedVoltage);
 				//excId
 				strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,16, 16).trim();
 				//VAMAX 
