@@ -300,7 +300,7 @@
 			desiredVoltage are used. For PV bus power.re and designedVoltage are used.
 		</ns:documentation> </ns:annotation>
 		<ns:complexContent>
-			<ns:extension base="pss:CimConnectionRecordType">
+			<ns:extension base="pss:IDRecordXmlType">
 				<ns:sequence>
 					<ns:element maxOccurs="1" minOccurs="0" name="power" type="pss:PowerXmlType">
 						<ns:annotation> <ns:documentation>
@@ -360,7 +360,7 @@
 		It is used to define LoadflowBusXmlType equivLoad and contribLoad list
 		</ns:documentation> </ns:annotation>
 		<ns:complexContent>
-			<ns:extension base="pss:CimConnectionRecordType">
+			<ns:extension base="pss:IDRecordXmlType">
 				<ns:annotation> <ns:documentation>
 				When code = FunctionLoad, the ZIP load units should be the same
 				</ns:documentation> </ns:annotation>
