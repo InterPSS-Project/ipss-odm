@@ -254,6 +254,84 @@ public class BaseInputLineStringParser {
 			return defaultValue;
 	}
 	
+	/**
+	 * Get field of type float
+	 * 
+	 * @param key
+	 * @return the field of type float
+	 * @throws ODMException throw exception if the field does not exist
+	 */	
+	public float getFloat(String key)throws ODMException{
+		 return Float.parseFloat(getString(key));
+	}
+
+	/**
+	 * Get field of type float, if the field does not exit, return the default value
+	 * 
+	 * @param key
+	 * @param defaultValue default value
+	 * @return the field of type float
+	 * @throws ODMException throw exception if the field does not exist
+	 */	
+	public float getFloat(String key, float defaultValue) throws ODMException{
+		 if ((exist(key)) && (!getString(key).equals(""))) {
+			 return Float.parseFloat(getString(key));
+		 }
+		 return defaultValue;
+	}
+
+	/**
+	 * Get field of type char
+	 * 
+	 * @param key
+	 * @return the field of type char
+	 * @throws ODMException throw exception if the field does not exist
+	 */	
+	public char getChar(String key)throws ODMException{
+		 return getString(key).toCharArray()[0];
+	}
+	
+	/**
+	 * Get field of type char, if the field does not exit, return the default value
+	 * 
+	 * @param key
+	 * @param defaultValue default value
+	 * @return the field of type char
+	 * @throws ODMException throw exception if the field does not exist
+	 */	
+	public char getChar(String key, char defaultValue) throws ODMException{
+		 if ((exist(key)) && (!getString(key).equals(""))) {
+			 return getString(key).toCharArray()[0];
+		 }
+		 return defaultValue;
+	}
+	
+	/**
+	 * Get field of type char
+	 * 
+	 * @param key
+	 * @return the field of type char
+	 * @throws ODMException throw exception if the field does not exist
+	 */	
+	public char[] getChars(String key)throws ODMException{
+		 return getString(key).toCharArray();
+	}
+	
+	/**
+	 * Get field of type char, if the field does not exit, return the default value
+	 * 
+	 * @param key
+	 * @param defaultValue default value
+	 * @return the field of type char
+	 * @throws ODMException throw exception if the field does not exist
+	 */	
+	public char[] getChars(String key, char[] defaultValue) throws ODMException{
+		 if ((exist(key)) && (!getString(key).equals(""))) {
+			 return getString(key).toCharArray();
+		 }
+		 return defaultValue;
+	}
+	
 	@Override public String toString() {
 		return this.positionTable.toString() + "\n" + this.fieldTable.toString();
 	}
