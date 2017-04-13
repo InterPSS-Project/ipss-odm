@@ -161,6 +161,9 @@ public class PSSELFAdapter extends BasePSSEAdapter{
       			lineStr = din.readLine();
       			if (lineStr != null) {
       				lineNo++;
+      				if(lineStr.startsWith("//")) { // it is a comment line
+      					continue;
+      				}
       				if (!headerProcessed) {
   						String lineStr2 = din.readLine(); lineNo++;
   						String lineStr3 = din.readLine(); lineNo++;
@@ -393,7 +396,8 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 	
 	private void processVscHvdcLineStr(String lineStr,final IFileReader din) throws ODMException, ODMBranchDuplicationException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("END OF VSC DC LINE DATA"); 
+			assert (lineStr.toUpperCase().contains("END OF VSC DC LINE DATA") || 
+					lineStr.toUpperCase().contains("END OF VOLTAGE SOURCE CONVERTER DATA")); 
 			vscDcLineProcessed = true;
 			ODMLogger.getLogger().info("PSS/E vscDcLine record processed");
 			this.elemCntStr += "vscDcLine record " + vscDcLineCnt +"\n";
@@ -422,7 +426,7 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 	
 	private void processFACTSLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("END OF FACTS DEVICE DATA"); 
+			assert lineStr.toUpperCase().contains("END OF FACTS"); 
 			factsProcessed = true;
 			ODMLogger.getLogger().info("PSS/E FACTS record processed");
 			this.elemCntStr += "Facts record " + factsCnt +"\n";

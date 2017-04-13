@@ -223,7 +223,8 @@ public class PSSEXfrDataParser extends BasePSSEDataParser {
 		}
 		if (k != 0) {
 			for (int i = N2+3; i < N2+11; i++)
-				setValue(i, st.nextToken().trim());
+				if(st.hasMoreElements())
+				  setValue(i, st.nextToken().trim());
 		}
 
 		int N3 = N2 + 11;  // Line-2 has 11 fields

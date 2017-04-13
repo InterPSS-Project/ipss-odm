@@ -109,5 +109,7 @@ public class PSSELineDataParser extends BasePSSEDataParser {
   		for (int i = 17; i < 25; i++)
   			if (st.hasMoreTokens()) 
   				setValue(i, st.nextToken().trim());
+  		
+  		
 	}
 }
