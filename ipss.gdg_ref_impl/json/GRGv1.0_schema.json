@@ -143,12 +143,12 @@
                                         "$ref": "#/values/basic_values/extended_positive_number"
                                     }
                                 },
-                                "additionalProperties": False
+                                "additionalProperties": false
                             }
                         ]
                     }
                 },
-                "additionalProperties": False
+                "additionalProperties": false
             },
             "abstract_value": {
                 "oneOf": [
