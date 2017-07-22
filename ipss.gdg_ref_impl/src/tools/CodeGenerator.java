@@ -18,7 +18,7 @@ public class CodeGenerator {
 	public static void main(String[] args) throws Exception {
 		JCodeModel codeModel = new JCodeModel();
 
-		URL source = new URL("file:///ipss.schema/GRGv1.0_schema.json");
+		URL source = new URL("file:///c:/temp/temp/GRGv1.0_schema.json");
 
 		GenerationConfig config = new DefaultGenerationConfig() {
 			@Override
@@ -32,9 +32,9 @@ public class CodeGenerator {
 							    new Jackson2Annotator(config), 
 							    new SchemaStore()), 
 				new SchemaGenerator());
-		mapper.generate(codeModel, "ClassName", "com.example", source);
+		mapper.generate(codeModel, "GRGSchema", "org.interpss.grg", source);
 
-		codeModel.build(new File("tmp/output.txt"));
+		codeModel.build(new File("src"));
 	}
 
 }
