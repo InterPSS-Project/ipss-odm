@@ -1,0 +1,3365 @@
+{
+    "grg_version": "v.1.0",
+    "network": {
+        "id": "nesta_case14_ieee__api",
+        "type": "network",
+        "subtype": "bus_branch",
+        "description": "Copyright (c) 2017 The Grid Research for Good (GRG) Team. Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated. documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+        "per_unit": false,
+        "components": {
+            "line_01": {
+                "id": "ln_41",
+                "type": "ac_line",
+                "link_1": "bus_01",
+                "link_2": "bus_02",
+                "voltage_level_1_id": "voltage_level_1",
+                "voltage_level_2_id": "voltage_level_2",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000264
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000264
+                },
+                "impedance": {
+                    "resistance": 1.938,
+                    "reactance": 5.917
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            4457.283018867924,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            4457.283018867924,
+                            4501.855849056603,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            4736.0334670160859,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            4736.0334670160859,
+                            4783.393801686247,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            472.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            472.0,
+                            476.72,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            472.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            472.0,
+                            476.72,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_02": {
+                "id": "ln_42",
+                "type": "ac_line",
+                "link_1": "bus_01",
+                "link_2": "bus_05",
+                "voltage_level_1_id": "voltage_level_1",
+                "voltage_level_2_id": "voltage_level_5",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000246
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000246
+                },
+                "impedance": {
+                    "resistance": 5.4030000000000009,
+                    "reactance": 22.304
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1208.754716981132,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1208.754716981132,
+                            1220.8422641509436,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1331.610532011709,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1331.610532011709,
+                            1344.926637331826,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            128.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            128.0,
+                            129.28,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            128.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            128.0,
+                            129.28,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_03": {
+                "id": "ln_43",
+                "type": "ac_line",
+                "link_1": "bus_02",
+                "link_2": "bus_03",
+                "voltage_level_1_id": "voltage_level_2",
+                "voltage_level_2_id": "voltage_level_3",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0002189999999999
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0002189999999999
+                },
+                "impedance": {
+                    "resistance": 4.699,
+                    "reactance": 19.797
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1454.925535418077,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1454.925535418077,
+                            1469.4747907722579,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1544.0957446808509,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1544.0957446808509,
+                            1559.5367021276593,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            145.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            145.0,
+                            146.45,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            145.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            145.0,
+                            146.45,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_04": {
+                "id": "ln_44",
+                "type": "ac_line",
+                "link_1": "bus_02",
+                "link_2": "bus_04",
+                "voltage_level_1_id": "voltage_level_2",
+                "voltage_level_2_id": "voltage_level_4",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.00017
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.00017
+                },
+                "impedance": {
+                    "resistance": 5.811,
+                    "reactance": 17.632
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1585.3671351452152,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1585.3671351452152,
+                            1601.2208064966674,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1657.484816063823,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1657.484816063823,
+                            1674.0596642244614,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            158.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            158.0,
+                            159.58,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            158.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            158.0,
+                            159.58,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_05": {
+                "id": "ln_45",
+                "type": "ac_line",
+                "link_1": "bus_02",
+                "link_2": "bus_05",
+                "voltage_level_1_id": "voltage_level_2",
+                "voltage_level_2_id": "voltage_level_5",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000173
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000173
+                },
+                "impedance": {
+                    "resistance": 5.695,
+                    "reactance": 17.388
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1615.4690427745546,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1615.4690427745546,
+                            1631.6237332023,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1674.9163722959777,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1674.9163722959777,
+                            1691.6655360189375,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            161.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            161.0,
+                            162.61,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            161.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            161.0,
+                            162.61,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_06": {
+                "id": "ln_46",
+                "type": "ac_line",
+                "link_1": "bus_03",
+                "link_2": "bus_04",
+                "voltage_level_1_id": "voltage_level_3",
+                "voltage_level_2_id": "voltage_level_4",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000064
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.000064
+                },
+                "impedance": {
+                    "resistance": 6.701,
+                    "reactance": 17.103
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1703.8297872340423,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1703.8297872340423,
+                            1720.8680851063828,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1678.465636520327,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1678.465636520327,
+                            1695.2502928855304,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            160.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            160.0,
+                            161.6,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            160.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            160.0,
+                            161.6,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_07": {
+                "id": "ln_47",
+                "type": "ac_line",
+                "link_1": "bus_04",
+                "link_2": "bus_05",
+                "voltage_level_1_id": "voltage_level_4",
+                "voltage_level_2_id": "voltage_level_5",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 1.335,
+                    "reactance": 4.211
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            6965.6323915593579,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            6965.6323915593579,
+                            7035.2887154749519,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            6907.72963481074,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            6907.72963481074,
+                            6976.806931158848,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            664.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            664.0,
+                            670.64,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            664.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            664.0,
+                            670.64,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_08": {
+                "id": "ln_48",
+                "type": "ac_line",
+                "link_1": "bus_06",
+                "link_2": "bus_11",
+                "voltage_level_1_id": "voltage_level_6",
+                "voltage_level_2_id": "voltage_level_11",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 9.498,
+                    "reactance": 19.89
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1265.4150943396226,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1265.4150943396226,
+                            1278.0692452830188,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1305.6316591187356,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1305.6316591187356,
+                            1318.687975709923,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            134.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            134.0,
+                            135.34,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            134.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            134.0,
+                            135.34,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_09": {
+                "id": "ln_49",
+                "type": "ac_line",
+                "link_1": "bus_06",
+                "link_2": "bus_12",
+                "voltage_level_1_id": "voltage_level_6",
+                "voltage_level_2_id": "voltage_level_12",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 12.291,
+                    "reactance": 25.581
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            982.1132075471697,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            982.1132075471697,
+                            991.9343396226415,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1007.1787385122349,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1007.1787385122349,
+                            1017.2505258973572,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            104.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            104.0,
+                            105.04,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            104.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            104.0,
+                            105.04,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_10": {
+                "id": "ln_50",
+                "type": "ac_line",
+                "link_1": "bus_06",
+                "link_2": "bus_13",
+                "voltage_level_1_id": "voltage_level_6",
+                "voltage_level_2_id": "voltage_level_13",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 6.615,
+                    "reactance": 13.027
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1898.1226415094334,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1898.1226415094334,
+                            1917.1038679245278,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1965.490585773052,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1965.490585773052,
+                            1985.1454916307826,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            200.99999999999998,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            200.99999999999998,
+                            203.00999999999997,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            200.99999999999998,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            200.99999999999998,
+                            203.00999999999997,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_11": {
+                "id": "ln_51",
+                "type": "ac_line",
+                "link_1": "bus_07",
+                "link_2": "bus_08",
+                "voltage_level_1_id": "voltage_level_7",
+                "voltage_level_2_id": "voltage_level_8",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 0.0,
+                    "reactance": 17.615
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1650.8484588456809,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1650.8484588456809,
+                            1667.3569434341378,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1577.0471698113207,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1577.0471698113207,
+                            1592.8176415094338,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            167.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            167.0,
+                            168.67,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            167.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            167.0,
+                            168.67,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_12": {
+                "id": "ln_52",
+                "type": "ac_line",
+                "link_1": "bus_07",
+                "link_2": "bus_09",
+                "voltage_level_1_id": "voltage_level_7",
+                "voltage_level_2_id": "voltage_level_9",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 0.0,
+                    "reactance": 11.001
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            2639.38047013052,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            2639.38047013052,
+                            2665.774274831825,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            2652.059080714539,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            2652.059080714539,
+                            2678.5796715216845,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            267.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            267.0,
+                            269.67,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            267.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            267.0,
+                            269.67,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_13": {
+                "id": "ln_53",
+                "type": "ac_line",
+                "link_1": "bus_09",
+                "link_2": "bus_10",
+                "voltage_level_1_id": "voltage_level_9",
+                "voltage_level_2_id": "voltage_level_10",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 3.181,
+                    "reactance": 8.450000000000001
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            3228.1618023678854,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            3228.1618023678854,
+                            3260.443420391564,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            3233.1206732054308,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            3233.1206732054308,
+                            3265.451879937485,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            325.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            325.0,
+                            328.25,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            325.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            325.0,
+                            328.25,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_14": {
+                "id": "ln_54",
+                "type": "ac_line",
+                "link_1": "bus_09",
+                "link_2": "bus_14",
+                "voltage_level_1_id": "voltage_level_9",
+                "voltage_level_2_id": "voltage_level_14",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 12.711,
+                    "reactance": 27.038
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            983.3477490289865,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            983.3477490289865,
+                            993.1812265192764,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1006.655158927655,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1006.655158927655,
+                            1016.7217105169315,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            99.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            99.0,
+                            99.99,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            99.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            99.0,
+                            99.99,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_15": {
+                "id": "ln_55",
+                "type": "ac_line",
+                "link_1": "bus_10",
+                "link_2": "bus_11",
+                "voltage_level_1_id": "voltage_level_10",
+                "voltage_level_2_id": "voltage_level_11",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 8.205,
+                    "reactance": 19.207
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1402.676968990664,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1402.676968990664,
+                            1416.7037386805706,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            1373.836298027923,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            1373.836298027923,
+                            1387.5746610082022,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            141.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            141.0,
+                            142.41,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            141.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            141.0,
+                            142.41,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_16": {
+                "id": "ln_56",
+                "type": "ac_line",
+                "link_1": "bus_12",
+                "link_2": "bus_13",
+                "voltage_level_1_id": "voltage_level_12",
+                "voltage_level_2_id": "voltage_level_13",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 22.092,
+                    "reactance": 19.988
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            958.7566837760697,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            958.7566837760697,
+                            968.3442506138305,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            968.0774526941899,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            968.0774526941899,
+                            977.7582272211319,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            99.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            99.0,
+                            99.99,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            99.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            99.0,
+                            99.99,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "line_17": {
+                "id": "ln_57",
+                "type": "ac_line",
+                "link_1": "bus_13",
+                "link_2": "bus_14",
+                "voltage_level_1_id": "voltage_level_13",
+                "voltage_level_2_id": "voltage_level_14",
+                "shunt_1": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "shunt_2": {
+                    "conductance": 0.0,
+                    "susceptance": 0.0
+                },
+                "impedance": {
+                    "resistance": 17.093,
+                    "reactance": 34.802
+                },
+                "current_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            743.1705697450346,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            743.1705697450346,
+                            750.6022754424849,
+                            "on"
+                        ]
+                    ]
+                },
+                "current_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            772.785778570725,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            772.785778570725,
+                            780.5136363564323,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_1": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            76.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            76.0,
+                            76.76,
+                            "on"
+                        ]
+                    ]
+                },
+                "thermal_limits_2": {
+                    "arguments": [
+                        "duration",
+                        "min",
+                        "max",
+                        "report"
+                    ],
+                    "values": [
+                        [
+                            "Inf",
+                            0.0,
+                            76.0,
+                            "off"
+                        ],
+                        [
+                            "Inf",
+                            76.0,
+                            76.76,
+                            "on"
+                        ]
+                    ]
+                }
+            },
+            "substation_1": {
+                "id": "substation_1",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_4": {
+                        "id": "voltage_level_4",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_03": {
+                                "id": "ld_24",
+                                "type": "load",
+                                "link": "bus_04",
+                                "demand": {
+                                    "active": 47.8,
+                                    "reactive": -3.9
+                                }
+                            },
+                            "bus_04": {
+                                "id": "bus_37",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_37"
+                            }
+                        }
+                    },
+                    "voltage_level_7": {
+                        "id": "voltage_level_7",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "bus_07": {
+                                "id": "bus_40",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_40"
+                            }
+                        }
+                    },
+                    "voltage_level_9": {
+                        "id": "voltage_level_9",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_06": {
+                                "id": "ld_27",
+                                "type": "load",
+                                "link": "bus_09",
+                                "demand": {
+                                    "active": 58.02,
+                                    "reactive": 16.6
+                                }
+                            },
+                            "shunt_01": {
+                                "id": "sh_1",
+                                "type": "shunt",
+                                "link": "bus_09",
+                                "shunt": {
+                                    "conductance": 0.0,
+                                    "susceptance": 0.0019
+                                }
+                            },
+                            "bus_09": {
+                                "id": "bus_42",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_42"
+                            }
+                        }
+                    },
+                    "transformer_01": {
+                        "id": "twt_1",
+                        "type": "two_winding_transformer",
+                        "link_1": "bus_04",
+                        "link_2": "bus_07",
+                        "voltage_level_1_id": "voltage_level_4",
+                        "voltage_level_2_id": "voltage_level_7",
+                        "current_limits_1": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    1479.1478421835382,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    1479.1478421835382,
+                                    1493.9393206053736,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "current_limits_2": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    1393.8301359116227,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    1393.8301359116227,
+                                    1407.7684372707389,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "thermal_limits_1": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    141.0,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    141.0,
+                                    142.41,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "thermal_limits_2": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    141.0,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    141.0,
+                                    142.41,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "tap_changer": {
+                            "position": {
+                                "var": {
+                                    "lb": 0,
+                                    "ub": 0
+                                }
+                            },
+                            "impedance": {
+                                "resistance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                },
+                                "reactance": {
+                                    "var": {
+                                        "lb": 20.912,
+                                        "ub": 20.912
+                                    }
+                                }
+                            },
+                            "shunt": {
+                                "conductance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                },
+                                "susceptance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                }
+                            },
+                            "tap_ratio": {
+                                "var": {
+                                    "lb": 0.0,
+                                    "ub": 0.978
+                                }
+                            },
+                            "angle_shift": {
+                                "var": {
+                                    "lb": 0.0,
+                                    "ub": 0.0
+                                }
+                            },
+                            "steps": {
+                                "arguments": [
+                                    "position",
+                                    "impedance",
+                                    "shunt",
+                                    "tap_ratio",
+                                    "angle_shift"
+                                ],
+                                "values": [
+                                    [
+                                        0,
+                                        {
+                                            "resistance": 0.0,
+                                            "reactance": 20.912
+                                        },
+                                        {
+                                            "conductance": 0.0,
+                                            "susceptance": 0.0
+                                        },
+                                        0.978,
+                                        0.0
+                                    ]
+                                ]
+                            }
+                        }
+                    },
+                    "transformer_02": {
+                        "id": "twt_2",
+                        "type": "two_winding_transformer",
+                        "link_1": "bus_04",
+                        "link_2": "bus_09",
+                        "voltage_level_1_id": "voltage_level_4",
+                        "voltage_level_2_id": "voltage_level_9",
+                        "current_limits_1": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    555.9917420973584,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    555.9917420973584,
+                                    561.5516595183319,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "current_limits_2": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    526.438693924609,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    526.438693924609,
+                                    531.703080863855,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "thermal_limits_1": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    53.0,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    53.0,
+                                    53.53,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "thermal_limits_2": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    53.0,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    53.0,
+                                    53.53,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "tap_changer": {
+                            "position": {
+                                "var": {
+                                    "lb": 0,
+                                    "ub": 0
+                                }
+                            },
+                            "impedance": {
+                                "resistance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                },
+                                "reactance": {
+                                    "var": {
+                                        "lb": 55.618,
+                                        "ub": 55.618
+                                    }
+                                }
+                            },
+                            "shunt": {
+                                "conductance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                },
+                                "susceptance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                }
+                            },
+                            "tap_ratio": {
+                                "var": {
+                                    "lb": 0.0,
+                                    "ub": 0.969
+                                }
+                            },
+                            "angle_shift": {
+                                "var": {
+                                    "lb": 0.0,
+                                    "ub": 0.0
+                                }
+                            },
+                            "steps": {
+                                "arguments": [
+                                    "position",
+                                    "impedance",
+                                    "shunt",
+                                    "tap_ratio",
+                                    "angle_shift"
+                                ],
+                                "values": [
+                                    [
+                                        0,
+                                        {
+                                            "resistance": 0.0,
+                                            "reactance": 55.618
+                                        },
+                                        {
+                                            "conductance": 0.0,
+                                            "susceptance": 0.0
+                                        },
+                                        0.969,
+                                        0.0
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_2": {
+                "id": "substation_2",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_5": {
+                        "id": "voltage_level_5",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_04": {
+                                "id": "ld_25",
+                                "type": "load",
+                                "link": "bus_05",
+                                "demand": {
+                                    "active": 14.95,
+                                    "reactive": 1.6
+                                }
+                            },
+                            "bus_05": {
+                                "id": "bus_38",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_38"
+                            }
+                        }
+                    },
+                    "voltage_level_6": {
+                        "id": "voltage_level_6",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "sync_cond_2": {
+                                "id": "sw_3",
+                                "type": "synchronous_condenser",
+                                "link": "bus_06",
+                                "output": {
+                                    "reactive": {
+                                        "var": {
+                                            "lb": -56.39999999999999,
+                                            "ub": 56.39999999999999
+                                        }
+                                    }
+                                }
+                            },
+                            "load_05": {
+                                "id": "ld_26",
+                                "type": "load",
+                                "link": "bus_06",
+                                "demand": {
+                                    "active": 22.03,
+                                    "reactive": 7.5
+                                }
+                            },
+                            "bus_06": {
+                                "id": "bus_39",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_39"
+                            }
+                        }
+                    },
+                    "transformer_03": {
+                        "id": "twt_3",
+                        "type": "two_winding_transformer",
+                        "link_1": "bus_05",
+                        "link_2": "bus_06",
+                        "voltage_level_1_id": "voltage_level_5",
+                        "voltage_level_2_id": "voltage_level_6",
+                        "current_limits_1": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    1217.1752519169527,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    1217.1752519169527,
+                                    1229.3470044361223,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "current_limits_2": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    1104.877358490566,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    1104.877358490566,
+                                    1115.9261320754716,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "thermal_limits_1": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    117.0,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    117.0,
+                                    118.17,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "thermal_limits_2": {
+                            "arguments": [
+                                "duration",
+                                "min",
+                                "max",
+                                "report"
+                            ],
+                            "values": [
+                                [
+                                    "Inf",
+                                    0.0,
+                                    117.0,
+                                    "off"
+                                ],
+                                [
+                                    "Inf",
+                                    117.0,
+                                    118.17,
+                                    "on"
+                                ]
+                            ]
+                        },
+                        "tap_changer": {
+                            "position": {
+                                "var": {
+                                    "lb": 0,
+                                    "ub": 0
+                                }
+                            },
+                            "impedance": {
+                                "resistance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                },
+                                "reactance": {
+                                    "var": {
+                                        "lb": 25.202,
+                                        "ub": 25.202
+                                    }
+                                }
+                            },
+                            "shunt": {
+                                "conductance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                },
+                                "susceptance": {
+                                    "var": {
+                                        "lb": 0.0,
+                                        "ub": 0.0
+                                    }
+                                }
+                            },
+                            "tap_ratio": {
+                                "var": {
+                                    "lb": 0.0,
+                                    "ub": 0.932
+                                }
+                            },
+                            "angle_shift": {
+                                "var": {
+                                    "lb": 0.0,
+                                    "ub": 0.0
+                                }
+                            },
+                            "steps": {
+                                "arguments": [
+                                    "position",
+                                    "impedance",
+                                    "shunt",
+                                    "tap_ratio",
+                                    "angle_shift"
+                                ],
+                                "values": [
+                                    [
+                                        0,
+                                        {
+                                            "resistance": 0.0,
+                                            "reactance": 25.202
+                                        },
+                                        {
+                                            "conductance": 0.0,
+                                            "susceptance": 0.0
+                                        },
+                                        0.932,
+                                        0.0
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_3": {
+                "id": "substation_3",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_1": {
+                        "id": "voltage_level_1",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "gen_1": {
+                                "id": "gn_18",
+                                "type": "generator",
+                                "subtype": "other",
+                                "link": "bus_01",
+                                "output": {
+                                    "active": {
+                                        "var": {
+                                            "lb": 0.0,
+                                            "ub": 542.0
+                                        }
+                                    },
+                                    "reactive": {
+                                        "var": {
+                                            "lb": -271.0,
+                                            "ub": 271.0
+                                        }
+                                    }
+                                }
+                            },
+                            "bus_01": {
+                                "id": "bus_34",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_34"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_4": {
+                "id": "substation_4",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_2": {
+                        "id": "voltage_level_2",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "gen_2": {
+                                "id": "gn_19",
+                                "type": "generator",
+                                "subtype": "other",
+                                "link": "bus_02",
+                                "output": {
+                                    "active": {
+                                        "var": {
+                                            "lb": 0.0,
+                                            "ub": 190.0
+                                        }
+                                    },
+                                    "reactive": {
+                                        "var": {
+                                            "lb": -95.0,
+                                            "ub": 95.0
+                                        }
+                                    }
+                                }
+                            },
+                            "load_01": {
+                                "id": "ld_22",
+                                "type": "load",
+                                "link": "bus_02",
+                                "demand": {
+                                    "active": 42.68,
+                                    "reactive": 12.7
+                                }
+                            },
+                            "bus_02": {
+                                "id": "bus_35",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_35"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_5": {
+                "id": "substation_5",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_3": {
+                        "id": "voltage_level_3",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "sync_cond_1": {
+                                "id": "sw_2",
+                                "type": "synchronous_condenser",
+                                "link": "bus_03",
+                                "output": {
+                                    "reactive": {
+                                        "var": {
+                                            "lb": -72.0,
+                                            "ub": 72.0
+                                        }
+                                    }
+                                }
+                            },
+                            "load_02": {
+                                "id": "ld_23",
+                                "type": "load",
+                                "link": "bus_03",
+                                "demand": {
+                                    "active": 185.26,
+                                    "reactive": 19.0
+                                }
+                            },
+                            "bus_03": {
+                                "id": "bus_36",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_36"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_6": {
+                "id": "substation_6",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_8": {
+                        "id": "voltage_level_8",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "sync_cond_3": {
+                                "id": "sw_4",
+                                "type": "synchronous_condenser",
+                                "link": "bus_08",
+                                "output": {
+                                    "reactive": {
+                                        "var": {
+                                            "lb": -30.0,
+                                            "ub": 30.0
+                                        }
+                                    }
+                                }
+                            },
+                            "bus_08": {
+                                "id": "bus_41",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_41"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_7": {
+                "id": "substation_7",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_10": {
+                        "id": "voltage_level_10",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_07": {
+                                "id": "ld_28",
+                                "type": "load",
+                                "link": "bus_10",
+                                "demand": {
+                                    "active": 17.7,
+                                    "reactive": 5.800000000000001
+                                }
+                            },
+                            "bus_10": {
+                                "id": "bus_43",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_43"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_8": {
+                "id": "substation_8",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_11": {
+                        "id": "voltage_level_11",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_08": {
+                                "id": "ld_29",
+                                "type": "load",
+                                "link": "bus_11",
+                                "demand": {
+                                    "active": 6.88,
+                                    "reactive": 1.8000000000000005
+                                }
+                            },
+                            "bus_11": {
+                                "id": "bus_44",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_44"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_9": {
+                "id": "substation_9",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_12": {
+                        "id": "voltage_level_12",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_09": {
+                                "id": "ld_30",
+                                "type": "load",
+                                "link": "bus_12",
+                                "demand": {
+                                    "active": 12.0,
+                                    "reactive": 1.6
+                                }
+                            },
+                            "bus_12": {
+                                "id": "bus_45",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_45"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_10": {
+                "id": "substation_10",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_13": {
+                        "id": "voltage_level_13",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_10": {
+                                "id": "ld_31",
+                                "type": "load",
+                                "link": "bus_13",
+                                "demand": {
+                                    "active": 26.55,
+                                    "reactive": 5.800000000000001
+                                }
+                            },
+                            "bus_13": {
+                                "id": "bus_46",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_46"
+                            }
+                        }
+                    }
+                }
+            },
+            "substation_11": {
+                "id": "substation_11",
+                "type": "substation",
+                "substation_components": {
+                    "voltage_level_14": {
+                        "id": "voltage_level_14",
+                        "type": "voltage_level",
+                        "voltage": {
+                            "lower_limit": 94.0,
+                            "upper_limit": 106.0,
+                            "nominal_value": 100.0
+                        },
+                        "voltage_level_components": {
+                            "load_11": {
+                                "id": "ld_32",
+                                "type": "load",
+                                "link": "bus_14",
+                                "demand": {
+                                    "active": 29.3,
+                                    "reactive": 5.0
+                                }
+                            },
+                            "bus_14": {
+                                "id": "bus_47",
+                                "type": "bus",
+                                "voltage": {
+                                    "magnitude": {
+                                        "var": {
+                                            "lb": 94.0,
+                                            "ub": 106.0
+                                        }
+                                    },
+                                    "angle": {
+                                        "var": {
+                                            "lb": -180.0,
+                                            "ub": 180.0
+                                        }
+                                    }
+                                },
+                                "name": "bus_47"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "units": {
+        "voltage": "kilo_volt",
+        "current": "ampere",
+        "angle": "degree",
+        "active_power": "mega_watt",
+        "reactive_power": "mega_volt_ampre_reactive",
+        "impedance": "ohm",
+        "resistance": "ohm",
+        "reactance": "ohm",
+        "conductance": "siemens",
+        "susceptance": "siemens"
+    },
+    "mappings": {
+        "starting_points": {
+            "components": {
+                "substation_1": {
+                    "substation_components": {
+                        "voltage_level_4": {
+                            "voltage_level_components": {
+                                "load_03": {
+                                    "demand": {
+                                        "active": 47.8,
+                                        "reactive": -3.9
+                                    }
+                                },
+                                "bus_04": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        },
+                        "voltage_level_7": {
+                            "voltage_level_components": {
+                                "bus_07": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        },
+                        "voltage_level_9": {
+                            "voltage_level_components": {
+                                "load_06": {
+                                    "demand": {
+                                        "active": 58.02,
+                                        "reactive": 16.6
+                                    }
+                                },
+                                "bus_09": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        },
+                        "transformer_01": {
+                            "tap_changer": {
+                                "position": 0
+                            }
+                        },
+                        "transformer_02": {
+                            "tap_changer": {
+                                "position": 0
+                            }
+                        }
+                    }
+                },
+                "substation_2": {
+                    "substation_components": {
+                        "voltage_level_5": {
+                            "voltage_level_components": {
+                                "load_04": {
+                                    "demand": {
+                                        "active": 14.95,
+                                        "reactive": 1.6
+                                    }
+                                },
+                                "bus_05": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        },
+                        "voltage_level_6": {
+                            "voltage_level_components": {
+                                "sync_cond_2": {
+                                    "output": {
+                                        "reactive": 54.211
+                                    }
+                                },
+                                "load_05": {
+                                    "demand": {
+                                        "active": 22.03,
+                                        "reactive": 7.5
+                                    }
+                                },
+                                "bus_06": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        },
+                        "transformer_03": {
+                            "tap_changer": {
+                                "position": 0
+                            }
+                        }
+                    }
+                },
+                "substation_3": {
+                    "substation_components": {
+                        "voltage_level_1": {
+                            "voltage_level_components": {
+                                "gen_1": {
+                                    "output": {
+                                        "active": 335.518,
+                                        "reactive": 78.894
+                                    }
+                                },
+                                "bus_01": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_4": {
+                    "substation_components": {
+                        "voltage_level_2": {
+                            "voltage_level_components": {
+                                "gen_2": {
+                                    "output": {
+                                        "active": 169.401,
+                                        "reactive": -7.525
+                                    }
+                                },
+                                "load_01": {
+                                    "demand": {
+                                        "active": 42.68,
+                                        "reactive": 12.7
+                                    }
+                                },
+                                "bus_02": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_5": {
+                    "substation_components": {
+                        "voltage_level_3": {
+                            "voltage_level_components": {
+                                "sync_cond_1": {
+                                    "output": {
+                                        "reactive": 57.58
+                                    }
+                                },
+                                "load_02": {
+                                    "demand": {
+                                        "active": 185.26,
+                                        "reactive": 19.0
+                                    }
+                                },
+                                "bus_03": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_6": {
+                    "substation_components": {
+                        "voltage_level_8": {
+                            "voltage_level_components": {
+                                "sync_cond_3": {
+                                    "output": {
+                                        "reactive": 28.516
+                                    }
+                                },
+                                "bus_08": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_7": {
+                    "substation_components": {
+                        "voltage_level_10": {
+                            "voltage_level_components": {
+                                "load_07": {
+                                    "demand": {
+                                        "active": 17.7,
+                                        "reactive": 5.800000000000001
+                                    }
+                                },
+                                "bus_10": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_8": {
+                    "substation_components": {
+                        "voltage_level_11": {
+                            "voltage_level_components": {
+                                "load_08": {
+                                    "demand": {
+                                        "active": 6.88,
+                                        "reactive": 1.8000000000000005
+                                    }
+                                },
+                                "bus_11": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_9": {
+                    "substation_components": {
+                        "voltage_level_12": {
+                            "voltage_level_components": {
+                                "load_09": {
+                                    "demand": {
+                                        "active": 12.0,
+                                        "reactive": 1.6
+                                    }
+                                },
+                                "bus_12": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_10": {
+                    "substation_components": {
+                        "voltage_level_13": {
+                            "voltage_level_components": {
+                                "load_10": {
+                                    "demand": {
+                                        "active": 26.55,
+                                        "reactive": 5.800000000000001
+                                    }
+                                },
+                                "bus_13": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "substation_11": {
+                    "substation_components": {
+                        "voltage_level_14": {
+                            "voltage_level_components": {
+                                "load_11": {
+                                    "demand": {
+                                        "active": 29.3,
+                                        "reactive": 5.0
+                                    }
+                                },
+                                "bus_14": {
+                                    "voltage": {
+                                        "magnitude": 200.0,
+                                        "angle": 114.59155902616465
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "market": {
+        "costs": {
+            "#/network/components/substation_3/substation_components/voltage_level_1/voltage_level_components/gen_1": {
+                "type": "polynomial",
+                "arguments": [
+                    "@/output/active"
+                ],
+                "coefficients": [
+                    [
+                        0.0,
+                        66.426,
+                        0.0
+                    ]
+                ]
+            },
+            "#/network/components/substation_4/substation_components/voltage_level_2/voltage_level_components/gen_2": {
+                "type": "polynomial",
+                "arguments": [
+                    "@/output/active"
+                ],
+                "coefficients": [
+                    [
+                        0.0,
+                        60.61879999999999,
+                        0.0
+                    ]
+                ]
+            }
+        }
+    }
+}
