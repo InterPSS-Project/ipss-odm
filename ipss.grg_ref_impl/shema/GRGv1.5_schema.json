@@ -1,0 +1,1697 @@
+{
+    "id": "http://yourdomain.com/grid_schemas/base.json",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Grid Research for Good (GRG) data schema v.1.0. Copyright (c) 2017 The Grid Research for Good (GRG) Team (James Anderson, Russell Bent, Daniel Bienstock, Carleton Coffrin, Ferdinando Fioretto, Ian Hiskens, Steven Low, Patrick Panciatici, Pascal Van Hentenryck). Disclaimer: The following schema is subject to changes and revisions. Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated. documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+    "type": "object",
+    "required": [
+                 "grg_version",
+                 "network",
+                 "units"
+                 ],
+    "properties": {
+        "grg_version": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "network": {
+            "$ref": "#/network"
+        },
+        "mappings": {
+            "$ref": "#/mappings"
+        },
+        "market": {
+            "$ref": "#/market"
+        },
+        "units": {
+            "$ref": "#/units"
+        },
+        "operation_constraints": {
+            "$ref": "#/operation_constraints"
+        }
+    },
+    "additionalProperties": false,
+    "values": {
+        "basic_values": {
+            "extended_number": {
+                "oneOf": [
+                          {
+                          "type": "number"
+                          },
+                          {
+                          "enum": [
+                                   "Inf",
+                                   "-Inf",
+                                   "NaN",
+                                   "Null"
+                                   ]
+                          }
+                          ]
+            },
+            "extended_positive_number": {
+                "oneOf": [
+                          {
+                          "type": "number",
+                          "minimum": 0
+                          },
+                          {
+                          "enum": [
+                                   "Inf",
+                                   "NaN",
+                                   "Null"
+                                   ]
+                          }
+                          ]
+            },
+            "domain": {
+                "type": "object",
+                "required": [
+                             "var"
+                             ],
+                "properties": {
+                    "var": {
+                        "oneOf": [
+                                  {
+                                  "type": "array",
+                                  "items": {
+                                  "type": "string"
+                                  },
+                                  "minItems": 1
+                                  },
+                                  {
+                                  "type": "array",
+                                  "items": {
+                                  "type": "number"
+                                  },
+                                  "minItems": 1
+                                  },
+                                  {
+                                  "type": "object",
+                                  "required": [
+                                               "lb",
+                                               "ub"
+                                               ],
+                                  "properties": {
+                                  "lb": {
+                                  "$ref": "#/values/basic_values/extended_number"
+                                  },
+                                  "ub": {
+                                  "$ref": "#/values/basic_values/extended_number"
+                                  }
+                                  },
+                                  "additionalProperties": false
+                                  }
+                                  ]
+                    }
+                },
+                "additionalProperties": false
+            },
+            "positive_domain": {
+                "type": "object",
+                "required": [
+                             "var"
+                             ],
+                "properties": {
+                    "var": {
+                        "oneOf": [
+                                  {
+                                  "type": "array",
+                                  "items": {
+                                  "type": "string"
+                                  },
+                                  "minItems": 1
+                                  },
+                                  {
+                                  "type": "array",
+                                  "items": {
+                                  "type": "number",
+                                  "minimum": 0
+                                  },
+                                  "minItems": 1
+                                  },
+                                  {
+                                  "type": "object",
+                                  "required": [
+                                               "lb",
+                                               "ub"
+                                               ],
+                                  "properties": {
+                                  "lb": {
+                                  "$ref": "#/values/basic_values/extended_positive_number"
+                                  },
+                                  "ub": {
+                                  "$ref": "#/values/basic_values/extended_positive_number"
+                                  }
+                                  },
+                                  "additionalProperties": false
+                                  }
+                                  ]
+                    }
+                },
+                "additionalProperties": false
+            },
+            "abstract_value": {
+                "oneOf": [
+                          {
+                          "$ref": "#/values/basic_values/extended_number"
+                          },
+                          {
+                          "$ref": "#/values/basic_values/domain"
+                          }
+                          ]
+            },
+            "abstract_positive_value": {
+                "oneOf": [
+                          {
+                          "$ref": "#/values/basic_values/extended_positive_number"
+                          },
+                          {
+                          "$ref": "#/values/basic_values/positive_domain"
+                          }
+                          ]
+            },
+            "status": {
+                "oneOf": [
+                          {
+                          "enum": [
+                                   "off",
+                                   "on"
+                                   ]
+                          },
+                          {
+                          "type": "object",
+                          "required": [
+                                       "var"
+                                       ],
+                          "properties": {
+                          "var": {
+                          "type": "array",
+                          "items": {
+                          "enum": [
+                                   "on",
+                                   "off"
+                                   ]
+                          },
+                          "minItems": 2,
+                          "maxItems": 2,
+                          "uniqueItems": true
+                          }
+                          },
+                          "additionalProperties": false
+                          }
+                          ]
+            },
+            "grg_pointer": {
+                "type": "string",
+                "pattern": ".*"
+            },
+            "table": {
+                "type": "object",
+                "required": [
+                             "arguments",
+                             "values"
+                             ],
+                "additionalProperties": false,
+                "properties": {
+                    "arguments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/values/basic_values/grg_pointer"
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "oneOf": [
+                                          {
+                                          "$ref": "#/values/basic_values/abstract_value"
+                                          },
+                                          {
+                                          "type": "string"
+                                          }
+                                          ]
+                            },
+                            "minItems": 1
+                        },
+                        "minItems": 1
+                    }
+                }
+            },
+            "polyhedra": {
+                "type": "object",
+                "required": [
+                             "arguments",
+                             "coefficients"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "arguments": {
+                        "type": "array",
+                        "items": {
+                            "type": "#/values/basic_values/grg_pointer"
+                        },
+                        "uniqueItems": True
+                    },
+                    "coefficients": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "electrical_values": {
+            "impedance": {
+                "type": "object",
+                "required": [
+                             "resistance",
+                             "reactance"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "resistance": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    },
+                    "reactance": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    }
+                }
+            },
+            "admittance": {
+                "type": "object",
+                "required": [
+                             "conductance",
+                             "susceptance"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "conductance": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    },
+                    "susceptance": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    }
+                }
+            },
+            "power": {
+                "type": "object",
+                "required": [
+                             "active",
+                             "reactive"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "active": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    },
+                    "reactive": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    }
+                }
+            },
+            "voltage": {
+                "type": "object",
+                "required": [
+                             "magnitude",
+                             "angle"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "magnitude": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    },
+                    "angle": {
+                        "$ref": "#/values/basic_values/abstract_value"
+                    }
+                }
+            }
+        },
+        "limits": {
+            "current_limits": {
+                "type": "object",
+                "required": [
+                             "arguments",
+                             "values"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "arguments": {
+                        "type": "array",
+                        "items": [
+                                  {
+                                  "enum": [
+                                           "duration"
+                                           ]
+                                  },
+                                  {
+                                  "enum": [
+                                           "min"
+                                           ]
+                                  },
+                                  {
+                                  "enum": [
+                                           "max"
+                                           ]
+                                  },
+                                  {
+                                  "enum": [
+                                           "report"
+                                           ]
+                                  }
+                                  ],
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "additionalItems": False
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": [
+                                  {
+                                  "type": "array",
+                                  "items": [
+                                            {
+                                            "$ref": "#/values/basic_values/extended_number"
+                                            },
+                                            {
+                                            "$ref": "#/values/basic_values/extended_number"
+                                            },
+                                            {
+                                            "$ref": "#/values/basic_values/extended_number"
+                                            },
+                                            {
+                                            "enum": [
+                                                     "on",
+                                                     "off"
+                                                     ]
+                                            }
+                                            ],
+                                  "minItems": 4,
+                                  "maxItems": 4,
+                                  "additionalItems": False
+                                  }
+                                  ],
+                        "minItemes": 1
+                    }
+                }
+            },
+            "thermal_limits": {
+                "type": "object",
+                "required": [
+                             "arguments",
+                             "values"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "arguments": {
+                        "type": "array",
+                        "items": [
+                                  {
+                                  "enum": [
+                                           "duration"
+                                           ]
+                                  },
+                                  {
+                                  "enum": [
+                                           "min"
+                                           ]
+                                  },
+                                  {
+                                  "enum": [
+                                           "max"
+                                           ]
+                                  },
+                                  {
+                                  "enum": [
+                                           "report"
+                                           ]
+                                  }
+                                  ],
+                        "minItems": 4,
+                        "maxItems": 4,
+                        "additionalItems": False
+                    },
+                    "values": {
+                        "type": "array",
+                        "items": [
+                                  {
+                                  "type": "array",
+                                  "items": [
+                                            {
+                                            "$ref": "#/values/basic_values/extended_number"
+                                            },
+                                            {
+                                            "$ref": "#/values/basic_values/extended_number"
+                                            },
+                                            {
+                                            "$ref": "#/values/basic_values/extended_number"
+                                            },
+                                            {
+                                            "enum": [
+                                                     "on",
+                                                     "off"
+                                                     ]
+                                            }
+                                            ],
+                                  "minItems": 4,
+                                  "maxItems": 4,
+                                  "additionalItems": False
+                                  }
+                                  ],
+                        "minItemes": 1
+                    }
+                }
+            }
+        }
+    },
+    "network": {
+        "type": "object",
+        "required": [
+                     "id",
+                     "type",
+                     "subtype",
+                     "per_unit",
+                     "components"
+                     ],
+        "allOf": [
+                  {
+                  "properties": {
+                  "id": {
+                  "type": "string"
+                  },
+                  "type": {
+                  "enum": [
+                           "network"
+                           ]
+                  },
+                  "per_unit": {
+                  "type": "boolean"
+                  },
+                  "description": {
+                  "type": "string"
+                  },
+                  "assignments": {
+                  "$ref": "#/network/network_assignments"
+                  },
+                  "subtype": {
+                  "type": "string"
+                  },
+                  "components": {
+                  "type": "object"
+                  }
+                  },
+                  "additionalProperties": False
+                  },
+                  {
+                  
+                  "oneOf": [
+                            {
+                            "$ref": "#/network/node_breaker"
+                            },
+                            {
+                            "$ref": "#/network/bus_breaker"
+                            },
+                            {
+                            "$ref": "#/network/bus_branch"
+                            }
+                            ]
+                  }
+                  ],
+        "network_assignments": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "oneOf": [
+                              {
+                              "$ref": "#/values/basic_values/abstract_value"
+                              },
+                              {
+                              "$ref": "#/values/basic_values/status"
+                              },
+                              {"type": "object"}
+                              ]
+                }
+            }
+        },
+        "network_components": {
+            "ac_line": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link_1",
+                             "link_2",
+                             "shunt_1",
+                             "shunt_2",
+                             "impedance",
+                             "current_limits_1",
+                             "current_limits_2"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "ac_line"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link_1": {
+                        "type": "string"
+                    },
+                    "link_2": {
+                        "type": "string"
+                    },
+                    "shunt_1": {
+                        "$ref": "#/values/electrical_values/admittance"
+                    },
+                    "shunt_2": {
+                        "$ref": "#/values/electrical_values/admittance"
+                    },
+                    "impedance": {
+                        "$ref": "#/values/electrical_values/impedance"
+                    },
+                    "current_limits_1": {
+                        "$ref": "#/values/limits/current_limits"
+                    },
+                    "current_limits_2": {
+                        "$ref": "#/values/limits/current_limits"
+                    },
+                    "thermal_limits_1": {
+                        "$ref": "#/values/limits/thermal_limits"
+                    },
+                    "thermal_limits_2": {
+                        "$ref": "#/values/limits/thermal_limits"
+                    }
+                }
+            },
+            "two_winding_transformer": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link_1",
+                             "link_2",
+                             "tap_changer"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "two_winding_transformer"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link_1": {
+                        "type": "string"
+                    },
+                    "link_2": {
+                        "type": "string"
+                    },
+                    "current_limits_1": {
+                        "$ref": "#/values/limits/current_limits"
+                    },
+                    "current_limits_2": {
+                        "$ref": "#/values/limits/current_limits"
+                    },
+                    "thermal_limits_1": {
+                        "$ref": "#/values/limits/thermal_limits"
+                    },
+                    "thermal_limits_2": {
+                        "$ref": "#/values/limits/thermal_limits"
+                    },
+                    "tap_changer": {
+                        "type": "object",
+                        "required": [
+                                     "position",
+                                     "impedance",
+                                     "shunt",
+                                     "tap_ratio",
+                                     "angle_shift",
+                                     "steps"
+                                     ],
+                        "additionalProperties": False,
+                        "properties": {
+                            "position": {
+                                "$ref": "#/values/basic_values/abstract_value"
+                            },
+                            "impedance": {
+                                "$ref": "#/values/electrical_values/impedance"
+                            },
+                            "shunt": {
+                                "$ref": "#/values/electrical_values/admittance"
+                            },
+                            "tap_ratio": {
+                                "$ref": "#/values/basic_values/abstract_value"
+                            },
+                            "angle_shift": {
+                                "$ref": "#/values/basic_values/abstract_value"
+                            },
+                            "steps": {
+                                "type": "object",
+                                "required": [
+                                             "arguments",
+                                             "values"
+                                             ],
+                                "properties": {
+                                    "arguments": {
+                                        "type": "array",
+                                        "items": [
+                                                  {
+                                                  "enum": [
+                                                           "position"
+                                                           ]
+                                                  },
+                                                  {
+                                                  "enum": [
+                                                           "impedance"
+                                                           ]
+                                                  },
+                                                  {
+                                                  "enum": [
+                                                           "shunt"
+                                                           ]
+                                                  },
+                                                  {
+                                                  "enum": [
+                                                           "tap_ratio"
+                                                           ]
+                                                  },
+                                                  {
+                                                  "enum": [
+                                                           "angle_shift"
+                                                           ]
+                                                  }
+                                                  ],
+                                        "minItems": 5,
+                                        "maxItems": 5,
+                                        "additionalItems": False
+                                    },
+                                    "values": {
+                                        "type": "array",
+                                        "items": [
+                                                  {
+                                                  "type": "array",
+                                                  "items": [
+                                                            {
+                                                            "type": "number"
+                                                            },
+                                                            {
+                                                            "$ref": "#/values/electrical_values/impedance"
+                                                            },
+                                                            {
+                                                            "$ref": "#/values/electrical_values/admittance"
+                                                            },
+                                                            {
+                                                            "$ref": "#/values/basic_values/abstract_value"
+                                                            },
+                                                            {
+                                                            "$ref": "#/values/basic_values/abstract_value"
+                                                            }
+                                                            ],
+                                                  "minItems": 5,
+                                                  "maxItems": 5,
+                                                  "additionalItems": False
+                                                  }
+                                                  ],
+                                        "minItemes": 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "bus": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "voltage"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "bus"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "voltage": {
+                        "$ref": "#/values/electrical_values/voltage"
+                    }
+                }
+            },
+            "busbar": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "voltage"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "bus"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "voltage": {
+                        "$ref": "#/values/electrical_values/voltage"
+                    }
+                }
+            },
+            "logical_bus": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "voltage"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "bus"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "voltage": {
+                        "$ref": "#/values/electrical_values/voltage"
+                    }
+                }
+            },
+            "shunt": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "shunt"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "shunt"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "shunt": {
+                        "$ref": "#/values/electrical_values/admittance"
+                    }
+                }
+            },
+            "load": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "demand"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "load"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "demand": {
+                        "$ref": "#/values/electrical_values/power"
+                    }
+                }
+            },
+            "generator": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "output"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "generator"
+                                 ]
+                    },
+                    "subtype": {
+                        "enum": [
+                                 "hydro",
+                                 "wind",
+                                 "thermal",
+                                 "other",
+                                 "nuclear",
+                                 "solar"
+                                 ]
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "output": {
+                        "$ref": "#/values/electrical_values/power"
+                    },
+                    "PQ_curve": {
+                        "type": "object",
+                        "required": [
+                                     "arguments",
+                                     "values"
+                                     ],
+                        "additionalProperties": False,
+                        "properties": {
+                            "arguments": {
+                                "type": "array",
+                                "items": [
+                                          {
+                                          "enum": [
+                                                   "active"
+                                                   ]
+                                          },
+                                          {
+                                          "enum": [
+                                                   "reactive_lb"
+                                                   ]
+                                          },
+                                          {
+                                          "enum": [
+                                                   "reactive_ub"
+                                                   ]
+                                          }
+                                          ],
+                                "minItems": 3,
+                                "maxItems": 3,
+                                "additionalItems": False
+                            },
+                            "values": {
+                                "type": "array",
+                                "items": [
+                                          {
+                                          "type": "array",
+                                          "items": [
+                                                    {
+                                                    "$ref": "#/values/basic_values/extended_number"
+                                                    },
+                                                    {
+                                                    "$ref": "#/values/basic_values/extended_number"
+                                                    },
+                                                    {
+                                                    "$ref": "#/values/basic_values/extended_number"
+                                                    }
+                                                    ],
+                                          "minItems": 3,
+                                          "maxItems": 3,
+                                          "additionalItems": False
+                                          }
+                                          ],
+                                "minItemes": 1
+                            }
+                        }
+                    }
+                }
+            },
+            "synchronous_condenser": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "id",
+                             "link",
+                             "output"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "synchronous_condenser"
+                                 ]
+                    },
+                    "subtype": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "output": {
+                        "reactive": {
+                            "$ref": "#/values/electrical_values/abstract_value"
+                        }
+                    }
+                }
+            },
+            "breaker": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "subtype",
+                             "id",
+                             "status",
+                             "link_1",
+                             "link_2"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "switch"
+                                 ]
+                    },
+                    "subtype": {
+                        "enum": [
+                                 "breaker"
+                                 ]
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "$ref": "#/values/basic_values/status"
+                    },
+                    "link_1": {
+                        "type": "string"
+                    },
+                    "link_2": {
+                        "type": "string"
+                    }
+                }
+            },
+            "isolator": {
+                "type": "object",
+                "required": [
+                             "type",
+                             "subtype",
+                             "id",
+                             "status",
+                             "link_1",
+                             "link_2"
+                             ],
+                "additionalProperties": False,
+                "properties": {
+                    "type": {
+                        "enum": [
+                                 "switch"
+                                 ]
+                    },
+                    "subtype": {
+                        "enum": [
+                                 "isolator"
+                                 ]
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "$ref": "#/values/basic_values/status"
+                    },
+                    "link_1": {
+                        "type": "string"
+                    },
+                    "link_2": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "node_breaker": {
+            "properties": {
+                "subtype": {
+                    "enum": [
+                             "node_breaker"
+                             ]
+                },
+                "components": {
+                    "$ref": "#/network/node_breaker/network_components"
+                }
+            },
+            "network_components": {
+                "patternProperties": {
+                    ".*": {
+                        "oneOf": [
+                                  {
+                                  "$ref": "#/network/node_breaker/network_components/substation"
+                                  },
+                                  {
+                                  "$ref": "#/network/network_components/ac_line"
+                                  }
+                                  ]
+                    }
+                },
+                "substation": {
+                    "type": "object",
+                    "required": [
+                                 "type",
+                                 "id",
+                                 "substation_components"
+                                 ],
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                     "substation"
+                                     ]
+                        },
+                        "subtype": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "country": {
+                            "type": "string"
+                        },
+                        "TSO": {
+                            "type": "string"
+                        },
+                        "substation_components": {
+                            "patternProperties": {
+                                ".*": {
+                                    "oneOf": [
+                                              {
+                                              "$ref": "#/network/node_breaker/network_components/voltage_level"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/two_winding_transformer"
+                                              }
+                                              ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "voltage_level": {
+                    "type": "object",
+                    "required": [
+                                 "type",
+                                 "id",
+                                 "voltage"
+                                 ],
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                     "voltage_level"
+                                     ]
+                        },
+                        "subtype": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "voltage": {
+                            "type": "object",
+                            "required": [
+                                         "nominal_value",
+                                         "upper_limit",
+                                         "lower_limit"
+                                         ],
+                            "additionalProperties": False,
+                            "properties": {
+                                "nominal_value": {
+                                    "type": "number"
+                                },
+                                "upper_limit": {
+                                    "type": "number"
+                                },
+                                "lower_limit": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "voltage_level_components": {
+                            "patternProperties": {
+                                ".*": {
+                                    "oneOf": [
+                                              {
+                                              "$ref": "#/network/network_components/busbar"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/shunt"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/load"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/generator"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/synchronous_condenser"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/breaker"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/isolator"
+                                              }
+                                              ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "bus_breaker": {
+            "properties": {
+                "subtype": {
+                    "enum": [
+                             "bus_breaker"
+                             ]
+                },
+                "components": {
+                    "$ref": "#/network/bus_breaker/network_components"
+                }
+            },
+            "network_components": {
+                "patternProperties": {
+                    ".*": {
+                        "oneOf": [
+                                  {
+                                  "$ref": "#/network/bus_breaker/network_components/substation"
+                                  },
+                                  {
+                                  "$ref": "#/network/network_components/ac_line"
+                                  }
+                                  ]
+                    }
+                },
+                "substation": {
+                    "type": "object",
+                    "required": [
+                                 "type",
+                                 "id"
+                                 ],
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                     "substation"
+                                     ]
+                        },
+                        "subtype": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "country": {
+                            "type": "string"
+                        },
+                        "TSO": {
+                            "type": "string"
+                        },
+                        "substation_components": {
+                            "patternProperties": {
+                                ".*": {
+                                    "oneOf": [
+                                              {
+                                              "$ref": "#/network/bus_breaker/network_components/voltage_level"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/two_winding_transformer"
+                                              }
+                                              ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "voltage_level": {
+                    "type": "object",
+                    "required": [
+                                 "type",
+                                 "id",
+                                 "voltage"
+                                 ],
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                     "voltage_level"
+                                     ]
+                        },
+                        "subtype": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "voltage": {
+                            "type": "object",
+                            "required": [
+                                         "nominal_value",
+                                         "upper_limit",
+                                         "lower_limit"
+                                         ],
+                            "additionalProperties": False,
+                            "properties": {
+                                "nominal_value": {
+                                    "type": "number"
+                                },
+                                "upper_limit": {
+                                    "type": "number"
+                                },
+                                "lower_limit": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "voltage_level_components": {
+                            "patternProperties": {
+                                ".*": {
+                                    "oneOf": [
+                                              {
+                                              "$ref": "#/network/network_components/logical_bus"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/shunt"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/load"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/generator"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/synchronous_condenser"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/breaker"
+                                              }
+                                              ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "bus_branch": {
+            "properties": {
+                "subtype": {
+                    "enum": [
+                             "bus_branch"
+                             ]
+                },
+                "components": {
+                    "$ref": "#/network/bus_branch/network_components"
+                }
+            },
+            "network_components": {
+                "patternProperties": {
+                    ".*": {
+                        "oneOf": [
+                                  {
+                                  "$ref": "#/network/bus_branch/network_components/substation"
+                                  },
+                                  {
+                                  "$ref": "#/network/network_components/ac_line"
+                                  }
+                                  ]
+                    }
+                },
+                "substation": {
+                    "type": "object",
+                    "required": [
+                                 "type",
+                                 "id"
+                                 ],
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                     "substation"
+                                     ]
+                        },
+                        "subtype": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "country": {
+                            "type": "string"
+                        },
+                        "TSO": {
+                            "type": "string"
+                        },
+                        "substation_components": {
+                            "patternProperties": {
+                                ".*": {
+                                    "oneOf": [
+                                              {
+                                              "$ref": "#/network/bus_branch/network_components/voltage_level"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/two_winding_transformer"
+                                              }
+                                              ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "voltage_level": {
+                    "type": "object",
+                    "required": [
+                                 "type",
+                                 "id",
+                                 "voltage"
+                                 ],
+                    "properties": {
+                        "type": {
+                            "enum": [
+                                     "voltage_level"
+                                     ]
+                        },
+                        "subtype": {
+                            "type": "string"
+                        },
+                        "id": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "voltage": {
+                            "type": "object",
+                            "required": [
+                                         "nominal_value",
+                                         "upper_limit",
+                                         "lower_limit"
+                                         ],
+                            "additionalProperties": False,
+                            "properties": {
+                                "nominal_value": {
+                                    "type": "number"
+                                },
+                                "upper_limit": {
+                                    "type": "number"
+                                },
+                                "lower_limit": {
+                                    "type": "number"
+                                }
+                            }
+                        },
+                        "voltage_level_components": {
+                            "patternProperties": {
+                                ".*": {
+                                    "oneOf": [
+                                              {
+                                              "$ref": "#/network/network_components/bus"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/shunt"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/load"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/generator"
+                                              },
+                                              {
+                                              "$ref": "#/network/network_components/synchronous_condenser"
+                                              }
+                                              ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "mappings": {
+        "type": "object",
+        "patternProperties": {
+            ".*": {
+                "$ref": "#/network/network_assignments"
+            }
+        }
+    },
+    "market": {
+        "type": "object",
+        "required": [
+                     "costs"
+                     ],
+        "properties": {
+            "costs": {
+                "patternProperties": {
+                    ".*": {
+                        "type": "object",
+                        "required": [
+                                     "type",
+                                     "arguments",
+                                     "coefficients"
+                                     ],
+                        "properties": {
+                            "type": {
+                                "enum": [
+                                         "polynomial"
+                                         ]
+                            },
+                            "arguments": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/values/basic_values/grg_pointer"
+                                },
+                                "minItems": 1,
+                                "uniqueItems": True
+                            },
+                            "coefficients": {
+                                "type": "array",
+                                "items": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/values/basic_values/abstract_value"
+                                    },
+                                    "minItems": 1
+                                },
+                                "minItems": 1
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "units": {
+        "type": "object",
+        "required": [
+                     "voltage",
+                     "current",
+                     "angle",
+                     "reactive_power",
+                     "active_power",
+                     "impedance",
+                     "resistance",
+                     "reactance",
+                     "conductance",
+                     "susceptance"
+                     ],
+        "properties": {
+            "voltage": {
+                "enum": [
+                         "volt",
+                         "kilo_volt",
+                         "mega_volt",
+                         "pu"
+                         ]
+            },
+            "current": {
+                "enum": [
+                         "ampere",
+                         "kilo_ampere",
+                         "mega_ampere",
+                         "pu"
+                         ]
+            },
+            "angle": {
+                "enum": [
+                         "degree",
+                         "radian"
+                         ]
+            },
+            "active_power": {
+                "enum": [
+                         "watt",
+                         "kilo_watt",
+                         "mega_watt",
+                         "pu"
+                         ]
+            },
+            "reactive_power": {
+                "enum": [
+                         "volt_ampere_reactive",
+                         "mega_volt_ampre_reactive",
+                         "pu"
+                         ]
+            },
+            "impedance": {
+                "enum": [
+                         "ohm",
+                         "pu"
+                         ]
+            },
+            "resistance": {
+                "enum": [
+                         "ohm",
+                         "pu"
+                         ]
+            },
+            "reactance": {
+                "enum": [
+                         "ohm",
+                         "pu"
+                         ]
+            },
+            "conductance": {
+                "enum": [
+                         "siemens",
+                         "pu"
+                         ]
+            },
+            "susceptance": {
+                "enum": [
+                         "siemens",
+                         "pu"
+                         ]
+            },
+            "time": {
+                "enum": [
+                         "seconds",
+                         "minutes",
+                         "hours",
+                         "days",
+                         "months",
+                         "years"
+                         ]
+            }
+        }
+    },
+    "operation_constraints": {
+        "type": "object",
+        "patternProperties": {
+            "#/values/basic_values/grg_pointer":   {
+                "$ref": "#/network/network_assignments"
+            }
+        }
+    }
+}
