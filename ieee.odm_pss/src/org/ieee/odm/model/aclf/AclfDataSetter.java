@@ -237,6 +237,8 @@ public class AclfDataSetter extends BaseDataSetter {
 		if (bus.getShuntYData() == null) {
 			bus.setShuntYData(OdmObjFactory.createBusShuntYDataXmlType());
 			bus.getShuntYData().setEquivY(OdmObjFactory.createYXmlType());
+		}else if(bus.getShuntYData().getEquivY() == null){
+			bus.getShuntYData().setEquivY(OdmObjFactory.createYXmlType());
 		}
 		bus.getShuntYData().getEquivY().setRe(re + bus.getShuntYData().getEquivY().getRe());
 		bus.getShuntYData().getEquivY().setIm(im + bus.getShuntYData().getEquivY().getIm());

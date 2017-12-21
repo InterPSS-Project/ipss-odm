@@ -12,8 +12,6 @@
 	
     <ns:complexType name="SwitchedShuntXmlType">
 		<ns:sequence>
-			<ns:element minOccurs="0" name="cimRdfRec" type="pss:CimRdfXmlType"/>
-			<ns:element maxOccurs="1" minOccurs="0" name="cimSwitches" type="pss:CimSwitchListXmlType"/>
 			<ns:element minOccurs="1" name="desiredVoltageRange" type="pss:VoltageLimitXmlType"/>
 			<ns:element minOccurs="1" name="bInit" type="pss:ReactivePowerXmlType"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="VarPercent" type="ns:double"/>
@@ -78,8 +76,6 @@
     
     <ns:complexType name="StaticVarCompensatorXmlType">
 		<ns:sequence>
-			<ns:element minOccurs="0" name="cimRdfRec" type="pss:CimRdfXmlType"/>
-			<ns:element maxOccurs="1" minOccurs="0" name="cimSwitches" type="pss:CimSwitchListXmlType"/>
 			<ns:element minOccurs="1" name="offLine" type="ns:boolean"/>
 			<ns:element minOccurs="1" name="ratedVoltage" type="pss:VoltageXmlType"/>
 			<ns:element minOccurs="1" name="voltageSetPoint" type="pss:VoltageXmlType"/>

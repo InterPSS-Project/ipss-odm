@@ -172,7 +172,7 @@
         	Base bus record for all bus type
         </ns:documentation></ns:annotation>
         <ns:complexContent>
-			<ns:extension base="pss:CimRdfRecordType">
+			<ns:extension base="pss:IDRecordXmlType">
 				<ns:sequence>
 					<ns:element name="baseVoltage" type="pss:VoltageXmlType" minOccurs="0" maxOccurs="1">
 						<ns:annotation><ns:documentation>
@@ -188,7 +188,7 @@
 
     <ns:complexType name="BaseBranchXmlType">
 		<ns:complexContent>
-			<ns:extension base="pss:CimConnectionRecordType">
+			<ns:extension base="pss:IDRecordXmlType">
 				<ns:sequence>
 					<ns:element name="fromBus" type="pss:BusIDRefXmlType" minOccurs="1" maxOccurs="1"></ns:element>
 					<ns:element name="toBus" type="pss:BusIDRefXmlType" minOccurs="1" maxOccurs="1"></ns:element>
@@ -393,7 +393,6 @@
 <!-- 
 	 CIM record type
 	 ===============
- -->
 	
     <ns:complexType name="CimSwitchXmlType">
 		<ns:complexContent>
@@ -444,6 +443,7 @@
 			<ns:element name="switch" type="pss:CimSwitchXmlType" maxOccurs="unbounded" minOccurs="0"></ns:element>
 		</ns:sequence>
 	</ns:complexType>
+ -->
 	
 	
     <ns:complexType name="DcLineFaultXmlType">
