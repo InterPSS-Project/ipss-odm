@@ -415,7 +415,7 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 	        	cmpldw.setTrst( Trst);
 	        	
 	        
-	        	cmpldw.setVtr1B( Vrst);
+	        	cmpldw.setVrst( Vrst);
 	        	cmpldw.setTrst( Trst);
 	        	
 	        	cmpldw.setFuvr(Fuvr);
