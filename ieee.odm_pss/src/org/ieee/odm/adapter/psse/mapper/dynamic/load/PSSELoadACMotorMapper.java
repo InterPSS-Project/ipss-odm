@@ -71,11 +71,11 @@ public class PSSELoadACMotorMapper extends BasePSSEDataMapper{
     			double Vbrk    = dataParser.getDouble("Vbrk");  
     			double Frst    = dataParser.getDouble("Frst");  
     			double Vrst    = dataParser.getDouble("Vrst");  
-    			double Trst    = dataParser.getDouble("Trst");  
+    			double Trst    = dataParser.getDouble("Trestart");  
     			double Fuvr    = dataParser.getDouble("Fuvr");  
-    			double Vtr1    = dataParser.getDouble("Vtr1");  
+    			double Vtr1    = dataParser.getDouble("UVtr1");  
     			double Ttr1    = dataParser.getDouble("Ttr1");  
-    			double Vtr2    = dataParser.getDouble("Vtr2");  
+    			double Vtr2    = dataParser.getDouble("UVtr2");  
     			double Ttr2    = dataParser.getDouble("Ttr2");  
     			double Vc1off  = dataParser.getDouble("Vc1off");
     			double Vc2off  = dataParser.getDouble("Vc2off");
@@ -122,6 +122,38 @@ public class PSSELoadACMotorMapper extends BasePSSEDataMapper{
 	        	acMotor.setTh2t(Th2t);
 	        	acMotor.setTv(Tv);
 	        	acMotor.setTf(Tf);
+	        	
+	        	/*
+	        	 * double LFadj   = dataParser.getDouble("LFadj");
+    			double Kp1     = dataParser.getDouble("Kp1");   
+    			double Np1     = dataParser.getDouble("Np1");   
+    			double Kq1     = dataParser.getDouble("Kq1");   
+    			double Nq1     = dataParser.getDouble("Nq1");   
+    			double Kp2     = dataParser.getDouble("Kp2");   
+    			double Np2     = dataParser.getDouble("Np2");   
+    			double Kq2     = dataParser.getDouble("Kq2");   
+    			double Nq2     = dataParser.getDouble("Nq2");   
+    			double CmpKpf  = dataParser.getDouble("CmpKpf");
+    			double CmpKqf  = dataParser.getDouble("CmpKqf");
+    			double Vbrk    = dataParser.getDouble("Vbrk"); 
+	        	 */
+	        	acMotor.setLFadj(LFadj);
+	        	acMotor.setKp1(Kp1);
+	        	acMotor.setNp1(Np1);
+	        	
+	        	acMotor.setKq1(Kq1);
+	        	acMotor.setNq1(Nq1);
+	        	
+	        	acMotor.setKp2(Kp2);
+	        	acMotor.setNp2(Np2);
+	        	
+	        	acMotor.setKq2(Kq2);
+	        	acMotor.setNq2(Nq2);
+	        	
+	        	acMotor.setCmpKpf(CmpKpf);
+	        	acMotor.setCmpKqf(CmpKqf);
+	        	acMotor.setVbrk(Vbrk);
+	        	
 
 	        }
 	   }

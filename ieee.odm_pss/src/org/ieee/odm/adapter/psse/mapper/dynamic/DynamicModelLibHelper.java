@@ -48,7 +48,7 @@ public class DynamicModelLibHelper {
 			Arrays.asList("GGOV1","HYGOV","HYGOV2","IEEEG2","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));
 	
 	private List<String> LoadModelList =new ArrayList<>(
-			Arrays.asList("CMPLDW")); //"IEELBL","IEELAR","CIMTR4","CIMWBL",
+			Arrays.asList("CMPLDW", "ACMTBLU1", "CIM6BL")); //"IEELBL","IEELAR","CIMTR4","CIMWBL",
 	
 	private List<String> UnsupportedLoadList =new ArrayList<>(
 			Arrays.asList("IEELBL","IEELAR","CIMTR4","CIMWBL"));
