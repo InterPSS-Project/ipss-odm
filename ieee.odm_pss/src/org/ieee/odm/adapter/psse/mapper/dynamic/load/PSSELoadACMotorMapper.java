@@ -49,7 +49,7 @@ public class PSSELoadACMotorMapper extends BasePSSEDataMapper{
 //	        		dstabloadData.setLoadModel(loadModel);
 //	        	}
 	        	
-	        	DynamicLoadSinglePhaseACMotorXmlType  acMotor = DStabParserHelper.createDStabLoadACMotor(dstabloadData);
+	        	DynamicLoadSinglePhaseACMotorXmlType  acMotorXml = DStabParserHelper.createDStabLoadACMotor(dstabloadData);
 	        	
 	        	double CompLF  = dataParser.getDouble("CompLF");
     			double CompPF  = dataParser.getDouble("CompPF");
@@ -89,39 +89,42 @@ public class PSSELoadACMotorMapper extends BasePSSEDataMapper{
 
     			
     			
-				acMotor.setCompPF( CompPF);
-				acMotor.setCompLF( CompLF);
+				acMotorXml.setCompPF( CompPF);
 				
-	        	acMotor.setVstall( Vstall);
-	        	acMotor.setTstall( Tstall);
+				if (CompLF<=0.0) CompLF = 1.0;
+				acMotorXml.setCompLF( CompLF);
+				
+				
+	        	acMotorXml.setVstall( Vstall);
+	        	acMotorXml.setTstall( Tstall);
 	        	
-	        	acMotor.setRstall( Rstall);
-	        	acMotor.setXstall( Xstall);
+	        	acMotorXml.setRstall( Rstall);
+	        	acMotorXml.setXstall( Xstall);
 	        	
 
-	        	acMotor.setFrst( Frst);
-	        	acMotor.setVrst( Vrst);
-	        	acMotor.setTrst( Trst);
+	        	acMotorXml.setFrst( Frst);
+	        	acMotorXml.setVrst( Vrst);
+	        	acMotorXml.setTrst( Trst);
 	        	
 	        	
-	        	acMotor.setFuvr(Fuvr);
-	        	acMotor.setVtr1(Vtr1);
-	        	acMotor.setTtr1(Ttr1);
+	        	acMotorXml.setFuvr(Fuvr);
+	        	acMotorXml.setVtr1(Vtr1);
+	        	acMotorXml.setTtr1(Ttr1);
 	        	
-	        	acMotor.setVtr2(Vtr2);
-	        	acMotor.setTtr2(Ttr2);
+	        	acMotorXml.setVtr2(Vtr2);
+	        	acMotorXml.setTtr2(Ttr2);
 	        	
-	        	acMotor.setVc1off(Vc1off);
-	        	acMotor.setVc2off(Vc2off);
+	        	acMotorXml.setVc1off(Vc1off);
+	        	acMotorXml.setVc2off(Vc2off);
 	        	
-	        	acMotor.setVc1on(Vc1on);
-	        	acMotor.setVc2on(Vc2on);
+	        	acMotorXml.setVc1on(Vc1on);
+	        	acMotorXml.setVc2on(Vc2on);
 	        	
-	        	acMotor.setTth(Tth);
-	        	acMotor.setTh1t(Th1t);
-	        	acMotor.setTh2t(Th2t);
-	        	acMotor.setTv(Tv);
-	        	acMotor.setTf(Tf);
+	        	acMotorXml.setTth(Tth);
+	        	acMotorXml.setTh1t(Th1t);
+	        	acMotorXml.setTh2t(Th2t);
+	        	acMotorXml.setTv(Tv);
+	        	acMotorXml.setTf(Tf);
 	        	
 	        	/*
 	        	 * double LFadj   = dataParser.getDouble("LFadj");
@@ -137,22 +140,22 @@ public class PSSELoadACMotorMapper extends BasePSSEDataMapper{
     			double CmpKqf  = dataParser.getDouble("CmpKqf");
     			double Vbrk    = dataParser.getDouble("Vbrk"); 
 	        	 */
-	        	acMotor.setLFadj(LFadj);
-	        	acMotor.setKp1(Kp1);
-	        	acMotor.setNp1(Np1);
+	        	acMotorXml.setLFadj(LFadj);
+	        	acMotorXml.setKp1(Kp1);
+	        	acMotorXml.setNp1(Np1);
 	        	
-	        	acMotor.setKq1(Kq1);
-	        	acMotor.setNq1(Nq1);
+	        	acMotorXml.setKq1(Kq1);
+	        	acMotorXml.setNq1(Nq1);
 	        	
-	        	acMotor.setKp2(Kp2);
-	        	acMotor.setNp2(Np2);
+	        	acMotorXml.setKp2(Kp2);
+	        	acMotorXml.setNp2(Np2);
 	        	
-	        	acMotor.setKq2(Kq2);
-	        	acMotor.setNq2(Nq2);
+	        	acMotorXml.setKq2(Kq2);
+	        	acMotorXml.setNq2(Nq2);
 	        	
-	        	acMotor.setCmpKpf(CmpKpf);
-	        	acMotor.setCmpKqf(CmpKqf);
-	        	acMotor.setVbrk(Vbrk);
+	        	acMotorXml.setCmpKpf(CmpKpf);
+	        	acMotorXml.setCmpKqf(CmpKqf);
+	        	acMotorXml.setVbrk(Vbrk);
 	        	
 
 	        }
