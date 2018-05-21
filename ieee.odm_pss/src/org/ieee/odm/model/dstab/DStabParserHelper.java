@@ -244,7 +244,7 @@ public class DStabParserHelper extends AcscParserHelper {
 		if(load.getLoadModel() == null)
 		      load.setLoadModel(OdmObjFactory.createDynamicLoadModelSelectionXmlType());
 		
-		load.getLoadModel().setACMotor(dynLoad);
+		load.getLoadModel().setSinglePhaseACMotor(dynLoad);
 		return dynLoad;
 	}
 	

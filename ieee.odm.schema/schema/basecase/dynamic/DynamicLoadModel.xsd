@@ -39,6 +39,7 @@
 			<ns:enumeration value="ComplexLoad"></ns:enumeration>
 			<ns:enumeration value="InductionMotor"></ns:enumeration>
 			<ns:enumeration value="WECCCompositeLoad"></ns:enumeration>
+			<ns:enumeration value="SINGLE_PHASE_AC_MOTOR"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
     
@@ -343,6 +344,7 @@
 			<ns:element name="ComplexLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadComplexLoadXmlType"></ns:element>
 			<ns:element name="InductionMotorCIM5" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadInductionMotorCIM5XmlType"></ns:element>
 			<ns:element name="CMPLDWLoad" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadCMPLDWXmlType"></ns:element>
+			<ns:element name="SinglePhaseACMotor" maxOccurs="1" minOccurs="0" type="pss:DynamicLoadSinglePhaseACMotorXmlType"></ns:element>
 		</ns:choice>
 	</ns:complexType>
 </ns:schema>

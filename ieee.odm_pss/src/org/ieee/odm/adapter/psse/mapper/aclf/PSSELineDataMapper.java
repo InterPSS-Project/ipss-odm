@@ -26,6 +26,7 @@ package org.ieee.odm.adapter.psse.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import org.apache.commons.math3.complex.Complex;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.parser.aclf.PSSELineDataParser;
@@ -105,6 +106,13 @@ public class PSSELineDataMapper extends BasePSSEDataMapper{
 		double r = dataParser.getDouble("R", 0.0);
 		double x = dataParser.getDouble("X", 0.0);
 		double b = dataParser.getDouble("B", 0.0);
+		
+		//TODO Temporally bad data fix
+		if(new Complex(r,x).abs()< 0.00001){
+			x = 0.00001;
+			ODMLogger.getLogger().severe("Line # "+braRecXml.getId()+", has zero impedance input, change X = 0.00001");
+		}
+		
 		AclfDataSetter.setLineData(braRecXml, r, x, ZUnitType.PU, 0.0, b, YUnitType.PU);
 
 		double ratea = dataParser.getDouble("RATEA", 0.0);

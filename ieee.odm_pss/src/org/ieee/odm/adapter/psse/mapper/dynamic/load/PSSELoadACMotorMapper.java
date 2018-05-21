@@ -114,15 +114,15 @@ public class PSSELoadACMotorMapper extends BasePSSEDataMapper{
 	        	acMotorXml.setVtr2(Vtr2);
 	        	acMotorXml.setTtr2(Ttr2);
 	        	
-	        	acMotorXml.setVc1off(Vc1off);
-	        	acMotorXml.setVc2off(Vc2off);
+	        	acMotorXml.setVc1Off(Vc1off);
+	        	acMotorXml.setVc2Off(Vc2off);
 	        	
-	        	acMotorXml.setVc1on(Vc1on);
-	        	acMotorXml.setVc2on(Vc2on);
+	        	acMotorXml.setVc1On(Vc1on);
+	        	acMotorXml.setVc2On(Vc2on);
 	        	
 	        	acMotorXml.setTth(Tth);
-	        	acMotorXml.setTh1t(Th1t);
-	        	acMotorXml.setTh2t(Th2t);
+	        	acMotorXml.setTh1T(Th1t);
+	        	acMotorXml.setTh2T(Th2t);
 	        	acMotorXml.setTv(Tv);
 	        	acMotorXml.setTf(Tf);
 	        	

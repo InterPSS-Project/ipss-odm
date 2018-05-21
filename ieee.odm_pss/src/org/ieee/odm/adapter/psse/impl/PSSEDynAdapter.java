@@ -33,6 +33,7 @@ import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynLoadMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -70,7 +71,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
       			if (lineStr != null) {
       				lineNo++;
       				if(skipInvalidLine(lineStr)){
-      					System.out.println("Invalid line, line# "+lineNo+",:"+lineStr);
+      					ODMLogger.getLogger().info(("Invalid line, line# "+lineNo+",:"+lineStr));
       					continue;
       				}
       				lineStr = lineStr.trim();
@@ -209,26 +210,26 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
     		
     }
     private boolean skipInvalidLine(String lineStr){
-    	if(lineStr.trim().length()==0.0){
+    	if(lineStr.trim().length()==0){
     		return true;
     	}
-		//Check if the first line of multiInteger(String s) {
-    	int busNum;
+		
+    	
 		if(lineStr.trim().startsWith("//") || lineStr.trim().startsWith("/"))
 			return true;
+		
 		// skip a line if it is not started with a bus Number, which is an integer, 
-	    try { 
-	    	String[] strAry = null;
-	    	if (lineStr.contains(","))
-	    		strAry=lineStr.split("\\s*(\\s|,)\\s*");
-	    	else
-	    	    strAry =lineStr.split("\\s+");
-	        busNum =Integer.parseInt(strAry[0].trim()); 
-	    } catch(NumberFormatException e) {
-	    	//System.out.println("Error when processing line: \n"+ lineStr);
-	        return true; 
-	    }
-	    // only got here if we didn't return false
-	    return false;
+	    
+    	String[] strAry = null;
+    	if (lineStr.contains(","))
+    		strAry=lineStr.trim().split("\\s*(\\s|,)\\s*");
+    	else
+    	    strAry =lineStr.trim().split("\\s+");
+    	
+	    if(strAry[0].matches("\\d+"))
+	    	return false;
+	    else
+	    	return true;
+	        
 	}
 }
