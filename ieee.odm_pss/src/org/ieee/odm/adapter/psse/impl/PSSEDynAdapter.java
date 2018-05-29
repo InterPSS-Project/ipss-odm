@@ -32,6 +32,7 @@ import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -67,7 +68,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
       			if (lineStr != null) {
       				lineNo++;
       				if(skipInvalidLine(lineStr)){
-      					System.out.println("Invalid line, line# "+lineNo+",:"+lineStr);
+      					ODMLogger.getLogger().info("Invalid line, line# "+lineNo+",:"+lineStr);
       					continue;
       				}
       				lineStr = lineStr.trim();

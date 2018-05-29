@@ -17,7 +17,7 @@ import org.ieee.odm.schema.LoadflowNetXmlType;
 /**
  * A generic adapter that supports the formats for the power flow, sequence and dynamic data can be different.
  * For example, the power flow is of PSS/E format, and the dynamic data is of PSLF format.
- * @author Qiuhua
+ * @author Qiuhua Huang
  *
  */
 public class GenericODMAdapter extends AbstractODMAdapter{
