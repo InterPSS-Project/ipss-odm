@@ -38,6 +38,7 @@ import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.DStabLoadDataXmlType;
 import org.ieee.odm.schema.DynamicLoadCMPLDWXmlType;
+import org.ieee.odm.schema.DynamicLoadSinglePhaseACMotorXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
 import org.ieee.odm.schema.Eq1Ed1MachineXmlType;
@@ -234,6 +235,16 @@ public class DStabParserHelper extends AcscParserHelper {
 		      load.setLoadModel(OdmObjFactory.createDynamicLoadModelSelectionXmlType());
 		
 		load.getLoadModel().setCMPLDWLoad(dynLoad);
+		return dynLoad;
+	}
+	
+	public static DynamicLoadSinglePhaseACMotorXmlType createDStabLoadACMotor(DStabLoadDataXmlType load){
+		
+		DynamicLoadSinglePhaseACMotorXmlType dynLoad = new DynamicLoadSinglePhaseACMotorXmlType();
+		if(load.getLoadModel() == null)
+		      load.setLoadModel(OdmObjFactory.createDynamicLoadModelSelectionXmlType());
+		
+		load.getLoadModel().setSinglePhaseACMotor(dynLoad);
 		return dynLoad;
 	}
 	

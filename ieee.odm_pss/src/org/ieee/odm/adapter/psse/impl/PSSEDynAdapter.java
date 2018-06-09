@@ -29,6 +29,7 @@ import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper.DynModelType;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynExciterMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
+import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynLoadMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
@@ -45,12 +46,14 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 	PSSEDynGeneratorMapper generatorMapper =null; 
 	PSSEDynExciterMapper   exciterMapper =null;
 	PSSEDynTurGovMapper    turGovMapper = null;
+	PSSEDynLoadMapper      loadMapper   = null;
     
 	public PSSEDynAdapter(PsseVersion ver) {
 		super(ver);
 		generatorMapper = new PSSEDynGeneratorMapper(ver);
 		exciterMapper   = new PSSEDynExciterMapper(ver);
 		turGovMapper    = new PSSEDynTurGovMapper(ver);
+		loadMapper      = new PSSEDynLoadMapper(ver);
 	}
 	
 	/*
@@ -68,7 +71,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
       			if (lineStr != null) {
       				lineNo++;
       				if(skipInvalidLine(lineStr)){
-      					ODMLogger.getLogger().info("Invalid line, line# "+lineNo+",:"+lineStr);
+      					ODMLogger.getLogger().info(("Invalid line, line# "+lineNo+",:"+lineStr));
       					continue;
       				}
       				lineStr = lineStr.trim();
@@ -92,6 +95,9 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 	      					}
 	      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
 	      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      					}
+	      					else if (dynLibHelper.getModelType(modelType)==DynModelType.LOAD){
+	      						loadMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
 	      					}
 	      					
 	      					//save supported model data
@@ -181,9 +187,19 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
      * @return
      */
     private String getModelType(String lineStr){
-    	String[] strAry =lineStr.split("\\s+");
-    	if(strAry.length>2)
-    	    return(ODMModelStringUtil.trimQuote(strAry[1]));
+    	String[] strAry = null;
+    	if (lineStr.contains(","))
+    		strAry=lineStr.split("\\s*(\\s|,)\\s*");
+    	else
+    	    strAry =lineStr.split("\\s+");
+    	
+    	if(strAry.length>2){
+    		if(ODMModelStringUtil.trimQuote(strAry[1]).equals("USRLOD")){
+    			 return(ODMModelStringUtil.trimQuote(strAry[3]));
+    		}
+    		else
+    	         return(ODMModelStringUtil.trimQuote(strAry[1]));
+    	}
 		else
 			try {
 				throw new Exception("The input data is not correct model data"+lineStr);
@@ -194,22 +210,27 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
     		
     }
     private boolean skipInvalidLine(String lineStr){
-    	if(lineStr.trim().length()==0.0){
+    	if(lineStr.trim().length()==0){
     		return true;
     	}
-		//Check if the first line of multiInteger(String s) {
-    	int busNum;
+		
+    	
 		if(lineStr.trim().startsWith("//") || lineStr.trim().startsWith("/"))
 			return true;
+		
 		// skip a line if it is not started with a bus Number, which is an integer, 
-	    try { 
-	    	String[] strAry =lineStr.trim().split("\\s+");
-	        busNum =Integer.parseInt(strAry[0].trim()); 
-	    } catch(NumberFormatException e) {
-	    	//System.out.println("Error when processing line: \n"+ lineStr);
-	        return true; 
-	    }
-	    // only got here if we didn't return false
-	    return false;
+	    
+    	String[] strAry = null;
+    	if (lineStr.contains(","))
+    		strAry=lineStr.trim().split("\\s*(\\s|,)\\s*");
+    	else
+    	    strAry =lineStr.trim().split("\\s+");
+    	
+	    if(strAry[0].matches("\\d+"))
+	    	return false;
+	    else
+	    	return true;
+	        
 	}
 }
+
