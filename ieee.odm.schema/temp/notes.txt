@@ -1,0 +1,13 @@
+06/13/2018
+
+The following files have compile issues:
+
+DStabBusXmlType.java
+DStabGenDataXmlType.java
+DStabLoadDataXmlType.java
+DStabNetXmlType.java
+....
+
+ObjectFactory.java
+
+Please put yours in this temp folder.
