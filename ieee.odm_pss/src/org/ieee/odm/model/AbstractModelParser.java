@@ -79,6 +79,9 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	/** bus and branch object cache for fast lookup. */ 
 	protected HashMap<String,IDRecordXmlType> objectCache = null;
 	
+	/** bus No to Id lookup table. */ 
+	protected HashMap<Long, String> busNo2IdLookup = null;
+
 	/** the root StudyCase element */
 	protected StudyCaseXmlType pssStudyCase = null;
 	
@@ -91,6 +94,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public AbstractModelParser() {
 		this.objectCache = new HashMap<>();
+		this.busNo2IdLookup = new HashMap<>();
 		if (!(this instanceof ODMModelParser)) {
 			this.getStudyCase().setId("ODM_StudyCase");
 		}
@@ -373,6 +377,16 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	}	
 
 	/**
+	 * Get the cashed bus object by number
+	 * 
+	 * @param n
+	 * @return
+	 */
+	@SuppressWarnings("unchecked") public <T extends BusXmlType> T getBus(long n) {
+		return (T)this.getCachedObject(this.busNo2IdLookup.get(n));
+	}	
+	
+	/**
 	 * add a bus object into the BaseCase bus list and to the cashe table
 	 * 
 	 * @param bus bus object to be added
@@ -475,6 +489,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	public <T extends BusXmlType> T createBus(String id, long number) throws ODMException {
 		T busRec = createBus(id);
 		busRec.setNumber(number);
+		this.busNo2IdLookup.put(number, id);
 		return busRec;
 	}	
 
