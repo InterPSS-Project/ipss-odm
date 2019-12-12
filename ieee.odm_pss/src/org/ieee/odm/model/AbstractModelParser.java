@@ -377,13 +377,13 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	}	
 
 	/**
-	 * Get the cashed bus object by number
+	 * Get the bus id by number
 	 * 
-	 * @param n
+	 * @param n bus number
 	 * @return
 	 */
-	@SuppressWarnings("unchecked") public <T extends BusXmlType> T getBus(long n) {
-		return (T)this.getCachedObject(this.busNo2IdLookup.get(n));
+	public String getBusId(long n) {
+		return this.busNo2IdLookup.get(n);
 	}	
 	
 	/**
