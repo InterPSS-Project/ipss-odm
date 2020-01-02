@@ -601,6 +601,7 @@
 			<ns:enumeration value="CONST_I"></ns:enumeration>
 			<ns:enumeration value="CONST_Z"></ns:enumeration>
 			<ns:enumeration value="FunctionLoad"></ns:enumeration>
+			<ns:enumeration value="LoadPV"></ns:enumeration>
 			<ns:enumeration value="NoneLoad"></ns:enumeration>
 		</ns:restriction>
 	</ns:simpleType>
