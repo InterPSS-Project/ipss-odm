@@ -272,9 +272,13 @@ public class AclfParserHelper extends BaseJaxbHelper {
 			if (loadData != null) {
 				if ( loadData.getContributeLoad().size() > 0) {
 					double cp_p=0.0, cp_q=0.0, ci_p=0.0, ci_q=0.0, cz_p=0.0, cz_q=0.0; 
+					boolean isLoadPV = false;
 					for ( JAXBElement<? extends LoadflowLoadDataXmlType> loadXml : loadData.getContributeLoad()) {
 						LoadflowLoadDataXmlType load = loadXml.getValue();
 						if (!load.isOffLine()) {
+							if (load.getCode() == LFLoadCodeEnumType.LOAD_PV)
+								isLoadPV = true;
+							
 							if (load.getConstPLoad() != null) {
 								cp_p += load.getConstPLoad().getRe();
 								cp_q += load.getConstPLoad().getIm();
@@ -290,7 +294,11 @@ public class AclfParserHelper extends BaseJaxbHelper {
 						}					
 					}
 					
-					if ((cp_p != 0.0 || cp_q != 0.0) && (ci_p==0.0 && ci_q ==0.0 && cz_p==0.0 && cz_q ==0.0) ) {
+					if (isLoadPV) {
+						defaultLoad.setCode(LFLoadCodeEnumType.LOAD_PV);
+						defaultLoad.setConstPLoad(BaseDataSetter.createPowerValue(cp_p, 0.0, ApparentPowerUnitType.MVA));
+					}
+					else if ((cp_p != 0.0 || cp_q != 0.0) && (ci_p==0.0 && ci_q ==0.0 && cz_p==0.0 && cz_q ==0.0) ) {
 						defaultLoad.setCode(LFLoadCodeEnumType.CONST_P);
 						defaultLoad.setConstPLoad(BaseDataSetter.createPowerValue(cp_p, cp_q, ApparentPowerUnitType.MVA));
 			  		}

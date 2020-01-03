@@ -83,6 +83,8 @@ public class AclfDataSetter extends BaseDataSetter {
 		defaultLoad.setCode(code);
     	if(code==LFLoadCodeEnumType.CONST_P)
     	    defaultLoad.setConstPLoad(createPowerValue(p, q, unit));
+    	else if(code==LFLoadCodeEnumType.LOAD_PV)
+    	    defaultLoad.setConstPLoad(createPowerValue(p, 0.0, unit));
     	else if(code==LFLoadCodeEnumType.CONST_I)
     		defaultLoad.setConstILoad(createPowerValue(p, q, unit));
     	else if (code==LFLoadCodeEnumType.CONST_Z)
