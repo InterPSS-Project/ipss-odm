@@ -79,7 +79,14 @@ public class AclfDataSetter extends BaseDataSetter {
 			double p, double q, ApparentPowerUnitType unit) {
 		BusLoadDataXmlType loadData = OdmObjFactory.createBusLoadDataXmlType();
 		bus.setLoadData(loadData);
+		
 		LoadflowLoadDataXmlType defaultLoad = AclfParserHelper.getDefaultLoad(bus.getLoadData());
+		
+		// TODO debug code
+		if (bus.getId().equals("Bus14167")) {
+			int i = 0;
+		}
+		
 		defaultLoad.setCode(code);
     	if(code==LFLoadCodeEnumType.CONST_P)
     	    defaultLoad.setConstPLoad(createPowerValue(p, q, unit));

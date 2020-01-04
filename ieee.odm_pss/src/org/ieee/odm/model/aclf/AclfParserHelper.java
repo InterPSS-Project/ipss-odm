@@ -268,7 +268,9 @@ public class AclfParserHelper extends BaseJaxbHelper {
 		for (JAXBElement<? extends BusXmlType> bus : baseCaseNet.getBusList().getBus()) {
 			LoadflowBusXmlType busRec = (LoadflowBusXmlType)bus.getValue();
 			BusLoadDataXmlType loadData = busRec.getLoadData();
+			
 			LoadflowLoadDataXmlType defaultLoad = getDefaultLoad(loadData);
+			
 			if (loadData != null) {
 				if ( loadData.getContributeLoad().size() > 0) {
 					double cp_p=0.0, cp_q=0.0, ci_p=0.0, ci_q=0.0, cz_p=0.0, cz_q=0.0; 
