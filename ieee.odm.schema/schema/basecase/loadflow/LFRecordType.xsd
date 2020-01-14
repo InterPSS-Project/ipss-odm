@@ -429,6 +429,7 @@
 					<ns:element maxOccurs="1" minOccurs="0" name="fromTurnRatio" type="pss:TurnRatioXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="toTurnRatio" type="pss:TurnRatioXmlType"/>
 					<ns:element minOccurs="0" name="magnitizingY" type="pss:YXmlType"/>
+					<ns:element minOccurs="0" name="magnitizingZSide" type="pss:MagnitizingZSideEnumType"/>
 					<ns:element minOccurs="0" name="tapAdjustment" type="pss:TapAdjustmentXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="xfrInfo" type="pss:TransformerInfoXmlType"/>
 				</ns:sequence>
@@ -436,6 +437,14 @@
 		</ns:complexContent>
 	</ns:complexType>
     
+    
+     <ns:simpleType name="MagnitizingZSideEnumType">
+		<ns:restriction base="ns:string">
+			<ns:enumeration value="HighVoltage"/>
+			<ns:enumeration value="FromSide"/>
+			<ns:enumeration value="ToSide"/>
+		</ns:restriction>
+	</ns:simpleType>    
 
     <ns:complexType name="TransformerInfoXmlType">
 		<ns:sequence>
