@@ -35,6 +35,7 @@ import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.CurrentUnitType;
+import org.ieee.odm.schema.MagnitizingZSideEnumType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
@@ -83,7 +84,7 @@ public class UCTEXfrDataMapper extends BaseUCTEDataMapper {
 		// XformerData object created in the following call
 		AclfDataSetter.createXformerData(branchRec,
 				rOhm, xOhm, ZUnitType.OHM, 1.0, 1.0, gMuS, bMuS,
-				YUnitType.MICROMHO);
+				YUnitType.MICROMHO, MagnitizingZSideEnumType.FROM_SIDE);
 
 		AclfDataSetter.setXfrRatingData(branchRec,
 				fromRatedKV, toRatedKV, VoltageUnitType.KV,

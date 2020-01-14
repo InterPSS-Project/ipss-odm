@@ -41,6 +41,7 @@ import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LimitXmlType;
 import org.ieee.odm.schema.LineBranchXmlType;
+import org.ieee.odm.schema.MagnitizingZSideEnumType;
 import org.ieee.odm.schema.MvarFlowAdjustmentDataXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.TapAdjustBusLocationEnumType;
@@ -120,7 +121,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 				XfrBranchXmlType xfrBranch = (XfrBranchXmlType)branch;
 				AclfDataSetter.createXformerData(xfrBranch,
 						rpu, xpu, ZUnitType.PU, ratio, 1.0, 
-						0.0, bpu, YUnitType.PU);
+						0.0, bpu, YUnitType.PU, MagnitizingZSideEnumType.FROM_SIDE);
 				BusXmlType fromBusRec = parser.getBus(fid);
 				BusXmlType toBusRec = parser.getBus(tid);
 				if (fromBusRec != null && toBusRec != null) {
@@ -136,7 +137,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 				PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branch;
 				AclfDataSetter.createPhaseShiftXfrData(psXfrBranch, rpu, xpu, ZUnitType.PU,
 						ratio, 1.0, angle, 0.0, AngleUnitType.DEG,
-						0.0, bpu, YUnitType.PU);
+						0.0, bpu, YUnitType.PU, MagnitizingZSideEnumType.FROM_SIDE);
 				BusXmlType fromBusRec = parser.getBus(fid);
 				BusXmlType toBusRec = parser.getBus(tid);
 				if (fromBusRec != null && toBusRec != null) {

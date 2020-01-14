@@ -21,6 +21,7 @@ import org.ieee.odm.schema.FactorUnitType;
 import org.ieee.odm.schema.IDRefRecordXmlType;
 import org.ieee.odm.schema.LimitXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.MagnitizingZSideEnumType;
 import org.ieee.odm.schema.MvarFlowAdjustmentDataXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
@@ -309,7 +310,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			if (phaseAngle == 0) {// transformer type, since it is rare for a PSXfr to have LinePhase=0; 
 					
 					AclfDataSetter.createXformerData(xfr, r, x, ZUnitType.PU,
-							fromTurnRatio, toTurnRatio, gMag, bMag, YUnitType.PU);
+							fromTurnRatio, toTurnRatio, gMag, bMag, YUnitType.PU, MagnitizingZSideEnumType.FROM_SIDE);
 					if(xfrRegMin!=0||xfrRegMax!=0)
                     setTapControlData(isXFAutoControl, xfrRegMin, xfrRegMax,
 							xfrTapMax, xfrTapMin, xfrStep, regBusId,
@@ -331,7 +332,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 					PSXfrBranchXmlType psXfr = (PSXfrBranchXmlType) xfr;
 					AclfDataSetter.createPhaseShiftXfrData(psXfr, r, x,
 							ZUnitType.PU, fromTurnRatio, toTurnRatio, phaseAngle, 0,
-							AngleUnitType.DEG, gMag, bMag, YUnitType.PU);
+							AngleUnitType.DEG, gMag, bMag, YUnitType.PU, MagnitizingZSideEnumType.FROM_SIDE);
 					if(xfrRegMin!=0||xfrRegMax!=0)
 					setXfrPhaseControlData(isXFAutoControl, xfrRegMin,
 							xfrRegMax, xfrTapMax, xfrTapMin, regTargetType,
