@@ -44,6 +44,7 @@ import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
+import org.ieee.odm.schema.MagnitizingZSideEnumType;
 import org.ieee.odm.schema.MvaRatingXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
@@ -321,7 +322,7 @@ public class AclfDataSetter extends BaseDataSetter {
 		branch.getXfrInfo().setDataOnSystemBase(true);
 		setXformerData(branch,
 				r, x, zUnit, fromTurnRatio, toTurnRatio,
-				0.0, 0.0, YUnitType.PU);
+				0.0, 0.0, YUnitType.PU, MagnitizingZSideEnumType.HIGH_VOLTAGE);
 	}
 
 	/**
@@ -340,24 +341,25 @@ public class AclfDataSetter extends BaseDataSetter {
 	public static void createXformerData(XfrBranchXmlType branch, 
 			             double r, double x, ZUnitType zUnit,
 			             double fromTurnRaio, double toTurnRatio,
-			             double gMag, double bMag, YUnitType yUnit) {
+			             double gMag, double bMag, YUnitType yUnit, MagnitizingZSideEnumType side) {
 		branch.setXfrInfo(OdmObjFactory.createTransformerInfoXmlType());
 		branch.getXfrInfo().setDataOnSystemBase(true);
 		setXformerData(branch,
 				r, x, zUnit, fromTurnRaio, toTurnRatio,
-				gMag, bMag, yUnit);
+				gMag, bMag, yUnit, side);
 	}
 
 	private static void setXformerData(XfrBranchXmlType xfr,
 			double r, double x, ZUnitType zUnit, 
 			double fromTurnRatio, double toTurnRatio,
-			double gMag, double bMag, YUnitType yUnit) {
+			double gMag, double bMag, YUnitType yUnit, MagnitizingZSideEnumType side) {
 		ZXmlType z = createZValue(r, x, zUnit);
 		xfr.setZ(z);
 		xfr.setFromTurnRatio(createTurnRatioPU(fromTurnRatio));
 		xfr.setToTurnRatio(createTurnRatioPU(toTurnRatio));
 		if (gMag != 0.0 || bMag != 0.0) {
 			xfr.setMagnitizingY(createYValue(gMag, bMag, yUnit));
+			xfr.setMagnitizingZSide(side);
 		}	
 	}	
 	
@@ -376,9 +378,9 @@ public class AclfDataSetter extends BaseDataSetter {
 	public static void createPhaseShiftXfrData(PSXfrBranchXmlType branch,
 			double r, double x, ZUnitType zUnit,
 			double fromTap, double toTap, double fromAng, double toAng, AngleUnitType angUnit,
-			double gFrom, double bFrom, YUnitType yUnit) {
+			double gFrom, double bFrom, YUnitType yUnit, MagnitizingZSideEnumType side) {
 		setXformerData(branch,
-				r, x, zUnit, fromTap, toTap, gFrom, bFrom, yUnit);
+				r, x, zUnit, fromTap, toTap, gFrom, bFrom, yUnit, side);
 		//TODO if we don't set it, it will cause if we want to getFromAngle(), which
 		// return null, why not just let it be zero, a PSXfr without a fromAngle attribute
 		// is not completed ;
@@ -409,7 +411,7 @@ public class AclfDataSetter extends BaseDataSetter {
 			double fromAng, double toAng, AngleUnitType angUnit) {
 		createPhaseShiftXfrData(branchData, r, x, zUnit,
 				fromTap, toTap, fromAng, toAng, angUnit,
-				0.0, 0.0, YUnitType.PU);
+				0.0, 0.0, YUnitType.PU, MagnitizingZSideEnumType.HIGH_VOLTAGE);
 	}	
 	
 	/**
