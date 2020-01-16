@@ -1,5 +1,7 @@
 package org.ieee.odm;
 
+import org.ieee.odm.ge_pslf.PSLFCMPLDWDataParserTest;
+import org.ieee.odm.ge_pslf.PSLF_CMPLDW_Mapper_Test;
 import org.ieee.odm.ieeecdf.IEEECDF_ODMTest;
 import org.ieee.odm.odm_xml.OdmXml_ODMTest;
 import org.ieee.odm.opf.OpfSample_3Bus_ODMTest;
@@ -7,6 +9,7 @@ import org.ieee.odm.opf.OpfSample_3Bus_ODMTest_stephen;
 import org.ieee.odm.opf.ProcessOPFData_ODMTest;
 import org.ieee.odm.opf.matpower.OPF_Matpower_ODMTest;
 import org.ieee.odm.psse.PSSEV26_ODMTest;
+import org.ieee.odm.psse.PSSEV30_Dyn_Load_Test;
 import org.ieee.odm.psse.PSSEV30_GuideSampleTest;
 import org.ieee.odm.psse.PSSEV30_IEEE39_Acsc_Test;
 import org.ieee.odm.psse.PSSEV30_IEEE9_Acsc_Test;
@@ -48,6 +51,10 @@ import org.junit.runners.Suite.SuiteClasses;
 	PSSEV30_IEEE39_Acsc_Test.class,
 	PSSEV30_IEEE9_Acsc_Test.class,
 	PSSEV30_IEEE9_Dstab_Test.class,
+	PSSEV30_Dyn_Load_Test.class,
+	
+	PSLF_CMPLDW_Mapper_Test.class,
+	PSLFCMPLDWDataParserTest.class,
 	
 	PWD_IEEE14Bus_ODMTest.class,
 	LineStringParserTest.class,
