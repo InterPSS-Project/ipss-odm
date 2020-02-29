@@ -211,7 +211,8 @@ public class BaseInputLineStringParser {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public int getInt(String key) throws ODMException {
-		return Integer.valueOf(this.getString(key));
+		return Double.valueOf(this.getString(key)).intValue();
+		
 	}
 	
 	/**
@@ -223,7 +224,7 @@ public class BaseInputLineStringParser {
 	 */
 	public int getInt(String key, int defaultValue) throws ODMException {
 		if (exist(key)  && !this.getString(key).equals(""))
-			return Integer.valueOf(this.getString(key));
+			return Double.valueOf(this.getString(key)).intValue();
 		else
 			return defaultValue; 
 	}
