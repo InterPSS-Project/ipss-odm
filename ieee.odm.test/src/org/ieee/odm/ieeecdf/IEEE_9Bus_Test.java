@@ -30,7 +30,7 @@ public class IEEE_9Bus_Test {
 		assertTrue(adapter.parseInputFile("testdata/ieee_format/009ieee.cf"));
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 
-		System.out.println(parser.toXmlDoc());
+		//System.out.println(parser.toXmlDoc());
 		
 		//assertTrue(parser.getBranch(branchId))
 	}
