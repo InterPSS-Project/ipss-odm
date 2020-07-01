@@ -320,7 +320,6 @@ public class GePslfAdapter  extends AbstractODMAdapter {
       			}
     		} while (lineStr != null);
   		} catch (Exception e) {
-  			e.printStackTrace();
   			throw new ODMException("GE data input error, line no " + lineNo + ", " + e.toString() + "\n" + lineStr);
   		}
 

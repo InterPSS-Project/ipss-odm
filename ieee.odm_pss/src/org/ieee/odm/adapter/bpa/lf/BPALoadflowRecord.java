@@ -115,7 +115,6 @@ public class BPALoadflowRecord {
 				}
 				catch (final Exception e) {
 					ODMLogger.getLogger().severe("Error, input : " + str + "\n" + e.toString());
-					e.printStackTrace();
 				}					
 			}
 		} while(!str.trim().equals("(END)")&&!str.trim().equals("(STOP)"));

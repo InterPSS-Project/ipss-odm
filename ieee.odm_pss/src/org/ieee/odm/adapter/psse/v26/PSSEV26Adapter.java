@@ -154,7 +154,6 @@ public class PSSEV26Adapter extends AbstractODMAdapter{
         			}
         		}catch (final Exception e){
 					this.logErr(e.toString());
-					e.printStackTrace();
         		}
              }
         }	while (str != null);

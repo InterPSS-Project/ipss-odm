@@ -100,7 +100,7 @@ public class BPADynamicRecord {
 						
 					}
 				}catch (final Exception e){				
-					e.printStackTrace();
+					new ODMException(e.toString());
 				}				
 			}			
 		} while (!str.startsWith("90"));

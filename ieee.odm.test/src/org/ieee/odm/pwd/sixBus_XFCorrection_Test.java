@@ -25,7 +25,7 @@ public class sixBus_XFCorrection_Test {
 	assertTrue(adapter.parseInputFile("testdata/pwd/SixBusTestCase_v2_xfmCorrTable.aux"));
 	
 	AclfModelParser parser = (AclfModelParser)adapter.getModel();
-	System.out.println(parser.toXmlDoc());
+	//System.out.println(parser.toXmlDoc());
 	
 	assertTrue(parser.getNet().getXfrZTable().getXformerZTableItem().size()==1);
 	XformerZTableItem item= parser.getNet().getXfrZTable().getXformerZTableItem().get(0);

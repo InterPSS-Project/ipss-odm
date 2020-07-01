@@ -160,7 +160,6 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 					} 
 				} catch (final Exception e) {
 					ODMLogger.getLogger().severe(e.toString() + "\n" + str);
-					//e.printStackTrace();
 				}
 			}
 		} while (str!=null);

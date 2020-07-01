@@ -107,7 +107,6 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	      		}while(lineStr!=null);
 			
 	  		} catch (Exception e) {
-	  			e.printStackTrace();
 	    		throw new ODMException("PSSE dynamic data input error, line # " + lineNo + ", " + e.toString());
 	  		}
 
@@ -134,11 +133,7 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 	    	    return strAry[0];
 			else
 				System.out.println("The input data is not correct model data : "+lineStr);
-//				try {
-//					throw new Exception("The input data is not correct model data : "+lineStr);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				} 
+
 	    	return null;
 	    		
 	    }

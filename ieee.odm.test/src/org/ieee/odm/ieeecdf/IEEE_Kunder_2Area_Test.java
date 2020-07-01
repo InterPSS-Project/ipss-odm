@@ -24,7 +24,7 @@ public class IEEE_Kunder_2Area_Test {
 			assertTrue(adapter.parseInputFile("testdata/ieee_format/Kunder_2area_ieeecdf.dat"));
 			AclfModelParser parser = (AclfModelParser)adapter.getModel();
 
-			System.out.println(parser.toXmlDoc());
+			//System.out.println(parser.toXmlDoc());
 		}
 
 }
