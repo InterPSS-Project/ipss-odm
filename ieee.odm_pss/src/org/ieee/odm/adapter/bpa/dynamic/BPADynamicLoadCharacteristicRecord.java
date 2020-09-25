@@ -170,11 +170,8 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 		if(!strAry[1].equals("")){
 			busName=strAry[1];
 			String BusId="";
-			try {
-				BusId = BPABusRecord.getBusId(busName);
-			} catch (ODMException e) {
-				e.printStackTrace();
-			}
+			BusId = BPABusRecord.getBusId(busName);
+			
 			bus = parser.getDStabBus(BusId);
 			DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
 			if (load !=null) {
@@ -182,7 +179,6 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 				load.setLoadModel(loadModel);
 			}
 			else throw new ODMException("Bus not found for Load Char rec: " + str);
-		
 		}
 	}
 }

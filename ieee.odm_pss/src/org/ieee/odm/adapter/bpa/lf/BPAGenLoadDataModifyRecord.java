@@ -94,7 +94,6 @@ public class BPAGenLoadDataModifyRecord {
 			
 		}catch(Exception e){
 			ODMLogger.getLogger().severe(e.toString() + "\n" + str);
-			e.printStackTrace();
 		}
 		return strAry;
 		
@@ -119,7 +118,7 @@ public class BPAGenLoadDataModifyRecord {
 			}
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			ODMLogger.getLogger().severe(e.toString());
 			return false;
 		}
 		return true;	

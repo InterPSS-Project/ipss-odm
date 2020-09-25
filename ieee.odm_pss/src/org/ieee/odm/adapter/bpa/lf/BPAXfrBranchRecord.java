@@ -466,7 +466,6 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 				strAry[19] =ODMModelStringUtil.getStringReturnEmptyString(str2,77, 80).trim();// str2.substring(77, 80).trim();
 		}catch(Exception e){
 			ODMLogger.getLogger().severe(e.toString() + "\n" + str);
-			e.printStackTrace();
 		}
 		return strAry;
     }

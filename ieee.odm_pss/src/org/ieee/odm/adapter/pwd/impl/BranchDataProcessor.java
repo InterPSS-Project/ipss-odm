@@ -234,12 +234,12 @@ public class BranchDataProcessor extends InputLineStringParser  {
 						mvaRating3, ApparentPowerUnitType.MVA);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new ODMException(e.toString());
 			}
 		}// END OF PROCESSING BRANCH
 	}
 
-	private void process2WXfrData(){
+	private void process2WXfrData() throws ODMException {
 		long fromBusNum=-1,toBusNum=-1;
 		long regBusNum=-1;//ONLY used for LTC type Transformer
 		
@@ -517,10 +517,8 @@ public class BranchDataProcessor extends InputLineStringParser  {
 
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			throw new ODMException(e.toString());
 		}
-		
-		
 	}
     /**
      * Process phase shifting transformer control data
