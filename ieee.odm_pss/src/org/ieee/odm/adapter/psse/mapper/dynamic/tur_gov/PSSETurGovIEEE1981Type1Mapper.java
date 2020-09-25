@@ -56,8 +56,14 @@ public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataMapper{
 	    }
      
 	   DStabBusXmlType busXml = parser.getBus(busId);
-	    
+	   
+	   if(busXml==null)
+		   return;
+	   
 	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+	   
+	   if(dstabGenData==null)
+		   return;
 	   
 	   GovIEEE1981Type1XmlType gov = DStabParserHelper.createGovIEEE1981Type1XmlType(dstabGenData);
 	   

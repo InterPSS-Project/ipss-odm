@@ -72,8 +72,9 @@ public class PSSEHeaderDataMapper extends BasePSSEDataMapper {
 			baseCaseNet.setName("AclfNet-PSSE-V" + ver);
 			
 			String str = new Integer(PSSEAdapter.getVersionNo(this.version)).toString();
-			if (!ver.contains(str))
+			if (!ver.contains(str)) {
 				throw new ODMException("PSSE Adapter version and input file has different version, adapter: " + this.version + "  file: " + ver);
+			}
 		}
 		else {
 			String lineStr = lineStrAry[0];

@@ -141,6 +141,15 @@ public class DStabParserHelper extends AcscParserHelper {
 	 * @return null if dstabGenData not found
 	 */
 	public static DStabGenDataXmlType getDStabContritueGen(DStabBusXmlType dstabBus, String genId) throws ODMException {
+		if(dstabBus.getGenData()==null) {
+			return null;
+			
+		}
+		
+		if(dstabBus.getGenData().getContributeGen()==null) {
+			return null;
+		}
+		
 		for (JAXBElement<? extends LoadflowGenDataXmlType> elem : dstabBus.getGenData().getContributeGen()) {
 			DStabGenDataXmlType dstabGenData = (DStabGenDataXmlType)elem.getValue();
 			if (dstabGenData.getId().equalsIgnoreCase(genId)) // change to NOT Case sensitive

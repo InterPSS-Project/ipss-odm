@@ -492,9 +492,10 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 	
 	private void processGNELineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("END OF GNE DATA"); 
-			gneDeviceProcessed = true;
-			ODMLogger.getLogger().info("PSS/E GNE record processed");
+			if(lineStr.toUpperCase().contains("END OF GNE")) { 
+				gneDeviceProcessed = true;
+				ODMLogger.getLogger().info("PSS/E GNE record processed");
+			}
 			this.elemCntStr += "Load record " + loadCnt +"\n";
 		}
 		else {
@@ -504,9 +505,10 @@ public class PSSELFAdapter extends BasePSSEAdapter{
 	
 	private void processIndMotorLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("END OF INDUCTION MACHINE DATA"); 
-			indMotorProcessed = true;
-			ODMLogger.getLogger().info("PSS/E INDUCTION MACHINE record processed");
+			if(lineStr.toUpperCase().contains("END OF INDUCTION MACHINE DATA")){
+			   indMotorProcessed = true;
+			   ODMLogger.getLogger().info("PSS/E INDUCTION MACHINE record processed");
+			}
 			this.elemCntStr += "Load record " + loadCnt +"\n";
 		}
 		else {

@@ -99,7 +99,7 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 		else {
 			StringTokenizer st = new StringTokenizer(lineStr, ",");
 			
-			String ind = st.nextToken();  			   
+			String ind = st.nextToken().trim();  			   
 			int indicator = new Integer(ind).intValue();
 			if (indicator !=0){
 				throw new ODMException("Error: Only base case can be process");
