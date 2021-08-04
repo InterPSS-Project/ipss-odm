@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd"/>
+    <ns:include schemaLocation="RelayModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
+	</ns:annotation>
+    
+    <!--
+		define models for relay
+		   Naming convention
+		       excBPA* for element
+		       ExcBPA* for complex type 
+	-->
+	<ns:element name="genRelay" substitutionGroup="pss:relay" type="pss:GenRelayXmlType"/>
+    <ns:element name="genRelayFRQTPAT" substitutionGroup="pss:relay" type="pss:GenRelayFRQTPATXmlType"/>
+    <ns:element name="genRelayVTGTPAT" substitutionGroup="pss:relay" type="pss:GenRelayVTGTPATXmlType"/>
+    
+    
+   <ns:complexType name="GenRelayXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		abstract load relay model
+		</ns:documentation>
+    </ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:RelayModelXmlType">
+				<ns:sequence>
+				    <ns:element name="MonitorBusId" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="GenBusId" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="GenBusNumber" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="GenID" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    
+     <ns:complexType name="GenRelayFRQTPATXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		Under/over frequency generator trip relay
+		</ns:documentation>
+    </ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:GenRelayXmlType">
+				<ns:sequence>
+					<ns:element name="FL" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="FU" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="Tp" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="Tb" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+     <ns:complexType name="GenRelayVTGTPATXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		Under/over voltage generator trip relay
+		</ns:documentation>
+    </ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:GenRelayXmlType">
+				<ns:sequence>
+					<ns:element name="VL" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="VU" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="Tp" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="Tb" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+</ns:schema>

@@ -9,6 +9,10 @@
     
 	<ns:include schemaLocation="MachineModel.xsd"></ns:include>
 	<ns:include schemaLocation="DynamicLoadModel.xsd"></ns:include>    
+	<ns:include schemaLocation="relay/RelayModel.xsd"></ns:include>
+	<ns:include schemaLocation="relay/LoadRelayModel.xsd"></ns:include>
+	<ns:include schemaLocation="relay/GenRelayModel.xsd"></ns:include>
+	<ns:include schemaLocation="relay/LineXfrRelayModel.xsd"></ns:include>      
 
 	<ns:annotation>
 		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
@@ -110,7 +114,8 @@
 		</ns:documentation></ns:annotation>
 		<ns:complexContent>
 			<ns:extension base="pss:ShortCircuitBusXmlType">
-				<ns:sequence>				</ns:sequence>
+				<ns:sequence>
+					<ns:element maxOccurs="unbounded" minOccurs="0" name= "busRelayList" type="pss:RelayModelXmlType" />				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
@@ -125,7 +130,8 @@
 					<ns:element maxOccurs="1" minOccurs="1" ref="pss:machineModel" />
 					<ns:element minOccurs="0" ref="pss:exciter" />
 					<ns:element minOccurs="0" ref="pss:governor" />
-					<ns:element minOccurs="0" ref="pss:stabilizer" />			  </ns:sequence>
+					<ns:element minOccurs="0" ref="pss:stabilizer" />
+					<ns:element maxOccurs="unbounded" minOccurs="0" name= "genRelayList" type="pss:GenRelayXmlType" />			  </ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
@@ -138,6 +144,7 @@
 				<ns:element name="location" maxOccurs="1" minOccurs="1" type="pss:LoadCharacteristicLocationEnumType"></ns:element>
 				<ns:element name="LoadXmlType" maxOccurs="1" minOccurs="1" type="pss:LoadCharacteristicTypeEnumType"></ns:element>
 				<ns:element name="LoadModel" type="pss:DynamicLoadModelSelectionXmlType" maxOccurs="1" minOccurs="1"></ns:element>
+				<ns:element maxOccurs="unbounded" minOccurs="0" name= "loadRelayList" type="pss:LoadRelayXmlType" />
 			  </ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -151,7 +158,7 @@
 		<ns:complexContent>
 			<ns:extension base="pss:LineShortCircuitXmlType">
 				<ns:sequence>
-					<ns:element name="lineRelay" type="pss:DynamicLineRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="lineRelay" type="pss:LineRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -162,7 +169,7 @@
 		<ns:complexContent>
 			<ns:extension base="pss:XfrShortCircuitXmlType">
 				<ns:sequence>
-					<ns:element name="xfrRelay" type="pss:DynamicXfrRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="xfrRelay" type="pss:XfrRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -183,7 +190,7 @@
 		<ns:complexContent>
 			<ns:extension base="pss:PSXfrShortCircuitXmlType">
 				<ns:sequence>
-					<ns:element name="xfrRelay" type="pss:DynamicXfrRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
+					<ns:element name="xfrRelay" type="pss:XfrRelayXmlType" maxOccurs="unbounded" minOccurs="0" />
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -199,14 +206,5 @@
 		</ns:complexContent>
 	</ns:complexType>	
 
-<!-- 
-		Relay objects
- -->	
 
-	<ns:complexType name="DynamicLineRelayXmlType">
-	</ns:complexType>	
-
-
-	<ns:complexType name="DynamicXfrRelayXmlType">
-	</ns:complexType>
 </ns:schema>
