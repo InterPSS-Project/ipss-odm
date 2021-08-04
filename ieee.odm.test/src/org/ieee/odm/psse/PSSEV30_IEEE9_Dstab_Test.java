@@ -20,10 +20,15 @@ import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
 import org.ieee.odm.schema.ExcIEEE1968Type1XmlType;
+import org.ieee.odm.schema.GenRelayFRQTPATXmlType;
+import org.ieee.odm.schema.GenRelayVTGTPATXmlType;
 import org.ieee.odm.schema.GovIEEE1981Type1XmlType;
 import org.ieee.odm.schema.GovIEEE1981Type3XmlType;
+import org.ieee.odm.schema.LDS3RelayXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
+import org.ieee.odm.schema.LVS3RelayXmlType;
+import org.ieee.odm.schema.LoadRelayXmlType;
 import org.junit.Test;
 
 public class PSSEV30_IEEE9_Dstab_Test {
@@ -377,6 +382,77 @@ public class PSSEV30_IEEE9_Dstab_Test {
       	assertTrue(bus2Gov.getK7()==0.0);
       	assertTrue(bus2Gov.getK8()==0.0);
     }
+	
+	@Test
+    public void ieee9_ODM_Dstab_fullModel_Relay_test() throws ODMException{
+    	final LogManager logMgr = LogManager.getLogManager();
+    	Logger logger = Logger.getLogger("IEEE ODM Logger");
+    	logger.setLevel(Level.INFO);
+    	logMgr.addLogger(logger);
+    	
+    	PSSEAdapter adapter = new PSSEAdapter(PsseVersion.PSSE_30);
+    	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
+    			"testData/psse/IEEE9Bus/ieee9.raw",
+    			"testData/psse/IEEE9Bus/ieee9.seq",
+    			"testData/psse/IEEE9Bus/ieee9_dyn_fullModel_relay.dyr"
+    	}));
+    	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
+    	//dstabParser.stdout();
+    	//caseContentInfo
+    	assertTrue(dstabParser.getStudyCase().getAnalysisCategory() == AnalysisCategoryEnumType.TRANSIENT_STABILITY);
+    	
+    	DStabNetXmlType dynNet =  dstabParser.getDStabNet();
+    	
+    	/*
+    	 * <hasLoadflowData>true</hasLoadflowData>
+            <positiveSeqDataOnly>false</positiveSeqDataOnly>
+            <hasShortCircuitData>true</hasShortCircuitData>
+            <saturatedMachineParameter>false</saturatedMachineParameter>
+    	 */
+    	assertTrue(dynNet.isHasShortCircuitData());
+    	assertTrue(dynNet.isHasLoadflowData());
+    	assertTrue(!dynNet.isPositiveSeqDataOnly());
+    	
+    	/*
+    	 * Bus1
+    	 * Gen: GENSAL
+    	 * Exc: IEEET1, 1968 type 1 
+    	 * Gov: IEEEG3, 1968 type 3 for for Hydro
+    	 */
+    	
+    	DStabBusXmlType bus5 = dstabParser.getDStabBus("Bus5");
+    	
+    	DStabLoadDataXmlType bus5Load =  (DStabLoadDataXmlType) bus5.getLoadData().getContributeLoad().get(0).getValue();
+    	
+    	LDS3RelayXmlType ufls = (LDS3RelayXmlType) bus5Load.getLoadRelayList().get(0);
+    	
+    	System.out.println(ufls.toString());
+    	
+    	assertTrue(ufls.getF1()==59.3);
+    	
+    	LVS3RelayXmlType uvls = (LVS3RelayXmlType) bus5Load.getLoadRelayList().get(1);
+    	assertTrue(uvls.getF1()==0.913);
+    	assertTrue(uvls.getT1()==6.0);
+    	assertTrue(uvls.getF2()==0.913);
+    	assertTrue(uvls.getT2()==10.0);
+    	
+    	
+    	DStabBusXmlType bus1 = dstabParser.getDStabBus("Bus1");
+    	
+    	DStabGenDataXmlType bus1gen =  (DStabGenDataXmlType) bus1.getGenData().getContributeGen().get(0).getValue();
+    	
+    	GenRelayFRQTPATXmlType freqRelay = (GenRelayFRQTPATXmlType) bus1gen.getGenRelayList().get(0);
+    	assertTrue(freqRelay.getFL()==0.95000);
+    	assertTrue(freqRelay.getFU()==5.000);
+    	assertTrue(freqRelay.getTp()==10.000);
+    	assertTrue(freqRelay.getTb()==0.000);
+    	
+      	GenRelayVTGTPATXmlType voltRelay = (GenRelayVTGTPATXmlType) bus1gen.getGenRelayList().get(1);
+    	assertTrue(voltRelay.getVL()==0.75000);
+    	assertTrue(voltRelay.getVU()==5.000);
+    	assertTrue(voltRelay.getTp()==10.000);
+    	assertTrue(voltRelay.getTb()==0.000);
+	}
 	
 	@Test
     public void ieee9_ODM_Dstab_noSeqData_test() throws ODMException{
