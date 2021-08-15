@@ -111,7 +111,9 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 			if(st.hasMoreTokens())
 			   setValue(3, st.nextToken().trim());
 			if(st.hasMoreTokens())
-			   setValue(4, st.nextToken().trim());     			   
+			   setValue(4, st.nextToken().trim()); 
+			if(st.hasMoreTokens())
+			   setValue(5, st.nextToken().trim());  //"BASFRQ"
 			
 			if (lineStr2!= null){
 				setValue(6, lineStr2);

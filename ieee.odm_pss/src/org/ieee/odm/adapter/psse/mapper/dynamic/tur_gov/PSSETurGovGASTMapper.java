@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.tur_gov.PSSETurGovGASTParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -45,19 +46,29 @@ public class PSSETurGovGASTMapper extends BasePSSEDataMapper{
 
 	   DStabBusXmlType busXml = parser.getBus(busId);
 	    
-	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
-	   
-	   GovPSSEGASTModelXmlType gov = DStabParserHelper.createGovPSSEGASTXmlType(dstabGenData);
-	   
-	   gov.setR(dataParser.getDouble("R"));
-	   gov.setT1(BaseDataSetter.createTimeConstSec(dataParser.getDouble("T1")));
-	   gov.setT2(BaseDataSetter.createTimeConstSec(dataParser.getDouble("T2")));
-	   gov.setT3(BaseDataSetter.createTimeConstSec(dataParser.getDouble("T3")));
-	   gov.setAT(dataParser.getDouble("AT"));
-	   gov.setKT(dataParser.getDouble("KT"));
-	   gov.setVMAX(dataParser.getDouble("VMAX"));
-	   gov.setVMIN(dataParser.getDouble("VMIN"));
-	   gov.setDturb(dataParser.getDouble("Dturb"));
+	   if(busXml !=null) {
+			   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+			   
+			   if(dstabGenData!=null) {
+					   GovPSSEGASTModelXmlType gov = DStabParserHelper.createGovPSSEGASTXmlType(dstabGenData);
+					   
+					   gov.setR(dataParser.getDouble("R"));
+					   gov.setT1(BaseDataSetter.createTimeConstSec(dataParser.getDouble("T1")));
+					   gov.setT2(BaseDataSetter.createTimeConstSec(dataParser.getDouble("T2")));
+					   gov.setT3(BaseDataSetter.createTimeConstSec(dataParser.getDouble("T3")));
+					   gov.setAT(dataParser.getDouble("AT"));
+					   gov.setKT(dataParser.getDouble("KT"));
+					   gov.setVMAX(dataParser.getDouble("VMAX"));
+					   gov.setVMIN(dataParser.getDouble("VMIN"));
+					   gov.setDturb(dataParser.getDouble("Dturb"));
+			   
+		     }else{
+			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+		   }
+		}
+		else{
+		ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+		}
 		
 	}
 	

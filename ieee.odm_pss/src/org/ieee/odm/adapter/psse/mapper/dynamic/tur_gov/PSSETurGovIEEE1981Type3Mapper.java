@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.tur_gov.PSSETurGovIEEE1981Type3Parser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -53,29 +54,39 @@ public class PSSETurGovIEEE1981Type3Mapper extends BasePSSEDataMapper{
 
 	   DStabBusXmlType busXml = parser.getBus(busId);
 	    
-	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
-	   
-	   GovIEEE1981Type3XmlType gov = DStabParserHelper.createGovIEEE1981Type3XmlType(dstabGenData);
-	   
-	   gov.setTG(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TG")));
-	   gov.setTP(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TP")));
-	   
-	   gov.setVOpen(dataParser.getDouble("Uo"));
-	   gov.setVClose(dataParser.getDouble("Uc"));
-	   
-	   gov.setPMAX(dataParser.getDouble("PMAX"));
-	   gov.setPMIN(dataParser.getDouble("PMIN"));
-	   
-	   gov.setSIGMA(dataParser.getDouble("Sigma"));
-	   gov.setDELTA(dataParser.getDouble("Delta"));
-	   
-	   gov.setTR(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
-	   gov.setTW(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TW")));
-	   
-	   gov.setA11(dataParser.getDouble("a11"));
-	   gov.setA13(dataParser.getDouble("a13"));
-	   gov.setA21(dataParser.getDouble("a21"));
-	   gov.setA23(dataParser.getDouble("a23"));
+	   if(busXml!=null) {
+		   
+			   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+			   
+			   if(dstabGenData!=null) {
+				   GovIEEE1981Type3XmlType gov = DStabParserHelper.createGovIEEE1981Type3XmlType(dstabGenData);
+				   
+				   gov.setTG(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TG")));
+				   gov.setTP(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TP")));
+				   
+				   gov.setVOpen(dataParser.getDouble("Uo"));
+				   gov.setVClose(dataParser.getDouble("Uc"));
+				   
+				   gov.setPMAX(dataParser.getDouble("PMAX"));
+				   gov.setPMIN(dataParser.getDouble("PMIN"));
+				   
+				   gov.setSIGMA(dataParser.getDouble("Sigma"));
+				   gov.setDELTA(dataParser.getDouble("Delta"));
+				   
+				   gov.setTR(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
+				   gov.setTW(BaseDataSetter.createTimeConstSec(dataParser.getDouble("TW")));
+				   
+				   gov.setA11(dataParser.getDouble("a11"));
+				   gov.setA13(dataParser.getDouble("a13"));
+				   gov.setA21(dataParser.getDouble("a21"));
+				   gov.setA23(dataParser.getDouble("a23"));
+			   }else{
+					   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+				   }
+	   }
+	   else{
+		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+	   }
 	   
 	}		
 }

@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.exciter.PSSEExcIEEE1981AC1Parser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -79,8 +80,13 @@ public class PSSEExcIEEE1981AC1Mapper extends BasePSSEDataMapper{
 			   exc.setSE1(dataParser.getDouble("SE(E1)"));
 			   exc.setE2(dataParser.getDouble("E2"));
 			   exc.setSE2(dataParser.getDouble("SE(E2)"));
+		   }else{
+			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
 		   }
-	   }
+		}
+		else{
+		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+		}
 		
 	}
 	

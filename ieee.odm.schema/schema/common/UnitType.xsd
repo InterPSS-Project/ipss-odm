@@ -111,6 +111,7 @@
 
     <ns:simpleType name="FrequencyUnitType">
 		<ns:restriction base="ns:string">
+		    <ns:enumeration value="PU"></ns:enumeration>
 			<ns:enumeration value="Hz"></ns:enumeration>
 			<ns:enumeration value="KHz"></ns:enumeration>
 		</ns:restriction>

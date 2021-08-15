@@ -24,6 +24,10 @@
 
 package org.ieee.odm.adapter.psse.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper.DynModelType;
@@ -49,6 +53,8 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 	PSSEDynTurGovMapper    turGovMapper = null;
 	PSSEDynLoadMapper      loadMapper   = null;
 	PSSEDynRelayMapper     relayMapper  = null;
+	
+	StringBuffer sb = new StringBuffer();
 	
 	boolean isDebug = false;
     
@@ -94,12 +100,17 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
       					if(type!=null){
 	      					if(type==DynModelType.GENERATOR){
 	      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
+	      						
+	      						//sb.append(lineStr+" /"+"\n");
 	      					}
 	      					else if(type==DynModelType.EXCITER){
 	      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      						
+	      						//sb.append(lineStr+" /"+"\n");
 	      					}
 	      					else if(type==DynModelType.TUR_GOV){
 	      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      						sb.append(lineStr+" /"+"\n");
 	      					}
 	      					else if (type==DynModelType.LOAD){
 	      						loadMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
@@ -126,6 +137,17 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
   		}
 
   		if(isDebug) System.out.println(dynLibHelper.getUnsupportdSVCRecs());
+  		
+  		try {
+			//OutputStream out = new BufferedOutputStream(new FileOutputStream("mach_data.txt"));
+			OutputStream out = new BufferedOutputStream(new FileOutputStream("gov_generic_data.txt"));
+			out.write(sb.toString().getBytes());
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			
+		}
+  		
 		return parser;
 	}
 
@@ -201,7 +223,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
     	    strAry =lineStr.split("\\s+");
     	
     	if(strAry.length>2){
-    		if(ODMModelStringUtil.trimQuote(strAry[1]).equals("USRLOD")){
+    		if(ODMModelStringUtil.trimQuote(strAry[1]).equals("USRLOD") || ODMModelStringUtil.trimQuote(strAry[1]).equals("USRMDL")){
     			 return(ODMModelStringUtil.trimQuote(strAry[3]));
     		}
     		else

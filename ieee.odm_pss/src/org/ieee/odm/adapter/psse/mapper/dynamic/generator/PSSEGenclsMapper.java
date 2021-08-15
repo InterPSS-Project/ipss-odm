@@ -49,24 +49,24 @@ public class PSSEGenclsMapper extends BasePSSEDataMapper{
 	    DStabBusXmlType busXml = parser.getBus(busId);
 	
 	  if(busXml!=null){ 
-	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
-	   if(dstabGenData!=null){
-	   ClassicMachineXmlType mach = DStabParserHelper.createClassicMachine(dstabGenData);
-	   
-	 //set the type info
-	   mach.setDesc(dataParser.getString("Type"));
-	   
-	   mach.setH(dataParser.getDouble("H"));
-	   mach.setD(dataParser.getDouble("D"));
-	   //x'd = XSOURCE
-	   if(dstabGenData.getSourceZ()!=null){
-		   if(dstabGenData.getSourceZ().getIm()>0){
-			   mach.setRa(dstabGenData.getSourceZ().getRe());
-			   mach.setXd1(dstabGenData.getSourceZ().getIm());
-		   }else
-			   throw new ODMException("Source Z of of classic type(GENCLS) machine  : Id"+
-		             genId+" @ Bus"+i+"is not defined");
-	   }
+		   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+		   if(dstabGenData!=null){
+		   ClassicMachineXmlType mach = DStabParserHelper.createClassicMachine(dstabGenData);
+		   
+		 //set the type info
+		   mach.setDesc(dataParser.getString("Type"));
+		   
+		   mach.setH(dataParser.getDouble("H"));
+		   mach.setD(dataParser.getDouble("D"));
+		   //x'd = XSOURCE
+		   if(dstabGenData.getSourceZ()!=null){
+			   if(dstabGenData.getSourceZ().getIm()>0){
+				   mach.setRa(dstabGenData.getSourceZ().getRe());
+				   mach.setXd1(dstabGenData.getSourceZ().getIm());
+			   }else
+				   throw new ODMException("Source Z of of classic type(GENCLS) machine  : Id"+
+			             genId+" @ Bus"+i+"is not defined");
+		   }
 	   
 	   }
 	   else{
