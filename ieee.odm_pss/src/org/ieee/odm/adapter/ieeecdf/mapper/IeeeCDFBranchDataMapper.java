@@ -26,6 +26,8 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
+
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFBranchDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
@@ -64,6 +66,13 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 	 */
 	public IeeeCDFBranchDataMapper() {
 		this.dataParser = new IeeeCDFBranchDataParser();
+	}
+	
+	/**
+	 * constructor
+	 */
+	public IeeeCDFBranchDataMapper(IEEECDFVersion version) {
+		this.dataParser = new IeeeCDFBranchDataParser(version);
 	}
 	 
 	@Override public void mapInputLine(final String str, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {

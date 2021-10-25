@@ -32,6 +32,7 @@ import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFInterchangeDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFLossZoneDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFNetDataMapper;
 import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFTielineDataMapper;
+import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
@@ -47,6 +48,15 @@ import org.ieee.odm.schema.OriginalDataFormatEnumType;
  *
  */
 public class IeeeCDFAdapter  extends AbstractODMAdapter {
+	/**
+	 *  ODM PSS/E adapter version  
+	 */
+	public static enum IEEECDFVersion {
+		Default, OPFImpl	
+	}
+	
+	private IEEECDFVersion adptrVersion = IEEECDFVersion.Default;
+	
 	/** data section indicator for the beginning */
 	private static final int DataNotDefine = 0;
 	/** Bus data section indicator */
@@ -78,6 +88,16 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 	 */
 	public IeeeCDFAdapter() {
 		super();
+	}
+	
+	/**
+	 * constructor
+	 */
+	public IeeeCDFAdapter(IEEECDFVersion version) {
+		this();
+		this.adptrVersion = version;
+		this.busDataMapper = new IeeeCDFBusDataMapper(version);
+		this.branchDataMapper = new IeeeCDFBranchDataMapper(version);
 	}
 	 
 	@Override protected AclfModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {

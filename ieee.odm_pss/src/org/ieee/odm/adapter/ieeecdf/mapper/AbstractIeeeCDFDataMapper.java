@@ -25,6 +25,7 @@
 package org.ieee.odm.adapter.ieeecdf.mapper;
 
 import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -39,6 +40,15 @@ import org.ieee.odm.model.aclf.AclfModelParser;
 public abstract class AbstractIeeeCDFDataMapper {
 	/** input date line parser*/
 	protected AbstractDataFieldParser dataParser = null;
+	
+	protected IEEECDFVersion version = null;
+	
+	public AbstractIeeeCDFDataMapper() {
+	}
+	
+	public AbstractIeeeCDFDataMapper(IEEECDFVersion ver) {
+		this.version = ver;
+	}
 	
 	/**
 	 * First the dataParser is used to parse the inout date line. Then, map the info stored 

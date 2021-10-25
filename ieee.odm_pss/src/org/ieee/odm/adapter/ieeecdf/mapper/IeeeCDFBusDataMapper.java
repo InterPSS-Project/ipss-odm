@@ -24,6 +24,8 @@
 
 package org.ieee.odm.adapter.ieeecdf.mapper;
 
+import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
+
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFBusDataParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
@@ -49,6 +51,13 @@ import org.ieee.odm.schema.YUnitType;
  *
  */
 public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
+	/**
+	 * Constructor
+	 */
+	public IeeeCDFBusDataMapper(IEEECDFVersion version) {
+		this.dataParser = new IeeeCDFBusDataParser(version);
+	}
+	
 	/**
 	 * Constructor
 	 */
