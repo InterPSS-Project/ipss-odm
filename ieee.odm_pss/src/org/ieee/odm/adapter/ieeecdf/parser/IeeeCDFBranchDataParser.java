@@ -54,8 +54,11 @@ public class IeeeCDFBranchDataParser extends BaseIeeeCDFDataParser {
 		     "MvaRating2", "MvaRating3",      "CntlBusNum",     "CntlBusSide",  "TurnRatio", 
 		   //  15             16                 17               18               19
 		     "ShiftAngle", "MaxTapShiftAng",  "MinTapShiftAng", "TapStepSize",  "MinVoltMvarMw", 
-		   //  20             
-		     "MaxVoltMvarMw"
+		   //  20             21
+		     "MaxVoltMvarMw",
+		   //  for version = Custom1  
+                             "Status",  
+		     
 		};
 	}
 

@@ -54,8 +54,12 @@ public class IeeeCDFBusDataParser extends BaseIeeeCDFDataParser {
 		     "VMag",        "VAng",         "LoadP",         "LoadQ",       "GenP", 
 		   //  10              11              12              13              14
 		     "GenQ",       "BaseKV",        "DesiredV",     "MaxVarVolt",   "MinVarVolt", 
-		   //  15              16              17              
-		     "ShuntG",    "ShuntB",         "RemoteBusNumber" 
+		   //  for version = Custom1  
+		   //                                                 MaxVar         MinVar 
+		   //  15              16              17              18              19
+		     "ShuntG",    "ShuntB",         "RemoteBusNumber", 
+		   //  for version = Custom1  
+		                                                    "MaxVolt",      "MinVolt",
 		};
 	}
 	
