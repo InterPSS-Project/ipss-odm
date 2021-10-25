@@ -52,10 +52,8 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 	 *  ODM PSS/E adapter version  
 	 */
 	public static enum IEEECDFVersion {
-		Default, OPFImpl	
+		Default, Custom1	
 	}
-	
-	private IEEECDFVersion adptrVersion = IEEECDFVersion.Default;
 	
 	/** data section indicator for the beginning */
 	private static final int DataNotDefine = 0;
@@ -71,23 +69,29 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 	private static final int TielineData = 5;
 
 	/** Bus data line parser */
-	private IeeeCDFBusDataMapper busDataMapper = new IeeeCDFBusDataMapper();
+	private IeeeCDFBusDataMapper busDataMapper;
 	/** Branch data line parser */
-	private IeeeCDFBranchDataMapper branchDataMapper = new IeeeCDFBranchDataMapper();
+	private IeeeCDFBranchDataMapper branchDataMapper;
 	/** Network data (head line) line parser */
-	private IeeeCDFNetDataMapper netDataMappe = new IeeeCDFNetDataMapper();
+	private IeeeCDFNetDataMapper netDataMappe;
 	/** Loss zone data line parser */
-	private IeeeCDFLossZoneDataMapper zoneDataMapper = new IeeeCDFLossZoneDataMapper();
+	private IeeeCDFLossZoneDataMapper zoneDataMapper;
 	/** inter-exchange data line parser */
-	private IeeeCDFInterchangeDataMapper exchangeDataMapper = new IeeeCDFInterchangeDataMapper();
+	private IeeeCDFInterchangeDataMapper exchangeDataMapper;
 	/** tie line data line parser */
-	private IeeeCDFTielineDataMapper tieLineDataMapper = new IeeeCDFTielineDataMapper();
+	private IeeeCDFTielineDataMapper tieLineDataMapper;
 	
 	/**
 	 * constructor
 	 */
 	public IeeeCDFAdapter() {
 		super();
+		this.busDataMapper = new IeeeCDFBusDataMapper();
+		this.branchDataMapper = new IeeeCDFBranchDataMapper();
+		this.netDataMappe = new IeeeCDFNetDataMapper();
+		this.zoneDataMapper = new IeeeCDFLossZoneDataMapper();
+		this.exchangeDataMapper = new IeeeCDFInterchangeDataMapper();
+		this.tieLineDataMapper = new IeeeCDFTielineDataMapper();
 	}
 	
 	/**
@@ -95,7 +99,6 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 	 */
 	public IeeeCDFAdapter(IEEECDFVersion version) {
 		this();
-		this.adptrVersion = version;
 		this.busDataMapper = new IeeeCDFBusDataMapper(version);
 		this.branchDataMapper = new IeeeCDFBranchDataMapper(version);
 	}
