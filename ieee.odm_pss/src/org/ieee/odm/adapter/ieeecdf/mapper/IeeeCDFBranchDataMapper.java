@@ -72,6 +72,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 	 * constructor
 	 */
 	public IeeeCDFBranchDataMapper(IEEECDFVersion version) {
+		this.version = version;
 		this.dataParser = new IeeeCDFBranchDataParser(version);
 	}
 	 
@@ -244,6 +245,11 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			BaseDataSetter.setLimit(angAdj.getRange(), maxVoltPQ, minVoltPQ);
 			angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
 			angAdj.setDesiredMeasuredOnFromSide(true);
+		}
+		
+		if (this.version == IEEECDFVersion.Custom1) {
+			int status = dataParser.getInt("Status");
+			branch.setNormalOffLineStatus(status == 0);
 		}
 	}
 }

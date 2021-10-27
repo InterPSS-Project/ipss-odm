@@ -55,6 +55,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 	 * Constructor
 	 */
 	public IeeeCDFBusDataMapper(IEEECDFVersion version) {
+		this.version = version;
 		this.dataParser = new IeeeCDFBusDataParser(version);
 	}
 	
@@ -166,6 +167,12 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 					defaultGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
 				}
 			}
+		}
+		
+		if (this.version == IEEECDFVersion.Custom1) {
+			final double maxVolt = dataParser.getDouble("MaxVolt");
+			final double minVolt = dataParser.getDouble("MinVolt");
+			aclfBus.setVLimit(BaseDataSetter.createVoltageLimit(maxVolt, minVolt, VoltageUnitType.PU));
 		}
 	}
 }

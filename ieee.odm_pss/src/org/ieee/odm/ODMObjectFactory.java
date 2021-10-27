@@ -28,6 +28,7 @@ import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.bpa.BPAAdapter;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter;
+import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 import org.ieee.odm.adapter.opf.matpower.OpfMatpowerAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -126,6 +127,8 @@ public class ODMObjectFactory {
 	public static IODMAdapter createODMAdapter(ODMFileFormatEnum f) throws ODMException {
 		if ( f == ODMFileFormatEnum.IeeeCDF ) 
 			return new IeeeCDFAdapter();
+		else if ( f == ODMFileFormatEnum.IeeeCDFCustom1 ) 
+			return new IeeeCDFAdapter(IEEECDFVersion.Custom1);
 		
 		else if ( f == ODMFileFormatEnum.PsseV26 )
 			return new PSSEV26Adapter();

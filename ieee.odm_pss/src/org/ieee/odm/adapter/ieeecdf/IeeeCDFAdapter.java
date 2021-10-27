@@ -52,7 +52,8 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 	 *  ODM PSS/E adapter version  
 	 */
 	public static enum IEEECDFVersion {
-		Default, Custom1	
+		Default,     // IEEE CDF as defined in the original paper 
+		Custom1	     // Custom format for the SecAnalysis project 2021-10
 	}
 	
 	/** data section indicator for the beginning */
@@ -182,6 +183,7 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 						tieLineDataMapper.mapInputLine(str, parser);
 					} 
 				} catch (final Exception e) {
+					e.printStackTrace();
 					ODMLogger.getLogger().severe(e.toString() + "\n" + str);
 				}
 			}
