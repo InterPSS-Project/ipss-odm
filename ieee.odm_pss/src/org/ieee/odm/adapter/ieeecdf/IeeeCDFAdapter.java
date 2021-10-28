@@ -53,7 +53,7 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 	 */
 	public static enum IEEECDFVersion {
 		Default,     // IEEE CDF as defined in the original paper 
-		Custom1	     // Custom format for the SecAnalysis project 2021-10
+		Ext1	     // Custom format for the SecAnalysis project 2021-10
 	}
 	
 	/** data section indicator for the beginning */

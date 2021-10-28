@@ -56,7 +56,7 @@ public class IeeeCDFBranchDataParser extends BaseIeeeCDFDataParser {
 		     "ShiftAngle", "MaxTapShiftAng",  "MinTapShiftAng", "TapStepSize",  "MinVoltMvarMw", 
 		   //  20             21
 		     "MaxVoltMvarMw",
-		   //  for version = Custom1  
+		   //  for version = Ext1  
                              "Status",  
 		     
 		};

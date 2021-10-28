@@ -138,8 +138,8 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 
 		//Columns 107-114 Shunt conductance G (per unit) [F] *
 		//Columns 115-122 Shunt susceptance B (per unit) [F] *
-		final double gPU = dataParser.getDouble("ShuntG");
-		final double bPU = dataParser.getDouble("ShuntB");
+		double gPU = dataParser.getDouble("ShuntG");
+		double bPU = dataParser.getDouble("ShuntB");
 		if (gPU != 0.0 || bPU != 0.0) {
 			aclfBus.getShuntYData().setEquivY(BaseDataSetter.createYValue(gPU, bPU, YUnitType.PU));
 		}
@@ -169,7 +169,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 			}
 		}
 		
-		if (this.version == IEEECDFVersion.Custom1) {
+		if (this.version == IEEECDFVersion.Ext1) {
 			final double maxVolt = dataParser.getDouble("MaxVolt");
 			final double minVolt = dataParser.getDouble("MinVolt");
 			aclfBus.setVLimit(BaseDataSetter.createVoltageLimit(maxVolt, minVolt, VoltageUnitType.PU));

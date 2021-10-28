@@ -247,7 +247,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			angAdj.setDesiredMeasuredOnFromSide(true);
 		}
 		
-		if (this.version == IEEECDFVersion.Custom1) {
+		if (this.version == IEEECDFVersion.Ext1) {
 			int status = dataParser.getInt("Status");
 			branch.setNormalOffLineStatus(status == 0);
 		}

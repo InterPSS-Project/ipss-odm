@@ -127,8 +127,8 @@ public class ODMObjectFactory {
 	public static IODMAdapter createODMAdapter(ODMFileFormatEnum f) throws ODMException {
 		if ( f == ODMFileFormatEnum.IeeeCDF ) 
 			return new IeeeCDFAdapter();
-		else if ( f == ODMFileFormatEnum.IeeeCDFCustom1 ) 
-			return new IeeeCDFAdapter(IEEECDFVersion.Custom1);
+		else if ( f == ODMFileFormatEnum.IeeeCDFExt1 ) 
+			return new IeeeCDFAdapter(IEEECDFVersion.Ext1);
 		
 		else if ( f == ODMFileFormatEnum.PsseV26 )
 			return new PSSEV26Adapter();

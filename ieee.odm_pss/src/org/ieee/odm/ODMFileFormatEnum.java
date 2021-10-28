@@ -31,7 +31,7 @@ package org.ieee.odm;
  *
  */
 public enum ODMFileFormatEnum {
-	IeeeCDF, IeeeCDFCustom1, 
+	IeeeCDF, IeeeCDFExt1, 
 	UCTE, 
 	GePSLF, 
 	PsseV26, PsseV29, PsseV30, PsseV31, PsseV32, PsseV33, 
