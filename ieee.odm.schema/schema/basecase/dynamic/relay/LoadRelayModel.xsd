@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd"/>
+    <ns:include schemaLocation="RelayModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
+	</ns:annotation>
+    
+    <!--
+		define models for relay
+		   Naming convention
+		       excBPA* for element
+		       ExcBPA* for complex type 
+	-->
+	<ns:element name="loadRelay" substitutionGroup="pss:relay" type="pss:LoadRelayXmlType"/>
+    <ns:element name="loadRelayLDS3" substitutionGroup="pss:relay" type="pss:LDS3RelayXmlType"/>
+    <ns:element name="loadRelayLVS3" substitutionGroup="pss:relay" type="pss:LVS3RelayXmlType"/>
+    
+    
+   <ns:complexType name="LoadRelayXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		abstract load relay model
+		</ns:documentation>
+    </ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:RelayModelXmlType">
+				<ns:sequence>
+					<ns:element name="BusId" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="BusNumber" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="LoadID" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+    
+    
+     <ns:complexType name="LDS3RelayXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		Under frequency load shedding relay with generator transfer trip 
+		</ns:documentation>
+    </ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:LoadRelayXmlType">
+				<ns:sequence>
+					<ns:element name="f1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="ttb" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="GBus" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="GID" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="SC" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="LVS3RelayXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		Under voltage load shedding relay with branch transfer trip
+		</ns:documentation>
+    </ns:annotation>
+      <ns:complexContent>
+			<ns:extension base="pss:LoadRelayXmlType">
+				<ns:sequence>
+					<ns:element name="f1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac3" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac4" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="f5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="t5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="tb5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="frac5" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="ttb1" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="ttb2" type="ns:double" maxOccurs="1" minOccurs="0" default= "0.0"></ns:element>
+					<ns:element name="FBus1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="TBus1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="ID1" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="FBus2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="TBus2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="ID2" type="ns:string" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="SC" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+</ns:schema>

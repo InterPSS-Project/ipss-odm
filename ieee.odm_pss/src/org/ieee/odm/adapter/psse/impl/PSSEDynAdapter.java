@@ -24,12 +24,17 @@
 
 package org.ieee.odm.adapter.psse.impl;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.DynamicModelLibHelper.DynModelType;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynExciterMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynGeneratorMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynLoadMapper;
+import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynRelayMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.PSSEDynTurGovMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
@@ -47,6 +52,11 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 	PSSEDynExciterMapper   exciterMapper =null;
 	PSSEDynTurGovMapper    turGovMapper = null;
 	PSSEDynLoadMapper      loadMapper   = null;
+	PSSEDynRelayMapper     relayMapper  = null;
+	
+	StringBuffer sb = new StringBuffer();
+	
+	boolean isDebug = false;
     
 	public PSSEDynAdapter(PsseVersion ver) {
 		super(ver);
@@ -54,6 +64,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 		exciterMapper   = new PSSEDynExciterMapper(ver);
 		turGovMapper    = new PSSEDynTurGovMapper(ver);
 		loadMapper      = new PSSEDynLoadMapper(ver);
+		relayMapper     = new PSSEDynRelayMapper(ver);
 	}
 	
 	/*
@@ -89,24 +100,32 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
       					if(type!=null){
 	      					if(type==DynModelType.GENERATOR){
 	      						generatorMapper.procLineString(modelType, lineStr, (DStabModelParser) parser);
+	      						
+	      						//sb.append(lineStr+" /"+"\n");
 	      					}
-	      					else if(dynLibHelper.getModelType(modelType)==DynModelType.EXCITER){
+	      					else if(type==DynModelType.EXCITER){
 	      						exciterMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      						
+	      						//sb.append(lineStr+" /"+"\n");
 	      					}
-	      					else if(dynLibHelper.getModelType(modelType)==DynModelType.TUR_GOV){
+	      					else if(type==DynModelType.TUR_GOV){
 	      						turGovMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      						sb.append(lineStr+" /"+"\n");
 	      					}
-	      					else if (dynLibHelper.getModelType(modelType)==DynModelType.LOAD){
+	      					else if (type==DynModelType.LOAD){
 	      						loadMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
+	      					}
+	      					else if (type==DynModelType.RELAY){
+	      						relayMapper.procLineString(modelType, lineStr, (DStabModelParser)parser);
 	      					}
 	      					
 	      					//save supported model data
-	      					dynLibHelper.saveSupportedModelData(lineStr);
+	      					if(isDebug) dynLibHelper.saveSupportedModelData(lineStr);
       					}
       					else{
       						//System.out.println("model unsupported :"+lineStr);
       						//throw new Exception("The input dynamic model is not supported yet, Type #"+modelType);
-      						dynLibHelper.procUnsupportedModel(modelType, lineStr);
+      						if(isDebug) dynLibHelper.procUnsupportedModel(modelType, lineStr);
       					}
       				}
       				
@@ -117,7 +136,18 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
     		throw new ODMException("PSSE dynamic data input error, line # " + lineNo + ", " + e.toString());
   		}
 
-  		System.out.println(dynLibHelper.getUnsupportdSVCRecs());
+  		if(isDebug) System.out.println(dynLibHelper.getUnsupportdSVCRecs());
+  		
+  		try {
+			//OutputStream out = new BufferedOutputStream(new FileOutputStream("mach_data.txt"));
+			OutputStream out = new BufferedOutputStream(new FileOutputStream("gov_generic_data.txt"));
+			out.write(sb.toString().getBytes());
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			
+		}
+  		
 		return parser;
 	}
 
@@ -193,7 +223,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
     	    strAry =lineStr.split("\\s+");
     	
     	if(strAry.length>2){
-    		if(ODMModelStringUtil.trimQuote(strAry[1]).equals("USRLOD")){
+    		if(ODMModelStringUtil.trimQuote(strAry[1]).equals("USRLOD") || ODMModelStringUtil.trimQuote(strAry[1]).equals("USRMDL")){
     			 return(ODMModelStringUtil.trimQuote(strAry[3]));
     		}
     		else

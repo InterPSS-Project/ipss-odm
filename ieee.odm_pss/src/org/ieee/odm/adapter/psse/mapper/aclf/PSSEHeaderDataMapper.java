@@ -39,6 +39,8 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
+import org.ieee.odm.schema.FrequencyUnitType;
+import org.ieee.odm.schema.FrequencyXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 
@@ -55,7 +57,7 @@ public class PSSEHeaderDataMapper extends BasePSSEDataMapper {
 		if (PSSEAdapter.getVersionNo(this.version) >= 31) {
 			dataParser.parseFields(lineStrAry);
 			
-			/*
+			/*0,   100.00, 30, 0, 1,  60.00     
 		   //  0----------  1----------2---------- 3----------4
 	 	  "Indicator",  "BaseKva",  "version",  "XFRRAT", "NXFRAT",
 		   //  5----------  6----------7---------- 3----------4
@@ -70,6 +72,9 @@ public class PSSEHeaderDataMapper extends BasePSSEDataMapper {
 			baseCaseNet.setDesc(lineStrAry[0]);
 			
 			baseCaseNet.setName("AclfNet-PSSE-V" + ver);
+			
+			double baseFreq = dataParser.getDouble("BASFRQ",60.0);
+			baseCaseNet.setFrequency(BaseDataSetter.createFrequency(baseFreq, FrequencyUnitType.HZ));
 			
 			String str = new Integer(PSSEAdapter.getVersionNo(this.version)).toString();
 			if (!ver.contains(str)) {
@@ -86,6 +91,10 @@ public class PSSEHeaderDataMapper extends BasePSSEDataMapper {
 			double baseMva = new Double(st.nextToken().trim()).doubleValue();
 			baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(baseMva));
 			BaseJaxbHelper.addNVPair(baseCaseNet, "CaseIndicator", new Integer(indicator).toString());
+			
+			double baseFreq = dataParser.getDouble("BASFRQ",60.0);
+			baseCaseNet.setFrequency(BaseDataSetter.createFrequency(baseFreq, FrequencyUnitType.HZ));
+			
 			
 			// The 2nd line is treated as description
 			baseCaseNet.setDesc(lineStrAry[1]);

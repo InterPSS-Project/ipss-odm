@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd"/>
+    <ns:include schemaLocation="RelayModel.xsd" />
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
+	</ns:annotation>
+    
+    <!--
+		define models for relay
+		   Naming convention
+		       excBPA* for element
+		       ExcBPA* for complex type 
+	-->
+    <ns:element name="lineRelay" substitutionGroup="pss:relay" type="pss:LineRelayXmlType"/>
+    <ns:element name="xfrRelay" substitutionGroup="pss:relay" type="pss:XfrRelayXmlType"/>
+    
+     <ns:complexType  name="LineRelayXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		abstract line relay model
+		</ns:documentation>
+    </ns:annotation>
+        <ns:complexContent>
+			<ns:extension base="pss:RelayModelXmlType">
+				<ns:sequence>
+					<ns:element name="FBus1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="TBus1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="ID1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="FBus2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="TBus2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="ID2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="XfrRelayXmlType">
+		<ns:annotation>
+      <ns:documentation>
+		abstract transformer relay model
+		</ns:documentation>
+    </ns:annotation>
+      <ns:complexContent>
+			<ns:extension base="pss:RelayModelXmlType">
+				<ns:sequence>
+					<ns:element name="FBus1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="TBus1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="ID1" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="FBus2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="TBus2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+					<ns:element name="ID2" type="ns:int" maxOccurs="1" minOccurs="0" default= "0"></ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+
+</ns:schema>

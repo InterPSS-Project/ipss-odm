@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.tur_gov.PSSETurGovIEESGOParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -48,26 +49,38 @@ public class PSSETurGovIEESGOMapper extends BasePSSEDataMapper{
 	    }
 
 	   DStabBusXmlType busXml = parser.getBus(busId);
-	    
-	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
 	   
-	   GovPSSEIEESGOModelXmlType gov = DStabParserHelper.createGovPSSEIEESGOXmlType(dstabGenData);
-	   gov.setT1(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T1")));
-	   gov.setT2(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T2")));
-	   gov.setT3(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T3")));
-	   
-	   gov.setT4(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T4")));
-	   
-	   gov.setT5(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T5")));
-	   
-	   gov.setT6(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T6")));
-	   
-	   gov.setK1(dataParser.getDouble("K1"));
-	   gov.setK2(dataParser.getDouble("K2"));
-	   gov.setK3(dataParser.getDouble("K3"));
-	   
-	   gov.setPMAX(dataParser.getDouble("PMAX"));
-	   gov.setPMIN(dataParser.getDouble("PMIN"));
+	   if(busXml!=null) {
+		    
+		   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+		   
+		   if(dstabGenData!=null) {
+			   
+			   GovPSSEIEESGOModelXmlType gov = DStabParserHelper.createGovPSSEIEESGOXmlType(dstabGenData);
+			   gov.setT1(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T1")));
+			   gov.setT2(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T2")));
+			   gov.setT3(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T3")));
+			   
+			   gov.setT4(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T4")));
+			   
+			   gov.setT5(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T5")));
+			   
+			   gov.setT6(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T6")));
+			   
+			   gov.setK1(dataParser.getDouble("K1"));
+			   gov.setK2(dataParser.getDouble("K2"));
+			   gov.setK3(dataParser.getDouble("K3"));
+			   
+			   gov.setPMAX(dataParser.getDouble("PMAX"));
+			   gov.setPMIN(dataParser.getDouble("PMIN"));
+		   }
+		   else{
+			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+		   }
+	   }
+	   else{
+		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+	   }
 	 
 	
 	}

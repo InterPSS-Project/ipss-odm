@@ -4,6 +4,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.parser.dynamic.tur_gov.PSSETurGovTGOV1Parser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -48,20 +49,32 @@ public class PSSETurGovTGOV1Mapper extends BasePSSEDataMapper{
 	    }
 
 	   DStabBusXmlType busXml = parser.getBus(busId);
+	   
+	   if(busXml!=null) {
 	    
-	   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
-	   
-	   GovPSSETGOV1ModelXmlType gov = DStabParserHelper.createGovPSSETGOV1XmlType(dstabGenData);
-	   
-	   gov.setR(dataParser.getDouble("R"));
-       gov.setT1(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T1")));
-	   
-	   gov.setVMAX(dataParser.getDouble("VMAX"));
-	   gov.setVMIN(dataParser.getDouble("VMIN"));
-	   
-	   gov.setT2(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T2")));
-	   gov.setT3(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T3")));
-	   
-	   gov.setDt(dataParser.getDouble("Dt"));
+		   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+		   
+		   if(dstabGenData!=null) {
+		   
+			   GovPSSETGOV1ModelXmlType gov = DStabParserHelper.createGovPSSETGOV1XmlType(dstabGenData);
+			   
+			   gov.setR(dataParser.getDouble("R"));
+		       gov.setT1(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T1")));
+			   
+			   gov.setVMAX(dataParser.getDouble("VMAX"));
+			   gov.setVMIN(dataParser.getDouble("VMIN"));
+			   
+			   gov.setT2(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T2")));
+			   gov.setT3(DStabDataSetter.createTimeConstSec(dataParser.getDouble("T3")));
+			   
+			   gov.setDt(dataParser.getDouble("Dt"));
+		   }
+		   else{
+			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+		   }
+	   } 
+	   else{
+		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+	   }
 	}
 }

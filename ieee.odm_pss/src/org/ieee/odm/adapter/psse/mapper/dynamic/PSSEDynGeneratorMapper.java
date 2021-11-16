@@ -5,6 +5,7 @@ import org.ieee.odm.adapter.psse.mapper.aclf.BasePSSEDataMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGenclsMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGenrouMapper;
 import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGensalMapper;
+import org.ieee.odm.adapter.psse.mapper.dynamic.generator.PSSEGentpjMapper;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.dstab.DStabModelParser;
 
@@ -13,6 +14,7 @@ public class PSSEDynGeneratorMapper extends BasePSSEDataMapper{
 	private PSSEGenclsMapper  machGenclsMapper= null;
 	private PSSEGenrouMapper  machGenrouMapper= null;
 	private PSSEGensalMapper  machGensalMapper= null;
+	private PSSEGentpjMapper  machGentpjMapper= null;
 	
 	
 	public PSSEDynGeneratorMapper(PsseVersion ver) {
@@ -20,6 +22,7 @@ public class PSSEDynGeneratorMapper extends BasePSSEDataMapper{
 		machGenclsMapper = new PSSEGenclsMapper(ver);
 		machGenrouMapper = new PSSEGenrouMapper(ver);
 		machGensalMapper = new PSSEGensalMapper(ver);
+		machGentpjMapper = new PSSEGentpjMapper(ver);
 	}
 	
 	public void procLineString(String type,String lineStr, DStabModelParser parser) throws ODMException {
@@ -34,6 +37,9 @@ public class PSSEDynGeneratorMapper extends BasePSSEDataMapper{
 		//GENSAE data is same as the GENSAL
 		else if(type.equalsIgnoreCase("GENSAE")){
 			machGensalMapper.procLineString(lineStr, parser);
+		}
+		else if(type.equalsIgnoreCase("GENTPJU1")||type.equalsIgnoreCase("GENTPJ1")){
+			machGentpjMapper.procLineString(lineStr, parser);
 		}
 		else{
 			throw new ODMException("The input Generator dynamic model type #"+ type+" is not supporged yet!");

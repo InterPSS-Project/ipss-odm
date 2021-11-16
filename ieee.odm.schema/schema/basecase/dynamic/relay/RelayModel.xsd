@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+	
+    <ns:include schemaLocation="../../../common/DataType.xsd"/>
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
+	</ns:annotation>
+    
+    <ns:element name="relay" type="pss:RelayModelXmlType"/>
+
+    <ns:complexType abstract="true" name="RelayModelXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="name" type="ns:string" />
+			<ns:element maxOccurs="1" minOccurs="0" name="desc" type="ns:string" />
+		</ns:sequence>
+	</ns:complexType>
+     
+
+</ns:schema>

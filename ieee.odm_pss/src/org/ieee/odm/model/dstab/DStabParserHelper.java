@@ -69,6 +69,8 @@ import org.ieee.odm.schema.ExcIEEE2005TypeST4BXmlType;
 import org.ieee.odm.schema.ExcIEEEModified1968Type1XmlType;
 import org.ieee.odm.schema.ExcSimpleTypeXmlType;
 import org.ieee.odm.schema.ExcTSATTypeEXC34XmlType;
+import org.ieee.odm.schema.GenRelayFRQTPATXmlType;
+import org.ieee.odm.schema.GenRelayVTGTPATXmlType;
 import org.ieee.odm.schema.GovBPAGiGaTbCombinedModelXmlType;
 import org.ieee.odm.schema.GovBPAGsTbCombinedModelXmlType;
 import org.ieee.odm.schema.GovBPAHydroTurbineGHXmlType;
@@ -85,6 +87,8 @@ import org.ieee.odm.schema.GovSimpleTypeXmlType;
 import org.ieee.odm.schema.GovSteamNRXmlType;
 import org.ieee.odm.schema.GovSteamTCDRXmlType;
 import org.ieee.odm.schema.GovSteamTCSRXmlType;
+import org.ieee.odm.schema.LDS3RelayXmlType;
+import org.ieee.odm.schema.LVS3RelayXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.PssBPADualInputXmlType;
@@ -1139,4 +1143,108 @@ public class DStabParserHelper extends AcscParserHelper {
 		gen.setStabilizer(OdmObjFactory.createPssBPASp(pss));
 		return pss;
 	}
+	
+	public static  LDS3RelayXmlType createRelayLDS3XmlType(DStabBusXmlType bus, String loadId) {
+		LDS3RelayXmlType lds3 = OdmObjFactory.createLDS3RelayXmlType();
+        
+		lds3.setBusId(bus.getId());
+		
+		boolean findLoadId = false;
+		
+		if(loadId.equals("*")) {
+		  bus.getBusRelayList().add(lds3);
+		  lds3.setLoadID(loadId);
+		  findLoadId = true;
+		}
+		else {
+			for(JAXBElement loadData: bus.getLoadData().getContributeLoad()) {
+				DStabLoadDataXmlType dynLoad = (DStabLoadDataXmlType)loadData.getValue();
+				if(dynLoad.getId().equals(loadId)) {
+				     lds3.setLoadID(loadId);
+				     dynLoad.getLoadRelayList().add(lds3);
+				     findLoadId = true;
+				}
+			}
+		}
+	
+		if(!findLoadId) {
+			return null;
+		}
+		
+		return lds3;
+		
+	}
+	
+	
+	public static  LVS3RelayXmlType createRelayLVS3XmlType(DStabBusXmlType bus, String loadId) {
+		LVS3RelayXmlType lvs3 = OdmObjFactory.createLVS3RelayXmlType();
+		
+		lvs3.setBusId(bus.getId());
+		
+		boolean findLoadId = false;
+		
+		if(loadId.equals("*")) {
+		  bus.getBusRelayList().add(lvs3);
+		  lvs3.setLoadID(loadId);
+		  findLoadId = true;
+		}
+		else {
+			for(JAXBElement loadData: bus.getLoadData().getContributeLoad()) {
+				DStabLoadDataXmlType dynLoad = (DStabLoadDataXmlType)loadData.getValue();
+				if(dynLoad.getId().equals(loadId)) {
+				     lvs3.setLoadID(loadId);
+				     dynLoad.getLoadRelayList().add(lvs3);
+				     findLoadId = true;
+				}
+			}
+		}
+	
+		if(!findLoadId) {
+			return null;
+		}
+		
+		return lvs3;
+		
+	}
+
+	public static GenRelayFRQTPATXmlType createRelayFRQTPATXmlType(DStabBusXmlType bus, String genId) {
+		GenRelayFRQTPATXmlType ufgs = OdmObjFactory.createGenRelayFRQTPATXmlType();
+		
+		ufgs.setGenBusId(bus.getId());
+		
+		boolean findGenId = false;
+		for(JAXBElement genData: bus.getGenData().getContributeGen()) {
+			DStabGenDataXmlType dynGen = (DStabGenDataXmlType)genData.getValue();
+			if(dynGen.getId().equals(genId)) {
+				  ufgs.setGenID(genId);
+			     dynGen.getGenRelayList().add(ufgs);
+			     findGenId  = true;
+			}
+		}
+		
+		if (!findGenId) return null;
+
+		return ufgs;
+	}
+	
+	public static GenRelayVTGTPATXmlType createRelayVTGTPATXmlType(DStabBusXmlType bus, String genId) {
+		GenRelayVTGTPATXmlType uvgs = OdmObjFactory.createGenRelayVTGTPATXmlType();
+		
+		uvgs.setGenBusId(bus.getId());
+		
+		boolean findGenId = false;
+		for(JAXBElement genData: bus.getGenData().getContributeGen()) {
+			DStabGenDataXmlType dynGen = (DStabGenDataXmlType)genData.getValue();
+			if(dynGen.getId().equals(genId)) {
+				  uvgs.setGenID(genId);
+			     dynGen.getGenRelayList().add(uvgs);
+			     findGenId  = true;
+			}
+		}
+		
+		if (!findGenId) return null;
+
+		return uvgs;
+	}
+	
 }

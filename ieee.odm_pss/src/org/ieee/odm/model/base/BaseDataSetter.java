@@ -37,6 +37,8 @@ import org.ieee.odm.schema.ApparentPowerXmlType;
 import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.CurrentXmlType;
 import org.ieee.odm.schema.FactorUnitType;
+import org.ieee.odm.schema.FrequencyUnitType;
+import org.ieee.odm.schema.FrequencyXmlType;
 import org.ieee.odm.schema.GXmlType;
 import org.ieee.odm.schema.LimitXmlType;
 import org.ieee.odm.schema.PowerXmlType;
@@ -435,5 +437,12 @@ public class BaseDataSetter extends BaseJaxbHelper {
 		r.setValue(p == 0.0? 1.0 : p);
     	r.setUnit(FactorUnitType.PU);
     	return r;
-	}	
+	}
+	
+	public static FrequencyXmlType createFrequency(double freqValue,FrequencyUnitType unit) {
+		FrequencyXmlType f = OdmObjFactory.createFrequencyXmlType();
+		f.setValue(freqValue);
+		f.setUnit(unit);
+		return f;
+	}
 }
