@@ -57,7 +57,7 @@ public class IeeeCDFBranchDataParser extends BaseIeeeCDFDataParser {
 		   //  20             21
 		     "MaxVoltMvarMw",
 		   //  for version = Ext1  
-                             "Status",  
+                             "Status",        "BranchName" 
 		     
 		};
 	}

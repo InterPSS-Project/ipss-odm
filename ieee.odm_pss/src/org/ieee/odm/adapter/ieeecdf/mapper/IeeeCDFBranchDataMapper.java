@@ -250,6 +250,9 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		if (this.version == IEEECDFVersion.Ext1) {
 			int status = dataParser.getInt("Status");
 			branch.setNormalOffLineStatus(status == 0);
+
+			String braName = dataParser.getString("BranchName");
+			branch.setName(braName);
 		}
 	}
 }
