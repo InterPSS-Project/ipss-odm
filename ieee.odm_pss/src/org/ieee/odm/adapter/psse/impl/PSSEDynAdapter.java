@@ -137,7 +137,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
   		}
 
   		if(isDebug) System.out.println(dynLibHelper.getUnsupportdSVCRecs());
-  		
+  		/*
   		try {
 			//OutputStream out = new BufferedOutputStream(new FileOutputStream("mach_data.txt"));
 			OutputStream out = new BufferedOutputStream(new FileOutputStream("gov_generic_data.txt"));
@@ -147,6 +147,7 @@ public class PSSEDynAdapter extends PSSEAcscAdapter {
 		} catch (Exception e) {
 			
 		}
+		*/
   		
 		return parser;
 	}
