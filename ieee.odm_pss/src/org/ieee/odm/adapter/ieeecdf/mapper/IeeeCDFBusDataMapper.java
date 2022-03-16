@@ -153,7 +153,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		final double min = dataParser.getDouble("MinVarVolt");
 
 		//Columns 124-127 Remote controlled bus number
-		final String reBusId = dataParser.getString("RemoteBusNumber");
+		final String reBusId = dataParser.getString("RemoteBusNumber", "0");
 
 		if (max != 0.0 || min != 0.0) {
 			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(aclfBus.getGenData());
@@ -170,8 +170,8 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		}
 		
 		if (this.version == IEEECDFVersion.Ext1) {
-			final double maxVolt = dataParser.getDouble("MaxVolt");
-			final double minVolt = dataParser.getDouble("MinVolt");
+			final double maxVolt = dataParser.getDouble("MaxVolt", 1.1);
+			final double minVolt = dataParser.getDouble("MinVolt", 0.9);
 			aclfBus.setVLimit(BaseDataSetter.createVoltageLimit(maxVolt, minVolt, VoltageUnitType.PU));
 		}
 	}
