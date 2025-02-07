@@ -49,6 +49,9 @@ public class PSSEFixedShuntDataParser extends BasePSSEDataParser {
 		 *   
 		 *   STATUS : 1 in service, 0 out of service
 		 */
+		/*
+		 * "fields":["ibus", "shntid", "stat", "gl", "bl", "name"], 
+		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
 			  "I",      "ID",     "STATUS",    "GL",     "BL"

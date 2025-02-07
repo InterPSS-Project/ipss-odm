@@ -48,6 +48,9 @@ public class PSSEAreaDataParser extends BasePSSEDataParser {
 	    Sample data
 	            1,    0,     0.000,     1.000,'NEPEX 
 		*/
+		/*
+		 * "fields":["iarea", "isw", "pdes", "ptol", "arname"], 
+		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
 			 "I",        "ISW",     "PDES",    "PTOL",   "ARNAM"             

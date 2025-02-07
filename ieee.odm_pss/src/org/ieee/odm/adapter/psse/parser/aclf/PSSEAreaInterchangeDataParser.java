@@ -49,6 +49,9 @@ public class PSSEAreaInterchangeDataParser extends BasePSSEDataParser {
 		//    Area interchange tolerance, MW [F] *
 		 * 
 		*/
+		/*
+		 * No equiv Json schema
+		 */
 		return new String[] {
 		   //  0----------1---------     -2------------3---------   -4
 			 "AreaNum", "SwingBusName", "ExpoertMw", "ExTolerance"             

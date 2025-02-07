@@ -106,10 +106,15 @@ public class PSSEFactsDataParser extends BasePSSEDataParser {
 		SET2 when MODE is 4, 7 or 8: 0 for sending end voltage, 1 for series current.
 		VSREF = 0 by default.
 	 */
+		/*
+		 *  "fields":["name", "ibus", "jbus", "mode", "pdes", "qdes", "vset", "shmx", "trmx", "vtmn", 
+		 *            "vtmx", "vsmx", "imx", "linx", "rmpct", "owner", "set1", "set2", "vsref", "fcreg", 
+		 *            "nreg", "mname"], 
+		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
 			  "N",       "I",       "J",      "MODE",    "PDES",
-			  "QDES",    "VSET",    "SHMX",   "TRMX",    "VTMN",
+			  "QDES",    "VSET",    "SHMX",   "TRMX",    "VTMN",      
 			  "VTMX",    "VSMX",    "IMX",    "LINX",    "RMPCT",
 			  "OWNER",   "SET1",    "SET2",   "VSREF"             
 		};

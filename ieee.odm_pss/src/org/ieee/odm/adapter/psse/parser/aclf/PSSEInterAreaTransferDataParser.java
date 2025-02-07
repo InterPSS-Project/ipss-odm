@@ -49,6 +49,9 @@ public class PSSEInterAreaTransferDataParser extends BasePSSEDataParser {
 		 *   Sample : 
 		 * 
 		*/
+		/*
+		 * No Json schema
+		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
 			 "ARFROM",   "ARTO",    "TRID",   "PTRAN"             

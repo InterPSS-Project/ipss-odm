@@ -73,6 +73,8 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 	     *   
 	     *   Sample line-1 : 0,   100.00, 32, 0, 1, 60.00     / PSS®E-32.0    THU, FEB 28 2013   7:24     
 		 */
+		/*
+		 */
 		return new String[] {
 		   //  0----------  1----------2---------- 3----------4
 	 	  "Indicator",  "BaseKva",  "version",  "XFRRAT", "NXFRAT",

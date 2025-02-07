@@ -58,6 +58,12 @@ public class PSSELineDataParser extends BasePSSEDataParser {
     			>=2 to designate bus J as the metered end.
 				MET = 1 by default.
 		 */
+		/*
+		 *  "fields":["ibus", "jbus", "ckt", "rpu", "xpu", "bpu", "name", "rate1", "rate2", 
+		 *  		  "rate3", "rate4", "rate5", "rate6", "rate7", "rate8", "rate9", "rate10", 
+		 *  		  "rate11", "rate12", "gi", "bi", "gj", "bj", "stat", "bp", "met", "len", 
+		 *  		  "o1", "f1", "o2", "f2", "o3", "f3", "o4", "f4"], 
+		 */
 		return new String[] {
 				/*
 				 * V26

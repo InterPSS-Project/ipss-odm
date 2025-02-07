@@ -54,7 +54,7 @@ public class PSSEDcLine2TDataParser extends BasePSSEDataParser {
 				desired inverter power. No default allowed.					
 			RDC The dc line resistance; entered in ohms. No default allowed.
 			VSCHD Scheduled compounded dc voltage; entered in kV. No default allowed.
-			METER Metered end code of either ’R’ (for rectifier) or ’I’ (for inverter). METER = ’I’ by default.
+			METER Metered end code of either ’R„1¤7 (for rectifier) or ’I„1¤7 (for inverter). METER = ’I„1¤7 by default.
 			VCMOD Mode switch dc voltage; entered in kV. When the inverter dc voltage falls below
 				this value and the line is in power control mode (i.e., MDC = 1), the line switches
 				to current control mode with a desired current corresponding to the desired power
@@ -85,6 +85,14 @@ public class PSSEDcLine2TDataParser extends BasePSSEDataParser {
 				dc model are adjusted by the difference between the phase angles at this bus and
 				the ac/dc interface (i.e., the converter bus, IPR). ICR = 0 by default.
 			*/
+		/*
+		 *  "fields":["name", "mdc", "rdc", "setvl", "vschd", "vcmod", "rcomp", "delti", "met", 
+		 *           "dcvmin", "cccitmx", "cccacc", "ipr", "nbr", "anmxr", "anmnr", "rcr", "xcr", 
+		 *           "ebasr", "trr", "tapr", "tmxr", "tmnr", "stpr", "icr", "ndr", "ifr", "itr", 
+		 *           "idr", "xcapr", "ipi", "nbi", "anmxi", "anmni", "rci", "xci", "ebasi", "tri", 
+		 *           "tapi", "tmxi", "tmni", "stpi", "ici", "ndi", "ifi", "iti", "idi", "xcapi"],  
+  
+		 */
 		return new String[] {
 		   //  0-----------1-----------2-----------3-----------4
 			  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
