@@ -44,11 +44,11 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 	@Override public String[] getMetadata() {
 		/* Format V30, V29
 		 * 
-		 *  I,  ’NAME’,  BASKV, IDE,  GL, BL, AREA, ZONE,         VM, VA,  OWNER
+		 *  I,  ’NAME„1¤7,  BASKV, IDE,  GL, BL, AREA, ZONE,         VM, VA,  OWNER
 		 * 
 		 *  Format V32, V31
 		 * 
-		 *  I,  ’NAME’,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
+		 *  I,  ’NAME„1¤7,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
 		 * 
 		 * Format V33
 		 *  
@@ -59,6 +59,10 @@ public class PSSEBusDataParser extends BasePSSEDataParser {
 		 *  	EVHI	Emergency voltage magnitude high limit; entered in pu.  EVHI=1.1 by default 
 		 *  	EVLO	Emergency voltage magnitude low limit; entered in pu.  EVLO=0.9 by default
 		 *  
+		 */
+		/*
+		 *  "fields":["ibus", "name", "baskv", "ide", "area", "zone", "owner", 
+		 *            "vm", "va", "nvhi", "nvlo", "evhi", "evlo"], 
 		 */
 		return new String[] {
 		   //  0----------1----------2----------3----------4
