@@ -45,7 +45,7 @@ public class PSSEAdapter extends AbstractODMAdapter {
 	 *  ODM PSS/E adapter version  
 	 */
 	public static enum PsseVersion {
-		PSSE_26, PSSE_29, PSSE_30, PSSE_31, PSSE_32, PSSE_33	
+		PSSE_26, PSSE_29, PSSE_30, PSSE_31, PSSE_32, PSSE_33, PSSE_JSON	
 	}
 	
 	/**
