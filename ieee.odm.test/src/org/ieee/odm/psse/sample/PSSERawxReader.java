@@ -1,5 +1,6 @@
 package org.ieee.odm.psse.sample;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +16,7 @@ public class PSSERawxReader {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         
         try (FileReader reader = new FileReader("testdata/psse/json/sample.rawx")) {
-            PSSESchema root = gson.fromJson(reader, PSSESchema.class);
+            PSSESchema root = gson.fromJson(new BufferedReader(reader), PSSESchema.class);
 
             // Print parsed data
             System.out.println(root);
