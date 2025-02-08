@@ -740,12 +740,20 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * @throws ODMBranchDuplicationException
 	 */
 	protected void addBranch2BaseCase(BaseBranchXmlType branch, String fromId, String toId, String tertId, String cirId)  throws ODMBranchDuplicationException {
-		String id = tertId == null ?
-				ODMModelStringUtil.formBranchId(fromId, toId, cirId) : ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
-		if (this.objectCache.get(id) != null ||
-				this.objectCache.get(ODMModelStringUtil.formBranchId(toId, fromId, cirId)) != null) {
-			throw new ODMBranchDuplicationException("Branch record duplication, bus id: " + id);
+		String id = "";
+		if (tertId != null && !tertId.trim().isEmpty()) {
+			id = ODMModelStringUtil.formBranchId(fromId, toId, tertId, cirId);
+			if (this.objectCache.get(id) != null) {
+				throw new ODMBranchDuplicationException("Branch record duplication, branch id: " + id);
+			}
 		}
+		else {
+			id = ODMModelStringUtil.formBranchId(fromId, toId, cirId);
+			if (this.objectCache.get(id) != null) {
+				throw new ODMBranchDuplicationException("Branch record duplication, branch id: " + id);
+			}
+		}
+		
 		this.objectCache.put(id, branch);		
 		branch.setCircuitId(cirId);
 		branch.setId(id);

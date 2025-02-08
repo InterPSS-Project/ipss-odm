@@ -47,17 +47,17 @@ public class BasePSSEDataMapper extends  BaseDataMapper{
 		double f1 = dataParser.getDouble("F1", 0.0);
 		
 		String o2 = dataParser.getString("O2", null);
-		if (o2 != null && new Integer(o2) == 0)
+		if (o2 != null && o2.trim().isEmpty())
 			o2 = null;
 		
 		double f2 = dataParser.getDouble("F2", 0.0);
 		String o3 = dataParser.getString("O3", null);
-		if (o3 != null && new Integer(o3) == 0)
+		if (o3 != null &&  o3.trim().isEmpty())
 			o3 = null;
 		
 		double f3 = dataParser.getDouble("F3", 0.0);
 		String o4 = dataParser.getString("O4", null);
-		if (o4 != null && new Integer(o4) == 0)
+		if (o4 != null && o4.trim().isEmpty())
 			o4 = null;
 		double f4 = dataParser.getDouble("F4", 0.0);
     	

@@ -79,8 +79,8 @@ Sample data:
 		   //  20         21         22         23         24
 			  "O2",      "F2",      "O3",      "F3",      "O4", 
 		   //  25         26         27
-			  "F1",      
-			             "WMOD",    "WPF"                // for V32 only
+			  "F4",      
+			             "WMOD",    "WPF"                // for V32-V33 only
 		};
 	}
 	
