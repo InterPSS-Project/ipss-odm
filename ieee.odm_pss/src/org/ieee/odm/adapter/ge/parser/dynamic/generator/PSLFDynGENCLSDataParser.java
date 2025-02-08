@@ -1,6 +1,6 @@
 package org.ieee.odm.adapter.ge.parser.dynamic.generator;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 

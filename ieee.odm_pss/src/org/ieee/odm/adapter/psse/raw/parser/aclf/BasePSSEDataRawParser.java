@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 
 /**

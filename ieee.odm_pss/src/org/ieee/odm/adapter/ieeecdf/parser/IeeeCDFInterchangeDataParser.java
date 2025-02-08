@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ieeecdf.parser;
 
 import java.util.StringTokenizer;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.common.ODMException;
 
 /**

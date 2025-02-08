@@ -1,4 +1,4 @@
-package org.ieee.odm.adapter;
+package org.ieee.odm.adapter.common.str;
 
 public class BaseStringDataMapper {
 	

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ieeecdf.parser;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 
 /**

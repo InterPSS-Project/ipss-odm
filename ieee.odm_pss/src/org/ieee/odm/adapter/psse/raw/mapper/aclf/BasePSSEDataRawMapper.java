@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-import org.ieee.odm.adapter.BaseStringDataMapper;
+import org.ieee.odm.adapter.common.str.BaseStringDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.BaseJaxbHelper;

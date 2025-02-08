@@ -22,8 +22,9 @@
  *
  */
 
-package org.ieee.odm.adapter;
+package org.ieee.odm.adapter.common.str;
 
+import org.ieee.odm.adapter.common.BaseInputRowParser;
 import org.ieee.odm.common.ODMException;
 
 /**

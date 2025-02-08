@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.json.parser.PSSEDataJSonParser;
+import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -59,20 +60,26 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
             "fields":["iarea", "isw", "pdes",    "ptol",   "arname"], 
             "data":  [1,       101,   -2800.000, 10.00000, "CENTRAL"],  '
 		 */		
-		int i = this.dataParser.getInt("I");
-		int isw = this.dataParser.getInt("ISW");
-		double pdes = this.dataParser.getDouble("PDES");
-		double ptol = this.dataParser.getDouble("PTOL");
-		String arnam = this.dataParser.getValue("ARNAM");
-		
-		area.setId(new Integer(i).toString());
-		area.setNumber(i);
-		area.setName(arnam);
+		try {
+			int i = this.dataParser.getInt("I");
+			int isw = this.dataParser.getInt("ISW");
+			double pdes = this.dataParser.getDouble("PDES");
+			double ptol = this.dataParser.getDouble("PTOL");
+			String arnam = this.dataParser.getString("ARNAM");
+			
+			area.setId(new Integer(i).toString());
+			area.setNumber(i);
+			area.setName(arnam);
 
-		if (isw > 0) {
-			area.setSwingBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+isw));
-			area.setDesiredExchangePower(BaseDataSetter.createActivePowerValue(pdes, ActivePowerUnitType.MW));
-			area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
-		}		
+			if (isw > 0) {
+				area.setSwingBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+isw));
+				area.setDesiredExchangePower(BaseDataSetter.createActivePowerValue(pdes, ActivePowerUnitType.MW));
+				area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
+			}	
+		} catch (ODMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 	}
 }

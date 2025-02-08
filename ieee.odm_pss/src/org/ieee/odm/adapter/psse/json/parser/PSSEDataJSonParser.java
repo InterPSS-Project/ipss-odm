@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.psse.json.parser;
 
 import java.util.List;
 
-import org.ieee.odm.adapter.BaseInputRowParser;
+import org.ieee.odm.adapter.common.obj.BaseInputRowObjParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 
 /**
@@ -34,7 +34,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
  * @author mzhou
  *
  */
-public abstract class PSSEDataJSonParser extends BaseInputRowParser<Object>  {		  
+public class PSSEDataJSonParser extends BaseInputRowObjParser  {		  
 	protected PsseVersion version = PsseVersion.PSSE_JSON;
 	
 	List<String> fieldDef = null;

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ge.mapper;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 
 public class BaseGEDataMapper {

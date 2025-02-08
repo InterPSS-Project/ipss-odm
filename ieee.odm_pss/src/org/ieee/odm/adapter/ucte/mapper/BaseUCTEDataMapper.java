@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ucte.mapper;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 
 public class BaseUCTEDataMapper {
 	protected AbstractStringDataFieldParser dataParser = null;

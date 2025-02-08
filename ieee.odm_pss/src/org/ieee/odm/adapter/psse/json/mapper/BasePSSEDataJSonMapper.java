@@ -24,13 +24,10 @@
 
 package org.ieee.odm.adapter.psse.json.mapper;
 
-import org.ieee.odm.adapter.BaseStringDataMapper;
+import org.ieee.odm.adapter.common.obj.BaseObjDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.BaseJaxbHelper;
-import org.ieee.odm.schema.BaseRecordXmlType;
 
-public class BasePSSEDataJSonMapper extends  BaseStringDataMapper{
+public class BasePSSEDataJSonMapper extends  BaseObjDataMapper {
 	protected PsseVersion version = null;
 	
 	public BasePSSEDataJSonMapper(){
@@ -39,31 +36,5 @@ public class BasePSSEDataJSonMapper extends  BaseStringDataMapper{
 	
 	public BasePSSEDataJSonMapper(PsseVersion ver) {
 		this.version = ver;
-	}
-	
-	protected void mapOwnerInfo(BaseRecordXmlType recXml) throws ODMException {
-		String o1 = dataParser.getValue("O1");
-		double f1 = dataParser.getDouble("F1", 0.0);
-		
-		String o2 = dataParser.getValue("O2", null);
-		if (o2 != null && new Integer(o2) == 0)
-			o2 = null;
-		
-		double f2 = dataParser.getDouble("F2", 0.0);
-		String o3 = dataParser.getValue("O3", null);
-		if (o3 != null && new Integer(o3) == 0)
-			o3 = null;
-		
-		double f3 = dataParser.getDouble("F3", 0.0);
-		String o4 = dataParser.getValue("O4", null);
-		if (o4 != null && new Integer(o4) == 0)
-			o4 = null;
-		double f4 = dataParser.getDouble("F4", 0.0);
-    	
-		BaseJaxbHelper.addOwner(recXml, 
-				o1, f1, 
-				o2, o2==null?0.0:f2, 
-				o3, o3==null?0.0:f3, 
-				o4, o4==null?0.0:f4);  		
 	}
 }

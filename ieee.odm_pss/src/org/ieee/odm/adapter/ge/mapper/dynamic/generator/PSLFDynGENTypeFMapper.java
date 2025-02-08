@@ -1,7 +1,7 @@
 package org.ieee.odm.adapter.ge.mapper.dynamic.generator;
 
-import org.ieee.odm.adapter.AbstractStringDataFieldParser;
-import org.ieee.odm.adapter.BaseStringDataMapper;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.BaseStringDataMapper;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;

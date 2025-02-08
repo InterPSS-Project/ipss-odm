@@ -22,7 +22,7 @@
  *
  */
 
-package org.ieee.odm.adapter;
+package org.ieee.odm.adapter.common;
 
 import java.util.LinkedHashMap;
 

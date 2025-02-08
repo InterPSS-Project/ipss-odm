@@ -22,7 +22,7 @@
  *
  */
 
-package org.ieee.odm.adapter;
+package org.ieee.odm.adapter.common.str;
 
 import java.io.BufferedReader;
 import java.io.File;
