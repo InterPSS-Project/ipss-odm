@@ -380,6 +380,7 @@ public static class Field_Data {
     public void setFields(List<String> fields) { this.fields = fields; }
     public List<Object> getData() { return data; }
     public void setData(List<Object> data) { this.data = data; }
+    public String[] getFieldAry() { return this.fields.toArray(new String[] {}); }
 	@Override
 	public String toString() {
 		return "Field_Data [fields=" + fields + ", data=" + data + "]";

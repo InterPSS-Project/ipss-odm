@@ -9,6 +9,7 @@ import java.io.InputStream;
 import org.ieee.odm.ODMFileFormatEnum;
 import org.ieee.odm.ODMObjectFactory;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import org.junit.Test;
 public class adapterTest {
 	@Test
 	public void ver_test() throws FileNotFoundException, ODMException {
-		assertTrue(PSSEAdapter.getVersionNo(PSSEAdapter.PsseVersion.PSSE_26) == 26);
+		assertTrue(PSSERawAdapter.getVersionNo(PSSEAdapter.PsseVersion.PSSE_26) == 26);
 	}
 	
 	@Test
