@@ -22,7 +22,7 @@
   *
   */
 
-package org.ieee.odm.adapter.psse.raw.mapper.aclf;
+package org.ieee.odm.adapter.psse.json.mapper;
 
 import org.ieee.odm.adapter.BaseDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -30,14 +30,14 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BaseRecordXmlType;
 
-public class BasePSSEDataRawMapper extends  BaseDataMapper{
+public class BasePSSEDataJSonMapper extends  BaseDataMapper{
 	protected PsseVersion version = null;
 	
-	public BasePSSEDataRawMapper(){
+	public BasePSSEDataJSonMapper(){
 		
 	}
 	
-	public BasePSSEDataRawMapper(PsseVersion ver) {
+	public BasePSSEDataJSonMapper(PsseVersion ver) {
 		this.version = ver;
 	}
 	

@@ -53,7 +53,7 @@ public static class Network {
     private Vscdc vscdc;
     private Impcor impcor;
     private Ntermdc ntermdc;
-    private Ntermdccony ntermdcconv;
+    private Ntermdcconv ntermdcconv;
     private Ntermdcbus ntermdcbus;
     private Ntermdclink ntermdclink;
     private Msline msline;
@@ -205,10 +205,10 @@ public static class Network {
 	public void setNtermdc(Ntermdc ntermdc) {
 		this.ntermdc = ntermdc;
 	}
-	public Ntermdccony getNtermdcconv() {
+	public Ntermdcconv getNtermdcconv() {
 		return ntermdcconv;
 	}
-	public void setNtermdcconv(Ntermdccony ntermdcconv) {
+	public void setNtermdcconv(Ntermdcconv ntermdcconv) {
 		this.ntermdcconv = ntermdcconv;
 	}
 	public Ntermdcbus getNtermdcbus() {
@@ -353,7 +353,7 @@ public static class Twotermdc extends Field_Data{}
 public static class Vscdc extends Field_Data{}
 public static class Impcor extends Field_Data{}
 public static class Ntermdc extends Field_Data{}
-public static class Ntermdccony extends Field_Data{}
+public static class Ntermdcconv extends Field_Data{}
 public static class Ntermdcbus extends Field_Data{}
 public static class Ntermdclink extends Field_Data{}
 public static class Msline extends Field_Data{}

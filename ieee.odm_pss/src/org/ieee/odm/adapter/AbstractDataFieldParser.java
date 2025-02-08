@@ -80,6 +80,15 @@ public abstract class AbstractDataFieldParser extends BaseInputLineStringParser 
 		throw new ODMException("Function not implemented");
 	}
 
+	/**
+	 * parse a set of lines in the input file
+	 * 
+	 * @param strAry line string array
+	 */
+	public void parseFields(final Object[] objAry) throws ODMException {
+		throw new ODMException("Function not implemented");
+	}
+	
 	///////////////////////////////////////////////////////////////////
 	///////////     Methods for parsing an input file        //////////
     ///////////////////////////////////////////////////////////////////
