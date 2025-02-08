@@ -22,21 +22,24 @@
  *
  */
 
-package org.ieee.odm.adapter.common.obj;
+package org.ieee.odm.adapter.common.json;
 
 import org.ieee.odm.adapter.common.BaseInputRowParser;
 import org.ieee.odm.common.ODMException;
 
 /**
- *  A generic class for holding {position, name, value} date structure for implementing
- *  ODM parser. The key is to decouple input data field position in input data file
- *  and input data field of type String parsing/mapping logic.
+ *  A base class for parsing JSon file
  *   
  * @author mzhou
  */
-public class BaseInputRowObjParser extends BaseInputRowParser<Object> {
+public class BaseInputRowJSonParser extends BaseInputRowParser<Object> {
 	
-	public void parseFields(Object[] objAry) {
+	/**
+	 * Load the data fields into the fieldTable
+	 * 
+	 * @param objAry field object array
+	 */
+	public void loadFields(Object[] objAry) {
 		for (int i = 0; i < objAry.length; i++)
 			this.setValue(i, objAry[i]);
   	}
@@ -100,7 +103,8 @@ public class BaseInputRowObjParser extends BaseInputRowParser<Object> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public int getInt(String key) throws ODMException {
-		return (Integer)this.getValue(key);
+		// please note: in JSon(Gson), int values are parsed as double
+		return ((Double)this.getValue(key)).intValue();
 		
 	}
 	
@@ -112,8 +116,9 @@ public class BaseInputRowObjParser extends BaseInputRowParser<Object> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public int getInt(String key, int defaultValue) throws ODMException {
+		// please note: in JSon(Gson), int values are parsed as double
 		if (exist(key)  && !this.getValue(key).equals(""))
-			return (Integer)this.getValue(key);
+			return ((Double)this.getValue(key)).intValue();
 		else
 			return defaultValue; 
 	}
@@ -126,7 +131,8 @@ public class BaseInputRowObjParser extends BaseInputRowParser<Object> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public long getLong(String key) throws ODMException {
-		return (Long)this.getValue(key);
+		// please note: in JSon(Gson), long values are parsed as double
+		return ((Double)this.getValue(key)).longValue();
 	}
 	
 	/**
@@ -138,35 +144,10 @@ public class BaseInputRowObjParser extends BaseInputRowParser<Object> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public long getLong(String key, long defaultValue) throws ODMException {
+		// please note: in JSon(Gson), long values are parsed as double
 		if (exist(key)  && !this.getValue(key).equals(""))
-			return (Long)this.getValue(key);
+			return ((Double)this.getValue(key)).longValue();
 		else
 			return defaultValue;
-	}
-	
-	/**
-	 * Get field of type float
-	 * 
-	 * @param key
-	 * @return the field of type float
-	 * @throws ODMException throw exception if the field does not exist
-	 */	
-	public float getFloat(String key)throws ODMException{
-		 return (Float)getValue(key);
-	}
-
-	/**
-	 * Get field of type float, if the field does not exit, return the default value
-	 * 
-	 * @param key
-	 * @param defaultValue default value
-	 * @return the field of type float
-	 * @throws ODMException throw exception if the field does not exist
-	 */	
-	public float getFloat(String key, float defaultValue) throws ODMException{
-		 if ((exist(key)) && (!getValue(key).equals(""))) {
-			 return (Float)getValue(key);
-		 }
-		 return defaultValue;
 	}
 } 

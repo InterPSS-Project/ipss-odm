@@ -24,63 +24,51 @@
 
 package org.ieee.odm.adapter.psse.json.mapper;
 
-import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import java.util.List;
 
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.ActivePowerUnitType;
-import org.ieee.odm.schema.ExchangeAreaXmlType;
+import org.ieee.odm.model.base.BaseJaxbHelper;
+import org.ieee.odm.schema.FrequencyUnitType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 
-public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
+public class PSSECaseDataJSonMapper extends BasePSSEDataJSonMapper{
 	/**
 	 * Constructor
 	 * 
 	 * @param fieldDef field name definitions
 	 */
-	public PSSEAreaDataJSonMapper(List<String> fieldDef) {
+	public PSSECaseDataJSonMapper(List<String> fieldDef) {
 		super(fieldDef);
 	}
 	
-
 	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
 		dataParser.loadFields(data.toArray());
 		
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
-		if (baseCaseNet.getAreaList() == null)
-			baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
-		ExchangeAreaXmlType area = OdmObjFactory.createExchangeAreaXmlType();
-		baseCaseNet.getAreaList().getArea().add(area);
 		
 		/*
-            "fields":["iarea", "isw", "pdes",    "ptol",   "arname"], 
-            "data":  [1,       101,   -2800.000, 10.00000, "CENTRAL"],  '
+            "fields":["ic", "sbase", "rev", "xfrrat", "nxfrat", "basfrq", "title1", "title2"], 
+            "data":[0, 100.0000, 36, 0, 1, 50.00000, "00/00/01                      100.0  0    0", "0"]
 		 */		
 		try {
-			int i = this.dataParser.getInt("iarea");
-			int isw = this.dataParser.getInt("isw");
-			double pdes = this.dataParser.getDouble("pdes");
-			double ptol = this.dataParser.getDouble("ptol");
-			String arnam = this.dataParser.getString("arname");
+			double baseMva = dataParser.getDouble("sbase");
+			baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(baseMva));
 			
-			area.setId(new Integer(i).toString());
-			area.setNumber(i);
-			area.setName(arnam);
-
-			if (isw > 0) {
-				area.setSwingBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+isw));
-				area.setDesiredExchangePower(BaseDataSetter.createActivePowerValue(pdes, ActivePowerUnitType.MW));
-				area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
-			}	
+			BaseJaxbHelper.addNVPair(baseCaseNet, "CaseIndicator", new Integer(dataParser.getInt("ic")).toString());
+			double rev = dataParser.getDouble("rev");
+			
+			baseCaseNet.setDesc(dataParser.getString("title1") + ", " + dataParser.getString("title2"));
+			
+			baseCaseNet.setName("AclfNet-PSSE-JSon-rev" + rev);
+			
+			double baseFreq = dataParser.getDouble("basefrq",50.0);
+			baseCaseNet.setFrequency(BaseDataSetter.createFrequency(baseFreq, FrequencyUnitType.HZ));		
 		} catch (ODMException e) {
 			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
-	
 	}
 }

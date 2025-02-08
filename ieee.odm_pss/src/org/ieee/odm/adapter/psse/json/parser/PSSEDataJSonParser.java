@@ -26,22 +26,28 @@ package org.ieee.odm.adapter.psse.json.parser;
 
 import java.util.List;
 
-import org.ieee.odm.adapter.common.obj.BaseInputRowObjParser;
-import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.common.json.BaseInputRowJSonParser;
 import org.interpss.numeric.datatype.Counter;
 
 /**
+ * PSSE JSon format data parser
  * 
  * @author mzhou
  *
  */
-public class PSSEDataJSonParser extends BaseInputRowObjParser  {		  
-	protected PsseVersion version = PsseVersion.PSSE_JSON;
-	
+public class PSSEDataJSonParser extends BaseInputRowJSonParser  {	
+	/**
+	 * Constructor
+	 */
 	public PSSEDataJSonParser() {
 		super();
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param fieldDef field name definitions
+	 */
 	public PSSEDataJSonParser(List<String> fieldDef) {
 		super();
 		Counter cnt = new Counter();

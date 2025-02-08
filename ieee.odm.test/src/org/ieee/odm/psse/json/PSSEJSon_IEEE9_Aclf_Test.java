@@ -16,7 +16,7 @@ public class PSSEJSon_IEEE9_Aclf_Test {
 		ODMLogger.getLogger().setLevel(Level.WARNING);
 		
 		PSSEAdapter adapter = new PSSEJSonAdapter();
-		assertTrue(adapter.parseInputFile("testdata/psse/json/sample.rawx"));
+		assertTrue(adapter.parseInputFile("testdata/psse/json/ieee9.rawx"));
 		
 		AclfModelParser aclfParser =(AclfModelParser) adapter.getModel();
 		aclfParser.stdout();

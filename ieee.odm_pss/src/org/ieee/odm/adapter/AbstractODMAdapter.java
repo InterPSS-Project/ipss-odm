@@ -107,6 +107,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 			}
 		} catch (Exception e) {
 			ODMLogger.getLogger().severe(e.toString());
+			e.printStackTrace();
 			return false;
 		} 
 		return status;

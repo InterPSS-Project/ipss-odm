@@ -24,13 +24,45 @@
 
 package org.ieee.odm.adapter.psse.json.mapper;
 
-import org.ieee.odm.adapter.common.obj.BaseObjDataMapper;
-import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import java.util.List;
 
-public class BasePSSEDataJSonMapper extends  BaseObjDataMapper {
-	protected PsseVersion version = PsseVersion.PSSE_JSON;
+import org.ieee.odm.adapter.common.json.BaseJSonDataMapper;
+import org.ieee.odm.adapter.psse.json.parser.PSSEDataJSonParser;
+import org.ieee.odm.common.ODMException;
+import org.ieee.odm.model.base.BaseJaxbHelper;
+import org.ieee.odm.schema.BaseRecordXmlType;
+
+/**
+ * Base PSSE JSon format data mapper
+ * 
+ */
+public class BasePSSEDataJSonMapper extends BaseJSonDataMapper {
+	/**
+	 * Constructor
+	 * 
+	 * @param fieldDef field name definitions
+	 */
+	public BasePSSEDataJSonMapper(List<String> fieldDef){
+		this.dataParser = new PSSEDataJSonParser(fieldDef);
+	}
 	
-	public BasePSSEDataJSonMapper(){
+	protected void mapOwnerInfo(BaseRecordXmlType recXml) throws ODMException {
+		int o1 = dataParser.getInt("o1");
+		double f1 = dataParser.getDouble("f1", 0.0);
 		
+		int o2 = dataParser.getInt("o2", 0);
+		double f2 = dataParser.getDouble("f2", 0.0);
+		
+		int o3 = dataParser.getInt("o3", 0);
+		double f3 = dataParser.getDouble("f3", 0.0);
+		
+		int o4 = dataParser.getInt("o4", 0);
+		double f4 = dataParser.getDouble("f4", 0.0);
+    	
+		BaseJaxbHelper.addOwner(recXml, 
+				new Integer(o1).toString(), f1, 
+				new Integer(o2).toString(), o2==0?0.0:f2, 
+				new Integer(o3).toString(), o3==0?0.0:f3, 
+				new Integer(o4).toString(), o4==0?0.0:f4);  		
 	}
 }

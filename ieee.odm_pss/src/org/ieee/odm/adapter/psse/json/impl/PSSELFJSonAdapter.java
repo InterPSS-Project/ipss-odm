@@ -27,7 +27,15 @@ package org.ieee.odm.adapter.psse.json.impl;
 import java.util.List;
 
 import org.ieee.odm.adapter.psse.bean.PSSESchema;
+import org.ieee.odm.adapter.psse.json.mapper.PSSEAclineDataJSonMapper;
 import org.ieee.odm.adapter.psse.json.mapper.PSSEAreaDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSEBusDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSECaseDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSEGenDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSELoadDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSEOwnerDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSEXformerDataJSonMapper;
+import org.ieee.odm.adapter.psse.json.mapper.PSSEZoneDataJSonMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
@@ -40,12 +48,26 @@ import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
 
 public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
+	// PSSE rawx file version number
+	private double fileVerNo;
 	
+	/**
+	 * Constructor
+	 */
 	public PSSELFJSonAdapter() {
 		super();
 	}
 	
-    /**
+	/**
+	 * get the fileVerNo field
+	 * 
+	 * @return
+	 */
+    public double getFileVerNo() {
+		return fileVerNo;
+	}
+
+	/**
      * Parse PSS/E load flow input file into ODM/XML 
      * 
      * @param din
@@ -68,6 +90,7 @@ public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
 		return (BaseAclfModelParser<? extends NetworkXmlType>) this.parser;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected IODMModelParser parseInputFile(final IFileReader din, String encoding) throws ODMException {
 	    //set case base info
@@ -81,9 +104,13 @@ public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
 
 		PSSESchema jsonObj = din.getJSon(PSSESchema.class);
 		
-		jsonObj.getGeneral();
+		this.fileVerNo = new Double(jsonObj.getGeneral().getVersion());
 		
-		jsonObj.getNetwork().getCaseid();
+		PSSESchema.Field_Data caseid = jsonObj.getNetwork().getCaseid();
+		PSSECaseDataJSonMapper caseMapper = new PSSECaseDataJSonMapper(caseid.getFields());
+		caseMapper.map(caseid.getData(), getParser());
+		
+		// TODO mapping
 		jsonObj.getNetwork().getGeneral();
 		jsonObj.getNetwork().getGauss();
 		jsonObj.getNetwork().getNewton();
@@ -92,20 +119,42 @@ public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
 		jsonObj.getNetwork().getSolver();
 		jsonObj.getNetwork().getRating();
 		jsonObj.getNetwork().getSwdratnam();
-		jsonObj.getNetwork().getBus();
-		jsonObj.getNetwork().getLoad();
+		
+		PSSESchema.Field_Data bus = jsonObj.getNetwork().getBus();
+		PSSEBusDataJSonMapper busMapper = new PSSEBusDataJSonMapper(bus.getFields());
+		bus.getData().forEach(row -> busMapper.map((List<Object>)row, getParser()));
+		
+		PSSESchema.Field_Data load = jsonObj.getNetwork().getLoad();
+		PSSELoadDataJSonMapper loadMapper = new PSSELoadDataJSonMapper(load.getFields());
+		load.getData().forEach(row -> loadMapper.map((List<Object>)row, getParser()));
+		
+		// TODO mapping
 		jsonObj.getNetwork().getFixshunt();
 		jsonObj.getNetwork().getVoltagedroop();
-		jsonObj.getNetwork().getGenerator();
+		
+		PSSESchema.Field_Data gen = jsonObj.getNetwork().getGenerator();
+		PSSEGenDataJSonMapper genMapper = new PSSEGenDataJSonMapper(gen.getFields());
+		gen.getData().forEach(row -> genMapper.map((List<Object>)row, getParser()));
+		
+		// TODO mapping
 		jsonObj.getNetwork().getSwdratset();
-		jsonObj.getNetwork().getAcline();
+		
+		PSSESchema.Field_Data acline = jsonObj.getNetwork().getAcline();
+		PSSEAclineDataJSonMapper aclineMapper = new PSSEAclineDataJSonMapper(acline.getFields());
+		acline.getData().forEach(row -> aclineMapper.map((List<Object>)row, getParser()));
+		
+		// TODO mapping
 		jsonObj.getNetwork().getSysswd();
-		jsonObj.getNetwork().getTransformer();
+		
+		PSSESchema.Field_Data xfr = jsonObj.getNetwork().getTransformer();
+		PSSEXformerDataJSonMapper xfrMapper = new PSSEXformerDataJSonMapper(xfr.getFields());
+		xfr.getData().forEach(row -> xfrMapper.map((List<Object>)row, getParser()));
 		
 		PSSESchema.Field_Data area = jsonObj.getNetwork().getArea();
-		PSSEAreaDataJSonMapper mapper = new PSSEAreaDataJSonMapper(area.getFields());
-		area.getData().forEach(row -> mapper.proc((List<Object>)row, getParser()));
+		PSSEAreaDataJSonMapper araeMapper = new PSSEAreaDataJSonMapper(area.getFields());
+		area.getData().forEach(row -> araeMapper.map((List<Object>)row, getParser()));
 		
+		// TODO mapping
 		jsonObj.getNetwork().getTwotermdc();
 		jsonObj.getNetwork().getVscdc();
 		jsonObj.getNetwork().getImpcor();
@@ -114,9 +163,19 @@ public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
 		jsonObj.getNetwork().getNtermdcbus();
 		jsonObj.getNetwork().getNtermdclink();
 		jsonObj.getNetwork().getMsline();
-		jsonObj.getNetwork().getZone();
+		
+		PSSESchema.Field_Data zone = jsonObj.getNetwork().getZone();
+		PSSEZoneDataJSonMapper zoneMapper = new PSSEZoneDataJSonMapper(zone.getFields());
+		zone.getData().forEach(row -> zoneMapper.map((List<Object>)row, getParser()));
+		
+		// TODO mapping
 		jsonObj.getNetwork().getIatrans();
-		jsonObj.getNetwork().getOwner();
+		
+		PSSESchema.Field_Data owner = jsonObj.getNetwork().getOwner();
+		PSSEOwnerDataJSonMapper ownerMapper = new PSSEOwnerDataJSonMapper(owner.getFields());
+		area.getData().forEach(row -> ownerMapper.proc((List<Object>)row, getParser()));
+		
+		// TODO mapping
 		jsonObj.getNetwork().getFacts();
 		jsonObj.getNetwork().getSwshunt();
 		jsonObj.getNetwork().getGne();

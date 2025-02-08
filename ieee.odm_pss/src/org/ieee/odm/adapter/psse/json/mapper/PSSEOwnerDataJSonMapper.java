@@ -30,54 +30,39 @@ import java.util.List;
 
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.model.base.BaseDataSetter;
-import org.ieee.odm.schema.ActivePowerUnitType;
-import org.ieee.odm.schema.ExchangeAreaXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
+import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.OwnerXmlType;
 
-public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
+public class PSSEOwnerDataJSonMapper extends BasePSSEDataJSonMapper{
 	/**
 	 * Constructor
 	 * 
 	 * @param fieldDef field name definitions
 	 */
-	public PSSEAreaDataJSonMapper(List<String> fieldDef) {
+	public PSSEOwnerDataJSonMapper(List<String> fieldDef) {
 		super(fieldDef);
 	}
 	
-
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	public void proc(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
 		dataParser.loadFields(data.toArray());
 		
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
-		if (baseCaseNet.getAreaList() == null)
-			baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
-		ExchangeAreaXmlType area = OdmObjFactory.createExchangeAreaXmlType();
-		baseCaseNet.getAreaList().getArea().add(area);
+		OwnerXmlType owner = OdmObjFactory.createOwnerXmlType();
+		baseCaseNet.getOwnerList().add(owner);
 		
 		/*
-            "fields":["iarea", "isw", "pdes",    "ptol",   "arname"], 
-            "data":  [1,       101,   -2800.000, 10.00000, "CENTRAL"],  '
+            "fields":["iowner", "owname"], 
+            "data": [1, "OWNER 1"], 
 		 */		
 		try {
-			int i = this.dataParser.getInt("iarea");
-			int isw = this.dataParser.getInt("isw");
-			double pdes = this.dataParser.getDouble("pdes");
-			double ptol = this.dataParser.getDouble("ptol");
-			String arnam = this.dataParser.getString("arname");
-			
-			area.setId(new Integer(i).toString());
-			area.setNumber(i);
-			area.setName(arnam);
-
-			if (isw > 0) {
-				area.setSwingBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+isw));
-				area.setDesiredExchangePower(BaseDataSetter.createActivePowerValue(pdes, ActivePowerUnitType.MW));
-				area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
-			}	
+			int i = this.dataParser.getInt("iowner");
+			String name = this.dataParser.getString("owname");
+			owner.setId(new Integer(i).toString());
+			owner.setNumber(i);
+			owner.setName(name);		
 		} catch (ODMException e) {
 			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}

@@ -31,7 +31,7 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 
 /**
- * ODM adapter for PSS/E input format, including Aclf, Acsc and DStab files. This is a facet class. 
+ * ODM adapter for PSS/E input JSon format, including Aclf, Acsc and DStab files. This is a facet class. 
  * The actual adapter implementation is located in the ~/impl/ dir.
  * 
  * @author mzhou
@@ -44,6 +44,7 @@ public class PSSEJSonAdapter extends PSSEAdapter {
 	
     /**
      * Parse the ac load flow file
+     * 
      * @param din
      * @param encoding
      * @return
