@@ -59,31 +59,31 @@ public class IeeeCDFNetDataMapper extends AbstractIeeeCDFDataMapper {
 		
 		//[0] Columns  2- 9   Date, in format DD/MM/YY with leading zeros.  If no date provided, use 0b/0b/0b where b is blank.
 		if (dataParser.exist("Date")) {
-			final String date = dataParser.getString("Date");
+			final String date = dataParser.getValue("Date");
 			BaseJaxbHelper.addNVPair(baseCaseNet, Token_Date, date);
 		}
 		
 		//[1] Columns 11-30   Originator's name [A]
 		if (dataParser.exist("Originator")) {
-			final String orgName = dataParser.getString("Originator");
+			final String orgName = dataParser.getValue("Originator");
 			BaseJaxbHelper.addNVPair(baseCaseNet, Token_OrgName, orgName);
 		}
 
 		//[3] Columns 39-42   Year [I]
 		if (dataParser.equals("Year")) {
-			final String year = dataParser.getString("Year");
+			final String year = dataParser.getValue("Year");
 			BaseJaxbHelper.addNVPair(baseCaseNet, Token_Year, year);
 		}
 		
 		//[4] Column  44      Season (S - Summer, W - Winter)
 		if (dataParser.exist("Season")) {
-			final String season = dataParser.getString("Season");
+			final String season = dataParser.getValue("Season");
 			BaseJaxbHelper.addNVPair(baseCaseNet, Token_Season, season);
 		}
 		
 		//[5] Column  46-73   Case identification [A]
 		if (dataParser.exist("CaseId")) {
-			final String caseId = dataParser.getString("CaseId");
+			final String caseId = dataParser.getValue("CaseId");
 			if (caseId != null)
 				BaseJaxbHelper.addNVPair(baseCaseNet, Token_CaseId, caseId);
 			//ODMLogger.getLogger().fine("date, orgName, year, season, caseId: " + date + ", "

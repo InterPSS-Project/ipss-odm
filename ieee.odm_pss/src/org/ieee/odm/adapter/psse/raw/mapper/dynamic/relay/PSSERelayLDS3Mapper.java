@@ -22,10 +22,10 @@ public class PSSERelayLDS3Mapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String loadId = dataParser.getString("LID");
+	    String loadId = dataParser.getValue("LID");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("LDS3BL")){
+	    if(!dataParser.getValue("Type").equals("LDS3BL")){
 	    	throw new ODMException(" load at bus  : Id"+
 		             loadId+" @ Bus"+i+"is not a LDS3XX type");
 	    }
@@ -52,7 +52,7 @@ public class PSSERelayLDS3Mapper extends BasePSSEDataRawMapper{
 	        if(lds3!= null){
 	        	
     			int GBusNum   = dataParser.getInt("GBus");
-    			String GID   = dataParser.getString("GID");
+    			String GID   = dataParser.getValue("GID");
     			int SC   = dataParser.getInt("SC");
     			
     			double F1      = dataParser.getDouble("F1");   

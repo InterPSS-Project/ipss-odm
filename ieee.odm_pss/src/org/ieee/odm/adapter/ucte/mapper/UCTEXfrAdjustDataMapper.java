@@ -56,10 +56,10 @@ public class UCTEXfrAdjustDataMapper extends BaseUCTEDataMapper {
 	public void mapInputLine(final String str, AclfModelParser parser) throws ODMException {
 		this.dataParser.parseFields(str);
 		
-		String fromNodeId = this.dataParser.getString("fromNodeId"), 
-		       toNodeId = this.dataParser.getString("toNodeId"), 
-		       orderCode = this.dataParser.getString("orderCode"), 
-		       type = this.dataParser.getString("type", "SYMM");
+		String fromNodeId = this.dataParser.getValue("fromNodeId"), 
+		       toNodeId = this.dataParser.getValue("toNodeId"), 
+		       orderCode = this.dataParser.getValue("orderCode"), 
+		       type = this.dataParser.getValue("type", "SYMM");
 
 		double dUPhase = this.dataParser.getDouble("dUPhase", 0.0), 
 		       uKvPhase = this.dataParser.getDouble("uKvPhase", 0.0); 

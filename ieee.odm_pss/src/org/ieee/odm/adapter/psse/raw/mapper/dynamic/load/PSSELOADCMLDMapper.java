@@ -80,11 +80,11 @@ public class PSSELOADCMLDMapper extends BasePSSEDataRawMapper {
 		
 		
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String loadId = dataParser.getString("LID");
+	    String loadId = dataParser.getValue("LID");
 	    
 	    //check model type
 	   
-	    if(!(dataParser.getString("ModelName").equals("CMLDBLU2"))){
+	    if(!(dataParser.getValue("ModelName").equals("CMLDBLU2"))){
 	    	throw new ODMException("dyn load  : Id"+
 		             loadId+" @ Bus"+i+"is not a CMPLDW load model");
 	    }

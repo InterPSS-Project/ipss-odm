@@ -52,11 +52,11 @@ public class PSLFDynGENTypeJMapper extends BaseDataMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
 	    //GENROU and GENROE data format are the same
-	    if(!(dataParser.getString("Type").equals("GENTPJ"))){
+	    if(!(dataParser.getValue("Type").equals("GENTPJ"))){
 	    	throw new ODMException("machine  : Id"+
 		             genId+" @ Bus"+i+"is not a GENTPJ or GENROE generator model");
 	    }
@@ -92,7 +92,7 @@ public class PSLFDynGENTypeJMapper extends BaseDataMapper{
 		   Eq11Ed11MachineXmlType mach = DStabParserHelper.createEq11Ed11Machine(dstabGenData);
 		   
 		   //set the type info
-		   mach.setDesc(dataParser.getString("Type"));
+		   mach.setDesc(dataParser.getValue("Type"));
 		   mach.setD(D);
 		   mach.setH(H);
 		   //TODO Ra = RSource?
@@ -126,7 +126,7 @@ public class PSLFDynGENTypeJMapper extends BaseDataMapper{
            Eq11MachineXmlType mach = DStabParserHelper.createEq11Machine(dstabGenData);
 		   
 		   //set the type info
-		   mach.setDesc(dataParser.getString("Type"));
+		   mach.setDesc(dataParser.getValue("Type"));
 		   mach.setD(D);
 		   mach.setH(H);
 		   //TODO Ra = RSource?

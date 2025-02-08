@@ -102,7 +102,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 
 		XfrBranchXmlType branRecXml;
 		TransformerInfoXmlType xfrInfoXml;
-		String ckt = dataParser.getString("CKT");
+		String ckt = dataParser.getValue("CKT");
 		if (is3WXfr && isPsXfr) {
 			branRecXml = parser.createPSXfr3WBranch(fid, tid, tertId, ckt);
 	       	xfrInfoXml = OdmObjFactory.createTransformer3WInfoXmlType(); 
@@ -123,7 +123,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 	       	xfrInfoXml = OdmObjFactory.createTransformerInfoXmlType(); 
 	       	branRecXml.setXfrInfo(xfrInfoXml);
 		}
-		branRecXml.setName(dataParser.getString("NAME"));
+		branRecXml.setName(dataParser.getValue("NAME"));
 		
 /*
 		The initial transformer status, where 1 designates in-service and 0 designates

@@ -63,7 +63,7 @@ public class PSSEFixedShuntDataRawMapper extends BasePSSEDataRawMapper{
 	    LoadflowShuntYDataXmlType contribShutY; 
     	contribShutY = AclfParserHelper.createContriShuntY((LoadflowBusXmlType)busRecXml); 
 
-	    String id = dataParser.getString("ID");
+	    String id = dataParser.getValue("ID");
 	    contribShutY.setId(id);
 	    contribShutY.setName("ShuntY:" + id + "(" + i + ")");
 	    contribShutY.setDesc("PSSE ShuntY " + id + " at Bus " + i);

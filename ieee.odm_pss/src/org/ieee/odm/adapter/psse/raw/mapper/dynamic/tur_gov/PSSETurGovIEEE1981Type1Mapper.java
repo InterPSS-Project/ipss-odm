@@ -47,10 +47,10 @@ public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataRawMapper{
 		if(j!=0) 
 		   ODMLogger.getLogger().severe("IEEE G1 model currently does NOT support more than one buses, IEEG1 @ Bus" +i );
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("IEEEG1")){
+	    if(!dataParser.getValue("Type").equals("IEEEG1")){
 	    	throw new ODMException(" Governor of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a IEEEG1 type");
 	    }

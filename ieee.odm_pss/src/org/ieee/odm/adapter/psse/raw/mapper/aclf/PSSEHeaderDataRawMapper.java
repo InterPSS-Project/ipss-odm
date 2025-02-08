@@ -66,8 +66,8 @@ public class PSSEHeaderDataRawMapper extends BasePSSEDataRawMapper {
 			
 			double baseMva = dataParser.getDouble("BaseKva");
 			baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(baseMva));
-			BaseJaxbHelper.addNVPair(baseCaseNet, "CaseIndicator", dataParser.getString("Indicator"));
-			String ver = dataParser.getString("version");
+			BaseJaxbHelper.addNVPair(baseCaseNet, "CaseIndicator", dataParser.getValue("Indicator"));
+			String ver = dataParser.getValue("version");
 			
 			baseCaseNet.setDesc(lineStrAry[0]);
 			

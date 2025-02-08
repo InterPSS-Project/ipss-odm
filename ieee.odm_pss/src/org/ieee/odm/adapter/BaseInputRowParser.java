@@ -149,13 +149,13 @@ public class BaseInputRowParser<T> {
 	}
 	
 	/**
-	 * Get field of type String by key
+	 * Get field by key
 	 * 
 	 * @param key data field key
 	 * @return the data field
 	 * @throws ODMException throw exception if the field does not exist
 	 */
-	public T getString(String key) throws ODMException {
+	public T getValue(String key) throws ODMException {
 		T field = this.fieldTable.get(key);
 		if (field == null)
 			throw new ODMException("Field " + key + " not found");
@@ -163,14 +163,14 @@ public class BaseInputRowParser<T> {
 	}
 	
 	/**
-	 * Get field of type String by key 
+	 * Get field by key 
 	 * 
 	 * @param key data field key
 	 * @param defValue default value for field
 	 * @return the data field
 	 * @throws ODMException throw exception if the field does not exist
 	 */
-	public T getString(String key, T defValue) throws ODMException {
+	public T getValue(String key, T defValue) throws ODMException {
 		T field = this.fieldTable.get(key);
 		if (field == null)
 			return defValue;

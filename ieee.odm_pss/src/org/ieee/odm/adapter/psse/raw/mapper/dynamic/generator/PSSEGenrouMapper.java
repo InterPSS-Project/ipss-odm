@@ -50,12 +50,12 @@ public class PSSEGenrouMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
 	    //GENROU and GENROE data format are the same
-	    if(!(dataParser.getString("Type").equals("GENROU")||
-	    		dataParser.getString("Type").equals("GENROE"))){
+	    if(!(dataParser.getValue("Type").equals("GENROU")||
+	    		dataParser.getValue("Type").equals("GENROE"))){
 	    	throw new ODMException("machine  : Id"+
 		             genId+" @ Bus"+i+"is not a GENROU or GENROE generator model");
 	    }
@@ -88,7 +88,7 @@ public class PSSEGenrouMapper extends BasePSSEDataRawMapper{
 				  
 				   
 				   //set the type info
-				   mach.setDesc(dataParser.getString("Type"));
+				   mach.setDesc(dataParser.getValue("Type"));
 				   mach.setD(D);
 				   mach.setH(H);
 				   //TODO Ra = RSource?

@@ -57,10 +57,10 @@ public class PSSEDcLine2TDataRawMapper extends BasePSSEDataRawMapper{
 		
 		//NOTE: DC Line Num is necessarily  an Integer, as illustrated in the "sample.raw" by PSS/E, 
 		//it can be string too, Therefore, it is better to save it as DCLine Id in String
-		String DCLineID = this.dataParser.getString("I"), 
-		       METER = this.dataParser.getString("METER"), 
-		       IDR = this.dataParser.getString("IDR"), 
-		       IDI = this.dataParser.getString("IDI");
+		String DCLineID = this.dataParser.getValue("I"), 
+		       METER = this.dataParser.getValue("METER"), 
+		       IDR = this.dataParser.getValue("IDR"), 
+		       IDI = this.dataParser.getValue("IDI");
 		double RDC = this.dataParser.getDouble("RDC"),
 		       SETVL = this.dataParser.getDouble("SETVL"),
 		       VSCHD = this.dataParser.getDouble("VSCHD"),

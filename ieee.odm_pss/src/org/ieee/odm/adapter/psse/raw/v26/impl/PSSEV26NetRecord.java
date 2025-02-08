@@ -63,11 +63,11 @@ public class PSSEV26NetRecord {
 		//NameValuePairListXmlType nvList = factory.createNameValuePairListXmlType();
 		//baseCaseNet.setNvPairList(nvList);
 		
-		final String desc = headerDataParser.getString("Comment1");// The 2nd line is treated as description
+		final String desc = headerDataParser.getValue("Comment1");// The 2nd line is treated as description
 		BaseJaxbHelper.addNVPair(baseCaseNet, Token_CaseDesc, desc);     
 	   
 	    // the 3rd line is treated as the network id and network name		
-		final String caseId= headerDataParser.getString("Comment2");
+		final String caseId= headerDataParser.getValue("Comment2");
 		BaseJaxbHelper.addNVPair(baseCaseNet, Token_CaseId, caseId);				
 		ODMLogger.getLogger().fine("Case Description, caseId: " + desc + ", "+ caseId);		
 		
@@ -86,7 +86,7 @@ public class PSSEV26NetRecord {
 		final int no = areaInterDataParser.getInt("AreaNum", 0);
 		
 		//       swing bus name [A]
-		final String swingBusName = areaInterDataParser.getString("SwingBusName");
+		final String swingBusName = areaInterDataParser.getValue("SwingBusName");
 
 		//        Area interchange export, MW [F] (+ = out) *
 		//        Area interchange tolerance, MW [F] *

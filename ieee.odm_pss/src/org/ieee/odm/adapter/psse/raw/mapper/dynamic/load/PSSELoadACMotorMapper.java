@@ -25,10 +25,10 @@ public class PSSELoadACMotorMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String loadId = dataParser.getString("LID");
+	    String loadId = dataParser.getValue("LID");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("ACMTBLU1")){
+	    if(!dataParser.getValue("Type").equals("ACMTBLU1")){
 	    	throw new ODMException(" load at bus  : Id"+
 		             loadId+" @ Bus"+i+"is not a ACMTBLU1 type");
 	    }

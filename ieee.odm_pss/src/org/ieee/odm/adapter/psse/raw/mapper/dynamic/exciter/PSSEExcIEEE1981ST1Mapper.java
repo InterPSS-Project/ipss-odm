@@ -41,10 +41,10 @@ public class PSSEExcIEEE1981ST1Mapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("EXST1")){
+	    if(!dataParser.getValue("Type").equals("EXST1")){
 	    	throw new ODMException(" Exciter of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a EXST1 type");
 	    }
@@ -55,7 +55,7 @@ public class PSSEExcIEEE1981ST1Mapper extends BasePSSEDataRawMapper{
 		   if(dstabGenData!=null){
 			   ExcIEEE1981ST1XmlType exc = DStabParserHelper.createExcIEEE1981ST1XmlType(dstabGenData);
 			   
-			   exc.setDesc(dataParser.getString("Type"));
+			   exc.setDesc(dataParser.getValue("Type"));
 			   exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
 			   
 			   exc.setVIMAX(dataParser.getDouble("VIMAX"));

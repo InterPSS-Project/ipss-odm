@@ -77,7 +77,7 @@ public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 	    	contribLoad = AclfParserHelper.createContriLoad((LoadflowBusXmlType)busRecXml); 
 	    }	    
 
-	    String id = dataParser.getString("ID");
+	    String id = dataParser.getValue("ID");
 	    contribLoad.setId(id);
 	    contribLoad.setName("Load:" + id + "(" + i + ")");
 	    contribLoad.setDesc("PSSE Load " + id + " at Bus " + i);
@@ -87,7 +87,7 @@ public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 
 	    contribLoad.setAreaNumber(dataParser.getInt("AREA", 1));
 	    contribLoad.setZoneNumber(dataParser.getInt("ZONE", 1));
-	    BaseJaxbHelper.addOwner(contribLoad, dataParser.getString("OWNER"));
+	    BaseJaxbHelper.addOwner(contribLoad, dataParser.getValue("OWNER"));
 		
 	    double pl = dataParser.getDouble("PL", 0.0);
 	    double ql = dataParser.getDouble("QL", 0.0);

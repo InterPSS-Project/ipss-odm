@@ -104,10 +104,10 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		
 		
 	   if (exist("LineXfmr"))
-				isXfmr=getString("LineXfmr").equalsIgnoreCase("YES")?true:false;
+				isXfmr=getValue("LineXfmr").equalsIgnoreCase("YES")?true:false;
 			//both LineXfmr or BranchDeviceType could be used to define branch type
 	   if (exist("BranchDeviceType"))
-				isXfmr=getString("BranchDeviceType").equalsIgnoreCase("Transformer")?true:false;
+				isXfmr=getValue("BranchDeviceType").equalsIgnoreCase("Transformer")?true:false;
 	   
 	   //transformer data is processed differently from line data
 	   if(isXfmr==true){
@@ -119,10 +119,10 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				
 				toBusNum=getLong("BusNum:1"); //mandatory field
 					
-				circuitId=exist("LineCircuit")?getString("LineCircuit"):"1";
+				circuitId=exist("LineCircuit")?getValue("LineCircuit"):"1";
 					
 			   if (exist("LineStatus"))
-					closed=getString("LineStatus").equalsIgnoreCase("Closed")?true:false;
+					closed=getValue("LineStatus").equalsIgnoreCase("Closed")?true:false;
 				    
 				// LineR:1, LineX:1, LineG:1, LineC:1, XFStep:1, XFTapMax:1, XFTapMin:1, LineTap:1
 				// The suffix of ":1" is used for Transformer definition,means those data values are based on transformer MVA base 
@@ -152,13 +152,13 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				
 				//process custom string, for record type
 				if(exist(typeToken))
-					   type=getString(typeToken);
+					   type=getValue(typeToken);
 					    
 				if(exist(equipmentNameToken)) //CustomString:2, equipment name
-					   equipmentName=getString(equipmentNameToken);
+					   equipmentName=getValue(equipmentNameToken);
 				
 				if(exist(extendedNameToken)){//CustomString:1, extended branch name, including substation id.
-					extBranchName =getString(extendedNameToken);
+					extBranchName =getValue(extendedNameToken);
 					
 					substation = getSubstationName(extBranchName,equipmentName);
 				}
@@ -195,9 +195,9 @@ public class BranchDataProcessor extends InputLineStringParser  {
                 
     			//check if the branch is a Line monitor element and the corresponding LSName
                 if(exist("LineMonEle")) 
-                	isMonitorEle=getString("LineMonEle");
+                	isMonitorEle=getValue("LineMonEle");
                 if(exist("LSName"))
-                	lsName=getString("LSName");
+                	lsName=getValue("LSName");
                 
                 if(!lsName.equals("")){
                 	BaseDataSetter.addNVPair(branch,"LineMonEle",isMonitorEle);
@@ -281,10 +281,10 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				
 			toBusNum=getLong("BusNum:1"); //mandatory field
 				
-			circuitId=exist("LineCircuit")?getString("LineCircuit"):"1";
+			circuitId=exist("LineCircuit")?getValue("LineCircuit"):"1";
 				
 		   if (exist("LineStatus"))
-				closed=getString("LineStatus").equalsIgnoreCase("Closed")?true:false;
+				closed=getValue("LineStatus").equalsIgnoreCase("Closed")?true:false;
 			    
 			// LineR:1, LineX:1, LineG:1, LineC:1, XFStep:1, XFTapMax:1, XFTapMin:1, LineTap:1
 			//TODO The suffix of ¡°£º1¡± is used for Transformer definition,means those data values are based on transformer MVA base 
@@ -302,11 +302,11 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			if(exist("LineG:1")) g=getDouble("LineG:1");
 			
 			if (exist("XfrmerMagnetizingB"))
-			  bMag=getString("XfrmerMagnetizingB").isEmpty()?0:getDouble("XfrmerMagnetizingB");
+			  bMag=getValue("XfrmerMagnetizingB").isEmpty()?0:getDouble("XfrmerMagnetizingB");
 			    
 			
 		    if (exist("XfrmerMagnetizingG"))
-			        gMag=getString("XfrmerMagnetizingG").isEmpty()?0:getDouble("XfrmerMagnetizingG");
+			        gMag=getValue("XfrmerMagnetizingG").isEmpty()?0:getDouble("XfrmerMagnetizingG");
 			    
 			mvaRating1=exist("LineAMVA")?getDouble("LineAMVA"):0; // line limit rating
 			   
@@ -350,14 +350,14 @@ public class BranchDataProcessor extends InputLineStringParser  {
 					getDouble("XFStep:1"):1.0;
 			    
 			if(exist(typeToken))
-			   type=getString(typeToken);
+			   type=getValue(typeToken);
 			    
 			
 			if(exist(equimentNameToken))
-				equipmentName=getString(equimentNameToken);
+				equipmentName=getValue(equimentNameToken);
 			
 			if(exist(extNameToken)){
-				extBranchName=getString(extNameToken);
+				extBranchName=getValue(extNameToken);
 				substation = getSubstationName(extBranchName,equipmentName);
 			}
 			   
@@ -370,17 +370,17 @@ public class BranchDataProcessor extends InputLineStringParser  {
 			    xfrToSideNominalKV=getDouble("XFNominalKV:1");
 				
 			if (exist("XFRegTargetType"))
-			    regTargetType=getString("XFRegTargetType").startsWith("Middle")?XfrCtrlTargetType.Midddle_Of_Range
+			    regTargetType=getValue("XFRegTargetType").startsWith("Middle")?XfrCtrlTargetType.Midddle_Of_Range
 			    			       :XfrCtrlTargetType.MaxMin;
 			if (exist("XFAuto"))
-			    isXFAutoControl=getString("XFAuto").trim().equalsIgnoreCase("No")?false:true;
+			    isXFAutoControl=getValue("XFAuto").trim().equalsIgnoreCase("No")?false:true;
 			    	
 			if (exist("XFRegBus"))
 					regBusNum=getLong("XFRegBus"); 
 			if (exist("LineXFType"))
-			    	xfrType=getString("LineXFType").trim().equalsIgnoreCase("Fixed")?XfrType.Fixed:
-			    		getString("LineXFType").trim().equalsIgnoreCase("LTC")?XfrType.LTC:
-			    			getString("LineXFType").trim().equalsIgnoreCase("Mvar")?XfrType.Mvar:XfrType.Phase;
+			    	xfrType=getValue("LineXFType").trim().equalsIgnoreCase("Fixed")?XfrType.Fixed:
+			    		getValue("LineXFType").trim().equalsIgnoreCase("LTC")?XfrType.LTC:
+			    			getValue("LineXFType").trim().equalsIgnoreCase("Mvar")?XfrType.Mvar:XfrType.Phase;
 				
 			if(exist("XFTableNum")){
 				xfTableNum = getInt("XFTableNum");
@@ -413,9 +413,9 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		    
 		  //check if the branch is a Line monitor element and the corresponding LSName
             if(exist("LineMonEle")) 
-            	isMonitorEle=getString("LineMonEle");
+            	isMonitorEle=getValue("LineMonEle");
             if(exist("LSName"))
-            	lsName=getString("LSName");
+            	lsName=getValue("LSName");
             
             if(!lsName.equals("")){
             	BaseDataSetter.addNVPair(xfr,"LineMonEle",isMonitorEle);

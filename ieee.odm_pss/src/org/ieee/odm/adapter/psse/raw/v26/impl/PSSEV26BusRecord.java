@@ -71,7 +71,7 @@ public class PSSEV26BusRecord {
 		// 31212,'ADLIN  1', 115.00,1,    0.00,    0.00,  1,  1,   1.01273, -10.5533,1 
 		// 45035,'CAPJAK 1', 500.00,1,    0.00,  400.00,  8, 11,1.08554,  18.6841,1,    /* [45035_CAPTJACK_500_B2] */ 
 
-		final String busId = IODMModelParser.BusIdPreFix+busDataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+busDataParser.getValue("I");
 			// XML requires id start with a char
 		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
 		LoadflowBusXmlType busRec;
@@ -85,7 +85,7 @@ public class PSSEV26BusRecord {
 		busRec.setNumber(busDataParser.getLong("I", 0));
 		
 		//final String busName = ModelStringUtil.removeSingleQuote(busDataParser.getString("NAME"));
-		final String busName = busDataParser.getString("NAME");
+		final String busName = busDataParser.getValue("NAME");
 		busRec.setName(busName);
 		double baseKv = busDataParser.getDouble("BASKV", 0.0);
 		if (baseKv == 0.0) {
@@ -93,7 +93,7 @@ public class PSSEV26BusRecord {
 			baseKv = 1.0;
 		}
 		
-		final String owner=busDataParser.getString("OWNER");
+		final String owner=busDataParser.getValue("OWNER");
 		BaseJaxbHelper.addOwner(busRec, owner);
 		
 		busRec.setBaseVoltage(BaseDataSetter.createVoltageValue(baseKv, VoltageUnitType.KV));
@@ -160,7 +160,7 @@ public class PSSEV26BusRecord {
 		//final String[] strAry = getLoadDataFields(str);
 		loadDataParser.parseFields(str);
 
-	    final String busId = IODMModelParser.BusIdPreFix+loadDataParser.getString("I");
+	    final String busId = IODMModelParser.BusIdPreFix+loadDataParser.getValue("I");
 	    //to test if there is a responding bus in the bus data record
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 	    if (busRec == null){
@@ -183,7 +183,7 @@ public class PSSEV26BusRecord {
 	    // processing contributing load data
 
 	    //loadId is used to distinguish multiple loads at one bus
-	    final String loadId = loadDataParser.getString("ID");
+	    final String loadId = loadDataParser.getValue("ID");
 		contribLoad.setId(loadId);
 		
 		// STATUS - Initial load status of one for in-service and zero for out-of-service. STATUS = 1 by default
@@ -195,7 +195,7 @@ public class PSSEV26BusRecord {
 		contribLoad.setZoneNumber(zone);
 		
 		//set owner and it's factor
-		BaseJaxbHelper.addOwner(contribLoad, loadDataParser.getString("OWNER"));
+		BaseJaxbHelper.addOwner(contribLoad, loadDataParser.getValue("OWNER"));
 		    
 	    //Constant-P load
 		final double CPloadMw = loadDataParser.getDouble("PL", 0.0);
@@ -236,7 +236,7 @@ public class PSSEV26BusRecord {
 	    //final String[] strAry = getGenDataFields(str);
 	    genDataParser.parseFields(str);
 	    
-		final String busId = IODMModelParser.BusIdPreFix+genDataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+genDataParser.getValue("I");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 		if (busRec==null){
@@ -260,7 +260,7 @@ public class PSSEV26BusRecord {
 	    // processing contributing gen data
 	    
 		// genId is used to distinguish multiple generations at one bus		
-		final String genId = genDataParser.getString("ID");
+		final String genId = genDataParser.getValue("ID");
 		contriGen.setId(genId);
 		
 		double mbase = genDataParser.getDouble("MBASE", 0.0),
@@ -287,10 +287,10 @@ public class PSSEV26BusRecord {
 		contriGen.setPower(BaseDataSetter.createPowerValue(genMw, genMvar, ApparentPowerUnitType.MVA));
 
 		BaseJaxbHelper.addOwner(contriGen, 
-				genDataParser.getString("O1"), genDataParser.getDouble("F1", 0.0), 
-				genDataParser.getString("O2"), genDataParser.getDouble("F2", 0.0), 
-				genDataParser.getString("O3"), genDataParser.getDouble("F3", 0.0), 
-				genDataParser.getString("O4"), genDataParser.getDouble("F4", 0.0));
+				genDataParser.getValue("O1"), genDataParser.getDouble("F1", 0.0), 
+				genDataParser.getValue("O2"), genDataParser.getDouble("F2", 0.0), 
+				genDataParser.getValue("O3"), genDataParser.getDouble("F3", 0.0), 
+				genDataParser.getValue("O4"), genDataParser.getDouble("F4", 0.0));
 
 
 		final double vSpecPu = genDataParser.getDouble("VS", 1.0);

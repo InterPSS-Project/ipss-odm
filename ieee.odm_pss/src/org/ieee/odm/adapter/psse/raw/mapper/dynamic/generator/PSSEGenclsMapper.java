@@ -36,10 +36,10 @@ public class PSSEGenclsMapper extends BasePSSEDataRawMapper{
 		 */
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("GENCLS")){
+	    if(!dataParser.getValue("Type").equals("GENCLS")){
 	    	throw new ODMException("machine  : Id"+
 		             genId+" @ Bus"+i+"is not a classical generator model (GENCLS)");
 	    }
@@ -54,7 +54,7 @@ public class PSSEGenclsMapper extends BasePSSEDataRawMapper{
 		   ClassicMachineXmlType mach = DStabParserHelper.createClassicMachine(dstabGenData);
 		   
 		 //set the type info
-		   mach.setDesc(dataParser.getString("Type"));
+		   mach.setDesc(dataParser.getValue("Type"));
 		   
 		   mach.setH(dataParser.getDouble("H"));
 		   mach.setD(dataParser.getDouble("D"));

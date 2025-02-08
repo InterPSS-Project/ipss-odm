@@ -34,7 +34,7 @@ public class PSSEMachineZeroSeqZMapper extends BasePSSEDataRawMapper{
 	public void procLineString(String lineStr, BaseAcscModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
-		String machId = dataParser.getString("ID");
+		String machId = dataParser.getValue("ID");
 		
 		double ZRZERO = dataParser.getDouble("ZRZERO");
 		

@@ -48,7 +48,7 @@ public class PSSEZoneDataRawMapper extends BasePSSEDataRawMapper{
 		 * Format: I, 抁ONAME�
 		 */
 		int	i = this.dataParser.getInt("I");
-		String name = this.dataParser.getString("ZONAME");
+		String name = this.dataParser.getValue("ZONAME");
 
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
 		if (baseCaseNet.getLossZoneList() == null)

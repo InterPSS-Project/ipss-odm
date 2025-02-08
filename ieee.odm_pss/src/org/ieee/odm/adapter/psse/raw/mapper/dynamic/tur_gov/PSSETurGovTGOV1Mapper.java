@@ -40,10 +40,10 @@ public class PSSETurGovTGOV1Mapper extends BasePSSEDataRawMapper{
 	
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("TGOV1")){
+	    if(!dataParser.getValue("Type").equals("TGOV1")){
 	    	throw new ODMException(" Governor of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a TGOV1 type");
 	    }

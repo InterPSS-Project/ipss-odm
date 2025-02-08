@@ -41,7 +41,7 @@ public class NetDataProcessor extends InputLineStringParser  {
 		
 		try {
 			areaNum=getInt("AreaNum");
-			areaName=getString("AreaName");
+			areaName=getValue("AreaName");
 		} catch (ODMException e) {
 			e.printStackTrace();
 		}
@@ -70,7 +70,7 @@ public class NetDataProcessor extends InputLineStringParser  {
 	
 		try {
 			zoneNum=getInt("ZoneNum");
-			zoneName=getString("ZoneName");
+			zoneName=getValue("ZoneName");
 		} catch (ODMException e) {
 			e.printStackTrace();
 		}
@@ -106,10 +106,10 @@ public class NetDataProcessor extends InputLineStringParser  {
 		
 		parseData(limitSetStr);
 		if(exist("LSDisabled")){
-		   isDisable = getString("LSDisabled").trim().equalsIgnoreCase("No")?false:true;
+		   isDisable = getValue("LSDisabled").trim().equalsIgnoreCase("No")?false:true;
 		}
 		lsNum = getInt("LSNum");
-		limitSetName = getString("LSName");
+		limitSetName = getValue("LSName");
 		
 		LimitSetXmlType limitSet = OdmObjFactory.createLimitSetXmlType();
 		limitSet.setNumber(lsNum);

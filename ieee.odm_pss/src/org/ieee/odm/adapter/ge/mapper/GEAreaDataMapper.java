@@ -50,10 +50,10 @@ public class GEAreaDataMapper extends BaseGEDataMapper {
 			baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
 		ExchangeAreaXmlType area = OdmObjFactory.createExchangeAreaXmlType();
 		baseCaseNet.getAreaList().getArea().add(area);
-		area.setId(dataParser.getString("arnum"));
+		area.setId(dataParser.getValue("arnum"));
 		area.setNumber(dataParser.getInt("arnum"));
-		area.setName(dataParser.getString("arnam"));	
-		area.setSwingBusId(parser.createBusRef(dataParser.getString("swing")));
+		area.setName(dataParser.getValue("arnam"));	
+		area.setSwingBusId(parser.createBusRef(dataParser.getValue("swing")));
 		
 		double pnet = dataParser.getDouble("pnet");
 		double qnet = dataParser.getDouble("qnet");

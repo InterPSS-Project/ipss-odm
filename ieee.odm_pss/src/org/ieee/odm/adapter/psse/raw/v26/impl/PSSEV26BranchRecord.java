@@ -76,9 +76,9 @@ public class PSSEV26BranchRecord {
 		//final String[] strAry = getBranchDataFields(str);	
 		branchDataParser.parseFields(str);
 		
-		final String fid = IODMModelParser.BusIdPreFix+branchDataParser.getString("I");
-		final String tid = IODMModelParser.BusIdPreFix+branchDataParser.getString("J");
-		final String cirId = ODMModelStringUtil.formatCircuitId(branchDataParser.getString("CKT"));
+		final String fid = IODMModelParser.BusIdPreFix+branchDataParser.getValue("I");
+		final String tid = IODMModelParser.BusIdPreFix+branchDataParser.getValue("J");
+		final String cirId = ODMModelStringUtil.formatCircuitId(branchDataParser.getValue("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
         //      Branch resistance R, per unit  *
@@ -182,9 +182,9 @@ public class PSSEV26BranchRecord {
 		//final String[] strAry = getXfrAdjDataFields(str);		
 		xfrAdjDataParser.parseFields(str);
 		
-		final String fid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getString("I");
-		final String tid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getString("J");
-		final String cirId = ODMModelStringUtil.formatCircuitId(xfrAdjDataParser.getString("CKT"));
+		final String fid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getValue("I");
+		final String tid = IODMModelParser.BusIdPreFix+xfrAdjDataParser.getValue("J");
+		final String cirId = ODMModelStringUtil.formatCircuitId(xfrAdjDataParser.getValue("CKT"));
 		ODMLogger.getLogger().fine("Branch data loaded, from-id, to-id: " + fid + ", " + tid);
 		
 		BranchXmlType branchRec = (BranchXmlType)parser.getBranch(fid, tid, cirId);

@@ -43,12 +43,12 @@ public class PSSEGensalMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
 	    //GENSAL and GENSAE data format are the same
-	    if(!(dataParser.getString("Type").equals("GENSAL")||
-	    		dataParser.getString("Type").equals("GENSAE"))){
+	    if(!(dataParser.getValue("Type").equals("GENSAL")||
+	    		dataParser.getValue("Type").equals("GENSAE"))){
 	    	throw new ODMException("machine  : Id"+
 		             genId+" @ Bus"+i+"is not a GENSAL or GENSAE generator model");
 	    }
@@ -81,7 +81,7 @@ public class PSSEGensalMapper extends BasePSSEDataRawMapper{
 				   
 				   
 				   //set the type info
-				   mach.setDesc(dataParser.getString("Type"));
+				   mach.setDesc(dataParser.getValue("Type"));
 				   mach.setD(D);
 				   mach.setH(H);
 				   //TODO Ra = RSource?

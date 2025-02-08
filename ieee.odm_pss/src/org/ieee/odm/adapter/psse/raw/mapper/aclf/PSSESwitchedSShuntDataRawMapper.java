@@ -61,7 +61,7 @@ public class PSSESwitchedSShuntDataRawMapper extends BasePSSEDataRawMapper{
 		   //  20         21         22         23         24
 			  "N7",      "B7",      "N8",      "B8"  */
 		
-		final String busId = IODMModelParser.BusIdPreFix+this.dataParser.getString("I");
+		final String busId = IODMModelParser.BusIdPreFix+this.dataParser.getValue("I");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType aclfBus = (LoadflowBusXmlType) parser.getBus(busId);
 		if (aclfBus==null){
@@ -86,7 +86,7 @@ public class PSSESwitchedSShuntDataRawMapper extends BasePSSEDataRawMapper{
 		//SWREM - Number of remote bus to control. 0 to control own bus.
 		int busNo = this.dataParser.getInt("SWREM", 0);
 		if (busNo != 0) {
-			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+this.dataParser.getString("SWREM")));
+			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+this.dataParser.getValue("SWREM")));
 		}
 
 		/* V30
@@ -105,7 +105,7 @@ public class PSSESwitchedSShuntDataRawMapper extends BasePSSEDataRawMapper{
 		if (version == PsseVersion.PSSE_30) {
 			shunt.setVarPercent(this.dataParser.getDouble("RMPCT", 100.0));
 			if(mode==4)
-			shunt.setVscDcLine(this.dataParser.getString("RMIDNT"));
+			shunt.setVscDcLine(this.dataParser.getValue("RMIDNT"));
 		}
 		
 		//BINIT - Initial switched shunt admittance, MVAR at 1.0 per unit volts

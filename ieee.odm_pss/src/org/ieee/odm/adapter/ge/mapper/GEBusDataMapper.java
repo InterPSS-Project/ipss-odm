@@ -58,7 +58,7 @@ public class GEBusDataMapper extends BaseGEDataMapper {
 
 		busRec.setAreaNumber(dataParser.getInt("ar"));
 		busRec.setZoneNumber(dataParser.getInt("z"));	
-		busRec.setName(dataParser.getString("name"));
+		busRec.setName(dataParser.getValue("name"));
 		busRec.setBaseVoltage(BaseDataSetter.createVoltageValue(dataParser.getDouble("kV"), VoltageUnitType.KV));
 		
 		int owner = dataParser.getInt("owner");

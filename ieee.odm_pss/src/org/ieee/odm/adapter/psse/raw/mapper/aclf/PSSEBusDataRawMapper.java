@@ -64,10 +64,10 @@ public class PSSEBusDataRawMapper extends BasePSSEDataRawMapper{
 		aclfBusXml.setAreaNumber(dataParser.getInt("AREA", 0));
 		aclfBusXml.setZoneNumber(dataParser.getInt("ZONE", 0));
 		if (dataParser.exist("OWNER")) {
-			BaseJaxbHelper.addOwner(aclfBusXml, dataParser.getString("OWNER"));
+			BaseJaxbHelper.addOwner(aclfBusXml, dataParser.getValue("OWNER"));
 		}
 		
-		aclfBusXml.setName(dataParser.getString("NAME"));
+		aclfBusXml.setName(dataParser.getValue("NAME"));
 		aclfBusXml.setBaseVoltage(BaseDataSetter.createVoltageValue(dataParser.getDouble("BASKV"), VoltageUnitType.KV));
 		
 		double vm = dataParser.getDouble("VM", 1.0);

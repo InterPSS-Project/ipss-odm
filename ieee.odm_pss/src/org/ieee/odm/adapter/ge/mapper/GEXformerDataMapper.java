@@ -56,9 +56,9 @@ public class GEXformerDataMapper extends BaseGEDataMapper {
 		double angls = this.dataParser.getDouble("angls", 0.0);
 		boolean isPsXfr = anglp != 0.0 || angls != 0.0;
 
-		final String fid = IODMModelParser.BusIdPreFix + this.dataParser.getString("f_bus");
-		final String tid = IODMModelParser.BusIdPreFix + this.dataParser.getString("t_bus");
-		final String cId = this.dataParser.getString("ck").replace(' ', '_');
+		final String fid = IODMModelParser.BusIdPreFix + this.dataParser.getValue("f_bus");
+		final String tid = IODMModelParser.BusIdPreFix + this.dataParser.getValue("t_bus");
+		final String cId = this.dataParser.getValue("ck").replace(' ', '_');
 		XfrBranchXmlType branchRec = null;
 		try {
 			branchRec = (XfrBranchXmlType)(isPsXfr?
@@ -68,7 +68,7 @@ public class GEXformerDataMapper extends BaseGEDataMapper {
 		}				
 		
 		int type = this.dataParser.getInt("type");
-		BaseJaxbHelper.addNVPair(branchRec, GePslfAdapter.Token_XfrType, this.dataParser.getString("type"));
+		BaseJaxbHelper.addNVPair(branchRec, GePslfAdapter.Token_XfrType, this.dataParser.getValue("type"));
 		
 		double tbase = this.dataParser.getDouble("tbase");
 		double vnomp = this.dataParser.getDouble("vnomp");

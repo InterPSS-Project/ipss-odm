@@ -54,7 +54,7 @@ public class PSSEOwnerDataRawMapper extends BasePSSEDataRawMapper{
 			OwnerXmlType owner = OdmObjFactory.createOwnerXmlType();
 			baseCaseNet.getOwnerList().add(owner);
 
-			String name = this.dataParser.getString("OWNAME");
+			String name = this.dataParser.getValue("OWNAME");
 			owner.setId(new Integer(i).toString());
 			owner.setNumber(i);
 			owner.setName(name);

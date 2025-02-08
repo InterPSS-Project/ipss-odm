@@ -68,11 +68,11 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 		
 		
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String loadId = dataParser.getString("Id");
+	    String loadId = dataParser.getValue("Id");
 	    
 	    //check model type
 	   
-	    if(!(dataParser.getString("Type").equals("CMPLDW"))){
+	    if(!(dataParser.getValue("Type").equals("CMPLDW"))){
 	    	throw new ODMException("dyn load  : Id"+
 		             loadId+" @ Bus"+i+"is not a CMPLDW load model");
 	    }

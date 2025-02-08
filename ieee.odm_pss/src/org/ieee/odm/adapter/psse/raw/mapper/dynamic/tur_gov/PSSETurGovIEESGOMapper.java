@@ -40,10 +40,10 @@ public class PSSETurGovIEESGOMapper extends BasePSSEDataRawMapper{
 		*/
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("IEESGO")){
+	    if(!dataParser.getValue("Type").equals("IEESGO")){
 	    	throw new ODMException(" Governor of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a IEESGO type");
 	    }

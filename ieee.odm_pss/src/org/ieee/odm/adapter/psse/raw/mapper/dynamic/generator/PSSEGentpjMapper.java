@@ -51,12 +51,12 @@ public class PSSEGentpjMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
 	    //GENROU and GENROE data format are the same
-	    if(!(dataParser.getString("Type").equals("GENTPJU1")||
-	    		dataParser.getString("Type").equals("GENTPJ1"))){
+	    if(!(dataParser.getValue("Type").equals("GENTPJU1")||
+	    		dataParser.getValue("Type").equals("GENTPJ1"))){
 	    	throw new ODMException("machine  : Id"+
 		             genId+" @ Bus"+i+"is not a GENTPJ generator model");
 	    }
@@ -94,7 +94,7 @@ public class PSSEGentpjMapper extends BasePSSEDataRawMapper{
 						   Eq11Ed11MachineXmlType mach = DStabParserHelper.createEq11Ed11Machine(dstabGenData);
 						   
 						   //set the type info
-						   mach.setDesc(dataParser.getString("Type"));
+						   mach.setDesc(dataParser.getValue("Type"));
 						   mach.setD(D);
 						   mach.setH(H);
 						   //TODO Ra = RSource?
@@ -127,7 +127,7 @@ public class PSSEGentpjMapper extends BasePSSEDataRawMapper{
 					   Eq11MachineXmlType mach = DStabParserHelper.createEq11Machine(dstabGenData);
 					   
 					   //set the type info
-					   mach.setDesc(dataParser.getString("Type"));
+					   mach.setDesc(dataParser.getValue("Type"));
 					   mach.setD(D);
 					   mach.setH(H);
 					   //TODO Ra = RSource?

@@ -27,7 +27,7 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 	public void procLineString(String[] lineStrAry, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException, ODMBranchDuplicationException {
 		dataParser.parseFields(lineStrAry);
 		
-		String name = this.dataParser.getString("NAME");
+		String name = this.dataParser.getValue("NAME");
 		
 		//status , 0 = out-of-service, 1 = in-service
 		int MDC = this.dataParser.getInt("MDC"); 

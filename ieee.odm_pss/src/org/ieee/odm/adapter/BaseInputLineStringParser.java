@@ -29,7 +29,7 @@ import org.ieee.odm.common.ODMException;
 /**
  *  A generic class for holding {position, name, value} date structure for implementing
  *  ODM parser. The key is to decouple input data field position in input data file
- *  and input data field parsing/mapping logic.
+ *  and input data field of type String parsing/mapping logic.
  *   
  * @author mzhou
  */
@@ -43,7 +43,7 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public double getDouble(String key) throws ODMException {
-		return Double.valueOf(this.getString(key));
+		return Double.valueOf(this.getValue(key));
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public double getDouble(String key, double defaultValue) throws ODMException {
-		if (exist(key) && !this.getString(key).equals(""))
-			return Double.valueOf(this.getString(key));
+		if (exist(key) && !this.getValue(key).equals(""))
+			return Double.valueOf(this.getValue(key));
 		else
 			return defaultValue;
 	}
@@ -69,7 +69,7 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public int getInt(String key) throws ODMException {
-		return Double.valueOf(this.getString(key)).intValue();
+		return Double.valueOf(this.getValue(key)).intValue();
 		
 	}
 	
@@ -81,8 +81,8 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public int getInt(String key, int defaultValue) throws ODMException {
-		if (exist(key)  && !this.getString(key).equals(""))
-			return Double.valueOf(this.getString(key)).intValue();
+		if (exist(key)  && !this.getValue(key).equals(""))
+			return Double.valueOf(this.getValue(key)).intValue();
 		else
 			return defaultValue; 
 	}
@@ -95,7 +95,7 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public long getLong(String key) throws ODMException {
-		return Long.valueOf(this.getString(key));
+		return Long.valueOf(this.getValue(key));
 	}
 	
 	/**
@@ -107,8 +107,8 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */
 	public long getLong(String key, long defaultValue) throws ODMException {
-		if (exist(key)  && !this.getString(key).equals(""))
-			return Long.valueOf(this.getString(key));
+		if (exist(key)  && !this.getValue(key).equals(""))
+			return Long.valueOf(this.getValue(key));
 		else
 			return defaultValue;
 	}
@@ -121,7 +121,7 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */	
 	public float getFloat(String key)throws ODMException{
-		 return Float.parseFloat(getString(key));
+		 return Float.parseFloat(getValue(key));
 	}
 
 	/**
@@ -133,8 +133,8 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */	
 	public float getFloat(String key, float defaultValue) throws ODMException{
-		 if ((exist(key)) && (!getString(key).equals(""))) {
-			 return Float.parseFloat(getString(key));
+		 if ((exist(key)) && (!getValue(key).equals(""))) {
+			 return Float.parseFloat(getValue(key));
 		 }
 		 return defaultValue;
 	}
@@ -147,7 +147,7 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */	
 	public char getChar(String key)throws ODMException{
-		 return getString(key).toCharArray()[0];
+		 return getValue(key).toCharArray()[0];
 	}
 	
 	/**
@@ -159,8 +159,8 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */	
 	public char getChar(String key, char defaultValue) throws ODMException{
-		 if ((exist(key)) && (!getString(key).equals(""))) {
-			 return getString(key).toCharArray()[0];
+		 if ((exist(key)) && (!getValue(key).equals(""))) {
+			 return getValue(key).toCharArray()[0];
 		 }
 		 return defaultValue;
 	}
@@ -173,7 +173,7 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */	
 	public char[] getChars(String key)throws ODMException{
-		 return getString(key).toCharArray();
+		 return getValue(key).toCharArray();
 	}
 	
 	/**
@@ -185,8 +185,8 @@ public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 	 * @throws ODMException throw exception if the field does not exist
 	 */	
 	public char[] getChars(String key, char[] defaultValue) throws ODMException{
-		 if ((exist(key)) && (!getString(key).equals(""))) {
-			 return getString(key).toCharArray();
+		 if ((exist(key)) && (!getValue(key).equals(""))) {
+			 return getValue(key).toCharArray();
 		 }
 		 return defaultValue;
 	}

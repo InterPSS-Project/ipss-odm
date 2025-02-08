@@ -50,9 +50,9 @@ public class GEBranchDataMapper extends BaseGEDataMapper {
 	public void mapLineStr(String lineStr, final AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
 		dataParser.parseFields(lineStr);
 		
-		final String fid = IODMModelParser.BusIdPreFix + dataParser.getString("f_bus");
-		final String tid = IODMModelParser.BusIdPreFix + dataParser.getString("t_bus");
-		final String cId = dataParser.getString("ck").replace(' ', '_');
+		final String fid = IODMModelParser.BusIdPreFix + dataParser.getValue("f_bus");
+		final String tid = IODMModelParser.BusIdPreFix + dataParser.getValue("t_bus");
+		final String cId = dataParser.getValue("ck").replace(' ', '_');
 		LineBranchXmlType branchRec = null;
 		branchRec = parser.createLineBranch(fid, tid, cId);
 		

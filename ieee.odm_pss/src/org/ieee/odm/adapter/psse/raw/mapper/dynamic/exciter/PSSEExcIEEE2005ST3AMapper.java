@@ -47,10 +47,10 @@ public class PSSEExcIEEE2005ST3AMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("ESST3A")){
+	    if(!dataParser.getValue("Type").equals("ESST3A")){
 	    	throw new ODMException(" Exciter of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a ESST3A type");
 	    }
@@ -61,7 +61,7 @@ public class PSSEExcIEEE2005ST3AMapper extends BasePSSEDataRawMapper{
 		   if(dstabGenData!=null){
 			   ExcIEEE2005TypeST3AXmlType exc = DStabParserHelper.createExcIEEE2005TypeST3AXmlType(dstabGenData);
 			   
-			   exc.setDesc(dataParser.getString("Type"));
+			   exc.setDesc(dataParser.getValue("Type"));
 			   exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
 			   
 			   exc.setVIMAX(dataParser.getDouble("VIMAX"));

@@ -91,7 +91,7 @@ public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
 
 		LineBranchXmlType braRecXml;
 		try {
-			braRecXml = (LineBranchXmlType) parser.createLineBranch(fid, tid, dataParser.getString("CKT"));
+			braRecXml = (LineBranchXmlType) parser.createLineBranch(fid, tid, dataParser.getValue("CKT"));
 		} catch (ODMBranchDuplicationException e) {
 			ODMLogger.getLogger().severe(e.toString());
 			return;

@@ -113,7 +113,7 @@ public class PSSEGenDataRawMapper extends BasePSSEDataRawMapper{
 		    contriGen = AclfParserHelper.createContriGen((LoadflowBusXmlType)busRecXml);
 	    }
 	    
-	    String id = dataParser.getString("ID");
+	    String id = dataParser.getValue("ID");
 	    contriGen.setId(id);
 	    contriGen.setName("Gen:" + id + "(" + i + ")");
 	    contriGen.setDesc("PSSE Generator " + id + " at Bus " + i);

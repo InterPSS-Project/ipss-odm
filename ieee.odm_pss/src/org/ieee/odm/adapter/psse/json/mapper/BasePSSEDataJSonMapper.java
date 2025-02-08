@@ -42,20 +42,20 @@ public class BasePSSEDataJSonMapper extends  BaseDataMapper{
 	}
 	
 	protected void mapOwnerInfo(BaseRecordXmlType recXml) throws ODMException {
-		String o1 = dataParser.getString("O1");
+		String o1 = dataParser.getValue("O1");
 		double f1 = dataParser.getDouble("F1", 0.0);
 		
-		String o2 = dataParser.getString("O2", null);
+		String o2 = dataParser.getValue("O2", null);
 		if (o2 != null && new Integer(o2) == 0)
 			o2 = null;
 		
 		double f2 = dataParser.getDouble("F2", 0.0);
-		String o3 = dataParser.getString("O3", null);
+		String o3 = dataParser.getValue("O3", null);
 		if (o3 != null && new Integer(o3) == 0)
 			o3 = null;
 		
 		double f3 = dataParser.getDouble("F3", 0.0);
-		String o4 = dataParser.getString("O4", null);
+		String o4 = dataParser.getValue("O4", null);
 		if (o4 != null && new Integer(o4) == 0)
 			o4 = null;
 		double f4 = dataParser.getDouble("F4", 0.0);

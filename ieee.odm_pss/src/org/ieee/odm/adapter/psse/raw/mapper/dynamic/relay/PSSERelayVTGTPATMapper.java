@@ -25,10 +25,10 @@ public class PSSERelayVTGTPATMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("GenBus");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("GenId");
+	    String genId = dataParser.getValue("GenId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("VTGTPAT")){
+	    if(!dataParser.getValue("Type").equals("VTGTPAT")){
 	    	throw new ODMException(" Gen under/over voltage relay at bus  : Id"+
 		             genId+" @ Bus"+i+"is not a VTGTPAT type");
 	    }
@@ -52,7 +52,7 @@ public class PSSERelayVTGTPATMapper extends BasePSSEDataRawMapper{
 	        	
     			int VoltMonitorBusNum   = dataParser.getInt("VoltBus");
     			int GenBusNum   = dataParser.getInt("GenBus");
-    			String GenId   = dataParser.getString("GenId");
+    			String GenId   = dataParser.getValue("GenId");
     			
     			double VL      = dataParser.getDouble("VL");   
     			double VU      = dataParser.getDouble("VU");   

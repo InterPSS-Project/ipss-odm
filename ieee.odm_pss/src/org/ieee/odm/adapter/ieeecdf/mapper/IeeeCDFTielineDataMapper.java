@@ -51,13 +51,13 @@ public class IeeeCDFTielineDataMapper extends AbstractIeeeCDFDataMapper {
 				
 		//    	Columns  1- 4   Metered bus number [I] *
 		//    	Columns  7-8    Metered area number [I] *
-		final String meteredBusId = IODMModelParser.BusIdPreFix + dataParser.getString("MeteredBusNum");
-		final String meteredAreaNo = dataParser.getString("MeteredAreaNum");
+		final String meteredBusId = IODMModelParser.BusIdPreFix + dataParser.getValue("MeteredBusNum");
+		final String meteredAreaNo = dataParser.getValue("MeteredAreaNum");
 
 		//      Columns  11-14  Non-metered bus number [I] *
 		//      Columns  17-18  Non-metered area number [I] *
-		final String nonMeteredBusId = IODMModelParser.BusIdPreFix + dataParser.getString("NotMeteredBusNum");
-		final String nonMeteredAreaNo = dataParser.getString("NotMeteredAreaNum");
+		final String nonMeteredBusId = IODMModelParser.BusIdPreFix + dataParser.getValue("NotMeteredBusNum");
+		final String nonMeteredAreaNo = dataParser.getValue("NotMeteredAreaNum");
 
 		//      Column   21     Circuit number
 		int cirNo = dataParser.getInt("CirNum", 0);

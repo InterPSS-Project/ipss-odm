@@ -60,7 +60,7 @@ public class PSSEBranchZeroSeqMapper extends BasePSSEDataRawMapper{
 	    final String fbusId = IODMModelParser.BusIdPreFix+i;
 	    final String tbusId = IODMModelParser.BusIdPreFix+j;
 	    
-	    String cirId = dataParser.getString("ICKT");
+	    String cirId = dataParser.getValue("ICKT");
 	    
 	    double r0= dataParser.getDouble("RLINZ");
 	    double x0= dataParser.getDouble("XLINZ");

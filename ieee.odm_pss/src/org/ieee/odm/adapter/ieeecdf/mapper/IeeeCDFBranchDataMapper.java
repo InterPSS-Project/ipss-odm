@@ -93,9 +93,9 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		//      2 - Variable tap for voltage control (TCUL, LTC)
 		//      3 - Variable tap (turns ratio) for MVAR control
 		//      4 - Variable phase angle for MW control (phase shifter)
-		final String fid = IODMModelParser.BusIdPreFix + dataParser.getString("FromNum");
-		final String tid = IODMModelParser.BusIdPreFix + dataParser.getString("ToNum");
-		String cirId = dataParser.getString("CirId");
+		final String fid = IODMModelParser.BusIdPreFix + dataParser.getValue("FromNum");
+		final String tid = IODMModelParser.BusIdPreFix + dataParser.getValue("ToNum");
+		String cirId = dataParser.getValue("CirId");
 		if(cirId.equals(""))cirId="1";//if empty,set cirId to 1 by default
 		int branchType = dataParser.getInt("Type", 0);
 
@@ -181,7 +181,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		double stepSize = 0.0, maxTapAng = 0.0, minTapAng = 0.0, maxVoltPQ = 0.0, minVoltPQ = 0.0;
 		if (branchType > 1) {
 			//    		Columns 69-72   Control bus number
-			controlBusId = IODMModelParser.BusIdPreFix + dataParser.getString("CntlBusNum");
+			controlBusId = IODMModelParser.BusIdPreFix + dataParser.getValue("CntlBusNum");
 
 			//        	Column  74      Side [I]
 			//          	0 - Controlled bus is one of the terminals
@@ -251,7 +251,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			int status = dataParser.getInt("Status");
 			branch.setNormalOffLineStatus(status == 0);
 
-			String braName = dataParser.getString("BranchName");
+			String braName = dataParser.getValue("BranchName");
 			branch.setName(braName);
 		}
 	}

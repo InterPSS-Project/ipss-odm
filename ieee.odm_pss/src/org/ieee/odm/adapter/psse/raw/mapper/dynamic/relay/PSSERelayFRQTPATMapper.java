@@ -23,10 +23,10 @@ public class PSSERelayFRQTPATMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("GenBus");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("GenId");
+	    String genId = dataParser.getValue("GenId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("FRQTPAT")){
+	    if(!dataParser.getValue("Type").equals("FRQTPAT")){
 	    	throw new ODMException(" Gen under/over frequency relay at bus  : Id"+
 		             genId+" @ Bus"+i+"is not a FRQTPAT type");
 	    }
@@ -50,7 +50,7 @@ public class PSSERelayFRQTPATMapper extends BasePSSEDataRawMapper{
 	        	
     			int FreqMonitorBusNum   = dataParser.getInt("FreqBus");
     			int GenBusNum   = dataParser.getInt("GenBus");
-    			String GenId   = dataParser.getString("GenId");
+    			String GenId   = dataParser.getValue("GenId");
     			
     			double FL      = dataParser.getDouble("FL");   
     			double FU      = dataParser.getDouble("FU");   

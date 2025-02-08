@@ -63,7 +63,7 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 		int isw = this.dataParser.getInt("ISW");
 		double pdes = this.dataParser.getDouble("PDES");
 		double ptol = this.dataParser.getDouble("PTOL");
-		String arnam = this.dataParser.getString("ARNAM");
+		String arnam = this.dataParser.getValue("ARNAM");
 		
 		area.setId(new Integer(i).toString());
 		area.setNumber(i);

@@ -50,10 +50,10 @@ public class UCTEXfrDataMapper extends BaseUCTEDataMapper {
 	public void mapInputLine(final String str, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
 		this.dataParser.parseFields(str);
 
-		String fromNodeId= this.dataParser.getString("fromNodeId"), 
-		       toNodeId= this.dataParser.getString("toNodeId"), 
-		       orderCode= this.dataParser.getString("orderCode"), 
-		       elemName= this.dataParser.getString("elemName", "");
+		String fromNodeId= this.dataParser.getValue("fromNodeId"), 
+		       toNodeId= this.dataParser.getValue("toNodeId"), 
+		       orderCode= this.dataParser.getValue("orderCode"), 
+		       elemName= this.dataParser.getValue("elemName", "");
 		int    status= this.dataParser.getInt("status", 0), 
 		       currentLimit= this.dataParser.getInt("currentLimit", 0);
 		double fromRatedKV= this.dataParser.getDouble("fromRatedKV", 0.0), 

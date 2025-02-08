@@ -47,7 +47,7 @@ public class PSSEInterAreaTransferDataRawMapper extends BasePSSEDataRawMapper{
 		
 		int	arfrom = this.dataParser.getInt("ARFROM");
 		int	arto = this.dataParser.getInt("ARTO");
-		String	trid = this.dataParser.getString("TRID");
+		String	trid = this.dataParser.getValue("TRID");
 		double	ptran = this.dataParser.getDouble("PTRAN");
 
 		/*

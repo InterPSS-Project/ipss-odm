@@ -47,10 +47,10 @@ public class PSSEExcIEEE2005ST4BMapper extends BasePSSEDataRawMapper{
 		
 		int i = dataParser.getInt("IBUS");
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String genId = dataParser.getString("MachId");
+	    String genId = dataParser.getValue("MachId");
 	    
 	    //check model type
-	    if(!dataParser.getString("Type").equals("ESST4B")){
+	    if(!dataParser.getValue("Type").equals("ESST4B")){
 	    	throw new ODMException(" Exciter of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a ESST4B type");
 	    }
@@ -61,7 +61,7 @@ public class PSSEExcIEEE2005ST4BMapper extends BasePSSEDataRawMapper{
 		   if(dstabGenData!=null){
 			   ExcIEEE2005TypeST4BXmlType exc = DStabParserHelper.createExcIEEE2005TypeST4BXmlType(dstabGenData);
 			   
-			   exc.setDesc(dataParser.getString("Type"));
+			   exc.setDesc(dataParser.getValue("Type"));
 			   exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
 			   
 			   exc.setKPR(dataParser.getDouble("KPR"));

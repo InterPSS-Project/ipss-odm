@@ -83,7 +83,7 @@ public class PSSEXfrZeroSeqDataMapper extends BasePSSEDataRawMapper{
                 
         boolean is3W = (k != 0); 
         
-        String cirId = dataParser.getString("ICKT");
+        String cirId = dataParser.getValue("ICKT");
         
         int cc = dataParser.getInt("CC");
         

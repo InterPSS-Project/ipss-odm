@@ -52,7 +52,7 @@ public class IeeeCDFLossZoneDataMapper extends AbstractIeeeCDFDataMapper {
 		//    	Columns  1- 3   Loss zone number [I] *
 		//    	Columns  5-16   Loss zone name [A] 
 		final int no = dataParser.getInt("ZoneNum");
-		final String name = dataParser.getString("ZoneName");
+		final String name = dataParser.getValue("ZoneName");
 		lossZone.setNumber(no);
 		lossZone.setName(name);
 	}
