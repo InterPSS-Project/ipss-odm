@@ -28,9 +28,9 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import java.util.List;
 
-import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.json.parser.PSSEDataJSonParser;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -41,9 +41,9 @@ import org.ieee.odm.schema.NetworkXmlType;
 
 public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 	
-	public PSSEAreaDataJSonMapper(PsseVersion ver, List<String> fieldDef) {
-		super(ver);
-		this.dataParser = new PSSEDataJSonParser(ver, fieldDef);
+	public PSSEAreaDataJSonMapper(List<String> fieldDef) {
+		super();
+		this.dataParser = new PSSEDataJSonParser(fieldDef);
 	}
 	
 
@@ -61,11 +61,11 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
             "data":  [1,       101,   -2800.000, 10.00000, "CENTRAL"],  '
 		 */		
 		try {
-			int i = this.dataParser.getInt("I");
-			int isw = this.dataParser.getInt("ISW");
-			double pdes = this.dataParser.getDouble("PDES");
-			double ptol = this.dataParser.getDouble("PTOL");
-			String arnam = this.dataParser.getString("ARNAM");
+			int i = (int)this.dataParser.getDouble("iarea");
+			int isw = (int)this.dataParser.getDouble("isw");
+			double pdes = this.dataParser.getDouble("pdes");
+			double ptol = this.dataParser.getDouble("ptol");
+			String arnam = this.dataParser.getString("arname");
 			
 			area.setId(new Integer(i).toString());
 			area.setNumber(i);
@@ -77,8 +77,7 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 				area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
 			}	
 		} catch (ODMException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ODMLogger.getLogger().severe(e.toString());
 		}
 	
 	}

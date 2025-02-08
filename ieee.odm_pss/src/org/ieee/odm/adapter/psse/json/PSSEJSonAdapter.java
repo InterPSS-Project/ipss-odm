@@ -38,8 +38,8 @@ import org.ieee.odm.model.aclf.AclfModelParser;
  *
  */
 public class PSSEJSonAdapter extends PSSEAdapter {
-	public PSSEJSonAdapter(PsseVersion ver) {
-		super(ver);	
+	public PSSEJSonAdapter() {
+		super(PsseVersion.PSSE_JSON);	
 	}
 	
     /**
@@ -50,7 +50,7 @@ public class PSSEJSonAdapter extends PSSEAdapter {
      * @throws ODMException
      */
 	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws ODMException {
-	    return new PSSELFJSonAdapter(this.adptrVersion).parseLoadflowFile(din, encoding);
+	    return new PSSELFJSonAdapter().parseLoadflowFile(din, encoding);
 	}
 		
 	@Override

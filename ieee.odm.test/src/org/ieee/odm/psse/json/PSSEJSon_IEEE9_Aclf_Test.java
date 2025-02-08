@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.logging.Level;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter;
-import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.json.PSSEJSonAdapter;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -16,8 +15,8 @@ public class PSSEJSon_IEEE9_Aclf_Test {
 	public void testCase1() throws Exception {
 		ODMLogger.getLogger().setLevel(Level.WARNING);
 		
-		PSSEAdapter adapter = new PSSEJSonAdapter(PsseVersion.PSSE_JSON);
-		assertTrue(adapter.parseInputFile("testdata/psse/json/ieee9.rawx"));
+		PSSEAdapter adapter = new PSSEJSonAdapter();
+		assertTrue(adapter.parseInputFile("testdata/psse/json/sample.rawx"));
 		
 		AclfModelParser aclfParser =(AclfModelParser) adapter.getModel();
 		aclfParser.stdout();

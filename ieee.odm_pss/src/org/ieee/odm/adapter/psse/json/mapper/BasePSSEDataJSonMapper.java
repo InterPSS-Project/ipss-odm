@@ -28,13 +28,9 @@ import org.ieee.odm.adapter.common.obj.BaseObjDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 
 public class BasePSSEDataJSonMapper extends  BaseObjDataMapper {
-	protected PsseVersion version = null;
+	protected PsseVersion version = PsseVersion.PSSE_JSON;
 	
 	public BasePSSEDataJSonMapper(){
 		
-	}
-	
-	public BasePSSEDataJSonMapper(PsseVersion ver) {
-		this.version = ver;
 	}
 }

@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.ieee.odm.adapter.common.obj.BaseInputRowObjParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.interpss.numeric.datatype.Counter;
 
 /**
  * 
@@ -37,15 +38,13 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 public class PSSEDataJSonParser extends BaseInputRowObjParser  {		  
 	protected PsseVersion version = PsseVersion.PSSE_JSON;
 	
-	List<String> fieldDef = null;
-	
 	public PSSEDataJSonParser() {
 		super();
 	}
 
-	public PSSEDataJSonParser(PsseVersion ver, List<String> fieldDef) {
+	public PSSEDataJSonParser(List<String> fieldDef) {
 		super();
-		this.version = ver;
-		this.fieldDef = fieldDef;
+		Counter cnt = new Counter();
+		fieldDef.forEach(key -> this.positionTable.put(cnt.getCountThenIncrement(), key));
 	}
 }

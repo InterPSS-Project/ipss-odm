@@ -26,24 +26,8 @@ package org.ieee.odm.adapter.psse.json.impl;
 
 import java.util.List;
 
-import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.bean.PSSESchema;
 import org.ieee.odm.adapter.psse.json.mapper.PSSEAreaDataJSonMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEAreaDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEBusDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEDcLine2TDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEFixedShuntDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEGenDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEHeaderDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEInterAreaTransferDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSELineDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSELoadDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEOwnerDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSESwitchedSShuntDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEVSCHVDC2TDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEXfrDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEXfrZTableDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEZoneDataRawMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
@@ -55,44 +39,10 @@ import org.ieee.odm.schema.NetworkCategoryEnumType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
 
-public class PSSELFJSonAdapter extends BasePSSEJSonAdapter{
-
-	private PSSEHeaderDataRawMapper headerDataMapper = null;	
-	private PSSEAreaDataRawMapper areaDataMapper = null;
-	private PSSEZoneDataRawMapper zoneDataMapper = null;
-	private PSSEOwnerDataRawMapper ownerDataMapper = null;
-	private PSSEInterAreaTransferDataRawMapper interAreaDataMapper = null;
-	private PSSEXfrZTableDataRawMapper zTableDataMapper = null;
+public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
 	
-	private PSSEBusDataRawMapper busDataMapper = null;
-	private PSSEGenDataRawMapper genDataMapper = null;
-	private PSSEFixedShuntDataRawMapper fixedShuntDataMapper = null;
-	private PSSELoadDataRawMapper loadDataMapper = null;
-	private PSSESwitchedSShuntDataRawMapper switchedShuntDataMapper = null;
-	
-	private PSSELineDataRawMapper lineDataMapper = null;
-	private PSSEXfrDataRawMapper xfrDataMapper = null;
-	private PSSEDcLine2TDataRawMapper dcLine2TDataMapper = null;
-	private PSSEVSCHVDC2TDataRawMapper vschvdc2TDataMapper = null;
-	
-	public PSSELFJSonAdapter(PsseVersion ver) {
-		super(ver);
-		
-		this.headerDataMapper = new PSSEHeaderDataRawMapper(ver);
-		this.areaDataMapper = new PSSEAreaDataRawMapper(ver);
-		this.zoneDataMapper = new PSSEZoneDataRawMapper(ver);
-		this.ownerDataMapper = new PSSEOwnerDataRawMapper(ver);
-		this.interAreaDataMapper = new PSSEInterAreaTransferDataRawMapper(ver);
-		this.zTableDataMapper = new PSSEXfrZTableDataRawMapper(ver);
-		this.busDataMapper = new PSSEBusDataRawMapper(ver);
-		this.genDataMapper = new PSSEGenDataRawMapper(ver);
-		this.loadDataMapper = new PSSELoadDataRawMapper(ver);
-		this.fixedShuntDataMapper = new PSSEFixedShuntDataRawMapper(ver);
-		this.switchedShuntDataMapper = new PSSESwitchedSShuntDataRawMapper(ver);
-		this.lineDataMapper = new PSSELineDataRawMapper(ver);
-		this.xfrDataMapper = new PSSEXfrDataRawMapper(ver);
-		this.dcLine2TDataMapper = new PSSEDcLine2TDataRawMapper(ver);
-		this.vschvdc2TDataMapper = new PSSEVSCHVDC2TDataRawMapper(ver);
+	public PSSELFJSonAdapter() {
+		super();
 	}
 	
     /**
@@ -153,7 +103,7 @@ public class PSSELFJSonAdapter extends BasePSSEJSonAdapter{
 		jsonObj.getNetwork().getTransformer();
 		
 		PSSESchema.Field_Data area = jsonObj.getNetwork().getArea();
-		PSSEAreaDataJSonMapper mapper = new PSSEAreaDataJSonMapper(this.adptrtVersion, area.getFields());
+		PSSEAreaDataJSonMapper mapper = new PSSEAreaDataJSonMapper(area.getFields());
 		area.getData().forEach(row -> mapper.proc((List<Object>)row, getParser()));
 		
 		jsonObj.getNetwork().getTwotermdc();
