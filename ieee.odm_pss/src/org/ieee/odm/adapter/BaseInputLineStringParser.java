@@ -24,8 +24,6 @@
 
 package org.ieee.odm.adapter;
 
-import java.util.LinkedHashMap;
-
 import org.ieee.odm.common.ODMException;
 
 /**
@@ -35,147 +33,7 @@ import org.ieee.odm.common.ODMException;
  *   
  * @author mzhou
  */
-public class BaseInputLineStringParser {
-	/**
-	 * store position to key lookup info { (1, BusNum), (2, BusNum:1) ... }
-	 */
-	protected LinkedHashMap<Integer, String> positionTable;  // 1, .... n
-
-	/**
-	 * store key to value lookup info { (BusNum, 4), (BusNum:1, 5), (BusName, Name) ... }
-	 */
-	protected LinkedHashMap<String, String> fieldTable;
-	
-	/**
-	 * constructor
-	 */
-	public BaseInputLineStringParser() {
-		this.positionTable = new LinkedHashMap<Integer, String>();
-		this.fieldTable = new LinkedHashMap<String, String>();
-	}
-	
-	/**
-	 * set parser meta data. For example,
-		
-		String[] {
-		   //  0---------------1---------------2---------------3---------------4
-		     "BusNumber",  "BusName",       "Area",          "Zone",        "Type", 
-		   //  5               6               7               8               9
-		     "VMag",        "VAng",         "LoadP",         "LoadQ",       "GenP", 
-		   //  10              11              12              13              14
-		     "GenQ",       "BaseKV",        "DesiredV",     "MaxVarVolt",   "MinVarVolt", 
-		   //  15              16              17              
-		     "ShuntG",    "ShuntB",         "RemoteBusNumber" 
-		};	 
-	 * 
-	 * @param dataAry meta data string array
-	 */
-	public void setMetadata(String[] dataAry) {
-		//renew the position table for each data section
-		this.positionTable.clear();
-		int cnt =0;
-		for (String s : dataAry) {
-			this.positionTable.put(cnt++, s.trim());
-		}
-	}
-
-	/**
-	 * set value at the position
-	 * 
-	 * @param position
-	 * @param value
-	 */
-	public void setValue(int position, String value) {
-		this.fieldTable.put(this.positionTable.get(position), value);
-	}
-
-	/**
-	 * set values according to its array position
-	 * 
-	 * @param values
-	 */
-	public void setValue(String[] values) {
-		int pos = 0;
-		for (String s : values)
-			this.fieldTable.put(this.positionTable.get(pos++), s);
-	}
-	
-	/**
-	 * set value to the key
-	 * 
-	 * @param key
-	 * @param value
-	 */
-	public void setValue(String key, String value) {
-		this.fieldTable.put(key, value);
-	}
-	
-	/**
-	 * clear the name-value pair table 
-	 */
-	public void clearNVPairTableData(){
-		this.fieldTable.clear();
-	}
-	
-	/**
-	 * check if all data fields are parsed
-	 * 
-	 * @return
-	 */
-	public boolean isDataCompleted(){
-		 return this.positionTable.size() == this.fieldTable.size();
-	}
-
-	/**
-	 * check if the data field identified by the key exists
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public boolean exist(String key) {
-		return this.fieldTable.get(key) != null;
-	}
-	
-	/**
-	 * Get field by position
-	 * 
-	 * @param pos get data field position
-	 * @return the data field
-	 * @throws ODMException throw exception if the field does not exist
-	 */
-	public String getValue(int pos) {
-		String field = this.fieldTable.get(this.positionTable.get(pos));
-		return field;
-	}
-	
-	/**
-	 * Get field of type String by key
-	 * 
-	 * @param key data field key
-	 * @return the data field
-	 * @throws ODMException throw exception if the field does not exist
-	 */
-	public String getString(String key) throws ODMException {
-		String field = this.fieldTable.get(key);
-		if (field == null)
-			throw new ODMException("Field " + key + " not found");
-		return field;
-	}
-	
-	/**
-	 * Get field of type String by key 
-	 * 
-	 * @param key data field key
-	 * @param defValue default value for field
-	 * @return the data field
-	 * @throws ODMException throw exception if the field does not exist
-	 */
-	public String getString(String key, String defValue) throws ODMException {
-		String field = this.fieldTable.get(key);
-		if (field == null)
-			return defValue;
-		return field;
-	}
+public class BaseInputLineStringParser extends BaseInputRowParser<String> {
 
 	/**
 	 * Get field of type double by the key
@@ -331,27 +189,5 @@ public class BaseInputLineStringParser {
 			 return getString(key).toCharArray();
 		 }
 		 return defaultValue;
-	}
-	
-	@Override public String toString() {
-		return this.positionTable.toString() + "\n" + this.fieldTable.toString();
-	}
-	
-	/**
-	 * get the field lookup table
-	 * 
-	 * @return the field lookup table
-	 */
-	public LinkedHashMap<String, String> getFieldTable() {
-		return fieldTable;
-	}
-
-	/**
-	 * set the field lookup table
-	 * 
-	 * @param fieldTable the field lookup table object
-	 */
-	public void setFieldTable(LinkedHashMap<String, String> fieldTable) {
-		this.fieldTable = fieldTable;
 	}
 } 

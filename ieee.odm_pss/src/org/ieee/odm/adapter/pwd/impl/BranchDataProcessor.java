@@ -127,7 +127,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				// LineR:1, LineX:1, LineG:1, LineC:1, XFStep:1, XFTapMax:1, XFTapMin:1, LineTap:1
 				// The suffix of ":1" is used for Transformer definition,means those data values are based on transformer MVA base 
 				   
-				r=exist("LineR")?getDouble("LineR"):exist("LineR:1")?getDouble("LineR:1"):0;
+				r=exist("LineR")? getDouble("LineR"):exist("LineR:1")?getDouble("LineR:1"):0;
 				    
 			    x=exist("LineX")?getDouble("LineX"):exist("LineX:1")?getDouble("LineX:1"):DEFAULT_LineX_MINIMUM;
 				    
