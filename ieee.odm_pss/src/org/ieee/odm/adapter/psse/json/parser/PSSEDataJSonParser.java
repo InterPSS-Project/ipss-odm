@@ -26,25 +26,24 @@ package org.ieee.odm.adapter.psse.json.parser;
 
 import java.util.List;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.BaseInputRowParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 
 /**
- * Class for processing IEEE CDF bus data line string
  * 
  * @author mzhou
  *
  */
-public abstract class BasePSSEDataJSonParser extends AbstractDataFieldParser {		  
+public abstract class PSSEDataJSonParser extends BaseInputRowParser<Object>  {		  
 	protected PsseVersion version = PsseVersion.PSSE_JSON;
 	
 	List<String> fieldDef = null;
 	
-	public BasePSSEDataJSonParser() {
+	public PSSEDataJSonParser() {
 		super();
 	}
 
-	public BasePSSEDataJSonParser(PsseVersion ver, List<String> fieldDef) {
+	public PSSEDataJSonParser(PsseVersion ver, List<String> fieldDef) {
 		super();
 		this.version = ver;
 		this.fieldDef = fieldDef;

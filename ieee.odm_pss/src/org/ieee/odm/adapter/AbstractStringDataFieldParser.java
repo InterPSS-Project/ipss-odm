@@ -42,11 +42,11 @@ import org.ieee.odm.common.ODMTextFileReader;
  * @author mzhou
  *
  */
-public abstract class AbstractDataFieldParser extends BaseInputLineStringParser {
+public abstract class AbstractStringDataFieldParser extends BaseInputLineStringParser {
 	/**
 	 * constructor
 	 */
-	public AbstractDataFieldParser() {
+	public AbstractStringDataFieldParser() {
 		super();
 		this.setMetadata(getMetadata());
 	}

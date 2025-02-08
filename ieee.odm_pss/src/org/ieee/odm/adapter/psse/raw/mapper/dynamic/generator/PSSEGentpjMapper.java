@@ -1,6 +1,6 @@
 package org.ieee.odm.adapter.psse.raw.mapper.dynamic.generator;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.parser.dynamic.generator.PSSEGentpjDataParser;
@@ -23,7 +23,7 @@ public class PSSEGentpjMapper extends BasePSSEDataRawMapper{
 		this.dataParser = new PSSEGentpjDataParser(ver);
 	}
 	
-	public PSSEGentpjMapper(AbstractDataFieldParser parser){
+	public PSSEGentpjMapper(AbstractStringDataFieldParser parser){
 		this.dataParser = parser;
 	}
 	

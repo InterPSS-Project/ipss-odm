@@ -1,7 +1,7 @@
 package org.ieee.odm.adapter.ge.mapper.dynamic.generator;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
-import org.ieee.odm.adapter.BaseDataMapper;
+import org.ieee.odm.adapter.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.BaseStringDataMapper;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
@@ -14,9 +14,9 @@ import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
 import org.ieee.odm.schema.Eq1MachineXmlType.SeFmt1;
 
-public class PSLFDynGENTypeFMapper extends BaseDataMapper{
+public class PSLFDynGENTypeFMapper extends BaseStringDataMapper{
 	
-	public PSLFDynGENTypeFMapper(AbstractDataFieldParser parser){
+	public PSLFDynGENTypeFMapper(AbstractStringDataFieldParser parser){
 		this.dataParser = parser;
 	}
 	

@@ -26,7 +26,7 @@ package org.ieee.odm.adapter.ieeecdf.parser;
 
 import java.util.StringTokenizer;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.AbstractStringDataFieldParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
@@ -36,7 +36,7 @@ import org.ieee.odm.model.base.ODMModelStringUtil;
  * @author mzhou
  *
  */
-public class IeeeCDFNetDataParser extends AbstractDataFieldParser {
+public class IeeeCDFNetDataParser extends AbstractStringDataFieldParser {
 	@Override public String[] getMetadata() {
 		return new String[] {
 		   //  0          1          2       3        4

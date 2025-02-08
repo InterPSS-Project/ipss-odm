@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 
 /**
@@ -33,7 +33,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
  * @author mzhou
  *
  */
-public abstract class BasePSSEDataRawParser extends AbstractDataFieldParser {
+public abstract class BasePSSEDataRawParser extends AbstractStringDataFieldParser {
 	   //  0----------1----------2----------3----------4
 	   //  5          6          7          8          9
 	   //  10         11         12         13         14

@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ge.parser;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 
 /**
@@ -33,7 +33,7 @@ import org.ieee.odm.adapter.ge.GePslfAdapter;
  * @author mzhou
  *
  */
-public abstract class BaseGEDataParser extends AbstractDataFieldParser {
+public abstract class BaseGEDataParser extends AbstractStringDataFieldParser {
 	   //  0----------1----------2----------3----------4
 	   //  5          6          7          8          9
 	   //  10         11         12         13         14

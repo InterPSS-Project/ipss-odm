@@ -24,13 +24,13 @@
 
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-import org.ieee.odm.adapter.BaseDataMapper;
+import org.ieee.odm.adapter.BaseStringDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BaseRecordXmlType;
 
-public class BasePSSEDataRawMapper extends  BaseDataMapper{
+public class BasePSSEDataRawMapper extends  BaseStringDataMapper{
 	protected PsseVersion version = null;
 	
 	public BasePSSEDataRawMapper(){

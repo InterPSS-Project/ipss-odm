@@ -29,7 +29,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import java.util.List;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.json.parser.PSSEAreaDataJSonParser;
+import org.ieee.odm.adapter.psse.json.parser.PSSEDataJSonParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -42,7 +42,7 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 	
 	public PSSEAreaDataJSonMapper(PsseVersion ver, List<String> fieldDef) {
 		super(ver);
-		this.dataParser = new PSSEAreaDataJSonParser(ver, fieldDef);
+		this.dataParser = new PSSEDataJSonParser(ver, fieldDef);
 	}
 	
 
