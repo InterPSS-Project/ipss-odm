@@ -32,7 +32,8 @@ import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 import org.ieee.odm.adapter.opf.matpower.OpfMatpowerAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.v26.PSSEV26Adapter;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
+import org.ieee.odm.adapter.psse.raw.v26.PSSEV26Adapter;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency;
 import org.ieee.odm.adapter.pwd.PowerWorldAdapter;
 import org.ieee.odm.adapter.ucte.UCTE_DEFAdapter;
@@ -133,13 +134,13 @@ public class ODMObjectFactory {
 		else if ( f == ODMFileFormatEnum.PsseV26 )
 			return new PSSEV26Adapter();
 		else if ( f == ODMFileFormatEnum.PsseV30 )
-			return new PSSEAdapter(PsseVersion.PSSE_30);
+			return new PSSERawAdapter(PsseVersion.PSSE_30);
 		else if ( f == ODMFileFormatEnum.PsseV31 )
-			return new PSSEAdapter(PsseVersion.PSSE_31);
+			return new PSSERawAdapter(PsseVersion.PSSE_31);
 		else if ( f == ODMFileFormatEnum.PsseV32 )
-			return new PSSEAdapter(PsseVersion.PSSE_32);
+			return new PSSERawAdapter(PsseVersion.PSSE_32);
 		else if ( f == ODMFileFormatEnum.PsseV33 )
-			return new PSSEAdapter(PsseVersion.PSSE_33);
+			return new PSSERawAdapter(PsseVersion.PSSE_33);
 		
 		else if ( f == ODMFileFormatEnum.GePSLF ) 
 			return new GePslfAdapter(GePslfAdapter.Version.PSLF15);

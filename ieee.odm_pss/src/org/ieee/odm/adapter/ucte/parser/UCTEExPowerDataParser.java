@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ucte.parser;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
@@ -34,7 +34,7 @@ import org.ieee.odm.model.base.ODMModelStringUtil;
  * @author mzhou
  *
  */
-public class UCTEExPowerDataParser extends AbstractDataFieldParser {
+public class UCTEExPowerDataParser extends AbstractStringDataFieldParser {
 	@Override public String[] getMetadata() {
 		return new String[] {
 		   //  0---------------1---------------2---------------3---------------4

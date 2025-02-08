@@ -61,11 +61,11 @@ public class BusDataProcessor extends InputLineStringParser {
 
 			busNum=getLong("BusNum");
 	
-			busName=exist("BusName")?getString("BusName"):"";
+			busName=exist("BusName")?getValue("BusName"):"";
 
 			
 			if(exist("BusStatus")){
-				busConnected=(getString("BusStatus").equalsIgnoreCase("Connected")||getString("BusStatus").equalsIgnoreCase("Closed"))?true:false;
+				busConnected=(getValue("BusStatus").equalsIgnoreCase("Connected")||getValue("BusStatus").equalsIgnoreCase("Closed"))?true:false;
 			}
 			if(exist("BusNomVolt")){
 				basekV=getDouble("BusNomVolt");
@@ -94,7 +94,7 @@ public class BusDataProcessor extends InputLineStringParser {
 				ownerNum=getInt("OwnerNum");
 			}
 			if(exist("BusSlack")){
-				isSlackBus=getString("BusSlack").equalsIgnoreCase("YES")
+				isSlackBus=getValue("BusSlack").equalsIgnoreCase("YES")
 						?isSlackBus=true:false;
 			}
 			else
@@ -167,9 +167,9 @@ public class BusDataProcessor extends InputLineStringParser {
 		try {
 		busNum=getLong("BusNum"); //mandatory filed
 		
-		if(exist("LoadID")) loadId=getString("LoadID");
+		if(exist("LoadID")) loadId=getValue("LoadID");
 		if(exist("LoadStatus")) 
-		   loadOnLine=getString("LoadStatus").equalsIgnoreCase("Closed")?true:false;
+		   loadOnLine=getValue("LoadStatus").equalsIgnoreCase("Closed")?true:false;
        
 		loadSMW  = exist("LoadSMW")?getDouble("LoadSMW"):0;
 		loadSMVR = exist("LoadSMVR")?getDouble("LoadSMVR"):0;
@@ -182,7 +182,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		
 		//process custom string, this is for specifically customized data 
 		  if(exist(CustomStrToken)) {
-				customString = getString(CustomStrToken); 
+				customString = getValue(CustomStrToken); 
 		  }
 		} catch (ODMException e) {
 			e.printStackTrace();
@@ -258,16 +258,16 @@ public class BusDataProcessor extends InputLineStringParser {
 						
 				 busNum=getLong("BusNum");// mandatory filed
 				
-				 genId =exist("GenID")?getString("GenID"):"";
+				 genId =exist("GenID")?getValue("GenID"):"";
 				   
 				   
 				  if (exist("GenStatus")) 
-					  genOnLine =getString("GenStatus").equalsIgnoreCase("Closed")?true:false;
+					  genOnLine =getValue("GenStatus").equalsIgnoreCase("Closed")?true:false;
 		
 				  if (exist("GenMW"))
 							genMW =getDouble("GenMW");
 				  if(exist("GenEnforceMWLimits")) 
-						 pLimitForced= getString("GenEnforceMWLimits").equalsIgnoreCase("YES")?
+						 pLimitForced= getValue("GenEnforceMWLimits").equalsIgnoreCase("YES")?
 								true:false;
 				  if(exist("GenRegNum"))
 						regBusNum =getInt("GenRegNum");
@@ -294,19 +294,19 @@ public class BusDataProcessor extends InputLineStringParser {
 				  if(exist("GenVoltSet"))
 							genVoltSet=getDouble("GenVoltSet");
 				  if(exist("GenAGCAble"))
-					  genAGCAble=getString("GenAGCAble").toLowerCase().equals("yes");
+					  genAGCAble=getValue("GenAGCAble").toLowerCase().equals("yes");
 				  if(exist("GenParFac"))		
 					  partFactor= getDouble("GenParFac");
 				  
 				  //process custom string, this is for specifically customized data 
 				  if(exist("CustomString")) {
-						customString = getString("CustomString"); 
+						customString = getValue("CustomString"); 
 						
 				  }
 				  
-				  if(exist("CustomString:1")) customString_1 = getString("CustomString:1");
+				  if(exist("CustomString:1")) customString_1 = getValue("CustomString:1");
 				  
-				  if(exist("CustomString:2")) customString_2 = getString("CustomString:2");
+				  if(exist("CustomString:2")) customString_2 = getValue("CustomString:2");
 					
 				  int underScoreIdx = customString.indexOf("_");
 				  if(underScoreIdx>0 && !customString_1.isEmpty() ) substation =getGenSubstationName(customString,customString_1);
@@ -465,10 +465,10 @@ public class BusDataProcessor extends InputLineStringParser {
 		if(exist("SSRegNum"))
 				regBusNum=getLong("SSRegNum");
 	
-		shuntId=exist("ShuntID")?getString("ShuntID"):"";
+		shuntId=exist("ShuntID")?getValue("ShuntID"):"";
 		
 		if(exist("SSStatus")) 
-		    	closed=getString("SSStatus").equalsIgnoreCase("Closed")?true:false;
+		    	closed=getValue("SSStatus").equalsIgnoreCase("Closed")?true:false;
 		if (exist("AreaNum")) 
 		    	areaNum=getInt("AreaNum");
 		
@@ -476,7 +476,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		    	zoneNum=getInt("ZoneNum");
 			
 		if (exist("SSCMode")){
-			String modeStr=getString("SSCMode");
+			String modeStr=getValue("SSCMode");
 		    	mode=modeStr.equalsIgnoreCase("Discrete")?SwitchedShuntModeEnumType.DISCRETE:
 		    				(modeStr.equalsIgnoreCase("Continuous")?SwitchedShuntModeEnumType.CONTINUOUS:
 		    					SwitchedShuntModeEnumType.FIXED);
@@ -492,20 +492,20 @@ public class BusDataProcessor extends InputLineStringParser {
 			
 		//TODO How to determine the number of blocks
 		if (exist("SSBlockNumSteps"))
-				steps1=new Double(getString("SSBlockNumSteps")).intValue();
+				steps1=new Double(getValue("SSBlockNumSteps")).intValue();
 			
 		if (exist("SSBlockMVarPerStep"))
 				MVarPerStep1=getDouble("SSBlockMVarPerStep");
 			
 			
 		if (exist("SSBlockNumSteps:1"))
-				steps2=new Double(getString("SSBlockNumSteps:1")).intValue();
+				steps2=new Double(getValue("SSBlockNumSteps:1")).intValue();
 			
 		if (exist("SSBlockMVarPerStep:1"))
 				MVarPerStep2=getDouble("SSBlockMVarPerStep:1");
 		
 		 if(exist(CustomStrToken)) {
-				customString = getString(CustomStrToken); 
+				customString = getValue(CustomStrToken); 
 				int underScoreIdx = customString.indexOf("_");
 				if(underScoreIdx>0)
 					customString.substring(0, underScoreIdx);

@@ -49,9 +49,9 @@ public class GEZoneDataMapper extends BaseGEDataMapper {
 			baseCaseNet.setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
 		ExchangeZoneXmlType zone = OdmObjFactory.createExchangeZoneXmlType(); 
 		baseCaseNet.getLossZoneList().getLossZone().add(zone);
-		zone.setId(dataParser.getString("zonum"));
+		zone.setId(dataParser.getValue("zonum"));
 		zone.setNumber(dataParser.getInt("zonum"));
-		zone.setName(dataParser.getString("zonam"));
+		zone.setName(dataParser.getValue("zonam"));
 		
 		double pznet = dataParser.getDouble("pznet");
 		double qznet = dataParser.getDouble("qznet");

@@ -85,9 +85,9 @@ public class ContingencyDataProcessor extends InputLineStringParser{
 		// create a branch change set object to represent a contingency
 		try	{
 	      if(exist("CTGSkip"))
-					skipCtg=getString("CTGSkip").trim().equalsIgnoreCase("NO")?false:true;
-		  ctgId =getString("CTGLabel");
-		  if(exist("CustomString")) ctgInfo=getString("CustomString"); //Only for this project
+					skipCtg=getValue("CTGSkip").trim().equalsIgnoreCase("NO")?false:true;
+		  ctgId =getValue("CTGLabel");
+		  if(exist("CustomString")) ctgInfo=getValue("CustomString"); //Only for this project
 	    } catch (ODMException e) {
 			  ODMLogger.getLogger().severe(e.toString());
 		}

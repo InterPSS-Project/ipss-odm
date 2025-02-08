@@ -1,10 +1,10 @@
 package org.ieee.odm.adapter.ge.parser.dynamic.generator;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
-public class PSLFDynGENSALDataParser extends AbstractDataFieldParser {
+public class PSLFDynGENSALDataParser extends AbstractStringDataFieldParser {
 
 	@Override
 	public String[] getMetadata() {

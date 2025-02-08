@@ -3,8 +3,8 @@ package org.ieee.odm.adapter;
 import org.ieee.odm.ODMFileFormatEnum;
 import org.ieee.odm.adapter.ge.PSLFDynAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.impl.PSSEDynAdapter;
-import org.ieee.odm.adapter.psse.impl.PSSELFAdapter;
+import org.ieee.odm.adapter.psse.raw.impl.PSSEDynRawAdapter;
+import org.ieee.odm.adapter.psse.raw.impl.PSSELFRawAdapter;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
@@ -51,7 +51,7 @@ public class GenericODMAdapter extends AbstractODMAdapter{
 			switch(pfDataFormat){
 				
 				case PsseV30:
-			       pfAdapter = new  PSSELFAdapter(PsseVersion.PSSE_30);
+			       pfAdapter = new  PSSELFRawAdapter(PsseVersion.PSSE_30);
 			       
 			       break;
 			default:
@@ -68,7 +68,7 @@ public class GenericODMAdapter extends AbstractODMAdapter{
 			switch(dynDataFormat){
 			
 			case PsseV30:
-				dynAdapter = new PSSEDynAdapter(PsseVersion.PSSE_30);
+				dynAdapter = new PSSEDynRawAdapter(PsseVersion.PSSE_30);
 				break;
 			case GePSLF:
 				dynAdapter = new PSLFDynAdapter();

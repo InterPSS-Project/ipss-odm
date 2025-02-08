@@ -44,7 +44,7 @@ public class GELoadDataMapper extends BaseGEDataMapper {
 	public void mapLineStr(String lineStr, final AclfModelParser parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
-	    final String busId = IODMModelParser.BusIdPreFix+dataParser.getString("bus");
+	    final String busId = IODMModelParser.BusIdPreFix+dataParser.getValue("bus");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType busRec = parser.getBus(busId);
 		if (busRec==null)
@@ -54,8 +54,8 @@ public class GELoadDataMapper extends BaseGEDataMapper {
 
 		LoadflowLoadDataXmlType contribLoad = AclfParserHelper.createContriLoad(busRec);
 			
-		contribLoad.setId(dataParser.getString("id"));
-		String longId = dataParser.getString("long_id");
+		contribLoad.setId(dataParser.getValue("id"));
+		String longId = dataParser.getValue("long_id");
 		if (longId != null && !longId.equals(""))
 			contribLoad.setDesc(longId);
 		contribLoad.setAreaNumber(dataParser.getInt("ar"));

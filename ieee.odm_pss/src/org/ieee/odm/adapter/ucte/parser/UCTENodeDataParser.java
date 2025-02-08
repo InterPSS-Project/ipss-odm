@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.ucte.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
@@ -37,7 +37,7 @@ import org.ieee.odm.model.base.ODMModelStringUtil;
  * @author mzhou
  *
  */
-public class UCTENodeDataParser extends AbstractDataFieldParser {
+public class UCTENodeDataParser extends AbstractStringDataFieldParser {
     // custom base voltage is an extension to the UCTE std
 	private List<Double> customBaseVoltageList = new ArrayList<Double>();
 	public List<Double> getCustomBaseVoltageList() { return this.customBaseVoltageList; }

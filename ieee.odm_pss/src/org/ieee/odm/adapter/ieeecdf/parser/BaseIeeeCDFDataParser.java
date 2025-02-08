@@ -24,7 +24,7 @@
 
 package org.ieee.odm.adapter.ieeecdf.parser;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 
 /**
@@ -33,7 +33,7 @@ import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
  * @author mzhou
  *
  */
-public abstract class BaseIeeeCDFDataParser extends AbstractDataFieldParser {
+public abstract class BaseIeeeCDFDataParser extends AbstractStringDataFieldParser {
 		  
 	protected IEEECDFVersion version = IEEECDFVersion.Default;
 	

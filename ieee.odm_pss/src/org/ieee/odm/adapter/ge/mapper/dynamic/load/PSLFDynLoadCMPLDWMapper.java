@@ -1,7 +1,7 @@
 package org.ieee.odm.adapter.ge.mapper.dynamic.load;
 
-import org.ieee.odm.adapter.AbstractDataFieldParser;
-import org.ieee.odm.adapter.BaseDataMapper;
+import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
+import org.ieee.odm.adapter.common.str.BaseStringDataMapper;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -14,9 +14,9 @@ import org.ieee.odm.schema.DynamicLoadModelSelectionXmlType;
 import org.ieee.odm.schema.LoadCharacteristicLocationEnumType;
 import org.ieee.odm.schema.LoadCharacteristicTypeEnumType;
 
-public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
+public class PSLFDynLoadCMPLDWMapper  extends BaseStringDataMapper{
 	
-	public PSLFDynLoadCMPLDWMapper(AbstractDataFieldParser parser){
+	public PSLFDynLoadCMPLDWMapper(AbstractStringDataFieldParser parser){
 		this.dataParser = parser;
 	}
 	
@@ -68,11 +68,11 @@ public class PSLFDynLoadCMPLDWMapper  extends BaseDataMapper{
 		
 		
 	    final String busId = IODMModelParser.BusIdPreFix+i;
-	    String loadId = dataParser.getString("Id");
+	    String loadId = dataParser.getValue("Id");
 	    
 	    //check model type
 	   
-	    if(!(dataParser.getString("Type").equals("CMPLDW"))){
+	    if(!(dataParser.getValue("Type").equals("CMPLDW"))){
 	    	throw new ODMException("dyn load  : Id"+
 		             loadId+" @ Bus"+i+"is not a CMPLDW load model");
 	    }

@@ -18,7 +18,7 @@ public class LineStringParserTest {
 		//System.out.println(parser.toString());
 		
 		assertTrue(parser.getDouble("A") == 1.0);
-		assertTrue(parser.getString("C").equals("C"));
+		assertTrue(parser.getValue("C").equals("C"));
 		assertTrue(parser.exist("A:1"));
 		assertTrue(!parser.exist("A:2"));
 	}
@@ -37,7 +37,7 @@ public class LineStringParserTest {
 		//System.out.println(parser.toString());
 		
 		assertTrue(parser.getDouble("A") == 1.0);
-		assertTrue(parser.getString("C").equals("C"));
+		assertTrue(parser.getValue("C").equals("C"));
 		assertTrue(parser.exist("A:1"));
 		assertTrue(!parser.exist("A:2"));
 	}

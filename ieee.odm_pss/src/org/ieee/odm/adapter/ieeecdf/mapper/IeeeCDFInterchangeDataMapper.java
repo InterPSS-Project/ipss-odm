@@ -63,7 +63,7 @@ public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
 		//      Columns  9-20   Alternate swing bus name [A]
 		int slackBusNumber = dataParser.getInt("SwingBusNum");
 		String slackBusId = IODMModelParser.BusIdPreFix + slackBusNumber;
-		final String alSwingBusName = dataParser.getString("AltSwingBusName");
+		final String alSwingBusName = dataParser.getValue("AltSwingBusName");
 
 		//      Columns 21-28   Area interchange export, MW [F] (+ = out) *
 		//      Columns 30-35   Area interchange tolerance, MW [F] *
@@ -72,8 +72,8 @@ public class IeeeCDFInterchangeDataMapper extends AbstractIeeeCDFDataMapper {
 
 		//      Columns 38-43   Area code (abbreviated name) [A] *
 		//      Columns 46-75   Area name [A]
-		final String code = dataParser.getString("AreaCode");
-		final String name = dataParser.getString("AreaName");
+		final String code = dataParser.getValue("AreaCode");
+		final String name = dataParser.getValue("AreaName");
 
 		pxchange.setAreaNumber(no);
 		

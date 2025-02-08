@@ -71,7 +71,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		dataParser.parseFields(str);
 
 		//Columns  1- 4   Bus number [I] *
-		final String busId = IODMModelParser.BusIdPreFix + dataParser.getString("BusNumber");
+		final String busId = IODMModelParser.BusIdPreFix + dataParser.getValue("BusNumber");
 		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
 
 		// create bus xml record
@@ -79,7 +79,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		aclfBus.setNumber(dataParser.getLong("BusNumber"));
 
 		//Columns  6-17   Name [A] (left justify) *
-		final String busName = dataParser.getString("BusName");
+		final String busName = dataParser.getValue("BusName");
 		aclfBus.setName(busName);
 
 		//Columns 19-20   Load flow area number [I].  Don't use zero! *
@@ -105,7 +105,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		//		3 - Hold voltage and angle (swing, V-Theta; must always have one)
 		// it might empty, if empty, type = 0;
 		int type = 0;
-		if (!dataParser.getString("Type").trim().equals(""))
+		if (!dataParser.getValue("Type").trim().equals(""))
 			type = dataParser.getInt("Type");
 
 		//Columns 28-33   Final voltage, p.u. [F] *
@@ -153,7 +153,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 		final double min = dataParser.getDouble("MinVarVolt");
 
 		//Columns 124-127 Remote controlled bus number
-		final String reBusId = dataParser.getString("RemoteBusNumber", "0");
+		final String reBusId = dataParser.getValue("RemoteBusNumber", "0");
 
 		if (max != 0.0 || min != 0.0) {
 			LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(aclfBus.getGenData());

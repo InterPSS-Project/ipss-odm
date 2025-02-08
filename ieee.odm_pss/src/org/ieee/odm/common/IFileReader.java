@@ -26,7 +26,7 @@ package org.ieee.odm.common;
 
 
 /**
- * interface for implementing text file reader
+ * interface for implementing text/json file reader
  *  
  * @author mzhou
  *
@@ -37,5 +37,16 @@ public interface IFileReader {
 	 * 
 	 * @return the line, or null if end of the file
 	 */
-	String readLine() throws ODMException ;
+	default String readLine() throws ODMException {
+		throw new ODMException("Function not implemented");
+	};
+	
+	/**
+	 * get a JSon object from an underlying file
+	 * 
+	 * @return the JSon object
+	 */
+	default <T> T getJSon(Class<T> klass) throws ODMException {
+		throw new ODMException("Function not implemented");
+	};
 }

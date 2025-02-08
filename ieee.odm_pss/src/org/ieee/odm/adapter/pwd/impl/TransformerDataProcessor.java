@@ -86,7 +86,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			
 			toBusNum=getLong("BusNum:1"); //mandatory field
 				
-			circuitId=exist("LineCircuit")?getString("LineCircuit"):"1";
+			circuitId=exist("LineCircuit")?getValue("LineCircuit"):"1";
 			
 				 
 			xfrRegMin=exist("XFRegMin")?getDouble("XFRegMin"):0;
@@ -106,17 +106,17 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			
 						
 		   if (exist("XFRegTargetType"))
-				regTargetType=getString("XFRegTargetType").startsWith("Middle")?XfrCtrlTargetType.Midddle_Of_Range
+				regTargetType=getValue("XFRegTargetType").startsWith("Middle")?XfrCtrlTargetType.Midddle_Of_Range
 					    			       :XfrCtrlTargetType.MaxMin;
 		  if (exist("XFAuto"))
-				isXFAutoControl=getString("XFAuto").trim().equalsIgnoreCase("No")?false:true;
+				isXFAutoControl=getValue("XFAuto").trim().equalsIgnoreCase("No")?false:true;
 					    	
 		  if (exist("XFRegBus"))
 				regBusNum=getLong("XFRegBus"); 
 		  if (exist("LineXFType"))
-				xfrType=getString("LineXFType").trim().equalsIgnoreCase("Fixed")?XfrType.Fixed:
-					   getString("LineXFType").trim().equalsIgnoreCase("LTC")?XfrType.LTC:
-					   getString("LineXFType").trim().equalsIgnoreCase("Mvar")?XfrType.Mvar:XfrType.Phase;
+				xfrType=getValue("LineXFType").trim().equalsIgnoreCase("Fixed")?XfrType.Fixed:
+					   getValue("LineXFType").trim().equalsIgnoreCase("LTC")?XfrType.LTC:
+					   getValue("LineXFType").trim().equalsIgnoreCase("Mvar")?XfrType.Mvar:XfrType.Phase;
 						
 		  xfrMvaBase=exist("XFMVABase")?getDouble("XFMVABase"):100;
 			/*
@@ -179,10 +179,10 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 				
 			toBusNum=getLong("BusNum:1"); //mandatory field
 				
-			circuitId=exist("LineCircuit")?getString("LineCircuit"):"1";
+			circuitId=exist("LineCircuit")?getValue("LineCircuit"):"1";
 				
 		   if (exist("LineStatus"))
-				closed=getString("LineStatus").equalsIgnoreCase("Closed")?true:false;
+				closed=getValue("LineStatus").equalsIgnoreCase("Closed")?true:false;
 			    
 			// LineR:1, LineX:1, LineG:1, LineC:1, XFStep:1, XFTapMax:1, XFTapMin:1, LineTap:1
 			//TODO The suffix of ¡°£º1¡± is used for Transformer definition,means those data values are based on transformer MVA base 
@@ -200,11 +200,11 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			if(exist("LineG:1")) g=getDouble("LineG:1");
 			
 			if (exist("XfrmerMagnetizingB"))
-			  bMag=getString("XfrmerMagnetizingB").isEmpty()?0:getDouble("XfrmerMagnetizingB");
+			  bMag=getValue("XfrmerMagnetizingB").isEmpty()?0:getDouble("XfrmerMagnetizingB");
 			    
 			
 		    if (exist("XfrmerMagnetizingG"))
-			        gMag=getString("XfrmerMagnetizingG").isEmpty()?0:getDouble("XfrmerMagnetizingG");
+			        gMag=getValue("XfrmerMagnetizingG").isEmpty()?0:getDouble("XfrmerMagnetizingG");
 			    
 			mvaRating1=exist("LineAMVA")?getDouble("LineAMVA"):0; // line limit rating
 			   
@@ -248,10 +248,10 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 					getDouble("XFStep:1"):1.0;
 			    
 			if(exist(typeToken))
-			   type=getString(typeToken);
+			   type=getValue(typeToken);
 			    
 			if(exist(idToken))
-			   xfrId=getString(idToken);
+			   xfrId=getValue(idToken);
 				
 			   
 			if(exist("XFMVABase")) xfrMvaBase=getDouble("XFMVABase");
@@ -263,17 +263,17 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 			    xfrToSideNominalKV=getDouble("XFNominalKV:1");
 				
 			if (exist("XFRegTargetType"))
-			    regTargetType=getString("XFRegTargetType").startsWith("Middle")?XfrCtrlTargetType.Midddle_Of_Range
+			    regTargetType=getValue("XFRegTargetType").startsWith("Middle")?XfrCtrlTargetType.Midddle_Of_Range
 			    			       :XfrCtrlTargetType.MaxMin;
 			if (exist("XFAuto"))
-			    isXFAutoControl=getString("XFAuto").trim().equalsIgnoreCase("No")?false:true;
+			    isXFAutoControl=getValue("XFAuto").trim().equalsIgnoreCase("No")?false:true;
 			    	
 			if (exist("XFRegBus"))
 					regBusNum=getLong("XFRegBus"); 
 			if (exist("LineXFType"))
-			    	xfrType=getString("LineXFType").trim().equalsIgnoreCase("Fixed")?XfrType.Fixed:
-			    		getString("LineXFType").trim().equalsIgnoreCase("LTC")?XfrType.LTC:
-			    			getString("LineXFType").trim().equalsIgnoreCase("Mvar")?XfrType.Mvar:XfrType.Phase;
+			    	xfrType=getValue("LineXFType").trim().equalsIgnoreCase("Fixed")?XfrType.Fixed:
+			    		getValue("LineXFType").trim().equalsIgnoreCase("LTC")?XfrType.LTC:
+			    			getValue("LineXFType").trim().equalsIgnoreCase("Mvar")?XfrType.Mvar:XfrType.Phase;
 				
 			
 			
@@ -549,7 +549,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		Lookup nvPair=OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup();
 		
 	    int tableNum = getInt("XFCorTableNum");
-		String tableName = getString("XFCorTableName");
+		String tableName = getValue("XFCorTableName");
 	    corItem.setNumber(tableNum);
 	    corItem.setName(tableName);
 	    
@@ -577,7 +577,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		String corFactorPrefix="XFCorFactor:";
 		for(int k=2;k<=10;k++){
 			
-			if(!getString(corTapPrefix+k).equals("")){
+			if(!getValue(corTapPrefix+k).equals("")){
 				double tapk=getDouble(corTapPrefix+k);
 				double factork=getDouble(corFactorPrefix+k);
 				//set tap-factor pair

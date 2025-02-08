@@ -58,8 +58,8 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 		this.dataParser.parseFields(str);
 		
 		// parse the input line for node information
-		String id = this.dataParser.getString("id"), 
-		       name = this.dataParser.getString("name");
+		String id = this.dataParser.getValue("id"), 
+		       name = this.dataParser.getValue("name");
 		double baseKv = this.dataParser.getDouble("baseKv", 0.0);
 		int    status = this.dataParser.getInt("status", 0), 
 		       nodeType = this.dataParser.getInt("nodeType");
@@ -76,7 +76,7 @@ public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 			   normalPowerPrimaryControl = this.dataParser.getDouble("normalPowerPrimaryControl", 0.0),
 			   scMVA3P = this.dataParser.getDouble("scMVA3P", 0.0), 
 			   x_rRatio = this.dataParser.getDouble("x_rRatio", 0.0);
-		String powerPlanType = this.dataParser.getString("powerPlanType", "");
+		String powerPlanType = this.dataParser.getValue("powerPlanType", "");
 		
 		// create a bus record
 		LoadflowBusXmlType aclfBus = parser.createBus(id); 

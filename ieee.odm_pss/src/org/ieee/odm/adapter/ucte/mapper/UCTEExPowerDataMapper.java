@@ -45,9 +45,9 @@ public class UCTEExPowerDataMapper extends BaseUCTEDataMapper {
 	public void mapInputLine(final String str, AclfModelParser parser) throws ODMException, ODMBranchDuplicationException {
 		this.dataParser.parseFields(str);
 		
-		String fromIsoId = this.dataParser.getString("fromIsoId"), 
-		       toIsoId = this.dataParser.getString("toIsoId"), 
-		       comment = this.dataParser.getString("", "comment");
+		String fromIsoId = this.dataParser.getValue("fromIsoId"), 
+		       toIsoId = this.dataParser.getValue("toIsoId"), 
+		       comment = this.dataParser.getValue("", "comment");
 		double exPower = this.dataParser.getDouble("exPower", 0.0);  
 
 		LoadflowNetXmlType baseCaseNet = parser.getNet();

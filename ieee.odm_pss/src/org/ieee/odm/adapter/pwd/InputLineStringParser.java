@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.pwd;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ieee.odm.adapter.BaseInputLineStringParser;
+import org.ieee.odm.adapter.common.str.BaseInputLineStringParser;
 import org.ieee.odm.common.ODMLogger;
 
 /**
