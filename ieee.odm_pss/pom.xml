@@ -25,6 +25,12 @@
 	    <artifactId>jaxb-api</artifactId>
 	    <version>2.3.1</version>
 	</dependency>
+	<!-- JAXB Runtime Implementation -->
+    <dependency>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-runtime</artifactId>
+        <version>2.3.3</version>
+    </dependency>
 	<dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>

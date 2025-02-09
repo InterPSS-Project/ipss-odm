@@ -90,6 +90,13 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 		String lineStr2 = lineAry[1];
 		String lineStr3 = lineAry[2];
 		
+		 // Remove anything after "/" if it exists
+        int slashIndex = lineStr.indexOf('/');
+        if (slashIndex != -1) {
+        	lineStr = lineStr.substring(0, slashIndex).trim();
+        }
+
+		
 		if (this.version == PsseVersion.PSSE_26) {
 			StringTokenizer st = new StringTokenizer(lineStr, ",");
 			setValue(0, st.nextToken());

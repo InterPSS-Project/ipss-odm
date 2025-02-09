@@ -27,14 +27,15 @@ public class PSSEGentpjDataParser extends BasePSSEDataRawParser {
 	}
 	
 	/*
-	 * Xd, Xq, X抎, X抭, X"d, X"q, Xl, H, and D are in pu, 
+	 * Xd, Xq, X锟絛, X锟絨, X"d, X"q, Xl, H, and D are in pu, 
        machine MVA base. 
        X"qmust be equal to X"d.
        
-       version >33
-       IBUS, 扜ENTPJ1�, I, T抎o, T"do, T"qo, T"qo, H, D, Xd, Xq, X抎, X抭, X"d, X"q, Xl, S(1.0), S(1.2),Kis/
-       
-       version <=33
+
+       version >=33
+       IBUS, GENTPJ1, I, T'do, T"do, T"qo, T"qo, H, D, Xd, Xq, X'd, X'q, X"d, X"q, Xl, S(1.0), S(1.2),Kis/
+    
+       version <33
        IBUS, 'USRMDL', ID,   'GENTPJU1',   1,   1,   0,  16,   6,   1, <Actual parameter list as above>       
 	 */
 	
@@ -48,7 +49,8 @@ public class PSSEGentpjDataParser extends BasePSSEDataRawParser {
 		int tableIdx = 0;
 		for (int i = 0; i <cnt ; i++){
 			
-			if(PSSERawAdapter.getVersionNo(this.version)<=33) {
+			if(PSSEAdapter.getVersionNo(this.version)<33) {
+
 				if(i==1 || (i>3 && i<10)) {
 					//skip it
 				}	
@@ -68,12 +70,12 @@ public class PSSEGentpjDataParser extends BasePSSEDataRawParser {
 				
 				
 			}
-			else { //Version = 34 or newer 
+			else { //Version = 33 or newer 
 				if(i==1){//gen model type, need to trim the quote
 					setValue(i,ODMModelStringUtil.trimQuote(strAry[i].trim()));
 				}
 				else {
-					setValue(tableIdx,strAry[i].trim());
+					setValue(i,strAry[i].trim());
 				}
 				
 			}
