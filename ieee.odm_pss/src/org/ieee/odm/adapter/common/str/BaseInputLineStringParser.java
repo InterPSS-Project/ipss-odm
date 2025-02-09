@@ -28,9 +28,7 @@ import org.ieee.odm.adapter.common.BaseInputRowParser;
 import org.ieee.odm.common.ODMException;
 
 /**
- *  A generic class for holding {position, name, value} date structure for implementing
- *  ODM parser. The key is to decouple input data field position in input data file
- *  and input data field of type String parsing/mapping logic.
+ *  A base class for parsing a line of String data fields. 
  *   
  * @author mzhou
  */
