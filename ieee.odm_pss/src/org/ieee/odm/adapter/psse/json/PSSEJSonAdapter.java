@@ -24,7 +24,7 @@
 package org.ieee.odm.adapter.psse.json;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter;
-import org.ieee.odm.adapter.psse.json.impl.PSSELFJSonAdapter;
+import org.ieee.odm.adapter.psse.json.impl.PSSEAclfJSonAdapter;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
@@ -51,7 +51,7 @@ public class PSSEJSonAdapter extends PSSEAdapter {
      * @throws ODMException
      */
 	public AclfModelParser parseAclfFile(final IFileReader din, String encoding) throws ODMException {
-	    return new PSSELFJSonAdapter().parseLoadflowFile(din, encoding);
+	    return new PSSEAclfJSonAdapter().parseLoadflowFile(din, encoding);
 	}
 		
 	@Override

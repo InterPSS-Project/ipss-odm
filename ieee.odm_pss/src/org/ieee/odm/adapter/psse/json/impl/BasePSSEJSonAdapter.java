@@ -32,7 +32,7 @@ import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 
 /**
- * Base ODM adapter for PSS/E input format
+ * Base ODM adapter for PSS/E JSon input format
  * 
  * @author mzhou
  *

@@ -45,10 +45,16 @@ public class PSSEZoneDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
-		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
+		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) odmParser.getNet();
 		if (baseCaseNet.getLossZoneList() == null)
 			baseCaseNet.setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
 		NetZoneXmlType zone = OdmObjFactory.createNetZoneXmlType(); 

@@ -46,7 +46,7 @@ public class BasePSSEDataJSonMapper extends BaseJSonDataMapper {
 		this.dataParser = new PSSEDataJSonParser(fieldDef);
 	}
 	
-	protected void mapOwnerInfo(BaseRecordXmlType recXml) throws ODMException {
+	protected void mapMultiOwnerInfo(BaseRecordXmlType recXml) throws ODMException {
 		int o1 = dataParser.getInt("o1");
 		double f1 = dataParser.getDouble("f1", 0.0);
 		

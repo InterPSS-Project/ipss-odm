@@ -45,10 +45,16 @@ public class PSSECaseDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
-		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
+		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) odmParser.getNet();
 		
 		/*
             "fields":["ic", "sbase", "rev", "xfrrat", "nxfrat", "basfrq", "title1", "title2"], 

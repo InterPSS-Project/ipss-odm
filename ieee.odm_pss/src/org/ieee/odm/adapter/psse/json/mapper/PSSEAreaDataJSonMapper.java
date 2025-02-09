@@ -48,11 +48,16 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
-		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
+		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) odmParser.getNet();
 		if (baseCaseNet.getAreaList() == null)
 			baseCaseNet.setAreaList(OdmObjFactory.createNetworkXmlTypeAreaList());
 		ExchangeAreaXmlType area = OdmObjFactory.createExchangeAreaXmlType();
@@ -74,7 +79,7 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 			area.setName(arnam);
 
 			if (isw > 0) {
-				area.setSwingBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+isw));
+				area.setSwingBusId(odmParser.createBusRef(IODMModelParser.BusIdPreFix+isw));
 				area.setDesiredExchangePower(BaseDataSetter.createActivePowerValue(pdes, ActivePowerUnitType.MW));
 				area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
 			}	

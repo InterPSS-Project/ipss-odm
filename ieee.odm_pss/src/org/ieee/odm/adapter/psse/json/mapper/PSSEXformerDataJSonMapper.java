@@ -68,12 +68,18 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
-		double sysMVABase=parser.getNet().getBasePower().getUnit()==ApparentPowerUnitType.MVA?
-            	parser.getNet().getBasePower().getValue() : 
-            	parser.getNet().getBasePower().getValue()*0.001;
+		double sysMVABase=odmParser.getNet().getBasePower().getUnit()==ApparentPowerUnitType.MVA?
+            	odmParser.getNet().getBasePower().getValue() : 
+            	odmParser.getNet().getBasePower().getValue()*0.001;
 		
 		/*
             "fields":["ibus", "jbus", "kbus", "ckt", "cw", "cz", "cm", "mag1", "mag2", "nmet", 
@@ -107,7 +113,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	                
 	        boolean is3WXfr = k != 0; 
 	        
-	        int cod = dataParser.getInt("COD", 0);   // TODO
+	        int cod = dataParser.getInt("cod1", 0);   
 	        double ang1 = dataParser.getDouble("ang1", 0.0);
 	        double ang2 = dataParser.getDouble("ang2", 0.0);
 	        double ang3 = dataParser.getDouble("ang3", 0.0);
@@ -120,10 +126,8 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 		    Line-1 
 		    For 2W and 3W Xfr: 
 		    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,'NAME', STAT,O1,F1,...,O4,F4
-		    	
 		        26,    54,    0,    '1 ',1, 1, 1,  0.00000,  0.00000, 2,    '        ',    1,   1,1.0000,   0,1.0000,   0,1.0000,   0,1.0000
 	            27824, 27871, 27957,'W ',2, 2, 1,  0.00089,  -0.00448,1,    'D575121     ',1,   1,1.0000
-
 	*/
 			final String fid = IODMModelParser.BusIdPreFix+i;
 			final String tid = IODMModelParser.BusIdPreFix+j;
@@ -133,22 +137,22 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 			TransformerInfoXmlType xfrInfoXml;
 			String ckt = dataParser.getString("ckt");
 			if (is3WXfr && isPsXfr) {
-				branRecXml = parser.createPSXfr3WBranch(fid, tid, tertId, ckt);
+				branRecXml = odmParser.createPSXfr3WBranch(fid, tid, tertId, ckt);
 		       	xfrInfoXml = OdmObjFactory.createTransformer3WInfoXmlType(); 
 		       	branRecXml.setXfrInfo(xfrInfoXml);
 			}
 			else if (is3WXfr) {
-				branRecXml = (XfrBranchXmlType) parser.createXfr3WBranch(fid, tid, tertId, ckt);
+				branRecXml = (XfrBranchXmlType) odmParser.createXfr3WBranch(fid, tid, tertId, ckt);
 		       	xfrInfoXml = OdmObjFactory.createTransformer3WInfoXmlType(); 
 		       	branRecXml.setXfrInfo(xfrInfoXml);
 			}
 			else if (isPsXfr) {
-				branRecXml = (XfrBranchXmlType) parser.createPSXfrBranch(fid, tid, ckt);
+				branRecXml = (XfrBranchXmlType) odmParser.createPSXfrBranch(fid, tid, ckt);
 		       	xfrInfoXml = OdmObjFactory.createTransformerInfoXmlType(); 
 		       	branRecXml.setXfrInfo(xfrInfoXml);
 			}
 			else {
-				branRecXml = (XfrBranchXmlType) parser.createXfrBranch(fid, tid, ckt);
+				branRecXml = (XfrBranchXmlType) odmParser.createXfrBranch(fid, tid, ckt);
 		       	xfrInfoXml = OdmObjFactory.createTransformerInfoXmlType(); 
 		       	branRecXml.setXfrInfo(xfrInfoXml);
 			}
@@ -192,11 +196,11 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	        double nomv2 = dataParser.getDouble("nomv2", 0.0);
 	        double nomv3 = dataParser.getDouble("nomv3", 0.0);
 	       	if (nomv1 == 0.0)
-	       		nomv1 = parser.getBus(fid).getBaseVoltage().getValue();
+	       		nomv1 = odmParser.getBus(fid).getBaseVoltage().getValue();
 	       	if (nomv2 == 0.0)
-	       		nomv2 = parser.getBus(tid).getBaseVoltage().getValue();
+	       		nomv2 = odmParser.getBus(tid).getBaseVoltage().getValue();
 	       	if (is3WXfr && nomv3 == 0.0)
-	       		nomv3 = parser.getBus(tertId).getBaseVoltage().getValue();
+	       		nomv3 = odmParser.getBus(tertId).getBaseVoltage().getValue();
 	       	
 	       	/*
 	       	 * The nonmetered end code of either 1 (for the Winding 1 bus) or 2 (for the Winding 2 bus). 
@@ -237,7 +241,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	    			//I=U1*b
 	    			double g_rv=mag1/(nomv1*nomv1)*1.0E-6;//real value of conductance
 	    			
-	    			double vbase=parser.getBus(fid).getBaseVoltage().getValue();
+	    			double vbase=odmParser.getBus(fid).getBaseVoltage().getValue();
 	                double Ybase=sysMVABase/(vbase*vbase);
 	                double g_pu=g_rv/Ybase; // based on system base
 	                
@@ -253,7 +257,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	    			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(mag1, mag2, YUnitType.PU));
 	    	}
 	      	
-	    	super.mapOwnerInfo(branRecXml);    	
+	    	super.mapMultiOwnerInfo(branRecXml);    	
 		
 	    	/*
 	       	Line-2 
@@ -297,7 +301,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	       		// system base quantities; 
 	       		branRecXml.setZ(BaseDataSetter.createZValue(r1_2, x1_2, ZUnitType.PU));
 	        	xfrInfoXml.setDataOnSystemBase(true);
-	        	//TODO This system base attribute is updated by both cz and cw, might cause some problems which are hard to identified;
+	        	// TODO This system base attribute is updated by both cz and cw, might cause some problems which are hard to identified;
 	       	    //It might be better to change these basic settings to system base,to avoid potential problem.However, 
 	        	// these might make it hard for direct comparison
 	       	}
@@ -355,9 +359,6 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 			 	 	WINDV1,  NOMV1,     ANG1,    RATA1,RATB1,RATC1,          COD,    CONT,RMA,     RMI,      VMA,     VMI,      NTP,TAB,CR,CX
 	            	352.001, 360.000,   0.000,   150.00,   150.00,   150.00, 0,      0,   540.0000,183.6000, 1.50000, 0.51000,  33, 0, 0.00000, 0.00000
 			 	
-	    	 */
-	  		
-	       	/*
 			CW The winding data I/O code defines the units in which the turns ratios WINDV1, WINDV2 and WINDV3 are specified 
 			   (the units of RMAn and RMIn are also governed by CW when |CODn| is 1 or 2):
 				1 for off-nominal turns ratio in pu of winding bus base voltage
@@ -374,9 +375,9 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	       	}
 	       	else if (cw == 2) {
 	       		// WINDV1 is the actual winding one voltage in kV when CW is 2; 
-	       		//TODO It seems not proper to use system base here, since the turnRatio is, in fact, still based on system base.
+	       		// TODO It seems not proper to use system base here, since the turnRatio is, in fact, still based on system base.
 	        	//xfrInfo.setDataOnSystemBase(false);
-	       		windv1 /=parser.getBus(fid).getBaseVoltage().getValue();
+	       		windv1 /=odmParser.getBus(fid).getBaseVoltage().getValue();
 	       		
 	       	}
 	  		/*
@@ -396,9 +397,9 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 				branchPsXfr.setFromAngle(BaseDataSetter.createAngleValue(ang1, AngleUnitType.DEG));
 	    	}
 	    	
-	       	double rata1 = dataParser.getDouble("RATA1");  //TODO
-	       	double ratb1 = dataParser.getDouble("RATB1");
-	       	double ratc1 = dataParser.getDouble("RATC1");
+	       	double rata1 = dataParser.getDouble("wdg1rate1"); 
+	       	double ratb1 = dataParser.getDouble("wdg2rate1", 0.0);
+	       	double ratc1 = dataParser.getDouble("wdg3rate1", 0.0);
 	    	branRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 	    	AclfDataSetter.setBranchRatingLimitData(branRecXml.getRatingLimit(), rata1, ratb1, ratc1, ApparentPowerUnitType.MVA);
 			
@@ -426,7 +427,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	      	 */
 		
 	      	boolean onFromSide = false;
-	      	int cont = dataParser.getInt("CONT", 0);  // TODO
+	      	int cont = dataParser.getInt("cont1", 0);  
 	      	if (cont < 0) {
 	      		cont = -cont;
 	      		onFromSide = true;
@@ -457,11 +458,11 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 					between 2 and 9999. NTP1 = 33 by default.
 	      	 */
 	      	if (cod > 0) {
-	      		double rma = dataParser.getDouble("RMA",1.1);
-	      		double rmi = dataParser.getDouble("RMI",0.9);
-	      		double vma = dataParser.getDouble("VMA");
-	      		double vmi = dataParser.getDouble("VMI");
-	      		//TODO PsXfr can also adjust the tap
+	      		double rma = dataParser.getDouble("rma1",1.1);  
+	      		double rmi = dataParser.getDouble("rmi1",0.9);
+	      		double vma = dataParser.getDouble("vma1");
+	      		double vmi = dataParser.getDouble("vmi1");
+	      		// TODO PsXfr can also adjust the tap
 	      		//In the Mod_SixBus_2WPsXfr.raw, the phase shift xfr(bus5->bus6) is used to control MVAR
 	    	    
 	      		//if (!isPsXfr) {
@@ -474,11 +475,11 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	           		// cw=1, RMA, RMI are Off-nominal turns ratio in pu of winding one bus base voltage
 	           		// cw=2, RMA, RMI are Actual winding one voltage in kV 
 	           		if(cw==2){
-	           			rma/=parser.getBus(fid).getBaseVoltage().getValue();
-	           			rmi/=parser.getBus(fid).getBaseVoltage().getValue();
+	           			rma/=odmParser.getBus(fid).getBaseVoltage().getValue();
+	           			rmi/=odmParser.getBus(fid).getBaseVoltage().getValue();
 	           		}
 	           		tapAdj.setTapLimit(BaseDataSetter.createTapLimit(rma, rmi));
-	           		int ntp = dataParser.getInt("NTP");
+	           		int ntp = dataParser.getInt("npt1");  
 	           		tapAdj.setTapAdjSteps(ntp);
 	           		if (Math.abs(cod) == 1) {
 	           			
@@ -486,7 +487,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	               		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
 	        	    	tapAdj.setVoltageAdjData(vAdjData);
 	        	    	//add adjust votlage bus
-	        	    	vAdjData.setAdjVoltageBus(parser.createBusRef(reBusId));
+	        	    	vAdjData.setAdjVoltageBus(odmParser.createBusRef(reBusId));
 	        	    	vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
 	        	    	vAdjData.setRange(OdmObjFactory.createLimitXmlType());
 	        	    	vAdjData.getRange().setMax(vma);
@@ -529,8 +530,8 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 							entered in pu on system base quantities; used when COD1 is 1.
 							CR1 + j CX1 = 0.0 by default
 	      	 */
-	      	double cr = dataParser.getDouble("CR", 0.0);
-	      	double cx = dataParser.getDouble("CX", 0.0);
+	      	double cr = dataParser.getDouble("cr1", 0.0);
+	      	double cx = dataParser.getDouble("cx1", 0.0);
 	      	if (cr != 0.0 || cx != 0.0) {
 	      		///if (branchRec.getNvPairList() == null)
 	      		//	branchRec.setNvPairList(odmObjFactory.createNameValuePairListXmlType());
@@ -543,7 +544,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 					phase shift angle (see Section 4.1.1.11), or 0 if no transformer impedance correction
 					is to be applied to this transformer winding. TAB1 = 0 by default.					
 	      	 */
-	      	int tab = dataParser.getInt("TAB1", 0);
+	      	int tab = dataParser.getInt("tab1", 0);
 	      	if (tab > 0)
 	      		xfrInfoXml.setZTableNumber(tab);
 	      	
@@ -572,13 +573,13 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	  		*/
 	      	double windv2 = dataParser.getDouble("windv2");
 	      	if(cw==2) 
-	      		windv2 /=parser.getBus(tid).getBaseVoltage().getValue();
+	      		windv2 /=odmParser.getBus(tid).getBaseVoltage().getValue();
 	  		branRecXml.setToTurnRatio(BaseDataSetter.createTurnRatioPU(windv2));
 
 	  		if (is3WXfr) {
-	  	       	double rata2 = dataParser.getDouble("RATA2");
-	  	       	double ratb2 = dataParser.getDouble("RATB2");
-	  	       	double ratc2 = dataParser.getDouble("RATC2");
+	  	       	double rata2 = dataParser.getDouble("wdg1rate2");
+	  	       	double ratb2 = dataParser.getDouble("wdg2rate2", 0.0);
+	  	       	double ratc2 = dataParser.getDouble("wdg3rate2", 0.0);
 	    		Xfr3WBranchXmlType branch3WXfr = (Xfr3WBranchXmlType)branRecXml; 
 	    		branch3WXfr.setRatingLimit23(OdmObjFactory.createBranchRatingLimitXmlType());
 	       		AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit23(), rata2, ratb2, ratc2, ApparentPowerUnitType.MVA);
@@ -606,10 +607,10 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	      		}
 	      		*/
 	          	double windv3 = dataParser.getDouble("windv3");
-	           	double rata3 = dataParser.getDouble("RATA3");
-	           	double ratb3 = dataParser.getDouble("RATB3");
-	           	double ratc3 = dataParser.getDouble("RATC3");
-	    		if(cw==2)windv3 /=parser.getBus(tertId).getBaseVoltage().getValue();
+	           	double rata3 = dataParser.getDouble("wdg1rate3");
+	           	double ratb3 = dataParser.getDouble("wdg2rate3", 0.0);
+	           	double ratc3 = dataParser.getDouble("wdg3rate3", 0.0);
+	    		if(cw==2)windv3 /=odmParser.getBus(tertId).getBaseVoltage().getValue();
 	      		branch3WXfr.setTertTurnRatio(BaseDataSetter.createTurnRatioPU(windv3));
 	      		branch3WXfr.setRatingLimit13(OdmObjFactory.createBranchRatingLimitXmlType());
 	           	AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit13(), rata3, ratb3, ratc3, ApparentPowerUnitType.MVA);

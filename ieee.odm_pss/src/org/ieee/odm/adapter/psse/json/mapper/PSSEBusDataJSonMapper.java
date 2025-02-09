@@ -49,7 +49,13 @@ public class PSSEBusDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
 		/*
@@ -64,7 +70,7 @@ public class PSSEBusDataJSonMapper extends BasePSSEDataJSonMapper{
 			String iStr = IODMModelParser.BusIdPreFix+ibus;
 			LoadflowBusXmlType aclfBusXml;
 			try {
-				aclfBusXml = (LoadflowBusXmlType) parser.createBus(iStr, ibus);
+				aclfBusXml = (LoadflowBusXmlType) odmParser.createBus(iStr, ibus);
 			} catch (Exception e) {
 				ODMLogger.getLogger().severe(e.toString());
 				return;

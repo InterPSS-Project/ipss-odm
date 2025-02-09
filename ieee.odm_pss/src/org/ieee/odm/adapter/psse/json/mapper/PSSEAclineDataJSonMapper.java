@@ -53,7 +53,13 @@ public class PSSEAclineDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
 		/*
@@ -86,7 +92,7 @@ public class PSSEAclineDataJSonMapper extends BasePSSEDataJSonMapper{
 
 			LineBranchXmlType braRecXml;
 			try {
-				braRecXml = (LineBranchXmlType) parser.createLineBranch(fid, tid, dataParser.getString("ckt"));
+				braRecXml = (LineBranchXmlType) odmParser.createLineBranch(fid, tid, dataParser.getString("ckt"));
 			} catch (ODMBranchDuplicationException e) {
 				ODMLogger.getLogger().severe(e.toString());
 				return;
@@ -127,7 +133,7 @@ public class PSSEAclineDataJSonMapper extends BasePSSEDataJSonMapper{
 	       if ( gj != 0.0 || bj != 0.0)
 	    	   braRecXml.setToShuntY(BaseDataSetter.createYValue(gj, bj, YUnitType.PU));
 	       
-	       mapOwnerInfo(braRecXml);
+	       mapMultiOwnerInfo(braRecXml);
 		} catch (ODMException e) {
 			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}

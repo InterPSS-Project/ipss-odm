@@ -46,10 +46,16 @@ public class PSSEOwnerDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void proc(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void proc(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
-		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
+		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) odmParser.getNet();
 		OwnerXmlType owner = OdmObjFactory.createOwnerXmlType();
 		baseCaseNet.getOwnerList().add(owner);
 		

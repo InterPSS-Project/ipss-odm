@@ -57,7 +57,13 @@ public class PSSEGenDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
 		/*
@@ -79,7 +85,7 @@ public class PSSEGenDataJSonMapper extends BasePSSEDataJSonMapper{
 	*/		
 			int ibus = dataParser.getInt("ibus");
 		    final String busId = IODMModelParser.BusIdPreFix+ibus;
-		    BusXmlType busRecXml = parser.getBus(busId);
+		    BusXmlType busRecXml = odmParser.getBus(busId);
 		    if (busRecXml == null){
 		    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");
 		    	return;
@@ -146,7 +152,7 @@ public class PSSEGenDataJSonMapper extends BasePSSEDataJSonMapper{
 		    int ireg = dataParser.getInt("ireg");
 		    if (ireg > 0) {
 		    	final String reBusId = IODMModelParser.BusIdPreFix+ireg;
-		    	contriGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
+		    	contriGen.setRemoteVoltageControlBus(odmParser.createBusRef(reBusId));
 		    }
 		    
 		    double mbase = dataParser.getDouble("mbase");
@@ -176,7 +182,7 @@ public class PSSEGenDataJSonMapper extends BasePSSEDataJSonMapper{
 			double rmpct = dataParser.getDouble("rmpct");
 			contriGen.setMvarVControlParticipateFactor(rmpct*0.01);
 
-			mapOwnerInfo(contriGen);
+			mapMultiOwnerInfo(contriGen);
 		} catch (ODMException e) {
 			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}

@@ -30,7 +30,11 @@ import org.ieee.odm.adapter.common.json.BaseInputRowJSonParser;
 import org.interpss.numeric.datatype.Counter;
 
 /**
- * PSSE JSon format data parser
+ * PSSE JSon format data parser. Its implementation is based on the field definition
+ * in the JSon file.
+ * 
+ *          "fields":["iarea", "isw", "pdes",    "ptol",   "arname"], 
+            "data":  [1,       101,   -2800.000, 10.00000, "CENTRAL"],  '
  * 
  * @author mzhou
  *
@@ -50,6 +54,7 @@ public class PSSEDataJSonParser extends BaseInputRowJSonParser  {
 	 */
 	public PSSEDataJSonParser(List<String> fieldDef) {
 		super();
+		// Load the field definitions into the position table.
 		Counter cnt = new Counter();
 		fieldDef.forEach(key -> this.positionTable.put(cnt.getCountThenIncrement(), key));
 	}

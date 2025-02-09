@@ -47,14 +47,20 @@ import org.ieee.odm.schema.NetworkCategoryEnumType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
 
-public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
+/**
+ * ODM adapter for PSS/E rawx file in the JSon input format
+ * 
+ * @author mzhou
+ *
+ */
+public class PSSEAclfJSonAdapter extends BasePSSEJSonAdapter {
 	// PSSE rawx file version number
 	private double fileVerNo;
 	
 	/**
 	 * Constructor
 	 */
-	public PSSELFJSonAdapter() {
+	public PSSEAclfJSonAdapter() {
 		super();
 	}
 	
@@ -73,7 +79,7 @@ public class PSSELFJSonAdapter extends BasePSSEJSonAdapter {
      * @param din
      * @param encoding
      * @return
-     * @throws Exception
+     * @throws ODMException
      */
 	public AclfModelParser parseLoadflowFile(final IFileReader din, String encoding) throws ODMException {
 		this.parser = new AclfModelParser();

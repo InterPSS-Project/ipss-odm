@@ -53,7 +53,13 @@ public class PSSELoadDataJSonMapper extends BasePSSEDataJSonMapper{
 		super(fieldDef);
 	}
 	
-	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> parser) {
+	/**
+	 * map the data list into the DOM model parser 
+	 * 
+	 * @param data
+	 * @param odmParser
+	 */
+	public void map(List<Object> data, BaseAclfModelParser<? extends NetworkXmlType> odmParser) {
 		dataParser.loadFields(data.toArray());
 		
 		/*
@@ -66,7 +72,7 @@ public class PSSELoadDataJSonMapper extends BasePSSEDataJSonMapper{
 		try {
 			int ibus = dataParser.getInt("ibus");
 		    final String busId = IODMModelParser.BusIdPreFix+ibus;
-		    BusXmlType busRecXml = parser.getBus(busId);
+		    BusXmlType busRecXml = odmParser.getBus(busId);
 		    if (busRecXml == null){
 		    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");
 		    	return;
