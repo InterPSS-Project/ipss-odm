@@ -39,7 +39,6 @@ public class PSSEGentpjDataParser extends BasePSSEDataRawParser {
        IBUS, 'USRMDL', ID,   'GENTPJU1',   1,   1,   0,  16,   6,   1, <Actual parameter list as above>       
 	 */
 	
-	
 	@Override 
 	public void parseFields(final String lineStr) throws ODMException {
 		this.clearNVPairTableData();
@@ -49,7 +48,7 @@ public class PSSEGentpjDataParser extends BasePSSEDataRawParser {
 		int tableIdx = 0;
 		for (int i = 0; i <cnt ; i++){
 			
-			if(PSSEAdapter.getVersionNo(this.version)<33) {
+			if(PSSERawAdapter.getVersionNo(this.version)<33) {
 
 				if(i==1 || (i>3 && i<10)) {
 					//skip it
