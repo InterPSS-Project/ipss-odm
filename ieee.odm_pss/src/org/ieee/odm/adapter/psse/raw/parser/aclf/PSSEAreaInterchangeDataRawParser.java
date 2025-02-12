@@ -30,7 +30,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
  * 
  * @author mzhou
  *
@@ -58,10 +57,10 @@ public class PSSEAreaInterchangeDataRawParser extends BasePSSEDataRawParser {
 		};
 	}
 	
-	@Override public void parseFields(final String str) throws ODMException {
-  		StringTokenizer st = new StringTokenizer(str, ",");
-  		int cnt = 0;
-  		while (st.hasMoreTokens())
-  			setValue(cnt++, st.nextToken().trim());
-  	}
+//	@Override public void parseFields(final String str) throws ODMException {
+//  		StringTokenizer st = new StringTokenizer(str, ",");
+//  		int cnt = 0;
+//  		while (st.hasMoreTokens())
+//  			setValue(cnt++, st.nextToken().trim());
+//  	}
 }

@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Transformer data
  * 
  * @author mzhou
  *
@@ -110,10 +110,88 @@ public class PSSEXfrDataRawParser extends BasePSSEDataRawParser {
 	      
 	      VECGRP	Alphanumeric identifier specifying vector group based on transformer winding connections and phase angles. 
 	      			VECGRP value is used for information purpose only.  VECGRP is 12 blanks by default.
+	      			
+	      			
+	     * format V34 V35 V36
+		 * =================
+		 * 3W
+	Line-1  	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR, NAME, STAT,O1,F1,...,O4,F4,VECGRP, ZCOD
+	Line-2 		R1-2,X1-2,SBASE1-2,R2-3,X2-3,SBASE2-3,R3-1,X3-1,SBASE3-1,VMSTAR,ANSTAR
+    Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD1, CONT1,RMA1,RMI1,VMA1,VMI1, NTP1,TAB1,CR1,CX1,CNXA1
+	Line-4      WINDV2,  NOMV2,  ANG2, RATA2,RATB2,RATC2,  COD2, CONT2,RMA2,RMI2,VMA2,VMI2, NTP2,TAB2,CR2,CX2,CNXA2
+	Line-5 		WINDV3,  NOMV3,  ANG3, RATA3,RATB3,RATC3,  COD3, CONT3,RMA3,RMI3,VMA3,VMI3, NTP3,TAB3,CR3,CX3,CNXA3
+
+		 * 2W
+	Line-1  	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR, NAME, STAT,O1,F1,...,O4,F4,VECGRP, ZCOD
+	Line-2 		R1-2,X1-2,SBASE1-2
+    Line-3 	 	WINDV1,  NOMV1,  ANG1, RATA1,RATB1,RATC1,  COD1, CONT1,RMA1,RMI1,VMA1, VMI1,  NTP1,TAB1,CR1,CX1, CNXA1
+	Line-4      WINDV2,  NOMV2
+	      
+	      VECGRP	Alphanumeric identifier specifying vector group based on transformer winding connections and phase angles. 
+	      			VECGRP value is used for information purpose only.  VECGRP is 12 blanks by default.
         */
 
 		// The data structure applies to both 2W and 3W Xfr
-		return new String[] {
+		
+		String[] v30_33 =  new String[] {
+				   //	Line-1
+				   //  0----------1----------2----------3----------4
+					  "I",       "J",       "K",       "CKT",     "CW",             
+				   //  5          6          7          8          9
+					  "CZ",      "CM",      "MAG1",    "MAG2",    "NMETR",
+				   //  10         11         12         13         14
+					  "NAME",    "STAT",    "O1",      "F1",      "O2", 
+				   //  15         16         17         18         19
+					  "F2",       "O3",     "F3",      "O4",      "F4",
+				   //  20	  
+					  "VECGRP",                                            // added V33
+						  
+		           //
+				   //	Line-2 (start position 21)
+				   //  0----------1----------2----------3----------4
+					  "R1-2",    "X1-2",   "SBASE1-2", "R2-3",   "X2-3",
+				   //  5          6          7          8          9
+					  "SBASE2-3", "R3-1",   "X3-1",   "SBASE3-1", "VMSTAR",
+				   //  10
+					  "ANSTAR",            
+
+				   //
+				   //	Line-3 (start position 32)
+				   //  0----------1----------2----------3----------4
+					  "WINDV1",  "NOMV1",   "ANG1",    "RATA1",  "RATB1",
+				   //  5          6          7          8          9
+					  "RATC1",   "COD",     "CONT",    "RMA",    "RMI",
+				   //  10         11         12         13         14
+					  "VMA",     "VMI",     "NTP",     "TAB1",     "CR",
+				   //  15
+					  "CX",             
+
+				   //
+				   //	Line-4 (start position 48)
+				   //  0----------1----------2----------3----------4
+					  "WINDV2",  "NOMV2",  "ANG2",    "RATA2",   "RATB2",
+				   //  5          6          7          8          9
+					  "RATC2",   
+					             "COD2",   "CONT2",   "RMA2",    "RMI2",   // V30 and late version
+				   //  10         11         12         13         14
+					  "VMA2",    "VMI2",   "NTP2",    "TAB2",    "CR2",    // V30 and late version
+				   //  15
+					  "CX2",                                               // V30 and late version
+				
+				   //
+				   //	Line-5 (start position 64)
+				   //  0----------1----------2----------3----------4
+					  "WINDV3",  "NOMV3",   "ANG3",   "RATA3",    "RATB3",
+				   //  5          6          7          8          9
+					  "RATC3",   
+					             "COD3",    "CONT3",  "RMA3",     "RMI3",   // V30 and late version
+				   //  10         11         12         13         14
+					  "VMA3",    "VMI3",    "NTP3",   "TAB3",     "CR3",    // V30 and late version
+					// 15
+					  "CX3"                                                 // V30 and late version
+		};
+		
+		String[] v34_36 = new String[] {
 			   //	Line-1
 			   //  0----------1----------2----------3----------4
 				  "I",       "J",       "K",       "CKT",     "CW",             
@@ -124,7 +202,7 @@ public class PSSEXfrDataRawParser extends BasePSSEDataRawParser {
 			   //  15         16         17         18         19
 				  "F2",       "O3",     "F3",      "O4",      "F4",
 			   //  20	  
-				  "VECGRP",                                            // added V33
+				  "VECGRP",  "ZCOD",                                        
 					  
 	           //
 			   //	Line-2 (start position 21)
@@ -144,7 +222,7 @@ public class PSSEXfrDataRawParser extends BasePSSEDataRawParser {
 			   //  10         11         12         13         14
 				  "VMA",     "VMI",     "NTP",     "TAB1",     "CR",
 			   //  15
-				  "CX",             
+				  "CX",       "CNXA1",        
 
 			   //
 			   //	Line-4 (start position 48)
@@ -156,7 +234,7 @@ public class PSSEXfrDataRawParser extends BasePSSEDataRawParser {
 			   //  10         11         12         13         14
 				  "VMA2",    "VMI2",   "NTP2",    "TAB2",    "CR2",    // V30 and late version
 			   //  15
-				  "CX2",                                               // V30 and late version
+				  "CX2",      "CNXA2",                                               // V30 and late version
 			
 			   //
 			   //	Line-5 (start position 64)
@@ -168,8 +246,24 @@ public class PSSEXfrDataRawParser extends BasePSSEDataRawParser {
 			   //  10         11         12         13         14
 				  "VMA3",    "VMI3",    "NTP3",   "TAB3",     "CR3",    // V30 and late version
 				// 15
-				  "CX3"                                                 // V30 and late version
+				  "CX3",      "CNXA3"                                   // V34
 		};
+		
+		switch(this.version){
+			case PSSE_29:
+			case PSSE_30:
+			case PSSE_31:
+			case PSSE_32:
+			case PSSE_33:
+				return v30_33;
+			case PSSE_34:
+			case PSSE_35:
+			case PSSE_36:
+				return v34_36;
+			default:
+				return v34_36;
+	
+       }
 	}
 	
 	@Override public void parseFields(final String[] strAry) throws ODMException {

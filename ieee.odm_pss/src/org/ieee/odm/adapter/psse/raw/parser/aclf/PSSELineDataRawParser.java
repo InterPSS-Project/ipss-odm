@@ -33,7 +33,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E ACLine data line string
  * 
  * @author mzhou
  *
@@ -49,7 +49,7 @@ public class PSSELineDataRawParser extends BasePSSEDataRawParser {
 		 * 	I, J, CKT, R,X,B, RATEA,RATEB,RATEC, RATIO,ANGLE,GI,BI,GJ,BJ,ST,      LEN,O1,F1,...,O4,F4
 		 * 
 		 * V30, V29
-		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC,             GI,BI,GJ,BJ,ST,      LEN,O1,F1,...,O4,F4
+		 *  I, J, CKT, R,X,B,       RATEA,RATEB,RATEC,             GI,BI,GJ,BJ,ST,      LEN,O1,F1,...,O4,F4
 		 *  
 		 * V31, V32, V33
 		 *  I, J, CKT, R,X,B, RATEA,RATEB,RATEC,             GI,BI,GJ,BJ,ST, MET, LEN,O1,F1,...,O4,F4 
@@ -65,58 +65,147 @@ public class PSSELineDataRawParser extends BasePSSEDataRawParser {
 		 *  		  "rate11", "rate12", "gi", "bi", "gj", "bj", "stat", "bp", "met", "len", 
 		 *  		  "o1", "f1", "o2", "f2", "o3", "f3", "o4", "f4"], 
 		 */
-		return new String[] {
-				/*
-				 * V26
-				 */
+//	   String[] v26 = {
+//				/*
+//				 * V26
+//				 */
+//		   //  0----------1----------2----------3----------4
+//			  "I",       "J",       "CKT",     "R",       "X",             
+//		   //  5          6          7          8          9
+//			  "B",      "RATEA",    "RATEB",   "RATEC",   
+//			                                              "RATIO",   // ver26 only
+//		   //  10         11         12         13         14
+//			  "ANGLE",                                               // ver26 only
+//			             "GI",      "BI",      "GJ",      "BJ",
+//		   //  15         16         17         18         19
+//			  "ST",      "LEN",     "O1",      "F1",      "O2", 
+//
+//			                       
+//		   //  20         21         22         23         24	  
+//			  "F2",      "O3",      "F3",      "O4",       "F4"
+//		
+//		};
+	   
+	   String[] v29_30 = {
+		
 		   //  0----------1----------2----------3----------4
 			  "I",       "J",       "CKT",     "R",       "X",             
 		   //  5          6          7          8          9
-			  "B",      "RATEA",    "RATEB",   "RATEC",   
-			                                              "RATIO",   // ver26 only
+			  "B",      "RATEA",    "RATEB",   "RATEC",    "GI",
+			                                             
 		   //  10         11         12         13         14
-			  "ANGLE",                                               // ver26 only
-			             "GI",      "BI",      "GJ",      "BJ",
+			  "BI",      "GJ",      "BJ",     "ST",      "LEN", 
 		   //  15         16         17         18         19
-			  "ST",     
-			             "MET",                                      // >= V32 only
-			                       "LEN",     "O1",      "F1",    
-		   //  20         21         22         23         24	  
-			  "O2",      "F2",      "O3",      "F3",      "O4",     
-		   //  26  
-			  "F4"
+			  "O1",      "F1",      "O2",     "F2",      "O3",
+			                       
+		   //  20         21         22         
+			  "F3",      "O4",       "F4"
 		};
+	   
+	   String[] v31_33 = {
+			
+		   //  0----------1----------2----------3----------4
+			  "I",       "J",       "CKT",     "R",       "X",             
+		   //  5          6          7          8          9
+			  "B",       "RATEA",    "RATEB",   "RATEC",    
+			                                             
+		   //  10         11         12         13         14
+			  "GI",     "BI",      "GJ",      "BJ",     "ST",      
+		   //  15         16         17         18         19
+			  "MET",    "LEN",    "O1",      "F1",      "O2",        
+			                       
+		   //  20         21         22         23        24
+			  "F2",      "O3",     "F3",      "O4",       "F4"
+	   };
+	   
+	   String[] v34_35 = {
+				
+			   //  0----------1----------2----------3----------4
+				  "I",       "J",       "CKT",     "R",       "X",             
+			   //  5          6          7          8          9
+				  "B",      "NAME",    "RATE1",    "RATE2",   "RATE3",    
+				                                             
+			   //  10         11         12         13         14
+				  "RATE4",    "RATE5",   "RATE6", "RATE7",   "RATE8",    
+			   //  15         16         17         18         19
+				  "RATE9",    "RATE10", "RATE11", "RATE12",    "GI", 
+			    //  20         21         22         23        24
+				  "BI",      "GJ",      "BJ",     "ST",      "MET", 
+				//  25         26         27         28        29  
+				   "LEN",    "O1",      "F1",      "O2",     "F2", 
+				                       
+			   //  30         31         32         33        34
+				   "O3",     "F3",      "O4",      "F4"
+		   };
+	   
+	   
+	   String[] v36 = {
+				
+			   //  0----------1----------2----------3----------4
+				  "I",       "J",       "CKT",     "R",       "X",             
+			   //  5          6          7          8          9
+				  "B",      "NAME",    "RATE1",    "RATE2",   "RATE3",    
+				                                             
+			   //  10         11         12         13         14
+				  "RATE4",    "RATE5",   "RATE6", "RATE7",   "RATE8",    
+			   //  15         16         17         18         19
+				  "RATE9",    "RATE10", "RATE11", "RATE12",    "GI", 
+			    //  20         21         22         23        24
+				  "BI",      "GJ",      "BJ",     "ST",      "BP", //bypass flag, New in v36 , 1 bypass, the line becomes zero impedance line;
+				//  25         26         27         28        29  
+				  "MET",    "LEN",    "O1",      "F1",      "O2",     
+				                       
+			    //  30         31         32         33        34
+				  "F2",       "O3",     "F3",      "O4",      "F4"
+		   };
+	   
+		switch(this.version){
+			case PSSE_29:
+			case PSSE_30:
+				return v29_30;
+			case PSSE_31:
+			case PSSE_32:
+			case PSSE_33:
+				return v31_33;
+			case PSSE_34:
+			case PSSE_35:
+				return v34_35;
+			default:
+				return v36;
+			
+		}
+
 	}
 	
-	@Override public void parseFields(final String str) throws ODMException {
-		this.clearNVPairTableData();
-		
-  		StringTokenizer st = new StringTokenizer(str, ",");
-
-  		for (int i = 0; i < 9; i++) {
-  			if (i == 2 && PSSERawAdapter.getVersionNo(this.version) >= 29)
-  				setValue(i, ODMModelStringUtil.trimQuote(st.nextToken()).trim());
-  			else
-  				setValue(i, st.nextToken().trim());
-  		}	
-
-  		if (this.version == PsseVersion.PSSE_26) {
-			setValue(9, st.nextToken().trim());
-			setValue(10, st.nextToken().trim());
-  		}
-
-  		for (int i = 11; i < 16; i++)
-  			if (st.hasMoreTokens()) 
-  				setValue(i, st.nextToken().trim());
-
-		setValue(16, "1");
-		if (PSSERawAdapter.getVersionNo(this.version) >= 31)
-			setValue(16, st.nextToken().trim());
- 		
-  		for (int i = 17; i < 25; i++)
-  			if (st.hasMoreTokens()) 
-  				setValue(i, st.nextToken().trim());
-  		
-  		
-	}
+//	@Override public void parseFields(final String str) throws ODMException {
+//		this.clearNVPairTableData();
+//		
+//  		StringTokenizer st = new StringTokenizer(str, ",");
+//
+//  		for (int i = 0; i < 9; i++) {
+//  			if (i == 2 && PSSERawAdapter.getVersionNo(this.version) >= 29)
+//  				setValue(i, ODMModelStringUtil.trimQuote(st.nextToken()).trim());
+//  			else
+//  				setValue(i, st.nextToken().trim());
+//  		}	
+//
+////  		if (this.version == PsseVersion.PSSE_26) {
+////			setValue(9, st.nextToken().trim());
+////			setValue(10, st.nextToken().trim());
+////  		}
+//
+//  		for (int i = 11; i < 16; i++)
+//  			if (st.hasMoreTokens()) 
+//  				setValue(i, st.nextToken().trim());
+//
+//		setValue(16, "1");
+//		if (PSSERawAdapter.getVersionNo(this.version) >= 31)
+//			setValue(16, st.nextToken().trim());
+// 		
+//  		for (int i = 17; i < 25; i++)
+//  			if (st.hasMoreTokens()) 
+//  				setValue(i, st.nextToken().trim());
+//  		
+//  		
+//	}
 }

@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Owner Data
  * 
  * @author mzhou
  *
@@ -44,7 +44,7 @@ public class PSSEOwnerDataRawParser extends BasePSSEDataRawParser {
 		/* 
 		 * Format V29, V30, V32, V33
 		 * 
-		 *   I, 扥WNAME�
+		 *   I, OWNAME
 		*/
 		return new String[] {
 		   //  0----------1----------2----------3----------4

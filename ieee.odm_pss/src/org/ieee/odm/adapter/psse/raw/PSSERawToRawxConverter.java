@@ -7,18 +7,32 @@ import java.util.*;
 import com.google.gson.*;
 
 public class PSSERawToRawxConverter {
+	
+	private  String jsonOutput = "";
+	 // Create main JSON structure
+    private  Map<String, Object> rawxData = new LinkedHashMap<>();
+    
+    private  Gson gson = null;
+    
+    private  final String DEFAULT_VERSION = "36.1";
+    
+	
     /**
      * 
      * @param rawFilePath input raw file
-     * @param rawxFilePath output rawx file
+     * @return String in rawx json format
      */
-    public static void convert(String rawFilePath,String rawxFilePath) {
+    public String parseInputFile(String rawFilePath) {
     	try (BufferedReader rawReader = new BufferedReader(new FileReader(rawFilePath));
-                BufferedWriter rawxWriter = new BufferedWriter(new FileWriter(rawxFilePath))) {
+                ) {
+    		//create gson object
+    		gson = new GsonBuilder().setPrettyPrinting().create();
+    		
+    		TransformerProcessor transProc = new TransformerProcessor();
+    		TwoTerminalDCProcessor twoTermDCProc = new TwoTerminalDCProcessor();
 
-    		 // Create main JSON structure
-            Map<String, Object> rawxData = new LinkedHashMap<>();
-            rawxData.put("general", Map.of("version", "36.1"));
+    		
+            rawxData.put("general", Map.of("version", DEFAULT_VERSION));
             Map<String, Object> networkData = new LinkedHashMap<>();
             rawxData.put("network", networkData);
 
@@ -27,13 +41,14 @@ public class PSSERawToRawxConverter {
             List<String> fieldNames = new ArrayList<>();
             List<List<Object>> sectionData = new ArrayList<>();
             boolean expectingFields = false;
-            boolean processingTransformer = false;
-            boolean processingCaseId = true;
+            boolean isProcessingTransformer = false;
+            boolean isProcessingTwoTermDC = false;
+            boolean isProcessingCaseId = true;
             int caseIdLineIdx = 0;
             
-            int transformerLinesRead = 0;
+            //int transformerLinesRead = 0;
             StringBuilder caseIdRecord = new StringBuilder();
-            StringBuilder transformerRecord = new StringBuilder();
+            //StringBuilder transformerRecord = new StringBuilder();
             
 
             String line;
@@ -62,55 +77,105 @@ public class PSSERawToRawxConverter {
                     addSectionToNetwork(networkData, currentSection, fieldNames, sectionData);
                     currentSection = getSectionName(line);
                     expectingFields = false;
-                    processingCaseId = false;
-                    processingTransformer = currentSection.equals("transformer");
-                    transformerLinesRead = 0;
-                } else if (currentSection != null) {
-                    if (processingCaseId && currentSection.equals("caseid")) {
-                    		if (caseIdLineIdx==0) {
-                    			 if (line.contains("/")) {
-                    				 line = line.replaceAll("(?<!\\d)/\\s.*", "");
-                    	           }
-                    			caseIdRecord.append(line+" , ");
-                    		}
-                    		if (caseIdLineIdx>0 && caseIdLineIdx<3) {
-                    			if (caseIdLineIdx == 1) caseIdRecord.append("\'"+line+"\'"+" ,");
-                    			if (caseIdLineIdx == 2) caseIdRecord.append("\'"+line+"\'");
-                    			fieldNames.add("title"+caseIdLineIdx);
-                    			if (caseIdLineIdx==2) {
-                    				 sectionData.add(parseData(caseIdRecord.toString(), fieldNames.size(),currentSection));
-
-                    		    }
-                    	   }
-                    	caseIdLineIdx++;
-                        continue;
-                    }
-                    if (processingTransformer) {
-                        transformerRecord.append(line+" , ");
-                        transformerLinesRead++;
-                        if (transformerLinesRead == 4) {  // Each transformer record consists of three lines
-                            sectionData.add(parseData(transformerRecord.toString(), fieldNames.size(),currentSection));
-                            transformerRecord.setLength(0);
-                            transformerLinesRead = 0;
-                        }
+                    isProcessingCaseId = false;
+                    isProcessingTransformer = currentSection.equals("transformer");
+                    isProcessingTwoTermDC = currentSection.equals("twotermdc");
+                    if(isProcessingTransformer)
+                    	transProc.reset();
+                    
+                    
+              
+                } else {
+                    if (isProcessingCaseId && currentSection.equals("caseid")) {
+                    		caseIdLineIdx = processCaseId(currentSection, fieldNames, sectionData, caseIdLineIdx,
+									caseIdRecord, line);
                         
-                    } else {
+                    }
+                    else if (isProcessingTransformer) {
+                        transProc.processLine(line, fieldNames, sectionData);
+                         
+                    } 
+                    else if(isProcessingTwoTermDC) {
+                    	twoTermDCProc.processLine(line, fieldNames, sectionData);
+                    }
+                    else {
                         sectionData.add(parseData(line, fieldNames.size(),currentSection));
                     }
                 }
             }
 
-            // Convert Java map to JSON using Gson
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            //Gson gson = new GsonBuilder().create();
-            String jsonOutput = gson.toJson(rawxData);
-
-            // Write JSON to output file
-            rawxWriter.write(jsonOutput);
-            System.out.println("✅ Conversion from RAW to RAWX completed successfully!");
+           
         } catch (IOException e) {
             e.printStackTrace();
         }
+    	 
+    	
+        jsonOutput = gson.toJson(rawxData);
+        
+        return  jsonOutput;
+    }
+
+	private int processCaseId(String currentSection, List<String> fieldNames, List<List<Object>> sectionData,
+			int caseIdLineIdx, StringBuilder caseIdRecord, String line) {
+		if (caseIdLineIdx==0) {
+			 if (line.contains("/")) {
+				 line = line.replaceAll("(?<!\\d)/\\s.*", "");
+		       }
+			caseIdRecord.append(line+" , ");
+		}
+		if (caseIdLineIdx>0 && caseIdLineIdx<3) {
+			if (caseIdLineIdx == 1) caseIdRecord.append("\'"+line+"\'"+" ,");
+			if (caseIdLineIdx == 2) caseIdRecord.append("\'"+line+"\'");
+			fieldNames.add("title"+caseIdLineIdx);
+			if (caseIdLineIdx==2) {
+				 sectionData.add(parseData(caseIdRecord.toString(), fieldNames.size(),currentSection));
+
+		    }
+              	   }
+              	caseIdLineIdx++;
+		return caseIdLineIdx;
+	}
+    
+    /**
+     * 
+     * @return the Gson object 
+     */
+   public  Gson getGsonObject() {
+	   return gson;
+   }
+    /**
+     * 
+     * @return String in PSS/E RAWX json format
+     */
+   public String getJson() {
+    	
+        //Gson gson = new GsonBuilder().create();
+       jsonOutput = gson.toJson(rawxData);
+        
+       return  jsonOutput;
+
+    }
+    
+   /**
+    * Save the converted RAWX Json string to a file
+    * @param rawxFilePath
+    */
+    public  void saveToRawxFile(String rawxFilePath) {
+    	
+		try {
+			BufferedWriter rawxWriter = new BufferedWriter(new FileWriter(rawxFilePath));
+			rawxWriter.write(getJson());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println("✅ Conversion from RAW to RAWX completed successfully!");
+    }
+    
+    public void convert(String rawFilePath,String rawxFilePath) {
+    	parseInputFile(rawFilePath);
+    	saveToRawxFile(rawxFilePath);
+    	
     }
 
        /**
@@ -139,9 +204,12 @@ public class PSSERawToRawxConverter {
                if (c == '\'') {
                    insideQuotes = !insideQuotes;
                } else if (c == ',' && !insideQuotes) {
-            	   String name = field.toString().trim().replace("'", "").replace(" ", "").toLowerCase();
+            	   String name = field.toString().trim().replace("'", "").replace("\\s+", "").toLowerCase();
             	   if (name.equals("i") || name.equals("j") || name.equals("k")) {
-            			   name = name+"bus";
+            		       if(sectionName.equals("area")||sectionName.equals("zone")||sectionName.equals("owner")||sectionName.contains("sub"))
+            		    	   name = name+sectionName;
+            		       else
+            		    	   name = name+"bus";
             	   }
             	   else if(name.equals("id")){
             		   if (sectionName.equals("load")) {
@@ -187,13 +255,17 @@ public class PSSERawToRawxConverter {
             	        
             	            
             	   }
+            	   else if(sectionName.equals("sysswd") && name.contains("rating")) {
+            		   name ="rsetnam"; // rating set name
+            	   }
+            	   
                    fields.add(name);
                    field.setLength(0);
                } else {
                    field.append(c);
                }
            }
-           fields.add(field.toString().trim().replace("'", "").toLowerCase()); // Add last field
+           fields.add(field.toString().trim().replace("'", "").replace("\\s+", "").toLowerCase()); // Add last field
            return fields;
        }
 
@@ -389,5 +461,112 @@ public class PSSERawToRawxConverter {
            
            
            return name;  // Return empty string if not found
+       }
+       
+       private class TransformerProcessor {
+           private int transformerLinesRead = 0;
+           private boolean isThreeWinding = false;
+           private final List<String> transformerLines = new ArrayList<>();
+           
+           /* Line #1 fields":["ibus", "jbus", "kbus", "ckt", "cw", "cz", "cm","mag1", "mag2", "nmet", "name", 
+           "stat", "o1", "f1", "o2", "f2", "o3", "f3", "o4", "f4", "vecgrp", "zcod"*/
+           //private final int line1ExpactedValues = 22;
+           
+           //Line #2 R1-2, X1-2, SBASE1-2, R2-3, X2-3, SBASE2-3, R3-1, X3-1, SBASE3-1, VMSTAR, ANSTAR
+           
+           //private final int line2ExpactedValues = 11;
+           /* Line # 4 and 5 are the same except the number
+            *  "windv3", "nomv3", "ang3","wdg3rate1", "wdg3rate2", "wdg3rate3", "wdg3rate4",
+           "wdg3rate5", "wdg3rate6", "wdg3rate7", "wdg3rate8",
+           "wdg3rate9", "wdg3rate10", "wdg3rate11", "wdg3rate12",
+           "cod3", "cont3", "node3", "rma3", "rmi3", "vma3", "vmi3",
+           "ntp3", "tab3", "cr3", "cx3", "cnxa3"],
+           */
+           //private final int line345ExpactedValues = 27;
+           private final int[] lineExpactedValues = {22, 11, 27, 27, 27};
+        		   
+
+           public void processLine(String line, List<String> fieldNames, List<List<Object>> sectionData) {
+               String processedLine = line;
+               transformerLinesRead++;
+
+               // Check if it's a three-winding transformer from first line
+               if (transformerLinesRead == 1) {
+                   String[] firstLineData = line.trim().split("\\s*,\\s*");
+                   isThreeWinding = !firstLineData[2].trim().equals("0");
+               }
+               
+               //  pad incomplete lines with null values
+               processedLine = padLine(processedLine, lineExpactedValues[transformerLinesRead-1]);
+                 
+               
+               transformerLines.add(processedLine);
+
+               // Process complete transformer record
+               int expectedLines = isThreeWinding ? 5 : 4;
+               if (transformerLinesRead == expectedLines) {
+                   addCompleteTransformer(fieldNames, sectionData);
+                   reset();
+               }
+           }
+
+           private String padLine(String line, int expectedValues) {
+               String[] parts = line.trim().split("\\s*,\\s*");
+               StringBuilder result = new StringBuilder(line.trim());
+               while (parts.length < expectedValues) {
+                   result.append(", ");  // Empty value will be parsed as null
+                   parts = result.toString().split(",");
+               }
+               return result.toString();
+           }
+
+           private void addCompleteTransformer(List<String> fieldNames, List<List<Object>> sectionData) {
+               StringBuilder transformerRecord = new StringBuilder();
+               for (int i = 0; i < transformerLines.size(); i++) {
+                   transformerRecord.append(transformerLines.get(i));
+                   if (i < transformerLines.size() - 1) {
+                       transformerRecord.append(" , ");
+                   }
+               }
+               sectionData.add(parseData(transformerRecord.toString(), fieldNames.size(), "transformer"));
+           }
+
+           private void reset() {
+               transformerLines.clear();
+               transformerLinesRead = 0;
+               isThreeWinding = false;
+           }
+       }
+       
+       private class TwoTerminalDCProcessor {
+           private int linesRead = 0;
+           private final List<String> dcLines = new ArrayList<>();
+
+           public void processLine(String line, List<String> fieldNames, List<List<Object>> sectionData) {
+               dcLines.add(line.trim());
+               linesRead++;
+
+               // Process complete DC record (3 lines)
+               if (linesRead == 3) {
+                   addCompleteDCRecord(fieldNames, sectionData);
+                   reset();
+               }
+           }
+
+           private void addCompleteDCRecord(List<String> fieldNames, List<List<Object>> sectionData) {
+               StringBuilder dcRecord = new StringBuilder();
+               for (int i = 0; i < dcLines.size(); i++) {
+                   dcRecord.append(dcLines.get(i));
+                   if (i < dcLines.size() - 1) {
+                       dcRecord.append(" , ");
+                   }
+               }
+               sectionData.add(parseData(dcRecord.toString(), fieldNames.size(), "twotermdc"));
+           }
+
+           private void reset() {
+               dcLines.clear();
+               linesRead = 0;
+           }
        }
    }

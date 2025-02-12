@@ -38,6 +38,12 @@ import org.ieee.odm.model.base.ODMModelStringUtil;
  *
  */
 public class UCTENodeDataParser extends AbstractStringDataFieldParser {
+	
+	public UCTENodeDataParser() {
+	    super();
+		initializeMetadata();
+	}
+	
     // custom base voltage is an extension to the UCTE std
 	private List<Double> customBaseVoltageList = new ArrayList<Double>();
 	public List<Double> getCustomBaseVoltageList() { return this.customBaseVoltageList; }

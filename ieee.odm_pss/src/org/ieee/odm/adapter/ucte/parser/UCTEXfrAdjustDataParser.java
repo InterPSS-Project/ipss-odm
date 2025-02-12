@@ -35,6 +35,12 @@ import org.ieee.odm.model.base.ODMModelStringUtil;
  *
  */
 public class UCTEXfrAdjustDataParser extends AbstractStringDataFieldParser {
+	
+	public UCTEXfrAdjustDataParser() {
+	    super();
+		initializeMetadata();
+	}
+	
 	@Override public String[] getMetadata() {
 		return new String[] {
 		   //  0---------------1---------------2---------------3---------------4

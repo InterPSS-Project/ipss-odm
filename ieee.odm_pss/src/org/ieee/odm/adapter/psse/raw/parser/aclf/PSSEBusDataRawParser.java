@@ -32,7 +32,7 @@ import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Bus data
  * 
  * @author mzhou
  *
@@ -45,15 +45,15 @@ public class PSSEBusDataRawParser extends BasePSSEDataRawParser {
 	@Override public String[] getMetadata() {
 		/* Format V30, V29
 		 * 
-		 *  I,  扤AME�,  BASKV, IDE,  GL, BL, AREA, ZONE,         VM, VA,  OWNER
+		 *  I,  NAME,  BASKV, IDE,  GL, BL, AREA, ZONE,        VM, VA,  OWNER
 		 * 
 		 *  Format V32, V31
 		 * 
-		 *  I,  扤AME�,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
+		 *  I,  NAME,  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA
 		 * 
-		 * Format V33
+		 * Format V33, V34, V35, V36
 		 *  
-		 *  I,  'NAME',  BASKV, IDE,          AREA, ZONE, OWNER,  VM, VA, NVHI, NVLO, EVHI, EVLO
+		 *  I,  'NAME',  BASKV, IDE,        AREA, ZONE, OWNER,  VM, VA, NVHI, NVLO, EVHI, EVLO
 		 *  
 		 *  	NVHI	Normal voltage magnitude high limit; entered in pu.  NVHI=1.1 by default 
 		 *  	NVLO	Normal voltage magnitude low limit, entered in pu.  NVLO=0.9 by default 
@@ -65,25 +65,60 @@ public class PSSEBusDataRawParser extends BasePSSEDataRawParser {
 		 *  "fields":["ibus", "name", "baskv", "ide", "area", "zone", "owner", 
 		 *            "vm", "va", "nvhi", "nvlo", "evhi", "evlo"], 
 		 */
-		return new String[] {
+		
+		String[] v29_30 =  new String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",      "NAME",    "BASKV",    "IDE",     "GL",      
+				   //  5          6          7          8          9
+					  "BL",     "AREA",    "ZONE",     "VM",      "VA",
+				   //  10         11         12         13         14
+					  "OWNER", 
+				};
+
+		String[] v31_32 =  new String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",      "NAME",    "BASKV",    "IDE",         
+				   //  5          6          7          8          9
+				   "AREA",    "ZONE",     "OWNER",    "VM",      "VA",
+				   //  10         11         12         13         14
+					
+				};
+		
+		String[] v33_36 = new String[] {
 		   //  0----------1----------2----------3----------4
-			  "I",      "NAME",    "BASKV",    "IDE",     "GL",      
+			  "I",      "NAME",    "BASKV",    "IDE",     
 		   //  5          6          7          8          9
-			  "BL",     "AREA",    "ZONE",     "VM",      "VA",
+			  "AREA",    "ZONE",    "OWNER",  "VM",      "VA",
 		   //  10         11         12         13         14
-			  "OWNER",  "NVHI",    "NVLO",     "EVHI",    "EVLO"
+			  "NVHI",    "NVLO",     "EVHI",    "EVLO"
 		};
+		
+		
+		switch(this.version){
+	    case PSSE_29:
+		case PSSE_30:
+			return v29_30;
+		case PSSE_31:
+		case PSSE_32:
+			return v31_32;
+		case PSSE_33:
+		case PSSE_34:
+		case PSSE_35:
+			return v33_36;
+		default:
+			return v33_36;
+			
+	}
+		
+		
 	}
 	
+	/*
 	@Override public void parseFields(final String lineStr) throws ODMException {
 		this.clearNVPairTableData();
 		
-		if (this.version == PsseVersion.PSSE_26) {
-			StringTokenizer st = new StringTokenizer(lineStr,",");
-			for (int i = 0; i < 11; i++)
-				setValue(i, st.nextToken().trim());
-		}
-		else if (PSSERawAdapter.getVersionNo(this.version) >= 29) {
+	
+		if (PSSERawAdapter.getVersionNo(this.version) >= 29 && PSSERawAdapter.getVersionNo(this.version) <= 36) {
 			StringTokenizer st;
 
 			// V30
@@ -120,11 +155,12 @@ public class PSSEBusDataRawParser extends BasePSSEDataRawParser {
 	    		setValue(8, st.nextToken().trim());
 	    		setValue(9, st.nextToken().trim());
 
-	    		if (this.version == PsseVersion.PSSE_33)
+	    		if (PSSERawAdapter.getVersionNo(this.version) >= 33) {
 	    			cnt = 11;
 				    while(st.hasMoreTokens()) {
 				    	setValue(cnt++, st.nextToken().trim());
 				    }
+	    		}
 	    	}
 	    	else {
 			    while(st.hasMoreTokens()) {
@@ -135,4 +171,5 @@ public class PSSEBusDataRawParser extends BasePSSEDataRawParser {
 		else
 			throw new ODMException("PSSEBusDataParser, wrong PSSE Version " + this.version);
 	}
+	*/
 }

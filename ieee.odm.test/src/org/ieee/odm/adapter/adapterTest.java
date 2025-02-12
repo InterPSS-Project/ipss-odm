@@ -15,10 +15,7 @@ import org.ieee.odm.model.IODMModelParser;
 import org.junit.Test;
 
 public class adapterTest {
-	@Test
-	public void ver_test() throws FileNotFoundException, ODMException {
-		assertTrue(PSSERawAdapter.getVersionNo(PSSEAdapter.PsseVersion.PSSE_26) == 26);
-	}
+
 	
 	@Test
 	public void test1() throws FileNotFoundException, ODMException {

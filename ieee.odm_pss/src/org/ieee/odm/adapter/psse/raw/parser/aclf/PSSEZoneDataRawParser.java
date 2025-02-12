@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Zone data
  * 
  * @author mzhou
  *
@@ -42,9 +42,9 @@ public class PSSEZoneDataRawParser extends BasePSSEDataRawParser {
 	
 	@Override public String[] getMetadata() {
 		/* 
-		 *   Format V29, V30, V32, V33
+		 *   Format V29, V30, V32, V33, V34, V35, V36
 		 *   
-		 *      I, 抁ONAME� 
+		 *      I, ZONAME
 		 * 
 		*/
 		return new String[] {

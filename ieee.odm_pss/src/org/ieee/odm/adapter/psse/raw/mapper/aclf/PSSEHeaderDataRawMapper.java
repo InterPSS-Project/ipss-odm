@@ -148,9 +148,10 @@ VER 26   PARAMETERS INITIALIZED ON 22-Jun-2011 16:45:56 PDT
 	}
 	
 	private void filterVersion(String lineStr) {
-  		if (lineStr.contains("VER 26"))
-  			this.version = PsseVersion.PSSE_26;
-  		else if (lineStr.contains("RAW29"))
-  			this.version = PsseVersion.PSSE_29;
+//  		if (lineStr.contains("VER 26"))
+//  			this.version = PsseVersion.PSSE_26;
+  		//else 
+  			if (lineStr.contains("RAW29"))
+  			    this.version = PsseVersion.PSSE_29;
 	}
 }

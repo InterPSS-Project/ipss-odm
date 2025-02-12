@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Header
  * 
  * @author mzhou
  *
@@ -97,15 +97,15 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
         }
 
 		
-		if (this.version == PsseVersion.PSSE_26) {
-			StringTokenizer st = new StringTokenizer(lineStr, ",");
-			setValue(0, st.nextToken());
-			setValue(1, st.nextToken().trim()); 
-			setValue(2, "VER 26");
-			setValue(6, lineStr2);
-			setValue(7, lineStr3);			
-		}
-		else {
+//		if (this.version == PsseVersion.PSSE_26) {
+//			StringTokenizer st = new StringTokenizer(lineStr, ",");
+//			setValue(0, st.nextToken());
+//			setValue(1, st.nextToken().trim()); 
+//			setValue(2, "VER 26");
+//			setValue(6, lineStr2);
+//			setValue(7, lineStr3);			
+//		}
+//		else {
 			StringTokenizer st = new StringTokenizer(lineStr, ",");
 			
 			String ind = st.nextToken().trim();  			   
@@ -131,6 +131,6 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 			if (lineStr3!= null){
 				setValue(7, lineStr3);
 			}			
-		}
+//		}
   	}
 }

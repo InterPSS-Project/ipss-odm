@@ -36,6 +36,12 @@ import org.ieee.odm.common.ODMException;
  *
  */
 public class IeeeCDFLossZoneDataParser extends AbstractStringDataFieldParser {
+	
+	public IeeeCDFLossZoneDataParser() {
+	    super();
+		initializeMetadata();
+	}
+	
 	@Override public String[] getMetadata() {
 		return new String[] {
 		   //  0           1        

@@ -33,7 +33,6 @@ import org.ieee.odm.adapter.opf.matpower.OpfMatpowerAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
-import org.ieee.odm.adapter.psse.raw.v26.PSSEV26Adapter;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency;
 import org.ieee.odm.adapter.pwd.PowerWorldAdapter;
 import org.ieee.odm.adapter.ucte.UCTE_DEFAdapter;
@@ -131,8 +130,8 @@ public class ODMObjectFactory {
 		else if ( f == ODMFileFormatEnum.IeeeCDFExt1 ) 
 			return new IeeeCDFAdapter(IEEECDFVersion.Ext1);
 		
-		else if ( f == ODMFileFormatEnum.PsseV26 )
-			return new PSSEV26Adapter();
+//		else if ( f == ODMFileFormatEnum.PsseV26 )
+//			return new PSSEV26Adapter();
 		else if ( f == ODMFileFormatEnum.PsseV30 )
 			return new PSSERawAdapter(PsseVersion.PSSE_30);
 		else if ( f == ODMFileFormatEnum.PsseV31 )

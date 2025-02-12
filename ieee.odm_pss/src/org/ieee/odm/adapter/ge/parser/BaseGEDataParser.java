@@ -52,10 +52,12 @@ public abstract class BaseGEDataParser extends AbstractStringDataFieldParser {
 	
 	public BaseGEDataParser() {
 		super();
+		initializeMetadata(); 
 	}
 
 	public BaseGEDataParser(GePslfAdapter.Version ver) {
 		super();
 		this.verion = ver;
+		initializeMetadata(); 
 	}
 }

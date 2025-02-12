@@ -24,8 +24,12 @@
 
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.common.ODMException;
 
 /**
  * Class for processing IEEE CDF bus data line string
@@ -49,10 +53,62 @@ public abstract class BasePSSEDataRawParser extends AbstractStringDataFieldParse
 	
 	public BasePSSEDataRawParser() {
 		super();
+		initializeMetadata(); 
 	}
 
 	public BasePSSEDataRawParser(PsseVersion ver) {
 		super();
 		this.version = ver;
+		initializeMetadata(); 
+	}
+	
+	
+	@Override public void parseFields(final String str) throws ODMException {
+		
+		this.clearNVPairTableData();
+		
+		
+		 List<Object> dataList = new ArrayList<>();
+         boolean insideQuotes = false;
+         StringBuilder field = new StringBuilder();
+         List<String> splitData = new ArrayList<>();
+         
+         int expectedFieldCount = getMetadata().length;
+         String tempStr = str;
+         if (str.contains("/")) { // remove comments after "/"
+        	 tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+	       }
+
+         for (char c : tempStr.toCharArray()) {
+             if (c == '\'') {
+                 insideQuotes = !insideQuotes;
+                 field.append(c);
+             } else if (c == ',' && !insideQuotes) {
+                 splitData.add(field.toString());
+                 field.setLength(0);
+             } else {
+                 field.append(c);
+             }
+         }
+         splitData.add(field.toString().trim()); // the last field
+         
+
+           int idx = 0;
+           for (String data : splitData) {
+               data = data.trim();
+               if (data.contains("\'")) {
+            	   setValue(idx, (data.replace("'", "").trim()));
+               }
+               else {
+            	   setValue(idx, data);
+               }
+               idx++;
+           }
+           // 
+           while (idx < expectedFieldCount) {
+               //dataList.add(null);
+               setValue(idx, "");
+               idx++;
+           }
 	}
 }

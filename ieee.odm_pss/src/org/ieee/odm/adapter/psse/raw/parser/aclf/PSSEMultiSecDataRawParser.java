@@ -31,7 +31,7 @@ import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Multi-section data
  * 
  * @author mzhou
  *
@@ -53,12 +53,12 @@ public class PSSEMultiSecDataRawParser extends BasePSSEDataRawParser {
 			first character of the extended bus name to designate it as the metered end; otherwise,
 			bus I is assumed to be the metered end.
 		ID - Two-character upper case alphanumeric multisection line grouping identifier. The
-			first character must be an ampersand ("&"). ID = „1¤7&1„1¤7 by default.
+			first character must be an ampersand ("&"). ID = ï¿½1ï¿½7&1ï¿½1ï¿½7 by default.
 		DUMi Bus numbers, or extended bus names enclosed in single quotes,
 			of the "dummy buses" connected by the branches that comprise this multisection
 			line grouping.	 
 		/*
-		 * Format V32, V33
+		 * Format V32, V33, V34 , V35, V36
 		 * 
 		I, J, ID, MET, DUM1, DUM2, ... DUM9
 		

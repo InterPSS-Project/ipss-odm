@@ -24,6 +24,8 @@
 
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
@@ -32,7 +34,7 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Gen Data
  * 
  * @author mzhou
  *
@@ -73,25 +75,98 @@ Sample data:
 		 *            "o1", "f1", "o2", "f2", "o3", "f3", "o4", "f4", "wmod", "wpf", 
 		 *            "droopname", "name"], 
 		 */
-		return new String[] {
-		   //  0----------1----------2----------3----------4
-			  "I",       "ID",      "PG",      "QG",      "QT",      
-		   //  5          6          7          8          9
-			  "QB",      "VS",      "IREG",    "MBASE",   "ZR",
-		   //  10         11         12         13         14
-			  "ZX",      "RT",      "XT",      "GTAP",    "STAT",
-		   //  15         16         17         18         19
-			  "RMPCT",   "PT",      "PB",      "O1",      "F1",
-		   //  20         21         22         23         24
-			  "O2",      "F2",      "O3",      "F3",      "O4", 
-		   //  25         26         27
-			  "F4",      
-			             "WMOD",    "WPF"                // for V32-V33 only
-		};
+		String[] v29_31 = new String[] {
+				   //  0----------1----------2----------3----------4
+				  "I",       "ID",      "PG",      "QG",      "QT",      
+			   //  5          6          7          8          9
+				  "QB",      "VS",      "IREG",    "MBASE",   "ZR",
+			   //  10         11         12         13         14
+				  "ZX",      "RT",      "XT",      "GTAP",    "STAT",
+			   //  15         16         17         18         19
+				  "RMPCT",   "PT",      "PB",      "O1",      "F1",
+			   //  20         21         22         23         24
+				  "O2",      "F2",      "O3",      "F3",      "O4", 
+			   //  25         26         27         28         29
+				  "F4"};
+		String[] v32_33 = new String[] {
+				   //  0----------1----------2----------3----------4
+				  "I",       "ID",      "PG",      "QG",      "QT",      
+			   //  5          6          7          8          9
+				  "QB",      "VS",      "IREG",    "MBASE",   "ZR",
+			   //  10         11         12         13         14
+				  "ZX",      "RT",      "XT",      "GTAP",    "STAT",
+			   //  15         16         17         18         19
+				  "RMPCT",   "PT",      "PB",      "O1",      "F1",
+			   //  20         21         22         23         24
+				  "O2",      "F2",      "O3",      "F3",      "O4", 
+			   //  25         26         27         28         29
+				  "F4",      "WMOD",    "WPF"};
+		String [] v34 = new String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",       "ID",      "PG",      "QG",      "QT",      
+				   //  5          6          7          8          9
+					  "QB",      "VS",      "IREG",    "MBASE",   "ZR",
+				   //  10         11         12         13         14
+					  "ZX",      "RT",      "XT",      "GTAP",    "STAT",
+				   //  15         16         17         18         19
+					  "RMPCT",   "PT",      "PB",      "O1",      "F1",
+				   //  20         21         22         23         24
+					  "O2",      "F2",      "O3",      "F3",      "O4", 
+				   //  25         26         27         28         29
+					  "F4",      
+					             "WMOD",    "WPF",    "NREG"};
+		String [] v35 = new String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",       "ID",      "PG",      "QG",      "QT",      
+				   //  5          6          7          8          9
+					  "QB",      "VS",      "IREG",    "NREG",   "MBASE",   
+				   //  10         11         12         13         14
+					  "ZR",     "ZX",      "RT",      "XT",      "GTAP",    
+				   //  15         16         17         18         19
+					  "STAT",   "RMPCT",   "PT",      "PB",      "BASELOAD",     
+				   //  20         21         22         23         24
+					  "O1",     "F1",     "O2",      "F2",      "O3",         
+				   //  25         26         27         28         29
+					  "F3",      "O4",    "F4",      "WMOD",    "WPF"   };  
+					                                              
+		String [] v36 = new String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",       "ID",      "PG",      "QG",      "QT",      
+				   //  5          6          7          8          9
+					  "QB",      "VS",      "IREG",    "NREG",   "MBASE",   
+				   //  10         11         12         13         14
+					  "ZR",     "ZX",      "RT",      "XT",      "GTAP",    
+				   //  15         16         17         18         19
+					  "STAT",   "RMPCT",   "PT",      "PB",      "BASELOAD",     
+				   //  20         21         22         23         24
+					  "O1",     "F1",     "O2",      "F2",      "O3",         
+				   //  25         26         27         28         29
+					  "F3",      "O4",    "F4",      "WMOD",    "WPF",
+					  "DROOPNAME", "NAME"}; 
+		
+		switch(this.version){
+		    case PSSE_29:
+			case PSSE_30:
+			case PSSE_31:
+				return v29_31;
+			case PSSE_32:
+			case PSSE_33:
+				return v32_33;
+			case PSSE_34:
+				return v34;
+			case PSSE_35:
+				return v35;
+			default:
+				return v36;
+				
+		}
+		
 	}
 	
+	/*
 	@Override public void parseFields(final String str) throws ODMException {
 		this.clearNVPairTableData();
+		
 		
 		//I,ID,PG,QG,QT,QB,VS,IREG,MBASE,ZR,ZX,RT,XT,GTAP,STAT,RMPCT,PT,PB,
   		StringTokenizer st = new StringTokenizer(str, ",");
@@ -131,5 +206,9 @@ Sample data:
 				setValue(27, st.nextToken().trim());
 			}			
 		}
+		
+		
+         
 	}
+	*/
 }

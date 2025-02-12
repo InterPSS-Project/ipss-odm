@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Fixed Shunt data
  * 
  * @author mzhou
  *
@@ -41,7 +41,7 @@ public class PSSEFixedShuntDataRawParser extends BasePSSEDataRawParser {
 	}	
 	
 	@Override public String[] getMetadata() {
-		/* Format V32, V33
+		/* Format V32, V33, V34, V35, V36 
 		 * 
 		 *  I,   ID,   STATUS, GL, BL
 		 * 
@@ -49,22 +49,22 @@ public class PSSEFixedShuntDataRawParser extends BasePSSEDataRawParser {
 		 *   
 		 *   STATUS : 1 in service, 0 out of service
 		 */
-		/*
+		/* V36
 		 * "fields":["ibus", "shntid", "stat", "gl", "bl", "name"], 
 		 */
 		return new String[] {
-		   //  0----------1----------2----------3----------4
-			  "I",      "ID",     "STATUS",    "GL",     "BL"
+		   //  0----------1----------2----------3----------4------5
+			  "I",      "ID",     "STATUS",    "GL",     "BL", "NAME"
 		};
 	}
 	
-	@Override public void parseFields(final String lineStr) throws ODMException {
-		this.clearNVPairTableData();
-		StringTokenizer st;
-
-		st = new StringTokenizer(lineStr, ",");
-	    int cnt = 0;
-	    while(st.hasMoreTokens())
-	    	setValue(cnt++, st.nextToken().trim());
-	}
+//	@Override public void parseFields(final String lineStr) throws ODMException {
+//		this.clearNVPairTableData();
+//		StringTokenizer st;
+//
+//		st = new StringTokenizer(lineStr, ",");
+//	    int cnt = 0;
+//	    while(st.hasMoreTokens())
+//	    	setValue(cnt++, st.nextToken().trim());
+//	}
 }

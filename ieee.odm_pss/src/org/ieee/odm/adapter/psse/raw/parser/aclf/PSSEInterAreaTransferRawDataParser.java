@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E InterAreaTransfer Data
  * 
  * @author mzhou
  *
@@ -42,7 +42,7 @@ public class PSSEInterAreaTransferRawDataParser extends BasePSSEDataRawParser {
 	
 	@Override public String[] getMetadata() {
 		/*  
-		 * Format V29, V30, V32, V33
+		 * Format V29, V30, V32, V33, V34, V35, V36
 		 * 
 		 *   	ARFROM, ARTO, TRID, PTRAN
 		 *   

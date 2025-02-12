@@ -5,6 +5,11 @@ import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 
 public class PSLFDynGENROUDataParser extends AbstractStringDataFieldParser {
+	
+	public PSLFDynGENROUDataParser() {
+	    super();
+		initializeMetadata();
+	}
 
 	@Override
 	public String[] getMetadata() {

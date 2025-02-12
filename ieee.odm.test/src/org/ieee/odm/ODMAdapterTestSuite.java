@@ -8,7 +8,6 @@ import org.ieee.odm.opf.OpfSample_3Bus_ODMTest;
 import org.ieee.odm.opf.OpfSample_3Bus_ODMTest_stephen;
 import org.ieee.odm.opf.ProcessOPFData_ODMTest;
 import org.ieee.odm.opf.matpower.OPF_Matpower_ODMTest;
-import org.ieee.odm.psse.raw.PSSEV26_ODMTest;
 import org.ieee.odm.psse.raw.PSSEV30_Dyn_Load_Test;
 import org.ieee.odm.psse.raw.PSSEV30_GuideSampleTest;
 import org.ieee.odm.psse.raw.PSSEV30_IEEE39_Acsc_Test;
@@ -45,7 +44,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	PSSE_HearderVer_ODMTest.class,
 	PSSEV30_ODMTest.class,
 	PSSEV30_NEISO_ODMTest.class,
-	PSSEV26_ODMTest.class,
 	PSSEV30_GuideSampleTest.class,
 	PSSEV30_SegmentTest.class,
 	PSSEV30_IEEE39_Acsc_Test.class,

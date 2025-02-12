@@ -5,6 +5,12 @@ import java.util.StringTokenizer;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
+/**
+ * Class for processing PSS/E  VSC HVDC Data
+ * 
+ * @author mzhou
+ *
+ */
 public class PSSEVSCHVDC2TDataRawParser extends BasePSSEDataRawParser {
 	public PSSEVSCHVDC2TDataRawParser(PsseVersion ver) {
 		super(ver);

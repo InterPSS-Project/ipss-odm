@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Switched Shunt Data
  * 
  * @author mzhou
  *
@@ -56,7 +56,7 @@ public class PSSESwitchedShuntDataRawParser extends BasePSSEDataRawParser {
 		
 		Format V29
 		==========
-		I,    MODSW, VSWHI, VSWLO, SWREM,         扲MIDNTￄ1�7 BINIT, N1, B1, N2, B2, ... N8, B8
+		I,    MODSW, VSWHI, VSWLO, SWREM,        'RMIDNT', BINIT,  N1, B1, N2, B2, ... N8, B8
                                                             nbPosition(7) 
                                                             
         Format V30, 31
@@ -89,7 +89,7 @@ public class PSSESwitchedShuntDataRawParser extends BasePSSEDataRawParser {
 
 		Format V32, V33
 		===============
-		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, 扲MIDNTￄ1�7 BINIT, N1, B1, N2, B2, ... N8, B8
+		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, 'RMIDNT', N1, B1, N2, B2, ... N8, B8
 		                                                                nbPosition(10)  
 		ADJM Adjustment method:
   			0 steps and blocks are switched on in input order, and off in reverse input order; this adjustment 
@@ -136,7 +136,7 @@ public class PSSESwitchedShuntDataRawParser extends BasePSSEDataRawParser {
   			nbPosition = 10;
   		
   		for ( int i = 0; i < this.nbPosition; i++) { 
-  			if (i==2 && (this.version == PsseVersion.PSSE_26 ||
+  			if (i==2 && (
   					     this.version == PsseVersion.PSSE_29 ||
   	  			         this.version == PsseVersion.PSSE_30 ||
   	  			         this.version == PsseVersion.PSSE_31))

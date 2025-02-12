@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSSE Two-terminal DC lines
  * 
  * @author mzhou
  *
@@ -54,7 +54,7 @@ public class PSSEDcLine2TDataRawParser extends BasePSSEDataRawParser {
 				desired inverter power. No default allowed.					
 			RDC The dc line resistance; entered in ohms. No default allowed.
 			VSCHD Scheduled compounded dc voltage; entered in kV. No default allowed.
-			METER Metered end code of either ’R„1¤7 (for rectifier) or ’I„1¤7 (for inverter). METER = ’I„1¤7 by default.
+			METER Metered end code of either ï¿½Rï¿½1ï¿½7 (for rectifier) or ï¿½Iï¿½1ï¿½7 (for inverter). METER = ï¿½Iï¿½1ï¿½7 by default.
 			VCMOD Mode switch dc voltage; entered in kV. When the inverter dc voltage falls below
 				this value and the line is in power control mode (i.e., MDC = 1), the line switches
 				to current control mode with a desired current corresponding to the desired power
@@ -87,12 +87,83 @@ public class PSSEDcLine2TDataRawParser extends BasePSSEDataRawParser {
 			*/
 		/*
 		 *  "fields":["name", "mdc", "rdc", "setvl", "vschd", "vcmod", "rcomp", "delti", "met", 
-		 *           "dcvmin", "cccitmx", "cccacc", "ipr", "nbr", "anmxr", "anmnr", "rcr", "xcr", 
-		 *           "ebasr", "trr", "tapr", "tmxr", "tmnr", "stpr", "icr", "ndr", "ifr", "itr", 
-		 *           "idr", "xcapr", "ipi", "nbi", "anmxi", "anmni", "rci", "xci", "ebasi", "tri", 
-		 *           "tapi", "tmxi", "tmni", "stpi", "ici", "ndi", "ifi", "iti", "idi", "xcapi"],  
+		 *           "dcvmin", "cccitmx", "cccacc", 
+		 *           "ipr", "nbr", "anmxr", "anmnr", "rcr", "xcr",  "ebasr", "trr", "tapr", "tmxr", "tmnr", "stpr", "icr", "ndr", "ifr", "itr","idr", "xcapr", 
+		 *           "ipi", "nbi", "anmxi", "anmni", "rci", "xci", "ebasi", "tri", "tapi", "tmxi", "tmni", "stpi", "ici", "ndi", "ifi", "iti", "idi", "xcapi"],  
   
 		 */
+		String[] v30_33 = new String[] {
+				   //  0-----------1-----------2-----------3-----------4
+					  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
+				   //  5           6           7           8           9
+					  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
+				   //  10          11          12          13          14
+					  "CCCITMX", "CCCACC",
+					                         "IPR",      "NBR",      "ALFMX",      // Line-2
+				   //  15          16          17          18          19
+					  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
+				   //  20          21          22          23          24
+					  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
+				   //  25          26          27          28          29
+					  "IFR",     "ITR",      "IDR",      "XCAPR",
+					                                                 "IPI",        // Line-3
+		       	   //  30          31          32          33          34
+					  "NBI",     "GAMMX",    "GAMMN",    "RCI",      "XCI",
+				   //  35          36          37          38          39
+					  "EBASI",   "TRI",      "TAPI",     "TMXI",     "TMNI",
+				   //  40          41          42          43          44
+					  "STPI",    "ICI",      "IFI",      "ITI",      "IDI",
+				   //  45
+					  "XCAPI"};
+		String[] v34 = new String[] {
+				   //  0-----------1-----------2-----------3-----------4
+					  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
+				   //  5           6           7           8           9
+					  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
+				   //  10          11          12          13          14
+					  "CCCITMX", "CCCACC",
+					                         "IPR",      "NBR",      "ALFMX",      // Line-2
+				   //  15          16          17          18          19
+					  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
+				   //  20          21          22          23          24
+					  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
+				   //  25          26          27          28          29
+					  "IFR",     "ITR",      "IDR",      "XCAPR",    "NDR",
+					                                                        // Line-3
+		       	   //  30          31          32          33          34
+					  "IPI",     "NBI",     "GAMMX",    "GAMMN",    "RCI",    
+				   //  35          36          37          38          39
+					  "XCI",    "EBASI",   "TRI",      "TAPI",     "TMXI",    
+				   //  40          41          42          43          44
+					  "TMNI",   "STPI",    "ICI",      "IFI",      "ITI",     
+				   //  45        46      47 
+					  "IDI",   "XCAPI", "NDI"};
+		
+		String[] v35_36 = new String[] {
+				   //  0-----------1-----------2-----------3-----------4
+					  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
+				   //  5           6           7           8           9
+					  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
+				   //  10          11          12          13          14
+					  "CCCITMX", "CCCACC",
+					                         "IPR",      "NBR",      "ALFMX",      // Line-2
+				   //  15          16          17          18          19
+					  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
+				   //  20          21          22          23          24
+					  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
+				   //  25          26          27          28          29
+					  "NDR",      "IFR",     "ITR",      "IDR",      "XCAPR", 
+					                                                       // Line-3
+		       	   //  30          31          32          33          34
+					  "IPI",     "NBI",     "GAMMX",    "GAMMN",    "RCI",      
+				   //  35          36          37          38          39
+					  "XCI",    "EBASI",   "TRI",      "TAPI",     "TMXI",     
+				   //  40          41          42          43          44
+					  "TMNI",   "STPI",    "ICI",      "NDI",        "IFI",     
+				   //  45         46        47      
+					  "ITI",      "IDI",    "XCAPI"};
+		
+		
 		return new String[] {
 		   //  0-----------1-----------2-----------3-----------4
 			  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   

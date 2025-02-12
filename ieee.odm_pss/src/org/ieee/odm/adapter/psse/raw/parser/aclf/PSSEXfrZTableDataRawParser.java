@@ -30,7 +30,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing PSS/E Transformer impedance table data
  * 
  * @author mzhou
  *
@@ -47,7 +47,9 @@ public class PSSEXfrZTableDataRawParser extends BasePSSEDataRawParser {
 		 *       I, T1, F1, T2, F2, T3, F3, ... T11, F11
 		 * 
 		*/
-		return new String[] {
+
+		
+		String[] v29_33 = new  String[] {
 		   //  0----------1----------2----------3----------4
 			  "I",      "T1",      "F1",      "T2",       "F2", 
 		   //  0----------1----------2----------3----------4
@@ -59,6 +61,52 @@ public class PSSEXfrZTableDataRawParser extends BasePSSEDataRawParser {
 		   //  0----------1----------2----------3----------4	  
 			  "F11"           
 		};
+		
+		
+		/* 
+		 * format V34-36
+		 * 
+		 *       I, T1, Re(F1), Im(F1), T2, Re(F2), Im(F2), ..., T6, Re(F6), Im(F6)
+				T7, Re(F7), Im(F7), T8, Re(F8), Im(F8), ..., T12, Re(F12), Im(F12)
+				...
+				...
+				Tn, Re(Fn), Im(Fn), 0.0, 0.0, 0.0
+		 * 
+		*/
+		
+		String[] v34_36 = new  String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",      "T1",      "RE(F1)",    "IM(F1)", "T2",      
+				   //  0----------1----------2----------3----------4
+					  "RE(F2)",   "IM(F2)", "T3",     "RE(F3)",   "IM(F3)",     
+				   //  0----------1----------2----------3----------4
+					  "T4",      "RE(F4)",  "IM(F4)",   "T5",    "RE(F5)",    
+				   //  0----------1----------2----------3----------4	  
+					  "IM(F5)", "T6",      "RE(F6)",  "IM(F6)",  "T7",       
+				   //  0----------1----------2----------3----------4	  
+					  "RE(F7)",  "IM(F7)",   "T8",       "RE(F8)",  "IM(F8)",
+				    //
+					   "T9",    "RE(F9)",  "IM(F9)",   "T10",    "RE(F10)", 
+					//
+					   "IM(F10)", "T11",    "RE(F11)",  "IM(F11)",  "T12",  
+					//
+					   "RE(F12)",  "IM(F12)"
+				};
+		switch(this.version){
+		case PSSE_29:
+		case PSSE_30:
+		case PSSE_31:
+		case PSSE_32:
+		case PSSE_33:
+			return v29_33;
+		case PSSE_34:
+		case PSSE_35:
+		case PSSE_36:
+			return v34_36;
+		default:
+			return v34_36;
+
+   }
 	}
 	
 	@Override public void parseFields(final String lineStr) throws ODMException {

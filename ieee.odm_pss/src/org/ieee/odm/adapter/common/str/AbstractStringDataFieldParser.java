@@ -48,8 +48,12 @@ public abstract class AbstractStringDataFieldParser extends BaseInputLineStringP
 	 */
 	public AbstractStringDataFieldParser() {
 		super();
-		this.setMetadata(getMetadata());
 	}
+	
+	// Separate method for initialization
+    public void initializeMetadata() {
+        this.setMetadata(getMetadata()); // Call after constructor execution
+    }
 	
 	/**
 	 * get input line metadata field definition

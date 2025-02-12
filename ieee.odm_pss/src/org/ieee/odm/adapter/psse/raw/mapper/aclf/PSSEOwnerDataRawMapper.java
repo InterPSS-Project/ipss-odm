@@ -45,7 +45,7 @@ public class PSSEOwnerDataRawMapper extends BasePSSEDataRawMapper{
 		dataParser.parseFields(lineStr);
 		
 		/*
-		 * format : I, 扥WNAME�
+		 * format : I, OWNAME
 		 */
 		
 		int i = this.dataParser.getInt("I");

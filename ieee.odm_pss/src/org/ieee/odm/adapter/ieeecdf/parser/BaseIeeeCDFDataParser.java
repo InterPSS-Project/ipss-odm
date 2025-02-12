@@ -39,10 +39,12 @@ public abstract class BaseIeeeCDFDataParser extends AbstractStringDataFieldParse
 	
 	public BaseIeeeCDFDataParser() {
 		super();
+		initializeMetadata(); 
 	}
 
 	public BaseIeeeCDFDataParser(IEEECDFVersion ver) {
 		super();
 		this.version = ver;
+		initializeMetadata(); 
 	}
 }

@@ -36,6 +36,11 @@ import org.ieee.odm.common.ODMException;
  *
  */
 public class IeeeCDFInterchangeDataParser extends AbstractStringDataFieldParser {
+	public IeeeCDFInterchangeDataParser() {
+	    super();
+		initializeMetadata();
+	}
+	
 	@Override public String[] getMetadata() {
 		return new String[] {
 		   //  0               1              2                   3            4

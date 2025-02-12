@@ -42,7 +42,7 @@ public class DynamicModelLibHelper {
 					"ST5B","ST6B","ST7B", //IEEE2005
 					"REXSY1","REXSYS","SCRX"));
 	
-	private List<String> TurGovList =  Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST");//,,"IEEEG3"
+	private List<String> TurGovList =  Arrays.asList("IEEEG1","IEESGO","TGOV1","GAST","IEEEG3");//,
 	
 	private List<String> UnsupportedTurGovList =new ArrayList<>(
 			Arrays.asList("GGOV1","HYGOV","HYGOV2","IEEEG2","IEEEG3","PIDGOV","WSHYDD","WSHYGP","WSIEG1"));

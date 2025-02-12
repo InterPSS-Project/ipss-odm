@@ -37,6 +37,12 @@ import org.ieee.odm.model.base.ODMModelStringUtil;
  *
  */
 public class IeeeCDFNetDataParser extends AbstractStringDataFieldParser {
+	
+	public IeeeCDFNetDataParser() {
+	    super();
+		initializeMetadata();
+	}
+	
 	@Override public String[] getMetadata() {
 		return new String[] {
 		   //  0          1          2       3        4
