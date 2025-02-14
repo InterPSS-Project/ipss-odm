@@ -29,7 +29,7 @@ public class PSSE_Acsc_raw_only_Test {
 				//"testData/psse/IEEE9Bus/ieee9.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-		acscParser.stdout();
+		//acscParser.stdout();
 	}
 
 }

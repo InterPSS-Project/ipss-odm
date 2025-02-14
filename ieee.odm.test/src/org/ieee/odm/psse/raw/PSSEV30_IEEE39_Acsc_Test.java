@@ -34,7 +34,7 @@ public class PSSEV30_IEEE39_Acsc_Test {
 				"testData/psse/IEEE39Bus/IEEE39bus_v30.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-		acscParser.stdout();
+		//acscParser.stdout();
 		//caseContentInfo
 		assertTrue(acscParser.getStudyCase().getAnalysisCategory() == AnalysisCategoryEnumType.SHORT_CIRCUIT);
 		

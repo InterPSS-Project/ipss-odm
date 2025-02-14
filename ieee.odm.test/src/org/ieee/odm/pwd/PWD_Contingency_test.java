@@ -22,7 +22,7 @@ public class PWD_Contingency_test {
 			IODMAdapter adapter = ODMObjectFactory.createODMAdapter(ODMFileFormatEnum.PWD_Contingency);
 			assertTrue(adapter.parseInputFile("testdata/pwd/ctg_sample.AUX"));
 			AclfModelParser parser=(AclfModelParser) adapter.getModel();
-			parser.stdout();
+			//parser.stdout();
 			
             
 			//check network data

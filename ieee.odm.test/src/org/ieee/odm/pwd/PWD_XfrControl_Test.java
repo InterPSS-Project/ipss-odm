@@ -64,7 +64,7 @@ public class PWD_XfrControl_Test {
 		IODMAdapter adapter = new PowerWorldAdapter();
 		assertTrue(adapter.parseInputFile("testdata/pwd/SixBus_2WPsXfr.aux"));
 		AclfModelParser parser=(AclfModelParser) adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 
 		//check network data
 		assertTrue(parser.getNet().getBusList().getBus().size()==5);

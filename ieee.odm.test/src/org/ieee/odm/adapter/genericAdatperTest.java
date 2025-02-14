@@ -42,7 +42,7 @@ public class genericAdatperTest {
 	        });
 		  
 		    DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-			dstabParser.stdout();
+			//dstabParser.stdout();
 			//caseContentInfo
 			assertTrue(dstabParser.getStudyCase().getAnalysisCategory() == AnalysisCategoryEnumType.TRANSIENT_STABILITY);
 			

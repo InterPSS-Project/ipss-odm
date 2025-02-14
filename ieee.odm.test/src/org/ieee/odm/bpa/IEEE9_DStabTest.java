@@ -40,7 +40,7 @@ public class IEEE9_DStabTest {
 				               "testdata/bpa/IEEE9-dyn.swi"}));
 		
 		DStabModelParser parser = (DStabModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class IEEE9_DStabTest {
 				               "testdata/bpa/IEEE9-dyn_05162011.swi"}));
 		
 		DStabModelParser parser = (DStabModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 	}
 	//@Test
 	public void testCasewithChinese() throws Exception {
@@ -61,7 +61,7 @@ public class IEEE9_DStabTest {
 				               "testdata/bpa/IEEE9-dyn_cn.swi"}));
 		
 		DStabModelParser parser = (DStabModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 	}
 }
 

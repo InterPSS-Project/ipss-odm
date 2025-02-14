@@ -18,7 +18,7 @@ public class BPA_500kv_NoDC_Test {
 		assertTrue(adapter.parseInputFile("EQ_0907_500KV-NoDC.dat"));//EQ_0907_500KV-N0DC.dat
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 //		String xml=parser.toXmlDoc(false);
 //		FileOutputStream out=new FileOutputStream(new File("500kvNoDC_BPA_ODM_0408.xml"));
 //		out.write(xml.getBytes());

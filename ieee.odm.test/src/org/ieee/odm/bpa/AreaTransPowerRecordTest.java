@@ -14,7 +14,7 @@ public class AreaTransPowerRecordTest {
 		assertTrue(adapter.parseInputFile("testdata/bpa/AreaTransTestData.DAT"));
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 		assertTrue(parser.getNet().getAreaList().getArea().get(0).getName().endsWith("GD"));
 		assertTrue(parser.getNet().getInterchangeList().getInterchange().get(0)
 				.getAreaTransfer().getAmountMW()==2250.0);

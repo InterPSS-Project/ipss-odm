@@ -20,7 +20,7 @@ public class PSSEV30_IEEE9_Aclf_Test {
 		assertTrue(adapter.parseInputFile("testdata/psse/IEEE9Bus/ieee9.raw"));
 		
 		AclfModelParser aclfParser =(AclfModelParser) adapter.getModel();
-		aclfParser.stdout();
+		//aclfParser.stdout();
 	}
 }
 

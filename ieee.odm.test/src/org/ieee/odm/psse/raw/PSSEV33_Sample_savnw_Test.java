@@ -25,7 +25,7 @@ public class PSSEV33_Sample_savnw_Test {
 		assertTrue(adapter.parseInputFile("testdata/psse/v33/PSSE_sample_savnw.raw"));
 	
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		parser.stdout();		
+		//parser.stdout();		
 	}
 
 }

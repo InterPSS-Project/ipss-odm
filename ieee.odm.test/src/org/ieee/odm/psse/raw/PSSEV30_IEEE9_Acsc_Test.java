@@ -33,7 +33,7 @@ public class PSSEV30_IEEE9_Acsc_Test {
 				"testData/psse/IEEE9Bus/ieee9.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
-		acscParser.stdout();
+		//acscParser.stdout();
 		
 		/*
 		 *  <acscBus scCode="Contributing" id="Bus1" areaNumber="1" zoneNumber="1" number="1" offLine="false" name="BUS-1       ">

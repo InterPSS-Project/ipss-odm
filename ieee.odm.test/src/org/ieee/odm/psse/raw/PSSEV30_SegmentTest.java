@@ -50,7 +50,7 @@ public class PSSEV30_SegmentTest {
 		//System.out.println(adapter.getModel());
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 		/*
 		 *  36309, 36703, 36106,'1 ',2,3,1,   0.00000,   0.00000,2,'E FRA 83    ',1,   1,1.0000
             249550,   0.06340,   300.00,    138110,   0.06190,   108.00,    132475,   0.08895,   108.00,1.01533, -36.0962

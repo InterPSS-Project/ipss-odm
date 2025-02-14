@@ -38,7 +38,7 @@ public class BPA_ODMTest {
 		assertTrue(adapter.parseInputFile("testdata/bpa/IEEE9.dat"));
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 	}
 }
 

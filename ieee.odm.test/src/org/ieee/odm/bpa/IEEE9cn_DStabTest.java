@@ -42,6 +42,6 @@ public class IEEE9cn_DStabTest {
 				IODMModelParser.ChineseEncoding));
 		
 		DStabModelParser parser = (DStabModelParser)adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 	}
 }

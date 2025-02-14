@@ -100,7 +100,7 @@ public class PwdAdapterTest {
 		IODMAdapter adapter = new PowerWorldAdapter();
 		assertTrue(adapter.parseInputFile("testdata/pwd/ieee14.aux"));
 		AclfModelParser parser=(AclfModelParser) adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 		
 		//check network data
 		assertTrue(parser.getNet().getBasePower().getValue()==100.0);

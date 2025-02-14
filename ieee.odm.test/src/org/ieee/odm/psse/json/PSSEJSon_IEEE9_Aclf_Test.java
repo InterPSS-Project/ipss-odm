@@ -19,7 +19,7 @@ public class PSSEJSon_IEEE9_Aclf_Test {
 		assertTrue(adapter.parseInputFile("testdata/psse/json/ieee9.rawx"));
 		
 		AclfModelParser aclfParser =(AclfModelParser) adapter.getModel();
-		aclfParser.stdout();
+		//aclfParser.stdout();
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class PSSEJSon_IEEE9_Aclf_Test {
 		assertTrue(adapter.parseInputFile("testdata/psse/json/ieee9_output.rawx"));
 		
 		AclfModelParser aclfParser =(AclfModelParser) adapter.getModel();
-		aclfParser.stdout();
+		//aclfParser.stdout();
 	}
 }
 

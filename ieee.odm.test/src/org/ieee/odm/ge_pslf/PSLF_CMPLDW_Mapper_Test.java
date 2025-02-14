@@ -22,12 +22,6 @@ public class PSLF_CMPLDW_Mapper_Test {
 	        });
 		  
 		    DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-			dstabParser.stdout();
-		    
-			
-	
-		
+			//dstabParser.stdout();
 	}
-	
-
 }

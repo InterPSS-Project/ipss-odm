@@ -19,7 +19,7 @@ public class CustomStringTest {
 		IODMAdapter adapter = new PowerWorldAdapter();
 		assertTrue(adapter.parseInputFile("testdata/pwd/SixBusTestCase.aux"));
 		AclfModelParser parser=(AclfModelParser) adapter.getModel();
-		parser.stdout();
+		//parser.stdout();
 		//LOAD
 		/*
 		 * DATA (LOAD, [CustomString,BusNum,LoadID,LoadStatus,LoadSMW,LoadSMVR,CustomString:1,

@@ -35,7 +35,7 @@ public class PSSEV30_Dyn_Load_Test {
 				"testData/psse/IEEE9Bus/ieee9_dyn_Load_ACMotor.dyr"
 		}));
 		DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-		dstabParser.stdout();
+		//dstabParser.stdout();
 		
 		DStabBusXmlType bus5 = dstabParser.getDStabBus("Bus5");
 		
@@ -46,9 +46,6 @@ public class PSSEV30_Dyn_Load_Test {
 			}
 		}
 		
-		
-	
-	
 	}
 	
 	@Test
@@ -106,7 +103,7 @@ public class PSSEV30_Dyn_Load_Test {
 				"testData/psse/IEEE9Bus/ieee9_dyn_Load_CMLD.dyr"
 		}));
 		DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-		dstabParser.stdout();
+		//dstabParser.stdout();
 		
 		DStabBusXmlType bus5 = dstabParser.getDStabBus("Bus5");
 		

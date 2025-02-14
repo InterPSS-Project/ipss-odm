@@ -25,7 +25,7 @@ public class PSSEV33_IEEE9_Test {
 		assertTrue(adapter.parseInputFile("testdata/psse/v33/ieee9_v33.raw"));
 	
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		parser.stdout();		
+		//parser.stdout();		
 	}
 
 }

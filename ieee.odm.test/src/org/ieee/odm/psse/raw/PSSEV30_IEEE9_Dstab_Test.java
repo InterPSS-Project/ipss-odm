@@ -46,7 +46,7 @@ public class PSSEV30_IEEE9_Dstab_Test {
 			"testData/psse/IEEE9Bus/ieee9_dyn_onlyGen.dyr"
 	}));
 	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-	dstabParser.stdout();
+	//dstabParser.stdout();
 	//caseContentInfo
 	assertTrue(dstabParser.getStudyCase().getAnalysisCategory() == AnalysisCategoryEnumType.TRANSIENT_STABILITY);
 	
@@ -225,7 +225,7 @@ public class PSSEV30_IEEE9_Dstab_Test {
     			"testData/psse/IEEE9Bus/ieee9_dyn_fullModel.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-    	dstabParser.stdout();
+    	//dstabParser.stdout();
     	//caseContentInfo
     	assertTrue(dstabParser.getStudyCase().getAnalysisCategory() == AnalysisCategoryEnumType.TRANSIENT_STABILITY);
     	
@@ -466,7 +466,7 @@ public class PSSEV30_IEEE9_Dstab_Test {
     			"testData/psse/IEEE9Bus/ieee9_dyn_fullModel.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-    	dstabParser.stdout();
+    	//dstabParser.stdout();
     	//caseContentInfo
     	assertTrue(dstabParser.getStudyCase().getAnalysisCategory() == AnalysisCategoryEnumType.TRANSIENT_STABILITY);
     	
