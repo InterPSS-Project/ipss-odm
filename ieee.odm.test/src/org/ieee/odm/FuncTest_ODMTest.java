@@ -25,7 +25,7 @@ public class FuncTest_ODMTest {
 		      "  <fromBus idRef=\"Bus4\"/>" +
 		      "  <toBus idRef=\"Bus7\"/>" +
 		      "    <z re=\"0.0\" im=\"0.20912\" unit=\"PU\"/>" +
-		      "    <fromTurnRatio value=\"0.978\" unit=\"PU\"/ssss>" +
+		      "    <fromTurnRatio value=\"0.978\" unit=\"PU\"/>" +
 		      "    <toTurnRatio value=\"1.0\" unit=\"PU\"/>" +
 		      "    <xfrInfo>" +
 		      "      <fromRatedVoltage value=\"132.0\" unit=\"KV\"/>" +
