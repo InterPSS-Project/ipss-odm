@@ -67,14 +67,14 @@ public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
 		int i = dataParser.getInt("I");
 		int j = dataParser.getInt("J");
 		
-		/* starting from V32
+		/* starting from V31
 		 * MET	Metered end flag;
 			<=1 to designate bus I as the metered end 
 			=>2 to designate bus J as the metered end.
 				MET = 1 by default.
 		 */
 		boolean fromMetered = true;
-		if (PSSERawAdapter.getVersionNo(this.version) >= 32) {
+		if (PSSERawAdapter.getVersionNo(this.version) >= 31) {
 			int met = dataParser.getInt("MET", 1);
 			if (met >= 2)
 				fromMetered = false;

@@ -273,7 +273,7 @@ public class BPADynamicSequenceRecord {
 						xd1=claGen.getXd1();
 						tq01=0.0;  //TODO Why the tq01 in classic model is equal to 0.0?		
 					}
-					//TODO b= X¡±d/X¡¯d , b can be set in the CASE card,the default value is 0.65 .
+					//TODO b= Xï¿½ï¿½d/Xï¿½ï¿½d , b can be set in the CASE card,the default value is 0.65 .
 					//so how can we get the b value from the CASE card?
 					//non-salient pole machine
 					if(tq01!=0.0){
@@ -300,7 +300,7 @@ public class BPADynamicSequenceRecord {
 			if(bus.getLoadData()!=null){
 				DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
 				if(load!=null){
-					//TODO ÕâÀï½«¸ººÉ¸ºÐòµ¼ÄÉµÈÐ§³É¶ÔµØÖ§Â·¸ºÐò×è¿¹£¬µ«½Úµã±¾ÉíµÄ²¢Áª½ÓµØÖ§Â·µÄ¸ºÐò²ÎÊýÄØ£¿
+					//TODO ï¿½ï¿½ï¿½ï½«ï¿½ï¿½ï¿½É¸ï¿½ï¿½ï¿½ï¿½Éµï¿½Ð§ï¿½É¶Ôµï¿½Ö§Â·ï¿½ï¿½ï¿½ï¿½ï¿½è¿¹ï¿½ï¿½ï¿½ï¿½ï¿½Úµã±¾ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½Óµï¿½Ö§Â·ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½
 					//hard coded values
 					//ScSimpleBusXmlType.ScShuntLoadData scsld = odmObjFactory.createScSimpleBusXmlTypeScShuntLoadData();
 

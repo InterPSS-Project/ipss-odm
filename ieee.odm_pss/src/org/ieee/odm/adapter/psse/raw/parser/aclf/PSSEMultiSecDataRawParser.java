@@ -68,13 +68,30 @@ public class PSSEMultiSecDataRawParser extends BasePSSEDataRawParser {
 			MET = 1 by default.
 		
 		 */
-		return new String[] {
-		   //  0----------1----------2----------3----------4
-			  "I",       "J",       "ID",               "DUM1",    
-			                                  "MET",				// V32,V33 only
-			  "DUM2",    "DUM3",    "DUM4",   "DUM5",   "DUM6",   
-			  "DUM7",    "DUM8",    "DUM9"
+		String [] v29_30 = new String[] {
+				   //  0----------1----------2----------3----------4
+				  "I",       "J",       "ID",               "DUM1",    
+				  "DUM2",    "DUM3",    "DUM4",   "DUM5",   "DUM6",   
+				  "DUM7",    "DUM8",    "DUM9"
 		};
+		
+		String [] v31_36 =new String[] {
+				   //  0----------1----------2----------3----------4
+					  "I",       "J",       "ID",               "DUM1",    
+					                                  "MET",				// V32 or newer only
+					  "DUM2",    "DUM3",    "DUM4",   "DUM5",   "DUM6",   
+					  "DUM7",    "DUM8",    "DUM9"
+				};
+	   
+		switch(this.version){
+		case PSSE_29:
+		case PSSE_30:
+			return v29_30;
+		default:
+			return v31_36;
+	
+		}
+
 	}
 	
 	@Override public void parseFields(final String lineStr) throws ODMException {

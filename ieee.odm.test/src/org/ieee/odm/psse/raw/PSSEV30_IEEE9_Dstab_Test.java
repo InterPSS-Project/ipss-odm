@@ -41,9 +41,9 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	
 	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-			"testData/psse/IEEE9Bus/ieee9.raw",
-			"testData/psse/IEEE9Bus/ieee9.seq",
-			"testData/psse/IEEE9Bus/ieee9_dyn_onlyGen.dyr"
+			"testData/psse/v30/IEEE9Bus/ieee9.raw",
+			"testData/psse/v30/IEEE9Bus/ieee9.seq",
+			"testData/psse/v30/IEEE9Bus/ieee9_dyn_onlyGen.dyr"
 	}));
 	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 	//dstabParser.stdout();
@@ -220,9 +220,9 @@ public class PSSEV30_IEEE9_Dstab_Test {
     	
     	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
     	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-    			"testData/psse/IEEE9Bus/ieee9.raw",
-    			"testData/psse/IEEE9Bus/ieee9.seq",
-    			"testData/psse/IEEE9Bus/ieee9_dyn_fullModel.dyr"
+    			"testData/psse/v30/IEEE9Bus/ieee9.raw",
+    			"testData/psse/v30/IEEE9Bus/ieee9.seq",
+    			"testData/psse/v30/IEEE9Bus/ieee9_dyn_fullModel.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
     	//dstabParser.stdout();
@@ -391,9 +391,9 @@ public class PSSEV30_IEEE9_Dstab_Test {
     	
     	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
     	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-    			"testData/psse/IEEE9Bus/ieee9.raw",
-    			"testData/psse/IEEE9Bus/ieee9.seq",
-    			"testData/psse/IEEE9Bus/ieee9_dyn_fullModel_relay.dyr"
+    			"testData/psse/v30/IEEE9Bus/ieee9.raw",
+    			"testData/psse/v30/IEEE9Bus/ieee9.seq",
+    			"testData/psse/v30/IEEE9Bus/ieee9_dyn_fullModel_relay.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
     	//dstabParser.stdout();
@@ -462,8 +462,8 @@ public class PSSEV30_IEEE9_Dstab_Test {
     	
     	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
     	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-    			"testData/psse/IEEE9Bus/ieee9.raw",
-    			"testData/psse/IEEE9Bus/ieee9_dyn_fullModel.dyr"
+    			"testData/psse/v30/IEEE9Bus/ieee9.raw",
+    			"testData/psse/v30/IEEE9Bus/ieee9_dyn_fullModel.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
     	//dstabParser.stdout();

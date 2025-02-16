@@ -59,7 +59,7 @@ public class PSSEInterAreaTransferDataRawMapper extends BasePSSEDataRawMapper{
 					size level; see Table P-1).
 			TRID Single-character (0 through 9 or A through Z) upper case interarea transfer identifier
 					used to distinguish among multiple transfers between areas ARFROM and
-					ARTO. TRID = „1¤7by default.
+					ARTO. TRID = ï¿½1ï¿½7by default.
 			PTRAN MW comprising this transfer. A positive PTRAN indicates that area ARFROM is
 					selling to area ARTO. PTRAN = 0.0 by default.
 					

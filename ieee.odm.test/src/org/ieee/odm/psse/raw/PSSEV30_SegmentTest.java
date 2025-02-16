@@ -46,7 +46,7 @@ public class PSSEV30_SegmentTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testData/psse/PSSE30_SegTest.raw"));
+		assertTrue(adapter.parseInputFile("testData/psse/v30/PSSE30_SegTest.raw"));
 		//System.out.println(adapter.getModel());
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();

@@ -328,9 +328,9 @@ public class BPADynamicFaultOperationRecord {
 			strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
 			strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
 			strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,17, 17).trim();
-			//omit these two BPA data£º
-			//32 MOTOR£¬ÌîÐ´×Ö·ûM£¬±íÊ¾ÇÐ³ýÂí´ï£»·ñÔò£¬±íÊ¾ÇÐ³ý·¢µç»ú 
-			//34 ILE£¬Èç¹ûÒªÇÐ³ýÅäµçÍøÖ§Â·µÄ¾²Ì¬¸ººÉ£¬ÌîÐ´LE¿¨¶ÔÓ¦µÄÖ§Â·ºÅ 
+			//omit these two BPA dataï¿½ï¿½
+			//32 MOTORï¿½ï¿½ï¿½ï¿½Ð´ï¿½Ö·ï¿½Mï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ð³ï¿½ï¿½ï¿½ï£»ï¿½ï¿½ï¿½ò£¬±ï¿½Ê¾ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+			//34 ILEï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Â·ï¿½Ä¾ï¿½Ì¬ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½Ð´LEï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ö§Â·ï¿½ï¿½ 
 			strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,37, 37).trim();
 			strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
 			strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,46, 50).trim();

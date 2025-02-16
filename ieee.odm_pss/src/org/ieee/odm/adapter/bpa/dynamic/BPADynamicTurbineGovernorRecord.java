@@ -284,8 +284,8 @@ public class BPADynamicTurbineGovernorRecord {
     		double LoadForwardSwitch=ODMModelStringUtil.getDouble(strAry[15], 2.0);
     		regGi.setLoadForwardSwitchOff(LoadForwardSwitch==1.0?false:true);
     		
-    		//Ò»´Îµ÷Æµ¸ººÉÉÏÏÞ 
-    		//Ò»´Îµ÷Æµ¸ººÉÏÂÏÞ 
+    		//Ò»ï¿½Îµï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+    		//Ò»ï¿½Îµï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
     	}
     	else if(strAry[0].equals("GI+")){
     		SpeedGovBPARegGIModelXmlType regGi = ((SpeedGovBPAGiGaCombinedXmlType)dynGen.getGovernor().getValue().getSpeedGov().getValue()).getRegulator();

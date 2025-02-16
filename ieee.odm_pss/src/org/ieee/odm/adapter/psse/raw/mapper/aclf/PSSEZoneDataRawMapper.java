@@ -45,7 +45,7 @@ public class PSSEZoneDataRawMapper extends BasePSSEDataRawMapper{
 		dataParser.parseFields(lineStr);
 		
 		/*
-		 * Format: I, ’ZONAME„1¤7
+		 * Format: I, ï¿½ZONAMEï¿½1ï¿½7
 		 */
 		int	i = this.dataParser.getInt("I");
 		String name = this.dataParser.getValue("ZONAME");

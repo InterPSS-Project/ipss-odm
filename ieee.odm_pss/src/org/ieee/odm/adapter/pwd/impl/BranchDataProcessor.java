@@ -287,7 +287,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 				closed=getValue("LineStatus").equalsIgnoreCase("Closed")?true:false;
 			    
 			// LineR:1, LineX:1, LineG:1, LineC:1, XFStep:1, XFTapMax:1, XFTapMin:1, LineTap:1
-			//TODO The suffix of ¡°£º1¡± is used for Transformer definition,means those data values are based on transformer MVA base 
+			//TODO The suffix of ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ is used for Transformer definition,means those data values are based on transformer MVA base 
 			   
 			r=exist("LineR")?getDouble("LineR"):0;
 			if(exist("LineR:1"))r=getDouble("LineR:1");

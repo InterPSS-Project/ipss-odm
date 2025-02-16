@@ -137,23 +137,7 @@ public class PSSELoadDataRawParser extends BasePSSEDataRawParser {
 	
 	}
 	
-//	@Override public void parseFields(final String str) throws ODMException {
-//		this.clearNVPairTableData();
-//		
-//  		StringTokenizer st = new StringTokenizer(str, ",");
-//		for (int i = 0; i < 12; i++)
-//			if(i==1){//load Id, need to trim the quote
-//				setValue(i,ODMModelStringUtil.trimQuote(st.nextToken()).trim());
-//			}
-//			else
-//			setValue(i, st.nextToken().trim());
-//		
-//		setValue(12, "1");
-//		if (PSSERawAdapter.getVersionNo(this.version) >= 32)
-//			setValue(12, st.nextToken().trim());		
-//
-//		setValue(12, "0");
-//		if (PSSERawAdapter.getVersionNo(this.version) >= 33)
-//			setValue(13, st.nextToken().trim());		
-//	}
+	@Override public void parseFields(final String str) throws ODMException {
+		super.parseFields(str);	
+	}
 }

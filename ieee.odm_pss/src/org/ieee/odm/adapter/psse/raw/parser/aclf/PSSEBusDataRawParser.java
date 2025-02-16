@@ -113,6 +113,10 @@ public class PSSEBusDataRawParser extends BasePSSEDataRawParser {
 		
 	}
 	
+	@Override public void parseFields(final String lineStr) throws ODMException {
+		super.parseFields(lineStr);
+	}
+	
 	/*
 	@Override public void parseFields(final String lineStr) throws ODMException {
 		this.clearNVPairTableData();

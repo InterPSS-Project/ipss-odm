@@ -31,8 +31,8 @@ public class PSSEV30_Dyn_Load_Test {
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-				"testData/psse/IEEE9Bus/ieee9.raw",
-				"testData/psse/IEEE9Bus/ieee9_dyn_Load_ACMotor.dyr"
+				"testData/psse/v30/IEEE9Bus/ieee9.raw",
+				"testData/psse/v30/IEEE9Bus/ieee9_dyn_Load_ACMotor.dyr"
 		}));
 		DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 		//dstabParser.stdout();
@@ -99,8 +99,8 @@ public class PSSEV30_Dyn_Load_Test {
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-				"testData/psse/IEEE9Bus/ieee9.raw",
-				"testData/psse/IEEE9Bus/ieee9_dyn_Load_CMLD.dyr"
+				"testData/psse/v30/IEEE9Bus/ieee9.raw",
+				"testData/psse/v30/IEEE9Bus/ieee9_dyn_Load_CMLD.dyr"
 		}));
 		DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 		//dstabParser.stdout();

@@ -32,11 +32,11 @@ import org.ieee.odm.schema.TransformerInfoXmlType;
 import org.ieee.odm.schema.VoltageAdjustmentDataXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XformerZTableXmlType;
-import org.ieee.odm.schema.XformerZTableXmlType.XformerZTableItem;
-import org.ieee.odm.schema.XformerZTableXmlType.XformerZTableItem.Lookup;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.ieee.odm.schema.XformerZTableXmlType.XformerZTableItem;
+import org.ieee.odm.schema.XformerZTableXmlType.XformerZTableItem.Lookup;
 
 /**
  * Transformer control data processor. It assumes that the basic load flow 
@@ -185,7 +185,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 				closed=getValue("LineStatus").equalsIgnoreCase("Closed")?true:false;
 			    
 			// LineR:1, LineX:1, LineG:1, LineC:1, XFStep:1, XFTapMax:1, XFTapMin:1, LineTap:1
-			//TODO The suffix of ¡°£º1¡± is used for Transformer definition,means those data values are based on transformer MVA base 
+			//TODO The suffix of ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ is used for Transformer definition,means those data values are based on transformer MVA base 
 			   
 		    r=exist("LineR")?getDouble("LineR"):0;
 			if(exist("LineR:1"))r=getDouble("LineR:1");

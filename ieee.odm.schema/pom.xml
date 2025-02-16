@@ -14,13 +14,44 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-  <dependencies>
- 	<dependency>
-	    <groupId>javax.xml.bind</groupId>
-	    <artifactId>jaxb-api</artifactId>
-	    <version>2.3.1</version>
-	</dependency> 
-  </dependencies>
+	<dependencies>
+	    <!-- JAXB API -->
+	    <dependency>
+	        <groupId>javax.xml.bind</groupId>
+	        <artifactId>jaxb-api</artifactId>
+	        <version>2.3.1</version>
+	    </dependency>
+	
+	    <!-- JAXB Runtime (for runtime execution) -->
+	    <dependency>
+	        <groupId>org.glassfish.jaxb</groupId>
+	        <artifactId>jaxb-runtime</artifactId>
+	        <version>2.3.1</version>
+	    </dependency>
+	
+	    <!-- JAXB Core -->
+	    <dependency>
+	        <groupId>com.sun.xml.bind</groupId>
+	        <artifactId>jaxb-core</artifactId>
+	        <version>2.3.0</version>
+	    </dependency>
+	
+	    <!-- JAXB Implementation -->
+	    <dependency>
+	        <groupId>com.sun.xml.bind</groupId>
+	        <artifactId>jaxb-impl</artifactId>
+	        <version>2.3.1</version>
+	    </dependency>
+	
+	    <!-- XJC Compiler -->
+	    <dependency>
+	        <groupId>org.glassfish.jaxb</groupId>
+	        <artifactId>jaxb-xjc</artifactId>
+	        <version>2.3.1</version>
+	    </dependency>
+	</dependencies>
+
+
 
   <build>
     <plugins>

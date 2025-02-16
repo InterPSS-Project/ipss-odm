@@ -67,32 +67,21 @@ public abstract class BasePSSEDataRawParser extends AbstractStringDataFieldParse
 		
 		this.clearNVPairTableData();
 		
-		
-		 List<Object> dataList = new ArrayList<>();
-         boolean insideQuotes = false;
-         StringBuilder field = new StringBuilder();
-         List<String> splitData = new ArrayList<>();
+         
          
          int expectedFieldCount = getMetadata().length;
+         
+         // replace the following code with a uniform processing method parseLineStr(final String str, int startingIdx, int expectedFieldCount)
+ /*        
+         String[] splitData;
          String tempStr = str;
          if (str.contains("/")) { // remove comments after "/"
         	 tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
 	       }
 
-         for (char c : tempStr.toCharArray()) {
-             if (c == '\'') {
-                 insideQuotes = !insideQuotes;
-                 field.append(c);
-             } else if (c == ',' && !insideQuotes) {
-                 splitData.add(field.toString());
-                 field.setLength(0);
-             } else {
-                 field.append(c);
-             }
-         }
-         splitData.add(field.toString().trim()); // the last field
+         splitData = tempStr.split(",");
          
-
+         
            int idx = 0;
            for (String data : splitData) {
                data = data.trim();
@@ -108,6 +97,38 @@ public abstract class BasePSSEDataRawParser extends AbstractStringDataFieldParse
            while (idx < expectedFieldCount) {
                //dataList.add(null);
                setValue(idx, "");
+               idx++;
+           }
+           */
+         
+         parseLineStr(str, 0, expectedFieldCount); 
+	}
+	
+	public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {
+	     String[] splitData;
+
+         String tempStr = str;
+         if (str.contains("/")) { // remove comments after "/"
+        	 tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+	       }
+
+         splitData = tempStr.split(",");
+        
+           int idx = 0;
+           for (String data : splitData) {
+               data = data.trim();
+               if (data.contains("\'")) {
+            	   setValue(startingIdx+idx, (data.replace("'", "").trim()));
+               }
+               else {
+            	   setValue(startingIdx+idx, data);
+               }
+               idx++;
+           }
+           // fill in missing data with the default values 
+           while (idx < expectedFieldCount) {
+
+               setValue(startingIdx+idx, "");
                idx++;
            }
 	}

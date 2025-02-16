@@ -666,4 +666,12 @@
 		</ns:restriction>
 	</ns:simpleType>
 	
+
+    <ns:simpleType name="SwitchingDeviceEnumType">
+    	<ns:restriction base="ns:string">
+			<ns:enumeration value="Connector"></ns:enumeration>
+			<ns:enumeration value="CircuitBeaker"></ns:enumeration>
+			<ns:enumeration value="DisconnectSwitch"></ns:enumeration>
+		</ns:restriction>
+    </ns:simpleType>
 </ns:schema>

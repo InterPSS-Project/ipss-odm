@@ -53,7 +53,7 @@ public class PSSEV30_ODMTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testdata/psse/PSSE_5Bus_Test.raw"));
+		assertTrue(adapter.parseInputFile("testdata/psse/v30/PSSE_5Bus_Test.raw"));
 		
 //		System.out.println(adapter.getModel().toString());
 		

@@ -24,12 +24,12 @@
 
 package org.ieee.odm.adapter.psse.raw.impl;
 
-import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEAreaDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEBusDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEDcLine2TDataRawMapper;
+import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEFactsDeviceDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEFixedShuntDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEGenDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEHeaderDataRawMapper;
@@ -38,6 +38,7 @@ import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSELineDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSELoadDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEOwnerDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSESwitchedSShuntDataRawMapper;
+import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSESwitchingDeviceDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEVSCHVDC2TDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEXfrDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEXfrZTableDataRawMapper;
@@ -75,6 +76,9 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 	private PSSEDcLine2TDataRawMapper dcLine2TDataMapper = null;
 	private PSSEVSCHVDC2TDataRawMapper vschvdc2TDataMapper = null;
 	
+	private PSSESwitchingDeviceDataRawMapper switchingDeviceDataMapper = null;
+	private PSSEFactsDeviceDataRawMapper  factsDataMapper= null;
+	
 	private 	boolean headerProcessed = false;
 	private 	boolean busProcessed = false;
 	private 	boolean loadProcessed = false;
@@ -93,13 +97,20 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 	private 	boolean interareaTransferProcessed = false;
 	private 	boolean ownerProcessed = false;
 	private 	boolean factsProcessed = false;
-	private 	boolean gneDeviceProcessed = false;     // introduced in V33
-	private 	boolean indMotorProcessed = false;      // introduced in V33
+	
+	private 	boolean switchingDeviceProcessed = false; // introduced in V34
+	private 	boolean gneDeviceProcessed = false;     // introduced in V34
+	private 	boolean indMotorProcessed = false;      // introduced in V34
+	private 	boolean substationProcessed = false;      // introduced in V34
+
+	private 	boolean voltDroopCtrlProcessed = false;      // introduced in V36
+	private 	boolean switchingDeviceRatingProcessed = false; // introduced in V36
 		
-	private 	int busCnt = 0, loadCnt = 0, fxiedShuntCnt = 0, genCnt = 0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
+	private 	int busCnt = 0, loadCnt = 0, fixedShuntCnt = 0, voltDroopCnt=0, genCnt = 0, 
+			switchingDeviceRatingCnt =0, lineCnt = 0, xfrCnt = 0, xfr3WCnt = 0, xfrZTableCnt = 0,
 		    areaInterCnt = 0, dcLineCnt = 0, vscDcLineCnt = 0, mtDcLineCnt = 0, factsCnt = 0,
 		    switchedShuntCnt = 0, ownerCnt = 0, interTransCnt = 0, zoneCnt = 0, multiSecCnt = 0,
-		    gneDeviceCnt = 0, indMotorCnt = 0;	
+		    gneDeviceCnt = 0, indMotorCnt = 0, switchingDeviceCnt=0;	
 	
 	public PSSELFRawAdapter(PsseVersion ver) {
 		super(ver);
@@ -119,6 +130,9 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 		this.xfrDataMapper = new PSSEXfrDataRawMapper(ver);
 		this.dcLine2TDataMapper = new PSSEDcLine2TDataRawMapper(ver);
 		this.vschvdc2TDataMapper = new PSSEVSCHVDC2TDataRawMapper(ver);
+		
+		this.switchingDeviceDataMapper = new PSSESwitchingDeviceDataRawMapper(ver);
+		this.factsDataMapper = new PSSEFactsDeviceDataRawMapper(ver);
 	}
 	
     /**
@@ -162,14 +176,11 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
       			lineStr = din.readLine();
       			if (lineStr != null) {
       				lineNo++;
-      				if(lineStr.startsWith("//")) { // it is a comment line
+      				if(lineStr.startsWith("//") || lineStr.startsWith("@!")) { // it is a comment line or section field definition line
       					continue;
       				}
       				if (!headerProcessed) {
-  						String lineStr2 = din.readLine(); lineNo++;
-  						String lineStr3 = din.readLine(); lineNo++;
-						this.headerDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
-  						headerProcessed = true;
+      					processHeaderLineStr(lineStr, din, lineNo);
       				}
       				else if (!busProcessed) {
       					processBusLineStr(lineStr);	 
@@ -177,14 +188,23 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
       				else if (!loadProcessed) {
       					processLoadLineStr(lineStr);	 
       				}
-      				else if (!fixedShuntProcessed && PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 31) {
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 31 && !fixedShuntProcessed) {
       					processFixedShuntLineStr(lineStr);		 
-      				}      				
+      				}
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 36 && !voltDroopCtrlProcessed) {
+      					processVoltDroopCtrlLineStr(lineStr);		 
+      				}
       				else if (!genProcessed) {
       					processGenLineStr(lineStr);		 
       				}
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion)>=36  && !switchingDeviceRatingProcessed) {
+      					processSwitchingDeviceRatingSetLineStr(lineStr);
+      				}
       				else if (!lineProcessed) {
       					processBranchLineStr(lineStr);		 
+      				}
+      				else if(PSSERawAdapter.getVersionNo(this.adptrtVersion)>33  && !switchingDeviceProcessed) {
+      					processSwitchingDeviceLineStr(lineStr);
       				}
       				else if (!xfrProcessed) {
       					if (!isEndRecLine(lineStr)) {
@@ -207,9 +227,11 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
       						lineNo = lineNo + 2;
       					processVscHvdcLineStr(lineStr, din);	 
       				}
-      				else if (!switchedShuntProcessed && PSSERawAdapter.getVersionNo(this.adptrtVersion) <= 30) {
-      					processSwitchedShuntLineStr(lineStr);	 
-      				}
+      				
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) <= 30 && !switchedShuntProcessed) {
+      					processSwitchedShuntLineStr(lineStr); 
+     				}
+      	
       				else if (!xfrZCorrectionProcessed) {
       					processXfrZCorrLineStr(lineStr);	 
       				}
@@ -231,26 +253,56 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
       				else if (!factsProcessed) {
       					processFACTSLineStr(lineStr);	 
       				}
-      				else if (!switchedShuntProcessed && PSSERawAdapter.getVersionNo(this.adptrtVersion) > 30) {
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 31 && !switchedShuntProcessed) {
       					processSwitchedShuntLineStr(lineStr); 
      				}
       				
-      				else if (!gneDeviceProcessed && PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 33) {
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 33 && !gneDeviceProcessed) {
       					processGNELineStr(lineStr);	 
      				}      
-      				else if (!indMotorProcessed && PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 33) {
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 33 && !indMotorProcessed) {
       					processIndMotorLineStr(lineStr);	 
      				}      				
       			}
     		} while (lineStr != null);
   		} catch (Exception e) {
-    		throw new ODMException("PSSE power flow data input error, line # " + lineNo + ", " + e.toString());
+    		throw new ODMException("PSSE power flow data input error, line # " + lineNo + ", Line Str = "+lineStr +"error:"+ e.toString());
   		}
              
 		//AclfParserHelper.createBusEquivData(parser);
   		
    	   	return parser;
 	}
+	
+	private void processHeaderLineStr(String lineStr, final IFileReader din, int lineNo) throws ODMException {
+		
+			String lineStr2 = din.readLine(); lineNo++;
+			String lineStr3 = din.readLine(); lineNo++;
+			this.headerDataMapper.procLineString(new String[] {lineStr, lineStr2, lineStr3}, getParser());
+			
+			//for version 34 and newer, there are additional system level data
+			if(PSSERawAdapter.getVersionNo(this.adptrtVersion)>33) {
+				processSystemDataStr(lineStr, din, lineNo);
+			}
+			else
+				headerProcessed = true;
+					
+	}
+	
+	private void processSystemDataStr(String lineStr, final IFileReader din, int lineNo) throws ODMException {
+		
+			while(!headerProcessed) {
+				String line= din.readLine();
+				if (isEndRecLine(line)) {
+					assert line.toUpperCase().contains("END OF SYSTEM-WIDE DATA"); 
+					headerProcessed = true;
+					 ODMLogger.getLogger().info("PSS/E System record processed");
+				}
+				lineNo++;
+			}
+		
+}
+	
 	
 	private void processBusLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
@@ -278,6 +330,19 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 		}
 	}
 	
+	private void processVoltDroopCtrlLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF VOLTAGE DROOP CONTROL DATA"); 
+			voltDroopCtrlProcessed = true;
+			ODMLogger.getLogger().info("PSS/E voltage droop control record processed");
+			this.elemCntStr += "Voltage droop control record " + voltDroopCnt +"\n";
+		}
+		else {
+			//genDataMapper.procLineString(lineStr, getParser());
+			voltDroopCnt++;
+		}
+	}
+	
 	private void processGenLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
 			assert lineStr.toUpperCase().contains("END OF GENERATOR DATA"); 
@@ -291,22 +356,35 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 		}
 	}
 	
+	private void processSwitchingDeviceRatingSetLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF SWITCHING DEVICE RATING SET"); 
+			switchingDeviceRatingProcessed = true;
+			ODMLogger.getLogger().info("PSS/E switching device rating set record processed");
+			this.elemCntStr += "Switching device rating set record " + switchingDeviceRatingCnt +"\n";
+		}
+		else {
+			//genDataMapper.procLineString(lineStr, getParser());
+			switchingDeviceRatingCnt++;
+		}
+	}
+	
 	private void processFixedShuntLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
 			assert lineStr.toUpperCase().contains("END OF FIXED SHUNT DATA"); 
 			fixedShuntProcessed = true;
 			 ODMLogger.getLogger().info("PSS/E Fixed Shunt record processed");
-			 this.elemCntStr += "Load record " + loadCnt +"\n";
+			 this.elemCntStr += "Fixed shunt record " + fixedShuntCnt +"\n";
 		}
 		else {
 			fixedShuntDataMapper.procLineString(lineStr, getParser());
-			fxiedShuntCnt++;
+			fixedShuntCnt++;
 		}
 	}
 	
 	private void processBranchLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("BRANCH DATA"); 
+			assert (lineStr.toUpperCase().contains("END") && lineStr.toUpperCase().contains("BRANCH")); 
 			lineProcessed = true;
 			ODMLogger.getLogger().info("PSS/E Line record processed");
 			this.elemCntStr += "Line record " + lineCnt +"\n";
@@ -316,6 +394,20 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 			lineCnt++;
 		}
 	}
+	
+	private void processSwitchingDeviceLineStr(String lineStr) throws ODMException {
+		if (isEndRecLine(lineStr)) {
+			assert lineStr.toUpperCase().contains("END OF SYSTEM SWITCHING"); 
+			switchingDeviceProcessed = true;
+			ODMLogger.getLogger().info("PSS/E system switching device record processed");
+			this.elemCntStr += "System Switching Device record " + switchingDeviceCnt +"\n";
+		}
+		else {
+			switchingDeviceDataMapper.procLineString(lineStr, getParser());
+			switchingDeviceCnt++;
+		}
+	}
+	
 
 	private void processXfrLineStr(String lineStr, final IFileReader din) throws ODMException, ODMBranchDuplicationException {
 		if (isEndRecLine(lineStr)) {
@@ -342,7 +434,7 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 	
 	private void processAreaLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("AREA"); 
+			assert lineStr.toUpperCase().contains("END OF AREA"); 
 			areaInterProcessed = true;
 			ODMLogger.getLogger().info("PSS/E AreaInterchange record processed");
 			this.elemCntStr += "Area interchange record " + areaInterCnt +"\n";
@@ -381,7 +473,7 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 	
 	private void process2THvdcLineStr(String lineStr, final IFileReader din) throws ODMException, ODMBranchDuplicationException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("TWO-TERMINAL"); 
+			assert lineStr.toUpperCase().contains("END OF TWO-TERMINAL"); 
 			dcLine2TProcessed = true;
 			ODMLogger.getLogger().info("PSS/E DC line record processed");
 			this.elemCntStr += "2T DC line record " + dcLineCnt +"\n";
@@ -412,7 +504,7 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 
 	private void processMTHvdcLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("MULTI-TERMINAL"); 
+			assert lineStr.toUpperCase().contains("END OF MULTI-TERMINAL"); 
 			dcLineMTProcessed = true;
 			ODMLogger.getLogger().info("PSS/E multi terminal DC Line record processed");
 			this.elemCntStr += "MT DC line record " + mtDcLineCnt +"\n";
@@ -466,7 +558,7 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 	
 	private void processXfrZCorrLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("CORR"); 
+			assert (lineStr.toUpperCase().contains("END") && lineStr.toUpperCase().contains("CORR")); 
 			xfrZCorrectionProcessed = true;
 			ODMLogger.getLogger().info("PSS/E Xfr table record processed");
 			this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
@@ -479,7 +571,7 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
 	
 	private void processInterAreaTransferLineStr(String lineStr) throws ODMException {
 		if (isEndRecLine(lineStr)) {
-			assert lineStr.toUpperCase().contains("INTER-AREA") || lineStr.toUpperCase().contains("INTERAREA"); 
+			assert lineStr.toUpperCase().contains("END OF INTER-AREA") || lineStr.toUpperCase().contains("END OF INTERAREA"); 
 			interareaTransferProcessed = true;
 			ODMLogger.getLogger().info("PSS/E Interarea Transfer record processed");
 			this.elemCntStr += "Interarea transfer record " + interTransCnt +"\n";
