@@ -22,7 +22,7 @@
   *
   */
 
-package org.ieee.odm.psse.raw;
+package org.ieee.odm.psse.raw.v31;
 
 import static org.junit.Assert.assertTrue;
 
