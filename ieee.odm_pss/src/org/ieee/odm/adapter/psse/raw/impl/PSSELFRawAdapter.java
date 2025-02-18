@@ -191,19 +191,19 @@ public class PSSELFRawAdapter extends BasePSSERawAdapter{
       				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 31 && !fixedShuntProcessed) {
       					processFixedShuntLineStr(lineStr);		 
       				}
-      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 36 && !voltDroopCtrlProcessed) {
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 36 && !voltDroopCtrlProcessed) {// available starting at v36
       					processVoltDroopCtrlLineStr(lineStr);		 
       				}
       				else if (!genProcessed) {
       					processGenLineStr(lineStr);		 
       				}
-      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion)>=36  && !switchingDeviceRatingProcessed) {
+      				else if (PSSERawAdapter.getVersionNo(this.adptrtVersion)>=36  && !switchingDeviceRatingProcessed) {// available starting at v36
       					processSwitchingDeviceRatingSetLineStr(lineStr);
       				}
       				else if (!lineProcessed) {
       					processBranchLineStr(lineStr);		 
       				}
-      				else if(PSSERawAdapter.getVersionNo(this.adptrtVersion)>33  && !switchingDeviceProcessed) {
+      				else if(PSSERawAdapter.getVersionNo(this.adptrtVersion)>33  && !switchingDeviceProcessed) { // available starting at v34
       					processSwitchingDeviceLineStr(lineStr);
       				}
       				else if (!xfrProcessed) {

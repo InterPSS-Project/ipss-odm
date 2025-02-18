@@ -563,6 +563,14 @@
     	<ns:attribute name="rating2" type="ns:double"></ns:attribute>
     	<ns:attribute name="rating3" type="ns:double"></ns:attribute>
     	<ns:attribute name="rating4" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating5" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating6" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating7" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating8" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating9" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating10" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating11" type="ns:double"></ns:attribute>
+    	<ns:attribute name="rating12" type="ns:double"></ns:attribute>
     </ns:complexType>
 
 

@@ -27,6 +27,7 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrDataRawParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
@@ -78,13 +79,13 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
                 
         boolean is3WXfr = k != 0; 
         
-        int cod = dataParser.getInt("COD", 0);
+        int cod1 = dataParser.getInt("COD1", 0);
         double ang1 = dataParser.getDouble("ANG1", 0.0);
         double ang2 = dataParser.getDouble("ANG2", 0.0);
         double ang3 = dataParser.getDouble("ANG3", 0.0);
 		boolean isPsXfr = false;
     	if ( (is3WXfr && (ang1 != 0.0 || ang2 != 0.0 || ang3 != 0.0)) ||
-       		 (!is3WXfr && ang1 != 0.0) || cod == 3 || cod == -3) {
+       		 (!is3WXfr && ang1 != 0.0) || cod1 == 3 || cod1 == -3) {
        		isPsXfr = true; // PhaseShifting transformer branch
        	}		
 /*
@@ -367,11 +368,27 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 			branchPsXfr.setFromAngle(BaseDataSetter.createAngleValue(ang1, AngleUnitType.DEG));
     	}
     	
-       	double rata1 = dataParser.getDouble("RATA1");
-       	double ratb1 = dataParser.getDouble("RATB1");
-       	double ratc1 = dataParser.getDouble("RATC1");
+    	
     	branRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
-    	AclfDataSetter.setBranchRatingLimitData(branRecXml.getRatingLimit(), rata1, ratb1, ratc1, ApparentPowerUnitType.MVA);
+    	
+    	if(PSSERawAdapter.getVersionNo(this.version) <34) {
+           	double rata1 = dataParser.getDouble("RATA1",0.0);
+           	double ratb1 = dataParser.getDouble("RATB1",0.0);
+           	double ratc1 = dataParser.getDouble("RATC1",0.0);
+        	
+        	AclfDataSetter.setBranchRatingLimitData(branRecXml.getRatingLimit(), rata1, ratb1, ratc1, ApparentPowerUnitType.MVA);
+		}
+		else if(PSSERawAdapter.getVersionNo(this.version) <37) {
+			double[] ratings = new double[12];
+			for(int idx =0; idx<ratings.length;idx++) {
+				ratings[idx] =  dataParser.getDouble("RATE"+(idx+1)+"1", 0.0);
+			}
+			AclfDataSetter.setBranchRatingLimitData(branRecXml.getRatingLimit(), ratings, ApparentPowerUnitType.MVA);
+		}
+		else {
+			throw new ODMException("The PSSE version is not supported yet:"+this.version);
+		}
+        
 		
 		/*
 		 * The transformer control mode for automatic adjustments of the winding one
@@ -397,7 +414,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       	 */
 	
       	boolean onFromSide = false;
-      	int cont = dataParser.getInt("CONT", 0);
+      	int cont = dataParser.getInt("CONT1", 0);
       	if (cont < 0) {
       		cont = -cont;
       		onFromSide = true;
@@ -427,19 +444,19 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 		NTP1 The number of tap positions available; used when COD1 is 1 or 2. NTP1 must be
 				between 2 and 9999. NTP1 = 33 by default.
       	 */
-      	if (cod > 0) {
-      		double rma = dataParser.getDouble("RMA",1.1);
-      		double rmi = dataParser.getDouble("RMI",0.9);
-      		double vma = dataParser.getDouble("VMA");
-      		double vmi = dataParser.getDouble("VMI");
+      	if (cod1 > 0) {
+      		double rma = dataParser.getDouble("RMA1",1.1);
+      		double rmi = dataParser.getDouble("RMI1",0.9);
+      		double vma = dataParser.getDouble("VMA1");
+      		double vmi = dataParser.getDouble("VMI1");
       		//TODO PsXfr can also adjust the tap
       		//In the Mod_SixBus_2WPsXfr.raw, the phase shift xfr(bus5->bus6) is used to control MVAR
     	    
       		//if (!isPsXfr) {
-      		 if(Math.abs(cod) != 3){
+      		 if(Math.abs(cod1) != 3){
            		TapAdjustmentXmlType tapAdj = OdmObjFactory.createTapAdjustmentXmlType();
            		branRecXml.setTapAdjustment(tapAdj);
-           		tapAdj.setOffLine(cod < 0);
+           		tapAdj.setOffLine(cod1 < 0);
            		// PSS/E control tap is always on the from side
            		tapAdj.setTapAdjOnFromSide(true);
            		// cw=1, RMA, RMI are Off-nominal turns ratio in pu of winding one bus base voltage
@@ -449,14 +466,14 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
            			rmi/=parser.getBus(fid).getBaseVoltage().getValue();
            		}
            		tapAdj.setTapLimit(BaseDataSetter.createTapLimit(rma, rmi));
-           		int ntp = dataParser.getInt("NTP");
+           		int ntp = dataParser.getInt("NTP1");
            		tapAdj.setTapAdjSteps(ntp);
-           		if (Math.abs(cod) == 1) {
+           		if (Math.abs(cod1) == 1) {
            			
                		tapAdj.setAdjustmentType(TapAdjustmentEnumType.VOLTAGE);
                		VoltageAdjustmentDataXmlType vAdjData = OdmObjFactory.createVoltageAdjustmentDataXmlType();
         	    	tapAdj.setVoltageAdjData(vAdjData);
-        	    	//add adjust votlage bus
+        	    	//add adjust voltage bus
         	    	vAdjData.setAdjVoltageBus(parser.createBusRef(reBusId));
         	    	vAdjData.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
         	    	vAdjData.setRange(OdmObjFactory.createLimitXmlType());
@@ -500,8 +517,8 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 						entered in pu on system base quantities; used when COD1 is 1.
 						CR1 + j CX1 = 0.0 by default
       	 */
-      	double cr = dataParser.getDouble("CR", 0.0);
-      	double cx = dataParser.getDouble("CX", 0.0);
+      	double cr = dataParser.getDouble("CR1", 0.0);
+      	double cx = dataParser.getDouble("CX1", 0.0);
       	if (cr != 0.0 || cx != 0.0) {
       		///if (branchRec.getNvPairList() == null)
       		//	branchRec.setNvPairList(odmObjFactory.createNameValuePairListXmlType());
@@ -547,12 +564,29 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
   		branRecXml.setToTurnRatio(BaseDataSetter.createTurnRatioPU(windv2));
 
   		if (is3WXfr) {
-  	       	double rata2 = dataParser.getDouble("RATA2");
-  	       	double ratb2 = dataParser.getDouble("RATB2");
-  	       	double ratc2 = dataParser.getDouble("RATC2");
+  			
+  	      
     		Xfr3WBranchXmlType branch3WXfr = (Xfr3WBranchXmlType)branRecXml; 
     		branch3WXfr.setRatingLimit23(OdmObjFactory.createBranchRatingLimitXmlType());
-       		AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit23(), rata2, ratb2, ratc2, ApparentPowerUnitType.MVA);
+       		
+       		
+       	   	if(PSSERawAdapter.getVersionNo(this.version) <34) {
+	       	  	double rata2 = dataParser.getDouble("RATA2");
+	  	       	double ratb2 = dataParser.getDouble("RATB2");
+	  	       	double ratc2 = dataParser.getDouble("RATC2");
+            	
+	  	      AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit23(), rata2, ratb2, ratc2, ApparentPowerUnitType.MVA);
+    		}
+    		else if(PSSERawAdapter.getVersionNo(this.version) <37) {
+    			double[] ratings = new double[12];
+    			for(int idx =0; idx<ratings.length;idx++) {
+    				ratings[idx] =  dataParser.getDouble("RATE"+(idx+1)+"2", 0.0);
+    			}
+    			AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit23(), ratings, ApparentPowerUnitType.MVA);
+    		}
+    		else {
+    			throw new ODMException("The PSSE version is not supported yet:"+this.version);
+    		}
        	}
        	else if (isPsXfr) {
     		PSXfrBranchXmlType branchPsXfr = (PSXfrBranchXmlType)branRecXml; 
@@ -577,13 +611,33 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       		}
       		*/
           	double windv3 = dataParser.getDouble("WINDV3");
-           	double rata3 = dataParser.getDouble("RATA3");
-           	double ratb3 = dataParser.getDouble("RATB3");
-           	double ratc3 = dataParser.getDouble("RATC3");
+          
     		if(cw==2)windv3 /=parser.getBus(tertId).getBaseVoltage().getValue();
+    		
       		branch3WXfr.setTertTurnRatio(BaseDataSetter.createTurnRatioPU(windv3));
+      		
       		branch3WXfr.setRatingLimit13(OdmObjFactory.createBranchRatingLimitXmlType());
-           	AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit13(), rata3, ratb3, ratc3, ApparentPowerUnitType.MVA);
+           	
+           	
+        	if(PSSERawAdapter.getVersionNo(this.version) <34) {
+        	 	double rata3 = dataParser.getDouble("RATA3");
+               	double ratb3 = dataParser.getDouble("RATB3");
+               	double ratc3 = dataParser.getDouble("RATC3");
+            	
+               	AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit13(), rata3, ratb3, ratc3, ApparentPowerUnitType.MVA);
+    		}
+    		else if(PSSERawAdapter.getVersionNo(this.version) <37) {
+    			double[] ratings = new double[12];
+    			for(int idx =0; idx<ratings.length;idx++) {
+    				ratings[idx] =  dataParser.getDouble("RATE"+(idx+1)+"3", 0.0);
+    			}
+    			AclfDataSetter.setBranchRatingLimitData(branch3WXfr.getRatingLimit13(), ratings, ApparentPowerUnitType.MVA);
+    		}
+    		else {
+    			throw new ODMException("The PSSE version is not supported yet:"+this.version);
+    		}
+           	
+           	
            	if (isPsXfr) {
         		PSXfr3WBranchXmlType branchPsXfr3W = (PSXfr3WBranchXmlType)branRecXml; 
         		branchPsXfr3W.setTertShiftAngle(BaseDataSetter.createAngleValue(ang3, AngleUnitType.DEG));

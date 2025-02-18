@@ -1,0 +1,3031 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pssStudyCase xmlns="http://www.ieee.org/odm/Schema/2008" xmlns:ns2="http://www.interpss.org/Schema/odm/2008" id="ODM_StudyCase">
+    <contentInfo>
+        <originalDataFormat>PSS-E</originalDataFormat>
+        <originalFormatVersion>PSSE_31</originalFormatVersion>
+        <adapterProviderName>www.interpss.org</adapterProviderName>
+        <adapterProviderVersion>1.00</adapterProviderVersion>
+    </contentInfo>
+    <networkCategory>Transmission</networkCategory>
+    <analysisCategory>Loadflow</analysisCategory>
+    <aclfNet id="Base_Case_from_PSS_E_format" name="AclfNet-PSSE-V31">
+        <desc>0,   100.00, 31, 0, 1, 60.00     / PSS(R)E 31 RAW created by rawd31  SUN, FEB 16 2025  17:09</desc>
+        <ownerList id="1" name="OWNER 1" number="1"/>
+        <ownerList id="2" name="OWNER 2" number="2"/>
+        <ownerList id="3" name="OWNER 3" number="3"/>
+        <ownerList id="4" name="OWNER 4" number="4"/>
+        <ownerList id="5" name="OWNER 5" number="5"/>
+        <nvPair>
+            <name>CaseIndicator</name>
+            <value>0</value>
+        </nvPair>
+        <basePower unit="MVA" value="100.0"/>
+        <frequency unit="Hz" value="60.0"/>
+        <busList>
+            <aclfBus id="Bus101" areaNumber="1" zoneNumber="1" number="101" offLine="false" name="NUC-A">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="21.6"/>
+                <voltage unit="PU" value="1.01"/>
+                <angle unit="DEG" value="-16.006"/>
+                <genData code="PV">
+                    <contributeGen id="1" offLine="false" name="Gen:1(101)">
+                        <desc>PSSE Generator 1 at Bus 101</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1289"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.2524"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.1031"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.5156"/>
+                        </ownerList>
+                        <power unit="MVA" re="750.0" im="163.336"/>
+                        <desiredVoltage unit="PU" value="1.01"/>
+                        <qLimit unit="MVAR" max="243.75" min="-37.5"/>
+                        <pLimit unit="MW" max="800.0" min="50.0"/>
+                        <mvaBase unit="MVA" value="900.0"/>
+                        <sourceZ unit="PU" re="0.01" im="0.3"/>
+                        <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus102" areaNumber="1" zoneNumber="1" number="102" offLine="false" name="NUC-B">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="21.6"/>
+                <voltage unit="PU" value="1.01"/>
+                <angle unit="DEG" value="-16.3595"/>
+                <genData code="PV">
+                    <contributeGen id="1" offLine="false" name="Gen:1(102)">
+                        <desc>PSSE Generator 1 at Bus 102</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.3647"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.1838"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.0751"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.3764"/>
+                        </ownerList>
+                        <power unit="MVA" re="650.0" im="150.015"/>
+                        <desiredVoltage unit="PU" value="1.01"/>
+                        <qLimit unit="MVAR" max="406.25" min="-62.5"/>
+                        <pLimit unit="MW" max="700.0" min="33.0"/>
+                        <mvaBase unit="MVA" value="950.0"/>
+                        <sourceZ unit="PU" re="0.0105" im="0.32"/>
+                        <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus151" areaNumber="1" zoneNumber="1" number="151" offLine="false" name="NUCPLNT">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="0.99937"/>
+                <angle unit="DEG" value="-19.1528"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData>
+                    <contributeShuntY id="F1" offLine="false" name="ShuntY:F1(151)">
+                        <desc>PSSE ShuntY F1 at Bus 151</desc>
+                        <y unit="MVAR" re="5.0" im="-400.0"/>
+                    </contributeShuntY>
+                    <contributeShuntY id="F2" offLine="false" name="ShuntY:F2(151)">
+                        <desc>PSSE ShuntY F2 at Bus 151</desc>
+                        <y unit="MVAR" re="3.0" im="-400.0"/>
+                    </contributeShuntY>
+                    <contributeShuntY id="F3" offLine="false" name="ShuntY:F3(151)">
+                        <desc>PSSE ShuntY F3 at Bus 151</desc>
+                        <y unit="MVAR" re="3.12" im="200.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+            </aclfBus>
+            <aclfBus id="Bus152" areaNumber="1" zoneNumber="2" number="152" offLine="false" name="MID500">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.04402"/>
+                <angle unit="DEG" value="-26.9516"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="1" zoneNumber="1" offLine="false" name="Load:1(152)">
+                        <desc>PSSE Load 1 at Bus 152</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="1200.0" im="360.0"/>
+                        <constILoad unit="MVA" re="868.34" im="360.502"/>
+                        <constZLoad unit="MVA" re="837.794" im="351.338"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(152)">
+                        <desc>PSSE ShuntY 1 at Bus 152</desc>
+                        <y unit="MVAR" re="1.63" im="50.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+                <switchedShunt mode="Discrete" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.045" min="0.955"/>
+                    <bInit unit="MVAR" value="-115.0"/>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="-15.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="-5.0"/>
+                    </block>
+                    <block steps="3">
+                        <incrementB unit="MVAR" value="-10.0"/>
+                    </block>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="-8.0"/>
+                    </block>
+                    <block steps="5">
+                        <incrementB unit="MVAR" value="-7.0"/>
+                    </block>
+                    <block steps="6">
+                        <incrementB unit="MVAR" value="-5.0"/>
+                    </block>
+                    <block steps="7">
+                        <incrementB unit="MVAR" value="-7.0"/>
+                    </block>
+                    <block steps="8">
+                        <incrementB unit="MVAR" value="-4.0"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus153" areaNumber="1" zoneNumber="3" number="153" offLine="false" name="MID230">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.05775"/>
+                <angle unit="DEG" value="-28.4654"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="1" zoneNumber="1" offLine="false" name="Load:1(153)">
+                        <desc>PSSE Load 1 at Bus 153</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="300.0" im="150.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus154" areaNumber="1" zoneNumber="3" number="154" offLine="false" name="DOWNTN">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.9932"/>
+                <angle unit="DEG" value="-33.0729"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="1" zoneNumber="1" offLine="false" name="Load:1(154)">
+                        <desc>PSSE Load 1 at Bus 154</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="400.0" im="200.0"/>
+                    </contributeLoad>
+                    <contributeLoad id="2" areaNumber="1" zoneNumber="1" offLine="false" name="Load:2(154)">
+                        <desc>PSSE Load 2 at Bus 154</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="250.0" im="200.0"/>
+                    </contributeLoad>
+                    <contributeLoad id="3" areaNumber="1" zoneNumber="1" offLine="false" name="Load:3(154)">
+                        <desc>PSSE Load 3 at Bus 154</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="250.0" im="100.0"/>
+                    </contributeLoad>
+                    <contributeLoad id="MO" areaNumber="1" zoneNumber="1" offLine="false" name="Load:MO(154)">
+                        <desc>PSSE Load MO at Bus 154</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="100.0" im="80.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(154)">
+                        <desc>PSSE ShuntY 1 at Bus 154</desc>
+                        <y unit="MVAR" re="2.45" im="200.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+                <switchedShunt mode="Discrete" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.0448" min="0.965"/>
+                    <bInit unit="MVAR" value="124.0"/>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="25.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="10.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="15.0"/>
+                    </block>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="15.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="5.0"/>
+                    </block>
+                    <block steps="3">
+                        <incrementB unit="MVAR" value="3.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="4.0"/>
+                    </block>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="7.0"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus155" areaNumber="1" zoneNumber="4" number="155" offLine="false" name="FACTS TE">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.01858"/>
+                <angle unit="DEG" value="-24.2458"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus201" areaNumber="2" zoneNumber="7" number="201" offLine="false" name="HYDRO">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="0.99937"/>
+                <angle unit="DEG" value="-19.1528"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="SC" areaNumber="2" zoneNumber="7" offLine="false" name="Load:SC(201)">
+                        <desc>PSSE Load SC at Bus 201</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(201)">
+                        <desc>PSSE ShuntY 1 at Bus 201</desc>
+                        <y unit="MVAR" re="3.67" im="-500.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+            </aclfBus>
+            <aclfBus id="Bus202" areaNumber="2" zoneNumber="2" number="202" offLine="false" name="EAST500">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.02287"/>
+                <angle unit="DEG" value="-28.2616"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus203" areaNumber="2" zoneNumber="8" number="203" offLine="false" name="EAST230">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-29.4008"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="2" zoneNumber="2" offLine="false" name="Load:1(203)">
+                        <desc>PSSE Load 1 at Bus 203</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="500.0" im="250.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(203)">
+                        <desc>PSSE ShuntY 1 at Bus 203</desc>
+                        <y unit="MVAR" re="-5.0" im="30.0"/>
+                    </contributeShuntY>
+                    <contributeShuntY id="2" offLine="false" name="ShuntY:2(203)">
+                        <desc>PSSE ShuntY 2 at Bus 203</desc>
+                        <y unit="MVAR" re="5.0" im="20.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+            </aclfBus>
+            <aclfBus id="Bus204" areaNumber="2" zoneNumber="8" number="204" offLine="false" name="SUB500">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.03148"/>
+                <angle unit="DEG" value="-31.2793"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus205" areaNumber="2" zoneNumber="8" number="205" offLine="false" name="SUB230">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-33.5567"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="2" zoneNumber="2" offLine="false" name="Load:1(205)">
+                        <desc>PSSE Load 1 at Bus 205</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="1800.0" im="600.0"/>
+                    </contributeLoad>
+                    <contributeLoad id="B" areaNumber="2" zoneNumber="2" offLine="false" name="Load:B(205)">
+                        <desc>PSSE Load B at Bus 205</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="90.0" im="5.0"/>
+                        <constILoad unit="MVA" re="110.0" im="25.0"/>
+                        <constZLoad unit="MVA" re="20.0" im="-10.0"/>
+                    </contributeLoad>
+                    <contributeLoad id="C" areaNumber="2" zoneNumber="2" offLine="false" name="Load:C(205)">
+                        <desc>PSSE Load C at Bus 205</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="60.0" im="15.0"/>
+                        <constILoad unit="MVA" re="45.0" im="5.0"/>
+                        <constZLoad unit="MVA" re="35.0" im="-30.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(205)">
+                        <desc>PSSE ShuntY 1 at Bus 205</desc>
+                        <y unit="MVAR" re="2.78" im="300.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+            </aclfBus>
+            <aclfBus id="Bus206" areaNumber="2" zoneNumber="8" number="206" offLine="false" name="URBGEN">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="18.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-31.1018"/>
+                <genData code="PV">
+                    <contributeGen id="1" offLine="false" name="Gen:1(206)">
+                        <desc>PSSE Generator 1 at Bus 206</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1034"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.4006"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.0825"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.4135"/>
+                        </ownerList>
+                        <power unit="MVA" re="800.0" im="283.913"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <qLimit unit="MVAR" max="600.0" min="0.0"/>
+                        <pLimit unit="MW" max="850.0" min="50.0"/>
+                        <mvaBase unit="MVA" value="1000.0"/>
+                        <sourceZ unit="PU" re="0.0106" im="0.251"/>
+                        <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus207" areaNumber="2" zoneNumber="7" number="207" offLine="false" name="DUPONT">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.0193"/>
+                <angle unit="DEG" value="-25.3665"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus208" areaNumber="2" zoneNumber="8" number="208" offLine="true" name="URBANEAST208">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-31.5246"/>
+                <genData code="OFF"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus209" areaNumber="2" zoneNumber="8" number="209" offLine="true" name="URBANEAST209">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-31.5246"/>
+                <genData code="OFF"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus211" areaNumber="2" zoneNumber="7" number="211" offLine="false" name="HYDRO_G">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="20.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-14.5305"/>
+                <genData code="PV">
+                    <contributeGen id="1" offLine="false" name="Gen:1(211)">
+                        <desc>PSSE Generator 1 at Bus 211</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1423"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.221"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.1842"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.4525"/>
+                        </ownerList>
+                        <power unit="MVA" re="600.0" im="17.304"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <remoteVoltageControlBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus211"/>
+                        <qLimit unit="MVAR" max="583.333" min="-77.778"/>
+                        <pLimit unit="MW" max="616.0" min="30.0"/>
+                        <mvaBase unit="MVA" value="725.0"/>
+                        <sourceZ unit="PU" re="0.0108" im="0.262"/>
+                        <mvarVControlParticipateFactor>1.0</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus212" areaNumber="2" zoneNumber="7" number="212" offLine="false" name="INVERT1">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.02695"/>
+                <angle unit="DEG" value="-31.9331"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(212)">
+                        <desc>PSSE ShuntY 1 at Bus 212</desc>
+                        <y unit="MVAR" re="5.13" im="400.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+            </aclfBus>
+            <aclfBus id="Bus213" areaNumber="2" zoneNumber="7" number="213" offLine="false" name="INVERT2">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.10677"/>
+                <angle unit="DEG" value="-35.1988"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(213)">
+                        <desc>PSSE ShuntY 1 at Bus 213</desc>
+                        <y unit="MVAR" re="5.14" im="400.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+            </aclfBus>
+            <aclfBus id="Bus214" areaNumber="2" zoneNumber="7" number="214" offLine="false" name="LOADER">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.07726"/>
+                <angle unit="DEG" value="-36.6286"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="2" zoneNumber="2" offLine="false" name="Load:1(214)">
+                        <desc>PSSE Load 1 at Bus 214</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="500.0" im="75.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus215" areaNumber="2" zoneNumber="8" number="215" offLine="false" name="URBANEAST215">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="18.0"/>
+                <voltage unit="PU" value="0.91817"/>
+                <angle unit="DEG" value="-33.4909"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="U1" areaNumber="2" zoneNumber="4" offLine="false" name="Load:U1(215)">
+                        <desc>PSSE Load U1 at Bus 215</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="0.0" im="140.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus216" areaNumber="2" zoneNumber="8" number="216" offLine="false" name="URBANEAST216">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99637"/>
+                <angle unit="DEG" value="-33.5336"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="U1" areaNumber="2" zoneNumber="4" offLine="false" name="Load:U1(216)">
+                        <desc>PSSE Load U1 at Bus 216</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="0.0" im="12.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus217" areaNumber="2" zoneNumber="8" number="217" offLine="false" name="URBANEAST217">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99733"/>
+                <angle unit="DEG" value="-33.5397"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="U1" areaNumber="2" zoneNumber="4" offLine="false" name="Load:U1(217)">
+                        <desc>PSSE Load U1 at Bus 217</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="0.0" im="10.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus218" areaNumber="2" zoneNumber="8" number="218" offLine="false" name="URBANEAST218">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99769"/>
+                <angle unit="DEG" value="-33.5419"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="U1" areaNumber="2" zoneNumber="4" offLine="false" name="Load:U1(218)">
+                        <desc>PSSE Load U1 at Bus 218</desc>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="0.0" im="9.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus301" areaNumber="3" zoneNumber="5" number="301" offLine="false" name="NORTH">
+                <ownerList id="3">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="765.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData code="Swing">
+                    <contributeGen id="1" offLine="false" name="Gen:1(301)">
+                        <desc>PSSE Generator 1 at Bus 301</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1118"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.2184"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.0893"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.5805"/>
+                        </ownerList>
+                        <power unit="MVA" re="996.884" im="327.66"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <remoteVoltageControlBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus301"/>
+                        <qLimit unit="MVAR" max="327.66" min="327.66"/>
+                        <pLimit unit="MW" max="1010.0" min="320.0"/>
+                        <mvaBase unit="MVA" value="1067.0"/>
+                        <sourceZ unit="PU" re="0.0109" im="0.23"/>
+                        <xfrZ unit="PU" re="0.014" im="0.126"/>
+                        <xfrTap>1.025</xfrTap>
+                        <mvarVControlParticipateFactor>0.98</mvarVControlParticipateFactor>
+                    </contributeGen>
+                    <contributeGen id="2" offLine="false" name="Gen:2(301)">
+                        <desc>PSSE Generator 2 at Bus 301</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1173"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.32"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.0936"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.4691"/>
+                        </ownerList>
+                        <power unit="MVA" re="996.884" im="285.481"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <qLimit unit="MVAR" max="710.0" min="-600.0"/>
+                        <pLimit unit="MW" max="1011.0" min="321.0"/>
+                        <mvaBase unit="MVA" value="1070.0"/>
+                        <sourceZ unit="PU" re="0.011" im="0.24"/>
+                        <xfrZ unit="PU" re="0.011" im="0.127"/>
+                        <xfrTap>1.026</xfrTap>
+                        <mvarVControlParticipateFactor>0.98</mvarVControlParticipateFactor>
+                    </contributeGen>
+                    <contributeGen id="3" offLine="false" name="Gen:3(301)">
+                        <desc>PSSE Generator 3 at Bus 301</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.126"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.2268"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.1827"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.4644"/>
+                        </ownerList>
+                        <power unit="MVA" re="996.884" im="285.481"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <qLimit unit="MVAR" max="720.0" min="-600.0"/>
+                        <pLimit unit="MW" max="1012.0" min="322.0"/>
+                        <mvaBase unit="MVA" value="1075.0"/>
+                        <sourceZ unit="PU" re="0.008" im="0.25"/>
+                        <xfrZ unit="PU" re="0.012" im="0.128"/>
+                        <xfrTap>1.027</xfrTap>
+                        <mvarVControlParticipateFactor>0.98</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus401" areaNumber="4" zoneNumber="9" number="401" offLine="false" name="COGEN-1">
+                <ownerList id="4">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData code="Swing">
+                    <contributeGen id="1" offLine="false" name="Gen:1(401)">
+                        <desc>PSSE Generator 1 at Bus 401</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1625"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.2423"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.099"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.4962"/>
+                        </ownerList>
+                        <power unit="MVA" re="321.0" im="142.325"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <remoteVoltageControlBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus401"/>
+                        <qLimit unit="MVAR" max="600.0" min="-100.0"/>
+                        <pLimit unit="MW" max="350.0" min="25.0"/>
+                        <mvaBase unit="MVA" value="600.0"/>
+                        <sourceZ unit="PU" re="0.0123" im="0.2223"/>
+                        <mvarVControlParticipateFactor>0.9</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus402" areaNumber="6" zoneNumber="9" number="402" offLine="false" name="COGEN-2">
+                <ownerList id="4">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData code="Swing">
+                    <contributeGen id="1" offLine="false" name="Gen:1(402)">
+                        <desc>PSSE Generator 1 at Bus 402</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1588"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.2117"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.1959"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.4335"/>
+                        </ownerList>
+                        <power unit="MVA" re="321.0" im="142.325"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <remoteVoltageControlBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus402"/>
+                        <qLimit unit="MVAR" max="610.0" min="-110.0"/>
+                        <pLimit unit="MW" max="351.0" min="26.0"/>
+                        <mvaBase unit="MVA" value="610.0"/>
+                        <sourceZ unit="PU" re="0.0045" im="0.2432"/>
+                        <mvarVControlParticipateFactor>0.91</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3001" areaNumber="5" zoneNumber="6" number="3001" offLine="false" name="MINE">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99281"/>
+                <angle unit="DEG" value="-12.1161"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3002" areaNumber="5" zoneNumber="6" number="3002" offLine="false" name="E. MINE">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="0.99324"/>
+                <angle unit="DEG" value="-10.3568"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3003" areaNumber="5" zoneNumber="6" number="3003" offLine="false" name="S. MINE">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99225"/>
+                <angle unit="DEG" value="-11.6741"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3004" areaNumber="5" zoneNumber="6" number="3004" offLine="false" name="WEST">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.01277"/>
+                <angle unit="DEG" value="-22.3707"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3005" areaNumber="5" zoneNumber="2" number="3005" offLine="false" name="WEST">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.9996"/>
+                <angle unit="DEG" value="-22.9176"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="5" zoneNumber="5" offLine="false" name="Load:1(3005)">
+                        <desc>PSSE Load 1 at Bus 3005</desc>
+                        <ownerList id="5">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="100.0" im="50.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+                <switchedShunt mode="Continuous" offLine="false">
+                    <desiredVoltageRange unit="PU" max="0.98" min="0.64"/>
+                    <bInit unit="MVAR" value="0.0"/>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="33.35"/>
+                    </block>
+                    <remoteControlledBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus3005"/>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus3006" areaNumber="5" zoneNumber="4" number="3006" offLine="false" name="UPTOWN">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.05775"/>
+                <angle unit="DEG" value="-28.4654"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3007" areaNumber="5" zoneNumber="4" number="3007" offLine="false" name="RURAL">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.98217"/>
+                <angle unit="DEG" value="-26.0764"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="5" zoneNumber="5" offLine="false" name="Load:1(3007)">
+                        <desc>PSSE Load 1 at Bus 3007</desc>
+                        <ownerList id="5">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="200.0" im="75.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3008" areaNumber="5" zoneNumber="4" number="3008" offLine="false" name="CATDOG">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99"/>
+                <angle unit="DEG" value="-26.4402"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="5" zoneNumber="5" offLine="false" name="Load:1(3008)">
+                        <desc>PSSE Load 1 at Bus 3008</desc>
+                        <ownerList id="5">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="200.0" im="75.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3009" areaNumber="5" zoneNumber="4" number="3009" offLine="false" name="URBNWEST3009">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99048"/>
+                <angle unit="DEG" value="-26.4598"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="5" zoneNumber="4" offLine="false" name="Load:1(3009)">
+                        <desc>PSSE Load 1 at Bus 3009</desc>
+                        <ownerList id="5">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="1.1" im="0.9"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3010" areaNumber="5" zoneNumber="4" number="3010" offLine="false" name="INDMOTOR1">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="21.6"/>
+                <voltage unit="PU" value="0.9639"/>
+                <angle unit="DEG" value="0.3038"/>
+                <genData code="NoneGen"/>
+                <loadData>
+                    <contributeLoad id="1" areaNumber="5" zoneNumber="4" offLine="false" name="Load:1(3010)">
+                        <desc>PSSE Load 1 at Bus 3010</desc>
+                        <ownerList id="5">
+                            <ownership unit="PU" value="1.0"/>
+                        </ownerList>
+                        <constPLoad unit="MVA" re="12.0" im="5.0"/>
+                    </contributeLoad>
+                </loadData>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3011" areaNumber="5" zoneNumber="6" number="3011" offLine="false" name="MINE_G">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="19.4"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData code="Swing">
+                    <contributeGen id="1" offLine="false" name="Gen:1(3011)">
+                        <desc>PSSE Generator 1 at Bus 3011</desc>
+                        <ownerList id="1">
+                            <ownership unit="PU" value="0.1452"/>
+                        </ownerList>
+                        <ownerList id="2">
+                            <ownership unit="PU" value="0.1926"/>
+                        </ownerList>
+                        <ownerList id="3">
+                            <ownership unit="PU" value="0.2677"/>
+                        </ownerList>
+                        <ownerList id="4">
+                            <ownership unit="PU" value="0.3945"/>
+                        </ownerList>
+                        <power unit="MVA" re="1142.016" im="132.445"/>
+                        <desiredVoltage unit="PU" value="1.0"/>
+                        <qLimit unit="MVAR" max="600.0" min="-100.0"/>
+                        <pLimit unit="MW" max="1400.0" min="100.0"/>
+                        <mvaBase unit="MVA" value="1050.0"/>
+                        <sourceZ unit="PU" re="0.0076" im="0.3543"/>
+                        <mvarVControlParticipateFactor>0.92</mvarVControlParticipateFactor>
+                    </contributeGen>
+                </genData>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3012" areaNumber="5" zoneNumber="4" number="3012" offLine="true" name="URBNWEST3012">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99048"/>
+                <angle unit="DEG" value="0.0"/>
+                <genData code="OFF"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3018" areaNumber="5" zoneNumber="4" number="3018" offLine="false" name="CATDOG_G">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="13.8"/>
+                <voltage unit="PU" value="0.99"/>
+                <angle unit="DEG" value="-22.6703"/>
+                <genData code="PV"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus3021" areaNumber="3" zoneNumber="5" number="3021" offLine="false" name="WDUM">
+                <ownerList id="3">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="18.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-23.4606"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(3021)">
+                        <desc>PSSE ShuntY 1 at Bus 3021</desc>
+                        <y unit="MVAR" re="0.0" im="1320.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+                <switchedShunt mode="Continuous" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.0" min="1.0"/>
+                    <bInit unit="MVAR" value="245.68"/>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="100.0"/>
+                    </block>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="50.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="25.0"/>
+                    </block>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="12.5"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus3022" areaNumber="3" zoneNumber="5" number="3022" offLine="false" name="EDUM">
+                <ownerList id="3">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="18.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-22.7717"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData>
+                    <contributeShuntY id="1" offLine="false" name="ShuntY:1(3022)">
+                        <desc>PSSE ShuntY 1 at Bus 3022</desc>
+                        <y unit="MVAR" re="0.0" im="1080.0"/>
+                    </contributeShuntY>
+                </shuntYData>
+                <switchedShunt mode="Continuous" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.0" min="1.0"/>
+                    <bInit unit="MVAR" value="296.29"/>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="50.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="25.0"/>
+                    </block>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="12.5"/>
+                    </block>
+                    <block steps="3">
+                        <incrementB unit="MVAR" value="10.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="10.0"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus9154" areaNumber="1" zoneNumber="3" number="9154" offLine="false" name="INDGEN1">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="4.16"/>
+                <voltage unit="PU" value="0.98615"/>
+                <angle unit="DEG" value="-32.3912"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus9204" areaNumber="2" zoneNumber="8" number="9204" offLine="false" name="INDMOTOR2">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="0.575"/>
+                <voltage unit="PU" value="0.98205"/>
+                <angle unit="DEG" value="-34.9612"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus70202" areaNumber="2" zoneNumber="2" number="70202" offLine="false" name="EAST-MOV">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.02027"/>
+                <angle unit="DEG" value="-28.421"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus93002" areaNumber="5" zoneNumber="6" number="93002" offLine="false" name="INDGEN2">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="0.69"/>
+                <voltage unit="PU" value="0.95517"/>
+                <angle unit="DEG" value="-4.2498"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+                <switchedShunt mode="Discrete" offLine="false">
+                    <desiredVoltageRange unit="PU" max="0.99628" min="0.99628"/>
+                    <bInit unit="MVAR" value="1.44"/>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="1.44"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus703003" areaNumber="5" zoneNumber="6" number="703003" offLine="false" name="S. MINE-MOV">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="0.99938"/>
+                <angle unit="DEG" value="-15.6289"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus703005" areaNumber="5" zoneNumber="2" number="703005" offLine="false" name="WEST-2-MOV">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="230.0"/>
+                <voltage unit="PU" value="1.00644"/>
+                <angle unit="DEG" value="-24.3755"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+            </aclfBus>
+            <aclfBus id="Bus999996" areaNumber="1" zoneNumber="2" number="999996" offLine="false" name="ZSWSH_999996">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="500.0"/>
+                <voltage unit="PU" value="1.04402"/>
+                <angle unit="DEG" value="-26.9516"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+                <switchedShunt mode="Discrete" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.045" min="0.955"/>
+                    <bInit unit="MVAR" value="-115.0"/>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="-15.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="-5.0"/>
+                    </block>
+                    <block steps="3">
+                        <incrementB unit="MVAR" value="-10.0"/>
+                    </block>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="-8.0"/>
+                    </block>
+                    <block steps="5">
+                        <incrementB unit="MVAR" value="-7.0"/>
+                    </block>
+                    <block steps="6">
+                        <incrementB unit="MVAR" value="-5.0"/>
+                    </block>
+                    <block steps="7">
+                        <incrementB unit="MVAR" value="-7.0"/>
+                    </block>
+                    <block steps="8">
+                        <incrementB unit="MVAR" value="-4.0"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus999995" areaNumber="3" zoneNumber="5" number="999995" offLine="false" name="ZSWSH_999995">
+                <ownerList id="3">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="18.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-23.4606"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+                <switchedShunt mode="Continuous" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.0" min="1.0"/>
+                    <bInit unit="MVAR" value="245.68"/>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="100.0"/>
+                    </block>
+                    <block steps="1">
+                        <incrementB unit="MVAR" value="50.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="25.0"/>
+                    </block>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="12.5"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+            <aclfBus id="Bus999994" areaNumber="3" zoneNumber="5" number="999994" offLine="false" name="ZSWSH_999994">
+                <ownerList id="3">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <baseVoltage unit="KV" value="18.0"/>
+                <voltage unit="PU" value="1.0"/>
+                <angle unit="DEG" value="-22.7717"/>
+                <genData code="NoneGen"/>
+                <loadData/>
+                <shuntYData/>
+                <switchedShunt mode="Continuous" offLine="false">
+                    <desiredVoltageRange unit="PU" max="1.0" min="1.0"/>
+                    <bInit unit="MVAR" value="296.29"/>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="50.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="25.0"/>
+                    </block>
+                    <block steps="4">
+                        <incrementB unit="MVAR" value="12.5"/>
+                    </block>
+                    <block steps="3">
+                        <incrementB unit="MVAR" value="10.0"/>
+                    </block>
+                    <block steps="2">
+                        <incrementB unit="MVAR" value="10.0"/>
+                    </block>
+                </switchedShunt>
+            </aclfBus>
+        </busList>
+        <branchList>
+            <aclfLine circuitId="1" id="Bus151_to_Bus152_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1"/>
+                </ownerList>
+                <fromBus idRef="Bus151"/>
+                <toBus idRef="Bus152"/>
+                <z unit="PU" re="0.0026" im="0.046"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="3.5"/>
+                <fromShuntY unit="PU" re="0.01" im="-0.25"/>
+                <toShuntY unit="PU" re="0.011" im="-0.15"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="2" id="Bus151_to_Bus152_cirId_2" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.2315"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.3056"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3704"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.0926"/>
+                </ownerList>
+                <fromBus idRef="Bus151"/>
+                <toBus idRef="Bus152"/>
+                <z unit="PU" re="0.00261" im="0.0461"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1205.0" rating2="1207.12" rating3="1208.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="3.51"/>
+                <fromShuntY unit="PU" re="0.013" im="-0.251"/>
+                <toShuntY unit="PU" re="0.012" im="-0.02"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="*1" id="Bus151_to_Bus201_cirId_*1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus151"/>
+                <toBus idRef="Bus201"/>
+                <z unit="PU" re="-0.0" im="1.0E-4"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="5001.01" rating2="5002.02" rating3="5003.03"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus152_to_Bus3004_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.2379"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.3033"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3667"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.0922"/>
+                </ownerList>
+                <fromBus idRef="Bus152"/>
+                <toBus idRef="Bus3004"/>
+                <z unit="PU" re="0.003" im="0.03"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1207.0" rating2="1209.12" rating3="1210.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="2.5"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus152_to_Bus70202_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.3939"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2273"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.303"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.0758"/>
+                </ownerList>
+                <fromBus idRef="Bus152"/>
+                <toBus idRef="Bus70202"/>
+                <z unit="PU" re="8.0E-4" im="0.01"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1207.0" rating2="1209.12" rating3="1210.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.95"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="2" id="Bus153_to_Bus154_cirId_2" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2727"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2727"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.3636"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.0909"/>
+                </ownerList>
+                <fromBus idRef="Bus153"/>
+                <toBus idRef="Bus154"/>
+                <z unit="PU" re="0.006" im="0.054"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="350.0" rating2="352.12" rating3="353.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.15"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="@1" id="Bus153_to_Bus3006_cirId_@1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus153"/>
+                <toBus idRef="Bus3006"/>
+                <z unit="PU" re="-0.0" im="1.0E-4"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="2201.01" rating2="2202.02" rating3="2203.03"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus154_to_Bus155_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1914"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2535"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3065"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2486"/>
+                </ownerList>
+                <fromBus idRef="Bus154"/>
+                <toBus idRef="Bus155"/>
+                <z unit="PU" re="0.005" im="0.045"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="400.0" rating2="402.12" rating3="403.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.1"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus154_to_Bus203_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1"/>
+                </ownerList>
+                <fromBus idRef="Bus154"/>
+                <toBus idRef="Bus203"/>
+                <z unit="PU" re="0.004" im="0.04"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="400.0" rating2="402.12" rating3="403.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.1"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus154_to_Bus205_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1667"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3333"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <fromBus idRef="Bus154"/>
+                <toBus idRef="Bus205"/>
+                <z unit="PU" re="3.3E-4" im="0.00333"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="600.0" rating2="602.12" rating3="603.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.09"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus154_to_Bus3008_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1925"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.255"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3083"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2442"/>
+                </ownerList>
+                <fromBus idRef="Bus154"/>
+                <toBus idRef="Bus3008"/>
+                <z unit="PU" re="0.0027" im="0.022"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="800.0" rating2="802.12" rating3="803.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.3"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus201_to_Bus202_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.1905"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2857"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.381"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1429"/>
+                </ownerList>
+                <fromBus idRef="Bus201"/>
+                <toBus idRef="Bus202"/>
+                <z unit="PU" re="0.002" im="0.025"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="2.0"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="C1" id="Bus201_to_Bus207_cirId_C1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.375"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.125"/>
+                </ownerList>
+                <fromBus idRef="Bus201"/>
+                <toBus idRef="Bus207"/>
+                <z unit="PU" re="0.0015" im="0.015"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="1.25"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus202_to_Bus70202_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.3939"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2273"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.303"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.0758"/>
+                </ownerList>
+                <fromBus idRef="Bus202"/>
+                <toBus idRef="Bus70202"/>
+                <z unit="PU" re="-0.0" im="-0.001"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1207.0" rating2="1209.12" rating3="1210.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus203_to_Bus205_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1925"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.255"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3083"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2442"/>
+                </ownerList>
+                <fromBus idRef="Bus203"/>
+                <toBus idRef="Bus205"/>
+                <z unit="PU" re="0.005" im="0.045"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.08"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="C2" id="Bus204_to_Bus207_cirId_C2" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1"/>
+                </ownerList>
+                <fromBus idRef="Bus204"/>
+                <toBus idRef="Bus207"/>
+                <z unit="PU" re="0.0015" im="0.015"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="1.25"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus205_to_Bus212_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1"/>
+                </ownerList>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus212"/>
+                <z unit="PU" re="-0.0" im="0.01"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1250.0" rating2="1252.12" rating3="1253.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="2" id="Bus205_to_Bus214_cirId_2" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.21"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2782"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3364"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.1755"/>
+                </ownerList>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus214"/>
+                <z unit="PU" re="0.002" im="0.025"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="2.0"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="3" id="Bus205_to_Bus216_cirId_3" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.1818"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2727"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.3636"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1818"/>
+                </ownerList>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus216"/>
+                <z unit="PU" re="0.005" im="0.045"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.08"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="4" id="Bus205_to_Bus217_cirId_4" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1667"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3333"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus217"/>
+                <z unit="PU" re="0.005" im="0.045"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.08"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="5" id="Bus205_to_Bus218_cirId_5" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.165"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2186"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2643"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3521"/>
+                </ownerList>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus218"/>
+                <z unit="PU" re="0.005" im="0.045"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.08"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus213_to_Bus214_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.1429"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2143"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.2857"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.3571"/>
+                </ownerList>
+                <fromBus idRef="Bus213"/>
+                <toBus idRef="Bus214"/>
+                <z unit="PU" re="-0.0" im="0.01"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1250.0" rating2="1252.12" rating3="1253.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3001_to_Bus703003_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1639"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2459"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3279"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.2623"/>
+                </ownerList>
+                <fromBus idRef="Bus3001"/>
+                <toBus idRef="Bus703003"/>
+                <z unit="PU" re="-0.0" im="0.008"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="320.0" rating2="322.12" rating3="323.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3002_to_Bus3004_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1925"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.255"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3083"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2442"/>
+                </ownerList>
+                <fromBus idRef="Bus3002"/>
+                <toBus idRef="Bus3004"/>
+                <z unit="PU" re="0.006" im="0.054"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="330.0" rating2="332.12" rating3="333.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.09"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3003_to_Bus3005_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1"/>
+                </ownerList>
+                <fromBus idRef="Bus3003"/>
+                <toBus idRef="Bus3005"/>
+                <z unit="PU" re="0.006" im="0.054"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="340.0" rating2="342.12" rating3="343.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.09"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3003_to_Bus703003_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1925"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.255"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3083"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2442"/>
+                </ownerList>
+                <fromBus idRef="Bus3003"/>
+                <toBus idRef="Bus703003"/>
+                <z unit="PU" re="-0.0" im="-0.009"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="350.0" rating2="352.12" rating3="353.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="2" id="Bus3003_to_Bus703005_cirId_2" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1333"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2667"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <fromBus idRef="Bus3003"/>
+                <toBus idRef="Bus703005"/>
+                <z unit="PU" re="0.006" im="0.054"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="360.0" rating2="362.12" rating3="363.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.09"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3005_to_Bus3006_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.165"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2186"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2643"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3521"/>
+                </ownerList>
+                <fromBus idRef="Bus3005"/>
+                <toBus idRef="Bus3006"/>
+                <z unit="PU" re="0.0035" im="0.03"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="370.0" rating2="372.12" rating3="373.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.07"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3005_to_Bus3007_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.1527"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.229"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.3053"/>
+                </ownerList>
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.313"/>
+                </ownerList>
+                <fromBus idRef="Bus3005"/>
+                <toBus idRef="Bus3007"/>
+                <z unit="PU" re="0.003" im="0.025"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="380.0" rating2="382.12" rating3="383.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.06"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3005_to_Bus3008_cirId_1" areaNumber="1" zoneNumber="1" offLine="true">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1802"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2703"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3604"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1892"/>
+                </ownerList>
+                <fromBus idRef="Bus3005"/>
+                <toBus idRef="Bus3008"/>
+                <z unit="PU" re="0.006" im="0.05"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="390.0" rating2="392.12" rating3="393.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.12"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="2" id="Bus3005_to_Bus703005_cirId_2" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1333"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2667"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.4"/>
+                </ownerList>
+                <fromBus idRef="Bus3005"/>
+                <toBus idRef="Bus703005"/>
+                <z unit="PU" re="-0.0" im="-0.0065"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="500.0" rating2="502.12" rating3="503.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3007_to_Bus3008_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="5">
+                    <ownership unit="PU" value="0.1858"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2462"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.4023"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.1657"/>
+                </ownerList>
+                <fromBus idRef="Bus3007"/>
+                <toBus idRef="Bus3008"/>
+                <z unit="PU" re="0.003" im="0.025"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="510.0" rating2="512.12" rating3="513.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.06"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3008_to_Bus3009_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1797"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.2695"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3594"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1914"/>
+                </ownerList>
+                <fromBus idRef="Bus3008"/>
+                <toBus idRef="Bus3009"/>
+                <z unit="PU" re="0.003" im="0.025"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="25.0" rating2="27.12" rating3="28.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <totalShuntY unit="PU" re="0.0" im="0.06"/>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus152_to_Bus999996_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus152"/>
+                <toBus idRef="Bus999996"/>
+                <z unit="PU" re="0.0" im="1.0E-4"/>
+                <ratingLimit/>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3021_to_Bus999995_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus3021"/>
+                <toBus idRef="Bus999995"/>
+                <z unit="PU" re="0.0" im="1.0E-4"/>
+                <ratingLimit/>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfLine circuitId="1" id="Bus3022_to_Bus999994_cirId_1" areaNumber="1" zoneNumber="1" offLine="false">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus3022"/>
+                <toBus idRef="Bus999994"/>
+                <z unit="PU" re="0.0" im="1.0E-4"/>
+                <ratingLimit/>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <lineInfo/>
+            </aclfLine>
+            <aclfXfr circuitId="T1" id="Bus101_to_Bus151_cirId_T1" areaNumber="1" zoneNumber="1" offLine="false" name="EL DORADO NUCLEAR UNIT A GSU TRANSFORMER">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.32"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.39"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.14"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.15"/>
+                </ownerList>
+                <nvPair>
+                    <name>Xfr LoadDropCZ</name>
+                    <value>2.1E-4,5.1E-4</value>
+                </nvPair>
+                <fromBus idRef="Bus101"/>
+                <toBus idRef="Bus151"/>
+                <z unit="PU" re="9.166666666666667E-5" im="0.007583333333333333"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.17147" im="-0.10288"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>Voltage</adjustmentType>
+                    <tapLimit unit="PU" max="1.0499999999999998" min="0.95"/>
+                    <tapAdjSteps>25</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="1.05" min="0.95"/>
+                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus101"/>
+                    </voltageAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="1200.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="T2" id="Bus102_to_Bus151_cirId_T2" areaNumber="1" zoneNumber="1" offLine="false" name="EL DORADO NUCLEAR UNIT B GSU TRANSFORMER">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.21"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.22"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.32"/>
+                </ownerList>
+                <nvPair>
+                    <name>Xfr LoadDropCZ</name>
+                    <value>2.2E-4,5.2E-4</value>
+                </nvPair>
+                <fromBus idRef="Bus102"/>
+                <toBus idRef="Bus151"/>
+                <z unit="PU" re="1.2E-4" im="0.0076"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1210.0" rating2="1212.12" rating3="1213.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.004537499999999999" im="0.031459999999999995"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>Voltage</adjustmentType>
+                    <tapLimit unit="PU" max="1.045" min="0.955"/>
+                    <tapAdjSteps>27</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="1.045" min="0.955"/>
+                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus102"/>
+                    </voltageAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="1210.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="T3" id="Bus152_to_Bus153_cirId_T3" areaNumber="1" zoneNumber="1" offLine="false" name="MID LTC">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.35"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.22"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.18"/>
+                </ownerList>
+                <nvPair>
+                    <name>Xfr LoadDropCZ</name>
+                    <value>2.3E-4,5.3E-4</value>
+                </nvPair>
+                <fromBus idRef="Bus152"/>
+                <toBus idRef="Bus153"/>
+                <z unit="PU" re="1.7E-4" im="0.00775"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="800.0" rating2="802.12" rating3="803.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="0.95"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="2.1E-4" im="-1.2E-4"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>Voltage</adjustmentType>
+                    <tapLimit unit="PU" max="1.05" min="0.95"/>
+                    <tapAdjSteps>10</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="1.0" min="0.98"/>
+                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus154"/>
+                    </voltageAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="800.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="T4" id="Bus152_to_Bus3021_cirId_T4" areaNumber="1" zoneNumber="1" offLine="false" name="WDUM DC">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.39"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.32"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.15"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.14"/>
+                </ownerList>
+                <fromBus idRef="Bus152"/>
+                <toBus idRef="Bus3021"/>
+                <z unit="PU" re="8.666666666666667E-5" im="0.0042"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1500.0" rating2="1502.12" rating3="1503.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.1"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.005625" im="0.042"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>MVarFlow</adjustmentType>
+                    <tapLimit unit="PU" max="1.1" min="0.9"/>
+                    <tapAdjSteps>33</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <mvarFlowAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="1.1" min="0.9"/>
+                        <mvarMeasuredOnFormSide>false</mvarMeasuredOnFormSide>
+                    </mvarFlowAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="1500.0"/>
+                    <zTableNumber>2</zTableNumber>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="T5" id="Bus152_to_Bus3022_cirId_T5" areaNumber="1" zoneNumber="1" offLine="false" name="EDUM DC">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.22"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.21"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.32"/>
+                </ownerList>
+                <fromBus idRef="Bus152"/>
+                <toBus idRef="Bus3022"/>
+                <z unit="PU" re="1.1258278145695363E-4" im="0.004900662251655629"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="1510.0" rating2="1512.12" rating3="1513.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.1"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="4.0E-4" im="-2.1E-4"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>MVarFlow</adjustmentType>
+                    <tapLimit unit="PU" max="1.1" min="0.9"/>
+                    <tapAdjSteps>33</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <mvarFlowAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="1.1" min="0.9"/>
+                        <mvarMeasuredOnFormSide>false</mvarMeasuredOnFormSide>
+                    </mvarFlowAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="1510.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="W1" id="Bus154_to_Bus9154_cirId_W1" areaNumber="1" zoneNumber="1" offLine="false" name="WTG1XMER">
+                <ownerList id="1">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus154"/>
+                <toBus idRef="Bus9154"/>
+                <z unit="PU" re="0.0" im="0.58333"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="12.0" rating2="14.12" rating3="15.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="12.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="T6" id="Bus201_to_Bus211_cirId_T6" areaNumber="1" zoneNumber="1" offLine="false" name="HYDRO_G XMER">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.14"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.15"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.32"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.39"/>
+                </ownerList>
+                <fromBus idRef="Bus201"/>
+                <toBus idRef="Bus211"/>
+                <z unit="PU" re="2.6E-4" im="0.01343"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="700.0" rating2="702.12" rating3="703.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.0026249999999999997" im="0.021"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="700.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfPSXfr circuitId="T7" id="Bus203_to_Bus202_cirId_T7" areaNumber="1" zoneNumber="1" offLine="false" name="EAST PS">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2754"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.3261"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2899"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1087"/>
+                </ownerList>
+                <fromBus idRef="Bus203"/>
+                <toBus idRef="Bus202"/>
+                <z unit="PU" re="2.8E-4" im="0.007200000000000001"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="750.0" rating2="752.12" rating3="753.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="0.99"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="9.5E-4" im="-4.6E-4"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="750.0"/>
+                    <zTableNumber>1</zTableNumber>
+                </xfrInfo>
+                <fromAngle unit="DEG" value="2.564"/>
+                <toAngle unit="DEG" value="0.0"/>
+                <angleAdjustment offLine="false" mode="RangeAdjustment" desiredValue="0.0">
+                    <range max="-900.0" min="-950.0"/>
+                    <angleLimit unit="DEG" max="12.0" min="-11.0"/>
+                    <angleAdjOnFromSide>true</angleAdjOnFromSide>
+                    <flowDirection>From_To</flowDirection>
+                    <desiredActivePowerUnit>MW</desiredActivePowerUnit>
+                    <desiredMeasuredOnFromSide>true</desiredMeasuredOnFromSide>
+                </angleAdjustment>
+            </aclfPSXfr>
+            <aclfXfr circuitId="T8" id="Bus204_to_Bus205_cirId_T8" areaNumber="1" zoneNumber="1" offLine="false" name="SUB LTC">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.3019"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.4245"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.1321"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1415"/>
+                </ownerList>
+                <nvPair>
+                    <name>Xfr LoadDropCZ</name>
+                    <value>2.4E-4,5.4E-4</value>
+                </nvPair>
+                <fromBus idRef="Bus204"/>
+                <toBus idRef="Bus205"/>
+                <z unit="PU" re="4.625E-4" im="0.005625"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="800.0" rating2="802.12" rating3="803.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.03667"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.00113" im="-5.2E-4"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>Voltage</adjustmentType>
+                    <tapLimit unit="PU" max="1.05" min="0.95"/>
+                    <tapAdjSteps>16</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="1.0" min="0.98"/>
+                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus205"/>
+                    </voltageAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="800.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="W2" id="Bus204_to_Bus9204_cirId_W2" areaNumber="1" zoneNumber="1" offLine="false" name="WTG2XMER">
+                <ownerList id="2">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus204"/>
+                <toBus idRef="Bus9204"/>
+                <z unit="PU" re="0.088" im="0.66171"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="8.75" rating2="10.87" rating3="11.88"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="8.75"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="T9" id="Bus205_to_Bus206_cirId_T9" areaNumber="1" zoneNumber="1" offLine="false" name="URB TX">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.1905"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.4643"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.1667"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.1786"/>
+                </ownerList>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus206"/>
+                <z unit="PU" re="1.7777777777777779E-4" im="0.005333333333333333"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="900.0" rating2="902.12" rating3="903.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.01591"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.00113" im="-5.2E-4"/>
+                <tapAdjustment offLine="false">
+                    <adjustmentType>MVarFlow</adjustmentType>
+                    <tapLimit unit="PU" max="1.05" min="0.975"/>
+                    <tapAdjSteps>12</tapAdjSteps>
+                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
+                    <mvarFlowAdjData mode="RangeAdjustment" desiredValue="0.0">
+                        <range max="-175.0" min="-250.0"/>
+                        <mvarMeasuredOnFormSide>false</mvarMeasuredOnFormSide>
+                    </mvarFlowAdjData>
+                </tapAdjustment>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="900.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclf3WXfr wind1OffLine="false" wind2OffLine="false" wind3OffLine="true" circuitId="3" id="Bus205_to_Bus215_n_Bus208_cirId_3" areaNumber="1" zoneNumber="1" offLine="false" name="THREE WDG WITH COMPLEX IMP COR FACTORS 1">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.254"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.1746"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.3333"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.2381"/>
+                </ownerList>
+                <nvPair>
+                    <name>Xfr LoadDropCZ</name>
+                    <value>2.5E-4,6.4E-4</value>
+                </nvPair>
+                <fromBus idRef="Bus205"/>
+                <toBus idRef="Bus215"/>
+                <tertiaryBus idRef="Bus208"/>
+                <z unit="PU" re="7.52998E-4" im="0.053667"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="150.0" rating2="152.12" rating3="153.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="3.4199999999999996E-4" im="0.00342"/>
+                <xfrInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Transformer3WInfoXmlType">
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="150.0"/>
+                    <zTableNumber>5</zTableNumber>
+                    <starVMag unit="PU" value="0.60345"/>
+                    <starVAng unit="DEG" value="-32.996"/>
+                    <ratedPower23 unit="MVA" value="20.0"/>
+                    <ratedPower31 unit="MVA" value="15.0"/>
+                </xfrInfo>
+                <z23 unit="PU" re="0.012479" im="0.8735"/>
+                <z31 unit="PU" re="0.020069" im="1.34"/>
+                <tertTurnRatio unit="PU" value="1.0"/>
+                <ratingLimit23>
+                    <mva unit="MVA" rating1="20.0" rating2="22.12" rating3="23.13"/>
+                </ratingLimit23>
+                <ratingLimit13>
+                    <mva unit="MVA" rating1="15.0" rating2="17.12" rating3="18.13"/>
+                </ratingLimit13>
+            </aclf3WXfr>
+            <aclf3WXfr wind1OffLine="true" wind2OffLine="false" wind3OffLine="false" circuitId="4" id="Bus209_to_Bus217_n_Bus218_cirId_4" areaNumber="1" zoneNumber="1" offLine="false" name="3WNDSTAT4">
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.4671"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.125"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.2379"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.17"/>
+                </ownerList>
+                <nvPair>
+                    <name>Xfr LoadDropCZ</name>
+                    <value>3.1E-4,0.00784</value>
+                </nvPair>
+                <fromBus idRef="Bus209"/>
+                <toBus idRef="Bus217"/>
+                <tertiaryBus idRef="Bus218"/>
+                <z unit="PU" re="0.00228" im="0.33335886975517004"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="30.0" rating2="32.12" rating3="33.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="4.1893399999999996E-7" im="2.995008E-6"/>
+                <xfrInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Transformer3WInfoXmlType">
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="30.0"/>
+                    <zTableNumber>2</zTableNumber>
+                    <starVMag unit="PU" value="0.99757"/>
+                    <starVAng unit="DEG" value="-33.541"/>
+                    <ratedPower23 unit="MVA" value="25.0"/>
+                    <ratedPower31 unit="MVA" value="35.0"/>
+                </xfrInfo>
+                <z23 unit="PU" re="0.0019" im="0.35999498607619523"/>
+                <z31 unit="PU" re="0.00266" im="0.21426920391633225"/>
+                <tertTurnRatio unit="PU" value="1.0"/>
+                <ratingLimit23>
+                    <mva unit="MVA" rating1="25.0" rating2="27.12" rating3="28.13"/>
+                </ratingLimit23>
+                <ratingLimit13>
+                    <mva unit="MVA" rating1="35.0" rating2="37.12" rating3="38.13"/>
+                </ratingLimit13>
+            </aclf3WXfr>
+            <aclfXfr circuitId="W3" id="Bus3002_to_Bus93002_cirId_W3" areaNumber="1" zoneNumber="1" offLine="false" name="WTG3XMER">
+                <ownerList id="5">
+                    <ownership unit="PU" value="1.0"/>
+                </ownerList>
+                <fromBus idRef="Bus3002"/>
+                <toBus idRef="Bus93002"/>
+                <z unit="PU" re="0.0" im="2.02703"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="3.7" rating2="5.82" rating3="6.83"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="3.7"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="10" id="Bus3005_to_Bus3004_cirId_10" areaNumber="1" zoneNumber="1" offLine="false" name="WEST TX">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2645"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.4959"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.1157"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.124"/>
+                </ownerList>
+                <fromBus idRef="Bus3005"/>
+                <toBus idRef="Bus3004"/>
+                <z unit="PU" re="3.5E-4" im="0.00964"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="550.0" rating2="552.12" rating3="553.13"/>
+                </ratingLimit>
+                <meterLocation>FromSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.0020624999999999997" im="0.018699999999999998"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="550.0"/>
+                </xfrInfo>
+            </aclfXfr>
+            <aclfXfr circuitId="11" id="Bus3008_to_Bus3018_cirId_11" areaNumber="1" zoneNumber="1" offLine="false" name="CATDOG_XMER">
+                <ownerList id="1">
+                    <ownership unit="PU" value="0.2051"/>
+                </ownerList>
+                <ownerList id="2">
+                    <ownership unit="PU" value="0.25"/>
+                </ownerList>
+                <ownerList id="3">
+                    <ownership unit="PU" value="0.4487"/>
+                </ownerList>
+                <ownerList id="4">
+                    <ownership unit="PU" value="0.0962"/>
+                </ownerList>
+                <fromBus idRef="Bus3008"/>
+                <toBus idRef="Bus3018"/>
+                <z unit="PU" re="4.4E-4" im="0.01276"/>
+                <ratingLimit>
+                    <mva unit="MVA" rating1="525.0" rating2="527.12" rating3="528.13"/>
+                </ratingLimit>
+                <meterLocation>ToSide</meterLocation>
+                <bypass>false</bypass>
+                <fromTurnRatio unit="PU" value="1.0"/>
+                <toTurnRatio unit="PU" value="1.0"/>
+                <magnitizingY unit="PU" re="0.0019687499999999996" im="0.018375"/>
+                <xfrInfo>
+                    <dataOnSystemBase>true</dataOnSystemBase>
+                    <ratedPower unit="MVA" value="525.0"/>
+                    <zTableNumber>2</zTableNumber>
+                </xfrInfo>
+            </aclfXfr>
+            <aclf2THvdc circuitId="&quot;TWO_TERM_DC1&quot;" id="Bus301_to_Bus3021_cirId_&quot;TWO_TERM_DC1&quot;" areaNumber="1" zoneNumber="1" offLine="false">
+                <fromBus idRef="Bus301"/>
+                <toBus idRef="Bus3021"/>
+                <controlMode>power</controlMode>
+                <lineR r="7.8543" unit="OHM"/>
+                <powerDemand unit="MW" value="1490.65"/>
+                <controlOnRectifierSide>true</controlOnRectifierSide>
+                <scheduledDCVoltage unit="KV" value="525.0"/>
+                <meteredEnd>inverter</meteredEnd>
+                <modeSwitchDCVoltage unit="KV" value="400.0"/>
+                <compoundingR r="3.942" unit="OHM"/>
+                <powerOrCurrentMarginPU>0.1556</powerOrCurrentMarginPU>
+                <minDCVoltage unit="KV" value="0.0"/>
+                <rectifier>
+                    <busId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus301"/>
+                    <numberofBridges>2</numberofBridges>
+                    <minFiringAngle unit="DEG" value="7.5"/>
+                    <maxFiringAngle unit="DEG" value="13.0"/>
+                    <acSideRatedVoltage unit="KV" value="500.0"/>
+                    <commutatingZ unit="OHM" re="0.0111" im="3.88"/>
+                    <commutatingCapacitor>2.0034</commutatingCapacitor>
+                    <xformerTurnRatio>0.44</xformerTurnRatio>
+                    <xformerTapSetting unit="PU" value="1.06275"/>
+                    <xformerTapLimit unit="PU" max="1.1" min="0.9"/>
+                    <xformerTapStepSize>0.00525</xformerTapStepSize>
+                </rectifier>
+                <inverter>
+                    <busId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus3021"/>
+                    <numberofBridges>2</numberofBridges>
+                    <minFiringAngle unit="DEG" value="18.5"/>
+                    <maxFiringAngle unit="DEG" value="21.0"/>
+                    <acSideRatedVoltage unit="KV" value="230.0"/>
+                    <commutatingZ unit="OHM" re="0.0" im="3.047"/>
+                    <commutatingCapacitor>2.0</commutatingCapacitor>
+                    <xformerTurnRatio>0.95652</xformerTurnRatio>
+                    <xformerTapSetting unit="PU" value="1.075"/>
+                    <xformerTapLimit unit="PU" max="1.1" min="0.8"/>
+                    <xformerTapStepSize>0.00625</xformerTapStepSize>
+                    <refXfrFromBusId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus152"/>
+                    <refXfrToBusId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus3021"/>
+                    <refXfrCirId>T4</refXfrCirId>
+                </inverter>
+            </aclf2THvdc>
+            <aclf2THvdc circuitId="&quot;TWO_TERM_DC2&quot;" id="Bus301_to_Bus3022_cirId_&quot;TWO_TERM_DC2&quot;" areaNumber="1" zoneNumber="1" offLine="false">
+                <fromBus idRef="Bus301"/>
+                <toBus idRef="Bus3022"/>
+                <controlMode>power</controlMode>
+                <lineR r="8.2" unit="OHM"/>
+                <powerDemand unit="MW" value="1500.0"/>
+                <controlOnRectifierSide>true</controlOnRectifierSide>
+                <scheduledDCVoltage unit="KV" value="525.0"/>
+                <meteredEnd>inverter</meteredEnd>
+                <modeSwitchDCVoltage unit="KV" value="400.0"/>
+                <compoundingR r="4.1" unit="OHM"/>
+                <powerOrCurrentMarginPU>0.15</powerOrCurrentMarginPU>
+                <minDCVoltage unit="KV" value="0.0"/>
+                <rectifier>
+                    <busId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus301"/>
+                    <numberofBridges>2</numberofBridges>
+                    <minFiringAngle unit="DEG" value="8.0"/>
+                    <maxFiringAngle unit="DEG" value="12.0"/>
+                    <acSideRatedVoltage unit="KV" value="500.0"/>
+                    <commutatingZ unit="OHM" re="0.011" im="3.88"/>
+                    <commutatingCapacitor>0.0098</commutatingCapacitor>
+                    <xformerTurnRatio>0.44</xformerTurnRatio>
+                    <xformerTapSetting unit="PU" value="1.0545"/>
+                    <xformerTapLimit unit="PU" max="1.112" min="0.9"/>
+                    <xformerTapStepSize>0.00515</xformerTapStepSize>
+                </rectifier>
+                <inverter>
+                    <busId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus3022"/>
+                    <numberofBridges>2</numberofBridges>
+                    <minFiringAngle unit="DEG" value="18.0"/>
+                    <maxFiringAngle unit="DEG" value="20.0"/>
+                    <acSideRatedVoltage unit="KV" value="230.0"/>
+                    <commutatingZ unit="OHM" re="0.012" im="3.047"/>
+                    <commutatingCapacitor>0.0074</commutatingCapacitor>
+                    <xformerTurnRatio>0.95652</xformerTurnRatio>
+                    <xformerTapSetting unit="PU" value="1.0625"/>
+                    <xformerTapLimit unit="PU" max="1.1" min="0.8"/>
+                    <xformerTapStepSize>0.00625</xformerTapStepSize>
+                    <refXfrFromBusId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus152"/>
+                    <refXfrToBusId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus3022"/>
+                    <refXfrCirId>T5</refXfrCirId>
+                </inverter>
+            </aclf2THvdc>
+            <branch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="VSCHVDC2TXmlType" circuitId="&quot;VDCLINE1    &quot;" id="Bus3005_to_Bus3008_cirId_&quot;VDCLINE1    &quot;" areaNumber="1" zoneNumber="1" offLine="false" name="&quot;VDCLINE1    &quot;">
+                <fromBus idRef="Bus3005"/>
+                <toBus idRef="Bus3008"/>
+                <Rdc r="0.71" unit="OHM"/>
+                <rectifier>
+                    <busId xsi:type="BusIDRefXmlType" idRef="Bus3005"/>
+                    <dcControlMode>RealPower</dcControlMode>
+                    <acControlMode>PowerFactor</acControlMode>
+                    <acSetPoint>0.95</acSetPoint>
+                    <dcSetPoint>-209.0</dcSetPoint>
+                    <ALoss>100.0</ALoss>
+                    <BLoss>0.1</BLoss>
+                    <MinLoss>50.0</MinLoss>
+                    <MVARating unit="MVA" value="400.0"/>
+                    <ACCurrentRating unit="AMP" value="1200.0"/>
+                    <powerWeightFactor>0.1</powerWeightFactor>
+                    <QMax unit="MVAR" value="100.0"/>
+                    <QMin unit="MVAR" value="-110.0"/>
+                    <remoteCtrlPercent>100.0</remoteCtrlPercent>
+                </rectifier>
+                <inverter>
+                    <busId xsi:type="BusIDRefXmlType" idRef="Bus3008"/>
+                    <dcControlMode>DCVoltage</dcControlMode>
+                    <acControlMode>Voltage</acControlMode>
+                    <acSetPoint>0.99</acSetPoint>
+                    <dcSetPoint>100.0</dcSetPoint>
+                    <ALoss>90.0</ALoss>
+                    <BLoss>0.15</BLoss>
+                    <MinLoss>40.0</MinLoss>
+                    <MVARating unit="MVA" value="350.0"/>
+                    <ACCurrentRating unit="AMP" value="1200.0"/>
+                    <powerWeightFactor>0.15</powerWeightFactor>
+                    <QMax unit="MVAR" value="150.0"/>
+                    <QMin unit="MVAR" value="-140.0"/>
+                    <remoteCtrlPercent>100.0</remoteCtrlPercent>
+                </inverter>
+            </branch>
+            <branch xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="VSCHVDC2TXmlType" circuitId="&quot;VDCLINE2    &quot;" id="Bus203_to_Bus205_cirId_&quot;VDCLINE2    &quot;" areaNumber="1" zoneNumber="1" offLine="false" name="&quot;VDCLINE2    &quot;">
+                <fromBus idRef="Bus203"/>
+                <toBus idRef="Bus205"/>
+                <Rdc r="0.35" unit="OHM"/>
+                <rectifier>
+                    <busId xsi:type="BusIDRefXmlType" idRef="Bus203"/>
+                    <dcControlMode>RealPower</dcControlMode>
+                    <acControlMode>Voltage</acControlMode>
+                    <acSetPoint>1.0</acSetPoint>
+                    <dcSetPoint>-100.0</dcSetPoint>
+                    <ALoss>100.0</ALoss>
+                    <BLoss>0.15</BLoss>
+                    <MinLoss>123.0</MinLoss>
+                    <MVARating unit="MVA" value="200.0"/>
+                    <ACCurrentRating unit="AMP" value="1200.0"/>
+                    <powerWeightFactor>1.0</powerWeightFactor>
+                    <QMax unit="MVAR" value="200.0"/>
+                    <QMin unit="MVAR" value="-150.0"/>
+                    <remoteCtrlPercent>100.0</remoteCtrlPercent>
+                </rectifier>
+                <inverter>
+                    <busId xsi:type="BusIDRefXmlType" idRef="Bus205"/>
+                    <dcControlMode>DCVoltage</dcControlMode>
+                    <acControlMode>Voltage</acControlMode>
+                    <acSetPoint>1.0</acSetPoint>
+                    <dcSetPoint>100.0</dcSetPoint>
+                    <ALoss>93.0</ALoss>
+                    <BLoss>0.12</BLoss>
+                    <MinLoss>98.0</MinLoss>
+                    <MVARating unit="MVA" value="250.0"/>
+                    <ACCurrentRating unit="AMP" value="1250.0"/>
+                    <powerWeightFactor>1.0</powerWeightFactor>
+                    <QMax unit="MVAR" value="225.0"/>
+                    <QMin unit="MVAR" value="-250.0"/>
+                    <remoteCtrlPercent>99.0</remoteCtrlPercent>
+                </inverter>
+            </branch>
+        </branchList>
+        <areaList>
+            <area xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ExchangeAreaXmlType" id="1" number="1" name="CENTRAL">
+                <swingBusId xsi:type="BusIDRefXmlType" idRef="Bus101"/>
+                <desiredExchangePower unit="MW" value="-2800.0"/>
+                <exchangeErrTolerance unit="MW" value="10.0"/>
+            </area>
+            <area xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ExchangeAreaXmlType" id="2" number="2" name="EAST">
+                <swingBusId xsi:type="BusIDRefXmlType" idRef="Bus206"/>
+                <desiredExchangePower unit="MW" value="-1600.0"/>
+                <exchangeErrTolerance unit="MW" value="10.0"/>
+            </area>
+            <area xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ExchangeAreaXmlType" id="3" number="3" name="CENTRAL_DC">
+                <swingBusId xsi:type="BusIDRefXmlType" idRef="Bus301"/>
+                <desiredExchangePower unit="MW" value="2900.0"/>
+                <exchangeErrTolerance unit="MW" value="55.0"/>
+            </area>
+            <area xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ExchangeAreaXmlType" id="4" number="4" name="EAST_COGEN1">
+                <swingBusId xsi:type="BusIDRefXmlType" idRef="Bus401"/>
+                <desiredExchangePower unit="MW" value="300.0"/>
+                <exchangeErrTolerance unit="MW" value="15.0"/>
+            </area>
+            <area xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ExchangeAreaXmlType" id="5" number="5" name="WEST">
+                <swingBusId xsi:type="BusIDRefXmlType" idRef="Bus3011"/>
+                <desiredExchangePower unit="MW" value="900.0"/>
+                <exchangeErrTolerance unit="MW" value="10.0"/>
+            </area>
+            <area xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ExchangeAreaXmlType" id="6" number="6" name="EAST_COGEN2">
+                <swingBusId xsi:type="BusIDRefXmlType" idRef="Bus402"/>
+                <desiredExchangePower unit="MW" value="300.0"/>
+                <exchangeErrTolerance unit="MW" value="20.0"/>
+            </area>
+        </areaList>
+        <lossZoneList>
+            <lossZone id="1" number="1" name="NORTH_A1"/>
+            <lossZone id="2" number="2" name="MID_A1_A2_A5"/>
+            <lossZone id="3" number="3" name="DISCNT_IN_A1"/>
+            <lossZone id="4" number="4" name="SOUTH_A1_A5"/>
+            <lossZone id="5" number="5" name="ALL_A3"/>
+            <lossZone id="6" number="6" name="NORTH_A5"/>
+            <lossZone id="7" number="7" name="NORTH_A2"/>
+            <lossZone id="8" number="8" name="SOUTH_A2"/>
+            <lossZone id="9" number="9" name="ALL_A4_A6"/>
+        </lossZoneList>
+        <interchangeList>
+            <interchange>
+                <areaTransfer id="A" fromArea="1" toArea="2" amountMW="1000.0"/>
+            </interchange>
+            <interchange>
+                <areaTransfer id="B" fromArea="1" toArea="5" amountMW="-3800.0"/>
+            </interchange>
+            <interchange>
+                <areaTransfer id="C" fromArea="2" toArea="4" amountMW="-300.0"/>
+            </interchange>
+            <interchange>
+                <areaTransfer id="E" fromArea="2" toArea="6" amountMW="-300.0"/>
+            </interchange>
+            <interchange>
+                <areaTransfer id="D" fromArea="3" toArea="5" amountMW="2900.0"/>
+            </interchange>
+        </interchangeList>
+        <xfrZTable>
+            <XformerZTableItem>
+                <number>1</number>
+                <lookup>
+                    <turnRatioShiftAngle>-30.0</turnRatioShiftAngle>
+                    <scaleFactor>1.1</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>-24.0</turnRatioShiftAngle>
+                    <scaleFactor>1.091</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>-18.0</turnRatioShiftAngle>
+                    <scaleFactor>1.084</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>-12.0</turnRatioShiftAngle>
+                    <scaleFactor>1.063</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>-6.0</turnRatioShiftAngle>
+                    <scaleFactor>1.032</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.0</turnRatioShiftAngle>
+                    <scaleFactor>1.0</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>12.0</turnRatioShiftAngle>
+                    <scaleFactor>1.06</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>18.0</turnRatioShiftAngle>
+                    <scaleFactor>1.08</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>24.0</turnRatioShiftAngle>
+                    <scaleFactor>1.09</scaleFactor>
+                </lookup>
+            </XformerZTableItem>
+            <XformerZTableItem>
+                <number>2</number>
+                <lookup>
+                    <turnRatioShiftAngle>0.6</turnRatioShiftAngle>
+                    <scaleFactor>1.06</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.7</turnRatioShiftAngle>
+                    <scaleFactor>1.05</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.8</turnRatioShiftAngle>
+                    <scaleFactor>1.04</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.9</turnRatioShiftAngle>
+                    <scaleFactor>1.03</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.95</turnRatioShiftAngle>
+                    <scaleFactor>1.02</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.01</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.1</turnRatioShiftAngle>
+                    <scaleFactor>0.98</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.2</turnRatioShiftAngle>
+                    <scaleFactor>0.97</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.3</turnRatioShiftAngle>
+                    <scaleFactor>0.96</scaleFactor>
+                </lookup>
+            </XformerZTableItem>
+            <XformerZTableItem>
+                <number>3</number>
+                <lookup>
+                    <turnRatioShiftAngle>0.95</turnRatioShiftAngle>
+                    <scaleFactor>1.0062</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.0</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.05</turnRatioShiftAngle>
+                    <scaleFactor>0.99006</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.9</turnRatioShiftAngle>
+                    <scaleFactor>1.03</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.95</turnRatioShiftAngle>
+                    <scaleFactor>1.02</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.01</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.1</turnRatioShiftAngle>
+                    <scaleFactor>0.98</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.2</turnRatioShiftAngle>
+                    <scaleFactor>0.97</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.3</turnRatioShiftAngle>
+                    <scaleFactor>0.96</scaleFactor>
+                </lookup>
+            </XformerZTableItem>
+            <XformerZTableItem>
+                <number>4</number>
+                <lookup>
+                    <turnRatioShiftAngle>0.95</turnRatioShiftAngle>
+                    <scaleFactor>0.96964</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.0</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.05</turnRatioShiftAngle>
+                    <scaleFactor>1.02486</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.9</turnRatioShiftAngle>
+                    <scaleFactor>1.03</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.95</turnRatioShiftAngle>
+                    <scaleFactor>1.02</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.01</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.1</turnRatioShiftAngle>
+                    <scaleFactor>0.98</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.2</turnRatioShiftAngle>
+                    <scaleFactor>0.97</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.3</turnRatioShiftAngle>
+                    <scaleFactor>0.96</scaleFactor>
+                </lookup>
+            </XformerZTableItem>
+            <XformerZTableItem>
+                <number>5</number>
+                <lookup>
+                    <turnRatioShiftAngle>0.94</turnRatioShiftAngle>
+                    <scaleFactor>1.0062</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.0</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.06</turnRatioShiftAngle>
+                    <scaleFactor>0.99006</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.9</turnRatioShiftAngle>
+                    <scaleFactor>1.03</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>0.95</turnRatioShiftAngle>
+                    <scaleFactor>1.02</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.0</turnRatioShiftAngle>
+                    <scaleFactor>1.01</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.1</turnRatioShiftAngle>
+                    <scaleFactor>0.98</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.2</turnRatioShiftAngle>
+                    <scaleFactor>0.97</scaleFactor>
+                </lookup>
+                <lookup>
+                    <turnRatioShiftAngle>1.3</turnRatioShiftAngle>
+                    <scaleFactor>0.96</scaleFactor>
+                </lookup>
+            </XformerZTableItem>
+            <adjustSide>FromSide</adjustSide>
+        </xfrZTable>
+    </aclfNet>
+</pssStudyCase>

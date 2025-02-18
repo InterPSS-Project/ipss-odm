@@ -203,9 +203,16 @@
 		<ns:complexContent>
 			<ns:extension base="pss:BaseBranchXmlType">
 				<ns:sequence>
-				    <ns:element name="z" type="pss:ZXmlType" minOccurs="0" maxOccurs="1"></ns:element>
-					<ns:element name="ratingLimit" minOccurs="0" maxOccurs="1" type="pss:BranchRatingLimitXmlType"></ns:element>
-					<ns:element name="meterLocation" minOccurs="0" type="pss:BranchBusSideEnumType"></ns:element>
+					<ns:element name="z" type="pss:ZXmlType"
+						minOccurs="0" maxOccurs="1">
+					</ns:element>
+					<ns:element name="ratingLimit" minOccurs="0"
+						maxOccurs="1" type="pss:BranchRatingLimitXmlType">
+					</ns:element>
+					<ns:element name="meterLocation" minOccurs="0"
+						type="pss:BranchBusSideEnumType">
+					</ns:element>
+					<ns:element name="bypass" type="ns:boolean"></ns:element>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>

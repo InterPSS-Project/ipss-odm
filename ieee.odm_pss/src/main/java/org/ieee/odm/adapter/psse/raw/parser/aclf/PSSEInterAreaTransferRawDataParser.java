@@ -59,9 +59,6 @@ public class PSSEInterAreaTransferRawDataParser extends BasePSSEDataRawParser {
 	}
 	
 	@Override public void parseFields(final String str) throws ODMException {
-  		StringTokenizer st = new StringTokenizer(str, ",");
-  		int cnt = 0;
-  		while (st.hasMoreTokens())
-  			setValue(cnt++, st.nextToken().trim());
+  		super.parseFields(str);
   	}
 }
