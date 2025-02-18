@@ -42,64 +42,6 @@ public class PSSESwitchedShuntDataRawParser extends BasePSSEDataRawParser {
 		super(ver);
 	}
 	
-	private static String[] META_DATA_v29 = new String[] { 
-			 //  0----------1----------2----------3----------4----- 5  ------6 ---------7---------- 8-------- 9   
-			   "I",     "MODSW",   "VSWHI", "VSWLO",   "SWREM",   "RMIDNT",  "BINIT",   "N1",    "B1",  
-			   // 10         11         12       13         14       15       16        17         18        19
-				 "N2",      "B2",      "N3",     "B3",    "N4",    "B4",    "N5",      "B5",       "N6",      "B6", 
-			   //  20         21         22         23         24       25
-				   "N7",      "B7",      "N8",    "B8"    };
-	
-	private static String[] META_DATA_v30_31 = new String[] { 
-			 //  0----------1----------2----------3----------4----- 5  ------6 ---------7---------- 8-------- 9   
-			   "I",     "MODSW",   "VSWHI", "VSWLO",   "SWREM",  "RMPCT",  "RMIDNT",  "BINIT",     "N1",      "B1",  
-			   // 10         11         12       13         14       15       16        17         18        19
-				 "N2",      "B2",      "N3",     "B3",    "N4",    "B4",    "N5",      "B5",       "N6",      "B6", 
-			   //  20         21         22         23         24       25
-				   "N7",      "B7",      "N8",    "B8"    };
-	
-	
-	private static String[] META_DATA_v32_33 = new String[] { 
-			 //  0----------1----------2----------3----------4----- 5  ------6 ---------7---------- 8-------- 9   
-			   "I",     "MODSW",    "ADJM",    "STAT",    "VSWHI", "VSWLO",   "SWREM",  "RMPCT",  "RMIDNT",  "BINIT",    
-			   // 10         11         12       13         14       15       16        17         18        19
-			    "N1",      "B1",     "N2",      "B2",      "N3",     "B3",    "N4",    "B4",    "N5",      "B5",      
-			   //  20         21         22         23         24       25
-			    "N6",      "B6",       "N7",      "B7",      "N8",    "B8"    };
-	
-	// V34 add NREG at the end, change SWREM to SWREG
-	
-	private static String[] META_DATA_v34 = new String[] { 
-			 //  0----------1----------2----------3----------4----- 5  ------6 ---------7---------- 8-------- 9   
-			   "I",     "MODSW",    "ADJM",    "STAT",    "VSWHI", "VSWLO",   "SWREG",  "RMPCT",  "RMIDNT",  "BINIT",    
-			   // 10        11         12       13         14        15       16        17         18        19
-			     "N1",      "B1",     "N2",    "B2",       "N3",     "B3",    "N4",     "B4",     "N5",      "B5", 
-			   // 20        21         22         23         24       25        26       27        28         29
-			    "N6",      "B6",       "N7",    "B7",      "N8",     "B8",   "NREG"  };
-	
-	// v35 add ID, move NREG, add S1-8
-	private static String[] META_DATA_v35 = new String[] { 
-			 //  0----------1----------2----------3----------4----- 5  ------6 ---------7---------- 8-------- 9   
-			   "I",        "ID",    "MODSW",    "ADJM",    "STAT",    "VSWHI", "VSWLO",   "SWREG",  "NREG",   "RMPCT", 
-			   // 10         11         12       13         14       15       16        17         18        19
-			   "RMIDNT",    "BINIT",   "S1",       "N1",      "B1",    "S2",      "N2",      "B2",     "S3",   "N3",  
-			   // 20        21         22         23         24       25        26       27        28         29
-			    "B3",      "S4",        "N4",       "B4",    "S5",     "N5",       "B5",     "S6",    "N6",     "B6",       
-			  // 30          31        32        33        34         35
-			    "S7",      "N7",       "B7",      "S8",     "N8",     "B8"   };
-	
-	// v36  add Name
-	private static String[] META_DATA_v36 = new String[] { 
-			 //  0----------1----------2----------3----------4--------5  ------6 ---------7---------- 8-------- 9   
-			   "I",        "ID",    "MODSW",    "ADJM",    "STAT",  "VSWHI", "VSWLO",   "SWREG",  "NREG",   "RMPCT", 
-			   // 10         11         12       13         14       15       16        17         18        19
-			   "RMIDNT",    "BINIT",   "NAME",   "S1",     "N1",    "B1",    "S2",      "N2",      "B2",     "S3",    
-			   // 20        21         22         23         24       25        26       27        28         29
-			   "N3",        "B3",     "S4",      "N4",     "B4",    "S5",     "N5",       "B5",     "S6",    "N6",       
-			  // 30          31        32        33        34        35         36
-			   "B6",        "S7",     "N7",       "B7",     "S8",     "N8",     "B8"   };
-	
-	
 	@Override public String[] getMetadata() {
 		/*
 		Format V26
@@ -157,70 +99,62 @@ public class PSSESwitchedShuntDataRawParser extends BasePSSEDataRawParser {
 		STAT Initial switched shunt status of one for in-service and zero for out-of-service; STAT = 1 by default.		
 			
 		 */		
-	
-		switch(this.version){
-		case PSSE_29:
-			return META_DATA_v29;
-		case PSSE_30:
-		case PSSE_31:
-			return META_DATA_v30_31;
-		case PSSE_32:
-		case PSSE_33:
-			return META_DATA_v32_33;
-		case PSSE_34:
-			return META_DATA_v34;
-		case PSSE_35:
-			return META_DATA_v35;
-		case PSSE_36:
-			return META_DATA_v36;
-		default:
-			return META_DATA_v36;
-
-   }
+		return new String[] {
+		   //  0----------1----------2----------3----------4
+			  "I",     "MODSW",                          
+			                       "ADJM",    "STAT",                   // V32,V33
+			                                             "VSWHI",
+		   //  5          6          7          8          9
+			  "VSWLO",   "SWREM", "RMPCT",  "RMIDNT",                   // V30, v31, V32,V33 
+			                                             "BINIT",     
+		   //  10         11         12         13         14
+			  "N1",      "B1",      "N2",      "B2",      "N3",      
+		   //  15         16         17         18         19
+			  "B3",      "N4",      "B4",      "N5",      "B5",       
+		   //  20         21         22         23         24
+			  "N6",      "B6",      "N7",      "B7",      "N8",      
+		   //  25	  
+			  "B8" 
+		};
 	}
 	
 	@Override public void parseFields(final String lineStr) throws ODMException {
-		
-		super.parseFields(lineStr);
-		
 		//clear the Name-value pair table, such that the values of the 
 		//previously-processed bus will be cleared before processing this new switch shunt data set
-//		this.clearNVPairTableData();
+		this.clearNVPairTableData();
 		
-		
-//		
-//  		StringTokenizer st = new StringTokenizer(lineStr, ",");
-//  		
-//		nbPosition = 6;
-//  		if (this.version == PsseVersion.PSSE_29)
-//  			nbPosition = 7;
-//  		else if (this.version == PsseVersion.PSSE_30 || 
-//  				 this.version == PsseVersion.PSSE_31 )
-//  			nbPosition = 8;
-//  		else if (this.version == PsseVersion.PSSE_32 ||
-//  				 this.version == PsseVersion.PSSE_33)
-//  			nbPosition = 10;
-//  		
-//  		for ( int i = 0; i < this.nbPosition; i++) { 
-//  			if (i==2 && (
-//  					     this.version == PsseVersion.PSSE_29 ||
-//  	  			         this.version == PsseVersion.PSSE_30 ||
-//  	  			         this.version == PsseVersion.PSSE_31))
-//  				i += 2;
-//  	  		this.setValue(i, st.nextToken().trim());
-//  		}
-//  		
-//  		// process the  N1,B1,...N8,B8 part
-//  		for ( int i = 0; i < 8; i++) {
-//  			if (st.hasMoreTokens()) {
-//  		  		String str = st.nextToken().trim();
-//  		  		if (!str.trim().equals("")) {
-//  		  			int pos = this.nbPosition+i*2;
-//  		  			this.setValue(pos, str);
-//  		  			this.setValue(pos+1, st.nextToken().trim());
-//  		  		}
-//  			}
-//  		}
+  		StringTokenizer st = new StringTokenizer(lineStr, ",");
+  		
+		nbPosition = 6;
+  		if (this.version == PsseVersion.PSSE_29)
+  			nbPosition = 7;
+  		else if (this.version == PsseVersion.PSSE_30 || 
+  				 this.version == PsseVersion.PSSE_31 )
+  			nbPosition = 8;
+  		else if (this.version == PsseVersion.PSSE_32 ||
+  				 this.version == PsseVersion.PSSE_33)
+  			nbPosition = 10;
+  		
+  		for ( int i = 0; i < this.nbPosition; i++) { 
+  			if (i==2 && (
+  					     this.version == PsseVersion.PSSE_29 ||
+  	  			         this.version == PsseVersion.PSSE_30 ||
+  	  			         this.version == PsseVersion.PSSE_31))
+  				i += 2;
+  	  		this.setValue(i, st.nextToken().trim());
+  		}
+  		
+  		// process the  N1,B1,...N8,B8 part
+  		for ( int i = 0; i < 8; i++) {
+  			if (st.hasMoreTokens()) {
+  		  		String str = st.nextToken().trim();
+  		  		if (!str.trim().equals("")) {
+  		  			int pos = this.nbPosition+i*2;
+  		  			this.setValue(pos, str);
+  		  			this.setValue(pos+1, st.nextToken().trim());
+  		  		}
+  			}
+  		}
 		
 	}
 }

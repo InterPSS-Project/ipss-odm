@@ -25,7 +25,6 @@
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
@@ -132,11 +131,5 @@ public abstract class BasePSSEDataRawParser extends AbstractStringDataFieldParse
                setValue(startingIdx+idx, "");
                idx++;
            }
-	}
-	
-	public String[] convertStringAry2DTo1D(String[][] twoDArray) {
-		return Arrays.stream(twoDArray)
-        .flatMap(Arrays::stream)
-        .toArray(String[]::new);
 	}
 }

@@ -52,16 +52,6 @@ public class PSSEDcLine2TDataRawMapper extends BasePSSEDataRawMapper{
 	public void procLineString(String[] lineStrAry, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException, ODMBranchDuplicationException {
 		dataParser.parseFields(lineStrAry);
 		
-		/* Line-1
-		 * NAME, MDC, RDC, SETVL, VSCHD, VCMOD, RCOMP, DELTI, METER, DCVMIN, CCCITMX, CCCACC
-		 * 
-		 * Line-2
-			IPR, NBR, ANMXR, ANMNR, RCR, XCR, EBASR, TRR, TAPR, TMXR, TMNR, STPR, ICR, NDR, IFR, ITR, IDR, XCAPR
-			
-			Line-3
-			IPI, NBI, ANMXI, ANMNI, RCI, XCI, EBASI, TRI, TAPI, TMXI, TMNI, STPI, ICI, NDI, IFI, ITI, IDI, XCAPI
-		 */
-		
 		int MDC = this.dataParser.getInt("MDC"), 
 		    CCCITMX = this.dataParser.getInt("CCCITMX");
 		

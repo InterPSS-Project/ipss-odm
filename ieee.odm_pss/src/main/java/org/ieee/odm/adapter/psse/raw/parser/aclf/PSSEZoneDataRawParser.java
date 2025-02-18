@@ -54,6 +54,10 @@ public class PSSEZoneDataRawParser extends BasePSSEDataRawParser {
 	}
 	
 	@Override public void parseFields(final String lineStr) throws ODMException {
-		super.parseFields(lineStr);
+		StringTokenizer st = new StringTokenizer(lineStr, ",");
+		
+		int cnt = 0;
+		while (st.hasMoreTokens())
+			this.setValue(cnt++, st.nextToken().trim());		
   	}
 }

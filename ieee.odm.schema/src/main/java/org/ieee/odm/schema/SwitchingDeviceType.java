@@ -1,0 +1,132 @@
+
+package org.ieee.odm.schema;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+
+
+/**
+ * <p>Java class for SwitchingDeviceType complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="SwitchingDeviceType"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;extension base="{http://www.ieee.org/odm/Schema/2008}BranchXmlType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="swtichingRatingTableName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="normalStatus" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="type" type="{http://www.ieee.org/odm/Schema/2008}SwitchingDeviceEnumType"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/extension&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
+ * </pre>
+ * 
+ * 
+ */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "SwitchingDeviceType", propOrder = {
+    "swtichingRatingTableName",
+    "status",
+    "normalStatus",
+    "type"
+})
+public class SwitchingDeviceType
+    extends BranchXmlType
+{
+
+    @XmlElement(required = true)
+    protected String swtichingRatingTableName;
+    protected int status;
+    protected int normalStatus;
+    @XmlElement(required = true)
+    @XmlSchemaType(name = "string")
+    protected SwitchingDeviceEnumType type;
+
+    /**
+     * Gets the value of the swtichingRatingTableName property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSwtichingRatingTableName() {
+        return swtichingRatingTableName;
+    }
+
+    /**
+     * Sets the value of the swtichingRatingTableName property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSwtichingRatingTableName(String value) {
+        this.swtichingRatingTableName = value;
+    }
+
+    /**
+     * Gets the value of the status property.
+     * 
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the value of the status property.
+     * 
+     */
+    public void setStatus(int value) {
+        this.status = value;
+    }
+
+    /**
+     * Gets the value of the normalStatus property.
+     * 
+     */
+    public int getNormalStatus() {
+        return normalStatus;
+    }
+
+    /**
+     * Sets the value of the normalStatus property.
+     * 
+     */
+    public void setNormalStatus(int value) {
+        this.normalStatus = value;
+    }
+
+    /**
+     * Gets the value of the type property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link SwitchingDeviceEnumType }
+     *     
+     */
+    public SwitchingDeviceEnumType getType() {
+        return type;
+    }
+
+    /**
+     * Sets the value of the type property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link SwitchingDeviceEnumType }
+     *     
+     */
+    public void setType(SwitchingDeviceEnumType value) {
+        this.type = value;
+    }
+
+}

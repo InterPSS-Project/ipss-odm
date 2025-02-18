@@ -1241,7 +1241,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="3.5"/>
                 <fromShuntY unit="PU" re="0.01" im="-0.25"/>
@@ -1267,7 +1267,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1205.0" rating2="1207.12" rating3="1208.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="3.51"/>
                 <fromShuntY unit="PU" re="0.013" im="-0.251"/>
@@ -1284,7 +1284,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="5001.01" rating2="5002.02" rating3="5003.03"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <lineInfo/>
             </aclfLine>
@@ -1307,7 +1307,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1207.0" rating2="1209.12" rating3="1210.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="2.5"/>
                 <lineInfo/>
@@ -1355,7 +1355,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="350.0" rating2="352.12" rating3="353.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.15"/>
                 <lineInfo/>
@@ -1370,7 +1370,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="2201.01" rating2="2202.02" rating3="2203.03"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <lineInfo/>
             </aclfLine>
@@ -1417,7 +1417,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="400.0" rating2="402.12" rating3="403.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.1"/>
                 <lineInfo/>
@@ -1441,7 +1441,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="600.0" rating2="602.12" rating3="603.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.09"/>
                 <lineInfo/>
@@ -1465,7 +1465,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="800.0" rating2="802.12" rating3="803.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.3"/>
                 <lineInfo/>
@@ -1489,7 +1489,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="2.0"/>
                 <lineInfo/>
@@ -1513,7 +1513,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="1.25"/>
                 <lineInfo/>
@@ -1584,7 +1584,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="1.25"/>
                 <lineInfo/>
@@ -1631,7 +1631,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1200.0" rating2="1202.12" rating3="1203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="2.0"/>
                 <lineInfo/>
@@ -1655,7 +1655,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.08"/>
                 <lineInfo/>
@@ -1679,7 +1679,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.08"/>
                 <lineInfo/>
@@ -1703,7 +1703,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="200.0" rating2="202.12" rating3="203.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.08"/>
                 <lineInfo/>
@@ -1727,7 +1727,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="1250.0" rating2="1252.12" rating3="1253.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <lineInfo/>
             </aclfLine>
@@ -1750,7 +1750,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="320.0" rating2="322.12" rating3="323.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <lineInfo/>
             </aclfLine>
@@ -1773,7 +1773,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="330.0" rating2="332.12" rating3="333.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.09"/>
                 <lineInfo/>
@@ -1797,7 +1797,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="340.0" rating2="342.12" rating3="343.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.09"/>
                 <lineInfo/>
@@ -1821,7 +1821,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="350.0" rating2="352.12" rating3="353.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <lineInfo/>
             </aclfLine>
@@ -1844,7 +1844,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="360.0" rating2="362.12" rating3="363.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.09"/>
                 <lineInfo/>
@@ -1868,7 +1868,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="370.0" rating2="372.12" rating3="373.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.07"/>
                 <lineInfo/>
@@ -1892,7 +1892,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="380.0" rating2="382.12" rating3="383.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.06"/>
                 <lineInfo/>
@@ -1916,7 +1916,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="390.0" rating2="392.12" rating3="393.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.12"/>
                 <lineInfo/>
@@ -1940,7 +1940,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="500.0" rating2="502.12" rating3="503.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <lineInfo/>
             </aclfLine>
@@ -1963,7 +1963,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="510.0" rating2="512.12" rating3="513.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.06"/>
                 <lineInfo/>
@@ -1987,7 +1987,7 @@
                 <ratingLimit>
                     <mva unit="MVA" rating1="25.0" rating2="27.12" rating3="28.13"/>
                 </ratingLimit>
-                <meterLocation>ToSide</meterLocation>
+                <meterLocation>FromSide</meterLocation>
                 <bypass>false</bypass>
                 <totalShuntY unit="PU" re="0.0" im="0.06"/>
                 <lineInfo/>
@@ -2050,10 +2050,6 @@
                 <ownerList id="4">
                     <ownership unit="PU" value="0.15"/>
                 </ownerList>
-                <nvPair>
-                    <name>Xfr LoadDropCZ</name>
-                    <value>2.1E-4,5.1E-4</value>
-                </nvPair>
                 <fromBus idRef="Bus101"/>
                 <toBus idRef="Bus151"/>
                 <z unit="PU" re="9.166666666666667E-5" im="0.007583333333333333"/>
@@ -2065,16 +2061,6 @@
                 <fromTurnRatio unit="PU" value="1.0"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="0.17147" im="-0.10288"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>Voltage</adjustmentType>
-                    <tapLimit unit="PU" max="1.0499999999999998" min="0.95"/>
-                    <tapAdjSteps>25</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="1.05" min="0.95"/>
-                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus101"/>
-                    </voltageAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="1200.0"/>
@@ -2093,10 +2079,6 @@
                 <ownerList id="4">
                     <ownership unit="PU" value="0.32"/>
                 </ownerList>
-                <nvPair>
-                    <name>Xfr LoadDropCZ</name>
-                    <value>2.2E-4,5.2E-4</value>
-                </nvPair>
                 <fromBus idRef="Bus102"/>
                 <toBus idRef="Bus151"/>
                 <z unit="PU" re="1.2E-4" im="0.0076"/>
@@ -2108,22 +2090,12 @@
                 <fromTurnRatio unit="PU" value="1.0"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="0.004537499999999999" im="0.031459999999999995"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>Voltage</adjustmentType>
-                    <tapLimit unit="PU" max="1.045" min="0.955"/>
-                    <tapAdjSteps>27</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="1.045" min="0.955"/>
-                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus102"/>
-                    </voltageAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="1210.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="T3" id="Bus152_to_Bus153_cirId_T3" areaNumber="1" zoneNumber="1" offLine="false" name="MID LTC">
+            <aclfXfr circuitId="T3" id="Bus152_to_Bus153_cirId_T3" areaNumber="1" zoneNumber="1" offLine="false" name="MID LTC                                 ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.35"/>
                 </ownerList>
@@ -2136,10 +2108,6 @@
                 <ownerList id="4">
                     <ownership unit="PU" value="0.18"/>
                 </ownerList>
-                <nvPair>
-                    <name>Xfr LoadDropCZ</name>
-                    <value>2.3E-4,5.3E-4</value>
-                </nvPair>
                 <fromBus idRef="Bus152"/>
                 <toBus idRef="Bus153"/>
                 <z unit="PU" re="1.7E-4" im="0.00775"/>
@@ -2151,22 +2119,12 @@
                 <fromTurnRatio unit="PU" value="0.95"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="2.1E-4" im="-1.2E-4"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>Voltage</adjustmentType>
-                    <tapLimit unit="PU" max="1.05" min="0.95"/>
-                    <tapAdjSteps>10</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="1.0" min="0.98"/>
-                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus154"/>
-                    </voltageAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="800.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="T4" id="Bus152_to_Bus3021_cirId_T4" areaNumber="1" zoneNumber="1" offLine="false" name="WDUM DC">
+            <aclfXfr circuitId="T4" id="Bus152_to_Bus3021_cirId_T4" areaNumber="1" zoneNumber="1" offLine="false" name="WDUM DC                                 ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.39"/>
                 </ownerList>
@@ -2190,23 +2148,13 @@
                 <fromTurnRatio unit="PU" value="1.1"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="0.005625" im="0.042"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>MVarFlow</adjustmentType>
-                    <tapLimit unit="PU" max="1.1" min="0.9"/>
-                    <tapAdjSteps>33</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <mvarFlowAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="1.1" min="0.9"/>
-                        <mvarMeasuredOnFormSide>false</mvarMeasuredOnFormSide>
-                    </mvarFlowAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="1500.0"/>
                     <zTableNumber>2</zTableNumber>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="T5" id="Bus152_to_Bus3022_cirId_T5" areaNumber="1" zoneNumber="1" offLine="false" name="EDUM DC">
+            <aclfXfr circuitId="T5" id="Bus152_to_Bus3022_cirId_T5" areaNumber="1" zoneNumber="1" offLine="false" name="EDUM DC                                 ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.22"/>
                 </ownerList>
@@ -2230,22 +2178,12 @@
                 <fromTurnRatio unit="PU" value="1.1"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="4.0E-4" im="-2.1E-4"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>MVarFlow</adjustmentType>
-                    <tapLimit unit="PU" max="1.1" min="0.9"/>
-                    <tapAdjSteps>33</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <mvarFlowAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="1.1" min="0.9"/>
-                        <mvarMeasuredOnFormSide>false</mvarMeasuredOnFormSide>
-                    </mvarFlowAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="1510.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="W1" id="Bus154_to_Bus9154_cirId_W1" areaNumber="1" zoneNumber="1" offLine="false" name="WTG1XMER">
+            <aclfXfr circuitId="W1" id="Bus154_to_Bus9154_cirId_W1" areaNumber="1" zoneNumber="1" offLine="false" name="WTG1XMER                                ">
                 <ownerList id="1">
                     <ownership unit="PU" value="1.0"/>
                 </ownerList>
@@ -2264,7 +2202,7 @@
                     <ratedPower unit="MVA" value="12.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="T6" id="Bus201_to_Bus211_cirId_T6" areaNumber="1" zoneNumber="1" offLine="false" name="HYDRO_G XMER">
+            <aclfXfr circuitId="T6" id="Bus201_to_Bus211_cirId_T6" areaNumber="1" zoneNumber="1" offLine="false" name="HYDRO_G XMER                            ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.14"/>
                 </ownerList>
@@ -2293,7 +2231,7 @@
                     <ratedPower unit="MVA" value="700.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfPSXfr circuitId="T7" id="Bus203_to_Bus202_cirId_T7" areaNumber="1" zoneNumber="1" offLine="false" name="EAST PS">
+            <aclfPSXfr circuitId="T7" id="Bus203_to_Bus202_cirId_T7" areaNumber="1" zoneNumber="1" offLine="false" name="EAST PS                                 ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.2754"/>
                 </ownerList>
@@ -2324,16 +2262,8 @@
                 </xfrInfo>
                 <fromAngle unit="DEG" value="2.564"/>
                 <toAngle unit="DEG" value="0.0"/>
-                <angleAdjustment offLine="false" mode="RangeAdjustment" desiredValue="0.0">
-                    <range max="-900.0" min="-950.0"/>
-                    <angleLimit unit="DEG" max="12.0" min="-11.0"/>
-                    <angleAdjOnFromSide>true</angleAdjOnFromSide>
-                    <flowDirection>From_To</flowDirection>
-                    <desiredActivePowerUnit>MW</desiredActivePowerUnit>
-                    <desiredMeasuredOnFromSide>true</desiredMeasuredOnFromSide>
-                </angleAdjustment>
             </aclfPSXfr>
-            <aclfXfr circuitId="T8" id="Bus204_to_Bus205_cirId_T8" areaNumber="1" zoneNumber="1" offLine="false" name="SUB LTC">
+            <aclfXfr circuitId="T8" id="Bus204_to_Bus205_cirId_T8" areaNumber="1" zoneNumber="1" offLine="false" name="SUB LTC                                 ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.3019"/>
                 </ownerList>
@@ -2346,10 +2276,6 @@
                 <ownerList id="4">
                     <ownership unit="PU" value="0.1415"/>
                 </ownerList>
-                <nvPair>
-                    <name>Xfr LoadDropCZ</name>
-                    <value>2.4E-4,5.4E-4</value>
-                </nvPair>
                 <fromBus idRef="Bus204"/>
                 <toBus idRef="Bus205"/>
                 <z unit="PU" re="4.625E-4" im="0.005625"/>
@@ -2361,22 +2287,12 @@
                 <fromTurnRatio unit="PU" value="1.03667"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="0.00113" im="-5.2E-4"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>Voltage</adjustmentType>
-                    <tapLimit unit="PU" max="1.05" min="0.95"/>
-                    <tapAdjSteps>16</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <voltageAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="1.0" min="0.98"/>
-                        <adjVoltageBus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="BusIDRefXmlType" idRef="Bus205"/>
-                    </voltageAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="800.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="W2" id="Bus204_to_Bus9204_cirId_W2" areaNumber="1" zoneNumber="1" offLine="false" name="WTG2XMER">
+            <aclfXfr circuitId="W2" id="Bus204_to_Bus9204_cirId_W2" areaNumber="1" zoneNumber="1" offLine="false" name="WTG2XMER                                ">
                 <ownerList id="2">
                     <ownership unit="PU" value="1.0"/>
                 </ownerList>
@@ -2395,7 +2311,7 @@
                     <ratedPower unit="MVA" value="8.75"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="T9" id="Bus205_to_Bus206_cirId_T9" areaNumber="1" zoneNumber="1" offLine="false" name="URB TX">
+            <aclfXfr circuitId="T9" id="Bus205_to_Bus206_cirId_T9" areaNumber="1" zoneNumber="1" offLine="false" name="URB TX                                  ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.1905"/>
                 </ownerList>
@@ -2419,16 +2335,6 @@
                 <fromTurnRatio unit="PU" value="1.01591"/>
                 <toTurnRatio unit="PU" value="1.0"/>
                 <magnitizingY unit="PU" re="0.00113" im="-5.2E-4"/>
-                <tapAdjustment offLine="false">
-                    <adjustmentType>MVarFlow</adjustmentType>
-                    <tapLimit unit="PU" max="1.05" min="0.975"/>
-                    <tapAdjSteps>12</tapAdjSteps>
-                    <tapAdjOnFromSide>true</tapAdjOnFromSide>
-                    <mvarFlowAdjData mode="RangeAdjustment" desiredValue="0.0">
-                        <range max="-175.0" min="-250.0"/>
-                        <mvarMeasuredOnFormSide>false</mvarMeasuredOnFormSide>
-                    </mvarFlowAdjData>
-                </tapAdjustment>
                 <xfrInfo>
                     <dataOnSystemBase>true</dataOnSystemBase>
                     <ratedPower unit="MVA" value="900.0"/>
@@ -2447,10 +2353,6 @@
                 <ownerList id="4">
                     <ownership unit="PU" value="0.2381"/>
                 </ownerList>
-                <nvPair>
-                    <name>Xfr LoadDropCZ</name>
-                    <value>2.5E-4,6.4E-4</value>
-                </nvPair>
                 <fromBus idRef="Bus205"/>
                 <toBus idRef="Bus215"/>
                 <tertiaryBus idRef="Bus208"/>
@@ -2482,7 +2384,7 @@
                     <mva unit="MVA" rating1="15.0" rating2="17.12" rating3="18.13"/>
                 </ratingLimit13>
             </aclf3WXfr>
-            <aclf3WXfr wind1OffLine="true" wind2OffLine="false" wind3OffLine="false" circuitId="4" id="Bus209_to_Bus217_n_Bus218_cirId_4" areaNumber="1" zoneNumber="1" offLine="false" name="3WNDSTAT4">
+            <aclf3WXfr wind1OffLine="true" wind2OffLine="false" wind3OffLine="false" circuitId="4" id="Bus209_to_Bus217_n_Bus218_cirId_4" areaNumber="1" zoneNumber="1" offLine="false" name="3WNDSTAT4                               ">
                 <ownerList id="2">
                     <ownership unit="PU" value="0.4671"/>
                 </ownerList>
@@ -2495,10 +2397,6 @@
                 <ownerList id="4">
                     <ownership unit="PU" value="0.17"/>
                 </ownerList>
-                <nvPair>
-                    <name>Xfr LoadDropCZ</name>
-                    <value>3.1E-4,0.00784</value>
-                </nvPair>
                 <fromBus idRef="Bus209"/>
                 <toBus idRef="Bus217"/>
                 <tertiaryBus idRef="Bus218"/>
@@ -2530,7 +2428,7 @@
                     <mva unit="MVA" rating1="35.0" rating2="37.12" rating3="38.13"/>
                 </ratingLimit13>
             </aclf3WXfr>
-            <aclfXfr circuitId="W3" id="Bus3002_to_Bus93002_cirId_W3" areaNumber="1" zoneNumber="1" offLine="false" name="WTG3XMER">
+            <aclfXfr circuitId="W3" id="Bus3002_to_Bus93002_cirId_W3" areaNumber="1" zoneNumber="1" offLine="false" name="WTG3XMER                                ">
                 <ownerList id="5">
                     <ownership unit="PU" value="1.0"/>
                 </ownerList>
@@ -2549,7 +2447,7 @@
                     <ratedPower unit="MVA" value="3.7"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="10" id="Bus3005_to_Bus3004_cirId_10" areaNumber="1" zoneNumber="1" offLine="false" name="WEST TX">
+            <aclfXfr circuitId="10" id="Bus3005_to_Bus3004_cirId_10" areaNumber="1" zoneNumber="1" offLine="false" name="WEST TX                                 ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.2645"/>
                 </ownerList>
@@ -2578,7 +2476,7 @@
                     <ratedPower unit="MVA" value="550.0"/>
                 </xfrInfo>
             </aclfXfr>
-            <aclfXfr circuitId="11" id="Bus3008_to_Bus3018_cirId_11" areaNumber="1" zoneNumber="1" offLine="false" name="CATDOG_XMER">
+            <aclfXfr circuitId="11" id="Bus3008_to_Bus3018_cirId_11" areaNumber="1" zoneNumber="1" offLine="false" name="CATDOG_XMER                             ">
                 <ownerList id="1">
                     <ownership unit="PU" value="0.2051"/>
                 </ownerList>

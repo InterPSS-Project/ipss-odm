@@ -473,16 +473,16 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param curUnit
 	 */
 	public static void setBranchRatingLimitData(BranchRatingLimitXmlType branchLimit, 
-				double mva1, double mva2, double mva3, ApparentPowerUnitType mvaUnit,
+				double mvar1, double mvar2, double mvar3, ApparentPowerUnitType mvarUnit,
 				double current, CurrentUnitType curUnit) {
-    	if (mva1 != 0.0 || mva2 != 0.0 || mva3 != 0.0 || current != 0.0) {
-        	if (mva1 != 0.0 || mva2 != 0.0 || mva3 != 0.0) {
+    	if (mvar1 != 0.0 || mvar2 != 0.0 || mvar3 != 0.0 || current != 0.0) {
+        	if (mvar1 != 0.0 || mvar2 != 0.0 || mvar3 != 0.0) {
         		MvaRatingXmlType mvaRating = OdmObjFactory.createMvaRatingXmlType();
         		branchLimit.setMva(mvaRating);
-        		mvaRating.setRating1(mva1);
-        		mvaRating.setRating2(mva2);
-        		mvaRating.setRating3(mva3);
-        		mvaRating.setUnit(mvaUnit);
+        		mvaRating.setRating1(mvar1);
+        		mvaRating.setRating2(mvar2);
+        		mvaRating.setRating3(mvar3);
+        		mvaRating.setUnit(mvarUnit);
         	}
 
         	if (current != 0.0) {
@@ -495,78 +495,33 @@ public class AclfDataSetter extends BaseDataSetter {
 	}
 
 	/**
-	 * add a RatingLimitData object to the branchData object, then set value(mvaLimit1, mvaLimit2, mvaLimit3, mvaUnit) 
+	 * add a RatingLimitData object to the branchData object, then set value(mvarLimit1, mvarLimit2, mvarLimit3, mvarUnit) 
 	 * to the created RatingLimitData object
 	 * 
 	 * @param branchData
-	 * @param mva1
-	 * @param mva2
-	 * @param mva3
-	 * @param mvaUnit
+	 * @param mvar1
+	 * @param mvar2
+	 * @param mvar3
+	 * @param mvarUnit
 	 */
 	public static void setBranchRatingLimitData(BranchRatingLimitXmlType branchLimit, 
-				double mva1, double mva2, double mva3, ApparentPowerUnitType mvaUnit) {
-		setBranchRatingLimitData(branchLimit, mva1, mva2, mva3, mvaUnit, 0.0, null);
+				double mvar1, double mvar2, double mvar3, ApparentPowerUnitType mvarUnit) {
+		setBranchRatingLimitData(branchLimit, mvar1, mvar2, mvar3, mvarUnit, 0.0, null);
 	}
 
 	/**
-	 * add a RatingLimitData object to the branchData object, then set value( mvaAry [contains up to 12 limits], mvaUnit) 
+	 * add a RatingLimitData object to the branchData object, then set value(mvarLimit1, mvarLimit2, mvarLimit3, mvarUnit) 
 	 * to the created RatingLimitData object
 	 * 
 	 * @param branchData
-	 * @param mvaAry
-	 * @param mvaUnit
+	 * @param mvar1
+	 * @param mvar2
+	 * @param mvar3
+	 * @param mvarUnit
 	 */
 	public static void setBranchRatingLimitData(BranchRatingLimitXmlType branchLimit, 
-			double[] mvaAry, ApparentPowerUnitType mvaUnit) {
-		//setBranchRatingLimitData(branchLimit, mvaAry[0], mvaAry[1], mvaAry[2], mvaUnit);
-		
-		if(mvaAry !=null && mvaAry[0]>0) {
-			MvaRatingXmlType mvaRating = OdmObjFactory.createMvaRatingXmlType();
-			branchLimit.setMva(mvaRating);
-			mvaRating.setUnit(mvaUnit);
-			
-			for (int i = 0; i < mvaAry.length; i++) {
-		        switch (i) {
-		            case 0:
-		                mvaRating.setRating1(mvaAry[i]);
-		                break;
-		            case 1:
-		                mvaRating.setRating2(mvaAry[i]);
-		                break;
-		            case 2:
-		                mvaRating.setRating3(mvaAry[i]);
-		                break;
-		            case 3:
-		                mvaRating.setRating4(mvaAry[i]);
-		                break;
-		            case 4:
-		                mvaRating.setRating5(mvaAry[i]);
-		                break;
-		            case 5:
-		                mvaRating.setRating6(mvaAry[i]);
-		                break;
-		            case 6:
-		                mvaRating.setRating7(mvaAry[i]);
-		                break;
-		            case 7:
-		                mvaRating.setRating8(mvaAry[i]);
-		                break;
-		            case 8:
-		                mvaRating.setRating9(mvaAry[i]);
-		                break;
-		            case 9:
-		                mvaRating.setRating10(mvaAry[i]);
-		                break;
-		            case 10:
-		                mvaRating.setRating11(mvaAry[i]);
-		                break;
-		            case 11:
-		                mvaRating.setRating12(mvaAry[i]);
-		                break;
-		        }
-		    }
-		}
+			double[] mvarAry, ApparentPowerUnitType mvarUnit) {
+		setBranchRatingLimitData(branchLimit, mvarAry[0], mvarAry[1], mvarAry[2], mvarUnit);
 	}
 
 	/**

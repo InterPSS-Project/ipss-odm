@@ -161,11 +161,11 @@ Line-4      WINDV2,  NOMV2
 			   //  0----------1----------2----------3----------4
 		       { "WINDV1",  "NOMV1",   "ANG1",    "RATA1",  "RATB1",
 			   //  5          6          7          8          9
-				  "RATC1",   "COD1",     "CONT1",    "RMA1",    "RMI1",
+				  "RATC1",   "COD",     "CONT",    "RMA",    "RMI",
 			   //  10         11         12         13         14
-				  "VMA1",     "VMI1",     "NTP1",     "TAB1",     "CR1",
+				  "VMA",     "VMI",     "NTP",     "TAB1",     "CR",
 			   //  15
-				  "CX1"},             
+				  "CX"},             
 
 			   //
 			   //	Line-4 (start position 48)
@@ -192,63 +192,7 @@ Line-4      WINDV2,  NOMV2
 				  "CX3"}                                                 // V30 and late version
 	};
 	
-	private static String[][] META_DATA_v34 = new String[][] {{
-		   //	Line-1
-		   //  0----------1----------2----------3----------4
-			  "I",       "J",       "K",       "CKT",     "CW",             
-		   //  5          6          7          8          9
-			  "CZ",      "CM",      "MAG1",    "MAG2",    "NMETR",
-		   //  10         11         12         13         14
-			  "NAME",    "STAT",    "O1",      "F1",      "O2", 
-		   //  15         16         17         18         19
-			  "F2",       "O3",     "F3",      "O4",      "F4",
-		   //  20	  
-			  "VECGRP",  "ZCOD"},                                        
-				  
-        //
-		   //	Line-2 (start position 21)
-		   //  0----------1----------2----------3----------4
-		   {"R1-2",    "X1-2",   "SBASE1-2", "R2-3",   "X2-3",
-		   //  5          6          7          8          9
-			  "SBASE2-3", "R3-1",   "X3-1",   "SBASE3-1", "VMSTAR",
-		   //  10
-			  "ANSTAR"},            
-
-		   //
-		   //	Line-3 (start position 32)
-		   //  0----------1----------2----------3----------4----------5----------6----------7----------8-------9
-		   { "WINDV1",  "NOMV1",   "ANG1",    "RATE11",  "RATE21","RATE31",  "RATE41","RATE51",  "RATE61",  "RATE71",
-				  
-			//  10         11         12         13         14         15          16          17         18          19
-		   "RATE81",    "RATE91",  "RATE101", "RATE111",   "RATE121", "COD1",     "CONT1",     "RMA1",    "RMI1",  "VMA1",
-		    //  20         21          22         23      24             25          26
-			  "VMI1",     "NTP1",     "TAB1",     "CR1",   "CX1",       "CNXA1",  "NODE1"},  //NOTE in V34 NODE is at the end of the line, but in V35-36, it is moved to after CONT
-		
-			       
-
-		   //
-		   //	Line-4 (start position 48)
-		   //  0----------1----------2----------3----------4----------5----------6----------7----------8-------9
-		   { "WINDV2",  "NOMV2",   "ANG2",    "RATE12",  "RATE22","RATE32",  "RATE42","RATE52",  "RATE62",  "RATE72",
-				  
-			//  10         11         12         13         14         15          16          17         18          19
-		   "RATE82",    "RATE92",  "RATE102", "RATE112",   "RATE122", "COD2",     "CONT2",    "RMA2",    "RMI2",   "VMA2", 
-		    //  20         21          22         23      24             25          26
-			  "VMI2",     "NTP2",     "TAB2",     "CR2",   "CX2",      "CNXA2",   "NODE2"},  
-		
-		   //
-		   //	Line-5 (start position 64)
-		   //  0----------1----------2----------3----------4----------5----------6----------7----------8-------9
-		   { "WINDV3",  "NOMV3",   "ANG3",    "RATE13",  "RATE23","RATE33",  "RATE43","RATE53",  "RATE63",  "RATE73",
-				  
-			//  10         11         12         13         14         15          16          17         18          19
-		   "RATE83",    "RATE93",  "RATE103", "RATE113",   "RATE123", "COD3",     "CONT3",    "RMA3",    "RMI3",    "VMA3",  
-		    //  20         21          22         23      24             25          26
-			"VMI3",     "NTP3",     "TAB3",     "CR3",   "CX3",     "CNXA3",      "NODE3" },  
-		
-	};
-	
-	private static String[][] META_DATA_v35_36 = new String[][] {{
+	private static String[][] META_DATA_v34_36 = new String[][] {{
 		   //	Line-1
 		   //  0----------1----------2----------3----------4
 			  "I",       "J",       "K",       "CKT",     "CW",             
@@ -272,36 +216,38 @@ Line-4      WINDV2,  NOMV2
 
 		   //
 		   //	Line-3 (start position 32)
-		   //  0----------1----------2----------3----------4----------5----------6----------7----------8-------9
-		   { "WINDV1",  "NOMV1",   "ANG1",    "RATE11",  "RATE21","RATE31",  "RATE41","RATE51",  "RATE61",  "RATE71",
-				  
-			//  10         11         12         13         14         15          16          17         18          19
-		   "RATE81",    "RATE91",  "RATE101", "RATE111",   "RATE121", "COD1",     "CONT1",    "NODE1",   "RMA1",    "RMI1",
-		    //  20         21          22         23      24             25          26
-			  "VMA1",     "VMI1",     "NTP1",     "TAB1",     "CR1",   "CX1",       "CNXA1"},  
-		
-			       
+		   //  0----------1----------2----------3----------4
+		   { "WINDV1",  "NOMV1",   "ANG1",    "RATA1",  "RATB1",
+		   //  5          6          7          8          9
+			  "RATC1",   "COD",     "CONT",    "RMA",    "RMI",
+		   //  10         11         12         13         14
+			  "VMA",     "VMI",     "NTP",     "TAB1",     "CR",
+		   //  15
+			  "CX",       "CNXA1"},        
 
 		   //
 		   //	Line-4 (start position 48)
-		   //  0----------1----------2----------3----------4----------5----------6----------7----------8-------9
-		   { "WINDV2",  "NOMV2",   "ANG2",    "RATE12",  "RATE22","RATE32",  "RATE42","RATE52",  "RATE62",  "RATE72",
-				  
-			//  10         11         12         13         14         15          16          17         18          19
-		   "RATE82",    "RATE92",  "RATE102", "RATE112",   "RATE122", "COD2",     "CONT2",    "NODE2",   "RMA2",    "RMI2",
-		    //  20         21          22         23      24             25          26
-			  "VMA2",     "VMI2",     "NTP2",     "TAB2",     "CR2",   "CX2",       "CNXA2"},  
+		   //  0----------1----------2----------3----------4
+		   {  "WINDV2",  "NOMV2",  "ANG2",    "RATA2",   "RATB2",
+		   //  5          6          7          8          9
+			  "RATC2",   
+			             "COD2",   "CONT2",   "RMA2",    "RMI2",   // V30 and late version
+		   //  10         11         12         13         14
+			  "VMA2",    "VMI2",   "NTP2",    "TAB2",    "CR2",    // V30 and late version
+		   //  15
+			  "CX2",      "CNXA2"},                                               // V30 and late version
 		
 		   //
 		   //	Line-5 (start position 64)
-		   //  0----------1----------2----------3----------4----------5----------6----------7----------8-------9
-		   { "WINDV3",  "NOMV3",   "ANG3",    "RATE13",  "RATE23","RATE33",  "RATE43","RATE53",  "RATE63",  "RATE73",
-				  
-			//  10         11         12         13         14         15          16          17         18          19
-		   "RATE83",    "RATE93",  "RATE103", "RATE113",   "RATE123", "COD3",     "CONT3",    "NODE3",   "RMA3",    "RMI3",
-		    //  20         21          22         23      24             25          26
-			  "VMA3",     "VMI3",     "NTP3",     "TAB3",     "CR3",   "CX3",       "CNXA3"},  
-		
+		   //  0----------1----------2----------3----------4
+		   { "WINDV3",  "NOMV3",   "ANG3",   "RATA3",    "RATB3",
+		   //  5          6          7          8          9
+			  "RATC3",   
+			             "COD3",    "CONT3",  "RMA3",     "RMI3",   // V30 and late version
+		   //  10         11         12         13         14
+			  "VMA3",    "VMI3",    "NTP3",   "TAB3",     "CR3",    // V30 and late version
+			// 15
+			  "CX3",      "CNXA3"}                                   // V34
 	};
 	
 	@Override public String[] getMetadata() {
@@ -315,17 +261,20 @@ Line-4      WINDV2,  NOMV2
 			case PSSE_33:
 				return convertStringAry2DTo1D(META_DATA_v30_33);
 			case PSSE_34:
-				return convertStringAry2DTo1D(META_DATA_v34);
 			case PSSE_35:
 			case PSSE_36:
-				return convertStringAry2DTo1D(META_DATA_v35_36);
+				return convertStringAry2DTo1D(META_DATA_v34_36);
 			default:
-				return convertStringAry2DTo1D(META_DATA_v35_36);
+				return convertStringAry2DTo1D(META_DATA_v34_36);
 	
        }
 	}
 	
-
+	private String[] convertStringAry2DTo1D(String[][] twoDArray) {
+		return Arrays.stream(twoDArray)
+        .flatMap(Arrays::stream)
+        .toArray(String[]::new);
+	}
 	
 	@Override public void parseFields(final String[] strAry) throws ODMException {
 		this.clearNVPairTableData();
@@ -341,11 +290,11 @@ Line-4      WINDV2,  NOMV2
         boolean isThreeWinding = !firstLineData[2].trim().equals("0");
         
         // set the number of expectedFieldCount based on v34-36 as default
-        int expectedLine1Num = META_DATA_v35_36[0].length;
-        int expectedLine2Num = META_DATA_v35_36[1].length;
-        int expectedLine3Num = META_DATA_v35_36[2].length;
-        int expectedLine4Num = META_DATA_v35_36[3].length;
-        int expectedLine5Num = META_DATA_v35_36[4].length;
+        int expectedLine1Num = META_DATA_v34_36[0].length;
+        int expectedLine2Num = META_DATA_v34_36[1].length;
+        int expectedLine3Num = META_DATA_v34_36[2].length;
+        int expectedLine4Num = META_DATA_v34_36[3].length;
+        int expectedLine5Num = META_DATA_v34_36[4].length;
 
         
         // for version 30-33

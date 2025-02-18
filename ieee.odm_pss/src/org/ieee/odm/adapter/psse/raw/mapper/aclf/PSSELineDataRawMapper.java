@@ -53,29 +53,7 @@ public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
 	
 	/*
 	 * BranchData
-	 * V30-V33
-	 * 
 	 * I,J,CKT,R,X,B,RATEA,RATEB,RATEC,GI,BI,GJ,BJ,ST,LEN,O1,F1,...,O4,F4
-	 * 
-	 * V34-35 (MAIN Change:  RATE (ABC) --> RATE (1-12)
-	 * 
-
-				  "I",       "J",       "CKT",     "R",       "X",             
-				  "B",      "NAME",    "RATE1",    "RATE2",   "RATE3",
-				  "RATE4",    "RATE5",   "RATE6", "RATE7",   "RATE8",    
-			   //  15         16         17         18         19
-				  "RATE9",    "RATE10", "RATE11", "RATE12",    "GI", 
-			    //  20         21         22         23        24
-				  "BI",      "GJ",      "BJ",     "ST",      "MET", 
-				//  25         26         27         28        29  
-				   "LEN",    "O1",      "F1",      "O2",     "F2", 
-				                       
-			   //  30         31         32         33        34
-				   "O3",     "F3",      "O4",      "F4"
-				   
-        V36
-        Add "BP" (bypass) in addition to V34-35
-	 * 
 	 */
 	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		//procLineFields(lineStr, version);
@@ -136,29 +114,13 @@ public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
 		}
 		
 		AclfDataSetter.setLineData(braRecXml, r, x, ZUnitType.PU, 0.0, b, YUnitType.PU);
-		
-		braRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
-		
-		if(PSSERawAdapter.getVersionNo(this.version) <34) {
 
-			double ratea = dataParser.getDouble("RATEA", 0.0);
-			double rateb = dataParser.getDouble("RATEB", 0.0);
-			double ratec = dataParser.getDouble("RATEC", 0.0);
-			
-			AclfDataSetter.setBranchRatingLimitData(braRecXml.getRatingLimit(),
-	    				ratea, rateb, ratec, ApparentPowerUnitType.MVA);
-		
-		}
-		else if(PSSERawAdapter.getVersionNo(this.version) <37) {
-			double[] ratings = new double[12];
-			for(int idx =0; idx<ratings.length;idx++) {
-				ratings[idx] =  dataParser.getDouble("RATE"+(idx+1), 0.0);
-			}
-			AclfDataSetter.setBranchRatingLimitData(braRecXml.getRatingLimit(), ratings, ApparentPowerUnitType.MVA);
-		}
-		else {
-			throw new ODMException("The PSSE version is not supported yet:"+this.version);
-		}
+		double ratea = dataParser.getDouble("RATEA", 0.0);
+		double rateb = dataParser.getDouble("RATEB", 0.0);
+		double ratec = dataParser.getDouble("RATEC", 0.0);
+		braRecXml.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
+		AclfDataSetter.setBranchRatingLimitData(braRecXml.getRatingLimit(),
+    				ratea, rateb, ratec, ApparentPowerUnitType.MVA);
         
 		double gi = dataParser.getDouble("GI", 0.0);
 		double bi = dataParser.getDouble("BI", 0.0);
@@ -171,10 +133,5 @@ public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
     	   braRecXml.setToShuntY(BaseDataSetter.createYValue(gj, bj, YUnitType.PU));
        
        mapOwnerInfo(braRecXml);
-       
-       if(PSSERawAdapter.getVersionNo(this.version) >=36) {
-    	   int bp = dataParser.getInt("BP",0);
-    	   braRecXml.setBypass(bp==1);
-       }
 	}
 }
