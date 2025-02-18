@@ -14,10 +14,14 @@ import org.ieee.odm.psse.raw.v30.PSSEV30_GuideSampleTest;
 import org.ieee.odm.psse.raw.v30.PSSEV30_IEEE39_Acsc_Test;
 import org.ieee.odm.psse.raw.v30.PSSEV30_IEEE9_Acsc_Test;
 import org.ieee.odm.psse.raw.v30.PSSEV30_IEEE9_Dstab_Test;
-import org.ieee.odm.psse.raw.v30.PSSEV30_NEISO_ODMTest;
+import org.ieee.odm.psse.raw.v30.PSSEV30_RealCase_ODMTest;
 import org.ieee.odm.psse.raw.v30.PSSEV30_ODMTest;
 import org.ieee.odm.psse.raw.v30.PSSEV30_SegmentTest;
 import org.ieee.odm.psse.raw.v31.PSSEV31_AESOTest;
+import org.ieee.odm.psse.raw.v33.PSSEV33_IEEE9_Test;
+import org.ieee.odm.psse.raw.v33.PSSEV33_Sample_savnw_Test;
+import org.ieee.odm.psse.raw.v36.PSSEV31_v36_IEEE9_Test;
+import org.ieee.odm.psse.raw.v36.PSSEV31_v36_Sample_Test;
 import org.ieee.odm.pwd.LineStringParserTest;
 import org.ieee.odm.pwd.PWD_IEEE14Bus_ODMTest;
 import org.ieee.odm.pwd.PWD_XfrControl_Test;
@@ -44,7 +48,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 	PSSE_HearderVer_ODMTest.class,
 	PSSEV30_ODMTest.class,
-	PSSEV30_NEISO_ODMTest.class,
+	PSSEV30_RealCase_ODMTest.class,
 	PSSEV30_GuideSampleTest.class,
 	PSSEV30_SegmentTest.class,
 	PSSEV30_IEEE39_Acsc_Test.class,
@@ -53,6 +57,13 @@ import org.junit.runners.Suite.SuiteClasses;
 	PSSEV30_Dyn_Load_Test.class,
 	
 	PSSEV31_AESOTest.class,
+
+	PSSEV33_IEEE9_Test.class,
+	PSSEV33_Sample_savnw_Test.class,
+
+	PSSEV31_v36_IEEE9_Test.class,
+	PSSEV31_v36_Sample_Test.class,
+
 	
 	PSLF_CMPLDW_Mapper_Test.class,
 	PSLFCMPLDWDataParserTest.class,

@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run All Tests",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": [
+                "org.ieee.odm.adapter.AdapterTest",
+                "org.ieee.odm.bpa.BPA_ODMTest",
+                "org.ieee.odm.ieeecdf.IEEECDF_ODMTest",
+                "org.ieee.odm.psse.raw.PSSEV31_v36_IEEE9_Test"
+                // Add other test classes here
+            ],
+            "classpath": [
+                "${workspaceFolder}/ieee.odm.test/src/test/java",
+                "${workspaceFolder}/ieee.odm_pss/src/main/java",
+                "${workspaceFolder}/ieee.odm.schema/src",
+                "${workspaceFolder}/lib/*",
+                "${workspaceFolder}/ieee.odm.test/lib/*",
+                "${workspaceFolder}/ieee.odm_pss/lib/*"
+            ]
+        }
+    ]
+}
