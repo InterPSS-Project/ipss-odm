@@ -17,7 +17,7 @@ public class PSSEV30_IEEE9_Aclf_Test {
 		ODMLogger.getLogger().setLevel(Level.WARNING);
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testdata/psse/IEEE9Bus/ieee9.raw"));
+		assertTrue(adapter.parseInputFile("testdata/psse/v30/IEEE9Bus/ieee9.raw"));
 		
 		AclfModelParser aclfParser =(AclfModelParser) adapter.getModel();
 		//aclfParser.stdout();
