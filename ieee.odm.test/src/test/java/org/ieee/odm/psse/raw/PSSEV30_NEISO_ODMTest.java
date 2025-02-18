@@ -55,7 +55,7 @@ public class PSSEV30_NEISO_ODMTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testData/psse/Model_testV30.raw"));
+		assertTrue(adapter.parseInputFile("testData/psse/v30/Model_testV30.raw"));
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//parser.stdout();

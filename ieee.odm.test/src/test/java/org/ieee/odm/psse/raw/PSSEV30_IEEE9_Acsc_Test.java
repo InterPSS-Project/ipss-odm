@@ -29,8 +29,8 @@ public class PSSEV30_IEEE9_Acsc_Test {
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.AcscNet, new String[]{
-				"testData/psse/IEEE9Bus/ieee9.raw",
-				"testData/psse/IEEE9Bus/ieee9.seq"
+				"testData/psse/v30/IEEE9Bus/ieee9.raw",
+				"testData/psse/v30/IEEE9Bus/ieee9.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
 		//acscParser.stdout();
