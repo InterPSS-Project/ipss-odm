@@ -1,7 +1,0 @@
-eclipse.preferences.version=1
-encoding//src/main/java/org/ieee/odm/adapter/psse/raw/mapper/aclf/PSSEDcLine2TDataRawMapper.java=UTF-8
-encoding//src/main/java/org/ieee/odm/adapter/psse/raw/mapper/dynamic/generator/PSSEGenrouMapper.java=UTF-8
-encoding//src/main/java/org/ieee/odm/adapter/psse/raw/mapper/dynamic/generator/PSSEGentpjMapper.java=UTF-8
-encoding//src/main/java/org/ieee/odm/adapter/psse/raw/parser/aclf/PSSEGenDataRawParser.java=UTF-8
-encoding//src/main/java/org/ieee/odm/adapter/psse/raw/parser/aclf/PSSEHeaderDataRawParser.java=UTF-8
-encoding//src/main/java/org/ieee/odm/adapter/psse/raw/parser/aclf/PSSESwitchedShuntDataRawParser.java=UTF-8
