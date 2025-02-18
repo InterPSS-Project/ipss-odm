@@ -609,4 +609,101 @@
 			</ns:extension>
 		</ns:complexContent>
 	</ns:complexType>
+
+    <ns:element name="factsDevice" type="pss:FACTSDeviceXmlType"></ns:element>
+    
+    <ns:complexType name="FACTSDeviceXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:BranchXmlType">
+    			<ns:sequence>
+    				<ns:element name="mode" type="ns:int"></ns:element>
+    				<ns:element name="desiredActivePower"
+    					type="pss:ActivePowerXmlType">
+    				</ns:element>
+    				<ns:element name="desiredReactivePower"
+    					type="pss:ReactivePowerXmlType">
+    				</ns:element>
+    				<ns:element name="voltageSetPoint"
+    					type="pss:VoltageXmlType">
+    				</ns:element>
+    				<ns:element name="maxShunt" type="pss:YXmlType"></ns:element>
+    				<ns:element name="maxBridgeActivePower"
+    					type="pss:ActivePowerXmlType">
+    				</ns:element>
+    				<ns:element name="minTerminalBusVoltage"
+    					type="pss:VoltageXmlType">
+    				</ns:element>
+    				<ns:element name="maxSeriesVoltage"
+    					type="pss:VoltageXmlType">
+    				</ns:element>
+    				<ns:element name="maxSeriesCurrent"
+    					type="pss:CurrentXmlType">
+    				</ns:element>
+    				<ns:element name="remoteControlPercent"
+    					type="ns:double">
+    				</ns:element>
+    				<ns:element name="owner" type="pss:OwnerXmlType"></ns:element>
+    				<ns:element name="set1" type="ns:double"></ns:element>
+    				<ns:element name="set2" type="ns:double"></ns:element>
+    				<ns:element name="seriesVoltageRefCode"
+    					type="ns:int">
+    				</ns:element>
+
+    				<ns:element name="regulatedBus"
+    					type="pss:BusRefXmlType">
+    				</ns:element>
+    				<ns:element name="regulatedBusNodeNum"
+    					type="ns:int">
+    				</ns:element>
+    				<ns:element name="name" type="ns:string"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+    <ns:complexType name="NodeXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:IDRefRecordXmlType">
+    			<ns:sequence>
+    				<ns:element name="name" type="ns:string"></ns:element>
+    				<ns:element name="voltageMag"
+    					type="pss:VoltageXmlType">
+    				</ns:element>
+    				<ns:element name="voltageAngle"
+    					type="pss:AngleXmlType">
+    				</ns:element>
+    				<ns:element name="electricalBusNum" type="ns:int"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+    <ns:complexType name="SubstationXmlType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:IDRefRecordXmlType">
+    			<ns:sequence>
+    				<ns:element name="name" type="ns:string"></ns:element>
+    				<ns:element name="latitude" type="ns:double"></ns:element>
+    				<ns:element name="longitude" type="ns:double"></ns:element>
+    				<ns:element name="groudingR" type="pss:RXmlType"></ns:element>
+    			</ns:sequence>
+    			
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
+
+    <ns:complexType name="SwitchingDeviceType">
+    	<ns:complexContent>
+    		<ns:extension base="pss:BranchXmlType">
+    			<ns:sequence>
+    				<ns:element name="swtichingRatingTableName"
+    					type="ns:string">
+    				</ns:element>
+    				<ns:element name="status" type="ns:int"></ns:element>
+    				<ns:element name="normalStatus" type="ns:int"></ns:element>
+    				<ns:element name="type" type="pss:SwitchingDeviceEnumType"></ns:element>
+    			</ns:sequence>
+    		</ns:extension>
+    	</ns:complexContent>
+    </ns:complexType>
 </ns:schema>
