@@ -17,6 +17,8 @@ import org.ieee.odm.psse.raw.v30.PSSEV30_IEEE9_Dstab_Test;
 import org.ieee.odm.psse.raw.v30.PSSEV30_RealCase_ODMTest;
 import org.ieee.odm.psse.raw.v30.PSSEV30_ODMTest;
 import org.ieee.odm.psse.raw.v30.PSSEV30_SegmentTest;
+import org.ieee.odm.psse.raw.v30.PSSE_Dyn_Exciter_Test;
+import org.ieee.odm.psse.raw.v30.PSSE_V30_3WindingXfrTest;
 import org.ieee.odm.psse.raw.v31.PSSEV31_AESOTest;
 import org.ieee.odm.psse.raw.v33.PSSEV33_IEEE9_Test;
 import org.ieee.odm.psse.raw.v33.PSSEV33_Sample_savnw_Test;
@@ -55,6 +57,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	PSSEV30_IEEE9_Acsc_Test.class,
 	PSSEV30_IEEE9_Dstab_Test.class,
 	PSSEV30_Dyn_Load_Test.class,
+	PSSE_V30_3WindingXfrTest.class,
+	PSSE_Dyn_Exciter_Test.class,
 	
 	PSSEV31_AESOTest.class,
 

@@ -1,3 +1,5 @@
 *.class
 private_data/
 secrets.json
+bin/
+ieee.odm.test/07c_BPA_ODM_0607.xml
