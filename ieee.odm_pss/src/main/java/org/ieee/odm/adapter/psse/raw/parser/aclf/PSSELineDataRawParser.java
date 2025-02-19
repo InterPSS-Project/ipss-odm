@@ -177,35 +177,9 @@ public class PSSELineDataRawParser extends BasePSSEDataRawParser {
 
 	}
 	
-//	@Override public void parseFields(final String str) throws ODMException {
-//		this.clearNVPairTableData();
-//		
-//  		StringTokenizer st = new StringTokenizer(str, ",");
-//
-//  		for (int i = 0; i < 9; i++) {
-//  			if (i == 2 && PSSERawAdapter.getVersionNo(this.version) >= 29)
-//  				setValue(i, ODMModelStringUtil.trimQuote(st.nextToken()).trim());
-//  			else
-//  				setValue(i, st.nextToken().trim());
-//  		}	
-//
-////  		if (this.version == PsseVersion.PSSE_26) {
-////			setValue(9, st.nextToken().trim());
-////			setValue(10, st.nextToken().trim());
-////  		}
-//
-//  		for (int i = 11; i < 16; i++)
-//  			if (st.hasMoreTokens()) 
-//  				setValue(i, st.nextToken().trim());
-//
-//		setValue(16, "1");
-//		if (PSSERawAdapter.getVersionNo(this.version) >= 31)
-//			setValue(16, st.nextToken().trim());
-// 		
-//  		for (int i = 17; i < 25; i++)
-//  			if (st.hasMoreTokens()) 
-//  				setValue(i, st.nextToken().trim());
-//  		
-//  		
-//	}
+	@Override public void parseFields(final String str) throws ODMException {
+			super.parseFields(str); 
+  		
+  		
+	}
 }

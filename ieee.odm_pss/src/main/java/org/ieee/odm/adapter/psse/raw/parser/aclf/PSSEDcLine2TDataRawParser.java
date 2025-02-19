@@ -27,6 +27,7 @@ package org.ieee.odm.adapter.psse.raw.parser.aclf;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
 
 /**
@@ -39,6 +40,89 @@ public class PSSEDcLine2TDataRawParser extends BasePSSEDataRawParser {
 	public PSSEDcLine2TDataRawParser(PsseVersion ver) {
 		super(ver);
 	}	
+	
+	
+	private static String[][] META_DATA_v30_33 = new String[][] {
+		       {
+			   //  0-----------1-----------2-----------3-----------4
+				  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
+			   //  5           6           7           8           9
+				  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
+			   //  10          11          12          13          14
+				  "CCCITMX", "CCCACC"},
+		
+		       {"IPR",      "NBR",      "ALFMX",      // Line-2
+			   //  15          16          17          18          19
+				  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
+			   //  20          21          22          23          24
+				  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
+			   //  25          26          27          28          29
+				  "IFR",     "ITR",      "IDR",      "XCAPR"},
+		        { "IPI",        // Line-3
+	       	   //  30          31          32          33          34
+				  "NBI",     "GAMMX",    "GAMMN",    "RCI",      "XCI",
+			   //  35          36          37          38          39
+				  "EBASI",   "TRI",      "TAPI",     "TMXI",     "TMNI",
+			   //  40          41          42          43          44
+				  "STPI",    "ICI",      "IFI",      "ITI",      "IDI",
+			   //  45
+				  "XCAPI"}};
+	private static String[][] META_DATA_v34 = new String[][] {
+		      // Line-1 
+			   //  0-----------1-----------2-----------3-----------4
+		       { "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",        
+			   //  5           6           7           8           9
+				  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
+			   //  10          11          12          13          14
+				  "CCCITMX", "CCCACC"},
+		       
+		        // Line-2
+		       { "IPR",      "NBR",      "ALFMX",      
+			   //  15          16          17          18          19
+				  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
+			   //  20          21          22          23          24
+				  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
+			   //  25          26          27          28          29
+				  "IFR",     "ITR",      "IDR",      "XCAPR",    "NDR"},
+		       
+				 // Line-3
+	       	   //  30          31          32          33          34
+		       { "IPI",     "NBI",     "GAMMX",    "GAMMN",    "RCI",    
+			   //  35          36          37          38          39
+				  "XCI",    "EBASI",   "TRI",      "TAPI",     "TMXI",    
+			   //  40          41          42          43          44
+				  "TMNI",   "STPI",    "ICI",      "IFI",      "ITI",     
+			   //  45        46      47 
+				  "IDI",   "XCAPI", "NDI"}};
+	
+	private static String[][] META_DATA_v35_36 = new String[][] {
+		
+		   // Line-1  
+			   //  0-----------1-----------2-----------3-----------4
+		       {   "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      
+			   //  5           6           7           8           9
+				  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
+			   //  10          11          12          13          14
+				  "CCCITMX", "CCCACC"},
+		       
+		    // Line-2
+		       { "IPR",      "NBR",      "ALFMX",      
+			   //  15          16          17          18          19
+				  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
+			   //  20          21          22          23          24
+				  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
+			   //  25          26          27          28          29
+				  "NDR",      "IFR",     "ITR",      "IDR",      "XCAPR"}, 
+		       
+	         // Line-3
+	       	   //  30          31          32          33          34
+		       { "IPI",     "NBI",     "GAMMX",    "GAMMN",    "RCI",      
+			   //  35          36          37          38          39
+				  "XCI",    "EBASI",   "TRI",      "TAPI",     "TMXI",     
+			   //  40          41          42          43          44
+				  "TMNI",   "STPI",    "ICI",      "NDI",        "IFI",     
+			   //  45         46        47      
+				  "ITI",      "IDI",    "XCAPI"}};
 	
 	@Override public String[] getMetadata() {
 		/*
@@ -92,118 +176,81 @@ public class PSSEDcLine2TDataRawParser extends BasePSSEDataRawParser {
 		 *           "ipi", "nbi", "anmxi", "anmni", "rci", "xci", "ebasi", "tri", "tapi", "tmxi", "tmni", "stpi", "ici", "ndi", "ifi", "iti", "idi", "xcapi"],  
   
 		 */
-		String[] v30_33 = new String[] {
-				   //  0-----------1-----------2-----------3-----------4
-					  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
-				   //  5           6           7           8           9
-					  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
-				   //  10          11          12          13          14
-					  "CCCITMX", "CCCACC",
-					                         "IPR",      "NBR",      "ALFMX",      // Line-2
-				   //  15          16          17          18          19
-					  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
-				   //  20          21          22          23          24
-					  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
-				   //  25          26          27          28          29
-					  "IFR",     "ITR",      "IDR",      "XCAPR",
-					                                                 "IPI",        // Line-3
-		       	   //  30          31          32          33          34
-					  "NBI",     "GAMMX",    "GAMMN",    "RCI",      "XCI",
-				   //  35          36          37          38          39
-					  "EBASI",   "TRI",      "TAPI",     "TMXI",     "TMNI",
-				   //  40          41          42          43          44
-					  "STPI",    "ICI",      "IFI",      "ITI",      "IDI",
-				   //  45
-					  "XCAPI"};
-		String[] v34 = new String[] {
-				   //  0-----------1-----------2-----------3-----------4
-					  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
-				   //  5           6           7           8           9
-					  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
-				   //  10          11          12          13          14
-					  "CCCITMX", "CCCACC",
-					                         "IPR",      "NBR",      "ALFMX",      // Line-2
-				   //  15          16          17          18          19
-					  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
-				   //  20          21          22          23          24
-					  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
-				   //  25          26          27          28          29
-					  "IFR",     "ITR",      "IDR",      "XCAPR",    "NDR",
-					                                                        // Line-3
-		       	   //  30          31          32          33          34
-					  "IPI",     "NBI",     "GAMMX",    "GAMMN",    "RCI",    
-				   //  35          36          37          38          39
-					  "XCI",    "EBASI",   "TRI",      "TAPI",     "TMXI",    
-				   //  40          41          42          43          44
-					  "TMNI",   "STPI",    "ICI",      "IFI",      "ITI",     
-				   //  45        46      47 
-					  "IDI",   "XCAPI", "NDI"};
-		
-		String[] v35_36 = new String[] {
-				   //  0-----------1-----------2-----------3-----------4
-					  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
-				   //  5           6           7           8           9
-					  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
-				   //  10          11          12          13          14
-					  "CCCITMX", "CCCACC",
-					                         "IPR",      "NBR",      "ALFMX",      // Line-2
-				   //  15          16          17          18          19
-					  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
-				   //  20          21          22          23          24
-					  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
-				   //  25          26          27          28          29
-					  "NDR",      "IFR",     "ITR",      "IDR",      "XCAPR", 
-					                                                       // Line-3
-		       	   //  30          31          32          33          34
-					  "IPI",     "NBI",     "GAMMX",    "GAMMN",    "RCI",      
-				   //  35          36          37          38          39
-					  "XCI",    "EBASI",   "TRI",      "TAPI",     "TMXI",     
-				   //  40          41          42          43          44
-					  "TMNI",   "STPI",    "ICI",      "NDI",        "IFI",     
-				   //  45         46        47      
-					  "ITI",      "IDI",    "XCAPI"};
 		
 		
-		return new String[] {
-		   //  0-----------1-----------2-----------3-----------4
-			  "I",       "MDC",      "RDC",      "SETVL",    "VSCHD",      // Line-1   
-		   //  5           6           7           8           9
-			  "VCMOD",   "RCOMP",    "DELTI",    "METER",    "DCVMIN",
-		   //  10          11          12          13          14
-			  "CCCITMX", "CCCACC",
-			                         "IPR",      "NBR",      "ALFMX",      // Line-2
-		   //  15          16          17          18          19
-			  "ALFMN",   "RCR",      "XCR",      "EBASR",    "TRR",
-		   //  20          21          22          23          24
-			  "TAPR",    "TMXR",     "TMNR",     "STPR",     "ICR",
-		   //  25          26          27          28          29
-			  "IFR",     "ITR",      "IDR",      "XCAPR",
-			                                                 "IPI",        // Line-3
-       	   //  30          31          32          33          34
-			  "NBI",     "GAMMX",    "GAMMN",    "RCI",      "XCI",
-		   //  35          36          37          38          39
-			  "EBASI",   "TRI",      "TAPI",     "TMXI",     "TMNI",
-		   //  40          41          42          43          44
-			  "STPI",    "ICI",      "IFI",      "ITI",      "IDI",
-		   //  45
-			  "XCAPI"
-		};
+		
+		switch(this.version){
+			case PSSE_29:
+			case PSSE_30:
+			case PSSE_31:
+			case PSSE_32:
+			case PSSE_33:
+				return convertStringAry2DTo1D(META_DATA_v30_33);
+			case PSSE_34:
+				return convertStringAry2DTo1D(META_DATA_v34);
+			case PSSE_35:
+			case PSSE_36:
+				return convertStringAry2DTo1D(META_DATA_v35_36);
+			default:
+				return convertStringAry2DTo1D(META_DATA_v35_36);
+
+         }
 	}
 	
-	@Override public void parseFields(final String[] lineStrAry) throws ODMException {
-		StringTokenizer st = new StringTokenizer(lineStrAry[0], ",");
-		int cnt = 0;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());
-
-		st = new StringTokenizer(lineStrAry[1], ",");
-		cnt = 12;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());
+	@Override public void parseFields(final String[] strAry) throws ODMException {
 		
-		st = new StringTokenizer(lineStrAry[2], ",");
-		cnt = 29;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());
+		String lineStr1 = strAry[0];
+		String lineStr2 = strAry[1];
+		String lineStr3 = strAry[2];
+
+
+        
+        // set the number of expectedFieldCount based on v35-36 as default
+        int expectedLine1Num = META_DATA_v35_36[0].length;
+        int expectedLine2Num = META_DATA_v35_36[1].length;
+        int expectedLine3Num = META_DATA_v35_36[2].length;
+
+        
+        // for version 30-33
+        if(PSSERawAdapter.getVersionNo(this.version) < 34) {
+        	expectedLine1Num = META_DATA_v30_33[0].length;
+        	expectedLine2Num = META_DATA_v30_33[1].length;
+        	expectedLine3Num = META_DATA_v30_33[2].length;
+        	
+        }
+        else if(PSSERawAdapter.getVersionNo(this.version) == 34) {
+        	expectedLine1Num = META_DATA_v34[0].length;
+        	expectedLine2Num = META_DATA_v34[1].length;
+        	expectedLine3Num = META_DATA_v34[2].length;
+        }
+        
+        //line 1
+        int startingIdx = 0;
+        parseLineStr(lineStr1, startingIdx, expectedLine1Num);
+        
+        //line 2
+        startingIdx += expectedLine1Num;
+        parseLineStr(lineStr2, expectedLine1Num, expectedLine2Num);
+        
+        //line 3
+        startingIdx += expectedLine2Num;
+        parseLineStr(lineStr3, startingIdx, expectedLine3Num);
+        
+		
+		
+//		StringTokenizer st = new StringTokenizer(lineStrAry[0], ",");
+//		int cnt = 0;
+//		while (st.hasMoreTokens())
+//			this.setValue(cnt++, st.nextToken().trim());
+//
+//		st = new StringTokenizer(lineStrAry[1], ",");
+//		cnt = 12;
+//		while (st.hasMoreTokens())
+//			this.setValue(cnt++, st.nextToken().trim());
+//		
+//		st = new StringTokenizer(lineStrAry[2], ",");
+//		cnt = 29;
+//		while (st.hasMoreTokens())
+//			this.setValue(cnt++, st.nextToken().trim());
   	}
 }

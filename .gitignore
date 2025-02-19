@@ -1,3 +1,6 @@
 *.class
 private_data/
 secrets.json
+*.json
+bin/
+/bin/
