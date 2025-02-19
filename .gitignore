@@ -6,3 +6,4 @@ bin/
 *.json
 /bin/
 
+.DS_Store
