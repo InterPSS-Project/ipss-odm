@@ -1,6 +1,9 @@
 *.class
 private_data/
 secrets.json
-*.json
 bin/
+*.xml
+*.json
 /bin/
+
+.DS_Store

@@ -1,3 +1,31 @@
 {
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable"
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",
+    "java.configuration.maven.userSettings": "~/.m2/settings.xml",
+    "java.import.gradle.enabled": false, 
+    "java.import.maven.enabled": true,
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.project.sourcePaths": [
+        "ieee.odm.test/src/test/java",
+        "ieee.odm_pss/src/main/java",
+        "ieee.odm.schema/src/main/java"
+    ],
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "ieee.odm.test/lib/**/*.jar",
+        "ieee.odm_pss/lib/**/*.jar"
+    ],
+    "java.test.config": {
+       
+        "name": "JUnit Config",
+        "workingDirectory": "${workspaceFolder}",
+        "args": [],
+        "vmArgs": [
+            "-ea" // Enable assertions
+        ],
+        "sourcePaths": [
+            "src/test/java"
+        ],
+        "preLaunchTask": "javac",
+        "testKind": "junit"
+        }
 }

@@ -23,7 +23,7 @@ public class PSSE_V30_3WindingXfrTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testData/psse/IEEE9Bus/ieee9_3WXfr.raw"));
+		assertTrue(adapter.parseInputFile("testData/psse/v30/IEEE9Bus/ieee9_3WXfr.raw"));
 		System.out.println(adapter.getModel().toXmlDoc());
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();

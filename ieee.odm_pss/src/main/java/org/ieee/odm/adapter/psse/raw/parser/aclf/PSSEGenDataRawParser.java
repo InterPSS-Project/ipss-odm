@@ -24,14 +24,8 @@
 
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.model.base.ODMModelStringUtil;
 
 /**
  * Class for processing PSS/E Gen Data
@@ -163,52 +157,10 @@ Sample data:
 		
 	}
 	
-	/*
+	
 	@Override public void parseFields(final String str) throws ODMException {
-		this.clearNVPairTableData();
+		super.parseFields(str);
 		
-		
-		//I,ID,PG,QG,QT,QB,VS,IREG,MBASE,ZR,ZX,RT,XT,GTAP,STAT,RMPCT,PT,PB,
-  		StringTokenizer st = new StringTokenizer(str, ",");
-		for (int i = 0; i < 18; i++){
-			if(i==1){//genId, need to trim the quote
-				setValue(i,ODMModelStringUtil.trimQuote(st.nextToken()).trim());
-			}
-			else setValue(i, st.nextToken().trim());
-			
-		}
-        //O1,F1,...,O4,F4
-		for (int i = 18; i < 26; i++)
-			setValue(i, "0");
-		
-		if (st.hasMoreTokens()) {
-			setValue(18, st.nextToken().trim());
-			setValue(19, st.nextToken().trim());
-		}
-		if (st.hasMoreTokens()) {
-			setValue(20, st.nextToken().trim());
-			setValue(21, st.nextToken().trim());
-		}
-		if (st.hasMoreTokens()) {
-			setValue(22, st.nextToken().trim());
-			setValue(23, st.nextToken().trim());
-		}
-		if (st.hasMoreTokens()) {
-			setValue(24, st.nextToken().trim());
-			setValue(25, st.nextToken().trim());
-		}
-		
-		if (PSSERawAdapter.getVersionNo(this.version) >= 32) {
-			setValue(26, "");
-			setValue(27, "");
-			if (st.hasMoreTokens()) {
-				setValue(26, st.nextToken().trim());
-				setValue(27, st.nextToken().trim());
-			}			
-		}
-		
-		
-         
 	}
-	*/
+	
 }

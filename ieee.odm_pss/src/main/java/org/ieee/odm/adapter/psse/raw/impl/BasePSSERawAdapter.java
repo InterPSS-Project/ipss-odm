@@ -64,7 +64,7 @@ public class BasePSSERawAdapter extends AbstractODMAdapter {
 	 */
 	public static boolean isEndRecLine(String str) {
 		String s = str.trim();
-		return s.startsWith("0") || s.startsWith("/") || s.startsWith("Q");
+		return s.startsWith("0") || s.startsWith("Q"); //|| s.startsWith("/") note: / is used to comment out a line
 	}
 
 	@Override

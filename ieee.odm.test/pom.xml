@@ -5,7 +5,12 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <packaging>pom</packaging>
+  <parent>
+      <groupId>org.ieee.odm</groupId>
+      <artifactId>ieee.odm</artifactId>
+      <version>1.0</version>
+  </parent>
+
   <groupId>org.ieee.odm</groupId>
   <artifactId>ieee.odm.test</artifactId>
   <version>1.0</version>
@@ -15,7 +20,17 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
-  <dependencies>
+ <dependencies>
+  <dependency>
+      <groupId>org.ieee.odm</groupId>
+      <artifactId>ieee.odm_pss</artifactId>
+      <version>${project.version}</version>
+  </dependency>
+  <dependency>
+      <groupId>org.ieee.odm</groupId>
+      <artifactId>ieee.odm.schema</artifactId>
+      <version>${project.version}</version>
+  </dependency>
 	<dependency>
 	    <groupId>org.apache.logging.log4j</groupId>
 	    <artifactId>log4j-api</artifactId>
@@ -41,29 +56,45 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
     </dependency>	
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest</artifactId>
+        <version>2.2</version>
+        <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <plugins>
-      	<plugin>
-    		<groupId>org.apache.maven.plugins</groupId>
-   	 		<artifactId>maven-assembly-plugin</artifactId>
-    		<executions>
-        		<execution>
-            		<phase>package</phase>
-            		<goals>
-                		<goal>single</goal>
-	            	</goals>
-		            <configuration>
-		                <archive>
-		                </archive>
-		                <descriptorRefs>
-		                    <descriptorRef>jar-with-dependencies</descriptorRef>
-		                </descriptorRefs>
-		            </configuration>
-	        	</execution>
-    		</executions>
-		</plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.5.2</version>
+            <configuration>
+                <includes>
+                    <!-- Include all test file patterns -->
+                    <include>**/*Test.java</include>
+                    <include>**/Test*.java</include>
+                    <include>**/*Tests.java</include>
+                    <include>**/*TestCase.java</include>
+                </includes>
+                <failIfNoTests>false</failIfNoTests>
+                <!-- Print test details -->
+                <trimStackTrace>false</trimStackTrace>
+                <useFile>false</useFile>
+                <detail>true</detail>
+                <printSummary>true</printSummary>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
 
