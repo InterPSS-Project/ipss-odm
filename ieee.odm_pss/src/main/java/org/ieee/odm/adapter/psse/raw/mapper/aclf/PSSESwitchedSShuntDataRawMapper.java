@@ -27,6 +27,7 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSESwitchedShuntDataRawParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
@@ -85,8 +86,11 @@ public class PSSESwitchedSShuntDataRawMapper extends BasePSSEDataRawMapper{
 		
 		//SWREM - Number of remote bus to control. 0 to control own bus.
 		int busNo = this.dataParser.getInt("SWREM", 0);
+		if(PSSERawAdapter.getVersionNo(this.version) >33) {
+			busNo = this.dataParser.getInt("SWREG", 0); // the naming was changed after v34 and newer
+		}
 		if (busNo != 0) {
-			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+this.dataParser.getValue("SWREM")));
+			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+busNo));
 		}
 
 		/* V30

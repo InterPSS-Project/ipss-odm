@@ -11,7 +11,7 @@ import org.ieee.odm.model.aclf.AclfModelParser;
 import org.junit.Test;
 
 public class PSSEJSon_IEEE9_Aclf_Test {
-	//@Test
+	@Test
 	public void testCase1() throws Exception {
 		ODMLogger.getLogger().setLevel(Level.WARNING);
 		
@@ -22,7 +22,7 @@ public class PSSEJSon_IEEE9_Aclf_Test {
 		//aclfParser.stdout();
 	}
 	
-	@Test
+	//@Test
 	public void test_parse_rawx_output_by_converter() throws Exception {
 		ODMLogger.getLogger().setLevel(Level.WARNING);
 		

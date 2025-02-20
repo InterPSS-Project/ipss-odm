@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "ieee.odm.schema"
+        },
+        {
+            "path": "ieee.odm_pss"
+        }
+    ],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic"
+    }
+} 

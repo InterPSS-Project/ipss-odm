@@ -33,11 +33,11 @@ public class PSSE_Dyn_Exciter_Test {
 	
 	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-			"testData/psse/IEEE9Bus/ieee9.raw",
-			"testData/psse/IEEE9Bus/ieee9_dyn_Model_1981Exc.dyr"
+			"testData/psse/v30/IEEE9Bus/ieee9.raw",
+			"testData/psse/v30/IEEE9Bus/ieee9_dyn_Model_1981Exc.dyr"
 	}));
 	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
-	//dstabParser.stdout();
+	dstabParser.stdout();
 	
 	DStabBusXmlType bus1 = dstabParser.getDStabBus("Bus1");
 	
@@ -76,8 +76,8 @@ public class PSSE_Dyn_Exciter_Test {
 	
 	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-			"testData/psse/IEEE9Bus/ieee9.raw",
-			"testData/psse/IEEE9Bus/ieee9_dyn_Model_2005Exc.dyr"
+			"testData/psse/v30/IEEE9Bus/ieee9.raw",
+			"testData/psse/v30/IEEE9Bus/ieee9_dyn_Model_2005Exc.dyr"
 	}));
 	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 	//dstabParser.stdout();
