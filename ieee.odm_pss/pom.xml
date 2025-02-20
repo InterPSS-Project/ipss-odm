@@ -51,10 +51,7 @@
           <groupId>com.interpss</groupId>
           <artifactId>ipss_core</artifactId>
           <version>1.0</version>
-          <scope>system</scope>
-          <systemPath>C:/Users/carol/OneDrive/Documents/GitHub/ipss-odm/lib/ipss_core.jar</systemPath>
       </dependency>
-
   </dependencies>
 
   <build>
