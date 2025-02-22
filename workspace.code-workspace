@@ -5,9 +5,13 @@
         },
         {
             "path": "ieee.odm_pss"
+        },
+        {
+            "path": "ieee.odm.test"
         }
     ],
     "settings": {
-        "java.configuration.updateBuildConfiguration": "automatic"
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.dependency.packagePresentation": "hierarchical"
     }
 } 

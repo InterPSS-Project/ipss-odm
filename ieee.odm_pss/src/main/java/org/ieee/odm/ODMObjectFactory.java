@@ -30,7 +30,6 @@ import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 import org.ieee.odm.adapter.opf.matpower.OpfMatpowerAdapter;
-import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency;
