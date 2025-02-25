@@ -1,0 +1,54 @@
+{
+        "sub":{
+            "fields":["isub", "name", "lati", "long", "srg"], 
+            "data":[
+                [1, "SS01_NILE_TYP_3_DBDB", 34.61350, -86.67371, 0.1100000], 
+            ]
+        }, 
+        
+        "subnode":{
+            "fields":["isub", "inode", "name", "ibus", "stat", "vm", "va"], 
+            "data":[
+                [1, 1, "SS_NILE_NODE_1", 101, 1, null, null], 
+            ]
+        }, 
+        ß
+        "subswd":{
+            "fields":["isub", "inode", "jnode", "swdid", "name", "type", "stat", "nstat", "xpu", "rsetnam"], 
+
+type 
+1 - Generic connector
+2 - Circuit breaker
+3 - Disconnect switch
+
+stat
+0 - Open
+1 - Closed
+2 - Stuck closed
+
+            "data":[
+                [1, 1, 3, "1", "SS_NILE_SWD_1_3_1", 2, 1, 1, 0.1000000E-03, ""], 
+            ]
+        }, 
+        "subterm":{
+            "fields":["isub", "inode", "type", "eqid", "ibus", "jbus", "kbus"], 
+
+Terminal 														Type Type Code Required Fields in RAWX Record
+Load 															"L" isub, inode, type, eqid, ibus
+Fixed Shunt 												"F" isub, inode, type, eqid, ibus
+Machine 														"M" isub, inode, type, eqid, ibus
+AC Line or Two-winding Transformer		"B" or "2" isub, inode, type, eqid, ibus, jbus
+Three-winding Transformer						"3" isub, inode, type, eqid, ibus, jbus, kbus
+Switched Shunt 											"S" isub, inode, type, eqid, ibus
+Induction Machine 									"I" isub, inode, type, eqid, ibus
+Two-terminal DC Line 								"D" isub, inode, type, eqid (as 12 character name), ibus
+VSC DC Line 												"V" isub, inode, type, eqid (as 12 character name), ibus
+Multi-terminal DCLine								"N" isub, inode, type, eqid (as 12 character name), ibus
+FACTS Device 											"A" isub, inode, type, eqid (as 12 character name), ibus
+
+            "data":[
+                [1, 4, "M", "1", 101, null, null], 
+            ]
+        }
+    }
+}
