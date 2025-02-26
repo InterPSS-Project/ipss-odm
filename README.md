@@ -24,7 +24,12 @@ You should see the testcases are run and most of them passed, except for two tes
 [ERROR]   IEEE9cn_DStabTest.testCaseNew:39
 
 
-
+## Generate xml java classes from schema xsd file
+1. In Eclipse, you will need to first check the `pom.xml` file under `ieee.odm.schema` and make sure it includes these [jaxb packages](/ieee.odm.schema/fig/1_pom.png).
+2. Right click the `pom.xml` file, then maven-->update project to get the necessary packages to install or update
+2. Install the JAXB packages in Eclipse-->Help-->Install new software--> [search "JAXB"](/ieee.odm.schema/fig/2_JAXB%20%20packages.png)
+3. After successfully installing the JAXB plugins, you will restart. You find the `ODMSchema.xsd` file under the  `schema` folder. Right click-->Generate-->[to start the configuration](/ieee.odm.schema/fig/3_Generate.png) 
+4. Configure the generation using the [recommended configuration](/ieee.odm.schema/fig/4_configuration.png) 
 
 
 
