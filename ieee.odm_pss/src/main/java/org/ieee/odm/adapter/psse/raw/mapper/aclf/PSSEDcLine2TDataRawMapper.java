@@ -68,7 +68,7 @@ public class PSSEDcLine2TDataRawMapper extends BasePSSEDataRawMapper{
 		//NOTE: DC Line Num is necessarily  an Integer, as illustrated in the "sample.raw" by PSS/E, 
 		//it can be string too, Therefore, it is better to save it as DCLine Id in String
 		String DCLineID = this.dataParser.getValue("I"), 
-		       METER = this.dataParser.getValue("METER"), 
+		       METER = this.dataParser.getValue("METER","I"), //Default is "I"
 		       IDR = this.dataParser.getValue("IDR"), 
 		       IDI = this.dataParser.getValue("IDI");
 		double RDC = this.dataParser.getDouble("RDC"),
@@ -144,7 +144,7 @@ public class PSSEDcLine2TDataRawMapper extends BasePSSEDataRawMapper{
 		
 		/*
 			VSCHD Scheduled compounded dc voltage; entered in kV. No default allowed.
-			METER Metered end code of either 扲� (for rectifier) or 扞� (for inverter). METER = 扞� by default.
+			METER Metered end code of either R (for rectifier) or I (for inverter). METER = I by default.
 		*/
 		dcLine2T.setScheduledDCVoltage(BaseDataSetter.createVoltageValue(VSCHD, VoltageUnitType.KV));
 		dcLine2T.setMeteredEnd(METER.equals("R")? DcLineMeteredEndEnumType.RECTIFIER :
