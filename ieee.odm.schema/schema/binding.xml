@@ -5,5 +5,9 @@
         <jaxb:schemaBindings>
             <jaxb:package name="org.interpss.schema"/>
         </jaxb:schemaBindings>
+         <jaxb:globalBindings>
+            <xjc:simple>true</xjc:simple>
+            <xjc:generateDateStamp>false</xjc:generateDateStamp>
+        </jaxb:globalBindings>
     </jaxb:bindings>
 </jaxb:bindings>
