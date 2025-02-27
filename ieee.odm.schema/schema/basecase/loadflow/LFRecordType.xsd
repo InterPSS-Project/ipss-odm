@@ -3,7 +3,7 @@
 
     
     <ns:include schemaLocation="../NetRecordType.xsd"/>
-    
+        
     <ns:include schemaLocation="DcLineRecordType.xsd"/>
     <ns:include schemaLocation="CompensatorType.xsd"/>
     

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:schema 
+	xmlns:ns="http://www.w3.org/2001/XMLSchema" 
+	xmlns:pss="http://www.ieee.org/odm/Schema/2008"
+	targetNamespace="http://www.ieee.org/odm/Schema/2008" 
+	elementFormDefault="qualified" >
+  
+    <ns:include schemaLocation="../common/DataType.xsd"></ns:include>
+    
+    <ns:annotation>
+		<ns:documentation>Copyright www.interpss.org 2008-2015</ns:documentation>
+	</ns:annotation>
+    
+   	<ns:complexType name="NetSubstationXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+			   <!--  TODO  -->
+				<ns:sequence>
+					<ns:element name="nbNodeList" minOccurs="0">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="nbNode" maxOccurs="unbounded" minOccurs="0" type="pss:NBNodeXmlType"></ns:element>
+							</ns:sequence>
+						</ns:complexType>						
+					</ns:element>
+					<ns:element name="nbSwitchList" minOccurs="0">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="nbSwitch" maxOccurs="unbounded" minOccurs="0" type="pss:NBSwitchXmlType"></ns:element>
+							</ns:sequence>
+						</ns:complexType>						
+					</ns:element>
+					<ns:element name="nbEquipConnectList" minOccurs="0">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="nbEquipConnect" maxOccurs="unbounded" minOccurs="0" type="pss:NBEquipConnectXmlType"></ns:element>
+							</ns:sequence>
+						</ns:complexType>						
+					</ns:element>
+				</ns:sequence>
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="NBNodeXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<!--  TODO  -->
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+	<ns:complexType name="NBSwitchXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<!--  TODO  -->
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>
+	
+   	<ns:complexType name="NBEquipConnectXmlType">
+		<ns:complexContent>
+			<ns:extension base="pss:NameTagXmlType">
+				<!--  TODO  -->
+			</ns:extension>
+		</ns:complexContent>
+	</ns:complexType>	
+</ns:schema>

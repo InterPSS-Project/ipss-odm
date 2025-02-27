@@ -6,7 +6,7 @@
 	elementFormDefault="qualified" >
   
 
-    <ns:include schemaLocation=""></ns:include>
+    <ns:include schemaLocation="SwitchModelType.xsd"></ns:include>
     <ns:include schemaLocation="../common/DataType.xsd"></ns:include>
     
 
@@ -79,7 +79,14 @@
 							<ns:sequence>
 								<ns:element name="lossZone" maxOccurs="unbounded" minOccurs="0" type="pss:NetZoneXmlType"></ns:element>
 							</ns:sequence>
-						</ns:complexType>
+						</ns:complexType>						
+					</ns:element>
+					<ns:element name="substationList" minOccurs="0">
+						<ns:complexType>
+							<ns:sequence>
+								<ns:element name="substation" maxOccurs="unbounded" minOccurs="0" type="pss:NetSubstationXmlType"></ns:element>
+							</ns:sequence>
+						</ns:complexType>						
 					</ns:element>
 					<ns:element name="type" type="pss:NetworkTypeEnumType" minOccurs="0" maxOccurs="1">
 						<ns:annotation><ns:documentation>
@@ -481,6 +488,6 @@
 			<ns:enumeration value="power_change_by_specification"></ns:enumeration>
 			<ns:enumeration value="current_change_by_specification"></ns:enumeration>
 		</ns:restriction>
-	</ns:simpleType>
+	</ns:simpleType>	
 
 </ns:schema>
