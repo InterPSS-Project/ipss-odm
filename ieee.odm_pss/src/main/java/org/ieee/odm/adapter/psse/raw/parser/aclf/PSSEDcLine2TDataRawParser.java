@@ -138,7 +138,7 @@ public class PSSEDcLine2TDataRawParser extends BasePSSEDataRawParser {
 				desired inverter power. No default allowed.					
 			RDC The dc line resistance; entered in ohms. No default allowed.
 			VSCHD Scheduled compounded dc voltage; entered in kV. No default allowed.
-			METER Metered end code of either �R�1�7 (for rectifier) or �I�1�7 (for inverter). METER = �I�1�7 by default.
+			METER Metered end code of either (for rectifier) or (for inverter). METER = by default.
 			VCMOD Mode switch dc voltage; entered in kV. When the inverter dc voltage falls below
 				this value and the line is in power control mode (i.e., MDC = 1), the line switches
 				to current control mode with a desired current corresponding to the desired power

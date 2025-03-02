@@ -50,7 +50,7 @@
 			 first character of the extended bus name to designate it as the metered end; otherwise,
 			 bus I is assumed to be the metered end.
 		 ID - Two-character upper case alphanumeric multisection line grouping identifier. The
-			 first character must be an ampersand ("&"). ID = �1�7&1�1�7 by default.
+			 first character must be an ampersand ("&"). ID = by default.
 		 DUMi Bus numbers, or extended bus names enclosed in single quotes,
 			 of the "dummy buses" connected by the branches that comprise this multisection
 			 line grouping.	 

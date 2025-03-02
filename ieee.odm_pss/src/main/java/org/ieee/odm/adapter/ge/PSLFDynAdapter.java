@@ -170,6 +170,7 @@ public class PSLFDynAdapter extends AbstractODMAdapter{
 			throw new UnsupportedOperationException();
 		}
 		
+		@SuppressWarnings("unchecked")
 		@Override public void setModelParser(IODMModelParser parser){
 			this.odmParser = parser;
 			this.parser = (BaseAclfModelParser<? extends LoadflowNetXmlType>) parser;
