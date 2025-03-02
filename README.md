@@ -1,7 +1,15 @@
 ipss-odm
 ========
 
-InterPSS ODM development
+## Maven-based Development
+
+Starting from 2025/03, InterPSS development is based on Maven. ipss-odm repo has the following active projects:
+
+```
+    ieee.odm_pass
+    ieee.odm.schema
+    ipss.odm.test
+```
 
 ## Setup the maven-based project in VS Code
 First, you need to install maven on your computer. For macos users, you can simply do this by `brew install maven` 
