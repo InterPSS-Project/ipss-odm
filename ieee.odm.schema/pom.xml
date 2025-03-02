@@ -19,13 +19,6 @@
   </properties>
 
 	<dependencies>
-	    <!-- JAXB API -->
-	    <dependency>
-	        <groupId>javax.xml.bind</groupId>
-	        <artifactId>jaxb-api</artifactId>
-	        <version>2.3.1</version>
-	    </dependency>
-	
 	    <!-- JAXB Runtime (for runtime execution) -->
 	    <dependency>
 	        <groupId>org.glassfish.jaxb</groupId>
@@ -54,8 +47,6 @@
 	        <version>2.3.1</version>
 	    </dependency>
 	</dependencies>
-
-
 
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
