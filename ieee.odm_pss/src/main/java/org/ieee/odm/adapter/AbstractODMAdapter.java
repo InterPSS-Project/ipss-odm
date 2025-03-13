@@ -98,8 +98,9 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 			try {
 				this.odmParser = parseInputFile(din, encoding);
 			} catch (IOException e) {
-				ODMLogger.getLogger().severe(e.toString());
-				this.errMsgList.add(e.toString());
+				String errorMsg = "Error parsing input file: " + e.toString();
+				ODMLogger.getLogger().severe(errorMsg);
+				this.errMsgList.add(errorMsg);
 				e.printStackTrace();
 				return false;
 			} finally { 

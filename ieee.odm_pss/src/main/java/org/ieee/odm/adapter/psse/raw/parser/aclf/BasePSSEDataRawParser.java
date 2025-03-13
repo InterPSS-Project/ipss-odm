@@ -119,6 +119,9 @@
                 if (data.contains("\'")) {
                     setValue(startingIdx+idx, data.replace("'", "").trim());
                 }
+                else if (data.contains("\"")) {
+                    setValue(startingIdx+idx, data.replace("\"", "").trim());
+                }
                 else {
                     setValue(startingIdx+idx, data);
                 }

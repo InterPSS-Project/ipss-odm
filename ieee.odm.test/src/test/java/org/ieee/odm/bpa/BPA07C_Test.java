@@ -24,15 +24,13 @@
 
 package org.ieee.odm.bpa;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.FileOutputStream;
 
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.bpa.BPAAdapter;
-import org.ieee.odm.adapter.psse.PSSEAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 
@@ -46,7 +44,7 @@ public class BPA07C_Test {
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 //		parser.stdout();
 		String xml=parser.toXmlDoc();
-		FileOutputStream out=new FileOutputStream(new File("07c_BPA_ODM_0607.xml"));
+		FileOutputStream out=new FileOutputStream(new File("out/bpa/07c_BPA_ODM_0607.xml"));
 		out.write(xml.getBytes());
 		out.flush();
 		out.close();

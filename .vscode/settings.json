@@ -14,6 +14,8 @@
         "ieee.odm.test/lib/**/*.jar",
         "ieee.odm_pss/lib/**/*.jar"
     ],
+    "java.test.defaultConfig": "JUnit",
+    "java.test.report.showAfterExecution": "always",
     "java.test.config": {
        
         "name": "JUnit Config",
@@ -27,5 +29,10 @@
         ],
         "preLaunchTask": "javac",
         "testKind": "junit"
-        }
+    },
+    "files.exclude": {
+            "**/.classpath": false,
+            "**/.project": true,
+            "**/.settings": true
+    }
 }
