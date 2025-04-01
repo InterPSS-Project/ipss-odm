@@ -10,7 +10,10 @@ import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.junit.Test;
+
+import com.interpss.core.aclf.impl.AclfBusImpl;
 
 public class PSSEV34_Texas2k_Test {
 	
@@ -25,6 +28,11 @@ public class PSSEV34_Texas2k_Test {
 		assertTrue(adapter.parseInputFile("testdata/psse/v34/Texas2k_series24_case3_2024summerpeak_noSub.RAW"));
 	
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
+
+		//check shuntY at Bus 2017
+		//Get AclfBusXmlType bus2017
+		LoadflowBusXmlType bus2017 = (LoadflowBusXmlType)parser.getBus("Bus2017");
+		
 		//parser.stdout();		
 	}
 	

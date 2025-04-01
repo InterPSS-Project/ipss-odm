@@ -10,7 +10,7 @@ public class TestChineseName {
 
 	//@Test
 	public void TestChinese() throws Exception {
-		final String s="B  yn MW50    525.MW-173 -76.7";//""B     梅林2M  110.xg";
+		final String s="B  yn MW50    525.MW-173 -76.7";
         final String str="T     PANNANG122.0 PANNAN50525.  720.1      0.0202            22.0 536.";//"L     DCZQ=   500. YANDU=  500.2 5000 .00001.00015      .00525 1.0                        4*720/1.0";
 		char[] c=s.toCharArray();
         int cnCharNum=getNum(s);
@@ -34,25 +34,7 @@ public class TestChineseName {
 		}
 		return str.substring(beginCol-1, endCol).trim();
 	}
-//	public static void main(String[] args) 
-//	{ 
-////	String input = "中文语言fd何as最近几天dafds工作dfds效率不高fdsf番dfsfdsa啊"; 
-////	String temp = null; 
-////	Pattern p = Pattern.compile("[u4E00-u9FA5]+"); 
-////	Matcher m = p.matcher(input); 
-////	while (m.find()) 
-////	{ 
-////	temp = m.group(0); 
-////	System.out.println(temp + ":" + temp.length()); 
-////	} 
-//	
-//	String regEx = "[\u4e00-\u9fa5]"; 
-//	//System.out.println(regEx); 
-//	String str = "中文fda她jjs"; 
-////	String tem= str.replaceAll(regEx,"aa"); 
-////	System.out.println(""+(tem.length()-str.length())); 
-//	System.out.println(getNum(str));
-//	} 
+
 	
 	public static int getNum(String str){ 
 		int count=0; 

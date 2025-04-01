@@ -37,7 +37,7 @@
  import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSELineDataRawMapper;
  import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSELoadDataRawMapper;
  import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEOwnerDataRawMapper;
- import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSESwitchedSShuntDataRawMapper;
+ import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSESwitchedShuntDataRawMapper;
  import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSESwitchingDeviceDataRawMapper;
  import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEVSCHVDC2TDataRawMapper;
  import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEXfrDataRawMapper;
@@ -69,7 +69,7 @@
 	 private PSSEGenDataRawMapper genDataMapper = null;
 	 private PSSEFixedShuntDataRawMapper fixedShuntDataMapper = null;
 	 private PSSELoadDataRawMapper loadDataMapper = null;
-	 private PSSESwitchedSShuntDataRawMapper switchedShuntDataMapper = null;
+	 private PSSESwitchedShuntDataRawMapper switchedShuntDataMapper = null;
 	 
 	 private PSSELineDataRawMapper lineDataMapper = null;
 	 private PSSEXfrDataRawMapper xfrDataMapper = null;
@@ -125,7 +125,7 @@
 		 this.genDataMapper = new PSSEGenDataRawMapper(ver);
 		 this.loadDataMapper = new PSSELoadDataRawMapper(ver);
 		 this.fixedShuntDataMapper = new PSSEFixedShuntDataRawMapper(ver);
-		 this.switchedShuntDataMapper = new PSSESwitchedSShuntDataRawMapper(ver);
+		 this.switchedShuntDataMapper = new PSSESwitchedShuntDataRawMapper(ver);
 		 this.lineDataMapper = new PSSELineDataRawMapper(ver);
 		 this.xfrDataMapper = new PSSEXfrDataRawMapper(ver);
 		 this.dcLine2TDataMapper = new PSSEDcLine2TDataRawMapper(ver);
