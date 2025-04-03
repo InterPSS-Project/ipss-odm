@@ -73,7 +73,7 @@ public class PSSEFixedShuntDataRawMapper extends BasePSSEDataRawMapper{
 
 	    double g = dataParser.getDouble("GL", 0.0);
 	    double b = dataParser.getDouble("BL", 0.0);
-		if (g != 0.0 || b != 0.0)
-			contribShutY.setY(BaseDataSetter.createYValue(g, b, YUnitType.MVAR));
+		//if (g != 0.0 || b != 0.0)
+		contribShutY.setY(BaseDataSetter.createYValue(g, b, YUnitType.MVAR));
 	}
 }

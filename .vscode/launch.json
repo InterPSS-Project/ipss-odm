@@ -4,25 +4,86 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
+        {
+            "type": "java",
+            "name": "JUnit Test",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": ["${file}"],
+            "sourcePaths": [
+              "${workspaceFolder}/ieee.odm.test/src/test/java",
+              "${workspaceFolder}/ieee.odm_pss/src/main/java",
+              "${workspaceFolder}/ieee.odm.schema/src"
+            ],
+            "classPaths": [
+              "${workspaceFolder}/ieee.odm.test/target/test-classes",
+              "${workspaceFolder}/ieee.odm.test/target/classes",
+              "${workspaceFolder}/ieee.odm_pss/target/classes",
+              "${workspaceFolder}/ieee.odm.schema/target/classes",
+              "${workspaceFolder}/lib/**/*.jar",
+              "${M2_REPO}/**/*.jar"
+            ]
+          },
+
         {
             "type": "java",
             "name": "Run All Tests",
             "request": "launch",
             "mainClass": "org.junit.runner.JUnitCore",
             "args": [
-                "org.ieee.odm.adapter.AdapterTest",
-                "org.ieee.odm.bpa.BPA_ODMTest",
-                "org.ieee.odm.ieeecdf.IEEECDF_ODMTest",
-                "org.ieee.odm.psse.raw.PSSEV31_v36_IEEE9_Test"
-                // Add other test classes here
+                "${command:java.test.generateArguments}"
             ],
             "classpath": [
+                "${workspaceFolder}/ieee.odm.test/target/test-classes",
+                "${workspaceFolder}/ieee.odm.test/target/classes",
+                "${workspaceFolder}/ieee.odm_pss/target/classes",
+                "${workspaceFolder}/ieee.odm.schema/target/classes",
+                "${M2_REPO}/**/*.jar"
+            ],
+            "sourcePaths": [
                 "${workspaceFolder}/ieee.odm.test/src/test/java",
                 "${workspaceFolder}/ieee.odm_pss/src/main/java",
-                "${workspaceFolder}/ieee.odm.schema/src",
-                "${workspaceFolder}/lib/*",
-                "${workspaceFolder}/ieee.odm.test/lib/*",
-                "${workspaceFolder}/ieee.odm_pss/lib/*"
+                "${workspaceFolder}/ieee.odm.schema/src"
+            ],
+            "testFramework": "JUnit"
+        },
+        {
+            "type": "java",
+            "name": "Run Current Test",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": ["${command:java.test.generateArguments}"],
+            "classpath": [
+                "${workspaceFolder}/ieee.odm.test/target/test-classes",
+                "${workspaceFolder}/ieee.odm.test/target/classes",
+                "${workspaceFolder}/ieee.odm_pss/target/classes",
+                "${workspaceFolder}/ieee.odm.schema/target/classes",
+                "${M2_REPO}/**/*.jar",
+            ],
+            "sourcePaths": [
+                "${workspaceFolder}/ieee.odm.test/src/test/java",
+                "${workspaceFolder}/ieee.odm_pss/src/main/java",
+                "${workspaceFolder}/ieee.odm.schema/src"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Run Test Method Under Cursor",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "args": ["${fileBasenameNoExtension}#${selectedText}"],
+            "classpath": [
+                "${workspaceFolder}/ieee.odm.test/target/test-classes",
+                "${workspaceFolder}/ieee.odm.test/target/classes",
+                "${workspaceFolder}/ieee.odm_pss/target/classes",
+                "${workspaceFolder}/ieee.odm.schema/target/classes",
+                "${M2_REPO}/**/*.jar",
+            ],
+            "sourcePaths": [
+                "${workspaceFolder}/ieee.odm.test/src/test/java",
+                "${workspaceFolder}/ieee.odm_pss/src/main/java",
+                "${workspaceFolder}/ieee.odm.schema/src"
             ]
         }
     ]
