@@ -15,8 +15,8 @@ public class PSLF_CMPLDW_Mapper_Test {
 		
           GenericODMAdapter adapter = new GenericODMAdapter(ODMFileFormatEnum.PsseV30,ODMFileFormatEnum.GePSLF);
 		  
-		  adapter.parseInputFile(NetType.DStabNet, new String[]{
-			"testData/psse/IEEE9Bus/ieee9.raw",
+		  adapter.parseInputFile(NetType.DStabNet, new String[]{ 
+			"testData/psse/V30/IEEE9Bus/ieee9.raw",
 			"testData/ge/ieee9_Dyn_CMPLDW.dyd"
 			//"testData/ge/ieee9_onlyGen_GE.dyd"
 	        });

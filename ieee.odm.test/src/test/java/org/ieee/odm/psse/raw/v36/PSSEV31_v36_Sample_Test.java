@@ -38,7 +38,7 @@ public void testV31() throws Exception {
 	assertTrue(adapter.parseInputFile("testdata/psse/v31/sample_v31.raw"));
 
 	AclfModelParser parser = (AclfModelParser)adapter.getModel();
-	parser.stdout();
+	//parser.stdout();
 	
 	parser.toXmlDoc("out/sample_V31.xml");
 
