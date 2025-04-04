@@ -9,6 +9,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
+import org.ieee.odm.schema.BranchBusSideEnumType;
 import org.ieee.odm.schema.InterchangeXmlType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
@@ -16,6 +17,7 @@ import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.OwnerXmlType;
 import org.ieee.odm.schema.TapAdjustmentEnumType;
+import org.ieee.odm.schema.XformerZTableXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,9 +27,6 @@ import org.junit.Test;
 
 public class PSSEV31_v36_Sample_Test {
 
-
-	
-	
 @Test
 public void testV31() throws Exception {
 	final LogManager logMgr = LogManager.getLogManager();
@@ -43,7 +42,7 @@ public void testV31() throws Exception {
 	
 	parser.toXmlDoc("out/sample_V31.xml");
 
-	checkData(parser);
+	checkData(parser,31);
 
 }
 
@@ -61,7 +60,7 @@ public void testV32() throws Exception {
 	AclfModelParser parser = (AclfModelParser)adapter.getModel();
 	//parser.stdout();
 
-	checkData(parser);
+	checkData(parser,32);
 
 }
 
@@ -78,7 +77,7 @@ public void testV33() throws Exception {
 	AclfModelParser parser = (AclfModelParser)adapter.getModel();
 	//parser.stdout();
 
-	checkData(parser);
+	checkData(parser,33);
 
 }
 
@@ -95,7 +94,7 @@ public void testV34() throws Exception {
 	AclfModelParser parser = (AclfModelParser) adapter.getModel();
 	
 
-	checkData(parser);
+	checkData(parser,34);
 }
 
 @Test
@@ -109,7 +108,7 @@ public void testV35() throws Exception {
 	assertTrue(adapter.parseInputFile("testdata/psse/v35/sample_v35.raw"));
 
 	AclfModelParser parser = (AclfModelParser)adapter.getModel();
-	checkData(parser);
+	checkData(parser,35);
 
 	
 }
@@ -125,12 +124,12 @@ public void testV36() throws Exception {
 	assertTrue(adapter.parseInputFile("testdata/psse/v36/sample_v36.raw"));
 
 	AclfModelParser parser = (AclfModelParser)adapter.getModel();
-	checkData(parser);
+	checkData(parser,36);
 
 	
 }
 
-private void checkData(AclfModelParser parser) {
+private void checkData(AclfModelParser parser, int version) throws Exception {
 	// Check Bus 102
     LoadflowBusXmlType bus102 = parser.getBus("Bus102");
     assertEquals("Bus102", bus102.getId());
@@ -248,7 +247,47 @@ private void checkData(AclfModelParser parser) {
     assertNotNull(transformer.getXfrInfo());
     assertTrue(transformer.getXfrInfo().isDataOnSystemBase());
     assertEquals(1200.0, transformer.getXfrInfo().getRatedPower().getValue(), 0.0001);
+
+    // check transformer impedance correction table
+    XformerZTableXmlType zTable = parser.getAclfNet().getXfrZTable();
+    assertTrue(zTable.getAdjustSide() == BranchBusSideEnumType.FROM_SIDE);
+    
+    // for version <36, the number of items in the table is 5, for version 36, it is 6
+    if (version < 36) assertEquals(5, zTable.getXformerZTableItem().size());
+    else assertEquals(6, zTable.getXformerZTableItem().size());
+
+    /*
+     * 0 / END OF VSC DC LINE DATA, BEGIN IMPEDANCE CORRECTION DATA
+    1, -30.00, 1.10000, -24.00, 1.09100, -18.00, 1.08400, -12.00, 1.06300,  -6.00, 1.03200,   0.00, 1.00000,   6.00, 1.03000,  12.00, 1.06000,  18.00, 1.08000,  24.00, 1.09000,  30.00, 1.11000
+    2,0.60000, 1.06000,0.70000, 1.05000,0.80000, 1.04000,0.90000, 1.03000,0.95000, 1.02000,1.00000, 1.01000,1.05000, 0.99000,1.10000, 0.98000,1.20000, 0.97000,1.30000, 0.96000,1.40000, 0.95000
+    3,0.95000, 1.00620,1.00000, 1.00000,1.05000, 0.99006
+    4,0.95000, 0.96964,1.00000, 1.00000,1.05000, 1.02486
+    5,0.94000, 1.00620,1.00000, 1.00000,1.06000, 0.99006
+     */
+    assertEquals(11, zTable.getXformerZTableItem().get(0).getLookup().size());
+    assertEquals(11, zTable.getXformerZTableItem().get(1).getLookup().size());
+    assertEquals(3, zTable.getXformerZTableItem().get(2).getLookup().size());
+    assertEquals(3, zTable.getXformerZTableItem().get(3).getLookup().size()); 
+    assertEquals(3, zTable.getXformerZTableItem().get(4).getLookup().size()); 
+
+    // verify the first item in the table
+    assertEquals(-30.0, zTable.getXformerZTableItem().get(0).getLookup().get(0).getTurnRatioShiftAngle(), 0.0001);
+    assertEquals(1.1, zTable.getXformerZTableItem().get(0).getLookup().get(0).getScaleFactor(), 0.0001);
+
+    assertEquals(30.0, zTable.getXformerZTableItem().get(0).getLookup().get(10).getTurnRatioShiftAngle(), 0.0001);
+    assertEquals(1.11, zTable.getXformerZTableItem().get(0).getLookup().get(10).getScaleFactor(), 0.0001);
+
+    // verify the fifth item in the table
+    assertEquals(0.94, zTable.getXformerZTableItem().get(4).getLookup().get(0).getTurnRatioShiftAngle(), 0.0001);
+    assertEquals(1.0062, zTable.getXformerZTableItem().get(4).getLookup().get(0).getScaleFactor(), 0.0001);
+
+    assertEquals(1.06, zTable.getXformerZTableItem().get(4).getLookup().get(2).getTurnRatioShiftAngle(), 0.0001);
+    assertEquals(0.99006, zTable.getXformerZTableItem().get(4).getLookup().get(2).getScaleFactor(), 0.0001);
+   
+   
 }
+
+
 
 }
 

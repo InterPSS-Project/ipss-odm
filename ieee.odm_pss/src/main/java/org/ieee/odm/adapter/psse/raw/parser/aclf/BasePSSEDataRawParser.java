@@ -29,6 +29,7 @@
  import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
  import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
  import org.ieee.odm.common.ODMException;
+ import org.ieee.odm.common.ODMLogger;
  
  /**
   * Class for processing IEEE CDF bus data line string
@@ -104,36 +105,108 @@
      }
      
      public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {
-          String[] splitData;
- 
-          String tempStr = str;
-          if (str.contains("/")) { // remove comments after "/"
-              tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+        // First remove comments after "/", but don't affect the "/" within numbers (like 1/2)
+        String tempStr = str;
+        if (str.contains("/")) {
+            tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+        }
+        
+        // Single-pass algorithm that both detects comma-in-quotes and parses in one go
+        StringBuilder currentToken = new StringBuilder();
+        boolean insideQuotes = false;
+        char quoteChar = 0;
+        int idx = startingIdx;
+        boolean hasSpecialCase = false;
+        
+        for (int i = 0; i <= tempStr.length(); i++) {
+            // Process end of string as a special case
+            char c = (i == tempStr.length()) ? ',' : tempStr.charAt(i);
+            
+            // Handle quotes (both single and double quotes)
+            if (i < tempStr.length() && (c == '\'' || c == '"')) {
+                // If we're not in quotes yet, mark that we're starting quotes
+                if (!insideQuotes) {
+                    insideQuotes = true;
+                    quoteChar = c;
+                    // Don't add the quote character to the token
+                    continue;
+                } 
+                // If we're already in quotes and this is the matching closing quote
+                else if (c == quoteChar) {
+                    insideQuotes = false;
+                    quoteChar = 0;
+                    // Don't add the quote character to the token
+                    continue;
+                }
+                // Otherwise it's a quote character within another quote type, treat as normal char
             }
+            
+            // If we hit a comma outside quotes, or end of string, complete the token
+            if ((c == ',' && !insideQuotes) || i == tempStr.length()) {
+                String tokenValue = currentToken.toString().trim();
+                setValue(idx++, tokenValue);
+                currentToken.setLength(0); // Reset for next token
+                
+                // Don't include the delimiter in the next token
+                if (i < tempStr.length()) {
+                    continue;
+                }
+            } 
+            // If we have a comma inside quotes, mark that we've seen a special case
+            else if (c == ',' && insideQuotes) {
+                hasSpecialCase = true;
+                currentToken.append(c);
+            }
+            // Normal character, add to current token
+            else {
+                currentToken.append(c);
+            }
+        }
+        
+        // Fill in missing data with default values
+        while (idx < startingIdx + expectedFieldCount) {
+            setValue(idx++, "");
+        }
+        
+        // If we encountered the special case, log it for debugging/statistics
+        if (hasSpecialCase) {
+            ODMLogger.getLogger().fine("Handled special case of comma within quotes in: " + str);
+        }
+    }
+
+    //  NOTE: this method is not used in the current implementation, but it is kept for future use.
+    // @Override public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {
+    //  public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {
+    //       String[] splitData;
  
-          splitData = tempStr.split(",");
+    //       String tempStr = str;
+    //       if (str.contains("/")) { // remove comments after "/"
+    //           tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+    //         }
+ 
+    //       splitData = tempStr.split(",");
          
-            int idx = 0;
-            for (String data : splitData) {
-                data = data.trim();
-                if (data.contains("\'")) {
-                    setValue(startingIdx+idx, data.replace("'", "").trim());
-                }
-                else if (data.contains("\"")) {
-                    setValue(startingIdx+idx, data.replace("\"", "").trim());
-                }
-                else {
-                    setValue(startingIdx+idx, data);
-                }
-                idx++;
-            }
-            // fill in missing data with the default values 
-            while (idx < expectedFieldCount) {
+    //         int idx = 0;
+    //         for (String data : splitData) {
+    //             data = data.trim();
+    //             if (data.contains("\'")) {
+    //                 setValue(startingIdx+idx, data.replace("'", "").trim());
+    //             }
+    //             else if (data.contains("\"")) {
+    //                 setValue(startingIdx+idx, data.replace("\"", "").trim());
+    //             }
+    //             else {
+    //                 setValue(startingIdx+idx, data);
+    //             }
+    //             idx++;
+    //         }
+    //         // fill in missing data with the default values 
+    //         while (idx < expectedFieldCount) {
  
-                setValue(startingIdx+idx, "");
-                idx++;
-            }
-     }
+    //             setValue(startingIdx+idx, "");
+    //             idx++;
+    //         }
+    //  }
      
      public String[] convertStringAry2DTo1D(String[][] twoDArray) {
          return Arrays.stream(twoDArray)

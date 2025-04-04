@@ -24,9 +24,8 @@
 
 package org.ieee.odm.adapter.psse.raw.parser.aclf;
 
-import java.util.StringTokenizer;
-
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
 
 /**
@@ -55,11 +54,11 @@ public class PSSEXfrZTableDataRawParser extends BasePSSEDataRawParser {
 		   //  0----------1----------2----------3----------4
 			  "T3",     "F3",      "T4",      "F4",       "T5",     
 		   //  0----------1----------2----------3----------4
-			  "F5",     "T6",      "F6",      "T7",       "F8",  
+			  "F5",     "T6",      "F6",      "T7",       "F7",  
 		   //  0----------1----------2----------3----------4	  
-			  "T9",     "F9",      "T10",     "F10",       "T11",     
+			  "T8",      "F8",     "T9",     "F9",      "T10",         
 		   //  0----------1----------2----------3----------4	  
-			  "F11"           
+			  "F10",      "T11",  "F11"           
 		};
 		
 		
@@ -93,27 +92,59 @@ public class PSSEXfrZTableDataRawParser extends BasePSSEDataRawParser {
 					   "RE(F12)",  "IM(F12)"
 				};
 		switch(this.version){
-		case PSSE_29:
-		case PSSE_30:
-		case PSSE_31:
-		case PSSE_32:
-		case PSSE_33:
-			return v29_33;
-		case PSSE_34:
-		case PSSE_35:
-		case PSSE_36:
-			return v34_36;
-		default:
-			return v34_36;
+			case PSSE_29:
+			case PSSE_30:
+			case PSSE_31:
+			case PSSE_32:
+			case PSSE_33:
+				return v29_33;
+			case PSSE_34:
+			case PSSE_35:
+			case PSSE_36:
+				return v34_36;
+			default:
+				return v34_36;
 
-   }
+   		}
 	}
 	
-	@Override public void parseFields(final String lineStr) throws ODMException {
-		StringTokenizer st = new StringTokenizer(lineStr, ",");
+	@Override public void parseFields(final String[] strAry) throws ODMException {
+		this.clearNVPairTableData();
+
+		 // if strAry array has more than 2 lines, throw exception as it is not supported yet
+		 if(strAry.length > 2) {
+			throw new ODMException("Error: Transformer impedance table data has more than 2 lines, which is not supported yet.");
+		}
+		 
+		 
+		 String lineStr1 = strAry[0];
 		
-		int cnt = 0;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());			
+		 
+		 // set the number of expectedFieldCount based on v34-36 as default
+		 int expectedLine1Num = 19;
+
+		 if(PSSERawAdapter.getVersionNo(this.version) < 34) {
+			 expectedLine1Num = 23;
+		 }
+
+		 
+
+		  //line 1
+		  int startingIdx = 0;
+		  // for version 30-33, the first field is the number of the table
+		  parseLineStr(lineStr1, startingIdx, expectedLine1Num);
+		 
+		 
+		 if(PSSERawAdapter.getVersionNo(this.version) >= 34 && strAry.length > 1) {
+
+			int expectedLine2Num = 18; // for version 30-33, the second line is not used
+			
+			String lineStr2 = strAry[1];
+			 //line 2
+			 parseLineStr(lineStr2, expectedLine1Num, expectedLine2Num);
+
+		 }
+
+					
   	}
 }

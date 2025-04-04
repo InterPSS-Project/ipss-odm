@@ -233,7 +233,7 @@
 					  }
 		   
 					   else if (!xfrZCorrectionProcessed) {
-						   processXfrZCorrLineStr(lineStr);	 
+						   processXfrZCorrLineStr(lineStr,din);	 
 					   }
 					   else if (!dcLineMTProcessed) {
 						   processMTHvdcLineStr(lineStr);	 
@@ -556,18 +556,83 @@
 		 }
 	 }
 	 
-	 private void processXfrZCorrLineStr(String lineStr) throws ODMException {
+	 private void processXfrZCorrLineStr(String lineStr,final IFileReader din) throws ODMException {
 		 if (isEndRecLine(lineStr)) {
 			 assert (lineStr.toUpperCase().contains("END") && lineStr.toUpperCase().contains("CORR")); 
 			 xfrZCorrectionProcessed = true;
 			 ODMLogger.getLogger().info("PSS/E Xfr table record processed");
 			 this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
 		 }
-		 else {
-			 zTableDataMapper.procLineString(lineStr, getParser());
-			 xfrZTableCnt++;
+		 else {	
+				// PSS/E version 33 and older has only one line for each record
+			    // if version is 34 or newer, we may need to read multiple lines for each record
+			    if(PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 34) {
+				
+					// Check if we need to read a second line by examining if the record is complete
+					boolean isFirstLineComplete = isZCorrRecordComplete(lineStr);
+					
+					if (!isFirstLineComplete) {
+						String lineStr2 = din.readLine();
+						
+						// Check if the second line is complete
+						boolean isSecondLineComplete = isZCorrRecordComplete(lineStr2);
+						
+						if (isSecondLineComplete) {
+							// Process the first line and the second line together
+							zTableDataMapper.procLineString(new String[] {lineStr, lineStr2}, getParser());
+							xfrZTableCnt++;
+						} else {
+							//  log a warning for the incomplete second line
+							ODMLogger.getLogger().severe("PSS/E Xfr table record not complete after two lines, line # " + lineStr + ", line # " + lineStr2);
+						}
+				} else {
+					// Process only the first line
+					zTableDataMapper.procLineString(new String[] {lineStr}, getParser());
+					xfrZTableCnt++;
+				}
+			} else {
+				// For version 33 and older, process the line directly
+				zTableDataMapper.procLineString(new String[] {lineStr}, getParser());
+				xfrZTableCnt++;
+			}
+			 
 		 }		
 	 }
+
+		/**
+	 * Check if a transformer impedance correction record is complete by examining 
+	 * if the last two values are zeros, which indicates the end of meaningful data.
+	 * 
+	 * @param values the array of string values from the data line
+	 * @return true if the record is complete, false if more data is expected
+	 */
+	private boolean isZCorrRecordComplete(String lineStr) {
+		String[] values = lineStr.trim().split(",");
+		if (values.length < 3) {
+			return false; // Not enough data to make a determination
+		}
+		
+		// Check if the last two values are zeros (or very close to zero)
+		try {
+			// Format expected: last two values should be 0.0
+			double secondLastValue = Double.parseDouble(values[values.length - 2].trim());
+			double lastValue = Double.parseDouble(values[values.length - 1].trim());
+			
+			// Consider values very close to zero (e.g., 0.00000) as zero
+			boolean isZeroEnding = Math.abs(secondLastValue) < 0.00001 && Math.abs(lastValue) < 0.00001;
+			
+			if (isZeroEnding) {
+				return true;
+			}
+			// Also check if we have a complete set of meaningful points
+			// If we have a zero at position that could indicate record completion
+		} catch (NumberFormatException e) {
+			// If we can't parse the numbers, assume the record is not complete
+			return false;
+		}
+		return false;
+	}
+
 	 
 	 private void processInterAreaTransferLineStr(String lineStr) throws ODMException {
 		 if (isEndRecLine(lineStr)) {

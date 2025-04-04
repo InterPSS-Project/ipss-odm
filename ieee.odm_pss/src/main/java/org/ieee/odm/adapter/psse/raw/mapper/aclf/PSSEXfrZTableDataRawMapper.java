@@ -25,8 +25,8 @@
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrZTableDataRawParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -43,7 +43,7 @@ public class PSSEXfrZTableDataRawMapper extends BasePSSEDataRawMapper{
 	}
 	
 
-	public void procLineString(String lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
+	public void procLineString(String[] lineStr, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		dataParser.parseFields(lineStr);
 		
 		LoadflowNetXmlType baseCaseNet = (LoadflowNetXmlType) parser.getNet();
@@ -54,18 +54,47 @@ public class PSSEXfrZTableDataRawMapper extends BasePSSEDataRawMapper{
 		XformerZTableXmlType.XformerZTableItem item = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItem(); 
 		baseCaseNet.getXfrZTable().getXformerZTableItem().add(item);
 		
-		/*
-		 * format V30: I, T1, F1, T2, F2, T3, F3, ... T11, F11
-		 */
+	
 		int i = this.dataParser.getInt("I");
 		item.setNumber(i);
-		for (int n = 1; n < 12; n++) {
-			if (this.dataParser.exist("T"+n) && this.dataParser.exist("F"+n)) {
-				XformerZTableXmlType.XformerZTableItem.Lookup lookup = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup(); 
-				item.getLookup().add(lookup);
-				lookup.setTurnRatioShiftAngle(this.dataParser.getDouble("T"+n));
-				lookup.setScaleFactor(this.dataParser.getDouble("F"+n));
+
+		/*
+		 * format V30-V33: I, T1, F1, T2, F2, T3, F3, ... T11, F11
+		 */
+		if (PSSERawAdapter.getVersionNo(this.version) <34) {
+			for (int n = 1; n < 12; n++) {
+				if (this.dataParser.exist("T"+n) && this.dataParser.exist("F"+n) &&  this.dataParser.getValue("F"+n).trim().length() > 0) {
+					if(this.dataParser.getDouble("F"+n,0.0) == 0.0) break;
+					XformerZTableXmlType.XformerZTableItem.Lookup lookup = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup(); 
+					item.getLookup().add(lookup);
+					lookup.setTurnRatioShiftAngle(this.dataParser.getDouble("T"+n));
+					lookup.setScaleFactor(this.dataParser.getDouble("F"+n));
+				}
 			}
-		}		
+		}
+		
+		//TODO: Need to update the XformerZTableXmlType.XformerZTableItem.Lookup class to support complex number
+		/* 
+		 * format V34-36
+		 * 
+		 *       I, T1, Re(F1), Im(F1), T2, Re(F2), Im(F2), ..., T6, Re(F6), Im(F6)
+				T7, Re(F7), Im(F7), T8, Re(F8), Im(F8), ..., T12, Re(F12), Im(F12)
+				...
+				...
+				Tn, Re(Fn), Im(Fn), 0.0, 0.0, 0.0
+		 * 
+		*/
+		else {
+			for (int n = 1; n < 13; n++) {
+				if (this.dataParser.exist("T"+n) && this.dataParser.exist("RE(F"+n+")")
+				&& this.dataParser.exist("IM(F"+n+")") &&this.dataParser.getValue("RE(F"+n+")").trim().length() > 0) {
+					if(this.dataParser.getDouble("RE(F"+n+")",0.0) == 0.0) break;
+					XformerZTableXmlType.XformerZTableItem.Lookup lookup = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup(); 
+					item.getLookup().add(lookup);
+					lookup.setTurnRatioShiftAngle(this.dataParser.getDouble("T"+n));
+					lookup.setScaleFactor(this.dataParser.getDouble("RE(F"+n+")"));
+				}
+			}
+		}
 	}
 }
