@@ -9,6 +9,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.DCLineData2TXmlType;
+import org.ieee.odm.schema.DcLineControlModeEnumType;
 import org.ieee.odm.schema.DcLineMeteredEndEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
@@ -32,6 +33,8 @@ public class PSSEV33_Kundur2Area_LCCHVDC_Test {
         assertTrue(adapter.parseInputFile("testdata/psse/v33/Kundur_2area_LCC_HVDC.raw"));
     
         AclfModelParser parser = (AclfModelParser)adapter.getModel();
+
+        parser.stdout();
         
         // Test Bus1 data
 		/*
@@ -121,6 +124,12 @@ public class PSSEV33_Kundur2Area_LCCHVDC_Test {
          */
         boolean foundHvdcLine = false;
        DCLineData2TXmlType hvdc = parser.getDcLine2TRecord("Bus7", "Bus9", "1");
+    
+       
+        assertNotNull("HVDC line should exist", hvdc);
+
+
+
 	   
             if (hvdc !=null) {
                 foundHvdcLine = true;
@@ -148,6 +157,9 @@ public class PSSEV33_Kundur2Area_LCCHVDC_Test {
                 assertEquals(90.0, rectifier.getMaxFiringAngle().getValue(), 0.0001);
                 
                 // Test line data
+                assertEquals("Bus7_to_Bus9_cirId_1", hvdc.getId());
+                // dcLineControlMode = DC_POWER
+                assertEquals("Control mode should be power", DcLineControlModeEnumType.POWER, hvdc.getControlMode());
                 assertEquals(5.0, hvdc.getLineR().getR(), 0.0001);
                 assertEquals(500.0, hvdc.getPowerDemand().getValue(), 0.0001);
                 assertEquals(500.0, hvdc.getScheduledDCVoltage().getValue(), 0.0001);
@@ -155,6 +167,6 @@ public class PSSEV33_Kundur2Area_LCCHVDC_Test {
             
         }
 
-        parser.stdout();
+        
     }
 }
