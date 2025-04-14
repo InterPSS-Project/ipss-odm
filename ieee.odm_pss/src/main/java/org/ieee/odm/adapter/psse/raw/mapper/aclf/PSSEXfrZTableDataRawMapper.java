@@ -85,14 +85,28 @@ public class PSSEXfrZTableDataRawMapper extends BasePSSEDataRawMapper{
 		 * 
 		*/
 		else {
-			for (int n = 1; n < 13; n++) {
+			// the number of correction factors is based on the meta data
+			int maxFactors = 12; // Default maximum number of correction factors
+			if ((this.dataParser.getMetadata().length-1)/3 > maxFactors) {
+				maxFactors = (this.dataParser.getMetadata().length-1)/3;
+			}
+			for (int n = 1; n <= maxFactors; n++) {
 				if (this.dataParser.exist("T"+n) && this.dataParser.exist("RE(F"+n+")")
-				&& this.dataParser.exist("IM(F"+n+")") &&this.dataParser.getValue("RE(F"+n+")").trim().length() > 0) {
+				&& this.dataParser.exist("IM(F"+n+")") && this.dataParser.getValue("RE(F"+n+")").trim().length() > 0) {
 					if(this.dataParser.getDouble("RE(F"+n+")",0.0) == 0.0) break;
 					XformerZTableXmlType.XformerZTableItem.Lookup lookup = OdmObjFactory.createXformerZTableXmlTypeXformerZTableItemLookup(); 
 					item.getLookup().add(lookup);
 					lookup.setTurnRatioShiftAngle(this.dataParser.getDouble("T"+n));
 					lookup.setScaleFactor(this.dataParser.getDouble("RE(F"+n+")"));
+					//TODO: the imaginary part is not used in the current implementation
+					/*
+					 * if (this.dataParser.exist("IM(F"+n+")")) {
+						lookup.setImaginaryPart(this.dataParser.getDouble("IM(F"+n+")"));
+					} else {
+						lookup.setImaginaryPart(0.0);
+					}
+					 */
+					
 				}
 			}
 		}

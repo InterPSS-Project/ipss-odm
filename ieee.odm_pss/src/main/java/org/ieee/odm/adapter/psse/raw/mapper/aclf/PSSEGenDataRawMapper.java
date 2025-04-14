@@ -157,7 +157,7 @@ public class PSSEGenDataRawMapper extends BasePSSEDataRawMapper{
 		 * regulate its own voltage and must be zero for a Type 3 (swing) bus. IREG=0 by default.
 		 */
 	    int ireg = dataParser.getInt("IREG");
-	    if (ireg > 0) {
+	    if (ireg > 0 && ireg != i) { // if ireg is not the same as i, then it is a remote bus
 	    	final String reBusId = IODMModelParser.BusIdPreFix+ireg;
 	    	contriGen.setRemoteVoltageControlBus(parser.createBusRef(reBusId));
 	    }
