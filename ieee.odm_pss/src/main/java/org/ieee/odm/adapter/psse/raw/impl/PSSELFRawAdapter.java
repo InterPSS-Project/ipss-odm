@@ -53,8 +53,10 @@
  import org.ieee.odm.schema.NetworkCategoryEnumType;
  import org.ieee.odm.schema.NetworkXmlType;
  import org.ieee.odm.schema.OriginalDataFormatEnumType;
+
  import java.util.ArrayList;
  import java.util.List;
+import java.util.logging.Level;
  
  public class PSSELFRawAdapter extends BasePSSERawAdapter{
  
@@ -174,6 +176,7 @@
 		   try {
 			   do {
 				   lineStr = din.readLine();
+				   //ODMLogger.getLogger().log(Level.INFO, "Reading line: " + lineStr);
 				   if (lineStr != null) {
 					   lineNo++;
 					   if(lineStr.startsWith("//") || lineStr.startsWith("@!")) { // it is a comment line or section field definition line
