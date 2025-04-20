@@ -1,7 +1,5 @@
 package org.ieee.odm.psse.raw.v30;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -18,6 +16,7 @@ import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSEV30_Dyn_Load_Test {
@@ -31,8 +30,8 @@ public class PSSEV30_Dyn_Load_Test {
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-				"testData/psse/v30/IEEE9Bus/ieee9.raw",
-				"testData/psse/v30/IEEE9Bus/ieee9_dyn_Load_ACMotor.dyr"
+				"testdata/psse/v30/IEEE9Bus/ieee9.raw",
+				"testdata/psse/v30/IEEE9Bus/ieee9_dyn_Load_ACMotor.dyr"
 		}));
 		DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 		//dstabParser.stdout();
@@ -99,8 +98,8 @@ public class PSSEV30_Dyn_Load_Test {
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-				"testData/psse/v30/IEEE9Bus/ieee9.raw",
-				"testData/psse/v30/IEEE9Bus/ieee9_dyn_Load_CMLD.dyr"
+				"testdata/psse/v30/IEEE9Bus/ieee9.raw",
+				"testdata/psse/v30/IEEE9Bus/ieee9_dyn_Load_CMLD.dyr"
 		}));
 		DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 		//dstabParser.stdout();

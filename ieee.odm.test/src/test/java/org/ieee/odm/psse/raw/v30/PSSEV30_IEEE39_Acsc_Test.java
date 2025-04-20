@@ -1,7 +1,5 @@
 package org.ieee.odm.psse.raw.v30;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -18,6 +16,7 @@ import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.ShortCircuitGenDataXmlType;
 import org.ieee.odm.schema.XformrtConnectionEnumType;
 import org.ieee.odm.schema.XfrShortCircuitXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSEV30_IEEE39_Acsc_Test {
@@ -30,8 +29,8 @@ public class PSSEV30_IEEE39_Acsc_Test {
 		
 		PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 		assertTrue(adapter.parseInputFile(NetType.AcscNet, new String[]{
-				"testData/psse/v30/IEEE39Bus/IEEE39bus_v30.raw",
-				"testData/psse/v30/IEEE39Bus/IEEE39bus_v30.seq"
+				"testdata/psse/v30/IEEE39Bus/IEEE39bus_v30.raw",
+				"testdata/psse/v30/IEEE39Bus/IEEE39bus_v30.seq"
 		}));
 		AcscModelParser acscParser =(AcscModelParser) adapter.getModel();
 		//acscParser.stdout();

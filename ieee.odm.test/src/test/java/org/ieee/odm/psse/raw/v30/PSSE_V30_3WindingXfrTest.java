@@ -1,7 +1,5 @@
 package org.ieee.odm.psse.raw.v30;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -11,6 +9,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.LoadflowNetXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSE_V30_3WindingXfrTest {
@@ -23,7 +22,7 @@ public class PSSE_V30_3WindingXfrTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testData/psse/v30/IEEE9Bus/ieee9_3WXfr.raw"));
+		assertTrue(adapter.parseInputFile("testdata/psse/v30/IEEE9Bus/ieee9_3WXfr.raw"));
 		System.out.println(adapter.getModel().toXmlDoc());
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();

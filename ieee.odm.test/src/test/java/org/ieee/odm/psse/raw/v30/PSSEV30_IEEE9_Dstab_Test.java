@@ -1,7 +1,5 @@
 package org.ieee.odm.psse.raw.v30;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -28,6 +26,7 @@ import org.ieee.odm.schema.GovIEEE1981Type3XmlType;
 import org.ieee.odm.schema.LDS3RelayXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LVS3RelayXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSEV30_IEEE9_Dstab_Test {
@@ -41,9 +40,9 @@ public class PSSEV30_IEEE9_Dstab_Test {
 	
 	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
 	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-			"testData/psse/v30/IEEE9Bus/ieee9.raw",
-			"testData/psse/v30/IEEE9Bus/ieee9.seq",
-			"testData/psse/v30/IEEE9Bus/ieee9_dyn_onlyGen.dyr"
+			"testdata/psse/v30/IEEE9Bus/ieee9.raw",
+			"testdata/psse/v30/IEEE9Bus/ieee9.seq",
+			"testdata/psse/v30/IEEE9Bus/ieee9_dyn_onlyGen.dyr"
 	}));
 	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
 	//dstabParser.stdout();
@@ -220,9 +219,9 @@ public class PSSEV30_IEEE9_Dstab_Test {
     	
     	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
     	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-    			"testData/psse/v30/IEEE9Bus/ieee9.raw",
-    			"testData/psse/v30/IEEE9Bus/ieee9.seq",
-    			"testData/psse/v30/IEEE9Bus/ieee9_dyn_fullModel.dyr"
+    			"testdata/psse/v30/IEEE9Bus/ieee9.raw",
+    			"testdata/psse/v30/IEEE9Bus/ieee9.seq",
+    			"testdata/psse/v30/IEEE9Bus/ieee9_dyn_fullModel.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
     	//dstabParser.stdout();
@@ -391,9 +390,9 @@ public class PSSEV30_IEEE9_Dstab_Test {
     	
     	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
     	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-    			"testData/psse/v30/IEEE9Bus/ieee9.raw",
-    			"testData/psse/v30/IEEE9Bus/ieee9.seq",
-    			"testData/psse/v30/IEEE9Bus/ieee9_dyn_fullModel_relay.dyr"
+    			"testdata/psse/v30/IEEE9Bus/ieee9.raw",
+    			"testdata/psse/v30/IEEE9Bus/ieee9.seq",
+    			"testdata/psse/v30/IEEE9Bus/ieee9_dyn_fullModel_relay.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
     	//dstabParser.stdout();
@@ -462,8 +461,8 @@ public class PSSEV30_IEEE9_Dstab_Test {
     	
     	PSSEAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
     	assertTrue(adapter.parseInputFile(NetType.DStabNet, new String[]{
-    			"testData/psse/v30/IEEE9Bus/ieee9.raw",
-    			"testData/psse/v30/IEEE9Bus/ieee9_dyn_fullModel.dyr"
+    			"testdata/psse/v30/IEEE9Bus/ieee9.raw",
+    			"testdata/psse/v30/IEEE9Bus/ieee9_dyn_fullModel.dyr"
     	}));
     	DStabModelParser dstabParser =(DStabModelParser) adapter.getModel();
     	//dstabParser.stdout();
