@@ -24,20 +24,19 @@
 
 package org.ieee.odm.psse.raw;
 
-import static org.junit.Assert.assertTrue;
-
 import org.ieee.odm.ODMFileFormatEnum;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEHeaderDataRawMapper;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSE_HearderVer_ODMTest { 
 	@Test
 	public void testCase1() throws Exception {
 		PSSEHeaderDataRawMapper mapper = new PSSEHeaderDataRawMapper(PsseVersion.PSSE_30);
-		assertTrue(mapper.getVersion("testData/psse/ver26Header.txt") == ODMFileFormatEnum.PsseV26);
-		assertTrue(mapper.getVersion("testData/psse/ver29Header.txt") == ODMFileFormatEnum.PsseV30);
-		assertTrue(mapper.getVersion("testData/psse/ver30Header.txt") == ODMFileFormatEnum.PsseV30);
+		assertTrue(mapper.getVersion("testdata/psse/ver26Header.txt") == ODMFileFormatEnum.PsseV26);
+		assertTrue(mapper.getVersion("testdata/psse/ver29Header.txt") == ODMFileFormatEnum.PsseV30);
+		assertTrue(mapper.getVersion("testdata/psse/ver30Header.txt") == ODMFileFormatEnum.PsseV30);
 	}
 }
 

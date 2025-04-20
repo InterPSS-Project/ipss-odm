@@ -24,8 +24,6 @@
 
 package org.ieee.odm.psse.raw.v30;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -44,6 +42,7 @@ import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSEV30_RealCase_ODMTest { 
@@ -55,7 +54,7 @@ public class PSSEV30_RealCase_ODMTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_30);
-		assertTrue(adapter.parseInputFile("testData/psse/v30/Model_testV30.raw"));
+		assertTrue(adapter.parseInputFile("testdata/psse/v30/Model_testv30.raw"));
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//parser.stdout();

@@ -24,8 +24,6 @@
 
 package org.ieee.odm.pwd;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -33,9 +31,8 @@ import java.util.logging.Logger;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.pwd.PowerWorldAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.schema.LFGenCodeEnumType;
-import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PWD_IEEE14Bus_ODMTest { 
@@ -47,7 +44,7 @@ public class PWD_IEEE14Bus_ODMTest {
 		logMgr.addLogger(logger);
 		
 		IODMAdapter adapter = new PowerWorldAdapter();
-		assertTrue(adapter.parseInputFile("testdata/pwd/Ieee14.AUX"));
+		assertTrue(adapter.parseInputFile("testdata/pwd/ieee14.AUX"));
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
 		//System.out.println(parser.toXmlDoc());
