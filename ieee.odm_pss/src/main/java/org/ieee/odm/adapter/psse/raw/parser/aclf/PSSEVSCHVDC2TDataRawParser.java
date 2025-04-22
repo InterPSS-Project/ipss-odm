@@ -3,6 +3,7 @@ package org.ieee.odm.adapter.psse.raw.parser.aclf;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.common.ODMException;
 
 /**
@@ -15,62 +16,99 @@ public class PSSEVSCHVDC2TDataRawParser extends BasePSSEDataRawParser {
 	public PSSEVSCHVDC2TDataRawParser(PsseVersion ver) {
 		super(ver);
 	}	
+
+	private static String[][] META_DATA_V30_33 = {
+		//LINE-1
+		{ "NAME",     "MDC",      "RDC",       "O1",       "F1",    "O2",       "F2",        "O3",       "F3",      "O4",     "F4" }, 
+		   //LINE-2
+		{"IBUS",     "TYPE1",    "MODE1",    "DCSET1",     "ACSET1",       "ALOSS1",   "BLOSS1",  "MINLOSS1",  "SMAX1", 
+		
+		"IMAX1",        "PWF1",    "MAXQ1",    "MINQ1",     "REMOT1", "RMPCT1"},
+		//LINE-3           
+		{ "JBUS",     "TYPE2",    "MODE2",    "DCSET2",     "ACSET2",       "ALOSS2",   "BLOSS2",  "MINLOSS2",  "SMAX2", 
+		
+		"IMAX2",        "PWF2",    "MAXQ2",    "MINQ2",     "REMOT2",      "RMPCT2" }
+	};
+
+	
+	private static String[][] META_DATA_V34 = {
+		//LINE-1
+		{ "NAME",     "MDC",      "RDC",       "O1",       "F1",    "O2",       "F2",        "O3",       "F3",      "O4",     "F4" }, 
+		   //LINE-2
+		{"IBUS",     "TYPE1",    "MODE1",    "DCSET1",     "ACSET1",       "ALOSS1",   "BLOSS1",  "MINLOSS1",  "SMAX1", 
+		
+		"IMAX1",        "PWF1",    "MAXQ1",    "MINQ1",     "VSREG1", "RMPCT1", "NREG1"},
+		//LINE-3           
+		{ "JBUS",     "TYPE2",    "MODE2",    "DCSET2",     "ACSET2",       "ALOSS2",   "BLOSS2",  "MINLOSS2",  "SMAX2", 
+		
+		"IMAX2",        "PWF2",    "MAXQ2",    "MINQ2",     "VSREG2", "RMPCT2", "NREG2" }
+	};
+
+	private static String[][] META_DATA_V35_36 = {
+		//LINE-1
+		{ "NAME",     "MDC",      "RDC",       "O1",       "F1",    "O2",       "F2",        "O3",       "F3",      "O4",     "F4" }, 
+		   //LINE-2
+		{"IBUS",     "TYPE1",    "MODE1",    "DCSET1",     "ACSET1",       "ALOSS1",   "BLOSS1",  "MINLOSS1",  "SMAX1", 
+		
+		"IMAX1",        "PWF1",    "MAXQ1",    "MINQ1",     "VSREG1",  "NREG1", "RMPCT1"},
+		//LINE-3           
+		{ "JBUS",     "TYPE2",    "MODE2",    "DCSET2",     "ACSET2",       "ALOSS2",   "BLOSS2",  "MINLOSS2",  "SMAX2", 
+		
+		"IMAX2",        "PWF2",    "MAXQ2",    "MINQ2",     "VSREG2",  "NREG2", "RMPCT2"}
+	};
 	
 	@Override public String[] getMetadata() {
-		/*
-		 * Line-1
-		 * 'NAME', MDC, RDC, O1, F1, ... O4, F4
-		 * Line-2
-            IBUS,TYPE,MODE,DCSET,ACSET,ALOSS,BLOSS,MINLOSS,SMAX,IMAX,PWF,MAXQ,MINQ,REMOT,RMPCT
-           Line-3
-            JBUS,TYPE,MODE,DCSET,ACSET,ALOSS,BLOSS,MINLOSS,SMAX,IMAX,PWF,MAXQ,MINQ,REMOT,RMPCT
-		 */
-		
-		return new String[] {
-				   //  0-----------1-----------2-----------3-----------4
-				      "NAME",     "MDC",      "RDC",       "O1",       "F1",            //LINE-1
-				      
-				   //  5           6           7           8           9
-				      "O2",       "F2",        "O3",       "F3",      "O4",    
-				  //  10           11           12          13         14   
-				      "F4", 
-				                   "IBUS",     "TYPE1",    "MODE1",    "DCSET1",        //LINE-2
-				  //  15          16            17           18         19  
-				   "ACSET1",       "ALOSS1",   "BLOSS1",  "MINLOSS1",  "SMAX1", 
-				   
-				 //  20          21            22           23           24  
-				   "IMAX1",        "PWF1",    "MAXQ1",    "MINQ1",     "REMOT1",
-				 //  25          26            27           28           29  
-				   "RMPCT1",           
-				                "JBUS",     "TYPE2",    "MODE2",    "DCSET2",            //LINE-3
-				                
-                //  30          31            32           33         34  
-				   "ACSET2",       "ALOSS2",   "BLOSS2",  "MINLOSS2",  "SMAX2", 
-				   
-				 //  35          36            37           38          39  
-				   "IMAX2",        "PWF2",    "MAXQ2",    "MINQ2",     "REMOT2",
-				 //  40          
-				   "RMPCT2"
-				                
-	   
-	     };
+		switch(this.version){
+			case PSSE_30:
+			case PSSE_31:
+			case PSSE_32:
+			case PSSE_33:
+				return convertStringAry2DTo1D(META_DATA_V30_33);
+			case PSSE_34:
+				return convertStringAry2DTo1D(META_DATA_V34);
+			case PSSE_35:
+			case PSSE_36:
+				return convertStringAry2DTo1D(META_DATA_V35_36);
+			default:
+				throw new IllegalArgumentException("Unsupported PSS/E version: " + this.version);
+	
+		}
+
 	}
 	
 	@Override public void parseFields(final String[] lineStrAry) throws ODMException {
-		StringTokenizer st = new StringTokenizer(lineStrAry[0], ",");
-		int cnt = 0;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());
+		 this.clearNVPairTableData();
+		 
+		 String lineStr1 = lineStrAry[0];
+		 String lineStr2 = lineStrAry[1];
+		 String lineStr3 = lineStrAry[2];
 
-		st = new StringTokenizer(lineStrAry[1], ",");
-		cnt = 11;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());
-		
-		st = new StringTokenizer(lineStrAry[2], ",");
-		cnt = 26;
-		while (st.hasMoreTokens())
-			this.setValue(cnt++, st.nextToken().trim());
+		 
+		 // set the number of expectedFieldCount based on v34-36 as default
+		 int expectedLine1Num = META_DATA_V35_36[0].length;
+		 int expectedLine2Num = META_DATA_V35_36[1].length;
+		 int expectedLine3Num = META_DATA_V35_36[2].length;
+
+ 
+		 
+		 // for version 30-33
+		 if(PSSERawAdapter.getVersionNo(this.version) < 34) {
+			 expectedLine1Num = META_DATA_V30_33[0].length;
+			 expectedLine2Num = META_DATA_V30_33[1].length;
+			 expectedLine3Num = META_DATA_V30_33[2].length;
+		 }
+		 
+		 //line 1
+		 int startingIdx = 0;
+		 parseLineStr(lineStr1, startingIdx, expectedLine1Num);
+		 
+		 //line 2
+		 startingIdx += expectedLine1Num;
+		 parseLineStr(lineStr2, expectedLine1Num, expectedLine2Num);
+		 
+		 //line 3
+		 startingIdx += expectedLine2Num;
+		 parseLineStr(lineStr3, startingIdx, expectedLine3Num);
   	}
 		
 
