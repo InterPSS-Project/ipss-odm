@@ -3,11 +3,16 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSESwitchingDeviceDataRawParser;
+import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
+import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
-import org.ieee.odm.schema.LoadflowBusXmlType;
+import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.YUnitType;
+import org.ieee.odm.schema.ZUnitType;
 
 public class PSSESwitchingDeviceDataRawMapper extends BasePSSEDataRawMapper {
 
@@ -79,8 +84,24 @@ public class PSSESwitchingDeviceDataRawMapper extends BasePSSEDataRawMapper {
 		final String fid = IODMModelParser.BusIdPreFix+i;
 		final String tid = IODMModelParser.BusIdPreFix+j;
 
-        LoadflowBusXmlType fromBus = parser.getBus(fid);
-        LoadflowBusXmlType toBus = parser.getBus(tid);
-   
+        // LoadflowBusXmlType fromBus = parser.getBus(fid);
+        // LoadflowBusXmlType toBus = parser.getBus(tid);
+
+         LineBranchXmlType braRecXml;
+		  try {
+			  braRecXml = (LineBranchXmlType) parser.createLineBranch(fid, tid, dataParser.getValue("CKT"));
+		  } catch (ODMBranchDuplicationException e) {
+			  ODMLogger.getLogger().severe(e.toString());
+			  return;
+		  }		
+		  
+		  int status = dataParser.getInt("STAT", 1);
+		  braRecXml.setOffLine(status != 1);
+          // Set the X value for the branch
+          AclfDataSetter.setLineData(braRecXml, 0, x, ZUnitType.PU, 0.0, 0, YUnitType.PU);
+          
+
+          //TODO: set rating limits if applicable
+
     }
 }
