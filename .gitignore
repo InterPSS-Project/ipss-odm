@@ -7,3 +7,6 @@ bin/
 /bin/
 
 .DS_Store
+ieee.odm.test/.classpath
+ieee.odm.test/.settings/org.eclipse.core.resources.prefs
+ieee.odm_pss/.settings/org.eclipse.core.resources.prefs
