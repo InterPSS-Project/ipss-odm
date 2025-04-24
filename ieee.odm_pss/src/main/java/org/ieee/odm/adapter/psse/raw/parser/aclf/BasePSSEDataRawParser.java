@@ -174,6 +174,57 @@
         }
     }
 
+    /**
+     * Parses a line string containing only numerical values, starting from the specified index.
+     * @param str The line string to parse.
+     * @param startingIdx The starting index for parsing.
+     * @param expectedFieldCount The expected number of fields to parse.
+     */
+    public void parseNumericalOnlyLineStr(final String str, int startingIdx, int expectedFieldCount) {
+        // First remove comments after "/", but don't affect the "/" within numbers (like 1/2)
+        String tempStr = str;
+        if (str.contains("/")) {
+            tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+        }
+       
+        String[] splitData = tempStr.split(",");
+
+        int idx = 0;
+        for (String data : splitData) {
+            setValue(idx, data.trim());
+            idx++;
+        }
+        
+        // Fill in missing data with default values
+        while (idx < startingIdx + expectedFieldCount) {
+            setValue(idx++, "");
+        }
+    }
+
+    /**
+     * Parses a line string containing only numerical values, starting from the specified index.
+     * @return the number of fields parsed.
+     * @param str The line string to parse.
+     */
+    public int parseNumericalOnlyLineStr(final String str, int startingIdx) {
+        // First remove comments after "/", but don't affect the "/" within numbers (like 1/2)
+        String tempStr = str;
+        if (str.contains("/")) {
+            tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
+        }
+       
+        String[] splitData = tempStr.split(",");
+
+        int idx = 0;
+        for (String data : splitData) {
+            setValue(idx + startingIdx, data.trim());
+            idx++;
+        }
+        
+        return idx;
+        
+    }
+
     //  NOTE: this method is not used in the current implementation, but it is kept for future use.
     // @Override public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {
     //  public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {

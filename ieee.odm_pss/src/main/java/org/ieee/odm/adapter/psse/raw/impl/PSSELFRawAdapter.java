@@ -8,10 +8,8 @@
  * as published by the Free Software Foundation; either version 2.1
  * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  *
  * @Author Mike Zhou
  * @Version 1.0
@@ -55,6 +53,10 @@
  import org.ieee.odm.schema.NetworkCategoryEnumType;
  import org.ieee.odm.schema.NetworkXmlType;
  import org.ieee.odm.schema.OriginalDataFormatEnumType;
+
+ import java.util.ArrayList;
+ import java.util.List;
+import java.util.logging.Level;
  
  public class PSSELFRawAdapter extends BasePSSERawAdapter{
  
@@ -174,6 +176,7 @@
 		   try {
 			   do {
 				   lineStr = din.readLine();
+				   //ODMLogger.getLogger().log(Level.INFO, "Reading line: " + lineStr);
 				   if (lineStr != null) {
 					   lineNo++;
 					   if(lineStr.startsWith("//") || lineStr.startsWith("@!")) { // it is a comment line or section field definition line
@@ -563,43 +566,35 @@
 			 ODMLogger.getLogger().info("PSS/E Xfr table record processed");
 			 this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
 		 }
-		 else {	
-				// PSS/E version 33 and older has only one line for each record
-			    // if version is 34 or newer, we may need to read multiple lines for each record
-			    if(PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 34) {
-				
-					// Check if we need to read a second line by examining if the record is complete
-					boolean isFirstLineComplete = isZCorrRecordComplete(lineStr);
-					
-					if (!isFirstLineComplete) {
-						String lineStr2 = din.readLine();
-						
-						// Check if the second line is complete
-						boolean isSecondLineComplete = isZCorrRecordComplete(lineStr2);
-						
-						if (isSecondLineComplete) {
-							// Process the first line and the second line together
-							zTableDataMapper.procLineString(new String[] {lineStr, lineStr2}, getParser());
-							xfrZTableCnt++;
-						} else {
-							//  log a warning for the incomplete second line
-							ODMLogger.getLogger().severe("PSS/E Xfr table record not complete after two lines, line # " + lineStr + ", line # " + lineStr2);
-						}
-				} else {
-					// Process only the first line
-					zTableDataMapper.procLineString(new String[] {lineStr}, getParser());
-					xfrZTableCnt++;
-				}
-			} else {
-				// For version 33 and older, process the line directly
-				zTableDataMapper.procLineString(new String[] {lineStr}, getParser());
-				xfrZTableCnt++;
-			}
-			 
+		 else {
+			 // PSS/E version 33 and older has only one line for each record
+			 // if version is 34 or newer, we may need to read multiple lines for each record
+			 if (PSSERawAdapter.getVersionNo(this.adptrtVersion) >= 34) {
+				 // Collect all lines until the record is complete
+				 List<String> recordLines = new ArrayList<>();
+				 recordLines.add(lineStr);
+
+				 while (!isZCorrRecordComplete(recordLines.get(recordLines.size() - 1))) {
+					 String nextLine = din.readLine();
+					 if (nextLine == null) {
+						 ODMLogger.getLogger().severe("PSS/E Xfr table record incomplete, reached end of file.");
+						 break;
+					 }
+					 recordLines.add(nextLine);
+				 }
+
+				 // Process the collected lines
+				 zTableDataMapper.procLineString(recordLines.toArray(new String[0]), getParser());
+				 xfrZTableCnt++;
+			 } else {
+				 // For version 33 and older, process the line directly
+				 zTableDataMapper.procLineString(new String[] {lineStr}, getParser());
+				 xfrZTableCnt++;
+			 }
 		 }		
 	 }
 
-		/**
+	 /**
 	 * Check if a transformer impedance correction record is complete by examining 
 	 * if the last two values are zeros, which indicates the end of meaningful data.
 	 * 
@@ -689,4 +684,3 @@
 		 return K != 0;
 	 }
  }
- 

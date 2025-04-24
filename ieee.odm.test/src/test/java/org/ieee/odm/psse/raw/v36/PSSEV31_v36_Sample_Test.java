@@ -129,6 +129,43 @@ public void testV36() throws Exception {
 	
 }
 
+@Test
+public void testV36_ZTable() throws Exception {
+	final LogManager logMgr = LogManager.getLogManager();
+	Logger logger = Logger.getLogger("IEEE ODM Logger");
+	logger.setLevel(Level.INFO);
+	logMgr.addLogger(logger);
+	
+	IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_36);
+	assertTrue(adapter.parseInputFile("testdata/psse/v36/sample_ztable_v36.raw"));
+
+	AclfModelParser parser = (AclfModelParser)adapter.getModel();
+	//checkData(parser,36);
+
+	// check transformer impedance correction table
+    XformerZTableXmlType zTable = parser.getAclfNet().getXfrZTable();
+    /**
+     * 0 / END OF VSC DC LINE DATA, BEGIN IMPEDANCE CORRECTION DATA
+@!I,  T1,   Re(F1), Im(F1),   T2,   Re(F2), Im(F2),   T3,   Re(F3), Im(F3),   T4,   Re(F4), Im(F4),   T5,   Re(F5), Im(F5),   T6,   Re(F6), Im(F6)
+@!    T7,   Re(F7), Im(F7),   T8,   Re(F8), Im(F8),   T9,   Re(F9), Im(F9),   T10, Re(F10),Im(F10),   T11, Re(F11),Im(F11),   T12, Re(F12),Im(F12)
+@!      ...
+
+ 2,0.60000,1.06000,0.00000,0.70000,1.05000,0.00000,0.80000,1.04000,0.00000,0.90000,1.03000,0.00000,0.95000,1.02000,0.00000,1.00000,1.01000,0.00000
+   1.05000,0.99000,0.00000,1.10000,0.98000,0.00000,1.20000,0.97000,0.00000,1.30000,0.96000,0.00000,1.40000,0.95000, 0.0000,1.50000,0.9400000,0.0000
+   1.600000,0.93000, 0.0000, 0.0000
+     */
+
+     assertEquals(13, zTable.getXformerZTableItem().get(1).getLookup().size());
+     assertEquals(0.6, zTable.getXformerZTableItem().get(1).getLookup().get(0).getTurnRatioShiftAngle(), 0.0001);
+     assertEquals(1.06, zTable.getXformerZTableItem().get(1).getLookup().get(0).getScaleFactor(), 0.0001);
+
+     assertEquals(1.6, zTable.getXformerZTableItem().get(1).getLookup().get(12).getTurnRatioShiftAngle(), 0.0001);
+     assertEquals(0.93, zTable.getXformerZTableItem().get(1).getLookup().get(12).getScaleFactor(), 0.0001);
+
+
+
+}
+
 private void checkData(AclfModelParser parser, int version) throws Exception {
 	// Check Bus 102
     LoadflowBusXmlType bus102 = parser.getBus("Bus102");

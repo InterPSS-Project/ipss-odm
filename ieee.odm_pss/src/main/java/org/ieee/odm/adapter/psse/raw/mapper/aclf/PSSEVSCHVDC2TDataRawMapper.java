@@ -1,6 +1,7 @@
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEVSCHVDC2TDataRawParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
@@ -50,8 +51,18 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 		double  vsc1PWF = this.dataParser.getDouble("PWF1");
 		double  vsc1QMAX = this.dataParser.getDouble("MAXQ1");
 		double  vsc1QMIN = this.dataParser.getDouble("MINQ1");
-		int    vsc1RmtBusNum = this.dataParser.getInt("REMOT1");
+		int    vsc1RmtBusNum = 0;
 		double  vsc1Rmpct = this.dataParser.getDouble("RMPCT1");
+		if (PSSERawAdapter.getVersionNo(this.version) <34){
+			vsc1RmtBusNum = this.dataParser.getInt("REMOT1");
+		}
+		else if (PSSERawAdapter.getVersionNo(this.version)>=34 && PSSERawAdapter.getVersionNo(this.version)<37){
+			vsc1RmtBusNum = this.dataParser.getInt("VSREG1");
+		}
+		else{
+			throw new UnsupportedOperationException("The version "+this.version+" is not supported yet for VSC HVDC converter data parsing");
+		}
+
 		
 		
 		
@@ -70,8 +81,19 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 		double  vsc2PWF = this.dataParser.getDouble("PWF2");
 		double  vsc2QMAX = this.dataParser.getDouble("MAXQ2");
 		double  vsc2QMIN = this.dataParser.getDouble("MINQ2");
-		int    vsc2RmtBusNum = this.dataParser.getInt("REMOT2");
+		int    vsc2RmtBusNum =  0;
+		if (PSSERawAdapter.getVersionNo(this.version) < 34) {
+			vsc2RmtBusNum = this.dataParser.getInt("REMOT2");
+		}
+		else if (PSSERawAdapter.getVersionNo(this.version) >= 34 && PSSERawAdapter.getVersionNo(this.version) < 37) {
+			vsc2RmtBusNum = this.dataParser.getInt("VSREG2");
+		}
+		else {
+			throw new UnsupportedOperationException("The version "+this.version+" is not supported yet for VSC HVDC converter data parsing");
+		}
 		double  vsc2Rmpct = this.dataParser.getDouble("RMPCT2");
+		
+		
 		
 		
 		final String vsc1BusId = IODMModelParser.BusIdPreFix+vsc1BusNum;
@@ -153,7 +175,7 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 		vsc1.setQMin(BaseDataSetter.createReactivePowerValue(vsc1QMIN, ReactivePowerUnitType.MVAR));
 		
 		
-		if (vsc1RmtBusNum > 0) {
+		if (vsc1RmtBusNum > 0 && vsc1RmtBusNum!=vsc1BusNum) {
 	    	final String reBusId = IODMModelParser.BusIdPreFix+vsc1RmtBusNum;
 	    	vsc1.setRemoteCtrlBusId(parser.createBusRef(reBusId));
 	    }
@@ -212,7 +234,7 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 		vsc2.setQMin(BaseDataSetter.createReactivePowerValue(vsc2QMIN, ReactivePowerUnitType.MVAR));
 		
 		
-		if (vsc2RmtBusNum > 0) {
+		if (vsc2RmtBusNum > 0 && vsc2RmtBusNum!=vsc2BusNum) {
 	    	final String reBusId = IODMModelParser.BusIdPreFix+vsc2RmtBusNum;
 	    	vsc2.setRemoteCtrlBusId(parser.createBusRef(reBusId));
 	    }

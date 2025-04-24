@@ -1,7 +1,5 @@
 package org.ieee.odm.pwd;
 
-import static org.junit.Assert.assertTrue;
-
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.adapter.pwd.PowerWorldAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -12,6 +10,7 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PwdAdapterTest {
@@ -98,7 +97,7 @@ public class PwdAdapterTest {
 	@Test
 	public void IEEE14Bustest(){
 		IODMAdapter adapter = new PowerWorldAdapter();
-		assertTrue(adapter.parseInputFile("testdata/pwd/ieee14.aux"));
+		assertTrue(adapter.parseInputFile("testdata/pwd/ieee14.AUX"));
 		AclfModelParser parser=(AclfModelParser) adapter.getModel();
 		//parser.stdout();
 		

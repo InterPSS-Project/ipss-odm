@@ -23,6 +23,7 @@ import org.ieee.odm.psse.raw.v31.PSSEV31_AESOTest;
 import org.ieee.odm.psse.raw.v33.PSSEV33_IEEE9_Test;
 import org.ieee.odm.psse.raw.v33.PSSEV33_Kundur2Area_LCCHVDC_Test;
 import org.ieee.odm.psse.raw.v33.PSSEV33_Sample_savnw_Test;
+import org.ieee.odm.psse.raw.v35.PSSEV35_Kundur2Area_VSCHVDC_Test;
 import org.ieee.odm.psse.raw.v36.PSSEV31_v36_IEEE9_Test;
 import org.ieee.odm.psse.raw.v36.PSSEV31_v36_Sample_Test;
 import org.ieee.odm.pwd.LineStringParserTest;
@@ -66,6 +67,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	PSSEV33_IEEE9_Test.class,
 	PSSEV33_Sample_savnw_Test.class,
 	PSSEV33_Kundur2Area_LCCHVDC_Test.class,
+
+	PSSEV35_Kundur2Area_VSCHVDC_Test.class,
 
 	PSSEV31_v36_IEEE9_Test.class,
 	PSSEV31_v36_Sample_Test.class,
