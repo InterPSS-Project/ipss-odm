@@ -45,6 +45,8 @@
   import org.ieee.odm.schema.ZUnitType;
   
   public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
+
+	  private static final double DEFAULT_ZERO_IMPEDANCE_THRESHOLD = 0.0001;
   
 	  public PSSELineDataRawMapper(PsseVersion ver) {
 		  super(ver);
@@ -130,9 +132,9 @@
 		  double b = dataParser.getDouble("B", 0.0);
 		  
 		  //TODO Temporally bad data fix
-		  if(new Complex(r,x).abs()< 0.00001){
-			  x = 0.00001;
-			  ODMLogger.getLogger().severe("Line # "+braRecXml.getId()+", has zero impedance input, change X = 0.00001");
+		  if(new Complex(r,x).abs()< DEFAULT_ZERO_IMPEDANCE_THRESHOLD){
+			  x = DEFAULT_ZERO_IMPEDANCE_THRESHOLD;
+			  ODMLogger.getLogger().severe("Line # "+braRecXml.getId()+", has zero impedance input, change X = "+DEFAULT_ZERO_IMPEDANCE_THRESHOLD);
 		  }
 		  
 		  AclfDataSetter.setLineData(braRecXml, r, x, ZUnitType.PU, 0.0, b, YUnitType.PU);
