@@ -26,11 +26,13 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import org.apache.commons.math3.complex.Complex;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrDataRawParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -267,6 +269,11 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
        	if (cz == 1) {
        		// When CZ is 1, they are the resistance and reactance, respectively, in pu on 
        		// system base quantities; 
+			//check if the impedance is too small, and raise a warning
+		   	if (new Complex(r1_2,x1_2).abs()< this.getZeroImpedanceThreshold()) {
+	   			ODMLogger.getLogger().severe(String.format("Transformer  # %s, has zero impedance input between windings 1 and 2, r1_2 =%f, x1_2=%f pu", branRecXml.getId(), r1_2, x1_2));
+	   		}			
+
        		branRecXml.setZ(BaseDataSetter.createZValue(r1_2, x1_2, ZUnitType.PU));
         	xfrInfoXml.setDataOnSystemBase(true);
         	//TODO This system base attribute is updated by both cz and cw, might cause some problems which are hard to identified;
