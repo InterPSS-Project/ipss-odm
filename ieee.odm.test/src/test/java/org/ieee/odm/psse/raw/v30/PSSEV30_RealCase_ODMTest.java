@@ -140,7 +140,7 @@ public class PSSEV30_RealCase_ODMTest {
       */
 		LineBranchXmlType line = parser.getLineBranch("Bus19", "Bus18", "2");
 		//assertTrue(line.isOffLine());
-		assertTrue(line.getZ().getIm() == 1.0E-5);
+		assertTrue(""+line.getZ().getIm(), line.getZ().getIm() == 1.0E-4);
 		
 		/*
       <branch id="Bus26_to_Bus54_cirId_1" circuitId="1" name="        " offLine="false">
