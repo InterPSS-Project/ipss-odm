@@ -240,7 +240,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 			xfrInfoXml.setZCorrectionOnWinding(true);
 		} else {
 			xfrInfoXml.setZCorrectionOnWinding(false);
-			ODMLogger.getLogger().info("ZCOD = 1, transformer id = " + branRecXml.getId());
+			ODMLogger.getLogger().info("ZCOD = 1, apply z correction to bus-to-bus impedances, transformer id = " + branRecXml.getId());
 		}
 	
     	/*
