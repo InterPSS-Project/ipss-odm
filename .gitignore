@@ -10,3 +10,4 @@ bin/
 ieee.odm.test/.classpath
 ieee.odm.test/.settings/org.eclipse.core.resources.prefs
 ieee.odm_pss/.settings/org.eclipse.core.resources.prefs
+ieee.odm.schema/src/main/java/META-INF/

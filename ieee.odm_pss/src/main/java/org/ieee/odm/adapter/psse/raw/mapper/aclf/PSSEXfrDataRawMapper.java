@@ -26,11 +26,13 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import org.apache.commons.math3.complex.Complex;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrDataRawParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
+import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -91,7 +93,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 /*
 	    Line-1 
 	    For 2W and 3W Xfr: 
-	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,'NAME', STAT,O1,F1,...,O4,F4
+	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,'NAME', STAT,O1,F1,...,O4,F4, VECGRP, ZCOD
 	    	
 	        26,    54,    0,    '1 ',1, 1, 1,  0.00000,  0.00000, 2,    '        ',    1,   1,1.0000,   0,1.0000,   0,1.0000,   0,1.0000
             27824, 27871, 27957,'W ',2, 2, 1,  0.00089,  -0.00448,1,    'D575121     ',1,   1,1.0000
@@ -225,7 +227,21 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
     			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(mag1, mag2, YUnitType.PU));
     	}
       	
-    	super.mapOwnerInfo(branRecXml);    	
+    	super.mapOwnerInfo(branRecXml);
+		
+	   /*
+		* Method to be used in deriving actual transformer impedances in applying transformer impedance adjustment tables:
+			- 0 apply impedance adjustment factors to winding impedances
+			- 1 apply impedance adjustment factors to bus-to-bus impedances
+			ZCOD value is used only for three winding transformers. 
+	    */
+		int zcod = dataParser.getInt("ZCOD", 0);
+		if (zcod == 0) {
+			xfrInfoXml.setZCorrectionOnWinding(true);
+		} else {
+			xfrInfoXml.setZCorrectionOnWinding(false);
+			ODMLogger.getLogger().info("ZCOD = 1, apply z correction to bus-to-bus impedances, transformer id = " + branRecXml.getId());
+		}
 	
     	/*
        	Line-2 
@@ -267,6 +283,11 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
        	if (cz == 1) {
        		// When CZ is 1, they are the resistance and reactance, respectively, in pu on 
        		// system base quantities; 
+			//check if the impedance is too small, and raise a warning
+		   	if (new Complex(r1_2,x1_2).abs()< this.getZeroImpedanceThreshold()) {
+	   			ODMLogger.getLogger().severe(String.format("Transformer  # %s, has zero impedance input between windings 1 and 2, r1_2 =%f, x1_2=%f pu", branRecXml.getId(), r1_2, x1_2));
+	   		}			
+
        		branRecXml.setZ(BaseDataSetter.createZValue(r1_2, x1_2, ZUnitType.PU));
         	xfrInfoXml.setDataOnSystemBase(true);
         	//TODO This system base attribute is updated by both cz and cw, might cause some problems which are hard to identified;
