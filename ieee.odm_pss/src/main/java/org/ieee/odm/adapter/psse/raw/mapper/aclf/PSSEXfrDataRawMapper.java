@@ -93,7 +93,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 /*
 	    Line-1 
 	    For 2W and 3W Xfr: 
-	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,'NAME', STAT,O1,F1,...,O4,F4
+	    	I,     J,     K,    CKT, CW,CZ,CM, MAG1,     MAG2,    NMETR,'NAME', STAT,O1,F1,...,O4,F4, VECGRP, ZCOD
 	    	
 	        26,    54,    0,    '1 ',1, 1, 1,  0.00000,  0.00000, 2,    '        ',    1,   1,1.0000,   0,1.0000,   0,1.0000,   0,1.0000
             27824, 27871, 27957,'W ',2, 2, 1,  0.00089,  -0.00448,1,    'D575121     ',1,   1,1.0000
@@ -227,7 +227,21 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
     			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(mag1, mag2, YUnitType.PU));
     	}
       	
-    	super.mapOwnerInfo(branRecXml);    	
+    	super.mapOwnerInfo(branRecXml);
+		
+	   /*
+		* Method to be used in deriving actual transformer impedances in applying transformer impedance adjustment tables:
+			- 0 apply impedance adjustment factors to winding impedances
+			- 1 apply impedance adjustment factors to bus-to-bus impedances
+			ZCOD value is used only for three winding transformers. 
+	    */
+		int zcod = dataParser.getInt("ZCOD", 0);
+		if (zcod == 0) {
+			xfrInfoXml.setZCorrectionOnWinding(true);
+		} else {
+			xfrInfoXml.setZCorrectionOnWinding(false);
+			ODMLogger.getLogger().info("ZCOD = 1, transformer id = " + branRecXml.getId());
+		}
 	
     	/*
        	Line-2 

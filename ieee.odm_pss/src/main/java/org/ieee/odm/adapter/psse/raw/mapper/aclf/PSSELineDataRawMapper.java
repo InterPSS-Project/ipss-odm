@@ -130,8 +130,8 @@
 		  double x = dataParser.getDouble("X", 0.0);
 		  double b = dataParser.getDouble("B", 0.0);
 		  
-		  //TODO Temporally bad data fix
-		  if(new Complex(r,x).abs()< this.getZeroImpedanceThreshold()) {
+		  //TODO bad data fix is moved to the core module as a part of the data validation process and integrated topology processing
+		  if(new Complex(r,x).abs()< this.getZeroImpedanceThreshold()){
 			  ODMLogger.getLogger().severe(String.format("Line # %s, has zero impedance input, r =%f, x=%f pu", braRecXml.getId(), r, x));
 		  }
 		  
