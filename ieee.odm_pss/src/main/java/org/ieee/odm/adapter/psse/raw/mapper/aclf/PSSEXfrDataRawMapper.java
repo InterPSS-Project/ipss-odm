@@ -147,7 +147,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
     			branch3WRec.setWind1OffLine(true);
     			branch3WRec.setWind2OffLine(true);
     			branch3WRec.setWind3OffLine(true);
-    		}			
+    		}
     		else if (stat == 1) {
     			branch3WRec.setWind1OffLine(false);
     			branch3WRec.setWind2OffLine(false);
