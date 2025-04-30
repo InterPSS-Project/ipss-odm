@@ -7,7 +7,7 @@
     <!-- include schema definitions in the pss ns -->
 	<ns:include schemaLocation="basecase/loadflow/LFRecordType.xsd"></ns:include>
 	<ns:include schemaLocation="basecase/shortcircuit/SCRecordType.xsd"></ns:include>
-	<ns:include schemaLocation="basecase/dynamic/DstabRecordType.xsd"></ns:include>
+	<ns:include schemaLocation="basecase/dynamic/DStabRecordType.xsd"></ns:include>
 	<ns:include schemaLocation="basecase/opf/OPFRecordType.xsd"></ns:include>
 	<ns:include	schemaLocation="basecase/distribution/DistRecordType.xsd"></ns:include>
 	<ns:include schemaLocation="basecase/dcsystem/DcSystemRecordType.xsd"></ns:include>

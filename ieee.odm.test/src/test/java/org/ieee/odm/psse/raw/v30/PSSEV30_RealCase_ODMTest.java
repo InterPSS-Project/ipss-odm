@@ -140,7 +140,7 @@ public class PSSEV30_RealCase_ODMTest {
       */
 		LineBranchXmlType line = parser.getLineBranch("Bus19", "Bus18", "2");
 		//assertTrue(line.isOffLine());
-		assertTrue(line.getZ().getIm() == 1.0E-5);
+		assertTrue(""+line.getZ().getIm(), line.getZ().getIm() == 1.0E-5);
 		
 		/*
       <branch id="Bus26_to_Bus54_cirId_1" circuitId="1" name="        " offLine="false">
@@ -221,6 +221,7 @@ public class PSSEV30_RealCase_ODMTest {
 		//assertTrue(psXfr3W.getXfrInfo().getFromRatedVoltage().getValue() == 360.);
 		assertTrue(psXfr3W.getXfrInfo().getRatedPower().getValue() == 90.0);
 		assertTrue(psXfr3W.getRatingLimit23().getMva().getRating1() == 150.0);
+    assertTrue(psXfr3W.getXfrInfo().isZCorrectionOnWinding());
 		
 		/*
       <dcLint2T id="Bus615600_to_Bus615353_cirId_1" number="1">

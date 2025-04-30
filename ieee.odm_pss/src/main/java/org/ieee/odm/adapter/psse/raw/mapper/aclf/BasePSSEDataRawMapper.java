@@ -32,6 +32,9 @@ import org.ieee.odm.schema.BaseRecordXmlType;
 
 public class BasePSSEDataRawMapper extends  BaseStringDataMapper{
 	protected PsseVersion version = null;
+
+	private static final double DEFAULT_ZERO_IMPEDANCE_THRESHOLD = 0.0001;
+	protected double zbr_threshold = DEFAULT_ZERO_IMPEDANCE_THRESHOLD;
 	
 	public BasePSSEDataRawMapper(){
 		
@@ -67,4 +70,15 @@ public class BasePSSEDataRawMapper extends  BaseStringDataMapper{
 				o3, o3==null?0.0:f3, 
 				o4, o4==null?0.0:f4);  		
 	}
+
+	// get the default zero impedance threshold value
+	public double getZeroImpedanceThreshold() {
+		return zbr_threshold;
+	}
+	
+
+	public void setZeroImpedanceThreshold(double threshold) {
+		zbr_threshold = threshold;
+	}
+
 }

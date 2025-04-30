@@ -263,7 +263,9 @@
 						</ns:documentation></ns:annotation>
 					</ns:element>
                     <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType" />
-                    <ns:element maxOccurs="1" minOccurs="0" name="switchedShunt" type="pss:SwitchedShuntXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>					<ns:element maxOccurs="1" minOccurs="0" name="vLimit" type="pss:VoltageLimitXmlType"/>
+                    <ns:element maxOccurs="1" minOccurs="0" name="switchedShunt" type="pss:SwitchedShuntXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>
+					<ns:element maxOccurs="1" minOccurs="0" name="vLimit" type="pss:VoltageLimitXmlType"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>
@@ -311,7 +313,8 @@
 						<ns:annotation> <ns:documentation>
 						For Swing and PV bus definition
 						</ns:documentation></ns:annotation>					
-					</ns:element>					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType">
+					</ns:element>
+					<ns:element maxOccurs="1" minOccurs="0" name="remoteVoltageControlBus" type="pss:IDRefRecordXmlType">
 						<ns:annotation> <ns:documentation>
 						If not null, the gen Q is used to control the remote bus voltage
 						</ns:documentation></ns:annotation>						
@@ -459,6 +462,7 @@
 			<ns:element minOccurs="0" name="fromLossFactor" type="ns:double"/>
 			<ns:element minOccurs="0" name="toLossFactor" type="ns:double"/>
 			<ns:element minOccurs="0" name="zTableNumber" type="ns:int"/>
+			<ns:element minOccurs="0" name="zCorrectionOnWinding" type="ns:boolean"/>
 		</ns:sequence>
 	</ns:complexType>
     

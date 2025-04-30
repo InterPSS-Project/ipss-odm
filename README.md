@@ -32,7 +32,21 @@ You should see the testcases are run and most of them passed, except for two tes
 [ERROR]   IEEE9cn_DStabTest.testCaseNew:39
 
 
-## Generate xml java classes from schema xsd file
+## Generate xml java classes from schema xsd file in VS Code
+
+
+- **Normal build:**  
+  `mvn clean install`  
+  → JAXB code generation will **NOT** run.
+
+- **Generate JAXB classes:**  
+  `mvn clean install -Pgenerate-jaxb`  
+  → JAXB code generation **WILL** run. (Note `generate-jaxb` is the profile id defined in the `pom.xml` file under the `ieee.odm.schema` project )
+
+
+
+
+## Generate xml java classes from schema xsd file in Eclipse
 1. In Eclipse, you will need to first check the `pom.xml` file under `ieee.odm.schema` and make sure it includes these [jaxb packages](/ieee.odm.schema/fig/1_pom.png).
 2. Right click the `pom.xml` file, then maven-->update project to get the necessary packages to install or update
 2. Install the JAXB packages in Eclipse-->Help-->Install new software--> [search "JAXB"](/ieee.odm.schema/fig/2_JAXB%20%20packages.png)
