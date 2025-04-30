@@ -25,6 +25,7 @@
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSELoadDataRawParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
@@ -104,5 +105,20 @@ public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 	    //TODO  Note YQ is negative for an inductive load in PSS/E. However, as a general convention, inductive load is positive
 		if (yp != 0.0 || yq != 0.0)
 			contribLoad.setConstZLoad(BaseDataSetter.createPowerValue(yp, -yq, ApparentPowerUnitType.MVA));
+
+		//for v34 and newer, there are distributed generation records
+		if(PSSERawAdapter.getVersionNo(this.version) >= 34) {
+			double dgenp = dataParser.getDouble("DGENP", 0.0);
+		    double dgenq = dataParser.getDouble("DGENQ", 0.0);
+		    double dgenm = dataParser.getInt("DGENM", 0); // 0 off, 1 on
+			if ((dgenp != 0.0 || dgenq != 0.0 )&& dgenm == 1) {
+				//contribLoad.setDistributedGen(BaseDataSetter.createPowerValue(dgenp, dgenq, ApparentPowerUnitType.MVA));
+				//contribLoad.setDistributedGenM(BaseDataSetter.createPowerValue(dgenm, 0.0, ApparentPowerUnitType.MVA));
+
+				//TODO this is a temporary solution, the load model needs to be changed to support distributed generation
+				contribLoad.setConstPLoad(BaseDataSetter.createPowerValue(pl-dgenp, ql-dgenq, ApparentPowerUnitType.MVA));
+
+			}
+		}
 	}
 }
