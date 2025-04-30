@@ -80,6 +80,10 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       	int k = dataParser.getInt("K");
                 
         boolean is3WXfr = k != 0; 
+		// if(i==55689 && j==56220 && k==59223) {
+
+		// 	System.out.println("Processing special case for buses 55689, 56220 and 59223");
+		// }
         
         int cod1 = dataParser.getInt("COD1", 0);
         double ang1 = dataParser.getDouble("ANG1", 0.0);
@@ -138,8 +142,13 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 		int stat = dataParser.getInt("STAT", 1);
 		branRecXml.setOffLine(stat == 0);
 		if (is3WXfr) {
-    		Xfr3WBranchXmlType branch3WRec = (Xfr3WBranchXmlType)branRecXml;			
-    		if (stat == 1) {
+    		Xfr3WBranchXmlType branch3WRec = (Xfr3WBranchXmlType)branRecXml;
+			if (stat == 0) {
+    			branch3WRec.setWind1OffLine(true);
+    			branch3WRec.setWind2OffLine(true);
+    			branch3WRec.setWind3OffLine(true);
+    		}			
+    		else if (stat == 1) {
     			branch3WRec.setWind1OffLine(false);
     			branch3WRec.setWind2OffLine(false);
     			branch3WRec.setWind3OffLine(false);
@@ -609,7 +618,12 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
     			throw new ODMException("The PSSE version is not supported yet:"+this.version);
     		}
        	}
-       	else if (isPsXfr) {
+
+		//TODO: fix the logic bug that misses the case of three-winding phase-shifting transformer
+		if (isPsXfr && is3WXfr) {
+    		PSXfr3WBranchXmlType branchPsXfr = (PSXfr3WBranchXmlType)branRecXml; 
+			branchPsXfr.setToAngle(BaseDataSetter.createAngleValue(ang2, AngleUnitType.DEG));
+    	} else if (isPsXfr) {
     		PSXfrBranchXmlType branchPsXfr = (PSXfrBranchXmlType)branRecXml; 
        		branchPsXfr.setToAngle(BaseDataSetter.createAngleValue(ang2, AngleUnitType.DEG));
        	}
@@ -657,7 +671,6 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
     		else {
     			throw new ODMException("The PSSE version is not supported yet:"+this.version);
     		}
-           	
            	
            	if (isPsXfr) {
         		PSXfr3WBranchXmlType branchPsXfr3W = (PSXfr3WBranchXmlType)branRecXml; 
