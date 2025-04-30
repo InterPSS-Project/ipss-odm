@@ -52,28 +52,42 @@
     <sourceDirectory>src/main/java</sourceDirectory>
     <testSourceDirectory>src/test/java</testSourceDirectory>
 	<plugins>
-		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>jaxb2-maven-plugin</artifactId>
-			<version>2.5.0</version>
-			<executions>
-				<execution>
-				<id>xjc</id>
-				<goals>
-					<goal>xjc</goal>
-				</goals>
-				<configuration>
-					<schemaDirectory>schema</schemaDirectory>
-					<outputDirectory>src/main/java</outputDirectory>
-					<packageName>org.ieee.odm.schema</packageName>
-					<bindingFiles>
-						<bindingFile>schema/binding.xml</bindingFile>
-					</bindingFiles>
-				</configuration>
-				</execution>
-			</executions>
-		</plugin>
 	</plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>generate-jaxb</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jaxb2-maven-plugin</artifactId>
+            <version>2.5.0</version>
+            <executions>
+              <execution>
+                <id>xjc</id>
+                <goals>
+                  <goal>xjc</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.basedir}/schema/ODMSchema.xsd</source>
+                  </sources>
+                  <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                  <packageName>org.ieee.odm.schema</packageName>
+                  <bindingFiles>
+                    <bindingFile>${project.basedir}/schema/binding.xml</bindingFile>
+                  </bindingFiles>
+                  <generatePackageInfo>true</generatePackageInfo>
+                  <verbose>true</verbose>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
