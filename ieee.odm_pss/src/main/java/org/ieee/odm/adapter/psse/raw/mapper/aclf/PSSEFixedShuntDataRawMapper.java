@@ -68,7 +68,7 @@ public class PSSEFixedShuntDataRawMapper extends BasePSSEDataRawMapper{
 	    contribShutY.setName("ShuntY:" + id + "(" + i + ")");
 	    contribShutY.setDesc("PSSE ShuntY " + id + " at Bus " + i);
 	    
-	    int status = dataParser.getInt("STATUS");
+	    int status = dataParser.getInt("STATUS",1);
 	    contribShutY.setOffLine(status!=1);
 
 	    double g = dataParser.getDouble("GL", 0.0);

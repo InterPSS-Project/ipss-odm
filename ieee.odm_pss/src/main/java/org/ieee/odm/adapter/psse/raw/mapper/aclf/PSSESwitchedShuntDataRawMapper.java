@@ -62,6 +62,19 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 		   //  20         21         22         23         24
 			  "N7",      "B7",      "N8",      "B8"  */
 		
+			  /*
+			   * Format V32, V33
+		===============
+		I,    MODSW, ADJM, STAT, VSWHI, VSWLO, SWREM,  RMPCT, 'RMIDNT', N1, B1, N2, B2, ... N8, B8
+		                                                                nbPosition(10)  
+		ADJM Adjustment method:
+  			0 steps and blocks are switched on in input order, and off in reverse input order; this adjustment 
+  			  method was the only method available prior to PSS/E-32.0.
+  			1 steps and blocks are switched on and off such that the next highest (or lowest, as appropriate) total admittance is achieved.
+  			ADJM = O by default.
+		STAT Initial switched shunt status of one for in-service and zero for out-of-service; STAT = 1 by default.		
+			   */
+		
 		final String busId = IODMModelParser.BusIdPreFix+this.dataParser.getValue("I");
 		// get the responding-bus data with busId
 		LoadflowBusXmlType aclfBus = (LoadflowBusXmlType) parser.getBus(busId);
@@ -77,6 +90,13 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 		shunt.setMode(mode ==0? SwitchedShuntModeEnumType.FIXED :
 						mode ==1? SwitchedShuntModeEnumType.DISCRETE : 
 							SwitchedShuntModeEnumType.CONTINUOUS);
+		
+		if(PSSERawAdapter.getVersionNo(this.version) >31) {
+			//ADJM - Adjustment method
+			//STAT - Initial switched shunt status of one for in-service and zero for out-of-service
+			int status = this.dataParser.getInt("STAT", 1);
+			shunt.setOffLine(status == 0);
+		}
 		
 		//VSWHI - Desired voltage upper limit, per unit
 		//VSWLO - Desired voltage lower limit, per unit
