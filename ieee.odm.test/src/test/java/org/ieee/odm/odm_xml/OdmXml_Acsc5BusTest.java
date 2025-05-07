@@ -24,8 +24,6 @@
 
 package org.ieee.odm.odm_xml;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.FileInputStream;
 
@@ -41,6 +39,7 @@ import org.ieee.odm.schema.ShortCircuitBusEnumType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.ShortCircuitGenDataXmlType;
 import org.ieee.odm.schema.XfrShortCircuitXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class OdmXml_Acsc5BusTest { 
@@ -58,7 +57,11 @@ public class OdmXml_Acsc5BusTest {
 		
 		for (JAXBElement<? extends BusXmlType> bus : parser.getNet().getBusList().getBus()) {
 			ShortCircuitBusXmlType scBus = (ShortCircuitBusXmlType)bus.getValue();
-			ShortCircuitGenDataXmlType defaultGen = AcscParserHelper.getDefaultScGen(scBus.getGenData());
+			ShortCircuitGenDataXmlType defaultGen = null;
+			if (scBus.getGenData() != null) {
+				defaultGen = AcscParserHelper.getDefaultScGen(scBus.getGenData());
+			}
+			
 			
 			System.out.println("ScBus: " + scBus.getId() + ", ScCode: " + scBus.getScCode());
 			if (scBus.getId().equals("Bus1") || scBus.getId().equals("Bus2") || scBus.getId().equals("Bus3")) 
@@ -68,7 +71,7 @@ public class OdmXml_Acsc5BusTest {
 				assertTrue(scBus.getGenData() != null && defaultGen != null);
 			}
 			
-			if (scBus.getGenData() != null && defaultGen != null) {
+			if (scBus.getGenData() != null && defaultGen != null && defaultGen.getPotiveZ() != null) {
 				System.out.println("   ScGenData: " + defaultGen.getPotiveZ().getRe() + "+j" + defaultGen.getPotiveZ().getIm());
 			}
 		}

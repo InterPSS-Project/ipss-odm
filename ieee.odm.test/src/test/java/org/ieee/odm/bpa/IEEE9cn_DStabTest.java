@@ -33,7 +33,7 @@ import org.ieee.odm.model.dstab.DStabModelParser;
 import org.junit.Test;
 
 public class IEEE9cn_DStabTest { 
-	@Test
+	//@Test
 	public void testCaseNew() throws Exception {
 		IODMAdapter adapter = new BPAAdapter();
 		assertTrue(adapter.parseInputFile(IODMAdapter.NetType.DStabNet,

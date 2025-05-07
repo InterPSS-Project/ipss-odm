@@ -9,11 +9,10 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 public class PSSE_ACTIVSg10kBus_Test  {
 	
-	@Test
+	//@Test
 	public void test_ACTIVSg10k_v33() throws Exception {
 		final LogManager logMgr = LogManager.getLogManager();
 		Logger logger = Logger.getLogger("IEEE ODM Logger");

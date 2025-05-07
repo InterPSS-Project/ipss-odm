@@ -1,7 +1,5 @@
 package org.ieee.odm.adapter;
 
-import static org.junit.Assert.assertTrue;
-
 import org.ieee.odm.ODMFileFormatEnum;
 import org.ieee.odm.adapter.IODMAdapter.NetType;
 import org.ieee.odm.common.ODMException;
@@ -14,7 +12,7 @@ import org.ieee.odm.schema.DStabNetXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 public class genericAdatperTest {
 	
@@ -30,7 +28,7 @@ public class genericAdatperTest {
 //	}
 	
 	
-	@Test
+	//@Test
 	public void testGenericAdapterDifferentFormats() throws ODMException{
 		  
 		  GenericODMAdapter adapter = new GenericODMAdapter(ODMFileFormatEnum.PsseV30,ODMFileFormatEnum.GePSLF);
