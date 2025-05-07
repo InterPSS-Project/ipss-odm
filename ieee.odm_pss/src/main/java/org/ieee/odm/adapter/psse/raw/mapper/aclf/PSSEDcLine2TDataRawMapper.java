@@ -131,7 +131,10 @@ public class PSSEDcLine2TDataRawMapper extends BasePSSEDataRawMapper{
 		if (MDC == 1) {
 			dcLine2T.setControlMode(DcLineControlModeEnumType.POWER);
 			dcLine2T.setControlOnRectifierSide(SETVL > 0.0);
-			dcLine2T.setPowerDemand(BaseDataSetter.createActivePowerValue(SETVL, ActivePowerUnitType.MW));
+			if (SETVL < 0.0)
+				dcLine2T.setPowerDemand(BaseDataSetter.createActivePowerValue(-SETVL, ActivePowerUnitType.MW));
+			else
+				dcLine2T.setPowerDemand(BaseDataSetter.createActivePowerValue(SETVL, ActivePowerUnitType.MW));
 		}
 		else if (MDC == 2) {
 			dcLine2T.setControlMode(DcLineControlModeEnumType.CURRENT);
