@@ -343,11 +343,13 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
            	}
            	else if (cz == 3) {
            		double zpu = x2_3*sysMVABase/sbase2_3;
-           		double rpu = r2_3  * 0.001 * 0.001 / sysMVABase;  
+           		double rpu = r2_3 * 1.0E-6 * sysMVABase/sbase2_3/sbase2_3;  
+				if (rpu > zpu) {throw new ODMException("Transformer # " + branRecXml.getId() + " has wrong impedance data, r2_3 (ploss in watts) = " + r2_3 + ", x2_3 (zpu on xfr mva base)= " + x2_3 +", rpu =" + rpu + ", zpu =" + zpu);}
            		branch3WRec.setZ23(BaseDataSetter.createZValue(rpu, Math.sqrt(zpu*zpu - rpu*rpu), ZUnitType.PU));
            		
            		zpu = x3_1*sysMVABase/sbase3_1;
-           		rpu = r3_1  * 0.001 * 0.001 / sysMVABase;  
+           		rpu = r3_1  * 1.0E-6 * sysMVABase/sbase3_1/sbase3_1;
+				if (rpu > zpu) {throw new ODMException("Transformer # " + branRecXml.getId() + " has wrong impedance data, r3_1 (ploss in watts) = " + r3_1 + ", x3_1 (zpu on xfr mva base)= " + x3_1 +", rpu =" + rpu + ", zpu =" + zpu);}    
            		branch3WRec.setZ31(BaseDataSetter.createZValue(rpu, Math.sqrt(zpu*zpu - rpu*rpu), ZUnitType.PU));
            	}
        	}
