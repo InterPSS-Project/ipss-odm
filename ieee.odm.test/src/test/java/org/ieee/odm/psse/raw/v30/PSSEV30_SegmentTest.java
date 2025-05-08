@@ -49,7 +49,7 @@ public class PSSEV30_SegmentTest {
 		//System.out.println(adapter.getModel());
 		
 		AclfModelParser parser = (AclfModelParser)adapter.getModel();
-		//parser.stdout();
+		parser.stdout();
 		/*
 		 *  36309, 36703, 36106,'1 ',2,3,1,   0.00000,   0.00000,2,'E FRA 83    ',1,   1,1.0000
             249550,   0.06340,   300.00,    138110,   0.06190,   108.00,    132475,   0.08895,   108.00,1.01533, -36.0962
@@ -58,8 +58,8 @@ public class PSSEV30_SegmentTest {
             33.0000,   0.000,   0.000,     0.00,     0.00,     0.00, 0,      0, 1.10000, 0.90000, 1.10000, 0.90000,  33, 0, 0.00000, 0.00000
 		 */
 		Xfr3WBranchXmlType branch = (Xfr3WBranchXmlType) parser.getXfr3WBranch("Bus36309", "Bus36703", "Bus36106", "1");
-		assertTrue(Math.abs(branch.getZ().getRe()-0.0024955)<1.0E-6);
-		assertTrue(Math.abs(branch.getZ().getIm()-0.02098547)<1.0E-6);
+		assertTrue(Math.abs(branch.getZ().getRe()-2.7727777777777777E-4)<1.0E-6);
+		assertTrue(Math.abs(branch.getZ().getIm()-0.021131514257424346)<1.0E-6);
 		assertTrue(branch.getFromTurnRatio().getValue() == 0.9804347826086957);
 		assertTrue(branch.getToTurnRatio().getValue() == 1.0);
 		

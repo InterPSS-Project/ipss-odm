@@ -315,7 +315,8 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
        		// when CZ is 3, R1-2 is the load loss in watts, and X1-2 is the impedance magnitude 
        		// in pu on winding one to two base MVA (SBASE1-2) and winding one bus base voltage.
        		double zpu = x1_2*sysMVABase/sbase1_2;
-       		double rpu = r1_2 * 0.001 * 0.001 /sysMVABase;  
+       		double rpu = r1_2 * 1.0E-6 * sysMVABase/sbase1_2/sbase1_2;  
+			if (rpu > zpu) {throw new ODMException("Transformer # " + branRecXml.getId() + " has wrong impedance data, r1_2 (ploss watts) = " + r1_2 + ", x1_2 (zpu on xfr mva base)= " + x1_2 +", rpu =" + rpu + ", zpu =" + zpu);}
        		branRecXml.setZ(BaseDataSetter.createZValue(rpu, Math.sqrt(zpu*zpu - rpu*rpu), ZUnitType.PU));
         	xfrInfoXml.setDataOnSystemBase(true);
        	}
@@ -381,6 +382,16 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
        		windv1 /=parser.getBus(fid).getBaseVoltage().getValue();
        		
        	}
+		else if (cw == 3) {
+	   		// WINDV1 is the off-nominal turns ratio in pu of nominal winding one voltage, NOMV1, 
+	   
+	   		windv1 = windv1*nomv1/parser.getBus(fid).getBaseVoltage().getValue();
+	   		//xfrInfoXml.setDataOnSystemBase(true);
+	   	}
+		else {
+			throw new ODMException("Invalid CW value for transformer # " + branRecXml.getId() + ", CW = " + cw);
+		}
+
   		/*
   		if (!xfrInfo.isDataOnSystemBase()) {
   			windv1 /= nomv1; //NOMV1 is used only in converting magnetizing data between per unit admittance values and physical units when CM is 2
@@ -480,6 +491,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       		double vma = dataParser.getDouble("VMA1");
       		double vmi = dataParser.getDouble("VMI1");
       		//TODO PsXfr can also adjust the tap
+			
       		//In the Mod_SixBus_2WPsXfr.raw, the phase shift xfr(bus5->bus6) is used to control MVAR
     	    
       		//if (!isPsXfr) {
@@ -490,11 +502,18 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
            		// PSS/E control tap is always on the from side
            		tapAdj.setTapAdjOnFromSide(true);
            		// cw=1, RMA, RMI are Off-nominal turns ratio in pu of winding one bus base voltage
-           		// cw=2, RMA, RMI are Actual winding one voltage in kV 
+           		// cw=2, RMA, RMI are Actual winding one voltage in kV
+				// cw=3, RMA, RMI are Off-nominal turns ratio in pu of nominal winding one voltage, NOMV1 
            		if(cw==2){
            			rma/=parser.getBus(fid).getBaseVoltage().getValue();
            			rmi/=parser.getBus(fid).getBaseVoltage().getValue();
            		}
+				else if(cw==3){
+		   			rma = rma*nomv1/parser.getBus(fid).getBaseVoltage().getValue();
+		   			rmi = rmi*nomv1/parser.getBus(fid).getBaseVoltage().getValue();
+		   		}	
+
+
            		tapAdj.setTapLimit(BaseDataSetter.createTapLimit(rma, rmi));
            		int ntp = dataParser.getInt("NTP1");
            		tapAdj.setTapAdjSteps(ntp);
@@ -589,9 +608,18 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
   		}
   		*/
       	double windv2 = dataParser.getDouble("WINDV2");
-      	if(cw==2) 
+		//NOTE: for cw=1, no change to the windv2 value, since it is already in pu of system base voltage
+      	if(cw==2) { // WINDV2 is the actual winding two voltage in kV when CW is 2;
       		windv2 /=parser.getBus(tid).getBaseVoltage().getValue();
+		}
+		else if(cw==3) { // WINDV2 is the off-nominal turns ratio in pu of nominal winding two voltage, NOMV2,
+			// converted to pu of the base voltage of bus J
+			windv2 = windv2 * nomv2 / parser.getBus(tid).getBaseVoltage().getValue();
+		}
+
   		branRecXml.setToTurnRatio(BaseDataSetter.createTurnRatioPU(windv2));
+
+		//TODO: The tap ajustment should be supported for the to winding as well, but not yet implemented.
 
   		if (is3WXfr) {
   			
@@ -647,9 +675,15 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       		*/
           	double windv3 = dataParser.getDouble("WINDV3");
           
-    		if(cw==2)windv3 /=parser.getBus(tertId).getBaseVoltage().getValue();
-    		
+    		if(cw==2) windv3 /= parser.getBus(tertId).getBaseVoltage().getValue();
+			else if(cw==3) { // WINDV3 is the off-nominal turns ratio in pu of nominal winding three voltage, NOMV3,
+				// converted to pu of the base voltage of bus K
+				windv3 = windv3 * nomv3 / parser.getBus(tertId).getBaseVoltage().getValue();
+			}  
+      		
       		branch3WXfr.setTertTurnRatio(BaseDataSetter.createTurnRatioPU(windv3));
+
+			//TODO: The tap adjustment should be supported for the tertiary winding as well, but not yet implemented.
       		
       		branch3WXfr.setRatingLimit13(OdmObjFactory.createBranchRatingLimitXmlType());
            	
