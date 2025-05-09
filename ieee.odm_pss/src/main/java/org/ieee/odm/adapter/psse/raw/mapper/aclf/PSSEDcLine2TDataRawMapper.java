@@ -142,6 +142,11 @@ public class PSSEDcLine2TDataRawMapper extends BasePSSEDataRawMapper{
 		}
 		else
 			dcLine2T.setControlMode(DcLineControlModeEnumType.BLOCKED);
+		
+		//if SETVL == 0, the control mode is blocked, and the power demand is not used.
+		if (Math.abs(SETVL)<1.0E-3)
+			dcLine2T.setControlMode(DcLineControlModeEnumType.BLOCKED);
+		
 			
 		dcLine2T.setLineR(BaseDataSetter.createRValue(RDC, ZUnitType.OHM));
 		
