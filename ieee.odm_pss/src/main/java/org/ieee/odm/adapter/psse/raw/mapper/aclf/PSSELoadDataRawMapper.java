@@ -42,6 +42,7 @@ import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.PowerXmlType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 
 public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
@@ -111,14 +112,12 @@ public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 			double dgenp = dataParser.getDouble("DGENP", 0.0);
 		    double dgenq = dataParser.getDouble("DGENQ", 0.0);
 		    double dgenm = dataParser.getInt("DGENM", 0); // 0 off, 1 on
-			if ((dgenp != 0.0 || dgenq != 0.0 )&& dgenm == 1) {
-				//contribLoad.setDistributedGen(BaseDataSetter.createPowerValue(dgenp, dgenq, ApparentPowerUnitType.MVA));
-				//contribLoad.setDistributedGenM(BaseDataSetter.createPowerValue(dgenm, 0.0, ApparentPowerUnitType.MVA));
-
-				//TODO this is a temporary solution, the load model needs to be changed to support distributed generation
-				contribLoad.setConstPLoad(BaseDataSetter.createPowerValue(pl-dgenp, ql-dgenq, ApparentPowerUnitType.MVA));
+			if ((dgenp != 0.0 || dgenq != 0.0 )) {
+				contribLoad.setDGenPower(BaseDataSetter.createPowerValue(dgenp, dgenq, ApparentPowerUnitType.MVA));
+				contribLoad.setDGenStatus((dgenm == 1));
 
 			}
+			
 		}
 	}
 }
