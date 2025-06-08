@@ -371,6 +371,11 @@
 					<ns:element minOccurs="0" name="constPLoad" type="pss:PowerXmlType"/>
 					<ns:element minOccurs="0" name="constILoad" type="pss:PowerXmlType"/>
 					<ns:element minOccurs="0" name="constZLoad" type="pss:PowerXmlType"/>
+					<ns:element minOccurs="0" name="dGenPower" type="pss:PowerXmlType"/>
+					<ns:element minOccurs="0" name="dGenStatus" type="ns:boolean"/>
+					<ns:element minOccurs="0" name="loadType" type="ns:string"/>
+					<ns:element minOccurs="0" name="scalable" type="ns:boolean"/>
+					<ns:element minOccurs="0" name="interruptible" type="ns:boolean"/>
 				</ns:sequence>
 				<ns:attribute name="code" type="pss:LFLoadCodeEnumType" use="required"/>
 			</ns:extension>

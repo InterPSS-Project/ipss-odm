@@ -34,7 +34,7 @@ public enum ODMFileFormatEnum {
 	IeeeCDF, IeeeCDFExt1, 
 	UCTE, 
 	GePSLF, 
-	PsseV26, PsseV29, PsseV30, PsseV31, PsseV32, PsseV33, 
+	PsseV26, PsseV29, PsseV30, PsseV31, PsseV32, PsseV33, PsseV34, PsseV35, PsseV36,
 	BPA,
 	PWD, PWD_Contingency,
 	MatPower
