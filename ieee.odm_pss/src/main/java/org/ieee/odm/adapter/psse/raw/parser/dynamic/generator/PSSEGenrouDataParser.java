@@ -26,11 +26,11 @@ public class PSSEGenrouDataParser extends BasePSSEDataRawParser {
 	}
 	
 	/*
-	 * Xd, Xq, X抎, X抭, X"d, X"q, Xl, H, and D are in pu, 
+	 * Xd, Xq, X'd, X'q, X"d, X"q, Xl, H, and D are in pu, 
        machine MVA base. 
-       X"qmust be equal to X"d.
-       
-       IBUS, 扜ENROU�, I, T抎o, T"do, T"qo, T"qo, H, D, Xd, Xq, X抎, X抭, X"d, Xl, S(1.0), S(1.2)/
+       X"q must be equal to X"d.
+
+       IBUS, GENROU, I, T'do, T"do, T"qo, T"qo, H, D, Xd, Xq, X'd, X'q, X"d, Xl, S(1.0), S(1.2)/
 	 */
 	
 	

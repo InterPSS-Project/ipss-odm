@@ -25,12 +25,10 @@
 package org.ieee.odm.model.dist;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.BreakerDistBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.DistBusXmlType;
 import org.ieee.odm.schema.DistributionNetXmlType;
 import org.ieee.odm.schema.FeederDistBranchXmlType;
 import org.ieee.odm.schema.GeneratorDistBusXmlType;
@@ -418,7 +416,7 @@ public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType>
 	 */
 	public FeederDistBranchXmlType createDistFeederBranch() {
 		FeederDistBranchXmlType branch = OdmObjFactory.createFeederDistBranchXmlType();
-		intiBranchData(branch);
+		initBranchData(branch);
 		return branch;
 	}
 
@@ -466,7 +464,7 @@ public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType>
 	 */
 	public XFormerDistBranchXmlType createDistXfrBranch() {
 		XFormerDistBranchXmlType branch = OdmObjFactory.createXFormerDistBranchXmlType();
-		intiBranchData(branch);
+		initBranchData(branch);
 		return branch;
 	}
 
@@ -514,7 +512,7 @@ public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType>
 	 */
 	public ReactorDistBranchXmlType createDistReactorBranch() {
 		ReactorDistBranchXmlType branch = OdmObjFactory.createReactorDistBranchXmlType();
-		intiBranchData(branch);
+		initBranchData(branch);
 		return branch;
 	}
 
@@ -562,7 +560,7 @@ public class DistModelParser extends BaseAclfModelParser<DistributionNetXmlType>
 	 */
 	public BreakerDistBranchXmlType createDistBreakerBranch() {
 		BreakerDistBranchXmlType branch = OdmObjFactory.createBreakerDistBranchXmlType();
-		intiBranchData(branch);
+		initBranchData(branch);
 		return branch;
 	}
 

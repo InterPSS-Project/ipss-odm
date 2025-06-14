@@ -25,7 +25,6 @@
 package org.ieee.odm.model.dc;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.DcBranchXmlType;
@@ -160,7 +159,7 @@ public class DcSystemModelParser extends BaseAclfModelParser<DcNetworkXmlType> {
 	 */
 	public DcBranchXmlType createDcBranch() {
 		DcBranchXmlType branch = OdmObjFactory.createDcBranchXmlType();
-		intiBranchData(branch);
+		initBranchData(branch);
 		return branch;
 	}
 

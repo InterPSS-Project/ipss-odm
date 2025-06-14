@@ -1,7 +1,5 @@
 package org.ieee.odm.psse.raw.v34;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -11,9 +9,8 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.LoadflowBusXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-
-import com.interpss.core.aclf.impl.AclfBusImpl;
 
 public class PSSEV34_Texas2k_Test {
 	

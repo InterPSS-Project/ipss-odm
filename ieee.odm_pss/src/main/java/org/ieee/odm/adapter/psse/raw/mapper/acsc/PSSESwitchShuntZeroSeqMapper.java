@@ -30,7 +30,7 @@ public class PSSESwitchShuntZeroSeqMapper extends BasePSSEDataRawMapper{
       	
         ShortCircuitBusXmlType scBus =(ShortCircuitBusXmlType) parser.getBus(busId);
         /*
-         The zero sequence admittance switched on at a bus is determined from the bus� positive sequence 
+         The zero sequence admittance switched on at a bus is determined from the bus positive sequence 
          value, with the same number of blocks and steps in each block switched on
         */
         SwitchedShuntXmlType shunt = scBus.getSwitchedShunt();

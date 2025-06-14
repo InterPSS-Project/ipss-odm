@@ -41,7 +41,6 @@ import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
-import org.interpss.numeric.util.NumericUtil;
 
 /**
  * Aclf model comparator for testing and verification purpose
@@ -80,7 +79,7 @@ public class AclfModelComparator {
 						base.getGenData().getCode() + baseStr + 
 					"  " + bus.getGenData().getCode() + format);
 			if (base.getGenData().getCode() == LFGenCodeEnumType.PV) {
-				if (!NumericUtil.equals(baseGen.getPower().getRe(), busGen.getPower().getRe()))
+				if (!ODMNumericUtil.equals(baseGen.getPower().getRe(), busGen.getPower().getRe()))
 					msgList.add("\nBus EquivGen power not equal: " + id + " " + base.getGenData().getCode() 
 							+ "   " + BaseJaxbHelper.toStr(baseGen.getPower()) + baseStr
 							+ "   " + BaseJaxbHelper.toStr(busGen.getPower()) + format);
@@ -215,12 +214,12 @@ public class AclfModelComparator {
             <fromTurnRatio unit="PU" value="1.0"/>
             <toTurnRatio unit="PU" value="0.9524"/>
 */
-			if (!NumericUtil.equals(baseXfr.getFromTurnRatio().getValue(), xfr.getFromTurnRatio().getValue(), 0.0001)) {
+			if (!ODMNumericUtil.equals(baseXfr.getFromTurnRatio().getValue(), xfr.getFromTurnRatio().getValue(), 0.0001)) {
 				msgList.add("\nXfr Branch fromTurnRatio not equal: " + braId
 								+ "   [" + baseXfr.getFromTurnRatio().getValue() + "," + baseXfr.getToTurnRatio().getValue() + "] " + baseFormat
 								+ "   [" + + xfr.getFromTurnRatio().getValue() + "," + xfr.getToTurnRatio().getValue() + "]");
 			}
-			if (!NumericUtil.equals(baseXfr.getToTurnRatio().getValue(), xfr.getToTurnRatio().getValue(), 0.0001)) {
+			if (!ODMNumericUtil.equals(baseXfr.getToTurnRatio().getValue(), xfr.getToTurnRatio().getValue(), 0.0001)) {
 				msgList.add("\nXfr Branch toTurnRatio not equal: " + braId
 						+ "   [" + baseXfr.getFromTurnRatio().getValue() + "," + baseXfr.getToTurnRatio().getValue() + "] " + baseFormat
 						+ "   [" + + xfr.getFromTurnRatio().getValue() + "," + xfr.getToTurnRatio().getValue() + "]"  + format);

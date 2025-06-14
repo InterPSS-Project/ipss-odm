@@ -1,10 +1,5 @@
 package org.ieee.odm.psse.raw.v33;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -18,7 +13,12 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.StaticVarCompensatorXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSEV33_IEEE9_Test {
@@ -105,6 +105,43 @@ public class PSSEV33_IEEE9_Test {
 		assertEquals(1.0, xfr1Rec.getFromTurnRatio().getValue(), 0.0001);
 		assertEquals(1.0, xfr1Rec.getToTurnRatio().getValue(), 0.0001);
 	}
+
+	@Test
+	public void testSVC() throws Exception {
+		final LogManager logMgr = LogManager.getLogManager();
+		Logger logger = Logger.getLogger("IEEE ODM Logger");
+		logger.setLevel(Level.INFO);
+		logMgr.addLogger(logger);
+		
+		IODMAdapter adapter = new PSSERawAdapter(PsseVersion.PSSE_33);
+		assertTrue(adapter.parseInputFile("testdata/psse/v33/ieee9_svc_v33.raw"));
+	
+		AclfModelParser parser = (AclfModelParser)adapter.getModel();
+		NetworkXmlType net = parser.getNet();
+
+		//svc attached to bus 5
+		LoadflowBusXmlType bus5 = parser.getBus("Bus5");
+
+		
+		/*
+		 * @!  'NAME',         I,     J,MODE,PDES,   QDES,  VSET,   SHMX,   TRMX,   VTMN,   VTMX,   VSMX,    IMX,   LINX,   RMPCT,OWNER,  SET1,    SET2,VSREF, FCREG,NREG,   'MNAME'
+			"SVC1",5,     0, 1,  0.000,  0.000,1.00,50.000,  0.000,0.90000,1.10000,1.00000,  0.000,0.05000,  100.0, 0, 0.00000, 0.00000,   0, 0,   0,"   
+		 */
+		
+		StaticVarCompensatorXmlType svc1 = bus5.getSvc();
+		assertNotNull("SVC should exist at Bus5", svc1);
+		assertEquals("SVC1", svc1.getName());
+		//vset
+		assertEquals(1.00, svc1.getVoltageSetPoint().getValue(), 0.0001);
+		//shmx: check the CapacitiveRating
+		assertEquals(50.0, svc1.getCapacitiveRating().getValue(), 0.0001);
+		
+		//rmpct
+		assertEquals(100.0, svc1.getRemoteControlledPercentage(), 0.0001);
+
+
+	}
+		
 	
 
 }

@@ -25,7 +25,6 @@
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEInterAreaTransferRawDataParser;
 import org.ieee.odm.common.ODMException;
@@ -59,7 +58,7 @@ public class PSSEInterAreaTransferDataRawMapper extends BasePSSEDataRawMapper{
 					size level; see Table P-1).
 			TRID Single-character (0 through 9 or A through Z) upper case interarea transfer identifier
 					used to distinguish among multiple transfers between areas ARFROM and
-					ARTO. TRID = �by default.
+					ARTO. TRID = 1 by default.
 			PTRAN MW comprising this transfer. A positive PTRAN indicates that area ARFROM is
 					selling to area ARTO. PTRAN = 0.0 by default.
 					

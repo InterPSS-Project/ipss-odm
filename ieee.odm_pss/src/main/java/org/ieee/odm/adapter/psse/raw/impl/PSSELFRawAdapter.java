@@ -527,8 +527,7 @@ import java.util.logging.Level;
 			 this.elemCntStr += "Facts record " + factsCnt +"\n";
 		 }
 		 else { 
-			 //PSSEFACTSDataRec rec = new PSSEFACTSDataRec(lineStr, version);
-			 //rec.processFACTS(adjNet, msg);
+			 factsDataMapper.procLineString(lineStr, getParser());
 			 factsCnt++;
 		 }			
 	 }

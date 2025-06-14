@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.psse.json.parser;
 import java.util.List;
 
 import org.ieee.odm.adapter.common.json.BaseInputRowJSonParser;
-import org.interpss.numeric.datatype.Counter;
+import org.ieee.odm.util.Counter;
 
 /**
  * PSSE JSon format data parser. Its implementation is based on the field definition

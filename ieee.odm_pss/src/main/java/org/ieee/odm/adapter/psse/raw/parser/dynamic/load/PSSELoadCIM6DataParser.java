@@ -15,7 +15,7 @@ public class PSSELoadCIM6DataParser extends BasePSSEDataRawParser {
 	public String[] getMetadata() {
        /*
         *                                                      
-        I, 鈥機IMWxx鈥�, LID, IT,  RA,  XA,  Xm,    R1,   X1,   R2,   X2,   E1, S(E1), E2, S(E2), MBASE,PMULT, H,   VI,    TI,         TB,    A, B,   D, E, C0, Tnom
+        I, CIMWxx, LID, IT,  RA,  XA,  Xm,    R1,   X1,   R2,   X2,   E1, S(E1), E2, S(E2), MBASE,PMULT, H,   VI,    TI,         TB,    A, B,   D, E, C0, Tnom
         */
 		return new String[]{
 		 // Header		

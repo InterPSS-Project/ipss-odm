@@ -284,8 +284,6 @@ public class BPADynamicTurbineGovernorRecord {
     		double LoadForwardSwitch=ODMModelStringUtil.getDouble(strAry[15], 2.0);
     		regGi.setLoadForwardSwitchOff(LoadForwardSwitch==1.0?false:true);
     		
-    		//一次调频负荷上限 
-    		//一次调频负荷下限 
     	}
     	else if(strAry[0].equals("GI+")){
     		SpeedGovBPARegGIModelXmlType regGi = ((SpeedGovBPAGiGaCombinedXmlType)dynGen.getGovernor().getValue().getSpeedGov().getValue()).getRegulator();

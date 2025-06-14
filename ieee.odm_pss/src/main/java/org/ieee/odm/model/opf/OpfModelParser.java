@@ -188,7 +188,7 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType> {
 		OpfBranchXmlType branch = OdmObjFactory.createOpfBranchXmlType();
 		branch.setRatingLimit(OdmObjFactory.createBranchRatingLimitXmlType());
 		branch.setLineInfo(OdmObjFactory.createLineBranchInfoXmlType());
-		intiBranchData(branch);
+		initBranchData(branch);
 		return branch;
 	}
 	

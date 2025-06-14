@@ -33,7 +33,7 @@ import org.ieee.odm.schema.BaseRecordXmlType;
 public class BasePSSEDataRawMapper extends  BaseStringDataMapper{
 	protected PsseVersion version = null;
 
-	private static final double DEFAULT_ZERO_IMPEDANCE_THRESHOLD = 0.0001;
+	private static final double DEFAULT_ZERO_IMPEDANCE_THRESHOLD = 0.00001;
 	protected double zbr_threshold = DEFAULT_ZERO_IMPEDANCE_THRESHOLD;
 	
 	public BasePSSEDataRawMapper(){

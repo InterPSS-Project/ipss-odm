@@ -12,7 +12,7 @@ public class PSSETurGovIEESGOParser extends BasePSSEDataRawParser {
 	
 	/*
 	 * //PSSE IEESGO -> IEEE 1973 standard Tur-Gov model
-	 * IBUS, 鎵濫ESGO锟� I, T1, T2, T3, T4, T5, T6, K1, K2, K3, PMAX, PMIN/ 
+	 * IBUS, EESGO I, T1, T2, T3, T4, T5, T6, K1, K2, K3, PMAX, PMIN/ 
 	 */
 	
 	@Override

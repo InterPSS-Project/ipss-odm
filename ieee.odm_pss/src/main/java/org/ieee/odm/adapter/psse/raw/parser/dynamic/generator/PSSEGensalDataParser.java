@@ -12,19 +12,19 @@ public class PSSEGensalDataParser extends BasePSSEDataRawParser {
 	
 	/*
 	 * format
-	 * 
-	 * IBUS, 扜ENSAL�, I, T抎o, T"do, T"qo, H, D, Xd, Xq, X抎, X"d, Xl, S(1.0), S(1.2)/
-	 * 
+	 *
+	 * IBUS, GENSAL, I, T'do, T"do, T"qo, H, D, Xd, Xq, X'd, X"d, Xl, S(1.0), S(1.2)/
+	 *
 	 */
 	@Override
 	public String[] getMetadata() {
 		
 		
 		/*
-		 * GENSEL
-		 * 
-		 * IBUS, 扜ENSAL�, I, T抎o, T"do, T"qo, H, D, 
-		 * Xd, Xq, X抎, X"d, Xl, S(1.0), S(1.2)/
+		 * GENSAL
+		 *
+		 * IBUS, GENSAL, I, T'do, T"do, T"qo, H, D,
+		 * Xd, Xq, X'd, X"d, Xl, S(1.0), S(1.2)/
 		 */
 		return new String[] {
 				// 0----------1----------2----------3----------4

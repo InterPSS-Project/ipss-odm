@@ -81,8 +81,13 @@
 			<ns:element minOccurs="1" name="voltageSetPoint" type="pss:VoltageXmlType"/>
 			<ns:element minOccurs="1" name="capacitiveRating" type="pss:ReactivePowerXmlType"/>
 			<ns:element minOccurs="1" name="inductiveRating" type="pss:ReactivePowerXmlType"/>
-			<ns:element minOccurs="1" name="controlMode" type="pss:SVCControlModeEnumType"> </ns:element>
+			<ns:element minOccurs="1" name="controlMode" type="pss:SVCControlModeEnumType"/>
 			<ns:element minOccurs="1" name="slope" type="ns:double"/>
+			<ns:element minOccurs="0" name="remoteControlledBus" type="pss:IDRefRecordXmlType"/>
+			<ns:element minOccurs="0" name="remoteControlledNodeNum" type="ns:int"/>
+			<ns:element minOccurs="0" name="remoteControlledPercentage" type="ns:double"/>
+			<ns:element minOccurs="0" name="owner" type="ns:int"/>
+			<ns:element minOccurs="0" name="name" type="ns:string"/>
 		</ns:sequence>
 	</ns:complexType>
 		

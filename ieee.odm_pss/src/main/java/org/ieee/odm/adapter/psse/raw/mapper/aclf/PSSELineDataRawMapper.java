@@ -24,9 +24,8 @@
 
   package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-  import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-  
   import org.apache.commons.math3.complex.Complex;
+  import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
   import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
   import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
   import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSELineDataRawParser;
@@ -132,7 +131,7 @@
 		  
 		  //TODO bad data fix is moved to the core module as a part of the data validation process and integrated topology processing
 		  if(new Complex(r,x).abs()< this.getZeroImpedanceThreshold()){
-			  ODMLogger.getLogger().severe(String.format("Line # %s, has zero impedance input, r =%f, x=%f pu", braRecXml.getId(), r, x));
+			  ODMLogger.getLogger().severe(String.format("Line ID %s, impedance r =%f, x=%f pu, is less than the default Zero_Impedance_Threshold %f pu", braRecXml.getId(), r, x, this.getZeroImpedanceThreshold()));
 		  }
 		  
 		  AclfDataSetter.setLineData(braRecXml, r, x, ZUnitType.PU, 0.0, b, YUnitType.PU);

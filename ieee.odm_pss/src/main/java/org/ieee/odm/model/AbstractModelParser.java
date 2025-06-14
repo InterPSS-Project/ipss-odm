@@ -24,9 +24,6 @@
 
 package org.ieee.odm.model;
 
-import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,7 +31,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -43,9 +39,11 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.common.ODMLogger;
+import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
@@ -544,7 +542,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends LineBranchXmlType> T createLineBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createLineBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
 	}
@@ -561,7 +559,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends XfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
 	
@@ -580,7 +578,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends XfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId, idName);
 		return branch;
 	
@@ -600,7 +598,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends BaseBranchXmlType> T createXfr3WBranch(String fBusId,String toBusId, String terBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfr3WBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, terBusId, cirId);
 		return branch;
 	
@@ -618,7 +616,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends PSXfrBranchXmlType> T createPSXfrBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createPSXfrBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
 		return branch;
 	}
@@ -636,7 +634,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends PSXfrBranchXmlType> T createPSXfrBranch(String fBusId,String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
 		T branch = createPSXfrBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId, idName);
 		return branch;
 	}
@@ -722,7 +720,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 * 
 	 * @param branch
 	 */
-	protected void intiBranchData(BaseBranchXmlType branch) {
+	protected void initBranchData(org.ieee.odm.schema.BaseBranchXmlType branch) {
 		getBaseCase().getBranchList().getBranch().add(BaseJaxbHelper.branch(branch));
 		branch.setOffLine(false);
 		branch.setAreaNumber(1);
