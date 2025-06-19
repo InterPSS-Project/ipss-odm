@@ -24,9 +24,8 @@
 
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.apache.commons.math3.complex.Complex;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrDataRawParser;
@@ -225,7 +224,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
                 double g_pu=g_rv/Ybase; // based on system base
                 
                 double Ybase_w12=sbase1_2/(nomv1*nomv1);
-                double b_rv=mag2*Ybase_w12;
+                double b_rv= -mag2*Ybase_w12; // negative sign is added here to convert the input value to susceptance
                 double b_pu=b_rv/Ybase;
     			
     			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(g_pu, b_pu, YUnitType.PU));
@@ -573,7 +572,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       	if (cr != 0.0 || cx != 0.0) {
       		///if (branchRec.getNvPairList() == null)
       		//	branchRec.setNvPairList(odmObjFactory.createNameValuePairListXmlType());
-      		BaseJaxbHelper.addNVPair(branRecXml, "Xfr LoadDropCZ", new Double(cr).toString() + "," + new Double(cx).toString());
+      		BaseJaxbHelper.addNVPair(branRecXml, "Xfr LoadDropCZ", cr + "," + cx);
       	}
 
       	/*
