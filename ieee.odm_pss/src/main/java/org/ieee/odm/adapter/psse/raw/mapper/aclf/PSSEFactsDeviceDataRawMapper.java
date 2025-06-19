@@ -72,7 +72,10 @@ public class PSSEFactsDeviceDataRawMapper extends BasePSSEDataRawMapper {
             StaticVarCompensatorXmlType svc = OdmObjFactory.createStaticVarCompensatorXmlType();
             svc.setName(numOrName);
             svc.setOffLine(mode == 0); // mode 0 means out of service
+            //Note: shmx is the SVC rating in MVAR, it can be either inductive or capacitive
             svc.setCapacitiveRating(BaseDataSetter.createReactivePowerValue(shmx, ReactivePowerUnitType.MVAR));
+            svc.setInductiveRating(BaseDataSetter.createReactivePowerValue(shmx, ReactivePowerUnitType.MVAR));
+
             svc.setControlMode(SVCControlModeEnumType.VOLTAGE);
             svc.setVoltageSetPoint(BaseDataSetter.createVoltageValue(vset, VoltageUnitType.PU));
         

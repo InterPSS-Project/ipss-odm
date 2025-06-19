@@ -477,7 +477,7 @@ public class BusDataProcessor extends InputLineStringParser {
 			
 		if (exist("SSCMode")){
 			String modeStr=getValue("SSCMode");
-		    	mode=modeStr.equalsIgnoreCase("Discrete")?SwitchedShuntModeEnumType.DISCRETE:
+		    	mode=modeStr.equalsIgnoreCase("Discrete")?SwitchedShuntModeEnumType.DISCRETE_LOCAL_VOLTAGE:
 		    				(modeStr.equalsIgnoreCase("Continuous")?SwitchedShuntModeEnumType.CONTINUOUS:
 		    					SwitchedShuntModeEnumType.FIXED);
 		}

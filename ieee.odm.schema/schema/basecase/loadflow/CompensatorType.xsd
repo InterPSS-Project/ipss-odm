@@ -30,6 +30,7 @@
 			<ns:element maxOccurs="1" minOccurs="0" name="norminalSwitchedInSections" type="ns:long"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="slop" type="ns:double"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="reactivePowerPerSec" type="pss:ReactivePowerXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="desiredReactivePowerRange" type="pss:ReactivePowerLimitXmlType"/>
 		</ns:sequence>
 		<ns:attribute name="mode" type="pss:SwitchedShuntModeEnumType" use="required"/>
 		<ns:attribute name="adjMethod" type="pss:SwitchedShuntAdjustMethodEnumType" use="required"/>
@@ -48,8 +49,9 @@
     <ns:simpleType name="SwitchedShuntModeEnumType">
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="Fixed"/>
-			<ns:enumeration value="Discrete"/>
+			<ns:enumeration value="DiscreteLocalVoltage"/>
 			<ns:enumeration value="Continuous"/>
+			<ns:enumeration value="DiscreteRemoteReactivePower"/>
 		</ns:restriction>
 	</ns:simpleType>
     
