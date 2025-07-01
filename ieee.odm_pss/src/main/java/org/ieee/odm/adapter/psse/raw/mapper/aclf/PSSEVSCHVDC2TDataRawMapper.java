@@ -141,7 +141,7 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 			
 		}
 		
-		vsc1.setDcSetPoint(vsc1DCSet);
+		vsc1.setDcSetPoint(Math.abs(vsc1DCSet)); // make sure all the setpoints are positive
 		
 		
 		// AC Control
@@ -202,7 +202,7 @@ public class PSSEVSCHVDC2TDataRawMapper extends BasePSSEDataRawMapper{
 			
 		}
 		
-		vsc2.setDcSetPoint(vsc2DCSet);
+		vsc2.setDcSetPoint(Math.abs(vsc2DCSet)); // make sure all the setpoints are positive
 		
 		
 		// AC Control
