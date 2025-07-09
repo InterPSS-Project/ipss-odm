@@ -149,6 +149,12 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 			  		shunt.getBlock().add(block);
 			  		block.setSteps(n);
 			  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));
+					int stat = 1; // default is on
+					if(PSSERawAdapter.getVersionNo(this.version) >=35) {
+						//status is added in v35
+						stat = this.dataParser.getInt("S"+(i+1), 1);
+					}
+					block.setOffLine(stat==0);
 			  }
 	  		}
 	}

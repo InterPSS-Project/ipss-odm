@@ -41,6 +41,7 @@
 		<ns:sequence>
 			<ns:element minOccurs="1" name="incrementB" type="pss:ReactivePowerXmlType"/>
 		    <ns:element minOccurs="0" name="zeroSeqIncrementB" type="pss:ReactivePowerXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="offLine" type="ns:boolean"/>
 		</ns:sequence>
 		<ns:attribute name="steps" type="ns:int" use="required"/>
 	</ns:complexType>    
