@@ -139,7 +139,13 @@ public class ODMObjectFactory {
 			return new PSSERawAdapter(PsseVersion.PSSE_32);
 		else if ( f == ODMFileFormatEnum.PsseV33 )
 			return new PSSERawAdapter(PsseVersion.PSSE_33);
-		
+        else if ( f == ODMFileFormatEnum.PsseV34 )
+			return new PSSERawAdapter(PsseVersion.PSSE_34);
+        else if ( f == ODMFileFormatEnum.PsseV35 )
+			return new PSSERawAdapter(PsseVersion.PSSE_35);
+        else if ( f == ODMFileFormatEnum.PsseV36 )
+			return new PSSERawAdapter(PsseVersion.PSSE_36);
+
 		else if ( f == ODMFileFormatEnum.GePSLF ) 
 			return new GePslfAdapter(GePslfAdapter.Version.PSLF15);
 		
