@@ -1,7 +1,5 @@
 package org.ieee.odm.psse.raw.v35;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -11,6 +9,7 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.XfrBranchXmlType;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class PSSEV35_IEEE9_Test {
@@ -74,7 +73,6 @@ public class PSSEV35_IEEE9_Test {
 		 assertTrue(xfr_4_1.getToTurnRatio().getValue() == 1.0);
 		 assertTrue(xfr_4_1.getXfrInfo().isDataOnSystemBase());
 		 assertTrue(xfr_4_1.getXfrInfo().getRatedPower().getValue() == 990.0);
-		 assertTrue(xfr_4_1.getXfrInfo().isZCorrectionOnWinding());
 
 		 /*
 		  * <aclfXfr circuitId="1" id="Bus7_to_Bus2_cirId_1" areaNumber="1" zoneNumber="1" offLine="false" name="">
@@ -116,7 +114,6 @@ public class PSSEV35_IEEE9_Test {
 		  assertTrue(xfr_7_2.getFromTurnRatio().getValue() == 1.017391304347826);
 		  assertTrue(xfr_7_2.getToTurnRatio().getValue() == 1.0);
 		  assertTrue(xfr_7_2.getXfrInfo().getRatedPower().getValue() == 100.0); 
-		  assertTrue(xfr_7_2.getXfrInfo().isZCorrectionOnWinding());
 		  assertTrue(xfr_7_2.getXfrInfo().isDataOnSystemBase());
 	}
 

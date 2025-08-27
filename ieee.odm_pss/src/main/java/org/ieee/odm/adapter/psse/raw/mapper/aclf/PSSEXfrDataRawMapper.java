@@ -24,9 +24,8 @@
 
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.apache.commons.math3.complex.Complex;
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrDataRawParser;
@@ -225,7 +224,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
                 double g_pu=g_rv/Ybase; // based on system base
                 
                 double Ybase_w12=sbase1_2/(nomv1*nomv1);
-                double b_rv=mag2*Ybase_w12;
+                double b_rv= -mag2*Ybase_w12; // negative sign is added here to convert the input value to susceptance
                 double b_pu=b_rv/Ybase;
     			
     			branRecXml.setMagnitizingY(BaseDataSetter.createYValue(g_pu, b_pu, YUnitType.PU));
@@ -244,13 +243,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 			- 1 apply impedance adjustment factors to bus-to-bus impedances
 			ZCOD value is used only for three winding transformers. 
 	    */
-		int zcod = dataParser.getInt("ZCOD", 0);
-		if (zcod == 0) {
-			xfrInfoXml.setZCorrectionOnWinding(true);
-		} else {
-			xfrInfoXml.setZCorrectionOnWinding(false);
-			ODMLogger.getLogger().info("ZCOD = 1, apply z correction to bus-to-bus impedances, transformer id = " + branRecXml.getId());
-		}
+	
 	
     	/*
        	Line-2 
@@ -273,6 +266,19 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
        		xfr3WInfo.setRatedPower31(BaseDataSetter.createPowerMvaValue(sbase3_1));
        		xfr3WInfo.setStarVMag(BaseDataSetter.createVoltageValue(vmstar, VoltageUnitType.PU));
        		xfr3WInfo.setStarVAng(BaseDataSetter.createAngleValue(anstar, AngleUnitType.DEG));
+
+			int zcod = dataParser.getInt("ZCOD", 0);
+			if (zcod == 0) {
+				xfr3WInfo.setZCorrectionOnWinding(true);
+			} else {
+				xfr3WInfo.setZCorrectionOnWinding(false);
+				ODMLogger.getLogger().info("ZCOD = 1, apply z correction to bus-to-bus impedances, transformer id = " + branRecXml.getId());
+			}
+
+			xfr3WInfo.setZTableNumber2(dataParser.getInt("TAB2", 0));
+			xfr3WInfo.setZTableNumber3(dataParser.getInt("TAB3", 0));
+
+
        	}
 
        	/*
@@ -573,7 +579,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
       	if (cr != 0.0 || cx != 0.0) {
       		///if (branchRec.getNvPairList() == null)
       		//	branchRec.setNvPairList(odmObjFactory.createNameValuePairListXmlType());
-      		BaseJaxbHelper.addNVPair(branRecXml, "Xfr LoadDropCZ", new Double(cr).toString() + "," + new Double(cx).toString());
+      		BaseJaxbHelper.addNVPair(branRecXml, "Xfr LoadDropCZ", cr + "," + cx);
       	}
 
       	/*
@@ -647,6 +653,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
     		else {
     			throw new ODMException("The PSSE version is not supported yet:"+this.version);
     		}
+
        	}
 
 		//TODO: fix the logic bug that misses the case of three-winding phase-shifting transformer

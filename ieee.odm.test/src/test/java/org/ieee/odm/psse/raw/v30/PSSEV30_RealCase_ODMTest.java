@@ -40,6 +40,7 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
+import org.ieee.odm.schema.Transformer3WInfoXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import static org.junit.Assert.assertTrue;
@@ -221,8 +222,9 @@ public class PSSEV30_RealCase_ODMTest {
 		//assertTrue(psXfr3W.getXfrInfo().getFromRatedVoltage().getValue() == 360.);
 		assertTrue(psXfr3W.getXfrInfo().getRatedPower().getValue() == 90.0);
 		assertTrue(psXfr3W.getRatingLimit23().getMva().getRating1() == 150.0);
-    assertTrue(psXfr3W.getXfrInfo().isZCorrectionOnWinding());
-		
+    Transformer3WInfoXmlType xfrData = (Transformer3WInfoXmlType)psXfr3W.getXfrInfo();
+    assertTrue(xfrData.isZCorrectionOnWinding());
+
 		/*
       <dcLint2T id="Bus615600_to_Bus615353_cirId_1" number="1">
         <controlMode>power</controlMode>

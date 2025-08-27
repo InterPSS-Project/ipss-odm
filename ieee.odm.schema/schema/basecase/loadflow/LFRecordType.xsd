@@ -467,7 +467,6 @@
 			<ns:element minOccurs="0" name="fromLossFactor" type="ns:double"/>
 			<ns:element minOccurs="0" name="toLossFactor" type="ns:double"/>
 			<ns:element minOccurs="0" name="zTableNumber" type="ns:int"/>
-			<ns:element minOccurs="0" name="zCorrectionOnWinding" type="ns:boolean"/>
 		</ns:sequence>
 	</ns:complexType>
     
@@ -603,6 +602,9 @@
 					<ns:element minOccurs="0" name="ratedPower23" type="pss:ApparentPowerXmlType"/>
 					<ns:element minOccurs="0" name="ratedPower31" type="pss:ApparentPowerXmlType"/>
 					<ns:element minOccurs="0" name="tertLossFactor" type="ns:double"/>
+					<ns:element minOccurs="0" name="zCorrectionOnWinding" type="ns:boolean"/>
+					<ns:element minOccurs="0" name="zTableNumber2" type="ns:int"/>
+					<ns:element minOccurs="0" name="zTableNumber3" type="ns:int"/>
 				</ns:sequence>
 			</ns:extension>
 		</ns:complexContent>

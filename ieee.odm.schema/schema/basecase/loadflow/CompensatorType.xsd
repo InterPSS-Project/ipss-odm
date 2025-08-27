@@ -30,6 +30,7 @@
 			<ns:element maxOccurs="1" minOccurs="0" name="norminalSwitchedInSections" type="ns:long"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="slop" type="ns:double"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="reactivePowerPerSec" type="pss:ReactivePowerXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="desiredReactivePowerRange" type="pss:ReactivePowerLimitXmlType"/>
 		</ns:sequence>
 		<ns:attribute name="mode" type="pss:SwitchedShuntModeEnumType" use="required"/>
 		<ns:attribute name="adjMethod" type="pss:SwitchedShuntAdjustMethodEnumType" use="required"/>
@@ -40,6 +41,7 @@
 		<ns:sequence>
 			<ns:element minOccurs="1" name="incrementB" type="pss:ReactivePowerXmlType"/>
 		    <ns:element minOccurs="0" name="zeroSeqIncrementB" type="pss:ReactivePowerXmlType"/>
+			<ns:element maxOccurs="1" minOccurs="0" name="offLine" type="ns:boolean"/>
 		</ns:sequence>
 		<ns:attribute name="steps" type="ns:int" use="required"/>
 	</ns:complexType>    
@@ -48,8 +50,9 @@
     <ns:simpleType name="SwitchedShuntModeEnumType">
 		<ns:restriction base="ns:string">
 			<ns:enumeration value="Fixed"/>
-			<ns:enumeration value="Discrete"/>
+			<ns:enumeration value="DiscreteLocalVoltage"/>
 			<ns:enumeration value="Continuous"/>
+			<ns:enumeration value="DiscreteRemoteReactivePower"/>
 		</ns:restriction>
 	</ns:simpleType>
     
@@ -81,8 +84,13 @@
 			<ns:element minOccurs="1" name="voltageSetPoint" type="pss:VoltageXmlType"/>
 			<ns:element minOccurs="1" name="capacitiveRating" type="pss:ReactivePowerXmlType"/>
 			<ns:element minOccurs="1" name="inductiveRating" type="pss:ReactivePowerXmlType"/>
-			<ns:element minOccurs="1" name="controlMode" type="pss:SVCControlModeEnumType"> </ns:element>
+			<ns:element minOccurs="1" name="controlMode" type="pss:SVCControlModeEnumType"/>
 			<ns:element minOccurs="1" name="slope" type="ns:double"/>
+			<ns:element minOccurs="0" name="remoteControlledBus" type="pss:IDRefRecordXmlType"/>
+			<ns:element minOccurs="0" name="remoteControlledNodeNum" type="ns:int"/>
+			<ns:element minOccurs="0" name="remoteControlledPercentage" type="ns:double"/>
+			<ns:element minOccurs="0" name="owner" type="ns:int"/>
+			<ns:element minOccurs="0" name="name" type="ns:string"/>
 		</ns:sequence>
 	</ns:complexType>
 		

@@ -273,7 +273,7 @@ public class BPADynamicSequenceRecord {
 						xd1=claGen.getXd1();
 						tq01=0.0;  //TODO Why the tq01 in classic model is equal to 0.0?		
 					}
-					//TODO b= X”d/X’d , b can be set in the CASE card,the default value is 0.65 .
+					//TODO b= X锟斤拷d/X锟斤拷d , b can be set in the CASE card,the default value is 0.65 .
 					//so how can we get the b value from the CASE card?
 					//non-salient pole machine
 					if(tq01!=0.0){
@@ -300,7 +300,7 @@ public class BPADynamicSequenceRecord {
 			if(bus.getLoadData()!=null){
 				DStabLoadDataXmlType load = DStabParserHelper.getDefaultLoad(bus.getLoadData());
 				if(load!=null){
-					//TODO 这里将负荷负序导纳等效成对地支路负序阻抗，但节点本身的并联接地支路的负序参数呢？
+					
 					//hard coded values
 					//ScSimpleBusXmlType.ScShuntLoadData scsld = odmObjFactory.createScSimpleBusXmlTypeScShuntLoadData();
 

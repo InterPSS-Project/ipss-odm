@@ -25,7 +25,6 @@
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSESwitchedShuntDataRawParser;
@@ -85,12 +84,14 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 	    SwitchedShuntXmlType shunt = OdmObjFactory.createSwitchedShuntXmlType();
 	    aclfBus.setSwitchedShunt(shunt);
 		
-		// genId is used to distinguish multiple generations at one bus		
+		// genId is used to distinguish multiple generations at one bus	
+		//TODO: need to add support of other control modes, for example mode 3--discrete, reactive power control of power plants	
 		int mode = this.dataParser.getInt("MODSW",  0);
 		shunt.setMode(mode ==0? SwitchedShuntModeEnumType.FIXED :
-						mode ==1? SwitchedShuntModeEnumType.DISCRETE : 
-							SwitchedShuntModeEnumType.CONTINUOUS);
-		
+						mode ==1? SwitchedShuntModeEnumType.DISCRETE_LOCAL_VOLTAGE : 
+						mode ==2? SwitchedShuntModeEnumType.CONTINUOUS:
+						SwitchedShuntModeEnumType.DISCRETE_REMOTE_REACTIVE_POWER);
+
 		if(PSSERawAdapter.getVersionNo(this.version) >31) {
 			//ADJM - Adjustment method
 			//STAT - Initial switched shunt status of one for in-service and zero for out-of-service
@@ -126,10 +127,12 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 					in SWREM. RMIDNT is not used for other values of MODSW. RMIDNT is a
 					blank name by default.
 		 */
-		if (version == PsseVersion.PSSE_30) {
+		//TODO this should be applied to version 30 and above, need to check
+		if (PSSERawAdapter.getVersionNo(this.version) >=30) {
 			shunt.setVarPercent(this.dataParser.getDouble("RMPCT", 100.0));
-			if(mode==4)
-			shunt.setVscDcLine(this.dataParser.getValue("RMIDNT"));
+			if(mode==4) {
+				shunt.setVscDcLine(this.dataParser.getValue("RMIDNT"));
+			}
 		}
 		
 		//BINIT - Initial switched shunt admittance, MVAR at 1.0 per unit volts
@@ -146,6 +149,12 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 			  		shunt.getBlock().add(block);
 			  		block.setSteps(n);
 			  		block.setIncrementB(BaseDataSetter.createReactivePowerValue(b, ReactivePowerUnitType.MVAR));
+					int stat = 1; // default is on
+					if(PSSERawAdapter.getVersionNo(this.version) >=35) {
+						//status is added in v35
+						stat = this.dataParser.getInt("S"+(i+1), 1);
+					}
+					block.setOffLine(stat==0);
 			  }
 	  		}
 	}

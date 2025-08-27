@@ -33,7 +33,8 @@ import org.ieee.odm.schema.VoltageXmlType;
  *
  */
 public class ODMNumericUtil {
-	static double ERR = 0.00001;
+
+	static final double ERR = 1.0e-10;
 	
 	/**
 	 * test equality
@@ -84,4 +85,31 @@ public class ODMNumericUtil {
 		return (x == null && y == null) || x != null && y != null &&
 		       Math.abs(x.getValue() - y.getValue()) < err;
 	}
+
+
+
+	/**
+	 * Check if the two doubles are equal regarding to standard err
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static boolean equals(double x, double y) {
+		return equals(x, y, ERR);
+	}
+
+	/**
+	 * Check if the two doubles are equal regarding to the err
+	 * 
+	 * @param x
+	 * @param y
+	 * @param err
+	 * @return
+	 */
+	public static boolean equals(double x, double y, double err) {
+		double a  = Math.abs(x - y);
+		return a < err;
+	}
+
 }

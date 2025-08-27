@@ -19,7 +19,7 @@ public class PSSETurGovTGOV1Parser extends BasePSSEDataRawParser {
             
        Format: 
             
-        IBUS, 扵GOV1�, I, R, T1, VMAX, VMIN, T2, T3, Dt/
+        IBUS, TGOV1, I, R, T1, VMAX, VMIN, T2, T3, Dt/
 	 *
 	 */
 	

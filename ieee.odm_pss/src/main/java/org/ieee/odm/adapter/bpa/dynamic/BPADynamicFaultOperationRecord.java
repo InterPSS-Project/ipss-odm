@@ -328,9 +328,9 @@ public class BPADynamicFaultOperationRecord {
 			strAry[1]=ODMModelStringUtil.getStringReturnEmptyString(str,5, 12).trim();
 			strAry[2]=ODMModelStringUtil.getStringReturnEmptyString(str,13, 16).trim();
 			strAry[3]=ODMModelStringUtil.getStringReturnEmptyString(str,17, 17).trim();
-			//omit these two BPA data：
-			//32 MOTOR，填写字符M，表示切除马达；否则，表示切除发电机 
-			//34 ILE，如果要切除配电网支路的静态负荷，填写LE卡对应的支路号 
+			//omit these two BPA data
+			//32 MOTOR
+			//34 ILE
 			strAry[4]=ODMModelStringUtil.getStringReturnEmptyString(str,37, 37).trim();
 			strAry[5]=ODMModelStringUtil.getStringReturnEmptyString(str,40, 45).trim();
 			strAry[6]=ODMModelStringUtil.getStringReturnEmptyString(str,46, 50).trim();

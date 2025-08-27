@@ -15,7 +15,7 @@ public class PSSEGenclsDataParser extends BasePSSEDataRawParser {
 		
 		
 		/*
-		 * IBUS, 扜ENCLS�, I, H, D/
+		 * IBUS, GENCLS, I, H, D/
 		 */
 		return new String[] {
 				// 0----------1----------2----------3----------4

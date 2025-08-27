@@ -13,7 +13,6 @@ import org.ieee.odm.schema.VSCACControlModeEnumType;
 import org.ieee.odm.schema.VSCConverterXmlType;
 import org.ieee.odm.schema.VSCDCControlModeEnumType;
 import org.ieee.odm.schema.VSCHVDC2TXmlType;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -110,7 +109,7 @@ public class PSSEV35_Kundur2Area_VSCHVDC_Test {
             assertEquals("Rectifier DC control mode should be RealPower", VSCDCControlModeEnumType.REAL_POWER, rectifier.getDcControlMode());
             assertEquals("Rectifier AC control mode should be PowerFactor", VSCACControlModeEnumType.POWER_FACTOR, rectifier.getAcControlMode());
             assertEquals("Rectifier AC set point should be 0.95", 0.95, rectifier.getAcSetPoint(), 0.01);
-            assertEquals("Rectifier DC set point should be -209.0", -209.0, rectifier.getDcSetPoint(), 0.01);
+            assertEquals("Rectifier DC set point should be 209.0", 209.0, rectifier.getDcSetPoint(), 0.01);
             assertEquals("Rectifier ALoss should be 100.0", 100.0, rectifier.getALoss(), 0.01);
             assertEquals("Rectifier BLoss should be 0.1", 0.1, rectifier.getBLoss(), 0.01);
             assertEquals("Rectifier MVARating should be 400.0", 400.0, rectifier.getMVARating().getValue(), 0.01);

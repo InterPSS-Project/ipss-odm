@@ -12,7 +12,7 @@ public class PSSEExcIEEE1968Type1Parser extends BasePSSEDataRawParser {
 	
 	/*
 	 * PSSE IEEET1 -> IEEE 1968 Type 1
-	 * IBUS, 鎵濫EET1锟� I, TR, KA, TA, VRMAX, VRMIN, KE, TE, KF, TF, 0., E1, SE(E1), E2, SE(E2)/
+	 * IBUS, IEEET1 I, TR, KA, TA, VRMAX, VRMIN, KE, TE, KF, TF, 0., E1, SE(E1), E2, SE(E2)/
 	 */
 	
 	@Override

@@ -25,29 +25,21 @@
 package org.ieee.odm.model.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-
-import java.util.Hashtable;
-import java.util.List;
-
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.ThyristorConverterXmlType;
 import org.ieee.odm.schema.DCLineData2TXmlType;
-import org.ieee.odm.schema.FlowInterfaceRecXmlType;
-import org.ieee.odm.schema.InterchangeXmlType;
+import org.ieee.odm.schema.FACTSDeviceXmlType;
 import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
-import org.ieee.odm.schema.LoadflowGenDataXmlType;
-import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.PSXfr3WBranchXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
-import org.ieee.odm.schema.TielineXmlType;
+import org.ieee.odm.schema.ThyristorConverterXmlType;
 import org.ieee.odm.schema.VSCConverterXmlType;
 import org.ieee.odm.schema.VSCHVDC2TXmlType;
 import org.ieee.odm.schema.Xfr3WBranchXmlType;
@@ -208,7 +200,7 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 	 */
 	public PSXfr3WBranchXmlType createPSXfr3WBranch(String fromId, String toId, String tertId, String cirId) throws ODMBranchDuplicationException {
 		PSXfr3WBranchXmlType branch = (PSXfr3WBranchXmlType) createPSXfr3WBranch();
-		intiBranchData(branch);
+		initBranchData(branch);
 		addBranch2BaseCase(branch, fromId, toId, tertId, cirId);
 		return branch;
 	}
@@ -300,7 +292,7 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 	public DCLineData2TXmlType createDCLine2TRecord(String recId, String invId, String dcLineId) throws ODMBranchDuplicationException {
 		DCLineData2TXmlType dcLine = OdmObjFactory.createDCLineData2TXmlType();
 		addBranch2BaseCase(dcLine, recId, invId, null, dcLineId);
-		intiBranchData(dcLine);
+		initBranchData(dcLine);
 		
 		ThyristorConverterXmlType rectifier = OdmObjFactory.createThyristorConverterXmlType();
 		dcLine.setRectifier(rectifier);
@@ -325,7 +317,7 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 	public VSCHVDC2TXmlType  createVSCHVDC2TRecord(String recId, String invId, String dcLineId) throws ODMBranchDuplicationException {
 		VSCHVDC2TXmlType dcLine = OdmObjFactory.createVSCHVDC2TXmlType();
 		addBranch2BaseCase(dcLine, recId, invId, null, dcLineId);
-		intiBranchData(dcLine);
+		initBranchData(dcLine);
 		
 		VSCConverterXmlType rectifier = OdmObjFactory.createVSCConverterXmlType();
 		dcLine.setRectifier(rectifier);
@@ -335,5 +327,21 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 		dcLine.setInverter(inverter);
 		dcLine.getInverter().setBusId(createBusRef(invId));
 		return dcLine;
-	}	
+	}
+	
+	
+	/**
+	 * create an FACTS device object
+	 * 
+	 */
+	public FACTSDeviceXmlType createFACTSDevice(String numOrName, 
+			String fromId, String toId) throws ODMBranchDuplicationException {
+		FACTSDeviceXmlType facts = OdmObjFactory.createFACTSDeviceXmlType();
+		facts.setName(numOrName);
+		initBranchData((BaseBranchXmlType)facts);
+		addBranch2BaseCase(facts, fromId, toId, null, "");
+		return facts;
+	}
+
+	
 }
