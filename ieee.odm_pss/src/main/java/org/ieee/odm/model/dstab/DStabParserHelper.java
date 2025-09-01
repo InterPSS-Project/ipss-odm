@@ -29,7 +29,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.schema.BusGenDataXmlType;
 import org.ieee.odm.schema.BusLoadDataXmlType;
@@ -110,6 +109,8 @@ import org.ieee.odm.schema.SteamTurbineBPATBModelXmlType;
 import org.ieee.odm.schema.SteamTurbineNRXmlType;
 import org.ieee.odm.schema.SteamTurbineTCDRXmlType;
 import org.ieee.odm.schema.SteamTurbineTCSRXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DStab ODM model parser helper functions
@@ -118,6 +119,7 @@ import org.ieee.odm.schema.SteamTurbineTCSRXmlType;
  *
  */
 public class DStabParserHelper extends AcscParserHelper {
+    private static final Logger log = LoggerFactory.getLogger(DStabParserHelper.class);
 	/**
 	 * create DStab equiv gen
 	 * 
@@ -159,8 +161,7 @@ public class DStabParserHelper extends AcscParserHelper {
 			if (dstabGenData.getId().equalsIgnoreCase(genId)) // change to NOT Case sensitive
 				return dstabGenData;
 		}
-		//TODO wecc system has gens without machine
-    	ODMLogger.getLogger().severe("Generator not found, ID: " + genId + "@Bus:" + dstabBus.getId());
+		log.error("Generator not found, ID: {}@Bus:{}", genId, dstabBus.getId());
     	return null;
 	}
 	
@@ -236,7 +237,7 @@ public class DStabParserHelper extends AcscParserHelper {
 				return dstabLoadData;
 		}
 		
-    	ODMLogger.getLogger().severe("Load not found, ID: " + loadId + "@Bus:" + dstabBus.getId());
+		log.error("Load not found, ID: {}@Bus:{}", loadId, dstabBus.getId());
     	return null;
 	}
 
@@ -347,7 +348,7 @@ public class DStabParserHelper extends AcscParserHelper {
 	public static Eq1MachineXmlType.SeFmt1 createMachineSeFmt1() {
 		Eq1MachineXmlType.SeFmt1 seFmt1 = OdmObjFactory.createEq1MachineXmlTypeSeFmt1();
 		seFmt1.setSe100(0.0);			
-		seFmt1.setSe120(0.0);
+	 seFmt1.setSe120(0.0);
 		seFmt1.setSliner(10.0);	// this means the machine will never get into saturation	
 		return seFmt1;
 	}

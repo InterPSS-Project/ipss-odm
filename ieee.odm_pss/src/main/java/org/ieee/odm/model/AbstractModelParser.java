@@ -39,10 +39,12 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
@@ -71,6 +73,7 @@ import org.ieee.odm.schema.XfrBranchXmlType;
  * 
  */
 public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implements IODMModelParser {
+    private static final Logger log = LoggerFactory.getLogger(AbstractModelParser.class);
 	/** input text file encoding */
 	protected String encoding = IODMModelParser.DefaultEncoding;
 	
@@ -141,7 +144,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 			return true;
 		} catch (JAXBException e) { 
 			e.printStackTrace();
-			ODMLogger.getLogger().severe(e.toString());
+			log.error("ODM xml doc parsing error: ", e);
 			return false;
 		}
 	}
@@ -159,7 +162,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 			return true;
 		} catch (JAXBException e) { 			
 			e.printStackTrace();
-			ODMLogger.getLogger().severe(e.toString());
+			log.error("ODM xml doc parsing error: ", e);
 			return false;
 		}
 	}
@@ -176,7 +179,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 			this.pssStudyCase = elem.getValue();
 		} catch (JAXBException e) { 
 			//e.printStackTrace();
-			ODMLogger.getLogger().severe("ODM xml doc parsing error, " + e.toString());
+			log.error("ODM xml doc parsing error: ", e);
 			return false;
 		}
 		// cache the loaded bus and branch objects
@@ -298,7 +301,7 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 				if (mod.getId().equals(id))
 						return mod;
 			}
-		ODMLogger.getLogger().warning("Modification record not found, id: " + id);
+		log.warn("Modification record not found, id: {}", id);
 		return null;
 	}
 	

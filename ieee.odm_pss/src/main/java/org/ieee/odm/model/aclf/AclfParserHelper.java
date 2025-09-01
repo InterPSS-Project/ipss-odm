@@ -31,7 +31,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -61,6 +60,8 @@ import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XformerZTableXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Aclf model parser help functions
@@ -69,6 +70,7 @@ import org.ieee.odm.schema.YUnitType;
  *
  */
 public class AclfParserHelper extends BaseJaxbHelper {
+	private static final Logger log = LoggerFactory.getLogger(AclfParserHelper.class);
 	/**
 	 * create a Contribution shuntY object under the busRec
 	 * 
@@ -186,7 +188,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 								}
 							}
 							else if (!remoteBusId.equals(BaseJaxbHelper.getRecId(gen.getRemoteVoltageControlBus()))) {
-								ODMLogger.getLogger().severe("Inconsistant remote control bus id, " + remoteBusId +
+								log.error("Inconsistant remote control bus id, " + remoteBusId +
 										", " + BaseJaxbHelper.getRecId(gen.getRemoteVoltageControlBus()));
 								return false; 
 							}
@@ -208,7 +210,7 @@ public class AclfParserHelper extends BaseJaxbHelper {
 									vSpecUnit = gen.getDesiredVoltage().getUnit();
 								}
 								else if (vSpec != gen.getDesiredVoltage().getValue()) {
-									ODMLogger.getLogger().severe("Inconsistant gen desired voltage, " + 
+									log.error("Inconsistant gen desired voltage, " + 
 											BaseJaxbHelper.getRecId(gen.getRemoteVoltageControlBus()));
 									return false; 
 								}
