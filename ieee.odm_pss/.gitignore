@@ -1,3 +1,12 @@
 /runtime
 /target/
+/bin/
+.classpath
+.settings/
+.project
+.metadata/
+*.log
+*.class
+*.jar
+*.prefs
 
