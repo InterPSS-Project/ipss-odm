@@ -32,6 +32,7 @@ import java.util.logging.Logger;
  * @author mzhou
  *
  */
+@Deprecated
 public class ODMLogger {
 	private static Logger logger = null;
 

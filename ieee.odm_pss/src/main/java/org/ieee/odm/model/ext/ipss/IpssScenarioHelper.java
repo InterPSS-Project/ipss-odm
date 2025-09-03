@@ -33,7 +33,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.ODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -61,6 +60,8 @@ import org.ieee.odm.schema.PTradingEDHourlyAnalysisXmlType;
 import org.ieee.odm.schema.PowerTradingInfoXmlType;
 import org.ieee.odm.schema.SenAnalysisBusXmlType;
 import org.ieee.odm.schema.SenAnalysisOutOptionXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * InterPSS extension study scenario helper class
@@ -69,6 +70,8 @@ import org.ieee.odm.schema.SenAnalysisOutOptionXmlType;
  *
  */
 public class IpssScenarioHelper {
+	private static final Logger log = LoggerFactory.getLogger(IpssScenarioHelper.class);
+	
 	private IODMModelParser parser = null;
 	
 	/**
@@ -160,7 +163,7 @@ public class IpssScenarioHelper {
 				if (scase.getId().equals(id))
 					return scase;
 			}
-			ODMLogger.getLogger().info("Analysis case not found, id: " + id);
+			log.info("Analysis case not found, id: " + id);
 		}
 		return this.getIpssScenario().getAnalysisCaseList().getAnalysisCase().get(0);
 	}	
@@ -191,7 +194,7 @@ public class IpssScenarioHelper {
 		List<IpssAnalysisCaseXmlType> list = this.getIpssScenario().getAnalysisCaseList().getAnalysisCase();
 		// if there is only one analysis case, do nothing
 		if (list.size() == 1) {
-			ODMLogger.getLogger().info("number of case = 1, cannot delete the case");
+			log.info("number of case = 1, cannot delete the case");
 			return studyCaseId;
 		}
 		
@@ -209,7 +212,7 @@ public class IpssScenarioHelper {
 		if (cnt >= list.size())
 			cnt = 0;
 		String id = list.get(cnt).getId();
-		ODMLogger.getLogger().info("Delete analysis case id: " + studyCaseId + " returning next  analysis case id: " + id);
+		log.info("Delete analysis case id: " + studyCaseId + " returning next  analysis case id: " + id);
 		return id;
 	}
 	
@@ -410,7 +413,7 @@ public class IpssScenarioHelper {
 	public List<DclfSenAnalysisXmlType> getSenAnalysisList(String anaCaseId) {
 		IpssAnalysisCaseXmlType scase = getAnalysisCase(anaCaseId); 
 		if (scase.getSenAnalysis() == null) {
-			ODMLogger.getLogger().severe("contact support@interpss.org");
+			log.error("contact support@interpss.org");
 		}
 		return scase.getSenAnalysis();
 	}
