@@ -117,8 +117,8 @@
 		  } catch (ODMBranchDuplicationException e) {
 			  ODMLogger.getLogger().severe(e.toString());
 			  return;
-		  }		
-		  
+		  }	
+
 		  int status = dataParser.getInt("ST", 1);
 		  braRecXml.setOffLine(status != 1);
 		  

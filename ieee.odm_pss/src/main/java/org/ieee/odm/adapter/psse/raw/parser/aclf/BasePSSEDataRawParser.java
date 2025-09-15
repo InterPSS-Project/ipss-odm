@@ -29,7 +29,6 @@
  import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
  import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
  import org.ieee.odm.common.ODMException;
- import org.ieee.odm.common.ODMLogger;
  
  /**
   * Class for processing IEEE CDF bus data line string
@@ -105,11 +104,8 @@
      }
      
      public void parseLineStr(final String str, int startingIdx, int expectedFieldCount) {
-        // First remove comments after "/", but don't affect the "/" within numbers (like 1/2)
-        String tempStr = str;
-        if (str.contains("/")) {
-            tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
-        }
+        // First remove comments after "/", but only if not inside quotes
+        String tempStr = removeCommentsOutsideQuotes(str);
         
         // Single-pass algorithm that both detects comma-in-quotes and parses in one go
         StringBuilder currentToken = new StringBuilder();
@@ -170,8 +166,45 @@
         
         // If we encountered the special case, log it for debugging/statistics
         if (hasSpecialCase) {
-            ODMLogger.getLogger().fine("Handled special case of comma within quotes in: " + str);
+            // ODMLogger.getLogger().fine("Handled special case of comma within quotes in: " + str);
         }
+    }
+
+    /**
+     * Removes comments after "/" but only if the "/" is not inside quotes.
+     */
+    private String removeCommentsOutsideQuotes(String str) {
+        if (!str.contains("/")) {
+            return str;
+        }
+        
+        StringBuilder result = new StringBuilder();
+        boolean insideQuotes = false;
+        char quoteChar = 0;
+        
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            
+            // Handle quotes
+            if (c == '\'' || c == '"') {
+                if (!insideQuotes) {
+                    insideQuotes = true;
+                    quoteChar = c;
+                } else if (c == quoteChar) {
+                    insideQuotes = false;
+                    quoteChar = 0;
+                }
+            }
+            
+            // If we find "/" outside quotes, followed by space, remove everything after
+            if (c == '/' && !insideQuotes && i + 1 < str.length() && str.charAt(i + 1) == ' ') {
+                break; // Stop processing, discard the rest
+            }
+            
+            result.append(c);
+        }
+        
+        return result.toString();
     }
 
     /**
