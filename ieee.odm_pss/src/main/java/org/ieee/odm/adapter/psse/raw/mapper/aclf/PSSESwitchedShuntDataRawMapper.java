@@ -30,6 +30,7 @@ import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSESwitchedShuntDataRawParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
+import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.LoadflowBusXmlType;
@@ -80,9 +81,15 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 		if (aclfBus==null){
 			throw new ODMException("Error: Bus not found in the network, bus number: " + busId);
         }
-				
-	    SwitchedShuntXmlType shunt = OdmObjFactory.createSwitchedShuntXmlType();
-	    aclfBus.setSwitchedShunt(shunt);
+
+	    SwitchedShuntXmlType shunt = AclfParserHelper.createShuntCompensator(aclfBus);
+
+		//shunt id is used after v35
+		String id = "1";
+		if(PSSERawAdapter.getVersionNo(this.version) >=35) {
+			id = this.dataParser.getValue("ID");
+		}
+		shunt.setId(id);
 		
 		// genId is used to distinguish multiple generations at one bus	
 		//TODO: need to add support of other control modes, for example mode 3--discrete, reactive power control of power plants	

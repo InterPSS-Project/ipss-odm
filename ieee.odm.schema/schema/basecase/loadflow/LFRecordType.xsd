@@ -57,6 +57,12 @@
 		equiv load at bus for defining equiv load data for Loadflow study
 		</ns:documentation></ns:annotation>
     </ns:element -->
+
+	<ns:element name="contributeSwitchedShunt" type="pss:SwitchedShuntXmlType">
+        <ns:annotation><ns:documentation>
+		Contributing switched shunt at bus for defining switched shunt data for Loadflow study
+		</ns:documentation></ns:annotation>
+    </ns:element>
     
     <ns:element name="contributeShuntY" type="pss:LoadflowShuntYDataXmlType">
         <ns:annotation><ns:documentation>
@@ -263,7 +269,11 @@
 						</ns:documentation></ns:annotation>
 					</ns:element>
                     <ns:element maxOccurs="1" minOccurs="0" name="shuntYData" type="pss:BusShuntYDataXmlType" />
-                    <ns:element maxOccurs="1" minOccurs="0" name="switchedShunt" type="pss:SwitchedShuntXmlType"/>
+                    <ns:element maxOccurs="1" minOccurs="0" name="switchedShuntData" type="pss:SwitchedShuntDataXmlType">
+						<ns:annotation><ns:documentation>
+								Loadflow bus can have a list of switched shunts, i.e., contributeSwitchedShunt.
+						</ns:documentation></ns:annotation>
+					</ns:element>
 					<ns:element maxOccurs="1" minOccurs="0" name="svc" type="pss:StaticVarCompensatorXmlType"/>
 					<ns:element maxOccurs="1" minOccurs="0" name="vLimit" type="pss:VoltageLimitXmlType"/>
 				</ns:sequence>
@@ -286,6 +296,12 @@
 		<ns:sequence>
 			<!-- ns:element maxOccurs="1" minOccurs="0" ref="pss:equivLoad"/ -->
 			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeLoad"/>
+		</ns:sequence>
+	</ns:complexType>
+
+	<ns:complexType name="SwitchedShuntDataXmlType">
+		<ns:sequence>
+			<ns:element maxOccurs="unbounded" minOccurs="0" ref="pss:contributeSwitchedShunt"/>
 		</ns:sequence>
 	</ns:complexType>
 

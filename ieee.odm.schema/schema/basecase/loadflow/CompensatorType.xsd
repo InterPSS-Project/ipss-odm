@@ -12,6 +12,7 @@
 	
     <ns:complexType name="SwitchedShuntXmlType">
 		<ns:sequence>
+			<ns:element maxOccurs="1" minOccurs="0" name="id" type="ns:string"/>
 			<ns:element minOccurs="1" name="desiredVoltageRange" type="pss:VoltageLimitXmlType"/>
 			<ns:element minOccurs="1" name="bInit" type="pss:ReactivePowerXmlType"/>
 			<ns:element maxOccurs="1" minOccurs="0" name="VarPercent" type="ns:double"/>

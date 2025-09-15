@@ -49,6 +49,7 @@ import org.ieee.odm.schema.MvaRatingXmlType;
 import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.SwitchedShuntBlockXmlType;
+import org.ieee.odm.schema.SwitchedShuntDataXmlType;
 import org.ieee.odm.schema.SwitchedShuntModeEnumType;
 import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.TransformerInfoXmlType;
@@ -210,7 +211,9 @@ public class AclfDataSetter extends BaseDataSetter {
 	public static void setShuntCompensatorData(LoadflowBusXmlType bus,SwitchedShuntModeEnumType mode
 			, double normalMvar, double vHigh, double vLow){
 		SwitchedShuntXmlType shunt = OdmObjFactory.createSwitchedShuntXmlType();
-		bus.setSwitchedShunt(shunt);
+		SwitchedShuntDataXmlType shuntData = OdmObjFactory.createSwitchedShuntDataXmlType();
+		bus.setSwitchedShuntData(shuntData);
+		shuntData.getContributeSwitchedShunt().add(shunt);
 		shunt.setDesiredVoltageRange(createVoltageLimit(vHigh, vLow, VoltageUnitType.KV));
 		shunt.setNorminalQOutput(createReactivePowerValue(normalMvar, ReactivePowerUnitType.MVAR));
 		shunt.setMode(mode);
@@ -225,9 +228,8 @@ public class AclfDataSetter extends BaseDataSetter {
 	 * @param mvarPerStep
 	 * @param type
 	 */
-	public static void addShuntCompensatorBlock(LoadflowBusXmlType bus,int steps, double mvarPerStep,
+	public static void addShuntCompensatorBlock(LoadflowBusXmlType bus,SwitchedShuntXmlType shunt,int steps, double mvarPerStep,
 			ReactivePowerUnitType type){
-		SwitchedShuntXmlType shunt= bus.getSwitchedShunt();
 		SwitchedShuntBlockXmlType block=OdmObjFactory.createSwitchedShuntBlockXmlType();
 		shunt.getBlock().add(block);
 		block.setSteps(steps);

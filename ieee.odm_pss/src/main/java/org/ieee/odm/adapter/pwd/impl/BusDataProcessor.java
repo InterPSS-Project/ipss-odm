@@ -522,7 +522,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		LoadflowBusXmlType bus=parser.getBus(busId);
 		
 		AclfDataSetter.setShuntCompensatorData(bus, mode, normalMVR, vHigh, vLow);
-		SwitchedShuntXmlType shunt=bus.getSwitchedShunt();
+		SwitchedShuntXmlType shunt=bus.getSwitchedShuntData().getContributeSwitchedShunt().get(0);
 		
 	
 		// store custom string
@@ -535,10 +535,10 @@ public class BusDataProcessor extends InputLineStringParser {
 			shunt.setRemoteControlledBus(parser.createBusRef(IODMModelParser.BusIdPreFix+regBusNum));
 		
 		if(steps1>0&&MVarPerStep1!=0)
-		AclfDataSetter.addShuntCompensatorBlock(bus, steps1, MVarPerStep1, ReactivePowerUnitType.MVAR);
+		AclfDataSetter.addShuntCompensatorBlock(bus, shunt,steps1, MVarPerStep1, ReactivePowerUnitType.MVAR);
         
 		if(steps2>0&&MVarPerStep2!=0)
-			AclfDataSetter.addShuntCompensatorBlock(bus, steps2, MVarPerStep2, ReactivePowerUnitType.MVAR);
+			AclfDataSetter.addShuntCompensatorBlock(bus, shunt,steps2, MVarPerStep2, ReactivePowerUnitType.MVAR);
         //TODO now only two blocks are considered. 
 		//This should be enough for almost all real cases, one for capacitive, one for reactive
 		

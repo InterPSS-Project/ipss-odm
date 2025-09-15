@@ -16,21 +16,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * 
- * 		
- * 
- * <p>Java class for DStabBusXmlType complex type.
+ * <p>Java class for SwitchedShuntDataXmlType complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="DStabBusXmlType"&gt;
+ * &lt;complexType name="SwitchedShuntDataXmlType"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://www.ieee.org/odm/Schema/2008}ShortCircuitBusXmlType"&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="busRelayList" type="{http://www.ieee.org/odm/Schema/2008}RelayModelXmlType" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element ref="{http://www.ieee.org/odm/Schema/2008}contributeSwitchedShunt" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
- *     &lt;/extension&gt;
+ *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
@@ -38,42 +35,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "DStabBusXmlType", propOrder = {
-    "busRelayList"
+@XmlType(name = "SwitchedShuntDataXmlType", propOrder = {
+    "contributeSwitchedShunt"
 })
-public class DStabBusXmlType
-    extends ShortCircuitBusXmlType
-{
+public class SwitchedShuntDataXmlType {
 
-    protected List<RelayModelXmlType> busRelayList;
+    protected List<SwitchedShuntXmlType> contributeSwitchedShunt;
 
     /**
-     * Gets the value of the busRelayList property.
+     * Gets the value of the contributeSwitchedShunt property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the busRelayList property.
+     * This is why there is not a <CODE>set</CODE> method for the contributeSwitchedShunt property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getBusRelayList().add(newItem);
+     *    getContributeSwitchedShunt().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link RelayModelXmlType }
+     * {@link SwitchedShuntXmlType }
      * 
      * 
      */
-    public List<RelayModelXmlType> getBusRelayList() {
-        if (busRelayList == null) {
-            busRelayList = new ArrayList<RelayModelXmlType>();
+    public List<SwitchedShuntXmlType> getContributeSwitchedShunt() {
+        if (contributeSwitchedShunt == null) {
+            contributeSwitchedShunt = new ArrayList<SwitchedShuntXmlType>();
         }
-        return this.busRelayList;
+        return this.contributeSwitchedShunt;
     }
 
 }
