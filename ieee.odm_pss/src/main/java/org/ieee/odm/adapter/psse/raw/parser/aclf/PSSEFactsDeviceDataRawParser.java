@@ -120,6 +120,8 @@ public class PSSEFactsDeviceDataRawParser extends BasePSSEDataRawParser {
 			case PSSE_34:
 				return META_DATA_v34;
 			case PSSE_35:
+			case PSSE_36:
+				return META_DATA_v35_36;
 			default:
 				return META_DATA_v35_36;
 

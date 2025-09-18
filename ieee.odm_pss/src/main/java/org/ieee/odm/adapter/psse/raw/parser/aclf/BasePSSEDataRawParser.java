@@ -196,12 +196,10 @@
                 }
             }
             
-            // If we find "/" outside quotes, followed by space, remove everything after
-            if (c == '/' && !insideQuotes && i + 1 < str.length() && str.charAt(i + 1) == ' ') {
-                break; // Stop processing, discard the rest
-            }
-            
-            result.append(c);
+    // If we find "/" outside quotes, followed by space, remove everything after
+    if (c == '/' && !insideQuotes && i > 0 && !Character.isDigit(str.charAt(i - 1)) && i + 1 < str.length() && str.charAt(i + 1) == ' ') {
+        break; // Stop processing, discard the rest
+    }            result.append(c);
         }
         
         return result.toString();
@@ -215,10 +213,7 @@
      */
     public void parseNumericalOnlyLineStr(final String str, int startingIdx, int expectedFieldCount) {
         // First remove comments after "/", but don't affect the "/" within numbers (like 1/2)
-        String tempStr = str;
-        if (str.contains("/")) {
-            tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
-        }
+        String tempStr = removeCommentsOutsideQuotes(str);
        
         String[] splitData = tempStr.split(",");
 
@@ -241,10 +236,7 @@
      */
     public int parseNumericalOnlyLineStr(final String str, int startingIdx) {
         // First remove comments after "/", but don't affect the "/" within numbers (like 1/2)
-        String tempStr = str;
-        if (str.contains("/")) {
-            tempStr = str.replaceAll("(?<!\\d)/\\s.*", "");
-        }
+        String tempStr = removeCommentsOutsideQuotes(str);
        
         String[] splitData = tempStr.split(",");
 
