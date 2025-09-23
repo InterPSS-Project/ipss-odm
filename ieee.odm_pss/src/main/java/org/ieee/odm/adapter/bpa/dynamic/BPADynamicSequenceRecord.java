@@ -31,7 +31,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -54,10 +53,12 @@ import org.ieee.odm.schema.XfrDStabXmlType;
 import org.ieee.odm.schema.XfrZeroSeqConnectLocationEnumType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicSequenceRecord {
-
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicSequenceRecord.class.getName());
 	public static void processSequenceData(String str, DStabModelParser parser) throws ODMException {				
 		
 		final String strAry[]=getSequenceDataFields(str);		
@@ -491,7 +492,7 @@ public class BPADynamicSequenceRecord {
 	    		strAry[12]=ODMModelStringUtil.getStringReturnEmptyString(str,74, 80).trim();
 			}
 		}catch(Exception e){
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 		}				
 		return strAry;
 	}	

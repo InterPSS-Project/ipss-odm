@@ -2,21 +2,22 @@ package org.ieee.odm.adapter.psse.raw.mapper.dynamic.exciter;
 
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
-import org.ieee.odm.adapter.psse.raw.parser.dynamic.exciter.PSSEExcIEEE1981ST1Parser;
 import org.ieee.odm.adapter.psse.raw.parser.dynamic.exciter.PSSEExcIEEE2005ST3AParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
-import org.ieee.odm.schema.ExcIEEE1981ST1XmlType;
 import org.ieee.odm.schema.ExcIEEE2005TypeST3AXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEExcIEEE2005ST3AMapper extends BasePSSEDataRawMapper{
-    
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEExcIEEE2005ST3AMapper.class.getName());
+	
 	public PSSEExcIEEE2005ST3AMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEExcIEEE2005ST3AParser(ver);
@@ -97,11 +98,11 @@ public class PSSEExcIEEE2005ST3AMapper extends BasePSSEDataRawMapper{
 			
 			   
 		   }else{
-			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+			   log.error("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
 		   }
 		}
 		else{
-		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+		   log.error("Bus is not found in Bus #"+busId);
 		}
 	}
 

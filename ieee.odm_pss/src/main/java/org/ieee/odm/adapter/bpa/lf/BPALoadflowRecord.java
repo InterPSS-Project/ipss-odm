@@ -31,13 +31,14 @@ import java.util.List;
 
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * BPA adapter is design to handle Loadflow data file and Loadflow+TransienStability data files
@@ -46,6 +47,7 @@ import org.ieee.odm.schema.NetworkXmlType;
  *
  */
 public class BPALoadflowRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPALoadflowRecord.class.getName());
 	public final static String Token_CaseType = "Type";
 	public final static String Token_ProjectName = "Original Project Name";
 	public final static String Token_CaseId = "Case Identification";
@@ -72,25 +74,23 @@ public class BPALoadflowRecord {
 		List<String> areaList = new ArrayList<String>(10);
 		String str;
 		do{
-			str = din.readLine();					
+			str = din.readLine();
 			if(!str.trim().equals("(END)")&&!str.trim().equals("(STOP)")){
 				try{
 					if(str.startsWith(".")||str.startsWith("C")){
-						// comment line
-						ODMLogger.getLogger().fine("load comment");
+						log.debug("load comment");
 					}
 					else if(str.startsWith("(POWERFLOW")||str.startsWith("/")
 							||str.startsWith(">")){
-						ODMLogger.getLogger().fine("load header data");
+						log.debug("load header data");
 						new BPANetRecord().processNetData(str, baseCaseNet);
 					}
 					else if(str.startsWith("A")||str.trim().startsWith("I")){
 						areaList.add(str);
-						//BPANetRecord.processAreaData(str, parser,	baseCaseNet, areaId++);
 					}
 					else if(str.trim().startsWith("B")||str.trim().startsWith("+")
 							||str.trim().startsWith("X")){
-						ODMLogger.getLogger().fine("load AC bus data");						
+						log.debug("load AC bus data");
 						new BPABusRecord().processBusData(str, parser);
 //						System.out.println(str); //for test
 					}
@@ -98,7 +98,7 @@ public class BPALoadflowRecord {
 							 str.trim().startsWith("T") || str.trim().startsWith("R") ||
 							 str.trim().startsWith("LD")||str.trim().startsWith("LM") ||
 							 str.trim().startsWith("BD")||str.trim().startsWith("BM")){
-						ODMLogger.getLogger().fine("load AC line data");
+						log.debug("load AC line data");
 						// since bus info could be defined at the branch info, we
 						// cache branch info for late processing
 						branchInputList.add(str);
@@ -106,15 +106,15 @@ public class BPALoadflowRecord {
 					// the gen and load data modification is usually defined  at the end of all network data
 					else if( str.trim().startsWith("PA")||str.trim().startsWith("PZ")||str.trim().startsWith("PO")
 							||str.trim().startsWith("PC")||str.trim().startsWith("PB")){
-						ODMLogger.getLogger().fine("load Gen AND Load modification data");
+						log.debug("load Gen AND Load modification data");
 						new BPAGenLoadDataModifyRecord().processGenLoadModificationData(str,parser);
 					}
 					else{
 						new BPANetRecord().processReadComment(str, baseCaseNet);
-					}						
+					}
 				}
 				catch (final Exception e) {
-					ODMLogger.getLogger().severe("Error, input : " + str + "\n" + e.toString());
+					log.error("Error, input : {}\n{}", str, e.toString());
 				}					
 			}
 		} while(!str.trim().equals("(END)")&&!str.trim().equals("(STOP)"));
@@ -138,20 +138,20 @@ public class BPALoadflowRecord {
 	private void processBranchInfo(List<String> strList, BaseAclfModelParser<? extends NetworkXmlType> parser) throws ODMException {
 		for (String str : strList) {
 			if( str.trim().startsWith("L")||str.trim().startsWith("E")){
-				ODMLogger.getLogger().fine("load AC line data");
+				log.debug("load AC line data");
 				new BPALineBranchRecord().processBranchData(str, parser);
 			}
 			else if( str.trim().startsWith("T")){
-				ODMLogger.getLogger().fine("load transformer data");
+				log.debug("load transformer data");
 				new BPAXfrBranchRecord().processXfrData(str, parser);
 			}
 			else if(str.trim().startsWith("R")){
-				ODMLogger.getLogger().fine("load transformer adjustment data");
+				log.debug("load transformer adjustment data");
 				new BPAXfrBranchRecord().processXfrAdjustData(str, parser);
 			}
 			else if( str.trim().startsWith("LD")||str.trim().startsWith("LM") ||
 					 str.trim().startsWith("BD")||str.trim().startsWith("BM")){
-				ODMLogger.getLogger().fine("load DC Line data");
+				log.debug("load DC Line data");
 				// *** BPABranchRecord.processDCLineBranchData(str, parser.addNewBaseCaseDCLineBranch(),
 				// ***		parser,baseCaseNet, this);
 			}

@@ -4,7 +4,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.parser.dynamic.tur_gov.PSSETurGovIEESGOParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -12,9 +11,13 @@ import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.GovPSSEIEESGOModelXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSETurGovIEESGOMapper extends BasePSSEDataRawMapper{
-    
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSETurGovIEESGOMapper.class.getName());
+	
 	public PSSETurGovIEESGOMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSETurGovIEESGOParser(ver);
@@ -75,11 +78,11 @@ public class PSSETurGovIEESGOMapper extends BasePSSEDataRawMapper{
 			   gov.setPMIN(dataParser.getDouble("PMIN"));
 		   }
 		   else{
-			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+			   log.error("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
 		   }
 	   }
 	   else{
-		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+		   log.error("Bus is not found in Bus #"+busId);
 	   }
 	 
 	

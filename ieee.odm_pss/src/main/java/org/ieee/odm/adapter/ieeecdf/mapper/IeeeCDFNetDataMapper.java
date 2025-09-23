@@ -26,11 +26,12 @@ package org.ieee.odm.adapter.ieeecdf.mapper;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFNetDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.schema.LoadflowNetXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * IEEE CDF network (head) record ODM mapper
@@ -39,6 +40,7 @@ import org.ieee.odm.schema.LoadflowNetXmlType;
  *
  */
 public class IeeeCDFNetDataMapper extends AbstractIeeeCDFDataMapper {
+    private static final Logger log = LoggerFactory.getLogger(IeeeCDFNetDataMapper.class);
 	public final static String Token_Date = "Date";
 	public final static String Token_OrgName = "Originator Name";
 	public final static String Token_Year = "Year";
@@ -70,7 +72,7 @@ public class IeeeCDFNetDataMapper extends AbstractIeeeCDFDataMapper {
 		}
 
 		//[3] Columns 39-42   Year [I]
-		if (dataParser.equals("Year")) {
+		if (dataParser.exist("Year")) {
 			final String year = dataParser.getValue("Year");
 			BaseJaxbHelper.addNVPair(baseCaseNet, Token_Year, year);
 		}
@@ -94,7 +96,7 @@ public class IeeeCDFNetDataMapper extends AbstractIeeeCDFDataMapper {
 		double baseMva = 100.0;
 		if (dataParser.exist("MVA")) {
 			baseMva = dataParser.getDouble("MVA"); // in MVA
-			ODMLogger.getLogger().fine("BaseKva: " + baseMva);
+			log.debug("BaseKva: {}", baseMva);
 		}
 		else{
 			throw new ODMException("Network Mva base  is required, but not defined in the header of input file, please make sure the file is of IEEE-CDF format and the MVABase is correctly defined");

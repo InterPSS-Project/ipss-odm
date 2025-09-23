@@ -28,7 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ieee.odm.adapter.common.str.BaseInputLineStringParser;
-import org.ieee.odm.common.ODMLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *  It first parses the meta data definition string, and save the attributes in a LinkedHashMap, 
@@ -48,6 +49,9 @@ import org.ieee.odm.common.ODMLogger;
  *
  */
 public class InputLineStringParser extends BaseInputLineStringParser {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(InputLineStringParser.class.getName());
+	
 	//private List<String> dataListx;
 	
 	/**
@@ -111,7 +115,7 @@ public class InputLineStringParser extends BaseInputLineStringParser {
 			//Add because the PWD output IEEE14 data detected meta data duplication issue
 			if(sAry.length==this.positionTable.size()){
 				if(this.fieldTable.size()!=this.positionTable.size()){
-			    ODMLogger.getLogger().severe("Duplicated meta data definition detected! "
+			    log.error("Duplicated meta data definition detected! "
 				    +"\n"+this.positionTable.toString());
 				}
 			}

@@ -4,11 +4,12 @@ import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.pwd.impl.ContingencyDataProcessor;
 import org.ieee.odm.adapter.pwd.impl.PWDHelper;
 import org.ieee.odm.common.IFileReader;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
- /**
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+/**
   * PWD contingency data adapter
   * 
   * @version 0.2  01/08/2012
@@ -16,6 +17,7 @@ import org.ieee.odm.schema.OriginalDataFormatEnumType;
   * 
   */
 public class PWDAdapterForContingency extends AbstractODMAdapter{
+    private static final Logger log = LoggerFactory.getLogger(PWDAdapterForContingency.class);
 	//Define the contingency types
 	public enum ContingencyType{BRANCH,SERIES_CAPACITOR,DC_LINE_CHANGE,DC_LINE_SETPOINT,PHSXFR_SETPOINT,THREEW_XFR};
 	//Define the data record types
@@ -73,13 +75,11 @@ public class PWDAdapterForContingency extends AbstractODMAdapter{
 						ctgProc.parseMetadata(str);
 
 					} else if (str.trim().startsWith("//"))
-						ODMLogger.getLogger().fine("comments:" + str);
+						log.debug("comments:" + str);
 					else if (str.trim().startsWith("{"))
-						ODMLogger.getLogger().info(
-								recType.toString() + " type data begins");
+						log.info(recType + " type data begins");
 					else if (str.trim().startsWith("}"))
-						ODMLogger.getLogger().info(
-								recType.toString() + " type data ends");
+						log.info(recType + " type data ends");
 
 					// start processing record data
 					else if (!str.trim().isEmpty()
@@ -90,7 +90,7 @@ public class PWDAdapterForContingency extends AbstractODMAdapter{
 				}// end of if str!=null
 			} while(str!=null);
 		} catch (Exception e) {
-			ODMLogger.getLogger().severe("Contingency file processing error: " + e.toString());
+			log.error("Contingency file processing error: " + e.toString());
 			//e.printStackTrace();
 		}
 	
@@ -99,7 +99,7 @@ public class PWDAdapterForContingency extends AbstractODMAdapter{
 
 	@Override
 	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din, String encoding) {
-		ODMLogger.getLogger().severe("Method not implemented");
+		log.error("Method not implemented");
 		return null;
 	}
 	/**

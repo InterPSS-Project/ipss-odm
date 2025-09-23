@@ -11,17 +11,16 @@ import org.ieee.odm.adapter.pwd.impl.PWDHelper;
 import org.ieee.odm.adapter.pwd.impl.TransformerDataProcessor;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.BusXmlType;
-import org.ieee.odm.schema.LimitSetXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
 import org.ieee.odm.schema.PWDNetworkExtXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
  /**
   * PowerWorld-TO-ODM Adapter based on power world v16 data definition
@@ -31,6 +30,9 @@ import org.ieee.odm.schema.PWDNetworkExtXmlType;
   * 
   */
 public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PowerWorldAdapter.class.getName());
+	
     //Define data specifier, two options defined in PWD, CSV or Blank
 	public static enum FileTypeSpecifier{CSV,Blank};
 	public static FileTypeSpecifier dataSeparator=FileTypeSpecifier.Blank;//By default
@@ -80,7 +82,7 @@ public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
 			processInputFile(din);
 		}catch(Exception e){
 			//e.printStackTrace();
-			ODMLogger.getLogger().severe("PWD AUX file parsing error, " + e.toString());
+			log.error("PWD AUX file parsing error, " + e.toString());
 		}
 		
 		postProcessing(parser);

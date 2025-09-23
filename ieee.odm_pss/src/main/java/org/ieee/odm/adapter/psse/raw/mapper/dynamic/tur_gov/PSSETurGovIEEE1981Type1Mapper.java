@@ -4,7 +4,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.parser.dynamic.tur_gov.PSSETurGovIEEE1981Type1Parser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -12,8 +11,12 @@ import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.GovIEEE1981Type1XmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataRawMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSETurGovIEEE1981Type1Mapper.class.getName());
     
 	public PSSETurGovIEEE1981Type1Mapper(PsseVersion ver) {
 		super(ver);
@@ -45,7 +48,7 @@ public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataRawMapper{
 		int i = dataParser.getInt("IBUS");
 		int j = dataParser.getInt("JBUS");
 		if(j!=0) 
-		   ODMLogger.getLogger().severe("IEEE G1 model currently does NOT support more than one buses, IEEG1 @ Bus" +i );
+		   log.error("IEEE G1 model currently does NOT support more than one buses, IEEG1 @ Bus" +i );
 	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    String genId = dataParser.getValue("MachId");
 	    
@@ -92,11 +95,11 @@ public class PSSETurGovIEEE1981Type1Mapper extends BasePSSEDataRawMapper{
 					   gov.setK8(dataParser.getDouble("K8"));
 			   }
 			   else{
-				   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
+				   log.error("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
 			   }
 		   }
 		   else{
-			   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
+			   log.error("Bus is not found in Bus #"+busId);
 		   }
 	   
 	}

@@ -2,8 +2,6 @@ package org.ieee.odm.adapter.pwd.impl;
 
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
-import org.ieee.odm.model.AbstractModelParser;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -23,6 +21,8 @@ import org.ieee.odm.schema.SwitchedShuntModeEnumType;
 import org.ieee.odm.schema.SwitchedShuntXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
  /**
   * Bus data processor for PowerWorld-TO-ODM Adapter based on power world v16 data definition
   * This processor processes the bus basic data, e.g. busNum, baseVolt, as well as bus load and
@@ -33,6 +33,9 @@ import org.ieee.odm.schema.YUnitType;
   * 
   */
 public class BusDataProcessor extends InputLineStringParser {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(BusDataProcessor.class.getName());
+	
 	public static long swingBusNum=-1;
 	private boolean isSubDataSection=false;
 	private String STATION_TOKEN ="SubStation";
@@ -103,7 +106,7 @@ public class BusDataProcessor extends InputLineStringParser {
 	
 		
 		if(busNum==-1) 
-			ODMLogger.getLogger().severe("bus Num is not defined yet!");
+			log.error("bus Num is not defined yet!");
 		busId=IODMModelParser.BusIdPreFix+busNum;
 		
 		LoadflowBusXmlType bus=parser.createBus(busId);

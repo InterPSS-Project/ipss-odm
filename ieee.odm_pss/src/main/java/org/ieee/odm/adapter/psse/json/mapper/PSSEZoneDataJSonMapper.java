@@ -29,13 +29,17 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import java.util.List;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEZoneDataJSonMapper extends BasePSSEDataJSonMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEZoneDataJSonMapper.class.getName());
+	
 	/**
 	 * Constructor
 	 * 
@@ -72,7 +76,7 @@ public class PSSEZoneDataJSonMapper extends BasePSSEDataJSonMapper{
 			zone.setNumber(i);
 			zone.setName(name);			
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			log.error(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	
 	}

@@ -28,7 +28,6 @@ import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
 
 import org.ieee.odm.adapter.ieeecdf.parser.IeeeCDFBusDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -43,6 +42,8 @@ import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * IEEE CDF bus record ODM mapper
@@ -51,6 +52,8 @@ import org.ieee.odm.schema.YUnitType;
  *
  */
 public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
+    private static final Logger log = LoggerFactory.getLogger(IeeeCDFBusDataMapper.class);
+    
 	/**
 	 * Constructor
 	 */
@@ -72,7 +75,7 @@ public class IeeeCDFBusDataMapper extends AbstractIeeeCDFDataMapper {
 
 		//Columns  1- 4   Bus number [I] *
 		final String busId = IODMModelParser.BusIdPreFix + dataParser.getValue("BusNumber");
-		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
+		log.debug("Bus data loaded, id: {}", busId);
 
 		// create bus xml record
 		LoadflowBusXmlType aclfBus = parser.createBus(busId);

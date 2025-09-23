@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.ieee.odm.common.ODMLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
 public class DynamicModelLibHelper {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(DynamicModelLibHelper.class.getName());
 	
 	//only supported model data
 	StringBuffer supportedDynModelData = new StringBuffer();
@@ -85,7 +88,7 @@ public class DynamicModelLibHelper {
 		else if (RelayModelList.contains(typeStr.toUpperCase()))
 			return DynModelType.RELAY;
 		else {
-			ODMLogger.getLogger().severe("The input model data type is not found in the dynamic lib collection, Type #"+typeStr);
+			log.error("The input model data type is not found in the dynamic lib collection, Type #"+typeStr);
 		    return null;
 		}
 		
@@ -154,7 +157,7 @@ public class DynamicModelLibHelper {
 			out.close();
 			return true;
 		} catch (Exception e) {
-			ODMLogger.getLogger().severe("Cannot save to file: " + fileName + ", " + e.toString());
+			log.error("Cannot save to file: " + fileName + ", " + e.toString());
 		}
 		return false;
 	}

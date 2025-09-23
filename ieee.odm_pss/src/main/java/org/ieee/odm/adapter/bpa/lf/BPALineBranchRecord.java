@@ -24,7 +24,6 @@
 package org.ieee.odm.adapter.bpa.lf;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -39,8 +38,12 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPALineBranchRecord {
+    // Add a logger instance following BPADynamicExciterRecord style
+    private static final Logger log = LoggerFactory.getLogger(BPALineBranchRecord.class.getName());
 	public void processBranchData(final String str,	BaseAclfModelParser<? extends NetworkXmlType> parser)  throws ODMException {	
 		final double baseMVA = parser.getNet().getBasePower().getValue();
 		// symmetry line data
@@ -58,7 +61,7 @@ public class BPALineBranchRecord {
 			final String tname =  strAry[6];
 			final String fid =  BPABusRecord.getBusId(fname);
 			final String tid =  BPABusRecord.getBusId(tname);
-			ODMLogger.getLogger().fine("Branch data loaded, from-Bus, to-Bus: " + fid + ", " + tid);
+			log.debug("Branch data loaded, from-Bus, to-Bus: {} -> {}", fid, tid);
 			
 			// set cirId, if not specified, set to 1
 			//TODO change 1->0, since one uses "1" while CirId for the other is missing for some parallel branches in BPA
@@ -70,8 +73,7 @@ public class BPALineBranchRecord {
 			try {
 				branchRec = (LineBranchXmlType) parser.createLineBranch(fid, tid, cirId);
 			} catch (Exception e) {
-				ODMLogger.getLogger().severe("branch data error, " + e.toString() + 
-						"  " + fname + "->" + tname + "_" + cirId);
+				log.error("branch data error, {}  {}->{}_{}", e.toString(), fname, tname, cirId);
 				return;
 			}
 			
@@ -118,8 +120,7 @@ public class BPALineBranchRecord {
 				}
 				rpu=ODMModelStringUtil.getNumberFormat(rpu);
 				if(Math.abs(rpu)>1)
-					ODMLogger.getLogger().warning("Line#"+fname+"-to-"+tname+",the resistance now is"
-							+rpu+" ,seems to be out of normal range[0~1.0]pu, please check!");
+					log.warn("Line#{}-to-{}, the resistance now is {} ,seems to be out of normal range[0~1.0]pu, please check!", fname, tname, rpu);
 			}
 			
 			if(!strAry[13].equals("")){
@@ -129,8 +130,7 @@ public class BPALineBranchRecord {
 				}
 				xpu=ODMModelStringUtil.getNumberFormat(xpu);
 				if(Math.abs(xpu)>1||Math.abs(xpu)<1E-5)
-					ODMLogger.getLogger().warning("Line#"+fname+"-to-"+tname+",the reactance now is"
-							+xpu+" ,seems to be out of normal range[1E-5~1]pu, please check!");
+					log.warn("Line#{}-to-{}, the reactance now is {} ,seems to be out of normal range[1E-5~1]pu, please check!", fname, tname, xpu);
 			}
 			
 			if(!strAry[14].equals("")){
@@ -139,8 +139,7 @@ public class BPALineBranchRecord {
 					halfGpu=halfGpu/100000;
 				}
 				if(Math.abs(halfGpu)>1)
-					ODMLogger.getLogger().warning("Line#"+fname+"-to-"+tname+",the line charging G/2 now is"
-							+halfGpu+" ,seems to be out of normal range[0,1]pu, please check!");
+					log.warn("Line#{}-to-{}, the line charging G/2 now is {} ,seems to be out of normal range[0,1]pu, please check!", fname, tname, halfGpu);
 			}
 			
 			if(!strAry[15].equals("")){
@@ -150,8 +149,7 @@ public class BPALineBranchRecord {
 					
 				}
 				if(Math.abs(halfBpu)>5){
-					ODMLogger.getLogger().warning("Line#"+fname+"-to-"+tname+",the line charging B/2 now is"
-							+halfBpu+" ,seems to be out of normal range[-5,+5](pu), please check!");
+					log.warn("Line#{}-to-{}, the line charging B/2 now is {} ,seems to be out of normal range[-5,+5](pu), please check!", fname, tname, halfBpu);
 				}
 			}
 			
@@ -444,6 +442,4 @@ public class BPALineBranchRecord {
 //YXmlType y2 = branchData.addNewToShuntY();
 //XBeanDataSetter.setYData(y1, G1pu, B1pu, YUnitType.PU);
 //XBeanDataSetter.setYData(y2, G2pu, B2pu, YUnitType.PU); 			
-//}
-
-
+//

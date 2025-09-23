@@ -32,7 +32,6 @@ import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.dstab.DStabParserHelper;
@@ -42,8 +41,11 @@ import org.ieee.odm.schema.DStabLoadDataXmlType;
 import org.ieee.odm.schema.DynamicLoadIEEEStaticLoadXmlType;
 import org.ieee.odm.schema.DynamicLoadModelSelectionXmlType;
 import org.ieee.odm.schema.LoadCharacteristicLocationEnumType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPADynamicLoadCharacteristicRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicLoadCharacteristicRecord.class.getName());
 	
 public static void processLoadCharacteristicData(String str, DStabModelParser parser) throws ODMException {
 	final String[] strAry= getLoadDataFields(str); 	
@@ -185,10 +187,9 @@ public static void processLoadCharacteristicData(String str, DStabModelParser pa
 		
 
 private static String[] getLoadDataFields(String str){
-	final String[] strAry= new String[19];
-	
-	try{
-		if(str.substring(0, 2).trim().equals("LA")||str.substring(0, 2).trim().equals("LB")){
+        final String[] strAry= new String[19];
+        try{
+            if(str.substring(0, 2).trim().equals("LA")||str.substring(0, 2).trim().equals("LB")){
 			strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
 			//to process the Chinese characters first, if any.
 			int chineseCharNum=ODMModelStringUtil.getChineseCharNum(str.substring(3,10).trim());
@@ -229,7 +230,7 @@ private static String[] getLoadDataFields(String str){
 		 }
 	
 	}catch( Exception e){
-		ODMLogger.getLogger().severe(e.toString());
+		log.error(e.toString());
 	}
 	return strAry;
 }

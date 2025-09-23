@@ -28,7 +28,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSELoadDataRawParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -42,10 +41,14 @@ import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
-import org.ieee.odm.schema.PowerXmlType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSELoadDataRawMapper.class.getName());
+	
 	public PSSELoadDataRawMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSELoadDataRawParser(ver);
@@ -64,7 +67,7 @@ public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    BusXmlType busRecXml = parser.getBus(busId);
 	    if (busRecXml == null){
-	    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");
+	    	log.error("Bus "+ busId+ " not found in the network");
 	    	return;
 	    }
 		

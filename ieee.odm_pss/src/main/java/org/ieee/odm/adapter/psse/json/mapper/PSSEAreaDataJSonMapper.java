@@ -1,4 +1,4 @@
- /*
+/*
   * @(#)PSSEAreaDataMapper.java   
   *
   * Copyright (C) 2006 www.interpss.org
@@ -29,7 +29,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import java.util.List;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -84,7 +83,7 @@ public class PSSEAreaDataJSonMapper extends BasePSSEDataJSonMapper{
 				area.setExchangeErrTolerance(BaseDataSetter.createActivePowerValue(ptol, ActivePowerUnitType.MW));			
 			}	
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			throw new RuntimeException(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	
 	}

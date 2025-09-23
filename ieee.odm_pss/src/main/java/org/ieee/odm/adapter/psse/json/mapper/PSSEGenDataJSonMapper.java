@@ -1,4 +1,4 @@
- /*
+/*
   * @(#)PSSEAreaDataMapper.java   
   *
   * Copyright (C) 2006 www.interpss.org
@@ -27,7 +27,6 @@ package org.ieee.odm.adapter.psse.json.mapper;
 import java.util.List;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -87,8 +86,7 @@ public class PSSEGenDataJSonMapper extends BasePSSEDataJSonMapper{
 		    final String busId = IODMModelParser.BusIdPreFix+ibus;
 		    BusXmlType busRecXml = odmParser.getBus(busId);
 		    if (busRecXml == null){
-		    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");
-		    	return;
+		    	throw new RuntimeException("Bus "+ busId+ " not found in the network");
 		    }
 		    
 		    /*
@@ -184,7 +182,7 @@ public class PSSEGenDataJSonMapper extends BasePSSEDataJSonMapper{
 
 			mapMultiOwnerInfo(contriGen);
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			throw new RuntimeException(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	
 	}

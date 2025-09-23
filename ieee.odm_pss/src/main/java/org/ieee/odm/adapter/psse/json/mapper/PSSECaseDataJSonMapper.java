@@ -1,4 +1,4 @@
- /*
+/*
   * @(#)PSSEAreaDataMapper.java   
   *
   * Copyright (C) 2006 www.interpss.org
@@ -27,7 +27,6 @@ package org.ieee.odm.adapter.psse.json.mapper;
 import java.util.List;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
@@ -74,7 +73,7 @@ public class PSSECaseDataJSonMapper extends BasePSSEDataJSonMapper{
 			double baseFreq = dataParser.getDouble("basefrq",50.0);
 			baseCaseNet.setFrequency(BaseDataSetter.createFrequency(baseFreq, FrequencyUnitType.HZ));		
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			throw new RuntimeException(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	}
 }

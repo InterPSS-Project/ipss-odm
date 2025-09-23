@@ -1,9 +1,9 @@
 package org.ieee.odm.adapter.pwd.impl;
 
+import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency.ContingencyType;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
@@ -12,6 +12,8 @@ import org.ieee.odm.schema.BranchChangeRecSetXmlType;
 import org.ieee.odm.schema.BranchChangeRecXmlType;
 import org.ieee.odm.schema.BranchOutageEnumType;
 import org.ieee.odm.schema.NetModificationXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * PWD contingency file data processor
@@ -24,6 +26,8 @@ import org.ieee.odm.schema.NetModificationXmlType;
  * 
  */
 public class ContingencyDataProcessor extends InputLineStringParser{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
 	
 	private NetModificationXmlType netModList=null;
 	private NetModificationHelper helper=null;
@@ -89,7 +93,7 @@ public class ContingencyDataProcessor extends InputLineStringParser{
 		  ctgId =getValue("CTGLabel");
 		  if(exist("CustomString")) ctgInfo=getValue("CustomString"); //Only for this project
 	    } catch (ODMException e) {
-			  ODMLogger.getLogger().severe(e.toString());
+			  log.error(e.toString());
 		}
 		
 		if(!skipCtg){
@@ -156,7 +160,7 @@ public class ContingencyDataProcessor extends InputLineStringParser{
 			   
 			   String[] temp=actionStr.split(" ");
 			   if(!temp[0].equals("BRANCH")){
-				   ODMLogger.getLogger().severe("Input data is not BRANCH type contingency!");
+				   log.error("Input data is not BRANCH type contingency!");
 			       return null;
 			   }
 			   long fromBusNum=Long.valueOf(temp[1]);
@@ -175,7 +179,7 @@ public class ContingencyDataProcessor extends InputLineStringParser{
 			   info[4]=cirId;
 		   }
 		   else
-			   ODMLogger.getLogger().severe("Error: wrong contingency type");
+			   log.error("Error: wrong contingency type");
 		}
 		return info;
 		

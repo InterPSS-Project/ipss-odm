@@ -1,8 +1,21 @@
 package org.ieee.odm.adapter.pwd.impl;
 
-import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.*;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_3WXFormer;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Area;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Branch;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Bus;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_CaseInfo;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Gen;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_LIMITSET;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Load;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Shunt;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_XFCORRECTION;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_XFormer;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Zone;
+
 import org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.RecType;
-import org.ieee.odm.common.ODMLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * PWDHelper is defined to hold some common method used in the data processing.
@@ -12,7 +25,8 @@ import org.ieee.odm.common.ODMLogger;
  */
 
 public class PWDHelper {
-	
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PWDHelper.class.getName());
 	
 	/**
 	 * Check whether the Argument Fields is completed yet, since it is
@@ -86,7 +100,7 @@ public class PWDHelper {
 	    }
 	    else {
 	    	recordType=RecType.Undefined;
-	    	ODMLogger.getLogger().info("Undifined data type:"+dataType);
+	    	log.info("Undifined data type:"+dataType);
 	    }		
 		
 		return recordType;

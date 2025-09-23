@@ -33,8 +33,9 @@ import java.io.InputStreamReader;
 
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.common.ODMTextFileReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * abstract class for parsing input data file string line implementation
@@ -43,6 +44,8 @@ import org.ieee.odm.common.ODMTextFileReader;
  *
  */
 public abstract class AbstractStringDataFieldParser extends BaseInputLineStringParser {
+    // Add a logger instance following BPADynamicExciterRecord style
+    private static final Logger log = LoggerFactory.getLogger(AbstractStringDataFieldParser.class.getName());
 	/**
 	 * constructor
 	 */
@@ -122,7 +125,7 @@ public abstract class AbstractStringDataFieldParser extends BaseInputLineStringP
 		try {
 			final File file = new File(filename);
 			final InputStream stream = new FileInputStream(file);
-			ODMLogger.getLogger().info("Parse input file and create the parser object, " + filename);
+			log.info("Parse input file and create the parser object, " + filename);
 			BufferedReader din = new BufferedReader(new InputStreamReader(stream));
 			IFileReader reader = new ODMTextFileReader(din);
 			parseFile(reader);

@@ -27,7 +27,6 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEBusDataRawParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -39,9 +38,13 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEBusDataRawMapper extends BasePSSEDataRawMapper{
-
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEBusDataRawMapper.class.getName());
+	
 	public PSSEBusDataRawMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEBusDataRawParser(ver);
@@ -56,7 +59,7 @@ public class PSSEBusDataRawMapper extends BasePSSEDataRawMapper{
 		try {
 			aclfBusXml = (LoadflowBusXmlType) parser.createBus(iStr, i);
 		} catch (Exception e) {
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 			return;
 		}
 		aclfBusXml.setNumber((long)i);

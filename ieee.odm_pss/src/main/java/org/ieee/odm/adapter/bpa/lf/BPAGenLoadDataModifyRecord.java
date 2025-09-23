@@ -2,7 +2,6 @@ package org.ieee.odm.adapter.bpa.lf;
 
 import javax.xml.bind.JAXBElement;
 
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -14,8 +13,11 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPAGenLoadDataModifyRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPAGenLoadDataModifyRecord.class.getName());
 	/*
 	 * only AC Bus will be considered for generation and/or load data modification.
 	 */
@@ -69,7 +71,7 @@ public class BPAGenLoadDataModifyRecord {
 				}
 			}
 		}
-		else ODMLogger.getLogger().severe("The input modification type #"+strAry[0]+" is not supported yet.");
+		else log.error("The input modification type #{} is not supported yet.", strAry[0]);
 
 	}
 	private static String[] getModificationData(final String str){
@@ -93,7 +95,7 @@ public class BPAGenLoadDataModifyRecord {
 			//TODO
 			
 		}catch(Exception e){
-			ODMLogger.getLogger().severe(e.toString() + "\n" + str);
+			log.error(e.toString() + "\n" + str);
 		}
 		return strAry;
 		
@@ -118,7 +120,7 @@ public class BPAGenLoadDataModifyRecord {
 			}
 			
 		}catch(Exception e){
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 			return false;
 		}
 		return true;	
@@ -142,7 +144,7 @@ public class BPAGenLoadDataModifyRecord {
 
 				 }
 		}catch(Exception e){
-			e.printStackTrace();
+			log.error(e.toString());
 			return false;
 		}
 		

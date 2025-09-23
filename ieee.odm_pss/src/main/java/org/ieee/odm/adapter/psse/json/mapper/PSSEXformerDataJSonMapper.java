@@ -30,7 +30,6 @@ import java.util.List;
 
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -57,8 +56,12 @@ import org.ieee.odm.schema.Xfr3WBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEXformerDataJSonMapper.class.getName());
 	/**
 	 * Constructor
 	 * 
@@ -620,7 +623,7 @@ public class PSSEXformerDataJSonMapper extends BasePSSEDataJSonMapper{
 	           	}
 	       	}
 		} catch (ODMException | ODMBranchDuplicationException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			log.error(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	
 	}

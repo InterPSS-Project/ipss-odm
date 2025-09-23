@@ -29,10 +29,8 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.adapter.ucte.parser.UCTEXfrDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
-import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.CurrentUnitType;
 import org.ieee.odm.schema.MagnitizingZSideEnumType;
@@ -40,9 +38,13 @@ import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UCTEXfrDataMapper extends BaseUCTEDataMapper {
-
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(UCTEXfrDataMapper.class.getName());
+	
 	public UCTEXfrDataMapper() {
 		this.dataParser = new UCTEXfrDataParser();
 	}
@@ -79,7 +81,7 @@ public class UCTEXfrDataMapper extends BaseUCTEDataMapper {
 		// they are converted to PU using from bus base voltage
 		if (fromRatedKV < toRatedKV) {
 			// TODO: need to transfer R,X to high voltage side
-			ODMLogger.getLogger().severe("Need more implementation");
+			log.error("Need more implementation");
 		}
 		// XformerData object created in the following call
 		AclfDataSetter.createXformerData(branchRec,

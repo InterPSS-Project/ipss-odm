@@ -35,11 +35,12 @@ import org.ieee.odm.adapter.ieeecdf.mapper.IeeeCDFTielineDataMapper;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * IEEE Common Format ODM parser implementation
@@ -48,6 +49,7 @@ import org.ieee.odm.schema.OriginalDataFormatEnumType;
  *
  */
 public class IeeeCDFAdapter  extends AbstractODMAdapter {
+    private static final Logger log = LoggerFactory.getLogger(IeeeCDFAdapter.class);
 	/**
 	 *  ODM PSS/E adapter version  
 	 */
@@ -134,27 +136,27 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 					if ((str.length() > 3)
 							&& str.substring(0, 3).equals("BUS")) {
 						dataLineIndicator = BusData;
-						ODMLogger.getLogger().fine("load bus data");
+						log.debug("load bus data");
 					} 
 					else if ((str.length() > 6)
 							&& str.substring(0, 6).equals("BRANCH")) {
 						dataLineIndicator = BranchData;
-						ODMLogger.getLogger().fine("load branch data");
+						log.debug("load branch data");
 					} 
 					else if ((str.length() > 4)
 							&& str.substring(0, 4).equals("LOSS")) {
 						dataLineIndicator = LossZone;
-						ODMLogger.getLogger().fine("load loss zone data");
+						log.debug("load loss zone data");
 					} 
 					else if ((str.length() > 11)
 							&& str.substring(0, 11).equals("INTERCHANGE")) {
 						dataLineIndicator = InterchangeData;
-						ODMLogger.getLogger().fine("load interchange data");
+						log.debug("load interchange data");
 					} 
 					else if ((str.length() > 3)
 							&& str.substring(0, 3).equals("TIE")) {
 						dataLineIndicator = TielineData;
-						ODMLogger.getLogger().fine("load tieline data");
+						log.debug("load tieline data");
 					}
 
 					/*
@@ -184,7 +186,7 @@ public class IeeeCDFAdapter  extends AbstractODMAdapter {
 					} 
 				} catch (final Exception e) {
 					e.printStackTrace();
-					ODMLogger.getLogger().severe(e.toString() + "\n" + str);
+					log.error(e.toString() + "\n" + str);
 				}
 			}
 		} while (str!=null);

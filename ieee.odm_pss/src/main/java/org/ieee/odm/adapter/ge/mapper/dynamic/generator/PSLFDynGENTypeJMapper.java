@@ -3,7 +3,6 @@ package org.ieee.odm.adapter.ge.mapper.dynamic.generator;
 import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.common.str.BaseStringDataMapper;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -13,6 +12,8 @@ import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.Eq11Ed11MachineXmlType;
 import org.ieee.odm.schema.Eq11MachineXmlType;
 import org.ieee.odm.schema.Eq1MachineXmlType.SeFmt1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -21,7 +22,7 @@ import org.ieee.odm.schema.Eq1MachineXmlType.SeFmt1;
  *
  */
 public class PSLFDynGENTypeJMapper extends BaseStringDataMapper{
-	
+    private static final Logger log = LoggerFactory.getLogger(PSLFDynGENTypeJMapper.class);
 	
 	
 	public PSLFDynGENTypeJMapper(AbstractStringDataFieldParser parser){
@@ -155,18 +156,18 @@ public class PSLFDynGENTypeJMapper extends BaseStringDataMapper{
 		   mach.setSeFmt1(s1);
 	   }
 	   else {//if(Td1>0 && Td11==0.0)
-		   ODMLogger.getLogger().severe("Unsupported GenTypeJ Gen data set @ "+"Machine # "+genId +" is not found in Bus #"+busId);
+               log.error("Unsupported GenTypeJ Gen data set @ Machine # {} is not found in Bus #{}", genId, busId);
 	   }
 	   
 	   
 	   
 	   }
 	   else{
-		   ODMLogger.getLogger().severe("Machine # "+genId +" is not found in Bus #"+busId);
+               log.error("Machine # {} is not found in Bus #{}", genId, busId);
 	   }
 	}
 	   else{
-		   ODMLogger.getLogger().severe("Bus # "+busId +" is not available in load flow data");
+           log.error("Bus # {} is not available in load flow data", busId);
 	   }
 	}
 

@@ -26,7 +26,6 @@ package org.ieee.odm.adapter.bpa.dynamic;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -38,9 +37,12 @@ import org.ieee.odm.schema.PssBpaSgTypeXmlType;
 import org.ieee.odm.schema.PssBpaSpTypeXmlType;
 import org.ieee.odm.schema.PssBpaSsTypeXmlType;
 import org.ieee.odm.schema.StabilizerInputSignalEnumType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicPSSRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicPSSRecord.class.getName());
 	
 	public static void processPSSData(String str, DStabModelParser parser) throws ODMException {
     	final String[] strAry= getPSSDataFields(str);
@@ -459,16 +461,16 @@ public class BPADynamicPSSRecord {
     }
 	
 	private static String[] getPSSDataFields(String str){
-    	final String[] strAry= new String[20];
-    	strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
-    	//to process the Chinese characters first, if any.
-		int chineseCharNum=ODMModelStringUtil.getChineseCharNum(str.substring(3,10).trim());
-		//Columns 6-13 busName  
-		strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 11-chineseCharNum).trim();
-		
-		str=chineseCharNum==0?str:ODMModelStringUtil.replaceChineseChar(str);
-    	try{
-    		if(str.substring(0, 3).trim().equals("SS")||str.substring(0, 3).trim().equals("SP")
+        final String[] strAry= new String[20];
+        strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
+        //to process the Chinese characters first, if any.
+        int chineseCharNum=ODMModelStringUtil.getChineseCharNum(str.substring(3,10).trim());
+        //Columns 6-13 busName  
+        strAry[1] = ODMModelStringUtil.getStringReturnEmptyString(str,4, 11-chineseCharNum).trim();
+        
+        str=chineseCharNum==0?str:ODMModelStringUtil.replaceChineseChar(str);
+        try{
+            if(str.substring(0, 3).trim().equals("SS")||str.substring(0, 3).trim().equals("SP")
         			||str.substring(0, 3).trim().equals("SG")){
         		//strAry[0]=ModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
         		//busId
@@ -580,7 +582,7 @@ public class BPADynamicPSSRecord {
         		
         	}
     	}catch (Exception e){
-    		ODMLogger.getLogger().severe(e.toString());
+            log.error(e.toString());
     	}
     	
     	    	

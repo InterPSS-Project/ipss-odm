@@ -26,7 +26,6 @@ package org.ieee.odm.adapter.bpa.dynamic;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -46,8 +45,13 @@ import org.ieee.odm.schema.ExcIEEE1968Type1XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeAC2XmlType;
 import org.ieee.odm.schema.ExcIEEE1981TypeDC1XmlType;
 import org.ieee.odm.schema.ExciterModelXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPADynamicExciterRecord {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
+	
 	private final static int EA=1;
 	private final static int EC=2;
 	private final static int EK=3;
@@ -162,7 +166,7 @@ public class BPADynamicExciterRecord {
     		if(!strAry[16].contains(".")){
     			Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
     		exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
     		
@@ -172,7 +176,7 @@ public class BPADynamicExciterRecord {
     		double VRmin=VRmax*multi;
     		exc.setVRMAX(VRmax);
 			if(VRmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-VRmin) );
 				VRmin*=-1;
 			}
@@ -270,7 +274,7 @@ public class BPADynamicExciterRecord {
     		if(!strAry[16].contains(".")){
     			Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
     		exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
     		
@@ -280,7 +284,7 @@ public class BPADynamicExciterRecord {
     		double VRmin=VRmax*multi;
     		exc.setVrmax(VRmax);
 			if(VRmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-VRmin) );
 				VRmin*=-1;
 			}
@@ -377,7 +381,7 @@ public class BPADynamicExciterRecord {
     		if(!strAry[16].contains(".")){
     			Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
     		exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
     		
@@ -387,7 +391,7 @@ public class BPADynamicExciterRecord {
     		double VRmin=VRmax*multi;
     		exc.setVrmax(VRmax);
 			if(VRmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-VRmin) );
 				VRmin*=-1;
 			}
@@ -467,7 +471,7 @@ public class BPADynamicExciterRecord {
 				Vrmin=Vrmin/1000;
 			}
 			if(Vrmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-Vrmin) );
 				Vrmin*=-1;
 			}
@@ -558,7 +562,7 @@ public class BPADynamicExciterRecord {
 				Vrmin=Vrmin/1000;
 			}
 			if(Vrmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-Vrmin) );
 				Vrmin*=-1;
 			}
@@ -652,7 +656,7 @@ else if(type==FK){
 				Vrmin=Vrmin/1000;
 			}
 			if(Vrmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-Vrmin) );
 				Vrmin*=-1;
 			}
@@ -753,7 +757,7 @@ else if(type==FK){
 			if(!strAry[16].contains(".")){
 				Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
 			exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
 					
@@ -860,7 +864,7 @@ else if(type==FK){
 			if(!strAry[16].contains(".")){
 				Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
 			exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
 					
@@ -967,7 +971,7 @@ else if(type==FK){
 			if(!strAry[16].contains(".")){
 				Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
 			exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
 					
@@ -1074,7 +1078,7 @@ else if(type==FK){
 			if(!strAry[16].contains(".")){
 				Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
 			exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
     	}
@@ -1174,7 +1178,7 @@ else if(type==FK){
 			if(!strAry[16].contains(".")){
 				Tf=Tf/1000;
 			}
-    		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+    		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
     		if(Kf==0.0&&Tf==0.0)Tf=1.0;
 			exc.setTF(BaseDataSetter.createTimeConstSec(Tf));
     	}
@@ -1236,7 +1240,7 @@ else if(type==FK){
 				Vrmin=Vrmin/1000;
 			}
 			if(Vrmin>0){
-				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
 						", automatically change it to: "+(-Vrmin) );
 				Vrmin*=-1;
 			}
@@ -1277,7 +1281,7 @@ else if(type==FK){
         			if(!strAry[6].contains(".")){
         				EFDmin=EFDmin/1000;
         			}
-        			if(EFDmin>0)ODMLogger.getLogger().warning("the input EFDmin >0, exc info:"+exc.getDesc());
+        			if(EFDmin>0)log.warn("the input EFDmin >0, exc info:"+exc.getDesc());
         			excFJ.setEFDMIN(EFDmin);    		
         			//KF
             		double Kf= ODMModelStringUtil.getDouble(strAry[8], 0.0);
@@ -1291,7 +1295,7 @@ else if(type==FK){
             		if(!strAry[9].contains(".")){
             			Tf=Tf/1000;
         			}
-            		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+            		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
             		if(Kf==0.0&&Tf==0.0)Tf=1.0;
             		excFJ.setTF(BaseDataSetter.createTimeConstSec(Tf));
         			
@@ -1316,7 +1320,7 @@ else if(type==FK){
             		if(!strAry[9].contains(".")){
             			Tf=Tf/1000;
         			}
-            		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+            		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
             		if(Kf==0.0&&Tf==0.0)Tf=1.0;
             		excFK.setTF(BaseDataSetter.createTimeConstSec(Tf));
         			//KC
@@ -1364,12 +1368,12 @@ else if(type==FK){
             		if(!strAry[9].contains(".")){
             			Tf=Tf/1000;
         			}
-            		if(Tf==0.0)ODMLogger.getLogger().warning("the input TF=0, machine:"+busId);
+            		if(Tf==0.0)log.warn("the input TF=0, machine:"+busId);
             		if(Kf==0.0&&Tf==0.0)Tf=1.0;
             		excFA.setTF(BaseDataSetter.createTimeConstSec(Tf));
         			
             	}
-            	else ODMLogger.getLogger().severe("processor for this type excitor is not implmented yet!");
+            	else log.error("processor for this type excitor is not implmented yet!");
 //            	else if(exc.getExciterType().equals(ExciterXmlType.ExciterType.IEEE_1981_TYPE_AC_2)){//BPA FF
 //            		           		
 //            		//Se1            		
@@ -1484,7 +1488,7 @@ else if(type==FK){
     				Vrmin=Vrmin/100;
     			}
     			if(Vrmin>0){
-    				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+    				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
     						", automatically change it to: "+(-Vrmin) );
     				Vrmin*=-1;
     			}
@@ -1599,7 +1603,7 @@ else if(type==FK){
     				Vrmin=Vrmin/100;
     			}
     			if(Vrmin>0){
-    				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+    				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
     						", automatically change it to: "+(-Vrmin) );
     				Vrmin*=-1;
     			}
@@ -1714,7 +1718,7 @@ else if(type==FK){
     				Vrmin=Vrmin/100;
     			}
     			if(Vrmin>0){
-    				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+    				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
     						", automatically change it to: "+(-Vrmin) );
     				Vrmin*=-1;
     			}
@@ -1787,7 +1791,7 @@ else if(type==FK){
     				Vrmin=Vrmin/100;
     			}
     			if(Vrmin>0){
-    				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+    				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
     						", automatically change it to: "+(-Vrmin) );
     				Vrmin*=-1;
     			}
@@ -1829,7 +1833,7 @@ else if(type==FK){
     				Vrmin=Vrmin/100;
     			}
     			if(Vrmin>0){
-    				ODMLogger.getLogger().warning("the input Vrmin >0, exc info:"+exc.getDesc()+
+    				log.warn("the input Vrmin >0, exc info:"+exc.getDesc()+
     						", automatically change it to: "+(-Vrmin) );
     				Vrmin*=-1;
     			}
@@ -2099,7 +2103,7 @@ else if(type==FK){
 				
 			}
     	}catch (Exception e){
-    		ODMLogger.getLogger().severe(e.toString());
+    		log.error(e.toString());
     	}
         return strAry;
 	}

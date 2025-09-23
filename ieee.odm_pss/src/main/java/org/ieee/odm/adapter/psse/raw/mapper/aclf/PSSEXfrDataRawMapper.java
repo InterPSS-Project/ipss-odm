@@ -24,14 +24,14 @@
 
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-import org.apache.commons.math3.complex.Complex;
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
+
+import org.apache.commons.math3.complex.Complex;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEXfrDataRawParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -58,8 +58,12 @@ import org.ieee.odm.schema.Xfr3WBranchXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEXfrDataRawMapper.class.getName());
 
 	public PSSEXfrDataRawMapper(PsseVersion ver) {
 		super(ver);
@@ -272,7 +276,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 				xfr3WInfo.setZCorrectionOnWinding(true);
 			} else {
 				xfr3WInfo.setZCorrectionOnWinding(false);
-				ODMLogger.getLogger().info("ZCOD = 1, apply z correction to bus-to-bus impedances, transformer id = " + branRecXml.getId());
+				log.info("ZCOD = 1, apply z correction to bus-to-bus impedances, transformer id = " + branRecXml.getId());
 			}
 
 			xfr3WInfo.setZTableNumber2(dataParser.getInt("TAB2", 0));
@@ -300,7 +304,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
        		// system base quantities; 
 			//check if the impedance is too small, and raise a warning
 		   	if (new Complex(r1_2,x1_2).abs()< this.getZeroImpedanceThreshold()) {
-	   			ODMLogger.getLogger().severe(String.format("Transformer  # %s, has zero impedance input between windings 1 and 2, r1_2 =%f, x1_2=%f pu", branRecXml.getId(), r1_2, x1_2));
+	   			log.error(String.format("Transformer  # %s, has zero impedance input between windings 1 and 2, r1_2 =%f, x1_2=%f pu", branRecXml.getId(), r1_2, x1_2));
 	   		}			
 
        		branRecXml.setZ(BaseDataSetter.createZValue(r1_2, x1_2, ZUnitType.PU));

@@ -28,7 +28,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import java.util.StringTokenizer;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.BaseJaxbHelper;
@@ -45,8 +44,12 @@ import org.ieee.odm.schema.NetAreaXmlType;
 import org.ieee.odm.schema.NetZoneXmlType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPANetRecord {
+    // Add a logger instance following BPADynamicExciterRecord style
+    private static final Logger log = LoggerFactory.getLogger(BPANetRecord.class.getName());
 	/*
 	 *   Network data
 	 *   ============ 
@@ -64,12 +67,12 @@ public class BPANetRecord {
 	        //read powerflow, caseID,projectName, 			
 			if (strAry[0]!= null ){
 				BaseJaxbHelper.addNVPair(baseCaseNet, strAry[0], strAry[1]);
-				ODMLogger.getLogger().fine(strAry[0] +": " + strAry[1]);
+				log.debug("{}: {}", strAry[0], strAry[1]);
 			}
 			
 			if (strAry[2]!= null ){
 				BaseJaxbHelper.addNVPair(baseCaseNet, strAry[2], strAry[4]);
-				ODMLogger.getLogger().fine(strAry[2]+": " + strAry[4] );
+				log.debug("{}: {}", strAry[2], strAry[4]);
 			}			
 			// more name-vale could be added in future 
 			
@@ -268,7 +271,7 @@ public class BPANetRecord {
 				strAry[4] = ODMModelStringUtil.getStringReturnEmptyString(str, 27, 34);		
 			}	
 		}	catch (Exception e){
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 		}
 		return strAry;
 	}
@@ -285,4 +288,3 @@ public class BPANetRecord {
 		
 	}
 }
-	

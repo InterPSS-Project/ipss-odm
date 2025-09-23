@@ -1,9 +1,9 @@
 package org.ieee.odm.adapter.pwd.impl;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
+
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -36,6 +36,8 @@ import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
  /**
   * PWD Adapter branch data processor, extends from the inputLineStringParser
   * 
@@ -49,6 +51,9 @@ import org.ieee.odm.schema.ZUnitType;
   * 
   */
 public class BranchDataProcessor extends InputLineStringParser  {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(BranchDataProcessor.class.getName());
+	
 	private enum XfrCtrlTargetType{Midddle_Of_Range,MaxMin};
 	private enum XfrType{Fixed, LTC, Mvar,Phase};
 	
@@ -458,7 +463,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 							.getBaseVoltage().getValue(), fromBusRec
 							.getBaseVoltage().getUnit());
 				} else {
-					ODMLogger.getLogger().severe(
+					log.error(
 							"Error: fromBusRecord and/or toBusRecord cannot be found, fromId, toId: "
 									+ fromBusId + ", " + toBusId);
 				}
@@ -482,7 +487,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 								.getBaseVoltage().getValue(), fromBusRec
 								.getBaseVoltage().getUnit());
 					} else {
-						ODMLogger.getLogger().severe(
+						log.error(
 								"Error: fromBusRecord and/or toBusRecord cannot be found, fromId, toId: "
 										+ fromBusId + ", " + toBusId);
 					}
@@ -627,7 +632,7 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		  			else if (regBusId.equals(BaseJaxbHelper.getRecId(xfr.getToBus())))
 		  				vAdjData.setAdjBusLocation(TapAdjustBusLocationEnumType.TO_BUS);
 		  			else {
-		  				ODMLogger.getLogger().info("Cannot decide xfr tap control bus location: " + xfr.getId());
+		  				log.info("Cannot decide xfr tap control bus location: " + xfr.getId());
 		  				tapAdj.setOffLine(true);
 		  			}
 		  		}
@@ -667,19 +672,19 @@ public class BranchDataProcessor extends InputLineStringParser  {
 		int idx= customStr_1.length()-customStr_2.length()-1;
 		if(idx<=0){
 			subName = null;
-			ODMLogger.getLogger().warning("Equipment Name is not contained in the branch extented name." +
+			log.warn("Equipment Name is not contained in the branch extented name." +
 					" # Extented Name: "+customStr_1+", # equipment name:"+customStr_2);
 		}
 		else if(!customStr_1.substring(idx).equals("_"+customStr_2)){
 			subName = null;
-			ODMLogger.getLogger().warning("Equipment Name is not contained in the branch extented name." +
+			log.warn("Equipment Name is not contained in the branch extented name." +
 					" # Extented Name: "+customStr_1+", # equipment name:"+customStr_2);
 		}
 		else{
 		    String s3=customStr_1.substring(0, idx);
 		    int last_underscore = s3.lastIndexOf("_");
 		    if(last_underscore<0){
-		    	ODMLogger.getLogger().warning("No underscore within " + s3
+		    	log.warn("No underscore within " + s3
 						+", # Extented Name: "+customStr_1+", # equipment name:"+customStr_2);
 		    	subName = null;
 		    }

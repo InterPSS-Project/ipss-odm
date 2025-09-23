@@ -24,29 +24,28 @@
 
 package org.ieee.odm.adapter.psse.raw.impl;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.dynamic.DynamicModelLibHelper;
+import org.ieee.odm.adapter.psse.raw.mapper.dynamic.DynamicModelLibHelper.DynModelType;
 import org.ieee.odm.adapter.psse.raw.mapper.dynamic.PSSEDynExciterMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.dynamic.PSSEDynGeneratorMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.dynamic.PSSEDynLoadMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.dynamic.PSSEDynRelayMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.dynamic.PSSEDynTurGovMapper;
-import org.ieee.odm.adapter.psse.raw.mapper.dynamic.DynamicModelLibHelper.DynModelType;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.DStabNetXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEDynRawAdapter extends PSSEAcscRawAdapter {
-
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEDynRawAdapter.class.getName());
+	
     DynamicModelLibHelper dynLibHelper = new DynamicModelLibHelper();
 	PSSEDynGeneratorMapper generatorMapper =null; 
 	PSSEDynExciterMapper   exciterMapper =null;
@@ -82,7 +81,7 @@ public class PSSEDynRawAdapter extends PSSEAcscRawAdapter {
       			if (lineStr != null) {
       				lineNo++;
       				if(skipInvalidLine(lineStr)){
-      					ODMLogger.getLogger().info(("Invalid line, line# "+lineNo+",:"+lineStr));
+      					log.info(("Invalid line, line# "+lineNo+",:"+lineStr));
       					continue;
       				}
       				lineStr = lineStr.trim();

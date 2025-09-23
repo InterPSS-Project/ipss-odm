@@ -33,7 +33,6 @@ import java.util.List;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -49,10 +48,13 @@ import org.ieee.odm.schema.Eq1Ed1MachineXmlType;
 import org.ieee.odm.schema.Eq1MachineXmlType;
 import org.ieee.odm.schema.EquiMachineXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 
 public class BPADynamicGeneratorRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicGeneratorRecord.class.getName());
 	
 	private static List<String> subTransBusIdList=new ArrayList<String>();
 	private static Hashtable<String,Double>SubTransientData =new Hashtable<String,Double>();
@@ -337,7 +339,6 @@ public class BPADynamicGeneratorRecord {
 	
 	private static String[] getGeneratorDataFields ( final String str) {
 		final String[] strAry = new String[19];
-		
 		try{
 			if(str.substring(0, 2).trim().equals("M")){
 				strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
@@ -408,7 +409,7 @@ public class BPADynamicGeneratorRecord {
 				strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,72, 75).trim();
 			}
 		}catch(Exception e){
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 		}
 		
 		return strAry;

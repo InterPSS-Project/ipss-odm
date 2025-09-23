@@ -1,4 +1,4 @@
- /*
+/*
   * @(#)GEXformerDataMapper.java   
   *
   * Copyright (C) 2006-2008 www.interpss.org
@@ -28,7 +28,6 @@ import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ge.parser.GEXfrDataParser;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -40,8 +39,12 @@ import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GEXformerDataMapper extends BaseGEDataMapper {
+    // Add a logger instance following BPADynamicExciterRecord style
+    private static final Logger log = LoggerFactory.getLogger(GEXformerDataMapper.class.getName());
 	public GEXformerDataMapper(GePslfAdapter.Version ver)  {
 		super(ver);
 		this.dataParser = new GEXfrDataParser();
@@ -64,7 +67,7 @@ public class GEXformerDataMapper extends BaseGEDataMapper {
 			branchRec = (XfrBranchXmlType)(isPsXfr?
 				parser.createPSXfrBranch(fid, tid, cId) : parser.createXfrBranch(fid, tid, cId));
 		} catch (Exception e) {
-			ODMLogger.getLogger().severe("branch data error, " + e.toString());
+			log.error("branch data error, " + e.toString());
 		}				
 		
 		int type = this.dataParser.getInt("type");

@@ -26,12 +26,14 @@ package org.ieee.odm.adapter.bpa.dynamic;
 
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class BPADynamicRecord {	
+public class BPADynamicRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicRecord.class.getName());
 	private final static int header=1;
 	private final static int faultOperation=2;
 	private final static int generatorData=3;
@@ -153,7 +155,7 @@ public class BPADynamicRecord {
 			}else if(str.substring(0, 2).trim().equals("FF")){
 				dataType=simuData;
 			}else {				
-				ODMLogger.getLogger().warning("This line data is not processed"+"   "+"'"+str+"'");
+				log.warn("This line data is not processed   '{}'", str);
 			}		 
 		 return dataType;
 	}
@@ -212,7 +214,7 @@ public class BPADynamicRecord {
 				strAry[14]=ODMModelStringUtil.getStringReturnEmptyString(str,75, 80);			
 			}
 			}catch(Exception e){
-				ODMLogger.getLogger().severe(e.toString());
+				log.error(e.toString());
 			}
 		
 		return strAry;

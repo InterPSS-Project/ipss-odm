@@ -4,7 +4,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.parser.acsc.PSSEXfrZeroSeqDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscParserHelper;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
@@ -14,8 +13,12 @@ import org.ieee.odm.schema.XformerConnectionXmlType;
 import org.ieee.odm.schema.XformrtConnectionEnumType;
 import org.ieee.odm.schema.XfrShortCircuitXmlType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEXfrZeroSeqDataMapper extends BasePSSEDataRawMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEXfrZeroSeqDataMapper.class.getName());
 	
 	public PSSEXfrZeroSeqDataMapper(PsseVersion ver) {
 		super(ver);
@@ -99,7 +102,7 @@ public class PSSEXfrZeroSeqDataMapper extends BasePSSEDataRawMapper{
         if(!is3W){
         	XfrShortCircuitXmlType scXfr = (XfrShortCircuitXmlType) parser.getXfrBranch(fbusId, tbusId, cirId);
         	if(scXfr == null){ 
-        		ODMLogger.getLogger().severe("One sc xfr is NULL or cannot be found, fBusId,tBusId,cirId  #"+fbusId+"_"+tbusId+"_"+cirId);
+        		log.error("One sc xfr is NULL or cannot be found, fBusId,tBusId,cirId  #"+fbusId+"_"+tbusId+"_"+cirId);
         		//As there may be some inconsistency between load flow data and sequence data, we can check the inverse direction.
         		scXfr = (XfrShortCircuitXmlType) parser.getXfrBranch(tbusId, fbusId, cirId);
         		if(scXfr == null){
@@ -201,7 +204,6 @@ public class PSSEXfrZeroSeqDataMapper extends BasePSSEDataRawMapper{
         }
         else{// three winding transformer
         	throw new UnsupportedOperationException("Zero sequence for three winding transformer is not supported yet!");
-        	
         }
         
         

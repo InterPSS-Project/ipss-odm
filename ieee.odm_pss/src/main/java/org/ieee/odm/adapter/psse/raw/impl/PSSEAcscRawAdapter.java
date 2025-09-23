@@ -39,15 +39,19 @@ import org.ieee.odm.adapter.psse.raw.mapper.acsc.PSSEXfrZeroSeqDataMapper;
 import org.ieee.odm.adapter.psse.raw.mapper.acsc.PSSEZeroSeqMutualZMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.acsc.AcscModelParser;
 import org.ieee.odm.model.acsc.BaseAcscModelParser;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
 import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ShortCircuitNetXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
+	
+	// Add SLF4J logger
+    private static final Logger log = LoggerFactory.getLogger(PSSEAcscRawAdapter.class);
 	
 	/*
 	 * PSS/E V30 Sequence Data sections and their sequence:
@@ -165,8 +169,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!machPosZProcessed) {
       					if (isEndRecLine(lineStr)) {
       						machPosZProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Positive sequence Generator data record processed");
-							 this.elemCntStr += "Positive sequence Generator record " + machPosZCnt +"\n";
+              				log.info("PSS/E Positive sequence Generator data record processed");
+              				this.elemCntStr += "Positive sequence Generator record " + machPosZCnt +"\n";
 						}	 
 						else {
 							machPosSeqZMapper.procLineString(lineStr, getParser());
@@ -176,8 +180,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!machNegZProcessed) {
       					if (isEndRecLine(lineStr)) {
       						machNegZProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Negative sequence Generator data record processed");
-							 this.elemCntStr += "Negative sequence Generator record " + machNegZCnt +"\n";
+              				log.info("PSS/E Negative sequence Generator data record processed");
+              				this.elemCntStr += "Negative sequence Generator record " + machNegZCnt +"\n";
 						}	 
 						else {
 							machNegSeqZMapper.procLineString(lineStr, getParser());
@@ -187,8 +191,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!machZeroZProcessed) {
       					if (isEndRecLine(lineStr)) {
       						machZeroZProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Zero sequence Generator data record processed");
-							 this.elemCntStr += "Zero sequence Generator record " + machZeroZCnt +"\n";
+              				log.info("PSS/E Zero sequence Generator data record processed");
+              				this.elemCntStr += "Zero sequence Generator record " + machZeroZCnt +"\n";
 						}	 
 						else {
 							machZeroSeqZMapper.procLineString(lineStr, getParser());
@@ -198,8 +202,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!shuntLoadNegProcessed) {
       					if (isEndRecLine(lineStr)) {
       						shuntLoadNegProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Negative sequence shunt load data record processed");
-							 this.elemCntStr += "Negative sequence shunt load record " + shuntLoadNegCnt +"\n";
+              				log.info("PSS/E Negative sequence shunt load data record processed");
+              				this.elemCntStr += "Negative sequence shunt load record " + shuntLoadNegCnt +"\n";
 						}	 
 						else {
 							shuntLoadNegSeqMapper.procLineString(lineStr, getParser());
@@ -209,8 +213,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!shuntLoadZeroProcessed) {
       					if (isEndRecLine(lineStr)) {
       						shuntLoadZeroProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Zero sequence shunt load data record processed");
-							 this.elemCntStr += "Zero sequence shunt load record " + shuntLoadZeroCnt +"\n";
+              				log.info("PSS/E Zero sequence shunt load data record processed");
+              				this.elemCntStr += "Zero sequence shunt load record " + shuntLoadZeroCnt +"\n";
 						}	 
 						else {
 							shuntLoadZeroSeqMapper.procLineString(lineStr, getParser());
@@ -220,8 +224,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!lineZeroProcessed) {
       					if (isEndRecLine(lineStr)) {
       						lineZeroProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Zero sequence non-transformer data record processed");
-							 this.elemCntStr += "Zero sequence non-transformer record " + lineZeroCnt +"\n";
+              				log.info("PSS/E Zero sequence non-transformer data record processed");
+              				this.elemCntStr += "Zero sequence non-transformer record " + lineZeroCnt +"\n";
 						}	 
 						else {
 							branchZeroSeqMapper.procLineString(lineStr, getParser());
@@ -231,8 +235,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!ZeroMutualProcessed) {
       					if (isEndRecLine(lineStr)) {
       						ZeroMutualProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Zero sequence multual impedance data record processed");
-							 this.elemCntStr += "Zero sequence multual impedance record " + ZeroMutualCnt +"\n";
+              				log.info("PSS/E Zero sequence multual impedance data record processed");
+              				this.elemCntStr += "Zero sequence multual impedance record " + ZeroMutualCnt +"\n";
 						}	 
 						else {
 							zeroSeqMutualZMapper.procLineString(lineStr, getParser());
@@ -242,8 +246,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!xfrZeroProcessed) {
       					if (isEndRecLine(lineStr)) {
       						xfrZeroProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Zero sequence transformer data record processed");
-							 this.elemCntStr += "Zero sequence transformer  record " + xfrZeroCnt +"\n";
+              				log.info("PSS/E Zero sequence transformer data record processed");
+              			 this.elemCntStr += "Zero sequence transformer  record " + xfrZeroCnt +"\n";
 						}	 
 						else {
 							xfrZeroSeqMapper.procLineString(lineStr, getParser());
@@ -253,8 +257,8 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
       				else if (!switchZeroProcessed) {
       					if (isEndRecLine(lineStr)) {
       						switchZeroProcessed = true;
-							 ODMLogger.getLogger().info("PSS/E Zero sequence switch shunt data record processed");
-							 this.elemCntStr += "Zero sequence switch shunt  record " + switchShuntZeroCnt +"\n";
+              				log.info("PSS/E Zero sequence switch shunt data record processed");
+              			 this.elemCntStr += "Zero sequence switch shunt  record " + switchShuntZeroCnt +"\n";
 						}	 
 						else {
 							switchShuntZeroSeqMapper.procLineString(lineStr, getParser());
@@ -339,7 +343,7 @@ public class PSSEAcscRawAdapter extends PSSELFRawAdapter {
 		     }
 		
 		    if(din[1]==null){
-			  ODMLogger.getLogger().warning("PSSEAcscAdater: Sequence network data is not provided or invalid, please check!");
+              log.warn("PSSEAcscAdater: Sequence network data is not provided or invalid, please check!");
 		     }
 		     //the second one is the sequence data file;
 		     else parseSequenceDataFile(din[1], encoding);

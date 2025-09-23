@@ -1,20 +1,24 @@
 package org.ieee.odm.adapter.psse.raw.mapper.dynamic.generator;
 
+import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.parser.dynamic.generator.PSSEGenclsDataParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabModelParser;
 import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.ClassicMachineXmlType;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEGenclsMapper extends BasePSSEDataRawMapper{
-    
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
+	
 	public PSSEGenclsMapper(PsseVersion ver) {
 		super(ver);
 		this.dataParser = new PSSEGenclsDataParser(ver);
@@ -70,12 +74,12 @@ public class PSSEGenclsMapper extends BasePSSEDataRawMapper{
 	   
 	   }
 	   else{
-		   ODMLogger.getLogger().severe("Machine # "+genId +" is not found in Bus #"+busId);
+		   log.error("Machine # "+genId +" is not found in Bus #"+busId);
 	   }
 	   
 	 }
 	  else{
-		   ODMLogger.getLogger().severe("Bus # "+busId +" is not available in load flow data");
+		   log.error("Bus # "+busId +" is not available in load flow data");
 	   }
 	}
 }

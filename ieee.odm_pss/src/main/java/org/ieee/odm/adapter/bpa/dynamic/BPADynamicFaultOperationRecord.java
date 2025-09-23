@@ -28,7 +28,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -45,8 +44,12 @@ import org.ieee.odm.schema.LoadChangeDynamicEventXmlType;
 import org.ieee.odm.schema.TimePeriodUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPADynamicFaultOperationRecord {
+	// Add a logger instance
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicFaultOperationRecord.class.getName());
 	
 	public static void processFaultOperationData(String str, DStabModelParser parser ) throws ODMException { 
 		// TODO: Get: what is the default value for mode, in case mode field is not defined?
@@ -307,7 +310,7 @@ public class BPADynamicFaultOperationRecord {
 	}
 
 	private static String[] getFaultOperationDataFields ( final String str, int mode) {
-	final String[] strAry = new String[13];		
+	final String[] strAry = new String[13];        
 	try{
 		if(mode==1||mode==2||mode==3||mode==-1||mode==-2||mode==-3){
 			strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 2).trim();
@@ -354,7 +357,7 @@ public class BPADynamicFaultOperationRecord {
 			strAry[10]=ODMModelStringUtil.getStringReturnEmptyString(str,58, 63).trim();			
 		}
 	}catch(Exception e){
-		ODMLogger.getLogger().severe(e.toString());
+		log.error(e.toString());
 	}	
 	return strAry;
 }

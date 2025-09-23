@@ -29,7 +29,6 @@ import java.text.NumberFormat;
 
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -51,8 +50,12 @@ import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPAXfrBranchRecord {
+    // Add a logger instance following BPADynamicExciterRecord style
+    private static final Logger log = LoggerFactory.getLogger(BPAXfrBranchRecord.class.getName());
 	static final int transformer=1;
 	static final int phaseShiftXfr=2;
 	static final int transformerAndPhaseShiftXfr=3;
@@ -77,7 +80,7 @@ public class BPAXfrBranchRecord {
 		final String tname =  strAry[6];
 		final String fid =  BPABusRecord.getBusId(fname);
 		final String tid =  BPABusRecord.getBusId(tname);
-		ODMLogger.getLogger().fine("Branch data loaded, from-bus, to-bus: " + fid + ", " + tid);
+		log.debug("Branch data loaded, from-bus, to-bus: {} -> {}", fid, tid);
 		//TODO change 1->0, since one uses "1" while CirId for the other is missing for some parallel branches in BPA
 		String cirId="1";
 		if(!strAry[8].equals("")){
@@ -89,8 +92,7 @@ public class BPAXfrBranchRecord {
 			branchRec = (XfrBranchXmlType) (dataType == transformer ?
 								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId));
 		} catch (ODMBranchDuplicationException e) {
-			ODMLogger.getLogger().severe("branch data error, " + e.toString()+ 
-					"  " + fname + "->" + tname + "_" + cirId);
+			log.error("branch data error, {}  {}->{}_{}", e.toString(), fname, tname, cirId);
 			return;
 		}
 		
@@ -164,8 +166,7 @@ public class BPAXfrBranchRecord {
 			}
 			rpu=ODMModelStringUtil.getNumberFormat(rpu);
 			if(Math.abs(rpu)>0.1)
-				ODMLogger.getLogger().warning("Tranformer#"+fname+"-to-"+tname +
-						", the Resistance(R) now is"+rpu+" ,seems to be out of normal range[0~0.1]pu, please check!");
+				log.warn("Tranformer#{}-to-{}, the Resistance(R) now is{} ,seems to be out of normal range[0~0.1]pu, please check!", fname, tname, rpu);
 		}
 		if(!strAry[13].equals("")){
 			xpu = new Double(strAry[13]).doubleValue();
@@ -174,8 +175,7 @@ public class BPAXfrBranchRecord {
 			}
 			xpu=ODMModelStringUtil.getNumberFormat(xpu);
 			if(Math.abs(xpu)>0.5)
-				ODMLogger.getLogger().warning("Tranformer#"+fname+"-to-"+tname+",the Reactance(X) now is"
-						+xpu+" ,seems to be out of normal range[0~0.5]pu, please check!");
+				log.warn("Tranformer#{}-to-{},the Reactance(X) now is{} ,seems to be out of normal range[0~0.5]pu, please check!", fname, tname, xpu);
 		}
 		if(!strAry[14].equals("")){
 			Gpu = new Double(strAry[14]).doubleValue();
@@ -370,7 +370,7 @@ public class BPAXfrBranchRecord {
 				try {
 					voltTapAdj.setAdjVoltageBus(parser.createBusRef(controlBusId));
 				} catch (Exception e) {
-					ODMLogger.getLogger().severe("Xfr control bus not defined properly, " + e.toString());
+					log.error("Xfr control bus not defined properly, " + e.toString());
 				}
 					
 				voltTapAdj.setAdjBusLocation(adjBus == toBus ? TapAdjustBusLocationEnumType.NEAR_TO_BUS
@@ -465,7 +465,7 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 			if (str2.length() > 81)
 				strAry[19] =ODMModelStringUtil.getStringReturnEmptyString(str2,77, 80).trim();// str2.substring(77, 80).trim();
 		}catch(Exception e){
-			ODMLogger.getLogger().severe(e.toString() + "\n" + str);
+			log.error(e.toString() + "\n" + str);
 		}
 		return strAry;
     }
@@ -526,9 +526,8 @@ T  yn DD1G    22.0 DD50    525.   720..000270.0202            22.0 536.
 			strAry[13] = ODMModelStringUtil.getStringReturnEmptyString(str2,58, 62).trim();
 			strAry[14] = ODMModelStringUtil.getStringReturnEmptyString(str2,63, 67).trim();
 		}catch(Exception e){
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 		}
 		return strAry;
     }
 }
-

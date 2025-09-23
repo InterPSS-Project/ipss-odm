@@ -1,4 +1,4 @@
- /*
+/*
   * @(#)PSSEAreaDataMapper.java   
   *
   * Copyright (C) 2006 www.interpss.org
@@ -27,7 +27,6 @@ package org.ieee.odm.adapter.psse.json.mapper;
 import java.util.List;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -66,14 +65,12 @@ public class PSSEBusDataJSonMapper extends BasePSSEDataJSonMapper{
 		 */		
 		try {
 			int ibus = (int)this.dataParser.getDouble("ibus");
-	
 			String iStr = IODMModelParser.BusIdPreFix+ibus;
 			LoadflowBusXmlType aclfBusXml;
 			try {
 				aclfBusXml = (LoadflowBusXmlType) odmParser.createBus(iStr, ibus);
 			} catch (Exception e) {
-				ODMLogger.getLogger().severe(e.toString());
-				return;
+				throw new RuntimeException(e.toString());
 			}
 			aclfBusXml.setNumber((long)ibus);
 			
@@ -124,7 +121,7 @@ public class PSSEBusDataJSonMapper extends BasePSSEDataJSonMapper{
 				aclfBusXml.setOffLine(true);
 			
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			throw new RuntimeException(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	
 	}

@@ -1,11 +1,11 @@
 package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
+
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEFactsDeviceDataRawParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
@@ -16,8 +16,12 @@ import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.SVCControlModeEnumType;
 import org.ieee.odm.schema.StaticVarCompensatorXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEFactsDeviceDataRawMapper extends BasePSSEDataRawMapper {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEFactsDeviceDataRawMapper.class.getName());
 
     public PSSEFactsDeviceDataRawMapper(PsseVersion ver) {
         super(ver);
@@ -57,7 +61,7 @@ public class PSSEFactsDeviceDataRawMapper extends BasePSSEDataRawMapper {
         
         
         if(j!=0){
-            ODMLogger.getLogger().severe("FACTS device with a toBus (series component) is not supported yet: " + lineStr);
+            log.error("FACTS device with a toBus (series component) is not supported yet: " + lineStr);
         }
         else{ // It is a static var compensator (SVC) or similar device without a toBus.
 

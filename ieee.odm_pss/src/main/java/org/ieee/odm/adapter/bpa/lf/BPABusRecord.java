@@ -26,7 +26,6 @@ package org.ieee.odm.adapter.bpa.lf;
 import java.util.Hashtable;
 
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfParserHelper;
@@ -46,6 +45,8 @@ import org.ieee.odm.schema.NetworkXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BPABusRecord {
 	private static final int swingBus=1;
@@ -60,6 +61,8 @@ public class BPABusRecord {
 	 */
 	private static long busCnt = 0;
 	private static Hashtable<String,String> busIdLookupTable = null;
+	
+	private static final Logger log = LoggerFactory.getLogger(BPABusRecord.class.getName());
 	
 	/**
 	 * reset the bus count and lookup table
@@ -88,6 +91,7 @@ public class BPABusRecord {
 	public static String getBusId(String busName) throws ODMException { 
 		String id =  busIdLookupTable.get(busName.trim()); 
 		if (id == null) {
+			log.error("Bus id not found, bus name: {}", busName);
 			throw new ODMException("Bus id not found, bus name: " + busName);
 		}
 		return id; 
@@ -135,12 +139,12 @@ public class BPABusRecord {
 		
 	    if(busType==pqBus||busType==pvBus||busType==pvBusNoQLimit||busType==swingBus){
 		    final String busId =  createBusId(busName);
-			ODMLogger.getLogger().fine("Bus data loaded, busName: " + busId);	
+			log.info("Bus data loaded, busName: " + busId);	
 		try {
 			busRec = (LoadflowBusXmlType)parser.createBus(busId);
 			busRec.setName(busName);
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString());
+			log.error(e.toString());
 			return;
 		}		
 		
@@ -254,8 +258,7 @@ public class BPABusRecord {
 //					    			vpu, vMinOrAngDeg, VoltageUnitType.PU));
 //					}
 				if(pGen!=0.0&&vpu!=0){
-						ODMLogger.getLogger().info("This bus seems to be a GenPV bus: "+ busId+","+busName
-								+" ,please check! ");
+						log.info("This bus seems to be a GenPV bus: {},{} ,please check! ", busId, busName);
 					
 				}
 					
@@ -388,5 +391,3 @@ B     XIANLS= 500.XX305.3 -215.
 	
 	
 }
-	
-	

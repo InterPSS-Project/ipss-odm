@@ -27,7 +27,6 @@ package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEGenDataRawParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -46,8 +45,12 @@ import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.ShortCircuitBusXmlType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEGenDataRawMapper extends BasePSSEDataRawMapper{
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(PSSEGenDataRawMapper.class.getName());
 	
 	public PSSEGenDataRawMapper(PsseVersion ver) {
 		super(ver);
@@ -94,7 +97,7 @@ public class PSSEGenDataRawMapper extends BasePSSEDataRawMapper{
 	    final String busId = IODMModelParser.BusIdPreFix+i;
 	    BusXmlType busRecXml = parser.getBus(busId);
 	    if (busRecXml == null){
-	    	ODMLogger.getLogger().severe("Bus "+ busId+ " not found in the network");
+	    	log.error("Bus "+ busId+ " not found in the network");
 	    	return;
 	    }
 	    

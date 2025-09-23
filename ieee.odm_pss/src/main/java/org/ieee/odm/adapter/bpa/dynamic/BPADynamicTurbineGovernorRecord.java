@@ -25,7 +25,6 @@
 package org.ieee.odm.adapter.bpa.dynamic;
 import org.ieee.odm.adapter.bpa.lf.BPABusRecord;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -40,9 +39,12 @@ import org.ieee.odm.schema.SpeedGovBPARegGIModelXmlType;
 import org.ieee.odm.schema.SpeedGovBPAServoGAModelXmlType;
 import org.ieee.odm.schema.SteamTurbineBPATBModelXmlType;
 import org.ieee.odm.schema.SteamTurbineNRXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicTurbineGovernorRecord {
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicTurbineGovernorRecord.class.getName());
 	
 	public static void processTurbineGovernorData(String str, DStabModelParser parser) throws ODMException {
     	final String strAry[]=getTGDataFields(str);
@@ -493,7 +495,7 @@ public class BPADynamicTurbineGovernorRecord {
     }
 	
 	private static String[] getTGDataFields ( String str) {
-    	final String[] strAry = new String[19];
+        final String[] strAry = new String[19];
     	strAry[0]=ODMModelStringUtil.getStringReturnEmptyString(str,1, 3).trim();
     	//to process the Chinese characters first, if any.
 		int chineseCharNum=ODMModelStringUtil.getChineseCharNum(str.substring(3,11).trim());
@@ -699,7 +701,7 @@ public class BPADynamicTurbineGovernorRecord {
 				
 	    	}
     	}catch(Exception e){
-    		ODMLogger.getLogger().severe(e.toString());
+    		log.error(e.toString());
     	}
     	return strAry;
     }

@@ -24,27 +24,31 @@
 
   package org.ieee.odm.adapter.psse.raw.mapper.aclf;
 
-  import org.apache.commons.math3.complex.Complex;
   import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
-  import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
-  import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
-  import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSELineDataRawParser;
-  import org.ieee.odm.common.ODMBranchDuplicationException;
-  import org.ieee.odm.common.ODMException;
-  import org.ieee.odm.common.ODMLogger;
-  import org.ieee.odm.model.IODMModelParser;
-  import org.ieee.odm.model.aclf.AclfDataSetter;
-  import org.ieee.odm.model.aclf.BaseAclfModelParser;
-  import org.ieee.odm.model.base.BaseDataSetter;
-  import org.ieee.odm.schema.ApparentPowerUnitType;
-  import org.ieee.odm.schema.BranchBusSideEnumType;
-  import org.ieee.odm.schema.LineBranchXmlType;
-  import org.ieee.odm.schema.NetworkXmlType;
-  import org.ieee.odm.schema.YUnitType;
-  import org.ieee.odm.schema.ZUnitType;
+
+import org.apache.commons.math3.complex.Complex;
+import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
+import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
+import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
+import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSELineDataRawParser;
+import org.ieee.odm.common.ODMBranchDuplicationException;
+import org.ieee.odm.common.ODMException;
+import org.ieee.odm.model.IODMModelParser;
+import org.ieee.odm.model.aclf.AclfDataSetter;
+import org.ieee.odm.model.aclf.BaseAclfModelParser;
+import org.ieee.odm.model.base.BaseDataSetter;
+import org.ieee.odm.schema.ApparentPowerUnitType;
+import org.ieee.odm.schema.BranchBusSideEnumType;
+import org.ieee.odm.schema.LineBranchXmlType;
+import org.ieee.odm.schema.NetworkXmlType;
+import org.ieee.odm.schema.YUnitType;
+import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
   
   public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
-
+		// Add a logger instance
+		private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
   
 	  public PSSELineDataRawMapper(PsseVersion ver) {
 		  super(ver);
@@ -115,7 +119,7 @@
 		  try {
 			  braRecXml = (LineBranchXmlType) parser.createLineBranch(fid, tid, dataParser.getValue("CKT"));
 		  } catch (ODMBranchDuplicationException e) {
-			  ODMLogger.getLogger().severe(e.toString());
+			  log.error(e.toString());
 			  return;
 		  }	
 
@@ -131,7 +135,7 @@
 		  
 		  //TODO bad data fix is moved to the core module as a part of the data validation process and integrated topology processing
 		  if(new Complex(r,x).abs()< this.getZeroImpedanceThreshold()){
-			  ODMLogger.getLogger().severe(String.format("Line ID %s, impedance r =%f, x=%f pu, is less than the default Zero_Impedance_Threshold %f pu", braRecXml.getId(), r, x, this.getZeroImpedanceThreshold()));
+			  log.error(String.format("Line ID %s, impedance r =%f, x=%f pu, is less than the default Zero_Impedance_Threshold %f pu", braRecXml.getId(), r, x, this.getZeroImpedanceThreshold()));
 		  }
 		  
 		  AclfDataSetter.setLineData(braRecXml, r, x, ZUnitType.PU, 0.0, b, YUnitType.PU);

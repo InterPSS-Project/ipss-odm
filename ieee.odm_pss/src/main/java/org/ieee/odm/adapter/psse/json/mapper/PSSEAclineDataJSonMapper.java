@@ -1,4 +1,4 @@
- /*
+/*
   * @(#)PSSEAreaDataMapper.java   
   *
   * Copyright (C) 2006 www.interpss.org
@@ -31,7 +31,6 @@ import java.util.List;
 import org.apache.commons.math3.complex.Complex;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.BaseAclfModelParser;
@@ -94,8 +93,7 @@ public class PSSEAclineDataJSonMapper extends BasePSSEDataJSonMapper{
 			try {
 				braRecXml = (LineBranchXmlType) odmParser.createLineBranch(fid, tid, dataParser.getString("ckt"));
 			} catch (ODMBranchDuplicationException e) {
-				ODMLogger.getLogger().severe(e.toString());
-				return;
+				throw new RuntimeException(e.toString());
 			}		
 			
 			int status = dataParser.getInt("stat", 1);
@@ -111,7 +109,7 @@ public class PSSEAclineDataJSonMapper extends BasePSSEDataJSonMapper{
 			//TODO Temporally bad data fix
 			if(new Complex(r,x).abs()< 0.00001){
 				x = 0.00001;
-				ODMLogger.getLogger().severe("Line # "+braRecXml.getId()+", has zero impedance input, change X = 0.00001");
+				throw new RuntimeException("Line # "+braRecXml.getId()+", has zero impedance input, change X = 0.00001");
 			}
 			
 			AclfDataSetter.setLineData(braRecXml, r, x, ZUnitType.PU, 0.0, b, YUnitType.PU);
@@ -135,7 +133,7 @@ public class PSSEAclineDataJSonMapper extends BasePSSEDataJSonMapper{
 	       
 	       mapMultiOwnerInfo(braRecXml);
 		} catch (ODMException e) {
-			ODMLogger.getLogger().severe(e.toString() + "\n" + this.dataParser.getFieldTable());
+			throw new RuntimeException(e.toString() + "\n" + this.dataParser.getFieldTable());
 		}
 	}
 }

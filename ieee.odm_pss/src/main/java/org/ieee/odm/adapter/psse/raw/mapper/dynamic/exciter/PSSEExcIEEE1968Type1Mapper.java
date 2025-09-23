@@ -4,7 +4,6 @@ import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
 import org.ieee.odm.adapter.psse.raw.parser.dynamic.exciter.PSSEExcIEEE1968Type1Parser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.dstab.DStabDataSetter;
 import org.ieee.odm.model.dstab.DStabModelParser;
@@ -12,8 +11,12 @@ import org.ieee.odm.model.dstab.DStabParserHelper;
 import org.ieee.odm.schema.DStabBusXmlType;
 import org.ieee.odm.schema.DStabGenDataXmlType;
 import org.ieee.odm.schema.ExcIEEE1968Type1XmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PSSEExcIEEE1968Type1Mapper extends BasePSSEDataRawMapper{
+    // Add a logger instance
+    private static final Logger log = LoggerFactory.getLogger(PSSEExcIEEE1968Type1Mapper.class.getName());
     
 	public PSSEExcIEEE1968Type1Mapper(PsseVersion ver) {
 		super(ver);
@@ -52,38 +55,33 @@ public class PSSEExcIEEE1968Type1Mapper extends BasePSSEDataRawMapper{
 	    	throw new ODMException(" Exciter of machine  : Id"+
 		             genId+" @ Bus"+i+"is not a IEEET1 type");
 	    }
-
-	   DStabBusXmlType busXml = parser.getBus(busId);
-	   if(busXml !=null){ 
-		   DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
-		   if(dstabGenData!=null){
-			   ExcIEEE1968Type1XmlType exc = DStabParserHelper.createExcIEEE1968Type1XmlType(dstabGenData);
-			   
-			   exc.setDesc(dataParser.getValue("Type"));
-			   exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
-			   exc.setKA(dataParser.getDouble("KA"));
-			   
-			   exc.setTA(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TA")));
-			   exc.setVRMAX(dataParser.getDouble("VRMAX"));
-			   exc.setVRMIN(dataParser.getDouble("VRMIN"));
-			   
-			   exc.setKE(dataParser.getDouble("KE"));
-			   exc.setTE(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TE")));
-			   
-			   exc.setKF(dataParser.getDouble("KF"));
-			   exc.setTF(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TF")));
-			   
-			   exc.setE1(dataParser.getDouble("E1"));
-			   exc.setSE1(dataParser.getDouble("SE(E1)"));
-			   exc.setE2(dataParser.getDouble("E2"));
-			   exc.setSE2(dataParser.getDouble("SE(E2)"));
-		   }else{
-			   ODMLogger.getLogger().severe("Dynamic model for generator # "+genId +" is not found in Bus #"+busId);
-		   }
-		}
-		else{
-		   ODMLogger.getLogger().severe("Bus is not found in Bus #"+busId);
-		}
+	    DStabBusXmlType busXml = parser.getBus(busId);
+	    if(busXml !=null){ 
+	        DStabGenDataXmlType dstabGenData = DStabParserHelper.getDStabContritueGen(busXml, genId);
+	        if(dstabGenData!=null){
+	            ExcIEEE1968Type1XmlType exc = DStabParserHelper.createExcIEEE1968Type1XmlType(dstabGenData);
+	            exc.setDesc(dataParser.getValue("Type"));
+	            exc.setTR(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TR")));
+	            exc.setKA(dataParser.getDouble("KA"));
+	            exc.setTA(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TA")));
+	            exc.setVRMAX(dataParser.getDouble("VRMAX"));
+	            exc.setVRMIN(dataParser.getDouble("VRMIN"));
+	            exc.setKE(dataParser.getDouble("KE"));
+	            exc.setTE(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TE")));
+	            exc.setKF(dataParser.getDouble("KF"));
+	            exc.setTF(DStabDataSetter.createTimeConstSec(dataParser.getDouble("TF")));
+	            exc.setE1(dataParser.getDouble("E1"));
+	            exc.setSE1(dataParser.getDouble("SE(E1)"));
+	            exc.setE2(dataParser.getDouble("E2"));
+	            exc.setSE2(dataParser.getDouble("SE(E2)"));
+	        }else{
+	            // Use logger style as in BPADynamicExciterRecord
+	            log.error("Dynamic model for generator # {} is not found in Bus #{}", genId, busId);
+	        }
+	    }
+	    else{
+	        log.error("Bus is not found in Bus #{}", busId);
+	    }
 	}
 
 }

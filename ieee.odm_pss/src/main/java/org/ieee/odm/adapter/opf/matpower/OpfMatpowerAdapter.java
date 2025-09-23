@@ -7,7 +7,6 @@ import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfParserHelper;
@@ -37,8 +36,11 @@ import org.ieee.odm.schema.OriginalDataFormatEnumType;
 import org.ieee.odm.schema.VoltageUnitType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OpfMatpowerAdapter extends AbstractODMAdapter {
+    private static final Logger log = LoggerFactory.getLogger(OpfMatpowerAdapter.class);
 
 	private static final int BusData = 1;
 	private static final int BranchData = 2;
@@ -103,28 +105,24 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 							dataType = 0;
 					} else if (str.startsWith("mpc.bus")) {
 						dataType = BusData;
-						ODMLogger.getLogger().fine("load bus data");
+						log.debug("load bus data");
 					} else if (str.trim().split("=")[0].trim().equals(
-							("mpc.gen"))) {
+								("mpc.gen"))) {
 						dataType = GenData;
-						ODMLogger.getLogger().fine("load branch data");
+						log.debug("load branch data");
 					} else if (str.startsWith("mpc.branch")) {
 						dataType = BranchData;
-						// baseCaseNet.addNewLossZoneList();
-						ODMLogger.getLogger().fine("load loss zone data");
+						log.debug("load loss zone data");
 					} else if (str.startsWith("mpc.area")) {
 						dataType = AreaData;
-						// baseCaseNet.addNewInterchangeList();
-						ODMLogger.getLogger().fine("load interchange data");
-
+						log.debug("load interchange data");
 					} else if (str.trim().split("=")[0].trim().equals(
-							("mpc.gencost"))) {
+								("mpc.gencost"))) {
 						dataType = GencostData;
-						// baseCaseNet.addNewTieLineList();
-						ODMLogger.getLogger().fine("load tieline data");
+						log.debug("load tieline data");
 					}
 				} catch (final Exception e) {
-					ODMLogger.getLogger().severe(e.toString() + "\n" + str);
+					log.error(e.toString() + "\n" + str);
 				}
 			}
 		} while (str != null);
@@ -145,7 +143,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		st.nextToken(); // mpc
 		st.nextToken(); // =
 		final String id = st.nextToken().toString();
-		ODMLogger.getLogger().fine("fileName: " + id);
+		log.debug("fileName: " + id);
 		baseCaseNet.setId("Opf_from_Matpower_" + id);
 	}
 
@@ -157,7 +155,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		st.nextToken(); // =
 		final String basemva = st.nextToken().toString();
 		double baseMva = str2d(basemva);
-		ODMLogger.getLogger().fine("baseMva: " + baseMva);
+		log.debug("baseMva: " + baseMva);
 		baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(baseMva));
 	}
 
@@ -200,7 +198,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 			return;
 		}
 
-		ODMLogger.getLogger().fine("Bus data loaded, id: " + busId);
+		log.debug("Bus data loaded, id: " + busId);
 
 		aclfBus.setNumber(new Long(s[0]));
 
@@ -322,9 +320,7 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		int np = str2i(s[3]);
 		if (type == 2) {
 			if (np > 3) {
-				ODMLogger
-						.getLogger()
-						.severe("Polynomial gen cost function with order higher than 2 is not supported!");
+				log.error("Polynomial gen cost function with order higher than 2 is not supported!");
 				return;
 			}
 			incCost.setCostModel(CostModelEnumType.QUADRATIC_MODEL);

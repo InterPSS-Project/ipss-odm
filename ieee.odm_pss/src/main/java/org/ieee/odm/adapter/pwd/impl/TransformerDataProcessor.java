@@ -1,9 +1,9 @@
 package org.ieee.odm.adapter.pwd.impl;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
+
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
@@ -36,6 +36,8 @@ import org.ieee.odm.schema.XformerZTableXmlType.XformerZTableItem.Lookup;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import org.ieee.odm.schema.YUnitType;
 import org.ieee.odm.schema.ZUnitType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Transformer control data processor. It assumes that the basic load flow 
@@ -45,6 +47,9 @@ import org.ieee.odm.schema.ZUnitType;
  *
  */
 public class TransformerDataProcessor extends InputLineStringParser  {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(TransformerDataProcessor.class.getName());
+	
 	private enum XfrCtrlTargetType{Midddle_Of_Range,MaxMin};
 	private enum XfrType{Fixed, LTC, Mvar,Phase};
 	
@@ -323,7 +328,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 								.getBaseVoltage().getValue(), fromBusRec
 								.getBaseVoltage().getUnit());
 					} else {
-						ODMLogger.getLogger().severe(
+						log.error(
 								"Error: fromBusRecord and/or toBusRecord cannot be found, fromId, toId: "
 										+ fromBusId + ", " + toBusId);
 					}
@@ -347,7 +352,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 								.getBaseVoltage().getValue(), fromBusRec
 								.getBaseVoltage().getUnit());
 					} else {
-						ODMLogger.getLogger().severe(
+						log.error(
 								"Error: fromBusRecord and/or toBusRecord cannot be found, fromId, toId: "
 										+ fromBusId + ", " + toBusId);
 					}
@@ -482,7 +487,7 @@ public class TransformerDataProcessor extends InputLineStringParser  {
 		  			else if (regBusId.equals(BaseJaxbHelper.getRecId(xfr.getToBus())))
 		  				vAdjData.setAdjBusLocation(TapAdjustBusLocationEnumType.TO_BUS);
 		  			else {
-		  				ODMLogger.getLogger().warning("Cannot decide xfr tap control bus location: " + xfr.getId());
+		  				log.warn("Cannot decide xfr tap control bus location: " + xfr.getId());
 		  				tapAdj.setOffLine(true);
 		  			}
 		  		}

@@ -28,6 +28,7 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IODMAdapter;
+import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.ucte.mapper.UCTEExPowerDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTELineDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTENodeDataMapper;
@@ -35,12 +36,13 @@ import org.ieee.odm.adapter.ucte.mapper.UCTEXfrAdjustDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTEXfrDataMapper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
 	UCTE data exchange format for load flow and three phase short circuit studies (UCTE-DEF)
@@ -48,6 +50,9 @@ import org.ieee.odm.schema.OriginalDataFormatEnumType;
 */
 
 public class UCTE_DEFAdapter extends AbstractODMAdapter {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
+	
 	public final static String PsXfrType_ASYM = "ASYM"; 
 
 	private enum RecType {Comment, BaseVoltage, Node, Line, Xfr2W, Xfr2WReg, Xfr2WLookup, ExPower, NotDefined};
@@ -165,7 +170,7 @@ public class UCTE_DEFAdapter extends AbstractODMAdapter {
      * ##C section
      */
     private boolean processCommentRecord(String str, LoadflowNetXmlType xmlBaseNet) {
-    	ODMLogger.getLogger().fine("Comment: " + str);
+    	log.debug("Comment: " + str);
 		// there is no need to do anything to the comment lines
     	return true;
     }
@@ -174,8 +179,8 @@ public class UCTE_DEFAdapter extends AbstractODMAdapter {
      * ##TT section
      */
     private void processXfr2LookupRecord(String str, LoadflowNetXmlType xmlBaseNet) {
-    	ODMLogger.getLogger().fine("Xfr 2W Desc Record: " + str);
-    	ODMLogger.getLogger().severe("##TT not implemented yet. Contact support@interpss.org for more info");
+    	log.debug("Xfr 2W Desc Record: " + str);
+    	log.error("##TT not implemented yet. Contact support@interpss.org for more info");
 		return;
     }
 }

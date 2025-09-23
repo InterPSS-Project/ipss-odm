@@ -5,8 +5,9 @@ import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.pwd.impl.PWDHelper;
 import org.ieee.odm.common.IFileReader;
 import org.ieee.odm.common.ODMException;
-import org.ieee.odm.common.ODMLogger;
 import org.ieee.odm.model.IODMModelParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
  /**
   * Abstract PowerWorld Adapter implementation
@@ -16,6 +17,9 @@ import org.ieee.odm.model.IODMModelParser;
   * 
   */
 public abstract class AbstractPowerWorldAdapter extends AbstractODMAdapter {
+	// Add a logger instance
+	private static final Logger log = LoggerFactory.getLogger(AbstractPowerWorldAdapter.class.getName());
+	
 	public  static final String Token_Data="DATA";
 	public  static final String Token_Bus="BUS";
 	public  static final String Token_Load="LOAD";
@@ -95,7 +99,7 @@ public abstract class AbstractPowerWorldAdapter extends AbstractODMAdapter {
 	
 	@Override
 	protected IODMModelParser parseInputFile(NetType type, IFileReader[] din, String encoding) {
-		ODMLogger.getLogger().severe("Method not implemented");
+		log.error("Method not implemented");
 		return null;
 	}	
 }
