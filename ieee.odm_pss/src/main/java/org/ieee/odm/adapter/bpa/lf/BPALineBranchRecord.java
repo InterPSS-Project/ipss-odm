@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 
 public class BPALineBranchRecord {
     // Add a logger instance following BPADynamicExciterRecord style
-    private static final Logger log = LoggerFactory.getLogger(BPALineBranchRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPALineBranchRecord.class);
 	public void processBranchData(final String str,	BaseAclfModelParser<? extends NetworkXmlType> parser)  throws ODMException {	
 		final double baseMVA = parser.getNet().getBasePower().getValue();
 		// symmetry line data

@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEXfrZeroSeqDataMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEXfrZeroSeqDataMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEXfrZeroSeqDataMapper.class);
 	
 	public PSSEXfrZeroSeqDataMapper(PsseVersion ver) {
 		super(ver);

@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 
 public class BPANetRecord {
     // Add a logger instance following BPADynamicExciterRecord style
-    private static final Logger log = LoggerFactory.getLogger(BPANetRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPANetRecord.class);
 	/*
 	 *   Network data
 	 *   ============ 

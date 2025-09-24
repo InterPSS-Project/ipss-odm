@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 
 public class BPADynamicFaultOperationRecord {
 	// Add a logger instance
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicFaultOperationRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicFaultOperationRecord.class);
 	
 	public static void processFaultOperationData(String str, DStabModelParser parser ) throws ODMException { 
 		// TODO: Get: what is the default value for mode, in case mode field is not defined?

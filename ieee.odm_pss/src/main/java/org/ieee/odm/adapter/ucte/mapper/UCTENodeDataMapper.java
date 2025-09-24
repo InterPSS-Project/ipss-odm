@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 public class UCTENodeDataMapper extends BaseUCTEDataMapper {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(UCTENodeDataMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(UCTENodeDataMapper.class);
 	
 	private String isoId;
 	public void setIsoId(String id) { this.isoId = id; }

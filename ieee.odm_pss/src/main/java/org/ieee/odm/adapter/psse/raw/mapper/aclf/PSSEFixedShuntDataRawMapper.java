@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEFixedShuntDataRawMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEFixedShuntDataRawMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEFixedShuntDataRawMapper.class);
 	
 	public PSSEFixedShuntDataRawMapper(PsseVersion ver) {
 		super(ver);

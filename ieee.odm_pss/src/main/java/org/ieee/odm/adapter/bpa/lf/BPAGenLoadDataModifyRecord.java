@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BPAGenLoadDataModifyRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPAGenLoadDataModifyRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPAGenLoadDataModifyRecord.class);
 	/*
 	 * only AC Bus will be considered for generation and/or load data modification.
 	 */

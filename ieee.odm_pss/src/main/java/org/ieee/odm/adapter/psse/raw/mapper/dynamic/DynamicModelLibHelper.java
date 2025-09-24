@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class DynamicModelLibHelper {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(DynamicModelLibHelper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(DynamicModelLibHelper.class);
 	
 	//only supported model data
 	StringBuffer supportedDynModelData = new StringBuffer();

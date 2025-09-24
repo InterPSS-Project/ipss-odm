@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicTurbineGovernorRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicTurbineGovernorRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicTurbineGovernorRecord.class);
 	
 	public static void processTurbineGovernorData(String str, DStabModelParser parser) throws ODMException {
     	final String strAry[]=getTGDataFields(str);

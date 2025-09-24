@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicPSSRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicPSSRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicPSSRecord.class);
 	
 	public static void processPSSData(String str, DStabModelParser parser) throws ODMException {
     	final String[] strAry= getPSSDataFields(str);

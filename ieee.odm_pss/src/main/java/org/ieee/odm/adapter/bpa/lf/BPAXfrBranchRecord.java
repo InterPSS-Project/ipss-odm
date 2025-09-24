@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
 
 public class BPAXfrBranchRecord {
     // Add a logger instance following BPADynamicExciterRecord style
-    private static final Logger log = LoggerFactory.getLogger(BPAXfrBranchRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPAXfrBranchRecord.class);
 	static final int transformer=1;
 	static final int phaseShiftXfr=2;
 	static final int transformerAndPhaseShiftXfr=3;

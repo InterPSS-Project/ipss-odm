@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicSequenceRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicSequenceRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicSequenceRecord.class);
 	public static void processSequenceData(String str, DStabModelParser parser) throws ODMException {				
 		
 		final String strAry[]=getSequenceDataFields(str);		

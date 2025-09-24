@@ -33,7 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BPADynamicRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicRecord.class);
 	private final static int header=1;
 	private final static int faultOperation=2;
 	private final static int generatorData=3;

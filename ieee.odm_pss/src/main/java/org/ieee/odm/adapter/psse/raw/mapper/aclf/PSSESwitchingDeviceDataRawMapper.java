@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSESwitchingDeviceDataRawMapper extends BasePSSEDataRawMapper {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSESwitchingDeviceDataRawMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSESwitchingDeviceDataRawMapper.class);
 	
     public PSSESwitchingDeviceDataRawMapper(PsseVersion ver) {
         super(ver);

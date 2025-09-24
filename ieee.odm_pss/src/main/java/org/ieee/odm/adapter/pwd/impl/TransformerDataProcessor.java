@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TransformerDataProcessor extends InputLineStringParser  {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(TransformerDataProcessor.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(TransformerDataProcessor.class);
 	
 	private enum XfrCtrlTargetType{Midddle_Of_Range,MaxMin};
 	private enum XfrType{Fixed, LTC, Mvar,Phase};

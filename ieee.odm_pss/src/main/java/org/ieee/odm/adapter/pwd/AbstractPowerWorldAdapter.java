@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
   */
 public abstract class AbstractPowerWorldAdapter extends AbstractODMAdapter {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(AbstractPowerWorldAdapter.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(AbstractPowerWorldAdapter.class);
 	
 	public  static final String Token_Data="DATA";
 	public  static final String Token_Bus="BUS";

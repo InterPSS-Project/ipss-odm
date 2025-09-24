@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
   */
 public class BranchDataProcessor extends InputLineStringParser  {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BranchDataProcessor.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(BranchDataProcessor.class);
 	
 	private enum XfrCtrlTargetType{Midddle_Of_Range,MaxMin};
 	private enum XfrType{Fixed, LTC, Mvar,Phase};

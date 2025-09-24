@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class BPADynamicGeneratorRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicGeneratorRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicGeneratorRecord.class);
 	
 	private static List<String> subTransBusIdList=new ArrayList<String>();
 	private static Hashtable<String,Double>SubTransientData =new Hashtable<String,Double>();

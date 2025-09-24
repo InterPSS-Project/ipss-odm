@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public class PWDHelper {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PWDHelper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PWDHelper.class);
 	
 	/**
 	 * Check whether the Argument Fields is completed yet, since it is

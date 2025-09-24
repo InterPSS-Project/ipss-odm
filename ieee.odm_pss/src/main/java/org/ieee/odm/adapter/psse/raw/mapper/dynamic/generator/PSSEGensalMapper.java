@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEGensalMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEGensalMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEGensalMapper.class);
 	
 	public PSSEGensalMapper(PsseVersion ver) {
 		super(ver);

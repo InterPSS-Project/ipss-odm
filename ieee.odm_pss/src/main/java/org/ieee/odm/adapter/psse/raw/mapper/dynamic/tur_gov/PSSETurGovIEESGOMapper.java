@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSETurGovIEESGOMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSETurGovIEESGOMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSETurGovIEESGOMapper.class);
 	
 	public PSSETurGovIEESGOMapper(PsseVersion ver) {
 		super(ver);

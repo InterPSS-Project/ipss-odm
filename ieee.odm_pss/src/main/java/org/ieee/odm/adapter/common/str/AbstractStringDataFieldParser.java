@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractStringDataFieldParser extends BaseInputLineStringParser {
     // Add a logger instance following BPADynamicExciterRecord style
-    private static final Logger log = LoggerFactory.getLogger(AbstractStringDataFieldParser.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(AbstractStringDataFieldParser.class);
 	/**
 	 * constructor
 	 */

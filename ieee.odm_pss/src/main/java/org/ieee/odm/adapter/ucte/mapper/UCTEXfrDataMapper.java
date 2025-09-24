@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 
 public class UCTEXfrDataMapper extends BaseUCTEDataMapper {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(UCTEXfrDataMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(UCTEXfrDataMapper.class);
 	
 	public UCTEXfrDataMapper() {
 		this.dataParser = new UCTEXfrDataParser();

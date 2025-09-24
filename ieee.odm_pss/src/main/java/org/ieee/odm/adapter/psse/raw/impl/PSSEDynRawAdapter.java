@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEDynRawAdapter extends PSSEAcscRawAdapter {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEDynRawAdapter.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEDynRawAdapter.class);
 	
     DynamicModelLibHelper dynLibHelper = new DynamicModelLibHelper();
 	PSSEDynGeneratorMapper generatorMapper =null; 

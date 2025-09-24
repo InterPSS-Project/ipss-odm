@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InputLineStringParser extends BaseInputLineStringParser {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(InputLineStringParser.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(InputLineStringParser.class);
 	
 	//private List<String> dataListx;
 	

@@ -45,7 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BPADynamicLoadCharacteristicRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPADynamicLoadCharacteristicRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPADynamicLoadCharacteristicRecord.class);
 	
 public static void processLoadCharacteristicData(String str, DStabModelParser parser) throws ODMException {
 	final String[] strAry= getLoadDataFields(str); 	

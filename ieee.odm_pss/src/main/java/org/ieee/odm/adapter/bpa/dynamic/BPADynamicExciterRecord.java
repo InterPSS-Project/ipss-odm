@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
 
 public class BPADynamicExciterRecord {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class);
 	
 	private final static int EA=1;
 	private final static int EC=2;

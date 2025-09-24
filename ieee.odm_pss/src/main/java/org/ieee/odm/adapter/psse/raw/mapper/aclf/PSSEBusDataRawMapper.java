@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEBusDataRawMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEBusDataRawMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEBusDataRawMapper.class);
 	
 	public PSSEBusDataRawMapper(PsseVersion ver) {
 		super(ver);

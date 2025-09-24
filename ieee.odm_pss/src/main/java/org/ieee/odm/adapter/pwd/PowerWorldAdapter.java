@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
   */
 public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PowerWorldAdapter.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PowerWorldAdapter.class);
 	
     //Define data specifier, two options defined in PWD, CSV or Blank
 	public static enum FileTypeSpecifier{CSV,Blank};

@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 
 public class GEXformerDataMapper extends BaseGEDataMapper {
     // Add a logger instance following BPADynamicExciterRecord style
-    private static final Logger log = LoggerFactory.getLogger(GEXformerDataMapper.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(GEXformerDataMapper.class);
 	public GEXformerDataMapper(GePslfAdapter.Version ver)  {
 		super(ver);
 		this.dataParser = new GEXfrDataParser();

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSETurGovIEEE1981Type3Mapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSETurGovIEEE1981Type3Mapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSETurGovIEEE1981Type3Mapper.class);
 	
 	public PSSETurGovIEEE1981Type3Mapper(PsseVersion ver) {
 		super(ver);

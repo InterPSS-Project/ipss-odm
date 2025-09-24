@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEGentpjMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEGentpjMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEGentpjMapper.class);
 	
 	public PSSEGentpjMapper(PsseVersion ver) {
 		super(ver);

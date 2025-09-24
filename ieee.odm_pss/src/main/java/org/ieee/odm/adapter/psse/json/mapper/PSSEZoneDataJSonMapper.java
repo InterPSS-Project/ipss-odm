@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEZoneDataJSonMapper extends BasePSSEDataJSonMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSEZoneDataJSonMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSEZoneDataJSonMapper.class);
 	
 	/**
 	 * Constructor

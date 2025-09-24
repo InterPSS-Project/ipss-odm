@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
   */
 public class BusDataProcessor extends InputLineStringParser {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BusDataProcessor.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(BusDataProcessor.class);
 	
 	public static long swingBusNum=-1;
 	private boolean isSubDataSection=false;

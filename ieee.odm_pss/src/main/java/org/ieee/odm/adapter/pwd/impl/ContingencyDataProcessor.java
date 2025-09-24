@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ContingencyDataProcessor extends InputLineStringParser{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class);
 	
 	private NetModificationXmlType netModList=null;
 	private NetModificationHelper helper=null;

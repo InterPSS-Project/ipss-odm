@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(PSSELoadDataRawMapper.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(PSSELoadDataRawMapper.class);
 	
 	public PSSELoadDataRawMapper(PsseVersion ver) {
 		super(ver);

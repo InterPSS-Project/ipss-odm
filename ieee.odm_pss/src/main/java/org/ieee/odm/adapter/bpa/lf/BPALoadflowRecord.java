@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class BPALoadflowRecord {
-    private static final Logger log = LoggerFactory.getLogger(BPALoadflowRecord.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(BPALoadflowRecord.class);
 	public final static String Token_CaseType = "Type";
 	public final static String Token_ProjectName = "Original Project Name";
 	public final static String Token_CaseId = "Case Identification";

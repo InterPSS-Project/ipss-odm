@@ -62,7 +62,7 @@ public class BPABusRecord {
 	private static long busCnt = 0;
 	private static Hashtable<String,String> busIdLookupTable = null;
 	
-	private static final Logger log = LoggerFactory.getLogger(BPABusRecord.class.getName());
+	private static final Logger log = LoggerFactory.getLogger(BPABusRecord.class);
 	
 	/**
 	 * reset the bus count and lookup table
