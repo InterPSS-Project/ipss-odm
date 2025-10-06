@@ -97,7 +97,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	@Override public boolean parseInputStream(InputStream stream, String encoding) {
 		try {
 			final BufferedReader din = new BufferedReader(new InputStreamReader(stream));
-			log.info("Parse input stream and create the parser object");
+			log.debug("Parse input stream and create the parser object");
 			try {
 				this.odmParser = parseInputFile(din, encoding);
 			} catch (IOException e) {

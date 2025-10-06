@@ -302,7 +302,7 @@ import org.slf4j.LoggerFactory;
 				 if (isEndRecLine(line)) {
 					 assert line.toUpperCase().contains("END OF SYSTEM-WIDE DATA"); 
 					 headerProcessed = true;
-					 log.info("PSS/E System record processed");
+					 log.debug("PSS/E System record processed");
 				 }
 				 lineNo++;
 			 }
@@ -314,7 +314,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF BUS DATA"); 
 			 busProcessed = true;
-			 log.info("PSS/E Bus record processed");
+			 log.debug("PSS/E Bus record processed");
 			 this.elemCntStr += "Bus record " + busCnt +"\n";
 		 }	 
 		 else {
@@ -327,7 +327,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF LOAD DATA"); 
 			 loadProcessed = true;
-			 log.info("PSS/E Load record processed");
+			 log.debug("PSS/E Load record processed");
 			 this.elemCntStr += "Load record " + loadCnt +"\n";
 		 }
 		 else {
@@ -340,7 +340,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF VOLTAGE DROOP CONTROL DATA"); 
 			 voltDroopCtrlProcessed = true;
-			 log.info("PSS/E voltage droop control record processed");
+			 log.debug("PSS/E voltage droop control record processed");
 			 this.elemCntStr += "Voltage droop control record " + voltDroopCnt +"\n";
 		 }
 		 else {
@@ -353,7 +353,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF GENERATOR DATA"); 
 			 genProcessed = true;
-			 log.info("PSS/E Gen record processed");
+			 log.debug("PSS/E Gen record processed");
 			 this.elemCntStr += "Gen record " + genCnt +"\n";
 		 }
 		 else {
@@ -366,7 +366,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF SWITCHING DEVICE RATING SET"); 
 			 switchingDeviceRatingProcessed = true;
-			 log.info("PSS/E switching device rating set record processed");
+			 log.debug("PSS/E switching device rating set record processed");
 			 this.elemCntStr += "Switching device rating set record " + switchingDeviceRatingCnt +"\n";
 		 }
 		 else {
@@ -379,7 +379,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF FIXED SHUNT DATA"); 
 			 fixedShuntProcessed = true;
-			 log.info("PSS/E Fixed Shunt record processed");
+			 log.debug("PSS/E Fixed Shunt record processed");
 			 this.elemCntStr += "Fixed shunt record " + fixedShuntCnt +"\n";
 		 }
 		 else {
@@ -392,7 +392,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert (lineStr.toUpperCase().contains("END") && lineStr.toUpperCase().contains("BRANCH")); 
 			 lineProcessed = true;
-			 log.info("PSS/E Line record processed");
+			 log.debug("PSS/E Line record processed");
 			 this.elemCntStr += "Line record " + lineCnt +"\n";
 		 }
 		 else {
@@ -405,7 +405,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF SYSTEM SWITCHING"); 
 			 switchingDeviceProcessed = true;
-			 log.info("PSS/E system switching device record processed");
+			 log.debug("PSS/E system switching device record processed");
 			 this.elemCntStr += "System Switching Device record " + switchingDeviceCnt +"\n";
 		 }
 		 else {
@@ -419,7 +419,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF TRANSFORMER DATA"); 
 			 xfrProcessed = true;
-			 log.info("PSS/E Xfr record processed");
+			 log.debug("PSS/E Xfr record processed");
 			 this.elemCntStr += "2W Xfr record " + xfrCnt +"\n";
 			 this.elemCntStr += "3W Xfr record " + xfr3WCnt +"\n";
 		 }
@@ -442,7 +442,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF AREA"); 
 			 areaInterProcessed = true;
-			 log.info("PSS/E AreaInterchange record processed");
+			 log.debug("PSS/E AreaInterchange record processed");
 			 this.elemCntStr += "Area interchange record " + areaInterCnt +"\n";
 		 }
 		 else {
@@ -455,7 +455,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF ZONE DATA"); 
 			 zoneProcessed = true;
-			 log.info("PSS/E Zone record processed");
+			 log.debug("PSS/E Zone record processed");
 			 this.elemCntStr += "Zone record " + zoneCnt +"\n";
 		 }
 		 else {
@@ -468,7 +468,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF OWNER DATA"); 
 			 ownerProcessed = true;
-			 log.info("PSS/E Owner record processed");
+			 log.debug("PSS/E Owner record processed");
 			 this.elemCntStr += "Owner record " + ownerCnt +"\n";
 		 }
 		 else {
@@ -481,7 +481,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF TWO-TERMINAL"); 
 			 dcLine2TProcessed = true;
-			 log.info("PSS/E DC line record processed");
+			 log.debug("PSS/E DC line record processed");
 			 this.elemCntStr += "2T DC line record " + dcLineCnt +"\n";
 		 }
 		 else {
@@ -497,7 +497,7 @@ import org.slf4j.LoggerFactory;
 			 assert (lineStr.toUpperCase().contains("END OF VSC DC LINE DATA") || 
 					 lineStr.toUpperCase().contains("END OF VOLTAGE SOURCE CONVERTER DATA")); 
 			 vscDcLineProcessed = true;
-			 log.info("PSS/E vscDcLine record processed");
+			 log.debug("PSS/E vscDcLine record processed");
 			 this.elemCntStr += "vscDcLine record " + vscDcLineCnt +"\n";
 		 }
 		 else {
@@ -512,7 +512,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF MULTI-TERMINAL"); 
 			 dcLineMTProcessed = true;
-			 log.info("PSS/E multi terminal DC Line record processed");
+			 log.debug("PSS/E multi terminal DC Line record processed");
 			 this.elemCntStr += "MT DC line record " + mtDcLineCnt +"\n";
 		 }
 		 else {
@@ -526,7 +526,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF FACTS"); 
 			 factsProcessed = true;
-			 log.info("PSS/E FACTS record processed");
+			 log.debug("PSS/E FACTS record processed");
 			 this.elemCntStr += "Facts record " + factsCnt +"\n";
 		 }
 		 else { 
@@ -539,7 +539,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF MULTI-SECTION LINE DATA"); 
 			 multiSectionLineGroupProcessed = true;
-			 log.info("PSS/E multi section Line Group record processed");
+			 log.debug("PSS/E multi section Line Group record processed");
 			 this.elemCntStr += "MultiSec record " + multiSecCnt +"\n";
 		 }
 		 else {
@@ -552,7 +552,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF SWITCHED SHUNT DATA"); 
 			 switchedShuntProcessed = true;
-			 log.info("PSS/E switched shunt record processed");
+			 log.debug("PSS/E switched shunt record processed");
 			 this.elemCntStr += "Switched Shunt record " + switchedShuntCnt +"\n";
 		 }
 		 else {
@@ -565,7 +565,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert (lineStr.toUpperCase().contains("END") && lineStr.toUpperCase().contains("CORR")); 
 			 xfrZCorrectionProcessed = true;
-			 log.info("PSS/E Xfr table record processed");
+			 log.debug("PSS/E Xfr table record processed");
 			 this.elemCntStr += "Xfr table record " + xfrZTableCnt +"\n";
 		 }
 		 else {
@@ -635,7 +635,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 assert lineStr.toUpperCase().contains("END OF INTER-AREA") || lineStr.toUpperCase().contains("END OF INTERAREA"); 
 			 interareaTransferProcessed = true;
-			 log.info("PSS/E Interarea Transfer record processed");
+			 log.debug("PSS/E Interarea Transfer record processed");
 			 this.elemCntStr += "Interarea transfer record " + interTransCnt +"\n";
 		 }
 		 else {
@@ -648,7 +648,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 if(lineStr.toUpperCase().contains("END OF GNE")) { 
 				 gneDeviceProcessed = true;
-				 log.info("PSS/E GNE record processed");
+				 log.debug("PSS/E GNE record processed");
 			 }
 			 this.elemCntStr += "Load record " + loadCnt +"\n";
 		 }
@@ -661,7 +661,7 @@ import org.slf4j.LoggerFactory;
 		 if (isEndRecLine(lineStr)) {
 			 if(lineStr.toUpperCase().contains("END OF INDUCTION MACHINE DATA")){
 				indMotorProcessed = true;
-				log.info("PSS/E INDUCTION MACHINE record processed");
+				log.debug("PSS/E INDUCTION MACHINE record processed");
 			 }
 			 this.elemCntStr += "Load record " + loadCnt +"\n";
 		 }
