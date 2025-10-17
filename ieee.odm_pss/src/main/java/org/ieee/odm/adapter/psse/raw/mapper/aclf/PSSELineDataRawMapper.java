@@ -27,7 +27,6 @@
   import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.apache.commons.math3.complex.Complex;
-import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSELineDataRawParser;
@@ -48,7 +47,7 @@ import org.slf4j.LoggerFactory;
   
   public class PSSELineDataRawMapper extends BasePSSEDataRawMapper{
 		// Add a logger instance
-		private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class);
+		private static final Logger log = LoggerFactory.getLogger(PSSELineDataRawMapper.class);
   
 	  public PSSELineDataRawMapper(PsseVersion ver) {
 		  super(ver);

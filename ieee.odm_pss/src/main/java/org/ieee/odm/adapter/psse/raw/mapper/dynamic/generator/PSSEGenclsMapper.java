@@ -1,6 +1,5 @@
 package org.ieee.odm.adapter.psse.raw.mapper.dynamic.generator;
 
-import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.BasePSSEDataRawMapper;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class PSSEGenclsMapper extends BasePSSEDataRawMapper{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class);
+	private static final Logger log = LoggerFactory.getLogger(PSSEGenclsMapper.class);
 	
 	public PSSEGenclsMapper(PsseVersion ver) {
 		super(ver);

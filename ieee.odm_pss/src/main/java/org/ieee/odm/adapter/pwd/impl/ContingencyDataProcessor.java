@@ -1,6 +1,5 @@
 package org.ieee.odm.adapter.pwd.impl;
 
-import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency.ContingencyType;
 import org.ieee.odm.common.ODMException;
@@ -27,7 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ContingencyDataProcessor extends InputLineStringParser{
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class);
+	private static final Logger log = LoggerFactory.getLogger(ContingencyDataProcessor.class);
 	
 	private NetModificationXmlType netModList=null;
 	private NetModificationHelper helper=null;

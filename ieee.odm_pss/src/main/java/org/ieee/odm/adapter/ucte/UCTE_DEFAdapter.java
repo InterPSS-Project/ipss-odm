@@ -28,7 +28,6 @@ import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IODMAdapter;
-import org.ieee.odm.adapter.bpa.dynamic.BPADynamicExciterRecord;
 import org.ieee.odm.adapter.ucte.mapper.UCTEExPowerDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTELineDataMapper;
 import org.ieee.odm.adapter.ucte.mapper.UCTENodeDataMapper;
@@ -51,7 +50,7 @@ import org.slf4j.LoggerFactory;
 
 public class UCTE_DEFAdapter extends AbstractODMAdapter {
 	// Add a logger instance
-	private static final Logger log = LoggerFactory.getLogger(BPADynamicExciterRecord.class);
+	private static final Logger log = LoggerFactory.getLogger(UCTE_DEFAdapter.class);
 	
 	public final static String PsXfrType_ASYM = "ASYM"; 
 
