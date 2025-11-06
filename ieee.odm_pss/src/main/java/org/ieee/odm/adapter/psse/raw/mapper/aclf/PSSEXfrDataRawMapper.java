@@ -552,7 +552,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
            		}
           	}
     	    else {//COD =3 phase shifting adjustment
-    	    	
+    	    	// TODO hand1e PsXfr3W case
     	    	PSXfrBranchXmlType branchPsXfr = (PSXfrBranchXmlType)branRecXml; 
     	    	AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
     	    	branchPsXfr.setAngleAdjustment(angAdj);
