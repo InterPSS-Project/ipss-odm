@@ -77,6 +77,20 @@ public interface IODMModelParser {
 	boolean isTransmissionLoadflow();
 	
 	/**
+	 * get the input json object
+	 * 
+	 * @return
+	 */
+	<T> T getJsonObject();
+	
+	/**
+	 * get the input json object
+	 * 
+	 * @return
+	 */
+	<T> void setJsonObject(T jsonObj);
+	
+	/**
 	 * get the ODM xml document root StudyCase element
 	 * 
 	 * @return

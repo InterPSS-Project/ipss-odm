@@ -54,8 +54,11 @@ import org.ieee.odm.schema.OriginalDataFormatEnumType;
  *
  */
 public class PSSEAclfJSonAdapter extends BasePSSEJSonAdapter {
+	// PSSE rawx json object
+	//private PSSESchema jsonObj;
+	
 	// PSSE rawx file version number
-	private double fileVerNo;
+	//private double fileVerNo;
 	
 	/**
 	 * Constructor
@@ -70,7 +73,8 @@ public class PSSEAclfJSonAdapter extends BasePSSEJSonAdapter {
 	 * @return
 	 */
     public double getFileVerNo() {
-		return fileVerNo;
+    	PSSESchema jsonObj = this.parser.getJsonObject();
+		return new Double(jsonObj.getGeneral().getVersion());
 	}
 
 	/**
@@ -109,8 +113,9 @@ public class PSSEAclfJSonAdapter extends BasePSSEJSonAdapter {
 		baseCaseNet.setId("Base_Case_from_PSS_E_format");
 
 		PSSESchema jsonObj = din.getJSon(PSSESchema.class);
+		this.parser.setJsonObject(jsonObj);
 		
-		this.fileVerNo = new Double(jsonObj.getGeneral().getVersion());
+		//this.fileVerNo = new Double(jsonObj.getGeneral().getVersion());
 		
 		PSSESchema.Field_Data caseid = jsonObj.getNetwork().getCaseid();
 		PSSECaseDataJSonMapper caseMapper = new PSSECaseDataJSonMapper(caseid.getFields());

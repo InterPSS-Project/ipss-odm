@@ -24,6 +24,9 @@
 
 package org.ieee.odm.model;
 
+import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
+import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,13 +42,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
-import static org.ieee.odm.common.ODMModelContansts.ODM_Schema_NS;
 import org.ieee.odm.model.base.BaseJaxbHelper;
 import org.ieee.odm.model.base.ODMModelStringUtil;
 import org.ieee.odm.schema.AnalysisCategoryEnumType;
@@ -66,6 +64,8 @@ import org.ieee.odm.schema.PSXfrBranchXmlType;
 import org.ieee.odm.schema.StudyCaseXmlType;
 import org.ieee.odm.schema.StudyScenarioXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract Xml parser implementation as the base for all the IEEE DOM schema parsers. 
@@ -76,6 +76,8 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
     private static final Logger log = LoggerFactory.getLogger(AbstractModelParser.class);
 	/** input text file encoding */
 	protected String encoding = IODMModelParser.DefaultEncoding;
+	
+	private Object jsonObj;
 	
 	/** bus and branch object cache for fast lookup. */ 
 	protected HashMap<String,IDRecordXmlType> objectCache = null;
@@ -194,10 +196,23 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 		return true;
 	}
 	
+	
+	
 	/*
 	 * 	Abstract functions
 	 * 	================== 
 	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getJsonObject() {
+		return (T)this.jsonObj;
+	}
+	
+	@Override
+	public <T> void setJsonObject(T jsonObj) {
+		this.jsonObj = jsonObj;;
+	}
 
 	/**
 	 * create BaseCase object, which should be a child of NetworkXmlType, for
