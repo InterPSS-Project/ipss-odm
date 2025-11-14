@@ -2,6 +2,8 @@ package org.ieee.odm.adapter.psse.bean;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 public class PSSESchema {
@@ -15,7 +17,12 @@ public class PSSESchema {
     public void setNetwork(Network network) { this.network = network; }
 	@Override
 	public String toString() {
-		return "PSSESchema [general=" + general + ", network=" + network + "]";
+		//return "PSSESchema [general=" + general + ", network=" + network + "]";
+		
+		Gson gson = new GsonBuilder()
+		        .serializeSpecialFloatingPointValues()
+		        .create();
+    	return gson.toJson(this);
 	}
 
 public static class General {
@@ -383,7 +390,11 @@ public static class Field_Data {
     public String[] getFieldAry() { return this.fields.toArray(new String[] {}); }
 	@Override
 	public String toString() {
-		return "Field_Data [fields=" + fields + ", data=" + data + "]";
+		//return "Field_Data [fields=" + fields + ", data=" + data + "]";
+		Gson gson = new GsonBuilder()
+		        .serializeSpecialFloatingPointValues()
+		        .create();
+    	return gson.toJson(this);
 	}
 }
 
