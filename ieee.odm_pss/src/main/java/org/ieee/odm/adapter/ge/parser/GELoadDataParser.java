@@ -29,7 +29,7 @@ import java.util.StringTokenizer;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing GE PSLF load data line string
  * 
  * @author mzhou
  *

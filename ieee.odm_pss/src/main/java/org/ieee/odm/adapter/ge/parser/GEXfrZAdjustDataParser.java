@@ -27,7 +27,7 @@ package org.ieee.odm.adapter.ge.parser;
 import org.ieee.odm.common.ODMException;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Class for processing GE PSLF Xfr Z adjust data line string
  * 
  * @author mzhou
  *

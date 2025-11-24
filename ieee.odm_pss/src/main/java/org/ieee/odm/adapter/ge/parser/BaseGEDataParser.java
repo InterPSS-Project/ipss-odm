@@ -28,7 +28,7 @@ import org.ieee.odm.adapter.common.str.AbstractStringDataFieldParser;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 
 /**
- * Class for processing IEEE CDF bus data line string
+ * Base Class for processing GE PSLF data line string
  * 
  * @author mzhou
  *
