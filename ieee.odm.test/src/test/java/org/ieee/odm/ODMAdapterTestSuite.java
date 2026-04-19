@@ -1,5 +1,6 @@
 package org.ieee.odm;
 
+import org.ieee.odm.aclf.matpower.Matpower_ODMTest;
 import org.ieee.odm.ge_pslf.PSLFCMPLDWDataParserTest;
 import org.ieee.odm.ge_pslf.PSLF_CMPLDW_Mapper_Test;
 import org.ieee.odm.ieeecdf.IEEECDF_ODMTest;
@@ -88,6 +89,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	PWD_XfrControl_Test.class,
 	
 	OpfSample_3Bus_ODMTest.class,
+	Matpower_ODMTest.class,
 	OPF_Matpower_ODMTest.class,
 	ProcessOPFData_ODMTest.class,
 	OpfSample_3Bus_ODMTest_stephen.class,

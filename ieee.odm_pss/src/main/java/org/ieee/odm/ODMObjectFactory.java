@@ -29,7 +29,7 @@ import org.ieee.odm.adapter.bpa.BPAAdapter;
 import org.ieee.odm.adapter.ge.GePslfAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter;
 import org.ieee.odm.adapter.ieeecdf.IeeeCDFAdapter.IEEECDFVersion;
-import org.ieee.odm.adapter.opf.matpower.OpfMatpowerAdapter;
+import org.ieee.odm.adapter.matpower.MatpowerAdapter;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.PSSERawAdapter;
 import org.ieee.odm.adapter.pwd.PWDAdapterForContingency;
@@ -161,7 +161,7 @@ public class ODMObjectFactory {
 			return new PWDAdapterForContingency();
 		
 		else if ( f == ODMFileFormatEnum.MatPower ) 
-			return new OpfMatpowerAdapter();
+            return new MatpowerAdapter();
 		
 		throw new ODMException("Error - unkown ODM file type");
 	}
