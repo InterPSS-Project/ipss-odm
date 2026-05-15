@@ -560,8 +560,8 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends LineBranchXmlType> T createLineBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createLineBranch();
-		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
+		initBranchData(branch);
 		return branch;
 	}
 	
@@ -577,8 +577,8 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends XfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
-		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
+		initBranchData(branch);
 		return branch;
 	
 	}
@@ -596,8 +596,8 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends XfrBranchXmlType> T createXfrBranch(String fBusId, String toBusId, String cirId, String idName) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfrBranch();
-		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId, idName);
+		initBranchData(branch);
 		return branch;
 	
 	}
@@ -616,8 +616,8 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends BaseBranchXmlType> T createXfr3WBranch(String fBusId,String toBusId, String terBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createXfr3WBranch();
-		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, terBusId, cirId);
+		initBranchData(branch);
 		return branch;
 	
 	}
@@ -634,8 +634,8 @@ public abstract class AbstractModelParser<TNetXml extends NetworkXmlType> implem
 	 */
 	public <T extends PSXfrBranchXmlType> T createPSXfrBranch(String fBusId,String toBusId, String cirId) throws ODMException, ODMBranchDuplicationException {
 		T branch = createPSXfrBranch();
-		initBranchData(branch);
 		addBranch2BaseCase(branch, fBusId, toBusId, null, cirId);
+		initBranchData(branch);
 		return branch;
 	}
 	

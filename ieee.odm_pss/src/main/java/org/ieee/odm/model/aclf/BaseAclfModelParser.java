@@ -200,8 +200,8 @@ public class BaseAclfModelParser<TNetXml extends NetworkXmlType> extends Abstrac
 	 */
 	public PSXfr3WBranchXmlType createPSXfr3WBranch(String fromId, String toId, String tertId, String cirId) throws ODMBranchDuplicationException {
 		PSXfr3WBranchXmlType branch = (PSXfr3WBranchXmlType) createPSXfr3WBranch();
-		initBranchData(branch);
 		addBranch2BaseCase(branch, fromId, toId, tertId, cirId);
+		initBranchData(branch);
 		return branch;
 	}
 	
