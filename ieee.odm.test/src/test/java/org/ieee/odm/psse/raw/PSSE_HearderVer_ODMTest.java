@@ -27,6 +27,8 @@ package org.ieee.odm.psse.raw;
 import org.ieee.odm.ODMFileFormatEnum;
 import org.ieee.odm.adapter.psse.PSSEAdapter.PsseVersion;
 import org.ieee.odm.adapter.psse.raw.mapper.aclf.PSSEHeaderDataRawMapper;
+import org.ieee.odm.adapter.psse.raw.parser.aclf.PSSEHeaderDataRawParser;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -37,6 +39,24 @@ public class PSSE_HearderVer_ODMTest {
 		assertTrue(mapper.getVersion("testdata/psse/ver26Header.txt") == ODMFileFormatEnum.PsseV26);
 		assertTrue(mapper.getVersion("testdata/psse/ver29Header.txt") == ODMFileFormatEnum.PsseV30);
 		assertTrue(mapper.getVersion("testdata/psse/ver30Header.txt") == ODMFileFormatEnum.PsseV30);
+	}
+
+	@Test
+	public void testRevWithInlineComment() throws Exception {
+		PSSEHeaderDataRawParser parser = new PSSEHeaderDataRawParser(PsseVersion.PSSE_30);
+		parser.parseFields(new String[] {
+				"0, 100.00, 30 / PSS(tm)E-30 RAW created by rawd30  SUN, OCT 07 2012  11:29",
+				" 00/00/01                      100.0  0    0",
+				" 0"
+		});
+		assertEquals("30", parser.getValue("version"));
+
+		parser.parseFields(new String[] {
+				"0, 100.00, 30/ PSS(tm)E-30 RAW created by rawd30  SUN, OCT 07 2012  11:29",
+				" 00/00/01                      100.0  0    0",
+				" 0"
+		});
+		assertEquals("30", parser.getValue("version"));
 	}
 }
 

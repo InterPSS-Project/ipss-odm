@@ -8,7 +8,7 @@
   <parent>
       <groupId>org.ieee.odm</groupId>
       <artifactId>ieee.odm</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
   </parent>
 
   <artifactId>ieee.odm.schema</artifactId>

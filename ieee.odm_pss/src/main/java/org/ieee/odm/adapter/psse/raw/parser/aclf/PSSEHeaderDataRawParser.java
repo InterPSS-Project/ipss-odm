@@ -115,8 +115,8 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 			}
 			setValue(0, ind);
 
-			setValue(1, st.nextToken().trim());  			   
-			setValue(2, st.nextToken().trim());   // version
+			setValue(1, st.nextToken().trim());
+			setValue(2, normalizeVersionToken(st.nextToken()));   // version
 			if(st.hasMoreTokens())
 			   setValue(3, st.nextToken().trim());
 			if(st.hasMoreTokens())
@@ -132,5 +132,13 @@ VER 26   PARAMETERS INITIALIZED ON 28-Jan-2009 09:56:32 PST
 				setValue(7, lineStr3);
 			}			
 //		}
-  	}
+	}
+
+	private String normalizeVersionToken(String token) {
+		int slashIndex = token.indexOf('/');
+		if (slashIndex != -1) {
+			token = token.substring(0, slashIndex);
+		}
+		return token.trim();
+	}
 }

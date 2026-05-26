@@ -196,13 +196,19 @@
                 }
             }
             
-    // If we find "/" outside quotes, followed by space, remove everything after
-    if (c == '/' && !insideQuotes && i > 0 && !Character.isDigit(str.charAt(i - 1)) && i + 1 < str.length() && str.charAt(i + 1) == ' ') {
-        break; // Stop processing, discard the rest
-    }            result.append(c);
+            if (c == '/' && !insideQuotes && isCommentSlash(str, i)) {
+                break;
+            }
+            result.append(c);
         }
-        
+
         return result.toString();
+    }
+
+    private boolean isCommentSlash(String str, int index) {
+        boolean precededByWhitespace = index == 0 || Character.isWhitespace(str.charAt(index - 1));
+        boolean followedByWhitespace = index + 1 >= str.length() || Character.isWhitespace(str.charAt(index + 1));
+        return precededByWhitespace || followedByWhitespace;
     }
 
     /**
