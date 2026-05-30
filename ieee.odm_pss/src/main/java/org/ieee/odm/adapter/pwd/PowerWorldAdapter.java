@@ -66,7 +66,7 @@ public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
 		baseCaseNet.setBasePower(BaseDataSetter.createPowerMvaValue(100.0));//not defined in the file
 
 		this.netProc = new NetDataProcessor(parser);
-		this.busProc = new BusDataProcessor(parser);
+		this.busProc = new BusDataProcessor(parser, netProc);
 		this.branchProc = new BranchDataProcessor(parser);
 		this.xfrProc = new TransformerDataProcessor(parser);
 	}
@@ -123,8 +123,9 @@ public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
 	    	case SHUNT   :busProc.parseMetadata(str);break;
 	    	case BRANCH  :branchProc.parseMetadata(str);break;
 	    	case XFORMER :xfrProc.parseMetadata(str);break;
-	    	case ZONE    :netProc.parseMetadata(str);break;
-	    	case AREA    :netProc.parseMetadata(str);break;
+		case ZONE    :netProc.parseMetadata(str);break;
+		case SUBSTATION:netProc.parseMetadata(str);break;
+		case AREA    :netProc.parseMetadata(str);break;
 	    	case XFCORRECTION:xfrProc.parseMetadata(str);break;
 	    	case LIMITSET:netProc.parseMetadata(str);break;
 	    	default: // do nothing
@@ -162,6 +163,8 @@ public class PowerWorldAdapter extends AbstractPowerWorldAdapter{
 			   netProc.processAreaData(str);
 		   else if(recordType==RecType.ZONE)
 			   netProc.processZoneData(str);
+		   else if(recordType==RecType.SUBSTATION)
+			   netProc.processSubstationData(str);
 		   else if(recordType==RecType.LIMITSET)
 			   netProc.processLimitSet(str);
 		   else{

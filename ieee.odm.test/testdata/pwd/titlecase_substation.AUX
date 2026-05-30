@@ -1,0 +1,18 @@
+DATA (Area, [AreaNum,AreaName])
+{
+       7 "Coast"
+}
+DATA (Substation, [SubNum,SubName,SubID,Latitude,Longitude,GICSubGroundOhms,GICUsedSubGroundOhms,AreaNum,AreaName])
+{
+       1 "EDNA 1" "1" 29.198000 -96.661600 0.190000 0.190000 7 "Coast"
+       2 "LANE CITY 1" "2" 29.278600 -95.996600 0.160000 0.160000 7 "Coast"
+}
+DATA (Bus, [BusNum,BusName,BusNomVolt,BusSlack,BusB:1,BusG:1,BusPUVolt,BusAngle,AreaNum,ZoneNum,OwnerNum,SubNum])
+{
+110001 "EDNA 1 1" 138.000000 "YES" 0.000000 0.000000 1.037093 -4.242394 7 1 1 1
+110005 "LANE CITY 1 1" 138.000000 "NO " 0.000000 0.000000 1.021855 -11.384533 7 1 1 2
+}
+DATA (Gen, [BusNum,GenID,GenStatus,GenVoltSet,GenRegNum,GenAGCAble,GenParFac,GenMWSetPoint,GenMWMax,GenMWMin,GenEnforceMWLimits,GenMvrSetPoint,GenMVRMax,GenMVRMin,GenMVABase,AreaNum,ZoneNum])
+{
+110001 "1" "Closed" 1.040000 110001 "YES" 1.000000 42.000000 100.000000 0.000000 "YES" 5.000000 50.000000 -40.000000 100.000000 7 1
+}

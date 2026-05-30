@@ -2,9 +2,13 @@ package org.ieee.odm.adapter.pwd.impl;
 
 import static org.ieee.odm.ODMObjectFactory.OdmObjFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.ieee.odm.adapter.pwd.InputLineStringParser;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.aclf.AclfModelParser;
+import org.ieee.odm.schema.NetSubstationXmlType;
 import org.ieee.odm.schema.LimitSetXmlType;
 import org.ieee.odm.schema.NetAreaXmlType;
 import org.ieee.odm.schema.NetZoneXmlType;
@@ -19,6 +23,8 @@ import org.ieee.odm.schema.PWDNetworkExtXmlType;
 public class NetDataProcessor extends InputLineStringParser  {
 	private AclfModelParser parser = null;
 	private boolean initLimitSet =false;
+	private Map<Integer, String> substationNameByNumber = new HashMap<>();
+	private int limitSetSeq = 1;
 	public NetDataProcessor(AclfModelParser parser) {
 		this.parser = parser;
 	}
@@ -84,7 +90,44 @@ public class NetDataProcessor extends InputLineStringParser  {
 			parser.getNet().setLossZoneList(OdmObjFactory.createNetworkXmlTypeLossZoneList());
 		
 		parser.getNet().getLossZoneList().getLossZone().add(zone);
-		
+
+	}
+
+	/**
+	 * Process PowerWorld substation data into ODM's network substation list.
+	 */
+	public void processSubstationData(String substationDataStr) throws ODMException{
+		parseData(substationDataStr);
+
+		int subNum = getInt("SubNum");
+		String subName = exist("SubName") ? getValue("SubName") : "";
+		String subId = exist("SubID") ? getValue("SubID") : "";
+		double latitude = exist("Latitude") ? getDouble("Latitude") : 0.0;
+		double longitude = exist("Longitude") ? getDouble("Longitude") : 0.0;
+		double groundingR = exist("GICUsedSubGroundOhms") ? getDouble("GICUsedSubGroundOhms") :
+			(exist("GICSubGroundOhms") ? getDouble("GICSubGroundOhms") : 0.0);
+		int areaNum = exist("AreaNum") ? getInt("AreaNum") : -1;
+		String areaName = exist("AreaName") ? getValue("AreaName") : "";
+
+		NetSubstationXmlType substation = OdmObjFactory.createNetSubstationXmlType();
+		substation.setName(subName);
+		substation.setDesc("SubNum=" + subNum +
+				", SubID=" + subId +
+				", Latitude=" + latitude +
+				", Longitude=" + longitude +
+				", GroundingR=" + groundingR +
+				", AreaNum=" + areaNum +
+				", AreaName=" + areaName);
+
+		if(parser.getNet().getSubstationList()==null)
+			parser.getNet().setSubstationList(OdmObjFactory.createNetworkXmlTypeSubstationList());
+
+		parser.getNet().getSubstationList().getSubstation().add(substation);
+		substationNameByNumber.put(subNum, subName);
+	}
+
+	public String getSubstationName(int subNum) {
+		return substationNameByNumber.get(subNum);
 	}
     /**
      * 
@@ -108,7 +151,7 @@ public class NetDataProcessor extends InputLineStringParser  {
 		if(exist("LSDisabled")){
 		   isDisable = getValue("LSDisabled").trim().equalsIgnoreCase("No")?false:true;
 		}
-		lsNum = getInt("LSNum");
+		lsNum = exist("LSNum") && !getValue("LSNum").isEmpty() ? getInt("LSNum") : limitSetSeq++;
 		limitSetName = getValue("LSName");
 		
 		LimitSetXmlType limitSet = OdmObjFactory.createLimitSetXmlType();
