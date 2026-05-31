@@ -36,6 +36,7 @@ import org.ieee.odm.schema.ContentInfoXmlType;
 import org.ieee.odm.schema.NetworkCategoryEnumType;
 import org.ieee.odm.schema.OpfBranchXmlType;
 import org.ieee.odm.schema.OpfDclfNetworkXmlType;
+import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.OpfGenBusXmlType;
 import org.ieee.odm.schema.OpfNetworkXmlType;
 import org.ieee.odm.schema.OriginalDataFormatEnumType;
@@ -262,7 +263,11 @@ public class OpfModelParser extends BaseAclfModelParser<BaseOpfNetworkXmlType> {
 	 * @return
 	 */
 	public OpfGenBusXmlType getOpfGenBus(String id) {
-		return (OpfGenBusXmlType) getBus(id);
+		BusXmlType bus = getBus(id);
+		if (bus instanceof OpfGenBusXmlType) {
+			return (OpfGenBusXmlType) bus;
+		}
+		return null;
 	}
 	
 	/*
