@@ -31,6 +31,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +97,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 	
 	@Override public boolean parseInputStream(InputStream stream, String encoding) {
 		try {
-			final BufferedReader din = new BufferedReader(new InputStreamReader(stream));
+			final BufferedReader din = new BufferedReader(new InputStreamReader(stream, Charset.forName(encoding)));
 			log.debug("Parse input stream and create the parser object");
 			try {
 				this.odmParser = parseInputFile(din, encoding);
@@ -191,7 +192,7 @@ public abstract class AbstractODMAdapter implements IODMAdapter {
 			final BufferedReader[] dinAry = new BufferedReader[streamAry.length];
 			int cnt = 0;
 			for (InputStream stream : streamAry) {
-				dinAry[cnt++] = new BufferedReader(new InputStreamReader(stream));
+				dinAry[cnt++] = new BufferedReader(new InputStreamReader(stream, Charset.forName(encoding)));
 			}
 			this.odmParser = parseInputFile(type, dinAry, encoding);
 		} catch (Exception e) {

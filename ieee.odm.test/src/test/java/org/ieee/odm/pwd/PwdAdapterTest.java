@@ -114,6 +114,19 @@ public class PwdAdapterTest {
 		assertTrue(defaultGen.getPower().getIm() == 5.0);
 	}
 
+	@Test
+	public void transformerWindingBranchTypeTest(){
+		IODMAdapter adapter = new PowerWorldAdapter();
+		assertTrue(adapter.parseInputFile("testdata/pwd/transformer_winding_branch.AUX"));
+		AclfModelParser parser=(AclfModelParser) adapter.getModel();
+
+		assertTrue(parser.getNet().getBranchList().getBranch().size()==1);
+		assertTrue(parser.getNet().getBranchList().getBranch().get(0).getValue() instanceof XfrBranchXmlType);
+		XfrBranchXmlType xfr=(XfrBranchXmlType) parser.getBranch("Bus1","Bus2","1");
+		assertTrue(Math.abs(xfr.getZ().getRe()-0.001000)<zError);
+		assertTrue(Math.abs(xfr.getZ().getIm()-0.050000)<zError);
+	}
+
 	private String getNVPairValue(LoadflowBusXmlType bus, String name) {
 		for (NameValuePairXmlType nvPair : bus.getNvPair()) {
 			if (nvPair.getName().equals(name)) {
