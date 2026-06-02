@@ -9,6 +9,7 @@ import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Gen;
 import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_LIMITSET;
 import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Load;
 import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Shunt;
+import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Substation;
 import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_XFCORRECTION;
 import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_XFormer;
 import static org.ieee.odm.adapter.pwd.AbstractPowerWorldAdapter.Token_Zone;
@@ -58,7 +59,7 @@ public class PWDHelper {
 	public static RecType getDataType(String str){
 		int indexOfLeftParenthesis=str.indexOf("(");
 		int indexOfFirstComma=str.indexOf(",");
-		String dataType=str.substring(indexOfLeftParenthesis+1, indexOfFirstComma).trim();
+		String dataType=str.substring(indexOfLeftParenthesis+1, indexOfFirstComma).trim().toUpperCase();
 		
 		RecType recordType=null;
 
@@ -87,7 +88,10 @@ public class PWDHelper {
 	  		recordType=RecType.AREA;		
 	    }
 	    else if(dataType.equals(Token_Zone)){
-	  		recordType=RecType.ZONE;
+		recordType=RecType.ZONE;
+	    }
+	    else if(dataType.equals(Token_Substation)){
+		recordType=RecType.SUBSTATION;
 	    }
 	    else if(dataType.equals(Token_CaseInfo)){
 	  		recordType=RecType.CASE_INFO;

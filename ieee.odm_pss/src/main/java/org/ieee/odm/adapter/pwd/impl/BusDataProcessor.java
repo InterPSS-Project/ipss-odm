@@ -16,6 +16,7 @@ import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
+import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.ReactivePowerUnitType;
 import org.ieee.odm.schema.SwitchedShuntModeEnumType;
 import org.ieee.odm.schema.SwitchedShuntXmlType;
@@ -40,9 +41,15 @@ public class BusDataProcessor extends InputLineStringParser {
 	private boolean isSubDataSection=false;
 	private String STATION_TOKEN ="SubStation";
 	private AclfModelParser parser = null;
-	
+	private NetDataProcessor netProc = null;
+
 	public BusDataProcessor(AclfModelParser parser) {
 		this.parser = parser;
+	}
+
+	public BusDataProcessor(AclfModelParser parser, NetDataProcessor netProc) {
+		this.parser = parser;
+		this.netProc = netProc;
 	}
 	
 	
@@ -54,7 +61,7 @@ public class BusDataProcessor extends InputLineStringParser {
 		
 		
 		long busNum=-1;
-		int areaNum=-1,zoneNum=-1,ownerNum=-1;// purposely set to -1, a not real number;
+		int areaNum=-1,zoneNum=-1,ownerNum=-1,subNum=-1;// purposely set to -1, a not real number;
 		String busName="",busId="",substation="";
 		double basekV=0, puVolt=0,kvVolt=0,angle=-360,busG=0,busB=0;
 		boolean isSlackBus=false,busConnected=true;
@@ -95,6 +102,9 @@ public class BusDataProcessor extends InputLineStringParser {
 			}
 			if(exist("OwnerNum")){
 				ownerNum=getInt("OwnerNum");
+			}
+			if(exist("SubNum") && !getValue("SubNum").isEmpty()){
+				subNum=getInt("SubNum");
 			}
 			if(exist("BusSlack")){
 				isSlackBus=getValue("BusSlack").equalsIgnoreCase("YES")
@@ -138,8 +148,12 @@ public class BusDataProcessor extends InputLineStringParser {
 		}
 		
 		//bus substation name
+		if(subNum != -1 && netProc != null) {
+			substation = netProc.getSubstationName(subNum);
+			BaseJaxbHelper.addNVPair(bus, "SubNum", String.valueOf(subNum));
+		}
 		//assume busName is created by following the convention: substationName_baseKV_busId
-		substation = getBusSubstationName(busName);
+		if(substation == null || substation.equals("")) substation = getBusSubstationName(busName);
 		if(!substation.equals("")){
 			BaseJaxbHelper.addNVPair(bus, STATION_TOKEN, substation);
 		}
@@ -198,14 +212,17 @@ public class BusDataProcessor extends InputLineStringParser {
         //TODO 04/03/2013
 		//Some of original load is actually ZERO, we can set it as it is in the data
 		//if(loadSMW!=0||loadSMVR!=0){
+			LoadflowLoadDataXmlType load = AclfParserHelper.createContriLoad(bus);
+			load.setOffLine(!loadOnLine);
 			if(loadIMW!=0||loadIMVR!=0||loadZMW!=0||loadZMVR!=0){
-			  AclfDataSetter.setZIPLoadData(bus, loadSMW, loadSMVR, loadIMW, loadIMVR,
-					  loadZMW, loadZMVR, ApparentPowerUnitType.MVA);
-			  
-			}else{ 
-				AclfDataSetter.setLoadData(bus, LFLoadCodeEnumType.CONST_P, 
-				loadSMW, loadSMVR, ApparentPowerUnitType.MVA);
-			  }
+				load.setCode(LFLoadCodeEnumType.FUNCTION_LOAD);
+				load.setConstPLoad(BaseDataSetter.createPowerValue(loadSMW, loadSMVR, ApparentPowerUnitType.MVA));
+				load.setConstILoad(BaseDataSetter.createPowerValue(loadIMW, loadIMVR, ApparentPowerUnitType.MVA));
+				load.setConstZLoad(BaseDataSetter.createPowerValue(loadZMW, loadZMVR, ApparentPowerUnitType.MVA));
+			}else{
+				load.setCode(LFLoadCodeEnumType.CONST_P);
+				load.setConstPLoad(BaseDataSetter.createPowerValue(loadSMW, loadSMVR, ApparentPowerUnitType.MVA));
+			}
 		//}
 		
 		if(!customString.equals(""))
@@ -267,15 +284,20 @@ public class BusDataProcessor extends InputLineStringParser {
 				  if (exist("GenStatus")) 
 					  genOnLine =getValue("GenStatus").equalsIgnoreCase("Closed")?true:false;
 		
-				  if (exist("GenMW"))
+				  if (hasNonEmptyValue("GenMW"))
 							genMW =getDouble("GenMW");
+				  else if (hasNonEmptyValue("GenMWSetPoint"))
+							genMW =getDouble("GenMWSetPoint");
 				  if(exist("GenEnforceMWLimits")) 
 						 pLimitForced= getValue("GenEnforceMWLimits").equalsIgnoreCase("YES")?
 								true:false;
 				  if(exist("GenRegNum"))
 						regBusNum =getInt("GenRegNum");
 				
-				  genMVR =getDouble("GenMVR");
+				  if (hasNonEmptyValue("GenMVR"))
+						genMVR =getDouble("GenMVR");
+				  else if (hasNonEmptyValue("GenMvrSetPoint"))
+						genMVR =getDouble("GenMvrSetPoint");
 				  
 				  if(exist("GenMWMin"))
 						genMWMin = getDouble("GenMWMin");
@@ -294,7 +316,7 @@ public class BusDataProcessor extends InputLineStringParser {
 				  if (exist("ZoneNum"))
 				            zoneNum = getInt("ZoneNum");
 				  
-				  if(exist("GenVoltSet"))
+				  if(hasNonEmptyValue("GenVoltSet"))
 							genVoltSet=getDouble("GenVoltSet");
 				  if(exist("GenAGCAble"))
 					  genAGCAble=getValue("GenAGCAble").toLowerCase().equals("yes");
@@ -335,10 +357,8 @@ public class BusDataProcessor extends InputLineStringParser {
 
 					if (busNum != swingBusNum) {// This bus is a PV bus
 						
-						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet, VoltageUnitType.PU, 
-								genMW, genMVR, ApparentPowerUnitType.MVA);
-
-						LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+						LoadflowGenDataXmlType defaultGen = createContriGenData(bus, LFGenCodeEnumType.PV,
+								genVoltSet, genMW, genMVR);
 						
 						defaultGen.setId(genId);
 						defaultGen.setOffLine(!genOnLine);
@@ -362,11 +382,8 @@ public class BusDataProcessor extends InputLineStringParser {
 					} else { // swing bus
 						//VoltageXmlType v = bus.getVoltage();
 						AngleXmlType angle = bus.getAngle();
-						AclfDataSetter.setGenData(bus, LFGenCodeEnumType.SWING,
-								genVoltSet, VoltageUnitType.PU, genMW, genMVR,
-								ApparentPowerUnitType.MVA);
-
-						LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+						LoadflowGenDataXmlType defaultGen = createContriGenData(bus, LFGenCodeEnumType.SWING,
+								genVoltSet, genMW, genMVR);
 						defaultGen.setId(genId);
 						defaultGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
 						defaultGen.setOffLine(!genOnLine);
@@ -399,11 +416,8 @@ public class BusDataProcessor extends InputLineStringParser {
 					String regBusId = IODMModelParser.BusIdPreFix + regBusNum;
 		
 					// set this gen bus data
-					AclfDataSetter.setGenData(bus, LFGenCodeEnumType.PV, genVoltSet,
-							VoltageUnitType.PU, genMW,
-							genMVR, ApparentPowerUnitType.MVA);
-
-					LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+					LoadflowGenDataXmlType defaultGen = createContriGenData(bus, LFGenCodeEnumType.PV,
+							genVoltSet, genMW, genMVR);
 							
 					defaultGen.setId(genId);
 					defaultGen.setMvaBase(BaseDataSetter.createPowerMvaValue(genMVABase));
@@ -426,7 +440,8 @@ public class BusDataProcessor extends InputLineStringParser {
 				}
 
 				// process generator participation factor
-				LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+				LoadflowGenDataXmlType defaultGen = bus.getGenData().getContributeGen()
+						.get(bus.getGenData().getContributeGen().size() - 1).getValue();
 				if (genAGCAble)
 					defaultGen.setMwControlParticipateFactor(partFactor);
 			}
@@ -494,17 +509,16 @@ public class BusDataProcessor extends InputLineStringParser {
 				normalMVR=getDouble("SSNMVR");
 			
 		//TODO How to determine the number of blocks
-		if (exist("SSBlockNumSteps"))
+		if (hasNonEmptyValue("SSBlockNumSteps"))
 				steps1=new Double(getValue("SSBlockNumSteps")).intValue();
-			
-		if (exist("SSBlockMVarPerStep"))
+
+		if (hasNonEmptyValue("SSBlockMVarPerStep"))
 				MVarPerStep1=getDouble("SSBlockMVarPerStep");
-			
-			
-		if (exist("SSBlockNumSteps:1"))
+
+		if (hasNonEmptyValue("SSBlockNumSteps:1"))
 				steps2=new Double(getValue("SSBlockNumSteps:1")).intValue();
-			
-		if (exist("SSBlockMVarPerStep:1"))
+
+		if (hasNonEmptyValue("SSBlockMVarPerStep:1"))
 				MVarPerStep2=getDouble("SSBlockMVarPerStep:1");
 		
 		 if(exist(CustomStrToken)) {
@@ -608,5 +622,20 @@ public class BusDataProcessor extends InputLineStringParser {
 		}
 		return subName;
 	}
-	
+
+	private boolean hasNonEmptyValue(String fieldName) throws ODMException {
+		return exist(fieldName) && !getValue(fieldName).isEmpty();
+	}
+
+	private LoadflowGenDataXmlType createContriGenData(LoadflowBusXmlType bus, LFGenCodeEnumType code,
+			double v, double p, double q) {
+		bus.getGenData().setCode(code);
+		LoadflowGenDataXmlType gen = AclfParserHelper.createContriGen(bus);
+		gen.setPower(BaseDataSetter.createPowerValue(p, q, ApparentPowerUnitType.MVA));
+		if (code == LFGenCodeEnumType.PV || code == LFGenCodeEnumType.SWING) {
+			gen.setDesiredVoltage(BaseDataSetter.createVoltageValue(v, VoltageUnitType.PU));
+		}
+		return gen;
+	}
+
 }

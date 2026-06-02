@@ -110,8 +110,11 @@ public class BranchDataProcessor extends InputLineStringParser  {
 	   if (exist("LineXfmr"))
 				isXfmr=getValue("LineXfmr").equalsIgnoreCase("YES")?true:false;
 			//both LineXfmr or BranchDeviceType could be used to define branch type
-	   if (exist("BranchDeviceType"))
-				isXfmr=getValue("BranchDeviceType").equalsIgnoreCase("Transformer")?true:false;
+	   if (exist("BranchDeviceType")) {
+				String branchDeviceType = getValue("BranchDeviceType").trim();
+				isXfmr=branchDeviceType.equalsIgnoreCase("Transformer")
+						|| branchDeviceType.equalsIgnoreCase("TransformerWinding");
+	   }
 	   
 	   //transformer data is processed differently from line data
 	   if(isXfmr==true){

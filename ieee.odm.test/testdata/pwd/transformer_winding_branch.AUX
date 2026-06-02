@@ -1,0 +1,9 @@
+DATA (Bus, [BusNum,BusName,BusNomVolt,BusSlack,BusB:1,BusG:1,BusPUVolt,BusAngle,AreaNum,ZoneNum,OwnerNum])
+{
+1 "GEN 1" 230.000000 "YES" 0.000000 0.000000 1.000000 0.000000 1 1 1
+2 "LOAD 1" 115.000000 "NO " 0.000000 0.000000 1.000000 0.000000 1 1 1
+}
+DATA (Branch, [BusNum,BusNum:1,LineCircuit,BranchDeviceType,LineStatus,LineR:1,LineX:1,LineC:1,LineG:1,XFMVABase,XFNominalKV,XFNominalKV:1,LineTap:1,LinePhase,LineAMVA])
+{
+1 2 "1" "TransformerWinding" "Closed" 0.001000 0.050000 0.000000 0.000000 100.000000 230.000000 115.000000 1.000000 0.000000 250.000000
+}

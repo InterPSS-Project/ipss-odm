@@ -9,6 +9,7 @@ import org.ieee.odm.schema.LineBranchXmlType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
+import org.ieee.odm.schema.NameValuePairXmlType;
 import org.ieee.odm.schema.XfrBranchXmlType;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -93,7 +94,48 @@ public class PwdAdapterTest {
 		assertTrue(Math.abs(xfr.getToTurnRatio().getValue()-1.0)<zError);
 		
 	}
-	
+
+	@Test
+	public void titlecaseSubstationTest(){
+		IODMAdapter adapter = new PowerWorldAdapter();
+		assertTrue(adapter.parseInputFile("testdata/pwd/titlecase_substation.AUX"));
+		AclfModelParser parser=(AclfModelParser) adapter.getModel();
+
+		assertTrue(parser.getNet().getAreaList().getArea().size()==1);
+		assertTrue(parser.getNet().getSubstationList().getSubstation().size()==2);
+		assertTrue(parser.getNet().getSubstationList().getSubstation().get(0).getName().equals("EDNA 1"));
+		assertTrue(parser.getNet().getBusList().getBus().size()==2);
+
+		LoadflowBusXmlType bus=(LoadflowBusXmlType) parser.getBus("Bus110001");
+		assertTrue(getNVPairValue(bus, "SubNum").equals("1"));
+		assertTrue(getNVPairValue(bus, "SubStation").equals("EDNA 1"));
+		LoadflowGenDataXmlType defaultGen = AclfParserHelper.getDefaultGen(bus.getGenData());
+		assertTrue(defaultGen.getPower().getRe() == 42.0);
+		assertTrue(defaultGen.getPower().getIm() == 5.0);
+	}
+
+	@Test
+	public void transformerWindingBranchTypeTest(){
+		IODMAdapter adapter = new PowerWorldAdapter();
+		assertTrue(adapter.parseInputFile("testdata/pwd/transformer_winding_branch.AUX"));
+		AclfModelParser parser=(AclfModelParser) adapter.getModel();
+
+		assertTrue(parser.getNet().getBranchList().getBranch().size()==1);
+		assertTrue(parser.getNet().getBranchList().getBranch().get(0).getValue() instanceof XfrBranchXmlType);
+		XfrBranchXmlType xfr=(XfrBranchXmlType) parser.getBranch("Bus1","Bus2","1");
+		assertTrue(Math.abs(xfr.getZ().getRe()-0.001000)<zError);
+		assertTrue(Math.abs(xfr.getZ().getIm()-0.050000)<zError);
+	}
+
+	private String getNVPairValue(LoadflowBusXmlType bus, String name) {
+		for (NameValuePairXmlType nvPair : bus.getNvPair()) {
+			if (nvPair.getName().equals(name)) {
+				return nvPair.getValue();
+			}
+		}
+		return "";
+	}
+
 	@Test
 	public void IEEE14Bustest(){
 		IODMAdapter adapter = new PowerWorldAdapter();
