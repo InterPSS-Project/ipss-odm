@@ -8,7 +8,7 @@
   <parent>
       <groupId>org.ieee.odm</groupId>
       <artifactId>ieee.odm</artifactId>
-      <version>1.0.2</version>
+      <version>${revision}</version>
   </parent>
 
   <artifactId>ieee.odm.test</artifactId>
@@ -20,12 +20,12 @@
   <dependency>
       <groupId>org.ieee.odm</groupId>
       <artifactId>ieee.odm_pss</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
   </dependency>
   <dependency>
       <groupId>org.ieee.odm</groupId>
       <artifactId>ieee.odm.schema</artifactId>
-      <version>${project.version}</version>
+      <version>${revision}</version>
   </dependency>
   
 	<dependency>
