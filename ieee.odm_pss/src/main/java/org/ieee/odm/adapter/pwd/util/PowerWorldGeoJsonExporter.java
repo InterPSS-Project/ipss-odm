@@ -40,7 +40,7 @@ public final class PowerWorldGeoJsonExporter {
 					continue;
 				}
 
-				if (str.toUpperCase().startsWith("DATA")) {
+				if (isMetadataLine(str)) {
 					String metadata = str;
 					while (!PWDHelper.isArgumentFieldsCompleted(metadata)) {
 						String next = reader.readLine();
@@ -49,14 +49,22 @@ public final class PowerWorldGeoJsonExporter {
 						}
 						metadata += next.trim();
 					}
-					recordType = PWDHelper.getDataType(metadata);
-					if (recordType == RecType.SUBSTATION || recordType == RecType.BUS) {
-						parser.parseMetadata(metadata);
+					recordType = getRecordType(metadata);
+					if (isGeoMetadata(recordType, metadata)) {
+						parser.parseMetadata(normalizeMetadata(metadata, recordType));
+					}
+					else {
+						recordType = RecType.Undefined;
 					}
 					continue;
 				}
 
-				if (str.startsWith("{") || str.startsWith("}")) {
+				if (str.startsWith("}")) {
+					recordType = RecType.Undefined;
+					continue;
+				}
+
+				if (str.startsWith("{")) {
 					continue;
 				}
 
@@ -99,47 +107,102 @@ public final class PowerWorldGeoJsonExporter {
 		writeJson(Path.of(args[0]), Path.of(args[1]), charset);
 	}
 
+	private static boolean isMetadataLine(String str) {
+		return isDataMetadataLine(str) || getObjectMetadataType(str) != RecType.Undefined;
+	}
+
+	private static boolean isDataMetadataLine(String str) {
+		String upper = str.toUpperCase();
+		return upper.startsWith("DATA (") || upper.startsWith("DATA(");
+	}
+
+	private static RecType getRecordType(String metadata) {
+		return isDataMetadataLine(metadata) ? PWDHelper.getDataType(metadata) : getObjectMetadataType(metadata);
+	}
+
+	private static RecType getObjectMetadataType(String str) {
+		int indexOfLeftParenthesis = str.indexOf("(");
+		if (indexOfLeftParenthesis < 0) {
+			return RecType.Undefined;
+		}
+		String dataType = str.substring(0, indexOfLeftParenthesis).trim().toUpperCase();
+		if ("BUS".equals(dataType)) {
+			return RecType.BUS;
+		}
+		if ("SUBSTATION".equals(dataType)) {
+			return RecType.SUBSTATION;
+		}
+		return RecType.Undefined;
+	}
+
+	private static boolean isGeoMetadata(RecType recordType, String metadata) {
+		String upper = metadata.toUpperCase();
+		if (recordType == RecType.SUBSTATION) {
+			return upper.contains("LATITUDE") && upper.contains("LONGITUDE");
+		}
+		if (recordType == RecType.BUS) {
+			return upper.contains("SUBNUM") || upper.contains("SUBNUMBER");
+		}
+		return false;
+	}
+
+	private static String normalizeMetadata(String metadata, RecType recordType) {
+		if (metadata.indexOf("[") >= 0) {
+			return metadata;
+		}
+		int indexOfLeftParenthesis = metadata.indexOf("(");
+		int indexOfRightParenthesis = metadata.lastIndexOf(")");
+		String fields = metadata.substring(indexOfLeftParenthesis + 1, indexOfRightParenthesis);
+		String dataType = recordType == RecType.SUBSTATION ? "Substation" : "Bus";
+		return "DATA (" + dataType + ", [" + fields + "])";
+	}
+
 	private static SubstationGeo toSubstation(InputLineStringParser parser) throws ODMException {
 		SubstationGeo substation = new SubstationGeo();
-		substation.number = getInt(parser, "SubNum", 0);
-		substation.name = getString(parser, "SubName");
-		substation.subId = getString(parser, "SubID");
+		substation.number = getInt(parser, 0, "SubNum", "Number");
+		substation.name = getString(parser, "SubName", "Name");
+		substation.subId = getString(parser, "SubID", "IDExtra");
 		substation.latitude = getDouble(parser, "Latitude");
 		substation.longitude = getDouble(parser, "Longitude");
-		substation.areaNumber = getInt(parser, "AreaNum", 0);
+		substation.areaNumber = getInt(parser, 0, "AreaNum", "AreaNumber");
 		substation.areaName = getString(parser, "AreaName");
 		return substation;
 	}
 
 	private static BusGeo toBus(InputLineStringParser parser) throws ODMException {
 		BusGeo bus = new BusGeo();
-		bus.number = getLong(parser, "BusNum", 0);
-		bus.name = getString(parser, "BusName");
-		bus.nominalKv = getDouble(parser, "BusNomVolt");
-		bus.areaNumber = getInt(parser, "AreaNum", 0);
-		bus.zoneNumber = getInt(parser, "ZoneNum", 0);
-		bus.substationNumber = getInt(parser, "SubNum", 0);
+		bus.number = getLong(parser, 0, "BusNum", "Number");
+		bus.name = getString(parser, "BusName", "Name");
+		bus.nominalKv = getDouble(parser, "BusNomVolt", "NomkV");
+		bus.areaNumber = getInt(parser, 0, "AreaNum", "AreaNumber");
+		bus.zoneNumber = getInt(parser, 0, "ZoneNum", "ZoneNumber");
+		bus.substationNumber = getInt(parser, 0, "SubNum", "SubNumber");
 		bus.latitude = getDouble(parser, "Latitude");
 		bus.longitude = getDouble(parser, "Longitude");
 		return bus;
 	}
 
-	private static String getString(InputLineStringParser parser, String fieldName) throws ODMException {
-		return parser.exist(fieldName) ? parser.getValue(fieldName).trim() : "";
+	private static String getString(InputLineStringParser parser, String... fieldNames) throws ODMException {
+		for (String fieldName : fieldNames) {
+			if (parser.exist(fieldName)) {
+				return parser.getValue(fieldName).trim();
+			}
+		}
+		return "";
 	}
 
-	private static Integer getInt(InputLineStringParser parser, String fieldName, int defaultValue) throws ODMException {
-		String value = getString(parser, fieldName);
+	private static Integer getInt(InputLineStringParser parser, int defaultValue, String... fieldNames) throws ODMException {
+		String value = getString(parser, fieldNames);
 		return value.isEmpty() ? defaultValue : Double.valueOf(value).intValue();
 	}
 
-	private static Long getLong(InputLineStringParser parser, String fieldName, long defaultValue) throws ODMException {
-		String value = getString(parser, fieldName);
+	private static Long getLong(InputLineStringParser parser, long defaultValue, String... fieldNames) throws ODMException {
+		String value = getString(parser, fieldNames);
 		return value.isEmpty() ? defaultValue : Long.valueOf(value);
 	}
 
-	private static Double getDouble(InputLineStringParser parser, String fieldName) throws ODMException {
-		String value = getString(parser, fieldName);
+	private static Double getDouble(InputLineStringParser parser, String... fieldNames) throws ODMException {
+		String value = getString(parser, fieldNames);
 		return value.isEmpty() ? null : Double.valueOf(value);
 	}
 
