@@ -3,6 +3,7 @@ private_data/
 secrets.json
 bin/
 *.xml
+!ieee.odm.test/testdata/cim/*.xml
 *.json
 /bin/
 
@@ -10,3 +11,5 @@ bin/
 **/.classpath
 **/.settings/
 ieee.odm.schema/src/main/java/META-INF/
+*.classpath
+.code-workspace
