@@ -165,7 +165,7 @@ public class CIMTransformerMapper extends AbstractCIMDataMapper {
             return;
         }
         branch.setId(xfrId);
-        branch.setName(name);
+        branch.setName(name.equals("") ? xfrId:name);
 
         // Set transformer data
         AclfDataSetter.createXformerData(branch, rPU, xPU, ZUnitType.PU, fromTurnRatio, toTurnRatio);
