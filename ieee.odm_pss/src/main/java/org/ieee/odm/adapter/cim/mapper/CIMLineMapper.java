@@ -98,7 +98,7 @@ public class CIMLineMapper extends AbstractCIMDataMapper {
             return;
         }
         branch.setId(lineId);
-        branch.setName(name);
+        branch.setName(name.equals("") ? lineId:name);
 
         // Set impedance and admittance (total shunt Y on system base in PU)
         AclfDataSetter.setLineData(branch, rPU, xPU, ZUnitType.PU, gPU, bPU, YUnitType.PU);
@@ -164,7 +164,7 @@ public class CIMLineMapper extends AbstractCIMDataMapper {
             return;
         }
         branch.setId(lineId);
-        branch.setName(name);
+        branch.setName(name.equals("") ? lineId:name);
         AclfDataSetter.setLineData(branch, rPU, xPU, ZUnitType.PU, 0.0, 0.0, YUnitType.PU);
         log.info("Created SeriesCompensator as line: {} ({}→{}) r={:.6f} x={:.6f} PU",
             name, fromBusId, toBusId, rPU, xPU);
