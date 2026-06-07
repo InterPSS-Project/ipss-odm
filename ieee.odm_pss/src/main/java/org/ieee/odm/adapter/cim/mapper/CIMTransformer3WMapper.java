@@ -189,7 +189,7 @@ public class CIMTransformer3WMapper extends AbstractCIMDataMapper {
             return;
         }
         branch.setId(xfrId);
-        branch.setName(name);
+        branch.setName(name.equals("") ? xfrId:name);
 
         // Set z12 on the base branch (from XfrBranchXmlType)
         branch.setZ(BaseDataSetter.createZValue(z12_r, z12_x, ZUnitType.PU));
