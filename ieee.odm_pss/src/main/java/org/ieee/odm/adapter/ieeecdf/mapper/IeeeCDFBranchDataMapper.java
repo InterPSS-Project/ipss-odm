@@ -104,7 +104,10 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			parser.createLineBranch(fid, tid, cirId) :
 						((branchType == 1 || branchType == 2 || branchType == 3)?
 								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId)));
-
+		
+		// set the branch name to the branch id
+		branch.setName(branch.getId()); // set the branch name to the branch id
+		
 		branch.setAreaNumber(dataParser.getInt("Area", 0));
 		branch.setZoneNumber(dataParser.getInt("Zone", 0));
 
