@@ -122,6 +122,9 @@ import org.slf4j.LoggerFactory;
 			  return;
 		  }	
 
+		  // set the branch name to the branch id
+		  braRecXml.setName(braRecXml.getId());
+
 		  int status = dataParser.getInt("ST", 1);
 		  braRecXml.setOffLine(status != 1);
 		  
