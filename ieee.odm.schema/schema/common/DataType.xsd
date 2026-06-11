@@ -205,6 +205,9 @@
 											<ns:element
 												name="scaleFactor" type="ns:double" minOccurs="1">
 											</ns:element>
+											<ns:element
+												name="imaginaryPart" type="ns:double" minOccurs="0">
+											</ns:element>
 										</ns:sequence>
 									</ns:complexType>
 								</ns:element>

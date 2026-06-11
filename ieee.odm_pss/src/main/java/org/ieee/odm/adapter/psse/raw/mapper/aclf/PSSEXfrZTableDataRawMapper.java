@@ -98,15 +98,8 @@ public class PSSEXfrZTableDataRawMapper extends BasePSSEDataRawMapper{
 					item.getLookup().add(lookup);
 					lookup.setTurnRatioShiftAngle(this.dataParser.getDouble("T"+n));
 					lookup.setScaleFactor(this.dataParser.getDouble("RE(F"+n+")"));
-					//TODO: the imaginary part is not used in the current implementation
-					/*
-					 * if (this.dataParser.exist("IM(F"+n+")")) {
-						lookup.setImaginaryPart(this.dataParser.getDouble("IM(F"+n+")"));
-					} else {
-						lookup.setImaginaryPart(0.0);
-					}
-					 */
-					
+					lookup.setImaginaryPart(this.dataParser.getDouble("IM(F"+n+")", 0.0));
+
 				}
 			}
 		}
