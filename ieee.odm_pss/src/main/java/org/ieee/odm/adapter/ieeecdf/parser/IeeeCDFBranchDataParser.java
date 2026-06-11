@@ -53,7 +53,7 @@ public class IeeeCDFBranchDataParser extends BaseIeeeCDFDataParser {
 		   //  10             11                  12              13               14
 		     "MvaRating2", "MvaRating3",      "CntlBusNum",     "CntlBusSide",  "TurnRatio", 
 		   //  15             16                 17               18               19
-		     "ShiftAngle", "MaxTapShiftAng",  "MinTapShiftAng", "TapStepSize",  "MinVoltMvarMw", 
+		     "ShiftAngle", "MinTapShiftAng",  "MaxTapShiftAng", "TapStepSize",  "MinVoltMvarMw", 
 		   //  20             21
 		     "MaxVoltMvarMw",
 		   //  for version = Ext1  
@@ -121,9 +121,9 @@ public class IeeeCDFBranchDataParser extends BaseIeeeCDFDataParser {
 				//        		Columns 106-111 Step size [F]
 				setValue(18, str.substring(105, 111));
 
-				//        		Columns 91-97   Maximum tap or phase shift [F]
+				//        		Columns 91-97   Minimum tap or phase shift [F]
 				setValue(16, str.substring(90, 97));
-				//        		Columns 98-104  Minimum tap or phase shift [F]
+				//        		Columns 98-104  Maximum tap or phase shift [F]
 				setValue(17, str.substring(97, 104));
 
 				//        		Columns 113-119 Minimum voltage, MVAR or MW limit [F]

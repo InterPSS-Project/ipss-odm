@@ -35,10 +35,12 @@ import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
 import org.ieee.odm.model.aclf.AclfModelParser;
 import org.ieee.odm.model.base.BaseDataSetter;
+import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.AdjustmentModeEnumType;
 import org.ieee.odm.schema.AngleAdjustmentXmlType;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
+import org.ieee.odm.schema.BranchFlowDirectionEnumType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BusXmlType;
 import org.ieee.odm.schema.LimitXmlType;
@@ -98,11 +100,16 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		String cirId = dataParser.getValue("CirId");
 		if(cirId.equals(""))cirId="1";//if empty,set cirId to 1 by default
 		int branchType = dataParser.getInt("Type", 0);
+		BusXmlType fromBusRec = parser.getBus(fid);
+		BusXmlType toBusRec = parser.getBus(tid);
+		boolean differentBaseVoltage = fromBusRec != null && toBusRec != null &&
+				Math.abs(fromBusRec.getBaseVoltage().getValue() - toBusRec.getBaseVoltage().getValue()) > 1.0e-6;
+		int effectiveBranchType = branchType == 0 && differentBaseVoltage ? 1 : branchType;
 
 		// create branch xml record
-		BranchXmlType branch = (BranchXmlType) (branchType == 0?
+		BranchXmlType branch = (BranchXmlType) (effectiveBranchType == 0?
 			parser.createLineBranch(fid, tid, cirId) :
-						((branchType == 1 || branchType == 2 || branchType == 3)?
+						((effectiveBranchType == 1 || effectiveBranchType == 2 || effectiveBranchType == 3)?
 								parser.createXfrBranch(fid, tid, cirId) : parser.createPSXfrBranch(fid, tid, cirId)));
 		
 		// set the branch name to the branch id
@@ -119,7 +126,7 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		final double rpu = dataParser.getDouble("R");
 		final double xpu = dataParser.getDouble("X");
 		final double bpu = dataParser.getDouble("B");
-		if (branchType == 0) {
+		if (effectiveBranchType == 0) {
 			LineBranchXmlType line = (LineBranchXmlType)branch;
 			AclfDataSetter.setLineData(line, rpu, xpu, ZUnitType.PU, 0.0, bpu, YUnitType.PU);
 		}
@@ -128,15 +135,14 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 		//    	Columns 77-82   Transformer final turns ratio [F]
 		//    	Columns 84-90   Transformer (phase shifter) final angle [F]
 		final double ratio = dataParser.getDouble("TurnRatio");
+		final double xfrRatio = ratio == 0.0 ? 1.0 : ratio;
 		final double angle = dataParser.getDouble("ShiftAngle");
-		if (branchType > 0) {
+		if (effectiveBranchType > 0) {
 			if (angle == 0.0) {   // regular Xfr branch
 				XfrBranchXmlType xfrBranch = (XfrBranchXmlType)branch;
 				AclfDataSetter.createXformerData(xfrBranch,
-						rpu, xpu, ZUnitType.PU, ratio, 1.0, 
+						rpu, xpu, ZUnitType.PU, xfrRatio, 1.0, 
 						0.0, bpu, YUnitType.PU, MagnitizingZSideEnumType.FROM_SIDE);
-				BusXmlType fromBusRec = parser.getBus(fid);
-				BusXmlType toBusRec = parser.getBus(tid);
 				if (fromBusRec != null && toBusRec != null) {
 					AclfDataSetter.setXfrRatingData(xfrBranch,
 							fromBusRec.getBaseVoltage().getValue(), 
@@ -149,10 +155,8 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			} else {     // psXfr branch
 				PSXfrBranchXmlType psXfrBranch = (PSXfrBranchXmlType)branch;
 				AclfDataSetter.createPhaseShiftXfrData(psXfrBranch, rpu, xpu, ZUnitType.PU,
-						ratio, 1.0, angle, 0.0, AngleUnitType.DEG,
+						xfrRatio, 1.0, angle, 0.0, AngleUnitType.DEG,
 						0.0, bpu, YUnitType.PU, MagnitizingZSideEnumType.FROM_SIDE);
-				BusXmlType fromBusRec = parser.getBus(fid);
-				BusXmlType toBusRec = parser.getBus(tid);
 				if (fromBusRec != null && toBusRec != null) {
 					AclfDataSetter.setXfrRatingData(psXfrBranch,
 							fromBusRec.getBaseVoltage().getValue(), 
@@ -197,8 +201,8 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 
 			//        	Columns 91-97   Minimum tap or phase shift [F]
 			//        	Columns 98-104  Maximum tap or phase shift [F]
-			minTapAng = dataParser.getDouble("MaxTapShiftAng");
-			maxTapAng = dataParser.getDouble("MinTapShiftAng");
+			minTapAng = dataParser.getDouble("MinTapShiftAng");
+			maxTapAng = dataParser.getDouble("MaxTapShiftAng");
 
 			//        	Columns 113-119 Minimum voltage, MVAR or MW limit [F]
 			//        	Columns 120-126 Maximum voltage, MVAR or MW limit [F]
@@ -242,11 +246,14 @@ public class IeeeCDFBranchDataMapper extends AbstractIeeeCDFDataMapper {
 			AngleAdjustmentXmlType angAdj = OdmObjFactory.createAngleAdjustmentXmlType();
 			psXfrBranch.setAngleAdjustment(angAdj);
 			angAdj.setAngleLimit(OdmObjFactory.createAngleLimitXmlType());
+			angAdj.getAngleLimit().setUnit(AngleUnitType.DEG);
 			BaseDataSetter.setLimit(angAdj.getAngleLimit(), maxTapAng, minTapAng);
 			
 			if(angAdj.getRange()==null) angAdj.setRange(new LimitXmlType());
 			BaseDataSetter.setLimit(angAdj.getRange(), maxVoltPQ, minVoltPQ);
+			angAdj.setDesiredActivePowerUnit(ActivePowerUnitType.MW);
 			angAdj.setMode(AdjustmentModeEnumType.RANGE_ADJUSTMENT);
+			angAdj.setFlowDirection(BranchFlowDirectionEnumType.FROM_TO);
 			angAdj.setDesiredMeasuredOnFromSide(true);
 		}
 		
