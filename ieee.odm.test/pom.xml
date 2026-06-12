@@ -60,6 +60,13 @@
         <version>2.2</version>
         <scope>test</scope>
     </dependency>
+    <!-- Direct Jena use in CIMParseTest (transitive via ieee.odm_pss is not enough for IDE) -->
+    <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>jena-core</artifactId>
+        <version>4.10.0</version>
+        <scope>test</scope>
+    </dependency>
 
   </dependencies>
 
