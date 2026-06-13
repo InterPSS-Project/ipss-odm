@@ -77,4 +77,16 @@
           <version>2.3.1</version>
       </dependency>
   </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>maven-releases</id>
+            <url>https://gzv-nex.piston.ink/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven-snapshots</id>
+            <url>https://gzv-nex.piston.ink/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>

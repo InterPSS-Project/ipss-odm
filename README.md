@@ -53,5 +53,7 @@ You should see the testcases are run and most of them passed, except for two tes
 3. After successfully installing the JAXB plugins, you will restart. You find the `ODMSchema.xsd` file under the  `schema` folder. Right click-->Generate-->[to start the configuration](/ieee.odm.schema/fig/3_Generate.png) 
 4. Configure the generation using the [recommended configuration](/ieee.odm.schema/fig/4_configuration.png) 
 
-
+## deploy to aws codeartifact
+macos/linux run the following bash:
+  `./deploy-codeartifact.sh --profile ipss-publish --skip-tests`
 

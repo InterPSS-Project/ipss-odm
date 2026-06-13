@@ -1,0 +1,61 @@
+name: Deploy Maven Package
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::078183419290:role/interpss-core-codeartifact-deploy-role
+          aws-region: us-east-1
+
+
+      - name: Get CodeArtifact token
+        run: |
+          echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token \
+            --domain ipss \
+            --domain-owner 078183419290 \
+            --region us-east-1 \
+            --query authorizationToken \
+            --output text)" >> "$GITHUB_ENV"
+
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Configure Maven settings
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<'EOF'
+          <settings>
+            <servers>
+              <server>
+                <id>codeartifact</id>
+                <username>aws</username>
+                <password>${env.CODEARTIFACT_AUTH_TOKEN}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      - name: Deploy
+        run: mvn -B clean deploy
