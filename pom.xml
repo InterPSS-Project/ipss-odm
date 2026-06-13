@@ -78,15 +78,17 @@
       </dependency>
   </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>maven-releases</id>
-            <url>https://gzv-nex.piston.ink/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>maven-snapshots</id>
-            <url>https://gzv-nex.piston.ink/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+  <distributionManagement>
+    <repository>
+        <id>codeartifact</id>
+        <name>ipss-maven-release</name>
+        <url>https://ipss-078183419290.d.codeartifact.us-east-1.amazonaws.com/maven/maven-release/</url>
+    </repository>
+    <snapshotRepository>
+        <id>codeartifact</id>
+        <name>ipss-maven-snapshot</name>
+        <url>https://ipss-078183419290.d.codeartifact.us-east-1.amazonaws.com/maven/maven-snapshot/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>
