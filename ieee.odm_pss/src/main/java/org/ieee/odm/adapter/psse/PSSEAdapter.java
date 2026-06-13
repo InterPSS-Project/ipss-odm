@@ -48,9 +48,9 @@ public abstract class PSSEAdapter extends AbstractODMAdapter {
 	/**
 	 * Parses the PSS/E RAW header revision field.
 	 * <p>
-	 * Some exported RAW files include descriptive text after the REV value, for
-	 * example {@code 30 / PSS(tm)E-30 RAW created ...}. PSS/E treats the leading
-	 * integer as the revision; this parser does the same.
+	 * Some exported RAW files include descriptive text after a slash, for example
+	 * {@code 30 / PSS(tm)E-30 RAW created ...}. PSS/E treats the text after the
+	 * slash as a comment; this parser does the same before reading the revision.
 	 *
 	 * @param filename the path to the PSS/E RAW file
 	 * @return the corresponding adapter version
@@ -72,7 +72,7 @@ public abstract class PSSEAdapter extends AbstractODMAdapter {
 			if (parts.length < 3) {
 				throw new ODMException("Invalid PSSE file format: insufficient fields in header line");
 			}
-			String revStr = parts[2].trim();
+			String revStr = stripPsseComment(parts[2]).trim();
 			StringBuilder digits = new StringBuilder();
 			for (int i = 0; i < revStr.length(); i++) {
 				char ch = revStr.charAt(i);
@@ -90,6 +90,11 @@ public abstract class PSSEAdapter extends AbstractODMAdapter {
 		} catch (IOException e) {
 			throw new ODMException("Error reading PSSE file: " + filename + " - " + e.getMessage());
 		}
+	}
+
+	private static String stripPsseComment(String value) {
+		int commentIndex = value.indexOf('/');
+		return commentIndex >= 0 ? value.substring(0, commentIndex) : value;
 	}
 
 	private static PsseVersion psseVersion(int version) {

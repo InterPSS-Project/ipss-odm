@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class PSSEHeaderVersionParserTest {
 	@Test
-	public void parsesRevisionWithPsseCommentSuffix() throws Exception {
+	public void parsesRevisionBeforeSlashComment() throws Exception {
 		Path raw = Files.createTempFile("Texas7k_testheader", ".RAW");
 		try {
 			Files.writeString(raw, """
