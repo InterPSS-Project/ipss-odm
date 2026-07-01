@@ -57,6 +57,7 @@ public class PSSEZoneDataRawMapper extends BasePSSEDataRawMapper{
 		baseCaseNet.getLossZoneList().getLossZone().add(zone);
 		zone.setId(new Integer(i).toString());
 		zone.setNumber(i);
-		zone.setName(name);		
+		zone.setName(name);
+		mapRawLabelMetadata(zone, lineStr);		
 	}
 }

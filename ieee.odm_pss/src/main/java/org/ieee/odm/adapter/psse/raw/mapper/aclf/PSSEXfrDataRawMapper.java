@@ -137,6 +137,7 @@ public class PSSEXfrDataRawMapper extends BasePSSEDataRawMapper{
 		if (branRecXml.getName().equals("")) {
 			branRecXml.setName(branRecXml.getId());
 		}
+		mapRawLabelMetadata(branRecXml, lineStrAry);
 		
 /*
 		The initial transformer status, where 1 designates in-service and 0 designates

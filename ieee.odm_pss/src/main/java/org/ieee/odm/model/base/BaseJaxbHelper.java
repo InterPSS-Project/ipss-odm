@@ -33,6 +33,7 @@ import javax.xml.bind.JAXBElement;
 
 import org.ieee.odm.schema.BaseBranchXmlType;
 import org.ieee.odm.schema.BaseRecordXmlType;
+import org.ieee.odm.schema.NameTagXmlType;
 import org.ieee.odm.schema.BranchRefXmlType;
 import org.ieee.odm.schema.BranchXmlType;
 import org.ieee.odm.schema.BreakerDistBranchXmlType;
@@ -252,7 +253,7 @@ public class BaseJaxbHelper {
 	 * @param name name string
 	 * @param value value string
 	 */
-	public static void addNVPair(BaseRecordXmlType rec, String name, 
+	public static void addNVPair(NameTagXmlType rec, String name, 
 					String value) {
     	NameValuePairXmlType nvPair = OdmObjFactory.createNameValuePairXmlType();
     	rec.getNvPair().add(nvPair);

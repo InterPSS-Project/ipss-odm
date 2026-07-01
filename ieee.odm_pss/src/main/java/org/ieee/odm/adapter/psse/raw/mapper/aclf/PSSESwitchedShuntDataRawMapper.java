@@ -90,6 +90,7 @@ public class PSSESwitchedShuntDataRawMapper extends BasePSSEDataRawMapper{
 			id = this.dataParser.getValue("ID");
 		}
 		shunt.setId(id);
+		mapRawLabelMetadata(shunt, lineStr);
 		
 		// genId is used to distinguish multiple generations at one bus	
 		//TODO: need to add support of other control modes, for example mode 3--discrete, reactive power control of power plants	

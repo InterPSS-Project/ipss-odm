@@ -107,5 +107,7 @@ public class PSSEBusDataRawMapper extends BasePSSEDataRawMapper{
 			aclfBusXml.setOffLine(false);
 		else
 			aclfBusXml.setOffLine(true);
+
+		mapRawLabelMetadata(aclfBusXml, lineStr);
 	}
 }

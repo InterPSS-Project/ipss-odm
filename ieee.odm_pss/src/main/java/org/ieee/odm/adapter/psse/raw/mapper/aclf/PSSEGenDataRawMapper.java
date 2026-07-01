@@ -120,6 +120,7 @@ public class PSSEGenDataRawMapper extends BasePSSEDataRawMapper{
 	    contriGen.setId(id);
 	    contriGen.setName("Gen:" + id + "(" + i + ")");
 	    contriGen.setDesc("PSSE Generator " + id + " at Bus " + i);
+	    mapRawLabelMetadata(contriGen, lineStr);
 	    
 	    int stat = dataParser.getInt("STAT");
 	    contriGen.setOffLine(stat!=1);

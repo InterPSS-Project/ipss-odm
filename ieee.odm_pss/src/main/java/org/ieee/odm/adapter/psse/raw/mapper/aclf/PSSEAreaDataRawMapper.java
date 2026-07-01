@@ -67,6 +67,7 @@ public class PSSEAreaDataRawMapper extends BasePSSEDataRawMapper{
 		area.setId(new Integer(i).toString());
 		area.setNumber(i);
 		area.setName(arnam);
+		mapRawLabelMetadata(area, lineStr);
 
 		if (isw > 0) {
 			area.setSwingBusId(parser.createBusRef(IODMModelParser.BusIdPreFix+isw));

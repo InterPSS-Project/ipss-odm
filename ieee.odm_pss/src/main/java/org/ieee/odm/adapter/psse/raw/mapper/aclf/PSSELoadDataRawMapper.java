@@ -86,6 +86,7 @@ public class PSSELoadDataRawMapper extends BasePSSEDataRawMapper{
 	    contribLoad.setId(id);
 	    contribLoad.setName("Load:" + id + "(" + i + ")");
 	    contribLoad.setDesc("PSSE Load " + id + " at Bus " + i);
+	    mapRawLabelMetadata(contribLoad, lineStr);
 	    
 	    int status = dataParser.getInt("STATUS");
 	    contribLoad.setOffLine(status!=1);
