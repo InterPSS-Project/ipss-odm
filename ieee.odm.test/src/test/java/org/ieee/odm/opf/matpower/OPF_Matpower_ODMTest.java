@@ -45,6 +45,7 @@ import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
 import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
+import org.ieee.odm.schema.NameValuePairXmlType;
 import org.ieee.odm.schema.OpfGenBusXmlType;
 import org.ieee.odm.schema.OpfGenOperatingModeEnumType;
 import org.ieee.odm.schema.OpfNetworkXmlType;
@@ -55,6 +56,60 @@ import org.ieee.odm.schema.ZUnitType;
 import org.junit.Test;
 
 public class OPF_Matpower_ODMTest { 
+	@Test
+	public void testRtsStyleExtensionBlocks() throws Exception {
+		IODMAdapter adapter = new OpfMatpowerAdapter();
+		assertTrue(adapter.parseInputFile("testdata/matpower/case3bus_rts_extensions.m"));
+
+		OpfModelParser parser = (OpfModelParser)adapter.getModel();
+		OpfNetworkXmlType net = parser.getOpfNetwork();
+
+		assertTrue(net.getBusList().getBus().size() == 3);
+		assertTrue(net.getBranchList().getBranch().size() == 1);
+
+		OpfGenBusXmlType pqGenBus = parser.getOpfGenBus("Bus2");
+		assertTrue(pqGenBus != null);
+		assertTrue(pqGenBus.getOperatingMode().equals(OpfGenOperatingModeEnumType.PQ_GENERATOR));
+		assertTrue(pqGenBus.getGenData().getContributeGen().size() == 2);
+		assertTrue(pqGenBus.getConstraints().getActivePowerLimit().getMax() == 40);
+		assertTrue(pqGenBus.getConstraints().getActivePowerLimit().getMin() == 4);
+		assertTrue(pqGenBus.getIncCost().getCostModel().equals(CostModelEnumType.QUADRATIC_MODEL));
+		LoadflowGenDataXmlType pqGen = pqGenBus.getGenData().getContributeGen().get(0).getValue();
+		assertTrue(pqGen.getName().equals("GEN_2A"));
+		assertTrue(hasNvPair(pqGen, "matpower.gen.type", "PV"));
+		assertTrue(hasNvPair(pqGen, "matpower.gen.fuel", "Solar"));
+		LoadflowGenDataXmlType secondPqGen = pqGenBus.getGenData().getContributeGen().get(1).getValue();
+		assertTrue(secondPqGen.getName().equals("GEN_2B"));
+		assertTrue(hasNvPair(secondPqGen, "matpower.gen.type", "WIND"));
+		assertTrue(hasNvPair(secondPqGen, "matpower.gen.fuel", "Wind"));
+		assertTrue(hasNvPair(secondPqGen, "matpower.gencost.c1", "30.0"));
+
+		LineBranchXmlType branch = parser.getLineBranch("Bus1", "Bus2", "1");
+		assertTrue(branch != null);
+		assertTrue(branch.getName().equals("LINE_1_2"));
+		assertTrue(branch.getRatingLimit().getMw().getRating1() == 30.5);
+		assertTrue(branch.getRatingLimit().getMw().getRating2() == 40.5);
+		assertTrue(branch.getRatingLimit().getMw().getRating3() == 50.5);
+
+		LoadflowLoadDataXmlType dcFromLoad = AclfParserHelper.getDefaultLoad(((LoadflowBusXmlType) parser.getBus("Bus1")).getLoadData());
+		assertTrue(dcFromLoad.getConstPLoad().getRe() == 10);
+		assertTrue(dcFromLoad.getConstPLoad().getIm() == 1);
+		assertTrue(dcFromLoad.getLoadType().equals("MATPOWER_DCLINE_EQUIVALENT"));
+
+		LoadflowLoadDataXmlType dcToLoad = AclfParserHelper.getDefaultLoad(((LoadflowBusXmlType) parser.getBus("Bus3")).getLoadData());
+		assertTrue(dcToLoad.getConstPLoad().getRe() == -9);
+		assertTrue(dcToLoad.getConstPLoad().getIm() == -1);
+	}
+
+	private boolean hasNvPair(LoadflowGenDataXmlType gen, String name, String value) {
+		for (NameValuePairXmlType nv : gen.getNvPair()) {
+			if (name.equals(nv.getName()) && value.equals(nv.getValue())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Test
 	public void testCase3buslp() throws Exception {
 		final LogManager logMgr = LogManager.getLogManager();
