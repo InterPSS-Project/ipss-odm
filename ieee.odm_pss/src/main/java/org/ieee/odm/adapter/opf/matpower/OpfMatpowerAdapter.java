@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import org.ieee.odm.adapter.AbstractODMAdapter;
 import org.ieee.odm.adapter.IODMAdapter;
 import org.ieee.odm.common.IFileReader;
+import org.ieee.odm.common.ODMBranchDuplicationException;
 import org.ieee.odm.common.ODMException;
 import org.ieee.odm.model.IODMModelParser;
 import org.ieee.odm.model.aclf.AclfDataSetter;
@@ -25,15 +26,16 @@ import org.ieee.odm.schema.ActivePowerRatingXmlType;
 import org.ieee.odm.schema.ActivePowerUnitType;
 import org.ieee.odm.schema.AngleUnitType;
 import org.ieee.odm.schema.ApparentPowerUnitType;
-import org.ieee.odm.schema.BusLoadDataXmlType;
 import org.ieee.odm.schema.ConstraintsXmlType;
 import org.ieee.odm.schema.CostModelEnumType;
+import org.ieee.odm.schema.DCLineData2TXmlType;
+import org.ieee.odm.schema.DcLineControlModeEnumType;
+import org.ieee.odm.schema.DcLineOperationModeEnumType;
 import org.ieee.odm.schema.IncCostXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LoadflowBusXmlType;
 import org.ieee.odm.schema.LoadflowGenDataXmlType;
-import org.ieee.odm.schema.LoadflowLoadDataXmlType;
 import org.ieee.odm.schema.LoadflowNetXmlType;
 import org.ieee.odm.schema.ObjectFactory;
 import org.ieee.odm.schema.OpfBranchXmlType;
@@ -488,7 +490,8 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		}
 	}
 
-	private void processDcLineData(final String str, OpfModelParser parser, int dcLineCnt) {
+	private void processDcLineData(final String str, OpfModelParser parser, int dcLineCnt)
+			throws ODMBranchDuplicationException {
 		String[] s = getDcLineDataFields(str);
 		if (s[0] == null || s[1] == null || s[2] == null) {
 			return;
@@ -509,25 +512,20 @@ public class OpfMatpowerAdapter extends AbstractODMAdapter {
 		double pt = str2d(s[4]);
 		double qf = str2d(s[5]);
 		double qt = str2d(s[6]);
-		addDcLineEquivalentLoad(fromBus, dcLineCnt, "from", pf, qf, str);
-		addDcLineEquivalentLoad(toBus, dcLineCnt, "to", pt, qt, str);
-	}
-
-	private void addDcLineEquivalentLoad(LoadflowBusXmlType bus, int dcLineCnt, String terminal,
-			double p, double q, String rawRecord) {
-		if (bus.getLoadData() == null) {
-			BusLoadDataXmlType loadData = org.ieee.odm.ODMObjectFactory.OdmObjFactory.createBusLoadDataXmlType();
-			bus.setLoadData(loadData);
-		}
-		LoadflowLoadDataXmlType load = AclfParserHelper.createContriLoad(bus);
-		load.setId(bus.getId() + "_Dcline_" + (dcLineCnt + 1) + "_" + terminal);
-		load.setName("MATPOWER DC line " + (dcLineCnt + 1) + " " + terminal + " terminal");
-		load.setCode(LFLoadCodeEnumType.CONST_P);
-		load.setConstPLoad(BaseDataSetter.createPowerValue(p, q, ApparentPowerUnitType.MVA));
-		load.setLoadType("MATPOWER_DCLINE_EQUIVALENT");
-		BaseJaxbHelper.addNVPair(load, "matpower.dcline.index", Integer.toString(dcLineCnt + 1));
-		BaseJaxbHelper.addNVPair(load, "matpower.dcline.terminal", terminal);
-		BaseJaxbHelper.addNVPair(load, "matpower.dcline.raw", rawRecord.trim());
+		DCLineData2TXmlType dcLine = parser.createDCLine2TRecord(fromBusId, toBusId,
+				Integer.toString(dcLineCnt + 1));
+		dcLine.setName("MATPOWER DC line " + (dcLineCnt + 1));
+		dcLine.setControlMode(DcLineControlModeEnumType.POWER);
+		dcLine.setOperationMode(DcLineOperationModeEnumType.SINGLE);
+		dcLine.setControlOnRectifierSide(pf >= 0.0);
+		dcLine.setPowerDemand(BaseDataSetter.createActivePowerValue(Math.abs(pf), ActivePowerUnitType.MW));
+		dcLine.setLineR(BaseDataSetter.createRValue(0.0, ZUnitType.PU));
+		BaseJaxbHelper.addNVPair(dcLine, "matpower.dcline.index", Integer.toString(dcLineCnt + 1));
+		BaseJaxbHelper.addNVPair(dcLine, "matpower.dcline.pf", Double.toString(pf));
+		BaseJaxbHelper.addNVPair(dcLine, "matpower.dcline.pt", Double.toString(pt));
+		BaseJaxbHelper.addNVPair(dcLine, "matpower.dcline.qf", Double.toString(qf));
+		BaseJaxbHelper.addNVPair(dcLine, "matpower.dcline.qt", Double.toString(qt));
+		BaseJaxbHelper.addNVPair(dcLine, "matpower.dcline.raw", str.trim());
 	}
 
 	private void processGencostData(final String str, int gencnt) {

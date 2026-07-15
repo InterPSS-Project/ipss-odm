@@ -38,6 +38,7 @@ import org.ieee.odm.model.aclf.AclfParserHelper;
 import org.ieee.odm.model.opf.OpfModelParser;
 import org.ieee.odm.schema.ApparentPowerUnitType;
 import org.ieee.odm.schema.CostModelEnumType;
+import org.ieee.odm.schema.DCLineData2TXmlType;
 import org.ieee.odm.schema.LFGenCodeEnumType;
 import org.ieee.odm.schema.LFLoadCodeEnumType;
 import org.ieee.odm.schema.LineBranchXmlType;
@@ -65,7 +66,7 @@ public class OPF_Matpower_ODMTest {
 		OpfNetworkXmlType net = parser.getOpfNetwork();
 
 		assertTrue(net.getBusList().getBus().size() == 3);
-		assertTrue(net.getBranchList().getBranch().size() == 1);
+		assertTrue(net.getBranchList().getBranch().size() == 2);
 
 		OpfGenBusXmlType pqGenBus = parser.getOpfGenBus("Bus2");
 		assertTrue(pqGenBus != null);
@@ -91,14 +92,22 @@ public class OPF_Matpower_ODMTest {
 		assertTrue(branch.getRatingLimit().getMw().getRating2() == 40.5);
 		assertTrue(branch.getRatingLimit().getMw().getRating3() == 50.5);
 
-		LoadflowLoadDataXmlType dcFromLoad = AclfParserHelper.getDefaultLoad(((LoadflowBusXmlType) parser.getBus("Bus1")).getLoadData());
-		assertTrue(dcFromLoad.getConstPLoad().getRe() == 10);
-		assertTrue(dcFromLoad.getConstPLoad().getIm() == 1);
-		assertTrue(dcFromLoad.getLoadType().equals("MATPOWER_DCLINE_EQUIVALENT"));
+		DCLineData2TXmlType dcLine = parser.getDcLine2TRecord("Bus1", "Bus3", "1");
+		assertTrue(dcLine != null);
+		assertTrue(dcLine.getName().equals("MATPOWER DC line 1"));
+		assertTrue(hasNvPair(dcLine, "matpower.dcline.pf", "10.0"));
+		assertTrue(hasNvPair(dcLine, "matpower.dcline.pt", "-9.0"));
+		assertTrue(hasNvPair(dcLine, "matpower.dcline.qf", "1.0"));
+		assertTrue(hasNvPair(dcLine, "matpower.dcline.qt", "-1.0"));
+	}
 
-		LoadflowLoadDataXmlType dcToLoad = AclfParserHelper.getDefaultLoad(((LoadflowBusXmlType) parser.getBus("Bus3")).getLoadData());
-		assertTrue(dcToLoad.getConstPLoad().getRe() == -9);
-		assertTrue(dcToLoad.getConstPLoad().getIm() == -1);
+	private boolean hasNvPair(DCLineData2TXmlType dcLine, String name, String value) {
+		for (NameValuePairXmlType nv : dcLine.getNvPair()) {
+			if (name.equals(nv.getName()) && value.equals(nv.getValue())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean hasNvPair(LoadflowGenDataXmlType gen, String name, String value) {
