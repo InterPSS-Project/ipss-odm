@@ -13,3 +13,4 @@ bin/
 ieee.odm.schema/src/main/java/META-INF/
 *.classpath
 .code-workspace
+**/.factorypath
